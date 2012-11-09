@@ -9,7 +9,7 @@ public class Account {
 	private String surnameUser;
 	private String dataOfBirth;
 	private String placeofBirth;
-	private String taskCode;
+	private String taxCode;
 	private String citizenship;
 	private String municipalityResidence;
 	private String provinceResidence;
@@ -75,7 +75,7 @@ public class Account {
 
 
 	public void setTaskCode(String taskCode) {
-		this.taskCode = taskCode;
+		this.taxCode = taskCode;
 	}
 
 
@@ -223,7 +223,7 @@ public class Account {
 	}
 	
 	public String getTaxCode() {
-		return taskCode;
+		return taxCode;
 	}
 	
 	public String getCitizenship() {
