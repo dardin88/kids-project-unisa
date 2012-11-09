@@ -44,28 +44,28 @@ public class ManagerAccount {
 		return account;
 	}
 	
-	public Account Modify(Account accountModificato){
+	public Account Modify(Account changedAccount){
 		
 		String query="Update table_name " +
-				"SET RegistrationDate="+accountModificato.getRegistrationDate()+",capDomicilie="+accountModificato.getCapDomicilie()+",capResidence="+accountModificato.getCapResidence()+",cellularNumber="+accountModificato.getCellularNumber()+",citizenship="+accountModificato.getCitizenship()+",taxCode="+accountModificato.getTaxCode()+",surnameUser="+accountModificato.getSurnameUser()+",municipalityResidence="+accountModificato.getMunicalityResidence()+",dateOfBirth="+accountModificato.getDataOfBirth()+",contractExpirationDate="+accountModificato.getContractExpirationDate()+",email="+accountModificato.getEmail()+",faculty="+accountModificato.getFaculty()+",fax="+accountModificato.getFax()+"placeOfBirth="+accountModificato.getPlaceOFBirth()+",nickName="+accountModificato.getNickName()+",nameUser="+accountModificato.getNameUser()+",streetNumberDomicilie="+accountModificato.getStreetNumberDomicilie()+",streetNumberResidence="+accountModificato.getStreetNumberResidence()+",password="+accountModificato.getPassword()+",provinceDomicilie="+accountModificato.getProvinceDomicilie()+",provinceResidence="+accountModificato.getProvinceResidence()+",income="+accountModificato.getIncome()+",municipalityResidence="+accountModificato.getMunicalityResidence()+",familySituation="+accountModificato.getFamilySituation()+",telephoneNumber="+accountModificato.getTelephoneNumber()+",typeAccount="+accountModificato.getTypeAccount()+",typeParent="+accountModificato.getTypeParent()+",qualification="+accountModificato.getQualification()+",viaDomicilie="+accountModificato.getViaDomicile()+",viaResidence="+accountModificato.getViaResidence()+
-				"WHERE id="+accountModificato.getId(); //dubbi sulla query
+				"SET RegistrationDate="+changedAccount.getRegistrationDate()+",capDomicilie="+changedAccount.getCapDomicilie()+",capResidence="+changedAccount.getCapResidence()+",cellularNumber="+changedAccount.getCellularNumber()+",citizenship="+changedAccount.getCitizenship()+",taxCode="+changedAccount.getTaxCode()+",surnameUser="+changedAccount.getSurnameUser()+",municipalityResidence="+changedAccount.getMunicalityResidence()+",dateOfBirth="+changedAccount.getDataOfBirth()+",contractExpirationDate="+changedAccount.getContractExpirationDate()+",email="+changedAccount.getEmail()+",faculty="+changedAccount.getFaculty()+",fax="+changedAccount.getFax()+"placeOfBirth="+changedAccount.getPlaceOFBirth()+",nickName="+changedAccount.getNickName()+",nameUser="+changedAccount.getNameUser()+",streetNumberDomicilie="+changedAccount.getStreetNumberDomicilie()+",streetNumberResidence="+changedAccount.getStreetNumberResidence()+",password="+changedAccount.getPassword()+",provinceDomicilie="+changedAccount.getProvinceDomicilie()+",provinceResidence="+changedAccount.getProvinceResidence()+",income="+changedAccount.getIncome()+",municipalityResidence="+changedAccount.getMunicalityResidence()+",familySituation="+changedAccount.getFamilySituation()+",telephoneNumber="+changedAccount.getTelephoneNumber()+",typeAccount="+changedAccount.getTypeAccount()+",typeParent="+changedAccount.getTypeParent()+",qualification="+changedAccount.getQualification()+",viaDomicilie="+changedAccount.getViaDomicile()+",viaResidence="+changedAccount.getViaResidence()+
+				"WHERE id="+changedAccount.getId(); //dubbi sulla query
 		
 		  //connection of DB
 		  
 		  //execute of query		
 		  
 		
-		return accountModificato;
+		return changedAccount;
 	}
 	
-	public Account Delete(Account accountEliminato){
+	public Account Delete(Account deletedAccount){
 		
-		String query2="Delete From name_table Where id='"+accountEliminato.getId()+"'";
-		return accountEliminato;
+		String query2="Delete From name_table Where id='"+deletedAccount.getId()+"'";
+		return deletedAccount;
 	}
 	
 	public ArrayList<Account> Search(Account account){
-		ArrayList<Account> elencoAccount=new ArrayList<Account>();		
+		ArrayList<Account> listAccount=new ArrayList<Account>();		
 		  String query="SELECT * FROM name_table WHERE ";				//change table_name 		  
 		  if (account.getNickName()!=null)
 			  query=query+"nickName='"+account.getNickName()+"'";
@@ -82,7 +82,7 @@ public class ManagerAccount {
 		  
 		  //processing of result
 		  
-		  return elencoAccount;
+		  return listAccount;
 		
 	}
 	
