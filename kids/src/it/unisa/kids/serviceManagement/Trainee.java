@@ -1,4 +1,4 @@
-package it.unisa.kids.communicationManagement;
+package it.unisa.kids.serviceManagement;
 
 import java.util.Date;
 
@@ -13,6 +13,7 @@ public class Trainee {
 	private String CAP;
 	private String telephone_number;
 	private Date birth_date;
+	//add reference to Delegate
 	
 	public Trainee(String register,String name,String surname,String email,String address,String birth_city,String city_of_residence,String CAP,String telephone_number,Date birth_date){
 		this.register=register;
