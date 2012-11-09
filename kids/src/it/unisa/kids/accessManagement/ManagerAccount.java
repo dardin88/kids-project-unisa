@@ -18,68 +18,69 @@ public class ManagerAccount {
 			return (manager=new ManagerAccount());
 	}
 	
-	public Account Crea(Account account){
-		String nomeAccount=null;
+	public Account Create(Account account){
+		String nickname=null;
 		String query=null;
 		int i=2;
-		/*generazione nome account */
+		/*generation of nickname */
 		while(true){
-			nomeAccount= account.getNomeUtente()+account.getCognome();
-			query="Select nomeAccount From name_table Where nomeAccount='"+nomeAccount+"'";
+			nickname= account.getNameUser()+account.getSurnameUser();
+			query="Select nameUser From name_table Where nameUser='"+account.getNameUser()+"'";
 			if(query!=null)
-				nomeAccount=nomeAccount+i;
+				nickname=nickname+i;
 			else 
 				break;
 			i++;
 		}
-		/*generazione password*/
+		/*generation of password*/
 		String password=getPWD();
 		
-		 query="Insert into 'table_name'(annoIscrizione,capDomicilio,capResidenza,cellulare,cittadinanza,codiceFiscale,cognome,comuneDomicilio,dataDiNascita,dataScadenzaContratto,email(),facoltà,fax,luogoDiNascita,nomeAccount,nomeUtente,numCivicoDomicilio,numCivicoResidenza,password,provincia,provinciaResidenza,reddito,residenza,situazioneFamiliare,telefono,tipologiaAccount,tipologiaGenitore,titoloDiStudio,viaDomicilio,viaResidenza) values("+account.getAnnoIscrizione()+","+account.getCapDomicilio()+","+account.getCapResidenza()+","+account.getCellulare()+","+account.getCittadinanza()+","+account.getCodiceFiscale()+","+account.getCognome()+","+account.getComuneDomicilio()+","+account.getDataDiNascita()+","+account.getDataScadenzaContratto()+","+account.getEmail()+","+account.getFacoltà()+","+account.getFax()+","+account.getLuogoDiNascita()+","+nomeAccount+","+account.getNomeUtente()+","+account.getNumCivicoDomicilio()+","+account.getNumCivicoResidenza()+","+password+","+account.getProvinciaDomicilio()+","+account.getProvinciaResidenza()+","+account.getReddito()+","+account.getResidenza()+","+account.getSituazioneFamiliare()+","+account.getTelefono()+","+account.getTipologiaAccount()+","+account.getTipologiaGenitore()+","+account.getTitoloDiStudio()+","+account.getViaDomicilio()+","+account.getViaResidenza()+")";
+		 query="Insert into 'table_name'(nickname,RegistrationDate,capDomicilie,capResidece,cellularNumber,citizenship,taxCode,surnameUser,municipalityDomicilie,dateOfBirth,contractExpirationDate,email,faculty,fax,placeOfBirth,nickName,nameUser,streetNumberDomicilie,streetNumberResidence,password,provinceDomicilie,provinceResidence,income,municipalityResidence,familySituation,telephoneNumber,typeAccount,typeParent,qualification,viaDomicilie,viaResidence) values("+nickname+","+account.getRegistrationDate()+","+account.getCapDomicilie()+","+account.getCapResidence()+","+account.getCellularNumber()+","+account.getCitizenship()+","+account.getTaxCode()+","+account.getSurnameUser()+","+account.getMunicalityResidence()+","+account.getDataOfBirth()+","+account.getContractExpirationDate()+","+account.getEmail()+","+account.getFaculty()+","+account.getFax()+","+account.getPlaceOFBirth()+","+nickname+","+account.getNameUser()+","+account.getStreetNumberDomicilie()+","+account.getStreetNumberResidence()+","+account.getPassword()+","+account.getProvinceDomicilie()+","+account.getProvinceResidence()+","+account.getIncome()+","+account.getMunicalityResidence()+","+account.getFamilySituation()+","+account.getTelephoneNumber()+","+account.getTypeAccount()+","+account.getTypeParent()+","+account.getQualification()+","+account.getViaDomicile()+","+account.getViaResidence()+")";
 		
-		 //creazione connessione DB
-		//esecuzione della query
-		
+		  //connection of DB
+		  
+		  //execute of query		
+		  
 		return account;
 	}
 	
-	public Account Modifica(Account accountModificato){
+	public Account Modify(Account accountModificato){
 		
 		String query="Update table_name " +
-				"SET annoIscrizione="+accountModificato.getAnnoIscrizione()+",capDomicilio="+accountModificato.getCapDomicilio()+",capResidenza="+accountModificato.getCapResidenza()+",cellulare="+accountModificato.getCellulare()+",cittadinanza="+accountModificato.getCittadinanza()+",codiceFiscale="+accountModificato.getCodiceFiscale()+",cognome="+accountModificato.getCognome()+",comuneDomicilio="+accountModificato.getComuneDomicilio()+",dataDiNascita="+accountModificato.getDataDiNascita()+",dataScadenzaContratto="+accountModificato.getDataScadenzaContratto()+",email="+accountModificato.getEmail()+",facoltà="+accountModificato.getFacoltà()+",fax="+accountModificato.getFax()+"luogoDiNascita="+accountModificato.getLuogoDiNascita()+",nomeAccount="+accountModificato.getNomeAccount()+",nomeUtente="+accountModificato.getNomeUtente()+",numCivicoDomicilio="+accountModificato.getNumCivicoDomicilio()+",numCivicoResidenza="+accountModificato.getNumCivicoResidenza()+",password="+accountModificato.getPassword()+",provincia="+accountModificato.getProvinciaDomicilio()+",provinciaResidenza="+accountModificato.getProvinciaResidenza()+",reddito="+accountModificato.getReddito()+",residenza="+accountModificato.getResidenza()+",situazioneFamiliare="+accountModificato.getSituazioneFamiliare()+",telefono="+accountModificato.getTelefono()+",tipologiaAccount="+accountModificato.getTipologiaAccount()+",tipologiaGenitore="+accountModificato.getTipologiaGenitore()+",titoloDiStudio="+accountModificato.getTitoloDiStudio()+",viaDomicilio="+accountModificato.getViaDomicilio()+",viaResidenza="+accountModificato.getViaResidenza()+
-				"WHERE codiceFiscale="+accountModificato.getCodiceFiscale(); //dubbi sulla query
+				"SET RegistrationDate="+accountModificato.getRegistrationDate()+",capDomicilie="+accountModificato.getCapDomicilie()+",capResidence="+accountModificato.getCapResidence()+",cellularNumber="+accountModificato.getCellularNumber()+",citizenship="+accountModificato.getCitizenship()+",taxCode="+accountModificato.getTaxCode()+",surnameUser="+accountModificato.getSurnameUser()+",municipalityResidence="+accountModificato.getMunicalityResidence()+",dateOfBirth="+accountModificato.getDataOfBirth()+",contractExpirationDate="+accountModificato.getContractExpirationDate()+",email="+accountModificato.getEmail()+",faculty="+accountModificato.getFaculty()+",fax="+accountModificato.getFax()+"placeOfBirth="+accountModificato.getPlaceOFBirth()+",nickName="+accountModificato.getNickName()+",nameUser="+accountModificato.getNameUser()+",streetNumberDomicilie="+accountModificato.getStreetNumberDomicilie()+",streetNumberResidence="+accountModificato.getStreetNumberResidence()+",password="+accountModificato.getPassword()+",provinceDomicilie="+accountModificato.getProvinceDomicilie()+",provinceResidence="+accountModificato.getProvinceResidence()+",income="+accountModificato.getIncome()+",municipalityResidence="+accountModificato.getMunicalityResidence()+",familySituation="+accountModificato.getFamilySituation()+",telephoneNumber="+accountModificato.getTelephoneNumber()+",typeAccount="+accountModificato.getTypeAccount()+",typeParent="+accountModificato.getTypeParent()+",qualification="+accountModificato.getQualification()+",viaDomicilie="+accountModificato.getViaDomicile()+",viaResidence="+accountModificato.getViaResidence()+
+				"WHERE id="+accountModificato.getId(); //dubbi sulla query
 		
-		//creazione connessione DB
-		//esecuzione della query 
+		  //connection of DB
+		  
+		  //execute of query		
+		  
 		
 		return accountModificato;
 	}
 	
-	public Account Elimina(Account accountEliminato){
-		//dubbi sulla query
-		String query="Select Id from name_table Where codiceFiscale='"+accountEliminato.getCodiceFiscale()+"'";
-		String query2="Delete From name_table Where id='"+query+"'";
+	public Account Delete(Account accountEliminato){
+		
+		String query2="Delete From name_table Where id='"+accountEliminato.getId()+"'";
 		return accountEliminato;
 	}
 	
-	public ArrayList<Account> ricerca(Account account){
-		ArrayList<Account> elencoAccount=new ArrayList<Account>();		//deve essere riempito con il risultato della query
-		  String query="SELECT * FROM name_table WHERE ";				//cambiare i nome del db
+	public ArrayList<Account> Search(Account account){
+		ArrayList<Account> elencoAccount=new ArrayList<Account>();		
+		  String query="SELECT * FROM name_table WHERE ";				//change table_name 		  
+		  if (account.getNickName()!=null)
+			  query=query+"nickName='"+account.getNickName()+"'";
+		  if (account.getNameUser()!=null)
+			  query=query+"nameUser='"+account.getNameUser()+"'";
+		  if (account.getSurnameUser()!=null)
+			  query=query+"surnameUser='"+account.getSurnameUser()+"'";
+		  if (account.getTypeAccount()!=null)
+			  query=query+"typeAccount='"+account.getTypeAccount()+"'";
 		  
-		  if (account.getNomeAccount()!=null)
-			  query=query+"nomeAccount='"+account.getNomeAccount()+"'";
-		  if (account.getNomeUtente()!=null)
-			  query=query+"nomeUtente='"+account.getNomeUtente()+"'";
-		  if (account.getCognome()!=null)
-			  query=query+"cognome='"+account.getCognome()+"'";
-		  if (account.getTipologiaAccount()!=null)
-			  query=query+"tipologiaAccount='"+account.getTipologiaAccount()+"'";
+		  //connection of DB
 		  
-		  //connessione al db
+		  //execute of query		
 		  
-		  //esecuzione della query		
-		  
-		  //elaborazione del risultato
+		  //processing of result
 		  
 		  return elencoAccount;
 		
@@ -88,15 +89,15 @@ public class ManagerAccount {
 	public String getPWD() {
         
 		Random rnd = new Random();
-        //decido dimensione password
+        //size password
         int dim = 8;
-        //decido la quantità di cifre numeriche
+        //quantity of number
         int num = rnd.nextInt(dim-4)+1;
-        //decido la quantità di cifre alfa
+        //quantity of letter
         int alfa = dim-num;
         int appoggio=0;
         String pass="";
-        int alterna=0;
+        int alterna=0; //decide if choose a letter or a number 
         int contnum=1;
         int contalfa=1;
         for (int i=1;i<=dim;i++) {
