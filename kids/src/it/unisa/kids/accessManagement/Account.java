@@ -3,224 +3,255 @@ package it.unisa.kids.accessManagement;
 public class Account {
 
 	private String id;
-	private String nomeAccount;
+	private String nickName;
 	private String password;
-	private String nomeUtente;
-	private String cognome;
-	private String dataDiNascita;
-	private String luogoDiNascita;
-	private String codiceFiscale;
-	private String cittadinanza;
-	private String residenza;
-	private String provinciaResidenza;
-	private String viaResidenza;
-	private String numCivicoResidenza;
-	private String telefono;
-	private String cellulare;
+	private String nameUser;
+	private String surnameUser;
+	private String dataOfBirth;
+	private String placeofBirth;
+	private String taskCode;
+	private String citizenship;
+	private String municipalityResidence;
+	private String provinceResidence;
+	private String viaResidece;
+	private String streetNumberResidece;
+	private String telephoneNumber;
+	private String cellularNumber;
 	private String fax;
 	private String email;
-	private String viaDomicilio;
-	private String numCivicoDomicilio;
-	private String comuneDomicilio;
-	private String provinciaDomicilio;
-	private String capResidenza;
-	private String capDomicilio;
-	private String titoloDiStudio;
-	private String tipologiaAccount;
-	private String tipologiaGenitore;
-	private String situazioneFamiliare;
-	private int reddito;
-	private String dataScadenzaContratto;
-	private String facoltà;
-	private String annoIscrizione;
+	private String viaDomicile;
+	private String streetNumberDomicilie;
+	private String municipalityDomicilie;
+	private String provinceDomicilie;
+	private String capResidence;
+	private String capDomicilie;
+	private String qualification;
+	private String typeAccount;
+	private String typeParent;
+	private String familySituation;
+	private int income;
+	private String contractExpirationDate;
+	private String faculty;
+	private String registrationDate;
 	
 	public Account(){
 		
 	}
 
+	
 	public void setId(String id) {
 		this.id = id;
 	}
-	
-	public void setNomeAccount(String nomeAccount) {
-		this.nomeAccount = nomeAccount;
+
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
-	
+
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	public void setNomeUtente(String nomeUtente) {
-		this.nomeUtente = nomeUtente;
-	}
-	
-	public void setCognome(String cognome) {
-		this.cognome = cognome;
-	}
-	
-	public void setAnnoIscrizione(String annoIscrizione) {
-		this.annoIscrizione = annoIscrizione;
-	}
-	
-	public void setFacoltà(String facoltà) {
-		this.facoltà = facoltà;
+
+
+	public void setNameUser(String nameUser) {
+		this.nameUser = nameUser;
 	}
 
-	
-	public void setDataDiNascita(String dataDiNascita) {
-		this.dataDiNascita = dataDiNascita;
+
+	public void setSurnameUser(String surnameUser) {
+		this.surnameUser = surnameUser;
 	}
-	
-	public void setLuogoDiNascita(String luogoDiNascita) {
-		this.luogoDiNascita = luogoDiNascita;
+
+
+	public void setDataOfBirth(String dataOfBirth) {
+		this.dataOfBirth = dataOfBirth;
 	}
-	
-	public void setCodiceFiscale(String codiceFiscale) {
-		this.codiceFiscale = codiceFiscale;
+
+
+	public void setPlaceofBirth(String placeofBirth) {
+		this.placeofBirth = placeofBirth;
 	}
-	
-	public void setCittadinanza(String cittadinanza) {
-		this.cittadinanza = cittadinanza;
+
+
+	public void setTaskCode(String taskCode) {
+		this.taskCode = taskCode;
 	}
-	
-	public void setResidenza(String residenza) {
-		this.residenza = residenza;
+
+
+	public void setCitizenship(String citizenship) {
+		this.citizenship = citizenship;
 	}
-	
-	public void setProvinciaResidenza(String provinciaResidenza) {
-		this.provinciaResidenza = provinciaResidenza;
+
+
+	public void setMunicipalityResidence(String municipalityResidence) {
+		this.municipalityResidence = municipalityResidence;
 	}
-	
-	public void setViaResidenza(String viaResidenza) {
-		this.viaResidenza = viaResidenza;
+
+
+	public void setProvinceResidence(String provinceResidence) {
+		this.provinceResidence = provinceResidence;
 	}
-	
-	public void setNumCivicoResidenza(String numCivicoResidenza) {
-		this.numCivicoResidenza = numCivicoResidenza;
+
+
+	public void setViaResidece(String viaResidece) {
+		this.viaResidece = viaResidece;
 	}
-	
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
+
+
+	public void setStreetNumberResidece(String streetNumberResidece) {
+		this.streetNumberResidece = streetNumberResidece;
 	}
-	
-	public void setCellulare(String cellulare) {
-		this.cellulare = cellulare;
+
+
+	public void setTelephoneNumber(String telephoneNumber) {
+		this.telephoneNumber = telephoneNumber;
 	}
-	
+
+
+	public void setCellularNumber(String cellularNumber) {
+		this.cellularNumber = cellularNumber;
+	}
+
+
 	public void setFax(String fax) {
 		this.fax = fax;
 	}
-	
+
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	public void setViaDomicilio(String viaDomicilio) {
-		this.viaDomicilio = viaDomicilio;
+
+
+	public void setViaDomicile(String viaDomicile) {
+		this.viaDomicile = viaDomicile;
 	}
-	
-	public void setNumCivicoDomicilio(String numCivicoDomicilio) {
-		this.numCivicoDomicilio = numCivicoDomicilio;
+
+
+	public void setStreetNumberDomicilie(String streetNumberDomicilie) {
+		this.streetNumberDomicilie = streetNumberDomicilie;
 	}
-	
-	public void setComuneDomicilio(String comuneDomicilio) {
-		this.comuneDomicilio = comuneDomicilio;
+
+
+	public void setMunicipalityDomicilie(String municipalityDomicilie) {
+		this.municipalityDomicilie = municipalityDomicilie;
 	}
-	
-	public void setProvinciaDomicilio(String provinciaDomicilio) {
-		this.provinciaDomicilio = provinciaDomicilio;
+
+
+	public void setProvinceDomicilie(String provinceDomicilie) {
+		this.provinceDomicilie = provinceDomicilie;
 	}
-	
-	public void setCapResidenza(String capResidenza) {
-		this.capResidenza = capResidenza;
+
+
+	public void setCapResidence(String capResidence) {
+		this.capResidence = capResidence;
 	}
-	
-	public void setCapDomicilio(String capDomicilio) {
-		this.capDomicilio = capDomicilio;
+
+
+	public void setCapDomicilie(String capDomicilie) {
+		this.capDomicilie = capDomicilie;
 	}
-	
-	public void setTitoloDiStudio(String titoloDiStudio) {
-		this.titoloDiStudio = titoloDiStudio;
+
+
+	public void setQualification(String qualification) {
+		this.qualification = qualification;
 	}
-	
-	public void setTipologiaAccount(String tipologiaAccount) {
-		this.tipologiaAccount = tipologiaAccount;
+
+
+	public void setTypeAccount(String typeAccount) {
+		this.typeAccount = typeAccount;
 	}
-	
-	public void setTipologiaGenitore(String tipologiaGenitore) {
-		this.tipologiaGenitore = tipologiaGenitore;
+
+
+	public void setTypeParent(String typeParent) {
+		this.typeParent = typeParent;
 	}
-	
-	public void setSituazioneFamiliare(String situazioneFamiliare) {
-		this.situazioneFamiliare = situazioneFamiliare;
+
+
+	public void setFamilySituation(String familySituation) {
+		this.familySituation = familySituation;
 	}
-	
-	public void setReddito(int reddito) {
-		this.reddito = reddito;
+
+
+	public void setIncome(int income) {
+		this.income = income;
 	}
-	
-	public void setDataScadenzaContratto(String dataScadenzaContratto) {
-		this.dataScadenzaContratto = dataScadenzaContratto;
+
+
+	public void setContractExpirationDate(String contractExpirationDate) {
+		this.contractExpirationDate = contractExpirationDate;
 	}
-	
+
+
+	public void setFaculty(String faculty) {
+		this.faculty = faculty;
+	}
+
+
+	public void setRegistrationDate(String registrationDate) {
+		this.registrationDate = registrationDate;
+	}
+
+
 	public String getId() {
 		return id;
 	}
 	
-	public String getNomeAccount() {
-		return nomeAccount;
+	public String getNickName() {
+		return nickName;
 	}
 	
 	public String getPassword() {
 		return password;
 	}
 	
-	public String getNomeUtente() {
-		return nomeUtente;
+	public String getNameUser() {
+		return nameUser;
 	}
 	
-	public String getCognome() {
-		return cognome;
+	public String getSurnameUser() {
+		return surnameUser;
 	}
 	
-	public String getDataDiNascita() {
-		return dataDiNascita;
+	public String getDataOfBirth() {
+		return dataOfBirth;
 	}
 	
-	public String getLuogoDiNascita() {
-		return luogoDiNascita;
+	public String getPlaceOFBirth() {
+		return placeofBirth;
 	}
 	
-	public String getCodiceFiscale() {
-		return codiceFiscale;
+	public String getTaxCode() {
+		return taskCode;
 	}
 	
-	public String getCittadinanza() {
-		return cittadinanza;
+	public String getCitizenship() {
+		return citizenship;
 	}
 	
-	public String getResidenza() {
-		return residenza;
+	public String getMunicalityResidence() {
+		return municipalityResidence;
 	}
 	
-	public String getProvinciaResidenza() {
-		return provinciaResidenza;
+	public String getProvinceResidence() {
+		return provinceResidence;
 	}
 	
-	public String getViaResidenza() {
-		return viaResidenza;
+	public String getViaResidence() {
+		return viaResidece;
 	}
 	
-	public String getNumCivicoResidenza() {
-		return numCivicoResidenza;
+	public String getStreetNumberResidence() {
+		return streetNumberResidece;
 	}
 	
-	public String getTelefono() {
-		return telefono;
+	public String getTelephoneNumber() {
+		return telephoneNumber;
 	}
 	
-	public String getCellulare() {
-		return cellulare;
+	public String getCellularNumber() {
+		return cellularNumber;
 	}
 	
 	public String getFax() {
@@ -231,60 +262,60 @@ public class Account {
 		return email;
 	}
 	
-	public String getViaDomicilio() {
-		return viaDomicilio;
+	public String getViaDomicile() {
+		return viaDomicile;
 	}
 	
-	public String getNumCivicoDomicilio() {
-		return numCivicoDomicilio;
+	public String getStreetNumberDomicilie() {
+		return streetNumberDomicilie;
 	}
 	
-	public String getComuneDomicilio() {
-		return comuneDomicilio;
+	public String getMunicipalityDomicilie() {
+		return municipalityDomicilie;
 	}
 	
-	public String getProvinciaDomicilio() {
-		return provinciaDomicilio;
+	public String getProvinceDomicilie() {
+		return provinceDomicilie;
 	}
 	
-	public String getCapResidenza() {
-		return capResidenza;
+	public String getCapResidence() {
+		return capResidence;
 	}
 	
-	public String getCapDomicilio() {
-		return capDomicilio;
+	public String getCapDomicilie() {
+		return capDomicilie;
 	}
 	
-	public String getTitoloDiStudio() {
-		return titoloDiStudio;
+	public String getQualification() {
+		return qualification;
 	}
 	
-	public String getTipologiaAccount() {
-		return tipologiaAccount;
+	public String getTypeAccount() {
+		return typeAccount;
 	}
 	
-	public String getTipologiaGenitore() {
-		return tipologiaGenitore;
+	public String getTypeParent() {
+		return typeParent;
 	}
 	
-	public String getSituazioneFamiliare() {
-		return situazioneFamiliare;
+	public String getFamilySituation() {
+		return familySituation;
 	}
 	
-	public int getReddito() {
-		return reddito;
+	public int getIncome() {
+		return income;
 	}
 	
-	public String getDataScadenzaContratto() {
-		return dataScadenzaContratto;
+	public String getContractExpirationDate() {
+		return contractExpirationDate;
 	}
 	
-	public String getFacoltà() {
-		return facoltà;
+	public String getFaculty() {
+		return faculty;
 	}
 
-	public String getAnnoIscrizione() {
-		return annoIscrizione;
+	public String getRegistrationDate() {
+		return registrationDate;
 	}
 
 	
