@@ -6,8 +6,11 @@ import java.util.List;
 public class ManagerRicorsi {
 
 private static ManagerRicorsi manager;
+private Account parent;
 
-private ManagerRicorsi(){}
+private ManagerRicorsi(){
+	parent=new Account();
+}
 
 public ManagerRicorsi getInstace(){
 	if (manager!=null)
@@ -61,19 +64,18 @@ public Recourse Refuse(Recourse recourse){
 	return recourse;
 }
 
-public ArrayList<Recourse> Search(Recourse recourse,Account account){
+public ArrayList<Recourse> Search(Recourse recourse){
 	 ArrayList<Recourse> listRecourse=new ArrayList<Recourse>();		
 	  				//change name table
-	  String query="Select * From ((Ricorso join Iscrizione on id_iscrizione=id)join Account on id_Account=id)where";
-	  
+	  String query="Select * From Ricorso,Iscrizione,Account where id_iscrizione=table_name.id AND id_Account=table_name.id";
 	  if (recourse.getId()!=null)
 		  query=query+"'id'='"+recourse.getId()+"'";
 	  if (recourse.getData()!=null)
 		  query=query+"'data'='"+recourse.getData()+"'";
-	  if (account.getNameUser()!=null)
-		  query=query+"'nomeUtente'='"+account.getNameUser()+"'";
-	  if (account.getSurnameUser()!=null)
-		  query=query+"'cognome'='"+account.getSurnameUser()+"'";
+	  if (parent.getNameUser()!=null)
+		  query=query+"'nomeUtente'='"+parent.getNameUser()+"'";
+	  if (parent.getSurnameUser()!=null)
+		  query=query+"'cognome'='"+parent.getSurnameUser()+"'";
 	  
 	  
 	  //connection of DB
