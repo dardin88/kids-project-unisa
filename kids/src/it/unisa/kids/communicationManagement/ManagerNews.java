@@ -31,6 +31,11 @@ public class ManagerNews
 		{
 			//errore
 		}
+		if(!type.equalsIgnoreCase("news") && !type.equalsIgnoreCase("event"))
+		{
+			//errore
+		}
+			
 		News n=new News(title, description, attached, date, time,id,author,type);
 		return n;
 	}
