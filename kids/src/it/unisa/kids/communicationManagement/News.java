@@ -8,14 +8,16 @@ public class News
 	private String description;
 	private Object attached;
 	private GregorianCalendar date,time;
+	private int id;
 	
-	public News(String title,String description,Object attached,GregorianCalendar date,GregorianCalendar time)
+	public News(String title,String description,Object attached,GregorianCalendar date,GregorianCalendar time,int id)
 	{
 		this.title=title;
 		this.description=description;
 		this.attached=attached;
 		this.date=date;
 		this.time=time;
+		this.id=id;
 	}
 	
 	public String getTitle() {
@@ -48,5 +50,12 @@ public class News
 	public void setTime(GregorianCalendar time) {
 		this.time = time;
 	}
+	public void setId(int id){
+		this.id=id;
+	}
+	public int getId(){
+		return id;
+	}
+	
 
 }
