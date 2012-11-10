@@ -3,6 +3,7 @@ package it.unisa.kids.serviceManagement;
 import it.unisa.kids.accessManagement.Account;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * This class models the Trainee entity
@@ -16,57 +17,40 @@ public class Trainee {
 	private String surname;
 	private String email;
 	private String address;
-	private String birth_city;
-	private String city_of_residence;
-	private String CAP;
-	private String telephone_number;
-	private Date birth_date;
+	private String birthCity;
+	private String cityOfResidence;
+	private String cap;
+	private String telephoneNumber;
+	private GregorianCalendar birthDate;
 	private Account delegate;
 	
 	/**This is first the constructor of the class .This constructor takes also the telephone number as parameter
-	 * @param String register
-	 * @param String name
-	 * @param String surname
-	 * @param String email
-	 * @param String address
-	 * @param String birth_city
-	 * @param String city_of_residence
-	 * @param String CAP
-	 * @param String telephone_number
-	 * @param Date birth_date
-	 * @param Account delegate
+	 * @param String pRegister
+	 * @param String pName
+	 * @param String pSurname
+	 * @param String pEmail
+	 * @param String pAddress
+	 * @param String pBirthCity
+	 * @param String pCityOfResidence
+	 * @param String pCap
+	 * @param String pTelephoneNumber
+	 * @param GregorianCalendar pBirthDate
+	 * @param Account pDelegate
 	 */
-	public Trainee(String register,String name,String surname,String email,String address,String birth_city,String city_of_residence,String CAP,String telephone_number,Date birth_date,Account delegate){
-		this.register=register;
-		this.name=name;
-		this.surname=surname;
-		this.email=email;
-		this.address=address;
-		this.birth_city=birth_city;
-		this.city_of_residence=city_of_residence;
-		this.CAP=CAP;
-		this.telephone_number=telephone_number;
-		this.birth_date=birth_date;
+	public Trainee(String pRegister,String pName,String pSurname,String pEmail,String pAddress,String pBirtCity,String pCityOfResidence,String pCap,GregorianCalendar pBirthDate,Account delegate){
+		this.register=pRegister;
+		this.name=pName;
+		this.surname=pSurname;
+		this.email=pEmail;
+		this.address=pAddress;
+		this.birthCity=pBirtCity;
+		this.cityOfResidence=pCityOfResidence;
+		this.cap=pCap;
+		this.birthDate=pBirthDate;
 		this.delegate=delegate;
 				
 	}
 	
-	/**This is second the constructor of the class .
-	 * @param String register
-	 * @param String name
-	 * @param String surname
-	 * @param String email
-	 * @param String address
-	 * @param String birth_city
-	 * @param String city_of_residence
-	 * @param String CAP
-	 * @param String telephone_number
-	 * @param Date birth_date
-	 * @param Account delegate
-	 */
-	public Trainee(String register,String name,String surname,String email,String address,String birth_city,String city_of_residence,String CAP,Date birth_date,Account delegate){
-		this(register,name,surname,email,address,birth_city,city_of_residence,CAP,null,birth_date,delegate);
-	}
 	
 	/**this method returns the register of trainee
 	 * @return String register
@@ -76,10 +60,10 @@ public class Trainee {
 	}
 	
 	/**this method sets  the register of trainee
-	 * @param String register
+	 * @param String pRegister
 	 */
-	public void setRegister(String register) {
-		this.register = register;
+	public void setRegister(String pRegister) {
+		this.register = pRegister;
 	}
 	
 	/**this method returns the name of trainee
@@ -90,10 +74,10 @@ public class Trainee {
 	}
 	
 	/**this method sets  the name of trainee
-	 * @param String name
+	 * @param String pName
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String pName) {
+		this.name = pName;
 	}
 	
 	/**this method returns the surname of trainee
@@ -104,10 +88,10 @@ public class Trainee {
 	}
 
 	/**this method sets  the surname of trainee
-	 * @param String surname
+	 * @param String pSurname
 	 */
-	public void setSurname(String surname) {
-		this.surname = surname;
+	public void setSurname(String pSurname) {
+		this.surname = pSurname;
 	}
 	
 	/**this method returns the email of trainee
@@ -118,10 +102,10 @@ public class Trainee {
 	}
 	
 	/**this method sets  the email of trainee
-	 * @param String email
+	 * @param String pEmail
 	 */
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmail(String pEmail) {
+		this.email = pEmail;
 	}
 	
 	/**this method returns the address of trainee
@@ -132,80 +116,81 @@ public class Trainee {
 	}
 
 	/**this method sets  the address of trainee
-	 * @param String register
+	 * @param String pRegister
 	 */
-	public void setAddress(String address) {
-		this.address = address;
+	public void setAddress(String pAddress) {
+		this.address = pAddress;
 	}
 	
 	/**this method returns the birth city of trainee
-	 * @return String birth_city
+	 * @return String birthCity
 	 */
-	public String getBirth_city() {
-		return birth_city;
+	public String getBirthCity() {
+		return birthCity;
 	}
 
 	/**this method sets  the birth city  of trainee
-	 * @param String birth_city
+	 * @param String birthCity
 	 */
-	public void setBirth_city(String birth_city) {
-		this.birth_city = birth_city;
+	public void setBirthCity(String pBirthCity) {
+		this.birthCity = pBirthCity;
 	}
 	
 	/**this method returns the city of residence of trainee
-	 * @return String city_of_residence
+	 * @return String cityOfResidence
 	 */
-	public String getCity_of_residence() {
-		return city_of_residence;
+	public String getCityOfResidence() {
+		return cityOfResidence;
 	}
 
 	/**this method sets  the city of residence of trainee
-	 * @param String city_of_residence
+	 * @param String pCityOfResidence
 	 */
-	public void setCity_of_residence(String city_of_residence) {
-		this.city_of_residence = city_of_residence;
+	public void setCity_of_residence(String pCityOfResidence) {
+		this.cityOfResidence = pCityOfResidence;
 	}
 	
 	/**this method returns the CAP of the city where trainee lives 
-	 * @return String CAP
+	 * @return String cap
 	 */
-	public String getCAP() {
-		return CAP;
+	public String getCap() {
+		return cap;
 	}
 
 	/**this method sets  the CAP of the city where the trainee lives
-	 * @param String CAP
+	 * @param String pCap
 	 */
-	public void setCAP(String cAP) {
-		CAP = cAP;
+	public void setCap(String pCap) {
+		cap = pCap;
 	}
 	
 	/**this method returns the telephone number of trainee
-	 * @return String telephone_number
+	 * @return String telephoneNumber
 	 */
-	public String getTelephone_number() {
-		return telephone_number;
+	public String getTelephoneNumber() {
+		return telephoneNumber;
 	}
 
 	/**this method sets  the telephone number of trainee
-	 * @param String telephone_number
+	 * @param String pTelephoneNumber
 	 */
-	public void setTelephone_number(String telephone_number) {
-		this.telephone_number = telephone_number;
+	public void setTelephone_number(String pTelephoneNumber) {
+		this.telephoneNumber = pTelephoneNumber;
 	}
 	
 	/**this method returns the birth date  of trainee
-	 * @return String birth_date
+	 * @return GregorianCalendar birthDate
 	 */
-	public Date getBirth_date() {
-		return birth_date;
+	public GregorianCalendar getBirthDate() {
+		return birthDate;
 	}
 
 	/**this method sets  the birth date of trainee
-	 * @param String birth_date
+	 * @param String pBirthDate
 	 */
-	public void setBirth_date(Date birthday) {
-		this.birth_date = birthday;
+	public void setBirthDate(GregorianCalendar pBirthDate) {
+		this.birthDate = pBirthDate;
+		
 	} 
 	
 	
