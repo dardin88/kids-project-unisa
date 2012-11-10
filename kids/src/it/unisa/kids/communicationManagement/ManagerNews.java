@@ -21,7 +21,7 @@ public class ManagerNews
 			return manager;
 	}
 	
-	public News insertNews(String title,String description,Object attached,GregorianCalendar date,GregorianCalendar time,int id,Account author)
+	public News insertNews(String title,String description,Object attached,GregorianCalendar date,GregorianCalendar time,int id,Account author,String type)
 	{
 		if (title.length()>50)
 		{
@@ -31,7 +31,7 @@ public class ManagerNews
 		{
 			//errore
 		}
-		News n=new News(title, description, attached, date, time,id,author);
+		News n=new News(title, description, attached, date, time,id,author,type);
 		return n;
 	}
 
