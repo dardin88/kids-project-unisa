@@ -6,8 +6,17 @@ public class News
 {
 	private String title;
 	private String description;
-	private Object allegato;
+	private Object attached;
 	private GregorianCalendar date,time;
+	
+	public News(String title,String description,Object attached,GregorianCalendar date,GregorianCalendar time)
+	{
+		this.title=title;
+		this.description=description;
+		this.attached=attached;
+		this.date=date;
+		this.time=time;
+	}
 	
 	public String getTitle() {
 		return title;
@@ -22,10 +31,10 @@ public class News
 		this.description = description;
 	}
 	public Object getAllegato() {
-		return allegato;
+		return attached;
 	}
 	public void setAllegato(Object allegato) {
-		this.allegato = allegato;
+		this.attached = allegato;
 	}
 	public GregorianCalendar getDate() {
 		return date;
