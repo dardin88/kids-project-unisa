@@ -1,5 +1,7 @@
 package it.unisa.kids.communicationManagement;
 
+import it.unisa.kids.accessManagement.Account;
+
 import java.util.GregorianCalendar;
 
 
@@ -19,7 +21,7 @@ public class ManagerNews
 			return manager;
 	}
 	
-	public News insertNews(String title,String description,Object attached,GregorianCalendar date,GregorianCalendar time,int id)
+	public News insertNews(String title,String description,Object attached,GregorianCalendar date,GregorianCalendar time,int id,Account author)
 	{
 		if (title.length()>50)
 		{
@@ -29,7 +31,7 @@ public class ManagerNews
 		{
 			//errore
 		}
-		News n=new News(title, description, attached, date, time,id);
+		News n=new News(title, description, attached, date, time,id,author);
 		return n;
 	}
 

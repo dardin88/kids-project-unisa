@@ -1,5 +1,7 @@
 package it.unisa.kids.communicationManagement;
 
+import it.unisa.kids.accessManagement.Account;
+
 import java.util.GregorianCalendar;
 
 public class News 
@@ -9,8 +11,9 @@ public class News
 	private Object attached;
 	private GregorianCalendar date,time;
 	private int id;
+	private Account author;
 	
-	public News(String title,String description,Object attached,GregorianCalendar date,GregorianCalendar time,int id)
+	public News(String title,String description,Object attached,GregorianCalendar date,GregorianCalendar time,int id,Account author)
 	{
 		this.title=title;
 		this.description=description;
@@ -18,6 +21,7 @@ public class News
 		this.date=date;
 		this.time=time;
 		this.id=id;
+		this.author=author;
 	}
 	
 	public String getTitle() {
@@ -55,6 +59,12 @@ public class News
 	}
 	public int getId(){
 		return id;
+	}
+	public void setAuthor(Account author){
+		this.author=author;
+	}
+	public Account getAuthor(){
+		return author;
 	}
 	
 
