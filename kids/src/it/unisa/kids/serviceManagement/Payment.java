@@ -1,8 +1,9 @@
 package it.unisa.kids.serviceManagement;
 
+import java.io.Serializable;
 import java.util.GregorianCalendar;
 
-public class Payment {
+public class Payment implements Serializable {
 
 	private String id;
 	private GregorianCalendar expDate;

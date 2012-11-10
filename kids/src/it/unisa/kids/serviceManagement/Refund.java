@@ -1,6 +1,8 @@
 package it.unisa.kids.serviceManagement;
 
-public class Refund {
+import java.io.Serializable;
+
+public class Refund implements Serializable {
 
 	private String id;
 	private String description;

@@ -1,6 +1,8 @@
 package it.unisa.kids.serviceManagement;
 
-public class DifferentiatedMenu {
+import java.io.Serializable;
+
+public class DifferentiatedMenu implements Serializable {
 
 	private String id;
 	private String motivation;
