@@ -1,4 +1,4 @@
-package it.unisa.kids.serviceManagement;
+package it.unisa.kids.serviceManagement.trainingManagement;
 
 import it.unisa.kids.accessManagement.Account;
 

@@ -1,4 +1,4 @@
-package it.unisa.kids.serviceManagement;
+package it.unisa.kids.serviceManagement.paymentManagement;
 
 import java.io.Serializable;
 import java.util.GregorianCalendar;
