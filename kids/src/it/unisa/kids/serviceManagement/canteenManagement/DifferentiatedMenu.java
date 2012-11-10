@@ -15,72 +15,67 @@ public class DifferentiatedMenu implements Serializable {
 	public DifferentiatedMenu() {
 
 	}
-
-	public DifferentiatedMenu(String id, String motivation, String first,
-			String second, String sideDish, String fruit,
-			String childInscriptionId) {
-		setId(id);
-		setMotivation(motivation);
-		setFirst(first);
-		setSecond(second);
-		setSideDish(sideDish);
-		setFruit(fruit);
-		setChildInscriptionId(childInscriptionId);
+	
+	public DifferentiatedMenu(String pId, String pMotivation, String pChildInscriptionId) {
+		setId(pId);
+		setMotivation(pMotivation);
+		setChildInscriptionId(pChildInscriptionId);
 	}
+	
 
 	public String getId() {
-		return id;
+		return this.id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setId(String pId) {
+		this.id = pId;
 	}
 
 	public String getMotivation() {
-		return motivation;
+		return this.motivation;
 	}
 
-	public void setMotivation(String motivation) {
-		this.motivation = motivation;
+	public void setMotivation(String pMotivation) {
+		this.motivation = pMotivation;
 	}
 
 	public String getFirst() {
-		return first;
+		return this.first;
 	}
 
-	public void setFirst(String first) {
-		this.first = first;
+	public void setFirst(String pFirst) {
+		this.first = pFirst;
 	}
 
 	public String getSecond() {
-		return second;
+		return this.second;
 	}
 
-	public void setSecond(String second) {
-		this.second = second;
+	public void setSecond(String pSecond) {
+		this.second = pSecond;
 	}
 
 	public String getSideDish() {
-		return sideDish;
+		return this.sideDish;
 	}
 
-	public void setSideDish(String sideDish) {
-		this.sideDish = sideDish;
+	public void setSideDish(String pSideDish) {
+		this.sideDish = pSideDish;
 	}
 
 	public String getFruit() {
-		return fruit;
+		return this.fruit;
 	}
 
-	public void setFruit(String fruit) {
-		this.fruit = fruit;
+	public void setFruit(String pFruit) {
+		this.fruit = pFruit;
 	}
 
 	public String getChildInscriptionId() {
-		return childInscriptionId;
+		return this.childInscriptionId;
 	}
 
-	public void setChildInscriptionId(String childInscriptionId) {
-		this.childInscriptionId = childInscriptionId;
+	public void setChildInscriptionId(String pChildInscriptionId) {
+		this.childInscriptionId = pChildInscriptionId;
 	}
 }

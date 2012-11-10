@@ -21,119 +21,113 @@ public class Payment implements Serializable {
 	public Payment() {
 
 	}
-
-	public Payment(String id, GregorianCalendar expDate, boolean charge,
-			String paymentDescription, double amount, double amountDue,
-			boolean paid, double discount, String discountDescription,
-			String originAccount, String payee, String parentId) {
-		setId(id);
-		setExpDate(expDate);
-		setCharge(charge);
-		setPaymentDescription(paymentDescription);
-		setAmount(amount);
-		setAmountDue(amountDue);
-		setPaid(paid);
-		setDiscount(discount);
-		setDiscountDescription(discountDescription);
-		setOriginAccount(originAccount);
-		setPayee(payee);
-		setParentId(parentId);
+	
+	public Payment(String pId, GregorianCalendar pExpDate, double pAmount, double pAmountDue,
+			boolean pPaid, String pOriginAccount, String pPayee, String pParentId) {
+		setId(pId);
+		setExpDate(pExpDate);
+		setAmount(pAmount);
+		setAmountDue(pAmountDue);
+		setPaid(pPaid);
+		setOriginAccount(pOriginAccount);
+		setPayee(pPayee);
+		setParentId(pParentId);
 	}
-
+	
 
 	public String getId() {
-		return id;
+		return this.id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setId(String pId) {
+		this.id = pId;
 	}
 
 	public GregorianCalendar getExpDate() {
-		return expDate;
+		return this.expDate;
 	}
 
-	public void setExpDate(GregorianCalendar expDate) {
-		this.expDate = expDate;
+	public void setExpDate(GregorianCalendar pExpDate) {
+		this.expDate = pExpDate;
 	}
 
 	public boolean isCharge() {
-		return charge;
+		return this.charge;
 	}
 
-	public void setCharge(boolean charge) {
-		this.charge = charge;
+	public void setCharge(boolean pCharge) {
+		this.charge = pCharge;
 	}
 
 	public String getPaymentDescription() {
-		return paymentDescription;
+		return this.paymentDescription;
 	}
 
-	public void setPaymentDescription(String paymentDescription) {
-		this.paymentDescription = paymentDescription;
+	public void setPaymentDescription(String pPaymentDescription) {
+		this.paymentDescription = pPaymentDescription;
 	}
 
 	public double getAmount() {
-		return amount;
+		return this.amount;
 	}
 
-	public void setAmount(double amount) {
-		this.amount = amount;
+	public void setAmount(double pAmount) {
+		this.amount = pAmount;
 	}
 
 	public double getAmountDue() {
-		return amountDue;
+		return this.amountDue;
 	}
 
-	public void setAmountDue(double amountDue) {
-		this.amountDue = amountDue;
+	public void setAmountDue(double pAmountDue) {
+		this.amountDue = pAmountDue;
 	}
 
 	public boolean isPaid() {
-		return paid;
+		return this.paid;
 	}
 
-	public void setPaid(boolean paid) {
-		this.paid = paid;
+	public void setPaid(boolean pPaid) {
+		this.paid = pPaid;
 	}
 
 	public double getDiscount() {
-		return discount;
+		return this.discount;
 	}
 
-	public void setDiscount(double discount) {
-		this.discount = discount;
+	public void setDiscount(double pDiscount) {
+		this.discount = pDiscount;
 	}
 
 	public String getDiscountDescription() {
-		return discountDescription;
+		return this.discountDescription;
 	}
 
-	public void setDiscountDescription(String discountDescription) {
-		this.discountDescription = discountDescription;
+	public void setDiscountDescription(String pDiscountDescription) {
+		this.discountDescription = pDiscountDescription;
 	}
 
 	public String getOriginAccount() {
-		return originAccount;
+		return this.originAccount;
 	}
 
-	public void setOriginAccount(String originAccount) {
-		this.originAccount = originAccount;
+	public void setOriginAccount(String pOriginAccount) {
+		this.originAccount = pOriginAccount;
 	}
 
 	public String getPayee() {
-		return payee;
+		return this.payee;
 	}
 
-	public void setPayee(String payee) {
-		this.payee = payee;
+	public void setPayee(String pPayee) {
+		this.payee = pPayee;
 	}
 
 	public String getParentId() {
-		return parentId;
+		return this.parentId;
 	}
 
-	public void setParentId(String parentId) {
-		this.parentId = parentId;
+	public void setParentId(String pParentId) {
+		this.parentId = pParentId;
 	}
 }
