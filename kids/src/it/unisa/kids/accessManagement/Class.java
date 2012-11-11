@@ -3,13 +3,13 @@ package it.unisa.kids.accessManagement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Classe {
+public class Class {
 	private String idClasse;
 	private String className;
 	private List<Educatore> educatori;				//bisogna creare la classe educatore
 	private List<Bambini> bambini;					//bisogna creare la classe bambini
 	
-	public Classe(String name,ArrayList<Educatore> educa,ArrayList<Bambini> bamb)
+	public Class(String name,ArrayList<Educatore> educa,ArrayList<Bambini> bamb)
 	{
 		className=name;
 		this.educatori=educa;

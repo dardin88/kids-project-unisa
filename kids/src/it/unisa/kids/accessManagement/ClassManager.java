@@ -3,7 +3,7 @@ package it.unisa.kids.accessManagement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClassManager {
+public class ClassManager { 
 	
 	  private static ClassManager manager;
 
@@ -21,7 +21,7 @@ public class ClassManager {
 	    return manager;
 	  }
 	  
-	  public Classe create(Classe aClass)
+	  public Class create(Class aClass)
 	  {
 		  String query="INSERT INTO 'nomedb'.'classi' ('nomeClasse', 'idClasse') VALUES ('"+aClass.getClassName()+"', '"+aClass.getIdClasse()+"');"; 			//cambiare i nomi del db, come inserire educatori e bambini
 		  
@@ -32,7 +32,7 @@ public class ClassManager {
 		  return aClass;
 	  }
 	  
-	  public Classe delete(Classe unaClasse)
+	  public Class delete(Class unaClasse)
 	  {
 		  String query="DELETE FROM 'nomedb'.'classi' WHERE 'classi'.'nomeClasse' = '"+unaClasse.getClassName()+"' AND 'idClasse'='"+unaClasse.getIdClasse()+"'";		//cambiare i nome del db
 		  
@@ -45,9 +45,9 @@ public class ClassManager {
 	  }
 	  
 	  
-	  public List<Classe> search(Classe unaClasse)
+	  public List<Class> search(Class unaClasse)
 	  {
-		  List<Classe> elencoClassi=new ArrayList<Classe>();		//deve essere riempito con il risultato della query
+		  List<Class> elencoClassi=new ArrayList<Class>();		//deve essere riempito con il risultato della query
 		  String query="SELECT * FROM 'classi' WHERE ";				//cambiare i nome del db
 		  
 		  if (unaClasse.getIdClasse()!=null)

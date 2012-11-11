@@ -46,9 +46,9 @@ public class ChildRegistrationManager {
 	  }
 	  
 	  
-	  public List<Classe> search(Classe unaClasse)
+	  public List<Class> search(Class unaClasse)
 	  {
-		  List<Classe> elencoClassi=new ArrayList<Classe>();		//deve essere riempito con il risultato della query
+		  List<Class> elencoClassi=new ArrayList<Class>();		//deve essere riempito con il risultato della query
 		  String query="SELECT * FROM 'iscrizioneBambino' WHERE ";				//cambiare i nome del db
 		  
 		  /*if (unaClasse.getIdClasse()!=null)
