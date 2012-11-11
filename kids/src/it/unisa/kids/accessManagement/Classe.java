@@ -5,46 +5,49 @@ import java.util.List;
 
 public class Classe {
 	private String idClasse;
-	private String nomeClasse;
-	private List<Educatore> educatori;		//bisogna creare la classe educatore
-	private List<Bambini> bambini;			//bisogna creare la classe bambini
+	private String className;
+	private List<Educatore> educatori;				//bisogna creare la classe educatore
+	private List<Bambini> bambini;					//bisogna creare la classe bambini
 	
-	public Classe(String nome,ArrayList<Educatore> educa,ArrayList<Bambini> bamb)
+	public Classe(String name,ArrayList<Educatore> educa,ArrayList<Bambini> bamb)
 	{
+		className=name;
 		this.educatori=educa;
 		this.bambini=bamb;
 	}
-	
-	public String getIdClasse() 
-	{
+
+	public String getIdClasse() {
 		return idClasse;
 	}
-	
-	public void setIdClasse(String idClasse) 	//il set dell'id credo sia inutile visto che dovrebbe essere autoincrementale
-	{
+
+	public void setIdClasse(String idClasse) {				//credo che il set non debba esserci visto che è autoincrementale
 		this.idClasse = idClasse;
 	}
-	
-	public String getNomeClasse() 
-	{
-		return nomeClasse;
+
+	public String getClassName() {
+		return className;
 	}
-	
-	public void setNomeClasse(String nomeClasse) 
-	{
-		this.nomeClasse = nomeClasse;
+
+	public void setClassName(String className) {
+		this.className = className;
 	}
-	
-	public List<Educatore> getEducatori() 
-	{
+
+	public List<Educatore> getEducatori() {
 		return educatori;
 	}
-	
-	public void setEducatori(List<Educatore> educatori) 
-	{
+
+	public void setEducatori(List<Educatore> educatori) {
 		this.educatori = educatori;
 	}
+
+	public List<Bambini> getBambini() {
+		return bambini;
+	}
+
+	public void setBambini(List<Bambini> bambini) {
+		this.bambini = bambini;
+	}
 	
-	
+		
 
 }
