@@ -46,4 +46,17 @@ public final class DBNames {
 	public static final String ATT_PAYMENT_DESCRIPTION = "description";
 	public static final String ATT_PAYMENT_DISCOUNT = "discount";
 	public static final String ATT_PAYMENT_DISCDESCRIPTION = "discount_description";
+	
+	//Trainee' attributes
+	public static final String ATT_TRAINEE_REGISTER="register";
+	public static final String ATT_TRAINEE_NAME="name";
+	public static final String ATT_TRAINEE_SURNAME="surname";
+	public static final String ATT_TRAINEE_EMAIL="email";
+	public static final String ATT_TRAINEE_BIRTHDATE="birth_date";
+	public static final String ATT_TRAINEE_BIRTHCITY="birth_city";
+	public static final String ATT_TRAINEE_CITYOFRESIDENCE="city_of_residence";
+	public static final String ATT_TRAINEE_ADDRESS="address";
+	public static final String ATT_TRAINEE_CAP="cap";
+	public static final String ATT_TRAINEE_TELEPHONENUMBER="telephone_number";
+	public static final String ATT_TRAINEE_DELEGATEACCOUNT="delegate_account";
 }

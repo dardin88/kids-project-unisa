@@ -146,7 +146,7 @@ public class Trainee {
 	/**this method sets  the city of residence of trainee
 	 * @param String pCityOfResidence
 	 */
-	public void setCity_of_residence(String pCityOfResidence) {
+	public void setCityOfResidence(String pCityOfResidence) {
 		this.cityOfResidence = pCityOfResidence;
 	}
 	
@@ -174,7 +174,7 @@ public class Trainee {
 	/**this method sets  the telephone number of trainee
 	 * @param String pTelephoneNumber
 	 */
-	public void setTelephone_number(String pTelephoneNumber) {
+	public void setTelephoneNumber(String pTelephoneNumber) {
 		this.telephoneNumber = pTelephoneNumber;
 	}
 	
@@ -191,7 +191,23 @@ public class Trainee {
 	public void setBirthDate(GregorianCalendar pBirthDate) {
 		this.birthDate = pBirthDate;
 		
+	}
+
+	
+	/**this method returns the delegate that has added trainee
+	 * @return  Account delegate
+	 */
+	public Account getDelegate() {
+		return delegate;
+	}
+
+	/**this method sets the delegate that has added trainee
+	 * @param  Account pDelegate
+	 */
+	public void setDelegate(Account pDelegate) {
+		this.delegate = pDelegate;
 	} 
+	
 	
 	
 	
