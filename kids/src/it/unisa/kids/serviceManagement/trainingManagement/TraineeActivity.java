@@ -18,25 +18,21 @@ public class TraineeActivity {
 	private Account delegate;
 	private Trainee trainee;
 	/**The constructor of the class
-	 * @param date
-	 * @param name
-	 * @param description
-	 * @param start
-	 * @param end
-	 * @param delegate
-	 * @param trainee
+	 * @param pDate
+	 * @param pName
+	 * @param pStart
+	 * @param pEnd
+	 * @param pEelegate
+	 * @param pTrainee
 	 */
-	public TraineeActivity(GregorianCalendar date, String name,
-			String description, Time start, Time end, Account delegate,
-			Trainee trainee) {
+	public TraineeActivity(GregorianCalendar pDate, String pName, Time pStart, Time pEnd, Account pDelegate,Trainee pTrainee) {
 		super();
-		this.date = date;
-		this.name = name;
-		this.description = description;
-		this.start = start;
-		this.end = end;
-		this.delegate = delegate;
-		this.trainee = trainee;
+		this.date = pDate;
+		this.name = pName;
+		this.start = pStart;
+		this.end = pEnd;
+		this.delegate =pDelegate;
+		this.trainee = pTrainee;
 	}
 	
 	/**the method returns the date 
@@ -48,10 +44,10 @@ public class TraineeActivity {
 	
 	
 	/**the method sets the date
-	 * @param Gregorian Calendar date
+	 * @param Gregorian Calendar pDate
 	 */
-	public void setDate(GregorianCalendar date) {
-		this.date = date;
+	public void setDate(GregorianCalendar pDate) {
+		this.date = pDate;
 	}
 	
 	
@@ -64,10 +60,10 @@ public class TraineeActivity {
 	
 	
 	/**the method sets the name of the activity
-	 * @param String name
+	 * @param String pName
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String pName) {
+		this.name = pName;
 	}
 
 	
@@ -80,10 +76,10 @@ public class TraineeActivity {
 	
 	
 	/**the method sets the description of the activity
-	 * @param String description
+	 * @param String pDescription
 	 */
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescription(String pDescription) {
+		this.description = pDescription;
 	}
 
 	
@@ -96,10 +92,10 @@ public class TraineeActivity {
 	
 	
 	/**the method sets the start time of activity
-	 * @param Time start
+	 * @param Time pStart
 	 */
-	public void setStart(Time start) {
-		this.start = start;
+	public void setStart(Time pStart) {
+		this.start = pStart;
 	}
 
 	/**the method return the end time of activity
@@ -110,10 +106,10 @@ public class TraineeActivity {
 	}
 
 	/**the method sets the end time of activity
-	 * @param Time end
+	 * @param Time pEnd
 	 */
-	public void setEnd(Time end) {
-		this.end = end;
+	public void setEnd(Time pEnd) {
+		this.end = pEnd;
 	}
 	
 	
@@ -126,10 +122,10 @@ public class TraineeActivity {
 
 	
 	/**the method sets the delegate that adds the activity
-	 * @param Account delegate
+	 * @param Account pDelegate
 	 */
-	public void setDelegate(Account delegate) {
-		this.delegate = delegate;
+	public void setDelegate(Account pDelegate) {
+		this.delegate = pDelegate;
 	}
 
 	
@@ -142,10 +138,10 @@ public class TraineeActivity {
 
 	
 	/**the method sets the trainee that has performed the activity
-	 * @param Trainee trainee
+	 * @param Trainee pTrainee
 	 */
-	public void setTrainee(Trainee trainee) {
-		this.trainee = trainee;
+	public void setTrainee(Trainee pTrainee) {
+		this.trainee = pTrainee;
 	}
 	
 	
