@@ -55,6 +55,8 @@ public class ClassManager {
 		  if (aClass.getClassName()!=null)
 			  query=query+"'Nome'='"+aClass.getClassName()+"'";
 		  
+		  query=query+";";
+		  
 		  //connessione al db
 		  
 		  //esecuzione della query		

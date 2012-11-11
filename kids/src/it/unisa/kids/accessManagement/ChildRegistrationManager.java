@@ -23,7 +23,7 @@ public class ChildRegistrationManager {
 	  
 	  public ChildRegistration create(ChildRegistration aChildReg)
 	  {
-		  String query="INSERT INTO 'iscrizionebambino' (Id, Cognome, Nome, DataNascita, ComuneNascita, CodiceFiscale, Cittadinanza, FasciaUtenza, DataIscrizione, Malattia, FaseDellIscrizione) VALUES"+		//anche accountgenitore e classe?
+		  String query="INSERT INTO 'iscrizionebambino' (Id, Cognome, Nome, DataNascita, ComuneNascita, CodiceFiscale, Cittadinanza, FasciaUtenza, DataIscrizione, Malattia, FaseDellIscrizione) VALUES"+		//anche accountgenitore e classe? (nell'SDD non c'erano come campi il motivo è perchè sono chiavi esterne?) l'id deve essere inserito manualmente?
 				  					"('"+aChildReg.getRegistrationId()+"', '"+aChildReg.getSurname()+"', '"+aChildReg.getName()+"', '"+aChildReg.getBornDate()+"', '"+aChildReg.getCommuneBorn()+"', '"+aChildReg.getFiscalCode()+"', " +
 				  					 "'"+aChildReg.getCitizenship()+"', '"+aChildReg.getUserSection()+/* da implementare*/"', '"+aChildReg.getRegistrationDate()+"', '"+aChildReg.getSickness()+"', '"+aChildReg.getFaseIscrizione()/*da implementare*/+"' );"; 			
 		 
@@ -86,9 +86,11 @@ public class ChildRegistrationManager {
 	  
 	  public ChildRegistration modify(ChildRegistration aChildReg){
 			
-			String query="UPDATE 'iscrizionebambino' " + //completa la query
-					"SET "+
-					"WHERE 'Id'="+aChildReg.getRegistrationId(); 
+			String query="UPDATE 'iscrizionebambino' " + //l'id deve essere modificato manualmente?
+					"SET (Id, Cognome, Nome, DataNascita, ComuneNascita, CodiceFiscale, Cittadinanza, FasciaUtenza, DataIscrizione, Malattia, FaseDellIscrizione) VALUES"+//			anche accountgenitore e classe? 
+					"('"+aChildReg.getRegistrationId()+"', '"+aChildReg.getSurname()+"', '"+aChildReg.getName()+"', '"+aChildReg.getBornDate()+"', '"+aChildReg.getCommuneBorn()+"', '"+aChildReg.getFiscalCode()+"', " +
+ 					 "'"+aChildReg.getCitizenship()+"', '"+aChildReg.getUserSection()+/* da implementare*/"', '"+aChildReg.getRegistrationDate()+"', '"+aChildReg.getSickness()+"', '"+aChildReg.getFaseIscrizione()/*da implementare*/+"' )"+ 
+					"WHERE 'Id'="+aChildReg.getRegistrationId()+";"; 
 			
 			 //connessione al db
 			  
