@@ -23,10 +23,10 @@ public class ChildRegistrationManager {
 	  
 	  public ChildRegistration create(ChildRegistration aChildReg)
 	  {
-		  String query="INSERT INTO 'nomedb'.'iscrizioneBambino' (Id, Cognome, Nome, DataNascita, ComuneNascita, CodiceFiscale, Cittadinanza, FasciaUtenza, DataIscrizione, Malattia, FaseDellIscrizione) VALUES"+		//cambiare i nomi del db
+		  String query="INSERT INTO 'iscrizionebambino' (Id, Cognome, Nome, DataNascita, ComuneNascita, CodiceFiscale, Cittadinanza, FasciaUtenza, DataIscrizione, Malattia, FaseDellIscrizione) VALUES"+		//anche accountgenitore e classe?
 				  					"('"+aChildReg.getRegistrationId()+"', '"+aChildReg.getSurname()+"', '"+aChildReg.getName()+"', '"+aChildReg.getBornDate()+"', '"+aChildReg.getCommuneBorn()+"', '"+aChildReg.getFiscalCode()+"', " +
 				  					 "'"+aChildReg.getCitizenship()+"', '"+aChildReg.getUserSection()+/* da implementare*/"', '"+aChildReg.getRegistrationDate()+"', '"+aChildReg.getSickness()+"', '"+aChildReg.getFaseIscrizione()/*da implementare*/+"' );"; 			
-		  
+		 
 		  //connessione al db
 		  
 		  //esecuzione della query
@@ -36,7 +36,7 @@ public class ChildRegistrationManager {
 	  
 	  public ChildRegistration delete(ChildRegistration aChildReg)
 	  {
-		  String query="DELETE FROM 'nomedb'.'iscrizioneBambino' WHERE 'iscrizioneBambino'.'nomeBambino' = '"+aChildReg.getName()+"' AND 'idIscrizione'='"+aChildReg.getRegistrationId()+"';";		//cambiare i nome del db
+		  String query="DELETE FROM 'iscrizioneBambino' WHERE 'Id'='"+aChildReg.getRegistrationId()+"';";
 		  
 		  //connessione al db
 		  
@@ -46,17 +46,34 @@ public class ChildRegistrationManager {
 	  }
 	  
 	  
-	  public List<Class> search(Class unaClasse)
+	  public List<ChildRegistration> search(ChildRegistration aChildReg)
 	  {
-		  List<Class> elencoClassi=new ArrayList<Class>();		//deve essere riempito con il risultato della query
-		  String query="SELECT * FROM 'iscrizioneBambino' WHERE ";				//cambiare i nome del db
+		  List<ChildRegistration> listOfChildReg=new ArrayList<ChildRegistration>();		//deve essere riempito con il risultato della query
+		  String query="SELECT * FROM 'iscrizionebambino' WHERE ";				
 		  
-		  /*if (unaClasse.getIdClasse()!=null)
-			  query=query+"'idClasse'='"+unaClasse.getIdClasse()+"'";
-		  if (unaClasse.getClassName()!=null)
-			  query=query+"'nomeClassi'='"+unaClasse.getClassName()+"'";*/
+		  if (aChildReg.getBornDate()!=null)
+			  query=query+"'DataNascita'='"+aChildReg.getBornDate()+"'";
+		  if (aChildReg.getCitizenship()!=null)
+			  query=query+"'Cittadinanza'='"+aChildReg.getCitizenship()+"'"; 
+		  if (aChildReg.getCommuneBorn()!=null)
+			  query=query+"'ComuneNascita'='"+aChildReg.getCommuneBorn()+"'";
+		  if (aChildReg.getFiscalCode()!=null)
+			  query=query+"'CodiceFiscale'='"+aChildReg.getFiscalCode()+"'";
+		  if (aChildReg.getName()!=null)
+			  query=query+"'Nome'='"+aChildReg.getName()+"'";
+		  if (aChildReg.getRegistrationDate()!=null)
+			  query=query+"'DataIscrizione'='"+aChildReg.getRegistrationDate()+"'";
+		  if (aChildReg.getRegistrationId()!=null)
+			  query=query+"'Id'='"+aChildReg.getRegistrationId()+"'";
+		  if (aChildReg.getSickness()!=null)
+			  query=query+"'Malattia'='"+aChildReg.getSickness()+"'";
+		  if (aChildReg.getSurname()!=null)
+			  query=query+"'Cognome'='"+aChildReg.getSurname()+"'";
 		  
+		  //ci manca qualche if: fasciautenza, faseiscrizione, accountgenitore, classe
 		  
+		  query=query+";";
+		  		  
 		  
 		  //connessione al db
 		  
@@ -64,7 +81,20 @@ public class ChildRegistrationManager {
 		  
 		  //elaborazione del risultato
 		  
-		  return elencoClassi;
+		  return listOfChildReg;
 	  }
+	  
+	  public ChildRegistration modify(ChildRegistration aChildReg){
+			
+			String query="UPDATE 'iscrizionebambino' " + //completa la query
+					"SET "+
+					"WHERE 'Id'="+aChildReg.getRegistrationId(); 
+			
+			 //connessione al db
+			  
+			 //esecuzione della query	
+			
+			return aChildReg;
+		}
 
 }

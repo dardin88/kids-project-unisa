@@ -47,7 +47,4 @@ public class Class {
 	public void setBambini(List<Bambini> bambini) {
 		this.bambini = bambini;
 	}
-	
-		
-
 }

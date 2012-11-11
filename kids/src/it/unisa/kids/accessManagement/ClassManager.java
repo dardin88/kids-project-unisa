@@ -23,7 +23,7 @@ public class ClassManager {
 	  
 	  public Class create(Class aClass)
 	  {
-		  String query="INSERT INTO 'nomedb'.'classi' ('nomeClasse', 'idClasse') VALUES ('"+aClass.getClassName()+"', '"+aClass.getIdClasse()+"');"; 			//cambiare i nomi del db, come inserire educatori e bambini
+		  String query="INSERT INTO 'classe' ('Nome', 'Id') VALUES ('"+aClass.getClassName()+"', '"+aClass.getIdClasse()+"');"; 			//come inserire educatori e bambini, l'id deve essere inserito manualmente?
 		  
 		  //connessione al db
 		  
@@ -32,28 +32,28 @@ public class ClassManager {
 		  return aClass;
 	  }
 	  
-	  public Class delete(Class unaClasse)
+	  public Class delete(Class aClass)
 	  {
-		  String query="DELETE FROM 'nomedb'.'classi' WHERE 'classi'.'nomeClasse' = '"+unaClasse.getClassName()+"' AND 'idClasse'='"+unaClasse.getIdClasse()+"'";		//cambiare i nome del db
+		  String query="DELETE FROM 'classe' WHERE 'Id'='"+aClass.getIdClasse()+"'";	
 		  
 		  
 		  //connessione al db
 		  
 		  //esecuzione della query
 		  
-		  return unaClasse;
+		  return aClass;
 	  }
 	  
 	  
-	  public List<Class> search(Class unaClasse)
+	  public List<Class> search(Class aClass)
 	  {
-		  List<Class> elencoClassi=new ArrayList<Class>();		//deve essere riempito con il risultato della query
-		  String query="SELECT * FROM 'classi' WHERE ";				//cambiare i nome del db
+		  List<Class> listOfClass=new ArrayList<Class>();		//deve essere riempito con il risultato della query
+		  String query="SELECT * FROM 'classe' WHERE ";			
 		  
-		  if (unaClasse.getIdClasse()!=null)
-			  query=query+"'idClasse'='"+unaClasse.getIdClasse()+"'";
-		  if (unaClasse.getClassName()!=null)
-			  query=query+"'nomeClassi'='"+unaClasse.getClassName()+"'";
+		  if (aClass.getIdClasse()!=null)
+			  query=query+"'Id'='"+aClass.getIdClasse()+"'";
+		  if (aClass.getClassName()!=null)
+			  query=query+"'Nome'='"+aClass.getClassName()+"'";
 		  
 		  //connessione al db
 		  
@@ -61,6 +61,19 @@ public class ClassManager {
 		  
 		  //elaborazione del risultato
 		  
-		  return elencoClassi;
+		  return listOfClass;
+	  }
+	  
+	  public Class modify(Class aClass){
+			
+			String query="UPDATE 'classe' " +
+					"SET 'Nome'="+aClass.getClassName()+	//l'id non deve essere toccato giusto?
+					"WHERE 'Id'="+aClass.getIdClasse(); 
+			
+			 //connessione al db
+			  
+			 //esecuzione della query	
+			
+			return aClass;
 	  }
 }
