@@ -32,4 +32,18 @@ public final class DBNames {
 	public static final String TABLE_ACT = "activity";
 	public static final String TABLE_DAILY_SECTION_ACT = "daily_section_act";
 	public static final String TABLE_CHILD_PARTICIPATION = "child_participation";
+	
+	//PaymentTable's attributes
+	public static final String ATT_PAYMENT_ID = "id";
+	public static final String ATT_PAYMENT_EXPDATE = "exp_date";
+	public static final String ATT_PAYMENT_AMOUNT = "amount";
+	public static final String ATT_PAYMENT_AMOUNTDUE = "amount_due";
+	public static final String ATT_PAYMENT_PAID = "paid";
+	public static final String ATT_PAYMENT_ORIGINACCOUNT = "origin_account";
+	public static final String ATT_PAYMENT_PAYEE = "payee";
+	public static final String ATT_PAYMENT_PARENTID = "parent_id";
+	public static final String ATT_PAYMENT_CHARGE = "charge";
+	public static final String ATT_PAYMENT_DESCRIPTION = "description";
+	public static final String ATT_PAYMENT_DISCOUNT = "discount";
+	public static final String ATT_PAYMENT_DISCDESCRIPTION = "discount_description";
 }

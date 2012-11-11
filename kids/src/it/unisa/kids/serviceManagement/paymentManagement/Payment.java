@@ -12,7 +12,7 @@ public class Payment implements Serializable {
 	private double amount;
 	private double amountDue;
 	private boolean paid;
-	private double discount;
+	private String discount;
 	private String discountDescription;
 	private String originAccount;
 	private String payee;
@@ -91,11 +91,11 @@ public class Payment implements Serializable {
 		this.paid = pPaid;
 	}
 
-	public double getDiscount() {
+	public String getDiscount() {
 		return this.discount;
 	}
 
-	public void setDiscount(double pDiscount) {
+	public void setDiscount(String pDiscount) {
 		this.discount = pDiscount;
 	}
 
