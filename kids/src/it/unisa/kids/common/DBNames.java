@@ -93,6 +93,14 @@ public final class DBNames {
 	public static final String ATT_ACCOUNT_VIADOMICILE="via_domicile";
 	public static final String ATT_ACCOUNT_VIARESIDENCE="via_residence";
 	
+	//Trainee activity's attributes
+	public static final String ATT_TRAINEEACTIVITY_DATE="date";
+	public static final String ATT_TRAINEEACTIVITY_NAME="name";
+	public static final String ATT_TRAINEEACTIVITY_DESCRIPTION="description";
+	public static final String ATT_TRAINEEACTIVITY_STARTTIME="start_time";
+	public static final String ATT_TRAINEEACTIVITY_ENDTIME="end_time";
+	public static final String ATT_TRAINEEACTIVITY_DELEGATEACCOUNT="delegate_account";
+	
 
 
 

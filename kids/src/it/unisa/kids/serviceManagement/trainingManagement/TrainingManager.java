@@ -8,27 +8,29 @@ import it.unisa.storage.connectionPool.DBConnectionPool;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-public class TraineeManager {
-	private static TraineeManager manager;
-	public TraineeManager(){
+public class TrainingManager {
+	private static TrainingManager manager;
+	public TrainingManager(){
 
 	}
-	public static TraineeManager getInstance(){
+	public static TrainingManager getInstance(){
 		if(manager==null){
-			manager=new TraineeManager();
+			manager=new TrainingManager();
 		}
 		return manager;
 	}
 	public void insertTrainee(Trainee pTrainee) throws SQLException{
 		Connection con = null;
-		Statement stmt=null;
+		PreparedStatement pStmt=null;
 		String query1;
+		
 		String query2;
 		try {
 			con=DBConnectionPool.getConnection();
@@ -43,28 +45,29 @@ public class TraineeManager {
 					+DBNames.ATT_TRAINEE_ADDRESS+","
 					+DBNames.ATT_TRAINEE_CAP+","
 					+DBNames.ATT_TRAINEE_DELEGATEACCOUNT;
-			query2="VALUES ("
-					+pTrainee.getRegister()+","
-					+pTrainee.getName()+","
-					+pTrainee.getSurname()+","
-					+pTrainee.getEmail()+","
-					+new Date(pTrainee.getBirthDate().getTimeInMillis())+","
-					+pTrainee.getBirthCity()+","
-					+pTrainee.getCityOfResidence()+","
-					+pTrainee.getAddress()+","
-					+pTrainee.getCap()+","
-					+pTrainee.getDelegate().getId();
+			query2="VALUES (?,?,?,?,?,?,?,?,?,?";
+					
 			if (pTrainee.getTelephoneNumber() != null) {
 				query1 += ", " + DBNames.ATT_TRAINEE_TELEPHONENUMBER;
-				query2 += ", " + pTrainee.getTelephoneNumber();
+				query2 += ",?" ;
 			}
 			query1+=")";
 			query2+=")";
-			stmt = con.createStatement();
-			stmt.executeUpdate(query1 + query2);
+			pStmt = con.prepareStatement(query1+query2);
+			pStmt.setString(1, pTrainee.getRegister());
+			pStmt.setString(2,pTrainee.getName());
+			pStmt.setString(3, pTrainee.getSurname());
+			pStmt.setString(4,pTrainee.getEmail());
+			pStmt.setDate(5, new Date(pTrainee.getBirthDate().getTimeInMillis()));
+			pStmt.setString(6,pTrainee.getBirthCity());
+			pStmt.setString(7, pTrainee.getCityOfResidence());
+			pStmt.setString(8, pTrainee.getAddress());
+			pStmt.setString(9, pTrainee.getCap());
+			pStmt.setInt(10, pTrainee.getDelegate().getId());
+			pStmt.executeUpdate();
 		} 
 		finally{
-			stmt.close();
+			pStmt.close();
 			DBConnectionPool.releaseConnection(con);
 		}
 	}
@@ -117,7 +120,7 @@ public class TraineeManager {
 				Date birthDateSQL=rsTrainee.getDate(DBNames.ATT_TRAINEE_BIRTHDATE);
 				java.util.Date date=new java.util.Date(birthDateSQL.getTime());
 				GregorianCalendar birthDate=new GregorianCalendar();
-				birthDate.setTime(date);
+				birthDate.setTime(birthDateSQL);
 				int delegateId=rsTrainee.getInt(DBNames.ATT_TRAINEE_DELEGATEACCOUNT);
 				String telephoneNumber=rsTrainee.getString(DBNames.ATT_TRAINEE_TELEPHONENUMBER);
 				ManagerAccount managerAccount=ManagerAccount.getInstance();
@@ -148,8 +151,55 @@ public class TraineeManager {
 		return traineeList;
 	}
 	
-	public void insertActivity(TraineeActivity pTraineeActivity){
-		
+	public void insertActivity(TraineeActivity pTraineeActivity) throws SQLException{
+		Connection con = null;
+		Statement stmt=null;
+		String query1;
+		String query2;
+		try {
+			con=DBConnectionPool.getConnection();
+			query1="INSERT INTO "+DBNames.TABLE_TRAINEE_ACT+"("
+					+DBNames.ATT_TRAINEEACTIVITY_DATE+","
+					+DBNames.ATT_TRAINEEACTIVITY_NAME+","
+					+DBNames.ATT_TRAINEEACTIVITY_STARTTIME +","
+					+DBNames.ATT_TRAINEEACTIVITY_ENDTIME+","
+					+DBNames.ATT_TRAINEEACTIVITY_DELEGATEACCOUNT;
+					
+					
+			query2="VALUES ("
+					+new Date(pTraineeActivity.getDate().getTimeInMillis())+","
+					+pTraineeActivity.getName()+","
+					+pTraineeActivity.getStart()+","
+					+pTraineeActivity.getEnd()+","
+					+pTraineeActivity.getDelegate().getId();
+			if (pTraineeActivity.getDescription() != null) {
+				query1 += ", " + DBNames.ATT_TRAINEEACTIVITY_DESCRIPTION;
+				query2 += ", " + pTraineeActivity.getDescription();
+			}
+			query1+=")";
+			query2+=")";
+			stmt = con.createStatement();
+			stmt.executeUpdate(query1 + query2);
+		} 
+		finally{
+			stmt.close();
+			DBConnectionPool.releaseConnection(con);
+		}
+	}
+	public void deleteActivity(TraineeActivity pTraineeActivity) throws SQLException{
+		Connection con = null;
+		Statement stmt=null;
+		String query;
+		try{
+			con=DBConnectionPool.getConnection();
+			query="DEELETE FROM"+DBNames.TABLE_TRAINEE_ACT+"WHERE "+DBNames.ATT_TRAINEEACTIVITY_DATE+"='"+new Date(pTraineeActivity.getDate().getTimeInMillis())+"'";
+			stmt=con.createStatement();
+			stmt.executeQuery(query);
+		}
+		finally{
+			stmt.close();
+			DBConnectionPool.releaseConnection(con);
+		}
 	}
 	
 	

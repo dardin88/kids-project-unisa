@@ -17,22 +17,11 @@ public class TraineeActivity {
 	private Time end;
 	private Account delegate;
 	private Trainee trainee;
-	/**The constructor of the class
-	 * @param pDate
-	 * @param pName
-	 * @param pStart
-	 * @param pEnd
-	 * @param pEelegate
-	 * @param pTrainee
+	/**Empty constructor of the class
+	 *
 	 */
-	public TraineeActivity(GregorianCalendar pDate, String pName, Time pStart, Time pEnd, Account pDelegate,Trainee pTrainee) {
-		super();
-		this.date = pDate;
-		this.name = pName;
-		this.start = pStart;
-		this.end = pEnd;
-		this.delegate =pDelegate;
-		this.trainee = pTrainee;
+	public TraineeActivity() {
+		
 	}
 	
 	/**the method returns the date 
