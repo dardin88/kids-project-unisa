@@ -103,11 +103,11 @@ public final class DBNames {
 	
 
 	// Recourses's attributes
-	private static final String ATT_RECOURSE_ID="id";
-	private static final String ATT_RECOURSE_DATA="data";
-	private static final String ATT_RECOURSE_REASON="reason";
-	private static final String ATT_RECOURSE_VALUTATION="valutation";
-	private static final String ATT_RECOURSE_IDREGISTRATION="id_registration";
+	public static final String ATT_RECOURSE_ID="id";
+	public static final String ATT_RECOURSE_DATA="date";
+	public static final String ATT_RECOURSE_REASON="reason";
+	public static final String ATT_RECOURSE_VALUTATION="valutation";
+	public static final String ATT_RECOURSE_IDREGISTRATION="id_registration";
 
 
 
