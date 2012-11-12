@@ -21,19 +21,6 @@ public class Payment implements Serializable {
 	public Payment() {
 
 	}
-	
-	public Payment(String pId, GregorianCalendar pExpDate, double pAmount, double pAmountDue,
-			boolean pPaid, String pOriginAccount, String pPayee, String pParentId) {
-		setId(pId);
-		setExpDate(pExpDate);
-		setAmount(pAmount);
-		setAmountDue(pAmountDue);
-		setPaid(pPaid);
-		setOriginAccount(pOriginAccount);
-		setPayee(pPayee);
-		setParentId(pParentId);
-	}
-	
 
 	public String getId() {
 		return this.id;

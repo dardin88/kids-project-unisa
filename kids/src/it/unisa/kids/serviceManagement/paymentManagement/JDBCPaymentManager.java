@@ -37,7 +37,6 @@ public class JDBCPaymentManager implements IPaymentManager {
 		String query2;
 		
 		try {
-			checkPayment(pPayment);
 			con = DBConnectionPool.getConnection();
 			
 			query1 = "INSERT INTO " + DBNames.TABLE_PAYMENT + " ("
@@ -98,38 +97,5 @@ public class JDBCPaymentManager implements IPaymentManager {
 	
 	public synchronized List<Payment> getPaymentList() {
 		return null;
-	}
-	
-	
-	private void checkPayment(Payment pPayment) throws MandatoryFieldException {
-		if (pPayment.getId() == null) {
-			throw new MandatoryFieldException("There's no payment id");
-		}
-		if (pPayment.getExpDate() == null) {
-			throw new MandatoryFieldException("There's no payment expiration date");
-		}
-		if (pPayment.getAmount() <= 0) {
-			throw new MandatoryFieldException("Payment amount <= 0");
-		}
-		if (pPayment.getAmountDue() <= 0) {
-			throw new MandatoryFieldException("Payment amount due <= 0");
-		}
-		if (pPayment.getOriginAccount() == null || pPayment.getOriginAccount().length() > ORIGIN_ACCOUNT_MAXLENGTH) {
-			throw new MandatoryFieldException("There's no payment origin account or string too long");
-		}
-		if (pPayment.getPayee() == null || pPayment.getPayee().length() > PAYEE_MAXLENGTH) {
-			throw new MandatoryFieldException("There's no payee or string too long");
-		}
-		if (pPayment.getParentId() == null) {		// bisogna fare il check dell'esistenza di un parent nel db avente come id pPayment.getParentId()
-			throw new MandatoryFieldException("There's no parent id");
-		}
-		
-		//optional attributes
-		if (pPayment.getPaymentDescription() != null && pPayment.getPaymentDescription().length() > DESCRIPTION_MAXLENGTH)
-			throw new MandatoryFieldException("Payment description too long");
-		if (pPayment.getDiscount() != null && pPayment.getDiscount().length() > DISCOUNT_MAXLENGTH)		// bisogna fare check anche sul contenuto
-			throw new MandatoryFieldException("Payment discount too long");
-		if (pPayment.getDiscountDescription() != null && pPayment.getDiscountDescription().length() > DISCDESCRIPTION_MAXLENGTH)
-			throw new MandatoryFieldException("Payment discount description too long");
 	}
 }
