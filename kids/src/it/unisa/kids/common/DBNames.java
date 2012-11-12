@@ -68,6 +68,31 @@ public final class DBNames {
 	public static final String ATT_ACCOUNT_CONTRACTEXPIRATIONDATE="contract_expiration_date";
 	public static final String ATT_ACCOUNT_DATEOFBIRTH="date_of_birth";
 	public static final String ATT_ACCOUNT_EMAIL="email";
+	public static final String ATT_ACCOUNT_FACULTY="faculty";
+	public static final String ATT_ACCOUNT_FAMILYSITUATION="family_situation";
+	public static final String ATT_ACCOUNT_FAX="fax";
+	public static final String ATT_ACCOUNT_ID="id";
+	public static final String ATT_ACCOUNT_INCOME="income";
+	public static final String ATT_ACCOUNT_MANUCIPALITYDOMICILIE="municipality_domicilie";
+	public static final String ATT_ACCOUNT_MUNICIPALITYRESIDENCE="municipality_residence";
+	public static final String ATT_ACCOUNT_NAMEUSER="name_user";
+	public static final String ATT_ACCOUNT_NICKNAME="nickname";
+	public static final String ATT_ACCOUNT_PASSWORD="password";
+	public static final String ATT_ACCOUNT_PLACEOFBIRTH="place_of_birth";
+	public static final String ATT_ACCOUNT_PROVINCERESIDENCE="province_residence";
+	public static final String ATT_ACCOUNT_PROVINCEDOMICILIE="province_domicilie";
+	public static final String ATT_ACCOUNT_QUALIFICATION="qualification";
+	public static final String ATT_ACCOUNT_REGISTRATIONDATE="registration_date";
+	public static final String ATT_ACCOUNT_STREETNUMBERDOMICILIE="street_number_domicilie";
+	public static final String ATT_ACCOUNT_STREETNUMBERRESIDENCE="street_number_residence";
+	public static final String ATT_ACCOUNT_SURNAMEUSER="surname_user";
+	public static final String ATT_ACCOUNT_TAXCODE="tax_code";
+	public static final String ATT_ACCOUNT_TELEPHONENUMBER="telephone_number";
+	public static final String ATT_ACCOUNT_TYPEACCOUNT="type_account";
+	public static final String ATT_ACCOUNT_TYPEPARENT="type_parent";
+	public static final String ATT_ACCOUNT_VIADOMICILE="via_domicile";
+	public static final String ATT_ACCOUNT_VIARESIDENCE="via_residence";
+	
 
 
 
