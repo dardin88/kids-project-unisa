@@ -73,7 +73,7 @@ public final class DBNames {
 	public static final String ATT_ACCOUNT_FAX="fax";
 	public static final String ATT_ACCOUNT_ID="id";
 	public static final String ATT_ACCOUNT_INCOME="income";
-	public static final String ATT_ACCOUNT_MANUCIPALITYDOMICILIE="municipality_domicilie";
+	public static final String ATT_ACCOUNT_MUNICIPALITYDOMICILIE="municipality_domicilie";
 	public static final String ATT_ACCOUNT_MUNICIPALITYRESIDENCE="municipality_residence";
 	public static final String ATT_ACCOUNT_NAMEUSER="name_user";
 	public static final String ATT_ACCOUNT_NICKNAME="nickname";
@@ -102,8 +102,12 @@ public final class DBNames {
 	public static final String ATT_TRAINEEACTIVITY_DELEGATEACCOUNT="delegate_account";
 	
 
-
-
+	// Recourses's attributes
+	private static final String ATT_RECOURSE_ID="id";
+	private static final String ATT_RECOURSE_DATA="data";
+	private static final String ATT_RECOURSE_REASON="reason";
+	private static final String ATT_RECOURSE_VALUTATION="valutation";
+	private static final String ATT_RECOURSE_IDREGISTRATION="id_registration";
 
 
 
