@@ -230,7 +230,7 @@ public class Account {
 		return citizenship;
 	}
 	
-	public String getMunicalityResidence() {
+	public String getMunicipalityResidence() {
 		return municipalityResidence;
 	}
 	
