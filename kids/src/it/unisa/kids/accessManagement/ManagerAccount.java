@@ -1,8 +1,12 @@
 package it.unisa.kids.accessManagement;
 
+import it.unisa.kids.common.DBNames;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import com.sun.org.glassfish.external.arc.Taxonomy;
 
 public class ManagerAccount {
 
@@ -25,7 +29,7 @@ public class ManagerAccount {
 		/*generation of nickname */
 		while(true){
 			nickname= account.getNameUser()+account.getSurnameUser();
-			query="Select nameUser From name_table Where nameUser='"+account.getNameUser()+"'";
+			query="Select"+DBNames.ATT_ACCOUNT_NAMEUSER+"From"+DBNames.TABLE_ACCOUNT+"Where nameUser='"+account.getNameUser()+"'";
 			if(query!=null)
 				nickname=nickname+i;
 			else 
@@ -35,7 +39,7 @@ public class ManagerAccount {
 		/*generation of password*/
 		String password=getPWD();
 		
-		 query="Insert into 'table_name'(nickname,RegistrationDate,capDomicilie,capResidence,cellularNumber,citizenship,taxCode,surnameUser,municipalityDomicilie,dateOfBirth,contractExpirationDate,email,faculty,fax,placeOfBirth,nickName,nameUser,streetNumberDomicilie,streetNumberResidence,password,provinceDomicilie,provinceResidence,income,municipalityResidence,familySituation,telephoneNumber,typeAccount,typeParent,qualification,viaDomicilie,viaResidence) values("+nickname+","+account.getRegistrationDate()+","+account.getCapDomicilie()+","+account.getCapResidence()+","+account.getCellularNumber()+","+account.getCitizenship()+","+account.getTaxCode()+","+account.getSurnameUser()+","+account.getMunicalityResidence()+","+account.getDataOfBirth()+","+account.getContractExpirationDate()+","+account.getEmail()+","+account.getFaculty()+","+account.getFax()+","+account.getPlaceOFBirth()+","+nickname+","+account.getNameUser()+","+account.getStreetNumberDomicilie()+","+account.getStreetNumberResidence()+","+account.getPassword()+","+account.getProvinceDomicilie()+","+account.getProvinceResidence()+","+account.getIncome()+","+account.getMunicalityResidence()+","+account.getFamilySituation()+","+account.getTelephoneNumber()+","+account.getTypeAccount()+","+account.getTypeParent()+","+account.getQualification()+","+account.getViaDomicile()+","+account.getViaResidence()+")";
+		 query="Insert into"+DBNames.TABLE_ACCOUNT+"("+DBNames.ATT_ACCOUNT_NAMEUSER+","+DBNames.ATT_ACCOUNT_REGISTRATIONDATE+","+DBNames.ATT_ACCOUNT_CAPDOMICILIE+","+DBNames.ATT_ACCOUNT_CAPRESIDENCE+","+DBNames.ATT_ACCOUNT_CELLULARNUMBER+","+DBNames.ATT_ACCOUNT_CITIZENSHIP+","+DBNames.ATT_ACCOUNT_TAXCODE+","+DBNames.ATT_ACCOUNT_SURNAMEUSER+","+DBNames.ATT_ACCOUNT_MUNICIPALITYRESIDENCE+","+DBNames.ATT_ACCOUNT_DATEOFBIRTH+","+DBNames.ATT_ACCOUNT_CONTRACTEXPIRATIONDATE+","+DBNames.ATT_ACCOUNT_EMAIL+","+DBNames.ATT_ACCOUNT_FACULTY+","+DBNames.ATT_ACCOUNT_FAX+","+DBNames.ATT_ACCOUNT_PLACEOFBIRTH+","+DBNames.ATT_ACCOUNT_NICKNAME+","+DBNames.ATT_ACCOUNT_NAMEUSER+","+DBNames.ATT_ACCOUNT_STREETNUMBERDOMICILIE+","+DBNames.ATT_ACCOUNT_STREETNUMBERRESIDENCE+","+DBNames.ATT_ACCOUNT_PASSWORD+","+DBNames.ATT_ACCOUNT_PROVINCEDOMICILIE+","+DBNames.ATT_ACCOUNT_PROVINCERESIDENCE+","+DBNames.ATT_ACCOUNT_INCOME+","+DBNames.ATT_ACCOUNT_MUNICIPALITYDOMICILIE+","+DBNames.ATT_ACCOUNT_FAMILYSITUATION+","+DBNames.ATT_ACCOUNT_TELEPHONENUMBER+","+DBNames.ATT_ACCOUNT_TYPEACCOUNT+","+DBNames.ATT_ACCOUNT_TYPEPARENT+","+DBNames.ATT_ACCOUNT_QUALIFICATION+","+DBNames.ATT_ACCOUNT_VIADOMICILE+","+DBNames.ATT_ACCOUNT_VIARESIDENCE+") values("+nickname+","+account.getRegistrationDate()+","+account.getCapDomicilie()+","+account.getCapResidence()+","+account.getCellularNumber()+","+account.getCitizenship()+","+account.getTaxCode()+","+account.getSurnameUser()+","+account.getMunicipalityResidence()+","+account.getDataOfBirth()+","+account.getContractExpirationDate()+","+account.getEmail()+","+account.getFaculty()+","+account.getFax()+","+account.getPlaceOFBirth()+","+nickname+","+account.getNameUser()+","+account.getStreetNumberDomicilie()+","+account.getStreetNumberResidence()+","+account.getPassword()+","+account.getProvinceDomicilie()+","+account.getProvinceResidence()+","+account.getIncome()+","+account.getMunicipalityDomicilie()+","+account.getFamilySituation()+","+account.getTelephoneNumber()+","+account.getTypeAccount()+","+account.getTypeParent()+","+account.getQualification()+","+account.getViaDomicile()+","+account.getViaResidence()+")";
 		
 		  //connection of DB
 		  
@@ -47,7 +51,7 @@ public class ManagerAccount {
 	public Account Modify(Account changedAccount){
 		
 		String query="Update table_name " +
-				"SET RegistrationDate="+changedAccount.getRegistrationDate()+",capDomicilie="+changedAccount.getCapDomicilie()+",capResidence="+changedAccount.getCapResidence()+",cellularNumber="+changedAccount.getCellularNumber()+",citizenship="+changedAccount.getCitizenship()+",taxCode="+changedAccount.getTaxCode()+",surnameUser="+changedAccount.getSurnameUser()+",municipalityResidence="+changedAccount.getMunicalityResidence()+",dateOfBirth="+changedAccount.getDataOfBirth()+",contractExpirationDate="+changedAccount.getContractExpirationDate()+",email="+changedAccount.getEmail()+",faculty="+changedAccount.getFaculty()+",fax="+changedAccount.getFax()+"placeOfBirth="+changedAccount.getPlaceOFBirth()+",nickName="+changedAccount.getNickName()+",nameUser="+changedAccount.getNameUser()+",streetNumberDomicilie="+changedAccount.getStreetNumberDomicilie()+",streetNumberResidence="+changedAccount.getStreetNumberResidence()+",password="+changedAccount.getPassword()+",provinceDomicilie="+changedAccount.getProvinceDomicilie()+",provinceResidence="+changedAccount.getProvinceResidence()+",income="+changedAccount.getIncome()+",municipalityResidence="+changedAccount.getMunicalityResidence()+",familySituation="+changedAccount.getFamilySituation()+",telephoneNumber="+changedAccount.getTelephoneNumber()+",typeAccount="+changedAccount.getTypeAccount()+",typeParent="+changedAccount.getTypeParent()+",qualification="+changedAccount.getQualification()+",viaDomicilie="+changedAccount.getViaDomicile()+",viaResidence="+changedAccount.getViaResidence()+
+				"SET "+DBNames.ATT_ACCOUNT_REGISTRATIONDATE+"="+changedAccount.getRegistrationDate()+","+DBNames.ATT_ACCOUNT_CAPDOMICILIE+"="+changedAccount.getCapDomicilie()+","+DBNames.ATT_ACCOUNT_CAPRESIDENCE+"="+changedAccount.getCapResidence()+","+DBNames.ATT_ACCOUNT_CELLULARNUMBER+"="+changedAccount.getCellularNumber()+","+DBNames.ATT_ACCOUNT_CITIZENSHIP+"="+changedAccount.getCitizenship()+","+DBNames.ATT_ACCOUNT_TAXCODE+"="+changedAccount.getTaxCode()+","+DBNames.ATT_ACCOUNT_SURNAMEUSER+"="+changedAccount.getSurnameUser()+","+DBNames.ATT_ACCOUNT_MUNICIPALITYRESIDENCE+"="+changedAccount.getMunicipalityResidence()+","+DBNames.ATT_ACCOUNT_DATEOFBIRTH+"="+changedAccount.getDataOfBirth()+","+DBNames.ATT_ACCOUNT_CONTRACTEXPIRATIONDATE+"="+changedAccount.getContractExpirationDate()+","+DBNames.ATT_ACCOUNT_EMAIL+"="+changedAccount.getEmail()+","+DBNames.ATT_ACCOUNT_FACULTY+"="+changedAccount.getFaculty()+","+DBNames.ATT_ACCOUNT_FAX+"="+changedAccount.getFax()+""+DBNames.ATT_ACCOUNT_PLACEOFBIRTH+"="+changedAccount.getPlaceOFBirth()+","+DBNames.ATT_ACCOUNT_NICKNAME+"="+changedAccount.getNickName()+","+DBNames.ATT_ACCOUNT_NAMEUSER+"="+changedAccount.getNameUser()+","+DBNames.ATT_ACCOUNT_STREETNUMBERDOMICILIE+"="+changedAccount.getStreetNumberDomicilie()+","+DBNames.ATT_ACCOUNT_STREETNUMBERRESIDENCE+"="+changedAccount.getStreetNumberResidence()+","+DBNames.ATT_ACCOUNT_PASSWORD+"="+changedAccount.getPassword()+","+DBNames.ATT_ACCOUNT_PROVINCEDOMICILIE+"="+changedAccount.getProvinceDomicilie()+","+DBNames.ATT_ACCOUNT_PROVINCERESIDENCE+"="+changedAccount.getProvinceResidence()+","+DBNames.ATT_ACCOUNT_INCOME+"="+changedAccount.getIncome()+","+DBNames.ATT_ACCOUNT_MUNICIPALITYDOMICILIE+"="+changedAccount.getMunicipalityDomicilie()+","+DBNames.ATT_ACCOUNT_FAMILYSITUATION+"="+changedAccount.getFamilySituation()+","+DBNames.ATT_ACCOUNT_TELEPHONENUMBER+"="+changedAccount.getTelephoneNumber()+","+DBNames.ATT_ACCOUNT_TYPEACCOUNT+"="+changedAccount.getTypeAccount()+","+DBNames.ATT_ACCOUNT_TYPEPARENT+"="+changedAccount.getTypeParent()+","+DBNames.ATT_ACCOUNT_QUALIFICATION+"="+changedAccount.getQualification()+","+DBNames.ATT_ACCOUNT_VIADOMICILE+"="+changedAccount.getViaDomicile()+","+DBNames.ATT_ACCOUNT_VIARESIDENCE+"="+changedAccount.getViaResidence()+
 				"WHERE id="+changedAccount.getId(); //dubbi sulla query
 		
 		  //connection of DB
@@ -60,21 +64,21 @@ public class ManagerAccount {
 	
 	public Account Delete(Account deletedAccount){
 		
-		String query2="Delete From name_table Where id='"+deletedAccount.getId()+"'";
+		String query2="Delete From "+DBNames.TABLE_ACCOUNT+" Where "+DBNames.ATT_ACCOUNT_ID+"='"+deletedAccount.getId()+"'";
 		return deletedAccount;
 	}
 	
 	public ArrayList<Account> Search(Account account){
 		ArrayList<Account> listAccount=new ArrayList<Account>();		
-		  String query="SELECT * FROM name_table WHERE ";				//change table_name 		  
+		  String query="SELECT * FROM "+DBNames.TABLE_ACCOUNT+" WHERE ";				//change table_name 		  
 		  if (account.getNickName()!=null)
-			  query=query+"nickName='"+account.getNickName()+"'";
+			  query=query+""+DBNames.ATT_ACCOUNT_NICKNAME+"='"+account.getNickName()+"'";
 		  if (account.getNameUser()!=null)
-			  query=query+"nameUser='"+account.getNameUser()+"'";
+			  query=query+""+DBNames.ATT_ACCOUNT_NAMEUSER+"='"+account.getNameUser()+"'";
 		  if (account.getSurnameUser()!=null)
-			  query=query+"surnameUser='"+account.getSurnameUser()+"'";
+			  query=query+""+DBNames.ATT_ACCOUNT_SURNAMEUSER+"='"+account.getSurnameUser()+"'";
 		  if (account.getTypeAccount()!=null)
-			  query=query+"typeAccount='"+account.getTypeAccount()+"'";
+			  query=query+""+DBNames.ATT_ACCOUNT_TYPEACCOUNT+"='"+account.getTypeAccount()+"'";
 		  
 		  //connection of DB
 		  
