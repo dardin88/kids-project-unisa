@@ -9,7 +9,7 @@ public final class DBNames {
 	public static final String TABLE_ACCOUNT = "account";
 	public static final String TABLE_RECOURSE = "recourse";
 	public static final String TABLE_RINUNCIA = "";		// da completare/definire
-	public static final String TABLE_CLASSIFICATION = "classification";
+	public static final String TABLE_CLASSIFICATION = "Graduatoria";
 	public static final String TABLE_CLASS = "class";
 	public static final String TABLE_CHILD = "child_inscription";
 	public static final String TABLE_ESITO = "";		// da completare/definire
