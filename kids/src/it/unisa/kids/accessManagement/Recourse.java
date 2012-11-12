@@ -1,24 +1,24 @@
 package it.unisa.kids.accessManagement;
 
 public class Recourse {
-	private String id;
+	private int id;
 	private String data;
 	private String reason;
 	private String valutation;
-	private String id_registration;
+	private int id_registration;
 
-	public void setId_iscrizione(String id_iscrizione) {
-		this.id_registration = id_iscrizione;
+	public void setId_registration(int id_registration) {
+		this.id_registration = id_registration;
 	}
 
-	public String getId_iscrizione() {
+	public int getId_registration() {
 		return id_registration;
 	}
 
 	public Recourse() {
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
@@ -34,7 +34,7 @@ public class Recourse {
 		return valutation;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
