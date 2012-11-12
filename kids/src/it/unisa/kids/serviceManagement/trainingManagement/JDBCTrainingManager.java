@@ -15,17 +15,21 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-public class TrainingManager {
-	private static TrainingManager manager;
-	public TrainingManager(){
+public class JDBCTrainingManager implements ITrainingManager {
+	private static ITrainingManager manager;
+	public JDBCTrainingManager(){
 
 	}
-	public static TrainingManager getInstance(){
+	public static ITrainingManager getInstance(){
 		if(manager==null){
-			manager=new TrainingManager();
+			manager=new JDBCTrainingManager();
 		}
 		return manager;
 	}
+	/* (non-Javadoc)
+	 * @see it.unisa.kids.serviceManagement.trainingManagement.ITrainingManager#insertTrainee(it.unisa.kids.serviceManagement.trainingManagement.Trainee)
+	 */
+	@Override
 	public void insertTrainee(Trainee pTrainee) throws SQLException{
 		Connection con = null;
 		PreparedStatement pStmt=null;
@@ -65,15 +69,24 @@ public class TrainingManager {
 			pStmt.setString(9, pTrainee.getCap());
 			pStmt.setInt(10, pTrainee.getDelegate().getId());
 			pStmt.executeUpdate();
+			
 		} 
 		finally{
 			pStmt.close();
 			DBConnectionPool.releaseConnection(con);
 		}
 	}
+	/* (non-Javadoc)
+	 * @see it.unisa.kids.serviceManagement.trainingManagement.ITrainingManager#update(it.unisa.kids.serviceManagement.trainingManagement.Trainee)
+	 */
+	@Override
 	public void update(Trainee pTrainee){
 
 	}
+	/* (non-Javadoc)
+	 * @see it.unisa.kids.serviceManagement.trainingManagement.ITrainingManager#deleteTrainee(it.unisa.kids.serviceManagement.trainingManagement.Trainee)
+	 */
+	@Override
 	public void deleteTrainee(Trainee pTrainee) throws SQLException{
 		Connection con = null;
 		Statement stmt=null;
@@ -90,7 +103,11 @@ public class TrainingManager {
 		}
 
 	}
-	public ArrayList<Trainee> getTrainees(Trainee pTrainee) throws SQLException, MandatoryFieldException{
+	/* (non-Javadoc)
+	 * @see it.unisa.kids.serviceManagement.trainingManagement.ITrainingManager#getTrainees(it.unisa.kids.serviceManagement.trainingManagement.Trainee)
+	 */
+	@Override
+	public ArrayList<Trainee> getTrainees(Trainee pTrainee) throws SQLException{
 		Connection con = null;
 		Statement stmt=null;
 		ResultSet rsTrainee=null;
@@ -151,6 +168,10 @@ public class TrainingManager {
 		return traineeList;
 	}
 	
+	/* (non-Javadoc)
+	 * @see it.unisa.kids.serviceManagement.trainingManagement.ITrainingManager#insertActivity(it.unisa.kids.serviceManagement.trainingManagement.TraineeActivity)
+	 */
+	@Override
 	public void insertActivity(TraineeActivity pTraineeActivity) throws SQLException{
 		Connection con = null;
 		Statement stmt=null;
@@ -186,6 +207,10 @@ public class TrainingManager {
 			DBConnectionPool.releaseConnection(con);
 		}
 	}
+	/* (non-Javadoc)
+	 * @see it.unisa.kids.serviceManagement.trainingManagement.ITrainingManager#deleteActivity(it.unisa.kids.serviceManagement.trainingManagement.TraineeActivity)
+	 */
+	@Override
 	public void deleteActivity(TraineeActivity pTraineeActivity) throws SQLException{
 		Connection con = null;
 		Statement stmt=null;
