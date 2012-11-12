@@ -1,6 +1,7 @@
 package it.unisa.kids.serviceManagement.trainingManagement;
 
 import it.unisa.kids.accessManagement.Account;
+import it.unisa.kids.accessManagement.ManagerAccount;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.exception.MandatoryFieldException;
 import it.unisa.storage.connectionPool.DBConnectionPool;
@@ -18,7 +19,7 @@ public class TraineeManager {
 	public TraineeManager(){
 
 	}
-	public TraineeManager getInstance(){
+	public static TraineeManager getInstance(){
 		if(manager==null){
 			manager=new TraineeManager();
 		}
@@ -87,8 +88,6 @@ public class TraineeManager {
 
 	}
 	public ArrayList<Trainee> getTrainees(Trainee pTrainee) throws SQLException, MandatoryFieldException{
-		if(pTrainee.getName()==null && pTrainee.getSurname()==null)
-			throw new MandatoryFieldException("insert name ,surname or both ");
 		Connection con = null;
 		Statement stmt=null;
 		ResultSet rsTrainee=null;
@@ -120,8 +119,24 @@ public class TraineeManager {
 				GregorianCalendar birthDate=new GregorianCalendar();
 				birthDate.setTime(date);
 				int delegateId=rsTrainee.getInt(DBNames.ATT_TRAINEE_DELEGATEACCOUNT);
-				Account delegate=getDelegate(delegateId);
-				Trainee trainee=new Trainee(register, name, surname, email, address, birthCity, cityOfResidence, cap, birthDate, delegate);
+				String telephoneNumber=rsTrainee.getString(DBNames.ATT_TRAINEE_TELEPHONENUMBER);
+				ManagerAccount managerAccount=ManagerAccount.getInstance();
+				Account delegate=new Account();
+				delegate.setId(delegateId);
+				ArrayList<Account> listDelegate=managerAccount.Search(delegate);
+				delegate=listDelegate.get(0);
+				Trainee trainee=new Trainee();
+				trainee.setName(name);
+				trainee.setSurname(surname);
+				trainee.setRegister(register);
+				trainee.setEmail(email);
+				trainee.setAddress(address);
+				trainee.setBirthCity(birthCity);
+				trainee.setCityOfResidence(cityOfResidence);
+				trainee.setCap(cap);
+				trainee.setBirthDate(birthDate);
+				trainee.setDelegate(delegate);
+				trainee.setTelephoneNumber(telephoneNumber);
 				traineeList.add(trainee);
 			}
 		}
@@ -132,18 +147,12 @@ public class TraineeManager {
 		}
 		return traineeList;
 	}
-	private Account getDelegate(int pId) throws SQLException{
-		Connection con = null;
-		Statement stmt=null;
-		con=DBConnectionPool.getConnection();
-		String query="SELECT *FROM "+DBNames.TABLE_ACCOUNT+"WHERE "+DBNames.ATT_ACCOUNT_ID+"'="+pId+"'";
-		stmt=con.createStatement();
-		ResultSet rsDelegate=stmt.executeQuery(query);
-		rsDelegate=stmt.executeQuery(query);
-		
-		
-		
+	
+	public void insertActivity(TraineeActivity pTraineeActivity){
 		
 	}
+	
+	
+	
 }
 

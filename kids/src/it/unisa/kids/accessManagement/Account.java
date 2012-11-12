@@ -2,7 +2,7 @@ package it.unisa.kids.accessManagement;
 
 public class Account {
 
-	private String id;
+	private int id;
 	private String nickName;
 	private String password;
 	private String nameUser;
@@ -39,7 +39,7 @@ public class Account {
 	}
 
 	
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -194,7 +194,7 @@ public class Account {
 	}
 
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 	

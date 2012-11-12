@@ -11,7 +11,7 @@ public class ManagerAccount {
 	private ManagerAccount(){
 	}
 	
-	public ManagerAccount getInstance(){
+	public static ManagerAccount getInstance(){
 		if (manager!=null)
 			return manager;
 		else
