@@ -1,16 +1,21 @@
 package it.unisa.kids.serviceManagement.trainingManagement;
 
 import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.exception.MandatoryFieldException;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 public class TraineeManager {
 	private static TraineeManager manager;
 	public TraineeManager(){
-		
+
 	}
 	public TraineeManager getInstance(){
 		if(manager==null){
@@ -41,7 +46,7 @@ public class TraineeManager {
 					+pTrainee.getName()+","
 					+pTrainee.getSurname()+","
 					+pTrainee.getEmail()+","
-					+pTrainee.getBirthDate()+","
+					+new Date(pTrainee.getBirthDate().getTimeInMillis())+","
 					+pTrainee.getBirthCity()+","
 					+pTrainee.getCityOfResidence()+","
 					+pTrainee.getAddress()+","
@@ -62,22 +67,69 @@ public class TraineeManager {
 		}
 	}
 	public void update(Trainee pTrainee){
-		
+
 	}
-	public void delete(Trainee pTrainee) throws SQLException{
+	public void deleteTrainee(Trainee pTrainee) throws SQLException{
 		Connection con = null;
 		Statement stmt=null;
-		String query1;
+		String query;
 		try{
 			con=DBConnectionPool.getConnection();
-			query1="DEELETE FROM"+DBNames.TABLE_TRAINEE+"WHERE register='"+pTrainee.getRegister()+"'";
+			query="DEELETE FROM"+DBNames.TABLE_TRAINEE+"WHERE "+DBNames.ATT_TRAINEE_REGISTER+"='"+pTrainee.getRegister()+"'";
 			stmt=con.createStatement();
-			stmt.executeQuery(query1);
+			stmt.executeQuery(query);
 		}
 		finally{
 			stmt.close();
 			DBConnectionPool.releaseConnection(con);
 		}
-		
+
+	}
+	public ArrayList<Trainee> getTrainees(Trainee pTrainee){
+		if(pTrainee.getName()==null && pTrainee.getSurname()==null)
+			throw new MandatoryFieldException("insert name ,surname or both ");
+		Connection con = null;
+		Statement stmt=null;
+		ResultSet rs=null;
+		ArrayList<Trainee> traineeList=new ArrayList<Trainee>();
+		String query1,query2;
+		try{
+			con=DBConnectionPool.getConnection();
+			query1="SELECT * FROM"+DBNames.TABLE_TRAINEE+"WHERE ";
+			if(pTrainee.getName()!=null && pTrainee.getSurname()!=null)
+				query1+=DBNames.ATT_TRAINEE_NAME+"='"+pTrainee.getName()+"' AND"
+						+DBNames.ATT_TRAINEE_SURNAME+"='"+pTrainee.getSurname()+"'";
+			else if(pTrainee.getName()!=null && pTrainee.getSurname()==null)
+				query1+=DBNames.ATT_TRAINEE_NAME+"='"+pTrainee.getName()+"' ";
+			else
+				query1+=DBNames.ATT_TRAINEE_SURNAME+"='"+pTrainee.getSurname()+"'";
+			stmt=con.createStatement();
+			rs=stmt.executeQuery(query1);
+			while(rs.next()){
+				String name=rs.getString(DBNames.ATT_TRAINEE_NAME);
+				String surname=rs.getString(DBNames.ATT_TRAINEE_SURNAME);
+				String register=rs.getString(DBNames.ATT_TRAINEE_REGISTER);
+				String email=rs.getString(DBNames.ATT_TRAINEE_EMAIL);
+				String address=rs.getString(DBNames.ATT_TRAINEE_ADDRESS);
+				String birthCity=rs.getString(DBNames.ATT_TRAINEE_BIRTHCITY);
+				String cityOfResidence=rs.getString(DBNames.ATT_TRAINEE_CITYOFRESIDENCE);
+				String cap=rs.getString(DBNames.ATT_TRAINEE_CAP);
+				Date birthDateSQL=rs.getDate(DBNames.ATT_TRAINEE_BIRTHDATE);
+				java.util.Date date=new java.util.Date(birthDateSQL.getTime());
+				GregorianCalendar birthDate=new GregorianCalendar();
+				birthDate.setTime(date);
+				int delegate=rs.getInt(DBNames.ATT_TRAINEE_DELEGATEACCOUNT);
+				query2="SELECT *FROM "+DBNames.TABLE_ACCOUNT;//da completare con i dati del delegato 
+				Trainee trainee=new Trainee(register, name, surname, email, address, birthCity, cityOfResidence, cap, birthDate, delegate);
+				traineeList.add(trainee);
+			}
+		}
+		finally{
+			stmt.close();
+			DBConnectionPool.releaseConnection(con);
+
+		}
+		return traineeList;
 	}
 }
+

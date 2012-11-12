@@ -59,4 +59,19 @@ public final class DBNames {
 	public static final String ATT_TRAINEE_CAP="cap";
 	public static final String ATT_TRAINEE_TELEPHONENUMBER="telephone_number";
 	public static final String ATT_TRAINEE_DELEGATEACCOUNT="delegate_account";
+	
+	//Account's attributes
+	public static final String ATT_ACCOUNT_CAPDOMICILIE="cap_domicilie";
+	public static final String ATT_ACCOUNT_CAPRESIDENCE="cap_residence";
+	public static final String ATT_ACCOUNT_CELLULARNUMBER="cellular_number";
+	public static final String ATT_ACCOUNT_CITIZENSHIP="citizenship";
+	public static final String ATT_ACCOUNT_CONTRACTEXPIRATIONDATE="contract_expiration_date";
+	public static final String ATT_ACCOUNT_DATEOFBIRTH="date_of_birth";
+	public static final String ATT_ACCOUNT_EMAIL="email";
+
+
+
+
+
+
 }

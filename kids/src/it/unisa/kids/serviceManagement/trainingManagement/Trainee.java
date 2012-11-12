@@ -37,13 +37,13 @@ public class Trainee {
 	 * @param GregorianCalendar pBirthDate
 	 * @param Account pDelegate
 	 */
-	public Trainee(String pRegister,String pName,String pSurname,String pEmail,String pAddress,String pBirtCity,String pCityOfResidence,String pCap,GregorianCalendar pBirthDate,Account delegate){
+	public Trainee(String pRegister,String pName,String pSurname,String pEmail,String pAddress,String pBirthCity,String pCityOfResidence,String pCap,GregorianCalendar pBirthDate,Account delegate){
 		this.register=pRegister;
 		this.name=pName;
 		this.surname=pSurname;
 		this.email=pEmail;
 		this.address=pAddress;
-		this.birthCity=pBirtCity;
+		this.birthCity=pBirthCity;
 		this.cityOfResidence=pCityOfResidence;
 		this.cap=pCap;
 		this.birthDate=pBirthDate;
