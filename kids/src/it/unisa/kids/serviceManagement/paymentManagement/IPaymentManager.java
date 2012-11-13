@@ -9,6 +9,6 @@ public interface IPaymentManager {
 	public void update(Payment pPayment) throws SQLException;
 	public void delete(Payment pPayment) throws SQLException;
 	
-	public List<Payment> getPaymentsByObject(Payment pObjectPayment) throws SQLException;
+	public List<Payment> getPaymentsByObject(Payment pPayment) throws SQLException;
 	public List<Payment> getPaymentList() throws SQLException;
 }
