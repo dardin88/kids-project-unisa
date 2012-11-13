@@ -1,5 +1,11 @@
 package it.unisa.kids.accessManagement;
 
+import it.unisa.storage.connectionPool.DBConnectionPool;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,33 +27,54 @@ public class ChildRegistrationManager {
 	    return manager;
 	  }
 	  
-	  public ChildRegistration create(ChildRegistration aChildReg)
+	  public ChildRegistration create(ChildRegistration aChildReg) throws SQLException
 	  {
+		  Connection con = null;
+		  Statement stmt=null;
 		  String query="INSERT INTO 'iscrizionebambino' (Id, Cognome, Nome, DataNascita, ComuneNascita, CodiceFiscale, Cittadinanza, FasciaUtenza, DataIscrizione, Malattia, FaseDellIscrizione) VALUES"+		//anche accountgenitore e classe? (nell'SDD non c'erano come campi il motivo è perchè sono chiavi esterne?) l'id deve essere inserito manualmente?
 				  					"('"+aChildReg.getRegistrationId()+"', '"+aChildReg.getSurname()+"', '"+aChildReg.getName()+"', '"+aChildReg.getBornDate()+"', '"+aChildReg.getCommuneBorn()+"', '"+aChildReg.getFiscalCode()+"', " +
 				  					 "'"+aChildReg.getCitizenship()+"', '"+aChildReg.getUserSection()+/* da implementare*/"', '"+aChildReg.getRegistrationDate()+"', '"+aChildReg.getSickness()+"', '"+aChildReg.getFaseIscrizione()/*da implementare*/+"' );"; 			
 		 
-		  //connessione al db
-		  
-		  //esecuzione della query
+		  try
+		  {
+			  con=DBConnectionPool.getConnection();
+			  stmt = con.createStatement();
+			  stmt.executeUpdate(query);
+		  }
+		  finally{
+			  stmt.close();
+			  DBConnectionPool.releaseConnection(con);
+		  }	
 		  
 		  return aChildReg;
 	  }
 	  
-	  public ChildRegistration delete(ChildRegistration aChildReg)
+	  public ChildRegistration delete(ChildRegistration aChildReg) throws SQLException
 	  {
+		  Connection con = null;
+		  Statement stmt=null;
 		  String query="DELETE FROM 'iscrizioneBambino' WHERE 'Id'='"+aChildReg.getRegistrationId()+"';";
 		  
-		  //connessione al db
-		  
-		  //esecuzione della query
+		  try
+		  {
+			  con=DBConnectionPool.getConnection();
+			  stmt = con.createStatement();
+			  stmt.executeUpdate(query);
+		  }
+		  finally{
+			  stmt.close();
+			  DBConnectionPool.releaseConnection(con);
+		  }	
 		  
 		  return aChildReg;
 	  }
 	  
 	  
-	  public List<ChildRegistration> search(ChildRegistration aChildReg)
+	  public List<ChildRegistration> search(ChildRegistration aChildReg) throws SQLException
 	  {
+		  Connection con = null;
+		  Statement stmt=null;
+		  ResultSet result=null;
 		  List<ChildRegistration> listOfChildReg=new ArrayList<ChildRegistration>();		//deve essere riempito con il risultato della query
 		  String query="SELECT * FROM 'iscrizionebambino' WHERE ";				
 		  
@@ -75,28 +102,43 @@ public class ChildRegistrationManager {
 		  query=query+";";
 		  		  
 		  
-		  //connessione al db
-		  
-		  //esecuzione della query		
-		  
-		  //elaborazione del risultato
+		  try
+		  {
+			  con=DBConnectionPool.getConnection();
+			  stmt = con.createStatement();
+			  result=stmt.executeQuery(query);
+			  
+			  //organizza il risultato
+		  }
+		  finally{
+			  stmt.close();
+			  DBConnectionPool.releaseConnection(con);
+		  }
 		  
 		  return listOfChildReg;
 	  }
 	  
-	  public ChildRegistration modify(ChildRegistration aChildReg){
-			
+	  public ChildRegistration modify(ChildRegistration aChildReg) throws SQLException
+	  {
+		  	Connection con = null;
+		  	Statement stmt=null;
 			String query="UPDATE 'iscrizionebambino' " + //l'id deve essere modificato manualmente?
 					"SET (Id, Cognome, Nome, DataNascita, ComuneNascita, CodiceFiscale, Cittadinanza, FasciaUtenza, DataIscrizione, Malattia, FaseDellIscrizione) VALUES"+//			anche accountgenitore e classe? 
 					"('"+aChildReg.getRegistrationId()+"', '"+aChildReg.getSurname()+"', '"+aChildReg.getName()+"', '"+aChildReg.getBornDate()+"', '"+aChildReg.getCommuneBorn()+"', '"+aChildReg.getFiscalCode()+"', " +
  					 "'"+aChildReg.getCitizenship()+"', '"+aChildReg.getUserSection()+/* da implementare*/"', '"+aChildReg.getRegistrationDate()+"', '"+aChildReg.getSickness()+"', '"+aChildReg.getFaseIscrizione()/*da implementare*/+"' )"+ 
 					"WHERE 'Id'="+aChildReg.getRegistrationId()+";"; 
 			
-			 //connessione al db
-			  
-			 //esecuzione della query	
+			try
+			{
+				  con=DBConnectionPool.getConnection();
+				  stmt = con.createStatement();
+				  stmt.executeUpdate(query);
+			}
+			finally{
+				  stmt.close();
+				  DBConnectionPool.releaseConnection(con);
+			}	
 			
-			return aChildReg;
+			 return aChildReg;
 		}
-
 }
