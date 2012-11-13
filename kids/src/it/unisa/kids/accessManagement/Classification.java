@@ -4,23 +4,23 @@ import java.util.GregorianCalendar;
 
 public class Classification 
 {
-	private String id;
+	private int id;
 	private GregorianCalendar date;
 	private GregorianCalendar dateTerm;
 
-	public Classification(String id,GregorianCalendar date,GregorianCalendar dateTerm) 
+	public Classification(int id,GregorianCalendar date,GregorianCalendar dateTerm) 
 	{
 		this.id=id;
 		this.date=date;
 		this.dateTerm=dateTerm;
 	}
 
-	public String getId()
+	public int getId()
 	{
 		return id;
 	}
 
-	public void setId(String id) 
+	public void setId(int id) 
 	{
 		this.id = id;
 	}
