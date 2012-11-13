@@ -1,5 +1,11 @@
 package it.unisa.kids.accessManagement;
 
+import it.unisa.storage.connectionPool.DBConnectionPool;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,32 +27,53 @@ public class ClassManager {
 	    return manager;
 	  }
 	  
-	  public Class create(Class aClass)
+	  public Class create(Class aClass) throws SQLException
 	  {
+		  Connection con = null;
+		  Statement stmt=null;
 		  String query="INSERT INTO 'classe' ('Nome', 'Id') VALUES ('"+aClass.getClassName()+"', '"+aClass.getIdClasse()+"');"; 			//come inserire educatori e bambini, l'id deve essere inserito manualmente?
 		  
-		  //connessione al db
-		  
-		  //esecuzione della query
+		  try
+		  {
+			  con=DBConnectionPool.getConnection();
+			  stmt = con.createStatement();
+			  stmt.executeUpdate(query);
+		  }
+		  finally{
+			  stmt.close();
+			  DBConnectionPool.releaseConnection(con);
+		  }	
 		  
 		  return aClass;
 	  }
 	  
-	  public Class delete(Class aClass)
+	  public Class delete(Class aClass) throws SQLException
 	  {
+		  Connection con = null;
+		  Statement stmt=null;
 		  String query="DELETE FROM 'classe' WHERE 'Id'='"+aClass.getIdClasse()+"'";	
 		  
 		  
-		  //connessione al db
-		  
-		  //esecuzione della query
+		  try
+		  {
+			  con=DBConnectionPool.getConnection();
+			  stmt = con.createStatement();
+			  stmt.executeUpdate(query);
+		  }
+		  finally{
+			  stmt.close();
+			  DBConnectionPool.releaseConnection(con);
+		  }	
 		  
 		  return aClass;
 	  }
 	  
 	  
-	  public List<Class> search(Class aClass)
+	  public List<Class> search(Class aClass) throws SQLException
 	  {
+		  Connection con = null;
+		  Statement stmt=null;
+		  ResultSet result=null;
 		  List<Class> listOfClass=new ArrayList<Class>();		//deve essere riempito con il risultato della query
 		  String query="SELECT * FROM 'classe' WHERE ";			
 		  
@@ -57,25 +84,41 @@ public class ClassManager {
 		  
 		  query=query+";";
 		  
-		  //connessione al db
-		  
-		  //esecuzione della query		
-		  
-		  //elaborazione del risultato
+		  try
+		  {
+			  con=DBConnectionPool.getConnection();
+			  stmt = con.createStatement();
+			  result=stmt.executeQuery(query);
+			  
+			  //organizza il risultato
+		  }
+		  finally{
+			  stmt.close();
+			  DBConnectionPool.releaseConnection(con);
+		  }
 		  
 		  return listOfClass;
 	  }
 	  
-	  public Class modify(Class aClass){
-			
-			String query="UPDATE 'classe' " +
+	  public Class modify(Class aClass) throws SQLException
+	  {
+		  Connection con = null;
+		  Statement stmt=null;
+		  String query="UPDATE 'classe' " +
 					"SET 'Nome'="+aClass.getClassName()+	//l'id non deve essere toccato giusto?
 					"WHERE 'Id'="+aClass.getIdClasse(); 
 			
-			 //connessione al db
-			  
-			 //esecuzione della query	
-			
-			return aClass;
+		  try
+		  {
+			  con=DBConnectionPool.getConnection();
+			  stmt = con.createStatement();
+			  stmt.executeUpdate(query);
+		  }
+		  finally{
+			  stmt.close();
+			  DBConnectionPool.releaseConnection(con);
+		  }
+		  
+		  return aClass;
 	  }
 }
