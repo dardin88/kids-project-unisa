@@ -1,7 +1,6 @@
 package it.unisa.kids.serviceManagement.paymentManagement;
 
 import it.unisa.kids.common.DBNames;
-import it.unisa.kids.common.exception.MandatoryFieldException;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 
 import java.sql.Connection;
@@ -25,7 +24,7 @@ public class JDBCPaymentManager implements IPaymentManager {
 	}
 	// end of Singleton Design Pattern's implementation
 	
-	public synchronized void insert(Payment pPayment) throws SQLException, MandatoryFieldException {
+	public synchronized void insert(Payment pPayment) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String query1;
@@ -94,8 +93,53 @@ public class JDBCPaymentManager implements IPaymentManager {
 		}
 	}
 	
-	public synchronized void update(Payment pPayment) {
+	public synchronized void update(Payment pPayment) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String query = null;
 		
+		try {
+			con = DBConnectionPool.getConnection();
+			
+			// constructing query string
+			query = "UPDATE " + DBNames.TABLE_PAYMENT + " SET "
+					+ DBNames.ATT_PAYMENT_EXPDATE + " = ?, "
+					+ DBNames.ATT_PAYMENT_CHARGE + " = ?, "
+					+ DBNames.ATT_PAYMENT_DESCRIPTION + " = ?, "
+					+ DBNames.ATT_PAYMENT_AMOUNT + " = ?, "
+					+ DBNames.ATT_PAYMENT_AMOUNTDUE + " = ?, "
+					+ DBNames.ATT_PAYMENT_PAID + " = ?, "
+					+ DBNames.ATT_PAYMENT_DISCOUNT + " = ?, "
+					+ DBNames.ATT_PAYMENT_DISCDESCRIPTION + " = ?, "
+					+ DBNames.ATT_PAYMENT_ORIGINACCOUNT + " = ?, "
+					+ DBNames.ATT_PAYMENT_PAYEE + " = ?, "
+					+ DBNames.ATT_PAYMENT_PARENTID + " = ? "
+					+ "WHERE " + DBNames.ATT_PAYMENT_ID + " = ?";
+			
+			pstmt = con.prepareStatement(query);
+			
+			// setting pstmt's parameters
+			pstmt.setDate(1, new java.sql.Date(pPayment.getExpDate().getTimeInMillis()));
+			pstmt.setBoolean(2, pPayment.isCharge());
+			pstmt.setString(3, pPayment.getPaymentDescription());
+			pstmt.setDouble(4, pPayment.getAmount());
+			pstmt.setDouble(5, pPayment.getAmountDue());
+			pstmt.setBoolean(6, pPayment.isPaid());
+			pstmt.setString(7, pPayment.getDiscount());
+			pstmt.setString(8, pPayment.getDiscountDescription());
+			pstmt.setString(9, pPayment.getOriginAccount());
+			pstmt.setString(10, pPayment.getPayee());
+			pstmt.setInt(11, pPayment.getParentId());
+			pstmt.setInt(12, pPayment.getId());
+			
+			pstmt.executeUpdate();
+			con.commit();
+		} finally {
+			if (pstmt != null)
+				pstmt.close();
+			if (con != null)
+				DBConnectionPool.releaseConnection(con);
+		}
 	}
 	
 	public synchronized void delete(Payment pPayment) {
