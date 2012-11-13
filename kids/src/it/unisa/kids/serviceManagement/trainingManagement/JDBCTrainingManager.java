@@ -17,7 +17,7 @@ import java.util.GregorianCalendar;
 
 public class JDBCTrainingManager implements ITrainingManager {
 	private static ITrainingManager manager;
-	public JDBCTrainingManager(){
+	private JDBCTrainingManager(){
 
 	}
 	public static ITrainingManager getInstance(){
@@ -69,6 +69,8 @@ public class JDBCTrainingManager implements ITrainingManager {
 			pStmt.setString(9, pTrainee.getCap());
 			pStmt.setInt(10, pTrainee.getDelegate().getId());
 			pStmt.executeUpdate();
+			con.commit();
+
 			
 		} 
 		finally{
@@ -125,6 +127,7 @@ public class JDBCTrainingManager implements ITrainingManager {
 				query+=DBNames.ATT_TRAINEE_SURNAME+"='"+pTrainee.getSurname()+"'";
 			stmt=con.createStatement();
 			rsTrainee=stmt.executeQuery(query);
+			con.commit();
 			while(rsTrainee.next()){
 				String name=rsTrainee.getString(DBNames.ATT_TRAINEE_NAME);
 				String surname=rsTrainee.getString(DBNames.ATT_TRAINEE_SURNAME);
@@ -135,7 +138,6 @@ public class JDBCTrainingManager implements ITrainingManager {
 				String cityOfResidence=rsTrainee.getString(DBNames.ATT_TRAINEE_CITYOFRESIDENCE);
 				String cap=rsTrainee.getString(DBNames.ATT_TRAINEE_CAP);
 				Date birthDateSQL=rsTrainee.getDate(DBNames.ATT_TRAINEE_BIRTHDATE);
-				java.util.Date date=new java.util.Date(birthDateSQL.getTime());
 				GregorianCalendar birthDate=new GregorianCalendar();
 				birthDate.setTime(birthDateSQL);
 				int delegateId=rsTrainee.getInt(DBNames.ATT_TRAINEE_DELEGATEACCOUNT);
@@ -174,7 +176,7 @@ public class JDBCTrainingManager implements ITrainingManager {
 	@Override
 	public void insertActivity(TraineeActivity pTraineeActivity) throws SQLException{
 		Connection con = null;
-		Statement stmt=null;
+		PreparedStatement pStmt=null;
 		String query1;
 		String query2;
 		try {
@@ -187,23 +189,24 @@ public class JDBCTrainingManager implements ITrainingManager {
 					+DBNames.ATT_TRAINEEACTIVITY_DELEGATEACCOUNT;
 					
 					
-			query2="VALUES ("
-					+new Date(pTraineeActivity.getDate().getTimeInMillis())+","
-					+pTraineeActivity.getName()+","
-					+pTraineeActivity.getStart()+","
-					+pTraineeActivity.getEnd()+","
-					+pTraineeActivity.getDelegate().getId();
+			query2="VALUES (?,?,?,?,?";
 			if (pTraineeActivity.getDescription() != null) {
-				query1 += ", " + DBNames.ATT_TRAINEEACTIVITY_DESCRIPTION;
-				query2 += ", " + pTraineeActivity.getDescription();
+				query1 += "," + DBNames.ATT_TRAINEEACTIVITY_DESCRIPTION;
+				query2 += ",?" ;
 			}
 			query1+=")";
 			query2+=")";
-			stmt = con.createStatement();
-			stmt.executeUpdate(query1 + query2);
+			pStmt = con.prepareStatement(query1+query2);
+			pStmt.setDate(1,new Date(pTraineeActivity.getDate().getTimeInMillis()));
+			pStmt.setString(2, pTraineeActivity.getName());
+			pStmt.setTime(3,pTraineeActivity.getStart());
+			pStmt.setTime(4,pTraineeActivity.getEnd());
+			pStmt.setInt(5, pTraineeActivity.getDelegate().getId());
+			pStmt.executeUpdate();
+			con.commit();
 		} 
 		finally{
-			stmt.close();
+			pStmt.close();
 			DBConnectionPool.releaseConnection(con);
 		}
 	}
@@ -213,16 +216,20 @@ public class JDBCTrainingManager implements ITrainingManager {
 	@Override
 	public void deleteActivity(TraineeActivity pTraineeActivity) throws SQLException{
 		Connection con = null;
-		Statement stmt=null;
+		PreparedStatement pStmt=null;
 		String query;
 		try{
 			con=DBConnectionPool.getConnection();
-			query="DEELETE FROM"+DBNames.TABLE_TRAINEE_ACT+"WHERE "+DBNames.ATT_TRAINEEACTIVITY_DATE+"='"+new Date(pTraineeActivity.getDate().getTimeInMillis())+"'";
-			stmt=con.createStatement();
-			stmt.executeQuery(query);
+			query="DEELETE FROM"+DBNames.TABLE_TRAINEE_ACT+"WHERE "+DBNames.ATT_TRAINEEACTIVITY_DATE+"=? AND "+DBNames.ATT_TRAINEE_NAME+"=?" ;
+			
+			pStmt=con.prepareStatement(query);
+			pStmt.setDate(1, new Date(pTraineeActivity.getDate().getTimeInMillis()));
+			pStmt.setString(2, pTraineeActivity.getName());
+			pStmt.executeUpdate();
+			con.commit();
 		}
 		finally{
-			stmt.close();
+			pStmt.close();
 			DBConnectionPool.releaseConnection(con);
 		}
 	}
