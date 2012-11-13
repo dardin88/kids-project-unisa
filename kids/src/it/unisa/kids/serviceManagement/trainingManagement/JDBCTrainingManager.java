@@ -97,7 +97,7 @@ public class JDBCTrainingManager implements ITrainingManager {
 			con=DBConnectionPool.getConnection();
 			query="DEELETE FROM"+DBNames.TABLE_TRAINEE+"WHERE "+DBNames.ATT_TRAINEE_REGISTER+"='"+pTrainee.getRegister()+"'";
 			stmt=con.createStatement();
-			stmt.executeQuery(query);
+			stmt.executeUpdate(query);
 		}
 		finally{
 			stmt.close();
@@ -220,7 +220,7 @@ public class JDBCTrainingManager implements ITrainingManager {
 		String query;
 		try{
 			con=DBConnectionPool.getConnection();
-			query="DEELETE FROM"+DBNames.TABLE_TRAINEE_ACT+"WHERE "+DBNames.ATT_TRAINEEACTIVITY_DATE+"=? AND "+DBNames.ATT_TRAINEE_NAME+"=?" ;
+			query="DELETE FROM"+DBNames.TABLE_TRAINEE_ACT+"WHERE "+DBNames.ATT_TRAINEEACTIVITY_DATE+"=? AND "+DBNames.ATT_TRAINEE_NAME+"=?" ;
 			
 			pStmt=con.prepareStatement(query);
 			pStmt.setDate(1, new Date(pTraineeActivity.getDate().getTimeInMillis()));
