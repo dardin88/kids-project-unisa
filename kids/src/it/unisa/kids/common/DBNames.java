@@ -117,6 +117,17 @@ public final class DBNames {
 	public static final String ATT_REUNION_DATA="date";
 	public static final String ATT_REUNION_HOUR="hour";
 	public static final String ATT_REUNION_TYPE="type";
+	
+	
+	//News attributes
+	public static final String ATT_NEWS_TITLE="title";
+	public static final String ATT_NEWS_DESCRIPTION="description";
+	public static final String ATT_NEWS_TYPE="type";
+	public static final String ATT_NEWS_DATE="date";
+	public static final String ATT_NEWS_TIME="time";
+	public static final String ATT_NEWS_ATTACHED="attached";
+	public static final String ATT_NEWS_DELEGATEACCOUNT="delegate_account";
+	public static final String ATT_NEWS_DATACREATION="data_creation";
 
 
 }
