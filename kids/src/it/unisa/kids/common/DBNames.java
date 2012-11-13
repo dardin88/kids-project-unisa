@@ -109,6 +109,14 @@ public final class DBNames {
 	public static final String ATT_RECOURSE_VALUTATION="valutation";
 	public static final String ATT_RECOURSE_IDREGISTRATION="id_registration";
 
+	
+	// Reunion's attributes
+	public static final String ATT_REUNION_ID="id";
+	public static final String ATT_REUNION_TITLE="title";
+	public static final String ATT_REUNION_DESCRIPTION="description";
+	public static final String ATT_REUNION_DATA="date";
+	public static final String ATT_REUNION_HOUR="hour";
+	public static final String ATT_REUNION_TYPE="type";
 
 
 }
