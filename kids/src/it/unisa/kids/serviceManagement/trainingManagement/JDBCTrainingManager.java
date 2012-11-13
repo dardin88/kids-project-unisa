@@ -3,7 +3,6 @@ package it.unisa.kids.serviceManagement.trainingManagement;
 import it.unisa.kids.accessManagement.Account;
 import it.unisa.kids.accessManagement.ManagerAccount;
 import it.unisa.kids.common.DBNames;
-import it.unisa.kids.common.exception.MandatoryFieldException;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 
 import java.sql.Connection;
@@ -68,6 +67,9 @@ public class JDBCTrainingManager implements ITrainingManager {
 			pStmt.setString(8, pTrainee.getAddress());
 			pStmt.setString(9, pTrainee.getCap());
 			pStmt.setInt(10, pTrainee.getDelegate().getId());
+			if (pTrainee.getTelephoneNumber() != null){
+				pStmt.setString(11, pTrainee.getTelephoneNumber());
+			}
 			pStmt.executeUpdate();
 			con.commit();
 
@@ -202,6 +204,9 @@ public class JDBCTrainingManager implements ITrainingManager {
 			pStmt.setTime(3,pTraineeActivity.getStart());
 			pStmt.setTime(4,pTraineeActivity.getEnd());
 			pStmt.setInt(5, pTraineeActivity.getDelegate().getId());
+			if(pTraineeActivity.getDescription()!=null){
+				pStmt.setString(6, pTraineeActivity.getDescription());
+			}
 			pStmt.executeUpdate();
 			con.commit();
 		} 
