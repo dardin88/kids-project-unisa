@@ -19,7 +19,7 @@ public class ManagerRecourses {
 		parent=new Account();
 	}
 
-	public ManagerRecourses getInstace(){
+	public static ManagerRecourses getInstace(){
 		if (manager!=null)
 			return manager;
 		else
@@ -46,8 +46,22 @@ public class ManagerRecourses {
 		return recourse;
 	}
 
-	public Recourse Delete(Recourse recourse){
-		String query="delete from name_table where id='"+recourse.getId()+"'";
+	public Recourse Delete(Recourse recourse) throws SQLException{
+		Connection con = null;
+		Statement stmt=null;
+		try {
+			con=DBConnectionPool.getConnection();
+			
+			String query="delete from"+DBNames.TABLE_RECOURSE+" where "+DBNames.ATT_RECOURSE_ID+"='"+recourse.getId()+"'";
+			
+			stmt = con.createStatement();
+			stmt.executeUpdate(query);
+		} 
+		finally{
+			stmt.close();
+			DBConnectionPool.releaseConnection(con);
+		}
+		
 		return recourse;
 	}
 
@@ -113,7 +127,7 @@ public class ManagerRecourses {
 
 			//request= iscrizione?
 			String query="Select * From "+DBNames.TABLE_RECOURSE+","+DBNames.TABLE_REQUEST+","+DBNames.TABLE_ACCOUNT+" where "+DBNames.ATT_RECOURSE_IDREGISTRATION+"="+DBNames.TABLE_REQUEST+"."+DBNames.ATT_REQUEST_ID+" AND "+DBNames.ATT_REQUEST_IDACCOUNT+"="+DBNames.TABLE_ACCOUNT+"."+DBNames.ATT_ACCOUNT_ID+"";
-			if (recourse.getId()==0)
+			if (recourse.getId()!=0) // dubbi
 				query=query+"'"+DBNames.ATT_RECOURSE_ID+"'='"+recourse.getId()+"'";
 			if (recourse.getData()!=null)
 				query=query+"'"+DBNames.ATT_RECOURSE_DATA+"'='"+recourse.getData()+"'";
