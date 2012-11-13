@@ -117,9 +117,9 @@ public class JDBCTrainingManager implements ITrainingManager {
 		String query;
 		try{
 			con=DBConnectionPool.getConnection();
-			query="SELECT * FROM"+DBNames.TABLE_TRAINEE+"WHERE ";
+			query="SELECT * FROM "+DBNames.TABLE_TRAINEE+" WHERE ";
 			if(pTrainee.getName()!=null && pTrainee.getSurname()!=null)
-				query+=DBNames.ATT_TRAINEE_NAME+"='"+pTrainee.getName()+"' AND"
+				query+=DBNames.ATT_TRAINEE_NAME+"='"+pTrainee.getName()+"' AND "
 						+DBNames.ATT_TRAINEE_SURNAME+"='"+pTrainee.getSurname()+"'";
 			else if(pTrainee.getName()!=null && pTrainee.getSurname()==null)
 				query+=DBNames.ATT_TRAINEE_NAME+"='"+pTrainee.getName()+"' ";
