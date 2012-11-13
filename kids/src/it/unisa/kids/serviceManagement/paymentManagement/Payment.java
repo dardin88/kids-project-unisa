@@ -5,28 +5,28 @@ import java.util.GregorianCalendar;
 
 public class Payment implements Serializable {
 
-	private String id;
+	private int id;
 	private GregorianCalendar expDate;
 	private boolean charge;
 	private String paymentDescription;
 	private double amount;
 	private double amountDue;
 	private boolean paid;
-	private String discount;
+	private String discount;		// dovrebbe essere double
 	private String discountDescription;
 	private String originAccount;
 	private String payee;
-	private String parentId;
+	private int parentId;
 
 	public Payment() {
 
 	}
 
-	public String getId() {
+	public int getId() {
 		return this.id;
 	}
 
-	public void setId(String pId) {
+	public void setId(int pId) {
 		this.id = pId;
 	}
 
@@ -110,11 +110,11 @@ public class Payment implements Serializable {
 		this.payee = pPayee;
 	}
 
-	public String getParentId() {
+	public int getParentId() {
 		return this.parentId;
 	}
 
-	public void setParentId(String pParentId) {
+	public void setParentId(int pParentId) {
 		this.parentId = pParentId;
 	}
 }

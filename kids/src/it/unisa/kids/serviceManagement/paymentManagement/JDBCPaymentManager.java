@@ -5,18 +5,13 @@ import it.unisa.kids.common.exception.MandatoryFieldException;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
 public class JDBCPaymentManager implements IPaymentManager {
 	
-	private static final int DESCRIPTION_MAXLENGTH = 200;
-	private static final int ORIGIN_ACCOUNT_MAXLENGTH = 30;
-	private static final int PAYEE_MAXLENGTH = 30;
-	private static final int DISCOUNT_MAXLENGTH = 10;
-	private static final int DISCDESCRIPTION_MAXLENGTH = 200;
-	
+	// Singleton Design Pattern's implementation
 	private static JDBCPaymentManager manager;
 	
 	private JDBCPaymentManager() {
@@ -24,21 +19,22 @@ public class JDBCPaymentManager implements IPaymentManager {
 	}
 	
 	public static synchronized JDBCPaymentManager getInstance() {
-		if (manager == null) {
+		if (manager == null)
 			manager = new JDBCPaymentManager();
-		}
 		return manager;
 	}
+	// end of Singleton Design Pattern's implementation
 	
 	public synchronized void insert(Payment pPayment) throws SQLException, MandatoryFieldException {
 		Connection con = null;
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		String query1;
 		String query2;
 		
 		try {
 			con = DBConnectionPool.getConnection();
 			
+			// constructing query string
 			query1 = "INSERT INTO " + DBNames.TABLE_PAYMENT + " ("
 					+ DBNames.ATT_PAYMENT_ID + ", "
 					+ DBNames.ATT_PAYMENT_EXPDATE + ", "
@@ -49,37 +45,52 @@ public class JDBCPaymentManager implements IPaymentManager {
 					+ DBNames.ATT_PAYMENT_PAYEE + ", "
 					+ DBNames.ATT_PAYMENT_PARENTID + ", "
 					+ DBNames.ATT_PAYMENT_CHARGE;
-			query2 = "VALUES ("
-					+ pPayment.getId() + ", "
-					+ pPayment.getExpDate() + ", "
-					+ pPayment.getAmount() + ", "
-					+ pPayment.getAmountDue() + ", "
-					+ pPayment.isPaid() + ", "
-					+ pPayment.getOriginAccount() + ", "
-					+ pPayment.getPayee() + ", "
-					+ pPayment.getParentId() + ", "
-					+ pPayment.isCharge();
+			query2 = "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?";
 			
+			// constructing query string for optional parameters
 			if (pPayment.getPaymentDescription() != null) {
 				query1 += ", " + DBNames.ATT_PAYMENT_DESCRIPTION;
-				query2 += ", " + pPayment.getPaymentDescription();
+				query2 += ", ?";
 			}
 			if (pPayment.getDiscount() != null) {
 				query1 += ", " + DBNames.ATT_PAYMENT_DISCOUNT;
-				query2 += ", " + pPayment.getDiscount();
+				query2 += ", ?";
 			}
 			if (pPayment.getDiscountDescription() != null) {
 				query1 += ", " + DBNames.ATT_PAYMENT_DISCDESCRIPTION;
-				query2 += ", " + pPayment.getDiscountDescription();
+				query2 += ", ?";
 			}
 			query1 += ") ";
 			query2  += ")";
 			
-			stmt = con.createStatement();
-			stmt.executeUpdate(query1 + query2);
+			pstmt = con.prepareStatement(query1 + query2);
+			
+			//setting pstmt's parameters
+			pstmt.setInt(1, pPayment.getId());
+			pstmt.setDate(2, new java.sql.Date(pPayment.getExpDate().getTimeInMillis()));
+			pstmt.setDouble(3, pPayment.getAmount());
+			pstmt.setDouble(4, pPayment.getAmountDue());
+			pstmt.setBoolean(5, pPayment.isPaid());
+			pstmt.setString(6, pPayment.getOriginAccount());
+			pstmt.setString(7, pPayment.getPayee());
+			pstmt.setInt(8, pPayment.getParentId());
+			pstmt.setBoolean(9, pPayment.isCharge());
+			
+			//setting pstmt's optional parameters
+			if (pPayment.getPaymentDescription() != null)
+				pstmt.setString(10, pPayment.getPaymentDescription());
+			if (pPayment.getDiscount() != null)
+				pstmt.setString(11, pPayment.getDiscount());
+			if (pPayment.getDiscountDescription() != null)
+				pstmt.setString(12, pPayment.getDiscountDescription());
+			
+			pstmt.executeUpdate();
+			con.commit();
 		} finally {
-			stmt.close();
-			DBConnectionPool.releaseConnection(con);
+			if (pstmt != null)
+				pstmt.close();
+			if (con != null)
+				DBConnectionPool.releaseConnection(con);
 		}
 	}
 	
