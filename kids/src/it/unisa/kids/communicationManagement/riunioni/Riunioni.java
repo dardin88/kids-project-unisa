@@ -1,4 +1,4 @@
-package it.unisa.kids.communicationManagement;
+package it.unisa.kids.communicationManagement.riunioni;
 
 import java.util.GregorianCalendar;
 
