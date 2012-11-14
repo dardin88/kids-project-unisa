@@ -2,7 +2,7 @@ package it.unisa.kids.serviceManagement.canteenManagement;
 
 import java.io.Serializable;
 
-public class DifferentiatedMenu implements Serializable {
+public class DifferentiatedMenuBean implements Serializable {
 
 	private String id;
 	private String motivation;
@@ -12,11 +12,11 @@ public class DifferentiatedMenu implements Serializable {
 	private String fruit;
 	private String childInscriptionId;
 
-	public DifferentiatedMenu() {
+	public DifferentiatedMenuBean() {
 
 	}
 	
-	public DifferentiatedMenu(String pId, String pMotivation, String pChildInscriptionId) {
+	public DifferentiatedMenuBean(String pId, String pMotivation, String pChildInscriptionId) {
 		setId(pId);
 		setMotivation(pMotivation);
 		setChildInscriptionId(pChildInscriptionId);
