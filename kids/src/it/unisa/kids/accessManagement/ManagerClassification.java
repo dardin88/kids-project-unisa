@@ -16,7 +16,7 @@ public class ManagerClassification
 	private static ManagerClassification manager;
 
 	// Singleton Design Pattern's implementation
-	public ManagerClassification()
+	private ManagerClassification()
 	{
 	}
 
@@ -32,18 +32,31 @@ public class ManagerClassification
 	public void createClassification (Classification pClassification) throws SQLException
 	{
 		Connection con = null;
-		Statement stmt=null;
+		PreparedStatement pStmt=null;
+
 		try
 		{
 			con=DBConnectionPool.getConnection();
-			stmt = con.createStatement();
-			String query="Insert  into" + DBNames.TABLE_CLASSIFICATION + "values("+ 
-					pClassification.getId() + "," + pClassification.getDate() + "," + pClassification.getDateTerm();
-			stmt.executeUpdate(query);
+			String query1, query2;
+			query1="Insert  into" + DBNames.TABLE_CLASSIFICATION + "values("+ 
+					DBNames.ATT_CLASSIFICATION_ID + "," + DBNames.ATT_CLASSIFICATION_DATA 
+					+ "," + DBNames.ATT_CLASSIFICATION_DATA_TERM  + ")";
+			
+			query2="VALUES (?,?,?)";
+			
+			pStmt = con.prepareStatement(query1+query2);
+			
+			pStmt.setInt(1, pClassification.getId());
+			pStmt.setDate (2,new Date(pClassification.getDate().getTimeInMillis()));
+			pStmt.setDate (3,new Date(pClassification.getDateTerm().getTimeInMillis()));
+			
+			
+			pStmt.executeUpdate();
+			con.commit();
 		}
 		finally
 		{
-			stmt.close();
+			pStmt.close();
 			DBConnectionPool.releaseConnection(con);//connection of DB
 		}
 	}
@@ -52,6 +65,7 @@ public class ManagerClassification
 	{
 		Connection con = null;
 		Statement stmt=null;
+
 		try
 		{
 			con=DBConnectionPool.getConnection();
@@ -69,7 +83,7 @@ public class ManagerClassification
 			DBConnectionPool.releaseConnection(con);//connection of DB
 		}
 	}
-
+	
 	public void defineDataTerm(Classification pClassification, GregorianCalendar dateTerm) throws SQLException
 	{
 		Connection con = null;
