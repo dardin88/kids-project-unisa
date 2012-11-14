@@ -143,7 +143,6 @@ public final class DBNames {
 	public static final String ATT_NEWS_TIME="time";
 	public static final String ATT_NEWS_ATTACHED="attached";
 	public static final String ATT_NEWS_DELEGATEACCOUNT="delegate_account";
-	public static final String ATT_NEWS_DATACREATION="data_creation";
 
 
 }

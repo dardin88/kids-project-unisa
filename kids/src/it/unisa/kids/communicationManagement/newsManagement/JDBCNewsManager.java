@@ -1,16 +1,17 @@
 package it.unisa.kids.communicationManagement.newsManagement;
 
-import it.unisa.kids.accessManagement.Account;
-import it.unisa.kids.accessManagement.ManagerAccount;
 import it.unisa.kids.common.DBNames;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 
@@ -45,32 +46,35 @@ public class JDBCNewsManager implements INewsManager
 	public void insertNews(News pNews) throws SQLException 
 	{
 		Connection connection = null;
-		Statement stmt=null;
+		PreparedStatement stmt=null;
 		String query1;
-		String query2;
 		try
 		{
-			connection=DBConnectionPool.getConnection();
+			connection=DBConnectionPool.getConnection();		
 			query1="insert into "+DBNames.TABLE_NEWS+"(" +
 					DBNames.ATT_NEWS_TITLE+","+
 					DBNames.ATT_NEWS_DESCRIPTION+","+
 					DBNames.ATT_NEWS_TYPE+","+
 					DBNames.ATT_NEWS_DATE+","+
 					DBNames.ATT_NEWS_TIME+","+
-					DBNames.ATT_NEWS_DATACREATION+","+
 					DBNames.ATT_NEWS_ATTACHED+","+
-					DBNames.ATT_NEWS_DELEGATEACCOUNT+")";
-			query2=" values ('"+pNews.getTitle()+","+
-					pNews.getDescription()+","+
-					pNews.getType()+","+
-					pNews.getDate()+","+
-					pNews.getTime()+","+
-					pNews.getDataCreation()+","+
-					pNews.getAttached()+","+
-					pNews.getDelegate()+"')";
-
-			stmt=connection.createStatement();
-			stmt.executeQuery(query1+query2);
+					DBNames.ATT_NEWS_DELEGATEACCOUNT+
+					") values (?,?,?,?,?,?,?)";			
+			
+			stmt=connection.prepareStatement(query1);
+			stmt.setString(1, pNews.getTitle());
+			stmt.setString(2, pNews.getDescription());
+			stmt.setString(3, pNews.getType());
+			GregorianCalendar g=new GregorianCalendar(pNews.getDate().get(Calendar.YEAR),pNews.getDate().get(Calendar.MONTH),pNews.getDate().get(Calendar.DAY_OF_MONTH));
+		
+			//controllo mese data
+			stmt.setDate(4, new Date(g.getTimeInMillis()));
+			stmt.setTime(5, pNews.getTime());
+			stmt.setObject(6, pNews.getAttached());
+			stmt.setInt(7, pNews.getDelegate());
+			
+			stmt.executeUpdate();
+			connection.commit();
 		}
 		finally
 		{
@@ -100,33 +104,31 @@ public class JDBCNewsManager implements INewsManager
 			rsNews=stmt.executeQuery(query);
 			while(rsNews.next())
 			{
-				//non mi prendo la data di creazione
+				
 				String title=rsNews.getString(DBNames.ATT_NEWS_TITLE);
 				String description=rsNews.getString(DBNames.ATT_NEWS_DESCRIPTION);
 				String type=rsNews.getString(DBNames.ATT_NEWS_TYPE);
 				Date date=rsNews.getDate(DBNames.ATT_NEWS_DATE);
 				GregorianCalendar data=new GregorianCalendar();
 				data.setTime(date);
-				Date ore=rsNews.getDate(DBNames.ATT_NEWS_TIME);
-				int hours=ore.getHours();
-				int minutes=ore.getMinutes();
-				int second=ore.getSeconds();
-				GregorianCalendar ora=new GregorianCalendar(hours,minutes,second);
-				Object attached=rsNews.getString(DBNames.ATT_NEWS_ATTACHED);
+				data.set(Calendar.MONTH, data.get(Calendar.MONTH));
+				Time time=rsNews.getTime(DBNames.ATT_NEWS_TIME);
+				//Date ora=new Date(time.getTime());
+				Object attached=rsNews.getObject(DBNames.ATT_NEWS_ATTACHED);
 				int idDelegate=rsNews.getInt(DBNames.ATT_NEWS_DELEGATEACCOUNT);
-				Account delegate=new Account();
+			/*	Account delegate=new Account();
 				delegate.setId(idDelegate);
 				ManagerAccount manager=ManagerAccount.getInstance();
 				ArrayList<Account> listAccount= manager.Search(delegate);
 				delegate=listAccount.get(0);
-				News news=new News();
+			*/	News news=new News();
 				news.setTitle(title);
 				news.setDescription(description);
 				news.setType(type);
 				news.setDate(data);
-				news.setTime(ora);
+				news.setTime(time);
 				news.setAttached(attached);
-				news.setDelegate(delegate);
+				news.setDelegate(idDelegate);
 				listNews.add(news);
 			}
 		}
@@ -152,9 +154,13 @@ public class JDBCNewsManager implements INewsManager
 		{
 			connection=DBConnectionPool.getConnection();
 			//delete in base at the dataCreation
-			query="delete from "+DBNames.TABLE_NEWS+" where "+DBNames.ATT_NEWS_DATE+"="+pNews.getDataCreation();
+			query="delete from "+DBNames.TABLE_NEWS+" where "+DBNames.ATT_NEWS_DATE+"='"+pNews.getDate().get(Calendar.YEAR)+"-"+pNews.getDate().get(Calendar.MONTH)+"-"+pNews.getDate().get(Calendar.DAY_OF_MONTH)+"'";
+			System.out.println(query);
 			stmt=connection.createStatement();
-			stmt.executeQuery(query);
+		//controllare
+			stmt.executeUpdate(query);
+			System.out.println("fff");
+		
 		}
 		finally
 		{
@@ -179,37 +185,35 @@ public class JDBCNewsManager implements INewsManager
 		{
 			connection=DBConnectionPool.getConnection();
 			//controllare uguaglianze date
-			query="select * from "+DBNames.TABLE_NEWS+" where "+DBNames.ATT_NEWS_DATACREATION+"="+pNews.getDataCreation().getTimeInMillis();
+			query="select * from "+DBNames.TABLE_NEWS+" where "+DBNames.ATT_NEWS_DATE+"='"+pNews.getDate().get(Calendar.YEAR)+"-"+pNews.getDate().get(Calendar.MONTH)+"-"+pNews.getDate().get(Calendar.DAY_OF_MONTH)+"'";
 			stmt=connection.createStatement();
 			rsNews=stmt.executeQuery(query);
 			while(rsNews.next())
-			{	//non mi prendo la data di creazione
+			{	
 				String title=rsNews.getString(DBNames.ATT_NEWS_TITLE);
 				String description=rsNews.getString(DBNames.ATT_NEWS_DESCRIPTION);
 				String type=rsNews.getString(DBNames.ATT_NEWS_TYPE);
 				Date date=rsNews.getDate(DBNames.ATT_NEWS_DATE);
 				GregorianCalendar data=new GregorianCalendar();
 				data.setTime(date);
-				Date ore=rsNews.getDate(DBNames.ATT_NEWS_TIME);
-				int hours=ore.getHours();
-				int minutes=ore.getMinutes();
-				int second=ore.getSeconds();
-				GregorianCalendar ora=new GregorianCalendar(hours,minutes,second);
-				Object attached=rsNews.getString(DBNames.ATT_NEWS_ATTACHED);
+				data.set(Calendar.MONTH, data.get(Calendar.MONTH));
+				Time time=rsNews.getTime(DBNames.ATT_NEWS_TIME);
+				//Date ora=new Date(time.getTime());
+				Object attached=rsNews.getObject(DBNames.ATT_NEWS_ATTACHED);
 				int idDelegate=rsNews.getInt(DBNames.ATT_NEWS_DELEGATEACCOUNT);
-				Account delegate=new Account();
+			/*	Account delegate=new Account();
 				delegate.setId(idDelegate);
 				ManagerAccount manager=ManagerAccount.getInstance();
 				ArrayList<Account> listAccount= manager.Search(delegate);
-				delegate=listAccount.get(0);
+				delegate=listAccount.get(0);*/
 				News news=new News();
 				news.setTitle(title);
 				news.setDescription(description);
 				news.setType(type);
 				news.setDate(data);
-				news.setTime(ora);
+				news.setTime(time);
 				news.setAttached(attached);
-				news.setDelegate(delegate);
+				news.setDelegate(idDelegate);
 				//ps cancellando e inserendo la news vado a modificare la data di creazione?
 				deleteNews(news);
 				insertNews(pNews);
@@ -235,7 +239,7 @@ public class JDBCNewsManager implements INewsManager
 		ArrayList<News> listNews=showNews();
 		for(News n:listNews)
 		{
-			if((n.getTitle()).indexOf(word)>0)
+			if((n.getTitle()).indexOf(word)>=0)
 				listSearchNews.add(n);
 		}
 		return listSearchNews;
