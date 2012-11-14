@@ -1,7 +1,6 @@
 package it.unisa.kids.communicationManagement.newsManagement;
 
-import it.unisa.kids.accessManagement.Account;
-
+import java.sql.Time;
 import java.util.GregorianCalendar;
 
 /**This class models the news entity
@@ -13,8 +12,9 @@ public class News
 	private String title;
 	private String description;
 	private Object attached;
-	private GregorianCalendar date,time,dataCreation;
-	private Account delegate;
+	private GregorianCalendar date;
+	private Time time;
+	private int delegate;
 	private String type;
 	
 	/**The constructor of the class News 
@@ -75,14 +75,14 @@ public class News
 	/**this method returns the time of news
 	 * @return GregorianCalendar time
 	 */
-	public GregorianCalendar getTime() {
+	public Time getTime() {
 		return time;
 	}
 	/**this method sets the time of news
 	 * @param GregorianCalendar time
 	 */
 
-	public void setTime(GregorianCalendar pTime) {
+	public void setTime(Time pTime) {
 		this.time = pTime;
 	}
 
@@ -90,13 +90,13 @@ public class News
 	 * @param Account delegate
 	 */
 
-	public void setDelegate(Account pDelegate){
+	public void setDelegate(int pDelegate){
 		this.delegate=pDelegate;
 	}
 	/**this method returns the author of news
 	 * @return Account author
 	 */
-	public Account getDelegate(){
+	public int getDelegate(){
 		return delegate;
 	}
 	/**this method returns the type of news
@@ -112,21 +112,6 @@ public class News
 		this.type = pType;
 	}
 	
-	/**
-	 * this method set the data of creation of the news
-	 * @param pDataCreation
-	 */
-	public void setDataCreation(GregorianCalendar pDataCreation)
-	{
-		this.dataCreation=pDataCreation;
-	}
-	/**
-	 * this method return the data of creation of the news
-	 * @return GregorianCalendar dataCreation
-	 */
-	public GregorianCalendar getDataCreation()
-	{
-		return dataCreation;
-	}
+	
 
 }
