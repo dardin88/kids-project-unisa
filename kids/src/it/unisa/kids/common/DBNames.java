@@ -9,10 +9,10 @@ public final class DBNames {
 	public static final String TABLE_ACCOUNT = "account";
 	public static final String TABLE_RECOURSE = "recourse";
 	public static final String TABLE_RINUNCIA = "";		// da completare/definire
-	public static final String TABLE_CLASSIFICATION = "Graduatoria";
+	public static final String TABLE_CLASSIFICATION = "graduatoria";
 	public static final String TABLE_CLASS = "class";
 	public static final String TABLE_CHILD = "child_inscription";
-	public static final String TABLE_ESITO = "";		// da completare/definire
+	public static final String TABLE_RESULT = "esito";		// da completare/definire
 	public static final String TABLE_ASSIGNATION = "assignation";
 	
 	public static final String TABLE_REQUEST = "request";
@@ -101,7 +101,16 @@ public final class DBNames {
 	public static final String ATT_TRAINEEACTIVITY_ENDTIME="end_time";
 	public static final String ATT_TRAINEEACTIVITY_DELEGATEACCOUNT="delegate_account";
 	
+	//Classification attributes
+	public static final String ATT_CLASSIFICATION_ID="id";
+	public static final String ATT_CLASSIFICATION_DATA="date";
+	public static final String ATT_CLASSIFICATION_DATA_TERM= "dataTerm";
 
+	//Result's attributes
+	public static final String ATT_RESULT_REGISTRATION ="registration";
+	public static final String ATT_RESULT_CLASSIFICATION ="classification";
+	public static final String ATT_RESULT_RESULT ="result";
+	
 	// Recourses's attributes
 	public static final String ATT_RECOURSE_ID="id";
 	public static final String ATT_RECOURSE_DATA="date";
