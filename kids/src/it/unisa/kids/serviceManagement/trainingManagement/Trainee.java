@@ -2,7 +2,6 @@ package it.unisa.kids.serviceManagement.trainingManagement;
 
 import it.unisa.kids.accessManagement.Account;
 
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -22,7 +21,7 @@ public class Trainee {
 	private String cap;
 	private String telephoneNumber;
 	private GregorianCalendar birthDate;
-	private Account delegate;
+	private int delegate;
 
 	/**
 	 * Empty constructor 
@@ -174,17 +173,17 @@ public class Trainee {
 	}
 
 
-	/**this method returns the delegate that has added trainee
-	 * @return  Account delegate
+	/**this method returns the delegate's id that
+	 * @return  int delegate
 	 */
-	public Account getDelegate() {
+	public int getDelegate() {
 		return delegate;
 	}
 
 	/**this method sets the delegate that has added trainee
-	 * @param  Account pDelegate
+	 * @param  int pDelegate
 	 */
-	public void setDelegate(Account pDelegate) {
+	public void setDelegate(int pDelegate) {
 		this.delegate = pDelegate;
 	} 
 

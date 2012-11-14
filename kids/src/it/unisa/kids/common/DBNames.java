@@ -106,6 +106,7 @@ public final class DBNames {
 	public static final String ATT_TRAINEEACTIVITY_STARTTIME="start_time";
 	public static final String ATT_TRAINEEACTIVITY_ENDTIME="end_time";
 	public static final String ATT_TRAINEEACTIVITY_DELEGATEACCOUNT="delegate_account";
+        public static final String ATT_TRAINEEACTIVITY_TRAINEE="Tirocinante";
 	
 	//Classification attributes
 	public static final String ATT_CLASSIFICATION_ID="id";

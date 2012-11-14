@@ -15,8 +15,8 @@ public class TraineeActivity {
 	private String description;
 	private Time start;
 	private Time end;
-	private Account delegate;
-	private Trainee trainee;
+	private int delegate;
+	private String trainee;
 	/**Empty constructor of the class
 	 *
 	 */
@@ -105,7 +105,7 @@ public class TraineeActivity {
 	/**the method return the delegate that adds the activity
 	 * @return Account delegate
 	 */
-	public Account getDelegate() {
+	public int getDelegate() {
 		return delegate;
 	}
 
@@ -113,7 +113,7 @@ public class TraineeActivity {
 	/**the method sets the delegate that adds the activity
 	 * @param Account pDelegate
 	 */
-	public void setDelegate(Account pDelegate) {
+	public void setDelegate(int pDelegate) {
 		this.delegate = pDelegate;
 	}
 
@@ -121,7 +121,7 @@ public class TraineeActivity {
 	/**the method returns the trainee that has performed the activity
 	 * @return Trainee trainee
 	 */
-	public Trainee getTrainee() {
+	public String getTrainee() {
 		return trainee;
 	}
 
@@ -129,7 +129,7 @@ public class TraineeActivity {
 	/**the method sets the trainee that has performed the activity
 	 * @param Trainee pTrainee
 	 */
-	public void setTrainee(Trainee pTrainee) {
+	public void setTrainee(String pTrainee) {
 		this.trainee = pTrainee;
 	}
 	
