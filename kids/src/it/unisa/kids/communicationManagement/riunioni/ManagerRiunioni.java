@@ -23,7 +23,7 @@ public class ManagerRiunioni {
 			return manager;
 	}
 
-	public Riunioni insertRiunione (Riunioni riunion) throws ErroreNeiDati{
+	public Riunioni insert (Riunioni riunion) throws ErroreNeiDati{
 		Connection con = null;
 		Statement stmt = null;
 		if(riunion.getTitle().length()>50 && riunion.getDescription().length()>500)
@@ -48,7 +48,7 @@ public class ManagerRiunioni {
 		return riunion;
 	}
 
-	public Riunioni modifyRiunione (Riunioni changedRiunion) throws SQLException{
+	public Riunioni modify (Riunioni changedRiunion) throws SQLException{
 		Connection con = null;
 		Statement stmt = null;
 		try{
@@ -67,7 +67,7 @@ public class ManagerRiunioni {
 		return changedRiunion;
 	}
 	
-	public Riunioni deleteRiunion (Riunioni deletedRiunion) throws SQLException{
+	public Riunioni delete (Riunioni deletedRiunion) throws SQLException{
 		Connection con = null;
 		Statement stmt = null;
 		try{
