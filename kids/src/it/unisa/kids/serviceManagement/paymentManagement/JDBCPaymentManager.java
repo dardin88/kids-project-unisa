@@ -31,14 +31,13 @@ public class JDBCPaymentManager implements IPaymentManager {
 	public synchronized void insert(PaymentBean pPayment) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		String query1;
-		String query2;
+		String query;
 		
 		try {
 			con = DBConnectionPool.getConnection();
 			
 			// constructing query string
-			query1 = "INSERT INTO " + DBNames.TABLE_PAYMENT + " ("
+			query = "INSERT INTO " + DBNames.TABLE_PAYMENT + " ("
 					+ DBNames.ATT_PAYMENT_ID + ", "
 					+ DBNames.ATT_PAYMENT_EXPDATE + ", "
 					+ DBNames.ATT_PAYMENT_AMOUNT + ", "
@@ -47,26 +46,13 @@ public class JDBCPaymentManager implements IPaymentManager {
 					+ DBNames.ATT_PAYMENT_ORIGINACCOUNT + ", "
 					+ DBNames.ATT_PAYMENT_PAYEE + ", "
 					+ DBNames.ATT_PAYMENT_PARENTID + ", "
-					+ DBNames.ATT_PAYMENT_CHARGE;
-			query2 = "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?";
+					+ DBNames.ATT_PAYMENT_CHARGE + ", "
+					+ DBNames.ATT_PAYMENT_DESCRIPTION + ", "
+					+ DBNames.ATT_PAYMENT_DISCOUNT + ", "
+					+ DBNames.ATT_PAYMENT_DISCDESCRIPTION
+					+ ") VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			
-			// constructing query string for optional parameters
-			if (pPayment.getPaymentDescription() != null) {
-				query1 += ", " + DBNames.ATT_PAYMENT_DESCRIPTION;
-				query2 += ", ?";
-			}
-			if (pPayment.getDiscount() != null) {
-				query1 += ", " + DBNames.ATT_PAYMENT_DISCOUNT;
-				query2 += ", ?";
-			}
-			if (pPayment.getDiscountDescription() != null) {
-				query1 += ", " + DBNames.ATT_PAYMENT_DISCDESCRIPTION;
-				query2 += ", ?";
-			}
-			query1 += ") ";
-			query2  += ")";
-			
-			pstmt = con.prepareStatement(query1 + query2);
+			pstmt = con.prepareStatement(query);
 			
 			//setting pstmt's parameters
 			pstmt.setInt(1, pPayment.getId());
@@ -78,14 +64,9 @@ public class JDBCPaymentManager implements IPaymentManager {
 			pstmt.setString(7, pPayment.getPayee());
 			pstmt.setInt(8, pPayment.getParentId());
 			pstmt.setBoolean(9, pPayment.isCharge());
-			
-			//setting pstmt's optional parameters
-			if (pPayment.getPaymentDescription() != null)
-				pstmt.setString(10, pPayment.getPaymentDescription());
-			if (pPayment.getDiscount() != null)
-				pstmt.setString(11, pPayment.getDiscount());
-			if (pPayment.getDiscountDescription() != null)
-				pstmt.setString(12, pPayment.getDiscountDescription());
+			pstmt.setString(10, pPayment.getPaymentDescription());
+			pstmt.setString(11, pPayment.getDiscount());
+			pstmt.setString(12, pPayment.getDiscountDescription());
 			
 			pstmt.executeUpdate();
 			con.commit();
@@ -361,6 +342,7 @@ public class JDBCPaymentManager implements IPaymentManager {
 				PaymentBean p = new PaymentBean();
 				p.setId(rs.getInt(DBNames.ATT_PAYMENT_ID));
 				
+				//getting Date from ResultSet and converting it to GregorianCalendar
 				GregorianCalendar expDate = new GregorianCalendar();
 				expDate.setTime(rs.getDate(DBNames.ATT_PAYMENT_EXPDATE));
 				p.setExpDate(expDate);
@@ -387,5 +369,63 @@ public class JDBCPaymentManager implements IPaymentManager {
 				DBConnectionPool.releaseConnection(con);
 		}
 		return payments;
+	}
+
+	public void insert(RefundBean pRefund) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String query;
+		
+		try {
+			con = DBConnectionPool.getConnection();
+			
+			// constructing query string
+			query = "INSERT INTO " + DBNames.TABLE_REFUND + " ("
+					+ DBNames.ATT_REFUND_ID + ", "
+					+ DBNames.ATT_REFUND_DESCRIPTION + ", "
+					+ DBNames.ATT_REFUND_AMOUNT + ", "
+					+ DBNames.ATT_REFUND_PARENTID
+					+ ") VALUES(?, ?, ?, ?)";
+			
+			pstmt = con.prepareStatement(query);
+			
+			//setting pstmt's parameters
+			pstmt.setInt(1, pRefund.getId());
+			pstmt.setString(2, pRefund.getDescription());
+			pstmt.setDouble(3, pRefund.getAmount());
+			pstmt.setInt(4, pRefund.getParentId());
+			
+			pstmt.executeUpdate();
+			con.commit();
+		} finally {
+			if (pstmt != null)
+				pstmt.close();
+			if (con != null)
+				DBConnectionPool.releaseConnection(con);
+		}
+	}
+
+	@Override
+	public void update(RefundBean pRefund) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(RefundBean pRefund) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<RefundBean> search(RefundBean pRefund) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<RefundBean> getRefundList() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

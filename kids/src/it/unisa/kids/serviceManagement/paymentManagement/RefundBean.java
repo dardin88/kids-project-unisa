@@ -4,27 +4,20 @@ import java.io.Serializable;
 
 public class RefundBean implements Serializable {
 
-	private String id;
+	private int id;
 	private String description;
 	private double amount;
-	private String parentId;
+	private int parentId;
 
 	public RefundBean() {
 
 	}
-	
-	public RefundBean(String pId, double pAmount, String pParentId) {
-		setId(pId);
-		setAmount(pAmount);
-		setParentId(pParentId);
-	}
-	
 
-	public String getId() {
+	public int getId() {
 		return this.id;
 	}
 
-	public void setId(String pId) {
+	public void setId(int pId) {
 		this.id = pId;
 	}
 
@@ -44,11 +37,11 @@ public class RefundBean implements Serializable {
 		this.amount = pAmount;
 	}
 
-	public String getParentId() {
+	public int getParentId() {
 		return this.parentId;
 	}
 
-	public void setParentId(String pParentId) {
+	public void setParentId(int pParentId) {
 		this.parentId = pParentId;
 	}
 }
