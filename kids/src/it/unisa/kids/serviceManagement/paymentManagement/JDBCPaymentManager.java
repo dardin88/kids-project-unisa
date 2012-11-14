@@ -157,7 +157,7 @@ public class JDBCPaymentManager implements IPaymentManager {
 		String query = null;
 		List<PaymentBean> payments = null;
 		
-		boolean and = false;
+		boolean andState = false;
 		
 		try {
 			con = DBConnectionPool.getConnection();
@@ -166,58 +166,58 @@ public class JDBCPaymentManager implements IPaymentManager {
 			query = "SELECT * FROM " + DBNames.TABLE_PAYMENT + " WHERE";
 			if (pPayment.getId() > 0) {		// or >= 0 ???
 				query += " " + DBNames.ATT_PAYMENT_ID + " = ?";
-				and = true;
+				andState = true;
 			}
 			
 			if (pPayment.getExpDate() != null) {
-				query += enableAnd(and) + DBNames.ATT_PAYMENT_EXPDATE + " = ?";
-				and = true;
+				query += useAnd(andState) + DBNames.ATT_PAYMENT_EXPDATE + " = ?";
+				andState = true;
 			}
 			
-			query += enableAnd(and) + DBNames.ATT_PAYMENT_CHARGE + " = ?";
-			and = true;
+			query += useAnd(andState) + DBNames.ATT_PAYMENT_CHARGE + " = ?";
+			andState = true;
 			
 			if (pPayment.getPaymentDescription() != null) {
-				query += enableAnd(and) + DBNames.ATT_PAYMENT_DESCRIPTION + " = ?";
-				and = true;
+				query += useAnd(andState) + DBNames.ATT_PAYMENT_DESCRIPTION + " = ?";
+				andState = true;
 			}
 			
 			if (pPayment.getAmount() >= 0) {
-				query += enableAnd(and) + DBNames.ATT_PAYMENT_AMOUNT + " = ?";
-				and = true;
+				query += useAnd(andState) + DBNames.ATT_PAYMENT_AMOUNT + " = ?";
+				andState = true;
 			}
 			
 			if (pPayment.getAmountDue() >= 0) {
-				query += enableAnd(and) + DBNames.ATT_PAYMENT_AMOUNTDUE + " = ?";
-				and = true;
+				query += useAnd(andState) + DBNames.ATT_PAYMENT_AMOUNTDUE + " = ?";
+				andState = true;
 			}
 			
-			query += enableAnd(and) + DBNames.ATT_PAYMENT_PAID + " = ?";
-			and = true;
+			query += useAnd(andState) + DBNames.ATT_PAYMENT_PAID + " = ?";
+			andState = true;
 			
 			if (pPayment.getDiscount() != null) {
-				query += enableAnd(and) + DBNames.ATT_PAYMENT_DISCOUNT + " = ?";
-				and = true;
+				query += useAnd(andState) + DBNames.ATT_PAYMENT_DISCOUNT + " = ?";
+				andState = true;
 			}
 			
 			if (pPayment.getDiscountDescription() != null) {
-				query += enableAnd(and) + DBNames.ATT_PAYMENT_DISCDESCRIPTION + " = ?";
-				and = true;
+				query += useAnd(andState) + DBNames.ATT_PAYMENT_DISCDESCRIPTION + " = ?";
+				andState = true;
 			}
 			
 			if (pPayment.getOriginAccount() != null) {
-				query += enableAnd(and) + DBNames.ATT_PAYMENT_ORIGINACCOUNT + " = ?";
-				and = true;
+				query += useAnd(andState) + DBNames.ATT_PAYMENT_ORIGINACCOUNT + " = ?";
+				andState = true;
 			}
 			
 			if (pPayment.getPayee() != null) {
-				query += enableAnd(and) + DBNames.ATT_PAYMENT_PAYEE + " = ?";
-				and = true;
+				query += useAnd(andState) + DBNames.ATT_PAYMENT_PAYEE + " = ?";
+				andState = true;
 			}
 			
 			if (pPayment.getParentId() > 0) {		// or >= 0 ???
-				query += enableAnd(and) + DBNames.ATT_PAYMENT_PARENTID + " = ?";
-				and = true;
+				query += useAnd(andState) + DBNames.ATT_PAYMENT_PARENTID + " = ?";
+				andState = true;
 			}
 			
 			pstmt = con.prepareStatement(query);
@@ -290,6 +290,7 @@ public class JDBCPaymentManager implements IPaymentManager {
 				PaymentBean p = new PaymentBean();
 				p.setId(rs.getInt(DBNames.ATT_PAYMENT_ID));
 				
+				//getting Date from ResultSet and converting it to GregorianCalendar
 				GregorianCalendar expDate = new GregorianCalendar();
 				expDate.setTime(rs.getDate(DBNames.ATT_PAYMENT_EXPDATE));
 				p.setExpDate(expDate);
@@ -318,7 +319,7 @@ public class JDBCPaymentManager implements IPaymentManager {
 		return payments;
 	}
 	
-	private String enableAnd(boolean pEnableAnd) {
+	private String useAnd(boolean pEnableAnd) {
 		return pEnableAnd ? " AND " : " ";
 	}
 	
@@ -405,27 +406,179 @@ public class JDBCPaymentManager implements IPaymentManager {
 		}
 	}
 
-	@Override
 	public void update(RefundBean pRefund) throws SQLException {
-		// TODO Auto-generated method stub
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String query = null;
 		
+		try {
+			con = DBConnectionPool.getConnection();
+			
+			// constructing query string
+			query = "UPDATE " + DBNames.TABLE_REFUND + " SET "
+					+ DBNames.ATT_REFUND_DESCRIPTION + " = ?, "
+					+ DBNames.ATT_REFUND_AMOUNT + " = ?, "
+					+ DBNames.ATT_REFUND_PARENTID + " = ? "
+					+ "WHERE " + DBNames.ATT_REFUND_ID + " = ?";
+			
+			pstmt = con.prepareStatement(query);
+			
+			// setting pstmt's parameters
+			pstmt.setString(1, pRefund.getDescription());
+			pstmt.setDouble(2, pRefund.getAmount());
+			pstmt.setInt(3, pRefund.getParentId());
+			pstmt.setInt(4, pRefund.getId());
+			
+			pstmt.executeUpdate();
+			con.commit();
+		} finally {
+			if (pstmt != null)
+				pstmt.close();
+			if (con != null)
+				DBConnectionPool.releaseConnection(con);
+		}
 	}
 
-	@Override
 	public void delete(RefundBean pRefund) throws SQLException {
-		// TODO Auto-generated method stub
+		Connection con = null;
+		Statement stmt = null;
+		String query = null;
 		
+		try {
+			con = DBConnectionPool.getConnection();
+			
+			// constructing query string
+			query = "DELETE FROM " + DBNames.TABLE_REFUND
+					+ "WHERE " + DBNames.ATT_REFUND_ID + " = " + pRefund.getId();
+			
+			stmt = con.createStatement();
+			stmt.executeUpdate(query);
+			con.commit();
+		} finally {
+			if (stmt != null)
+				stmt.close();
+			if (con != null)
+				DBConnectionPool.releaseConnection(con);
+		}
 	}
 
-	@Override
 	public List<RefundBean> search(RefundBean pRefund) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = null;
+		List<RefundBean> refunds = null;
+		
+		boolean andState = false;
+		
+		try {
+			con = DBConnectionPool.getConnection();
+			
+			// constructing search query string
+			query = "SELECT * FROM " + DBNames.TABLE_REFUND + " WHERE";
+			if (pRefund.getId() > 0) {		// or >= 0 ???
+				query += " " + DBNames.ATT_REFUND_ID + " = ?";
+				andState = true;
+			}
+			
+			if (pRefund.getDescription() != null) {
+				query += useAnd(andState) + DBNames.ATT_REFUND_DESCRIPTION + " = ?";
+				andState = true;
+			}
+			
+			if (pRefund.getAmount() >= 0) {
+				query += useAnd(andState) + DBNames.ATT_REFUND_AMOUNT + " = ?";
+				andState = true;
+			}
+			
+			if (pRefund.getParentId() > 0) {		// or >= 0 ???
+				query += useAnd(andState) + DBNames.ATT_REFUND_PARENTID + " = ?";
+				andState = true;
+			}
+			
+			pstmt = con.prepareStatement(query);
+			
+			// setting pstmt's parameters
+			int i = 1;		// index of pstmt first argument
+			if (pRefund.getId() > 0) {		// >= 0 ??
+				pstmt.setInt(i, pRefund.getId());
+				i++;
+			}
+			
+			if (pRefund.getDescription() != null) {
+				pstmt.setString(i, pRefund.getDescription());
+				i++;
+			}
+			
+			if (pRefund.getAmount() >= 0) {
+				pstmt.setDouble(i, pRefund.getAmount());
+				i++;
+			}
+			
+			if (pRefund.getParentId() > 0) {		// or >= 0 ???
+				pstmt.setInt(i, pRefund.getParentId());
+				i++;
+			}
+			
+			// executing select query
+			rs = pstmt.executeQuery();
+			con.commit();
+			
+			// constructing refund list
+			refunds = new ArrayList<RefundBean>();
+			while (rs.next()) {
+				RefundBean p = new RefundBean();
+				p.setId(rs.getInt(DBNames.ATT_REFUND_ID));
+				p.setDescription(rs.getString(DBNames.ATT_REFUND_DESCRIPTION));
+				p.setAmount(rs.getDouble(DBNames.ATT_REFUND_AMOUNT));
+				p.setParentId(rs.getInt(DBNames.ATT_REFUND_PARENTID));
+				
+				refunds.add(p);
+			}
+		} finally {
+			if (rs != null)
+				rs.close();
+			if (pstmt != null)
+				pstmt.close();
+			if (con != null)
+				DBConnectionPool.releaseConnection(con);
+		}
+		return refunds;
 	}
 
-	@Override
 	public List<RefundBean> getRefundList() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		String query = null;
+		List<RefundBean> refunds = null;
+		
+		try {
+			con = DBConnectionPool.getConnection();
+			
+			query = "SELECT * FROM " + DBNames.TABLE_REFUND;
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(query);
+			
+			// constructing refund list
+			refunds = new ArrayList<RefundBean>();
+			while (rs.next()) {
+				RefundBean p = new RefundBean();
+				p.setId(rs.getInt(DBNames.ATT_REFUND_ID));
+				p.setDescription(rs.getString(DBNames.ATT_REFUND_DESCRIPTION));
+				p.setAmount(rs.getDouble(DBNames.ATT_REFUND_AMOUNT));
+				p.setParentId(rs.getInt(DBNames.ATT_REFUND_PARENTID));
+				
+				refunds.add(p);
+			}
+		} finally {
+			if (rs != null)
+				rs.close();
+			if (stmt != null)
+				stmt.close();
+			if (con != null)
+				DBConnectionPool.releaseConnection(con);
+		}
+		return refunds;
 	}
 }
