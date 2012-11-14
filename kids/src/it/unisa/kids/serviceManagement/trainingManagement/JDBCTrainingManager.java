@@ -238,7 +238,26 @@ public class JDBCTrainingManager implements ITrainingManager {
 			DBConnectionPool.releaseConnection(con);
 		}
 	}
-	
+	public ArrayList<TraineeActivity> getActivities() throws SQLException{
+            Connection con=null;
+            Statement stmt=null;
+            String query;
+            ArrayList<TraineeActivity> listActivity=null;
+            try{
+                con=DBConnectionPool.getConnection();
+                query="SELECT * FROM "+DBNames.TABLE_ACT;
+                stmt=con.createStatement();
+                ResultSet rs=stmt.executeQuery(query);
+                return listActivity;
+            }
+            finally{
+                stmt.close();
+                DBConnectionPool.releaseConnection(con);
+                
+            }
+            
+            
+        }
 	
 	
 }
