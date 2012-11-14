@@ -47,6 +47,12 @@ public final class DBNames {
 	public static final String ATT_PAYMENT_DISCOUNT = "discount";
 	public static final String ATT_PAYMENT_DISCDESCRIPTION = "discount_description";
 	
+	//RefundTable's attributes
+	public static final String ATT_REFUND_ID = "Id";
+	public static final String ATT_REFUND_DESCRIPTION = "Descrizione";
+	public static final String ATT_REFUND_AMOUNT = "Importo";
+	public static final String ATT_REFUND_PARENTID = "Genitore";
+	
 	//Trainee' attributes
 	public static final String ATT_TRAINEE_REGISTER="register";
 	public static final String ATT_TRAINEE_NAME="name";
