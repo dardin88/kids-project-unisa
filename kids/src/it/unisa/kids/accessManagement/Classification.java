@@ -4,10 +4,6 @@ import java.util.GregorianCalendar;
 
 public class Classification 
 {
-	private int id;
-	private GregorianCalendar date;
-	private GregorianCalendar dateTerm;
-
 	public Classification(int id,GregorianCalendar date,GregorianCalendar dateTerm) 
 	{
 		this.id=id;
@@ -17,7 +13,7 @@ public class Classification
 
 	public int getId()
 	{
-		return id;
+		return this.id;
 	}
 
 	public void setId(int id) 
@@ -27,7 +23,7 @@ public class Classification
 
 	public GregorianCalendar getDate() 
 	{
-		return date;
+		return this.date;
 	}
 
 	public void setDate(GregorianCalendar date) 
@@ -37,7 +33,7 @@ public class Classification
 
 	public GregorianCalendar getDateTerm()
 	{
-		return dateTerm;
+		return this.dateTerm;
 	}
 
 	public void setDateTerm(GregorianCalendar dateTerm)
@@ -45,5 +41,8 @@ public class Classification
 		this.dateTerm = dateTerm;
 
 	}
-
+	
+	private int id;
+	private GregorianCalendar date;
+	private GregorianCalendar dateTerm;
 }
