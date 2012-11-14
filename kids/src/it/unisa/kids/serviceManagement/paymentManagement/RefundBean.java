@@ -2,18 +2,18 @@ package it.unisa.kids.serviceManagement.paymentManagement;
 
 import java.io.Serializable;
 
-public class Refund implements Serializable {
+public class RefundBean implements Serializable {
 
 	private String id;
 	private String description;
 	private double amount;
 	private String parentId;
 
-	public Refund() {
+	public RefundBean() {
 
 	}
 	
-	public Refund(String pId, double pAmount, String pParentId) {
+	public RefundBean(String pId, double pAmount, String pParentId) {
 		setId(pId);
 		setAmount(pAmount);
 		setParentId(pParentId);

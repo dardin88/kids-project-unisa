@@ -5,10 +5,10 @@ import java.util.List;
 
 public interface IPaymentManager {
 
-	public void insert(Payment pPayment) throws SQLException;
-	public void update(Payment pPayment) throws SQLException;
-	public void delete(Payment pPayment) throws SQLException;
+	public void insert(PaymentBean pPayment) throws SQLException;
+	public void update(PaymentBean pPayment) throws SQLException;
+	public void delete(PaymentBean pPayment) throws SQLException;
 	
-	public List<Payment> getPaymentsByObject(Payment pPayment) throws SQLException;
-	public List<Payment> getPaymentList() throws SQLException;
+	public List<PaymentBean> search(PaymentBean pPayment) throws SQLException;
+	public List<PaymentBean> getPaymentList() throws SQLException;
 }

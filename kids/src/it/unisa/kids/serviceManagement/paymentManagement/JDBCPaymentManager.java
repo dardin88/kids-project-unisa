@@ -28,7 +28,7 @@ public class JDBCPaymentManager implements IPaymentManager {
 	}
 	// end of Singleton Design Pattern's implementation
 	
-	public synchronized void insert(Payment pPayment) throws SQLException {
+	public synchronized void insert(PaymentBean pPayment) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String query1;
@@ -97,7 +97,7 @@ public class JDBCPaymentManager implements IPaymentManager {
 		}
 	}
 	
-	public synchronized void update(Payment pPayment) throws SQLException {
+	public synchronized void update(PaymentBean pPayment) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String query = null;
@@ -146,7 +146,7 @@ public class JDBCPaymentManager implements IPaymentManager {
 		}
 	}
 	
-	public synchronized void delete(Payment pPayment) throws SQLException {
+	public synchronized void delete(PaymentBean pPayment) throws SQLException {
 		Connection con = null;
 		Statement stmt = null;
 		String query = null;
@@ -169,12 +169,12 @@ public class JDBCPaymentManager implements IPaymentManager {
 		}
 	}
 	
-	public synchronized List<Payment> getPaymentsByObject(Payment pPayment) throws SQLException {
+	public synchronized List<PaymentBean> search(PaymentBean pPayment) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String query = null;
-		List<Payment> paymentList = null;
+		List<PaymentBean> payments = null;
 		
 		boolean and = false;
 		
@@ -304,9 +304,9 @@ public class JDBCPaymentManager implements IPaymentManager {
 			con.commit();
 			
 			// constructing payment list
-			paymentList = new ArrayList<Payment>();
+			payments = new ArrayList<PaymentBean>();
 			while (rs.next()) {
-				Payment p = new Payment();
+				PaymentBean p = new PaymentBean();
 				p.setId(rs.getInt(DBNames.ATT_PAYMENT_ID));
 				
 				GregorianCalendar expDate = new GregorianCalendar();
@@ -324,7 +324,7 @@ public class JDBCPaymentManager implements IPaymentManager {
 				p.setPayee(rs.getString(DBNames.ATT_PAYMENT_PAYEE));
 				p.setParentId(rs.getInt(DBNames.ATT_PAYMENT_PARENTID));
 				
-				paymentList.add(p);
+				payments.add(p);
 			}
 		} finally {
 			if (rs != null)
@@ -334,15 +334,19 @@ public class JDBCPaymentManager implements IPaymentManager {
 			if (con != null)
 				DBConnectionPool.releaseConnection(con);
 		}
-		return paymentList;
+		return payments;
 	}
 	
-	public synchronized List<Payment> getPaymentList() throws SQLException {
+	private String enableAnd(boolean pEnableAnd) {
+		return pEnableAnd ? " AND " : " ";
+	}
+	
+	public synchronized List<PaymentBean> getPaymentList() throws SQLException {
 		Connection con = null;
 		Statement stmt = null;
 		ResultSet rs = null;
 		String query = null;
-		List<Payment> paymentList = null;
+		List<PaymentBean> payments = null;
 		
 		try {
 			con = DBConnectionPool.getConnection();
@@ -352,9 +356,9 @@ public class JDBCPaymentManager implements IPaymentManager {
 			rs = stmt.executeQuery(query);
 			
 			// constructing payment list
-			paymentList = new ArrayList<Payment>();
+			payments = new ArrayList<PaymentBean>();
 			while (rs.next()) {
-				Payment p = new Payment();
+				PaymentBean p = new PaymentBean();
 				p.setId(rs.getInt(DBNames.ATT_PAYMENT_ID));
 				
 				GregorianCalendar expDate = new GregorianCalendar();
@@ -372,7 +376,7 @@ public class JDBCPaymentManager implements IPaymentManager {
 				p.setPayee(rs.getString(DBNames.ATT_PAYMENT_PAYEE));
 				p.setParentId(rs.getInt(DBNames.ATT_PAYMENT_PARENTID));
 				
-				paymentList.add(p);
+				payments.add(p);
 			}
 		} finally {
 			if (rs != null)
@@ -382,11 +386,6 @@ public class JDBCPaymentManager implements IPaymentManager {
 			if (con != null)
 				DBConnectionPool.releaseConnection(con);
 		}
-		return paymentList;
-	}
-	
-	
-	private String enableAnd(boolean enableAnd) {
-		return enableAnd ? " AND " : " ";
+		return payments;
 	}
 }
