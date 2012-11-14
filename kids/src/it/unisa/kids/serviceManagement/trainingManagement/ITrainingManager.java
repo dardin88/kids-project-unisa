@@ -6,19 +6,21 @@ import java.util.ArrayList;
 
 public interface ITrainingManager {
 
-	public abstract void insertTrainee(Trainee pTrainee) throws SQLException;
+	public abstract void insert(Trainee pTrainee) throws SQLException;
 
-	public abstract void update(Trainee pTrainee);
+	public abstract void update(Trainee pTrainee) throws SQLException;
 
-	public abstract void deleteTrainee(Trainee pTrainee) throws SQLException;
+	public abstract void delete(Trainee pTrainee) throws SQLException;
 
-	public abstract ArrayList<Trainee> getTrainees(Trainee pTrainee)
+	public abstract ArrayList<Trainee> search(Trainee pTrainee)
 			throws SQLException;
 
-	public abstract void insertActivity(TraineeActivity pTraineeActivity)
+	public abstract void insert(TraineeActivity pTraineeActivity)
 			throws SQLException;
 
-	public abstract void deleteActivity(TraineeActivity pTraineeActivity)
+	public abstract void delete(TraineeActivity pTraineeActivity)
 			throws SQLException;
+        public abstract void update(TraineeActivity pTrainee) throws SQLException;
+
 
 }

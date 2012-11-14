@@ -33,7 +33,7 @@ public class JDBCTrainingManager implements ITrainingManager {
      */
 
     @Override
-    public void insertTrainee(Trainee pTrainee) throws SQLException {
+    public void insert(Trainee pTrainee) throws SQLException {
         Connection con = null;
         PreparedStatement pStmt = null;
         String query1;
@@ -88,14 +88,14 @@ public class JDBCTrainingManager implements ITrainingManager {
      */
 
     @Override
-    public void update(Trainee pTrainee) {
+    public void update(Trainee pTrainee) throws SQLException{
     }
     /* (non-Javadoc)
      * @see it.unisa.kids.serviceManagement.trainingManagement.ITrainingManager#deleteTrainee(it.unisa.kids.serviceManagement.trainingManagement.Trainee)
      */
 
     @Override
-    public void deleteTrainee(Trainee pTrainee) throws SQLException {
+    public void delete(Trainee pTrainee) throws SQLException {
         Connection con = null;
         Statement stmt = null;
         String query;
@@ -115,7 +115,7 @@ public class JDBCTrainingManager implements ITrainingManager {
      */
 
     @Override
-    public ArrayList<Trainee> getTrainees(Trainee pTrainee) throws SQLException {
+    public ArrayList<Trainee> search(Trainee pTrainee) throws SQLException {
         Connection con = null;
         Statement stmt = null;
         ResultSet rsTrainee = null;
@@ -175,7 +175,7 @@ public class JDBCTrainingManager implements ITrainingManager {
      * @see it.unisa.kids.serviceManagement.trainingManagement.ITrainingManager#insertActivity(it.unisa.kids.serviceManagement.trainingManagement.TraineeActivity)
      */
     @Override
-    public void insertActivity(TraineeActivity pTraineeActivity) throws SQLException {
+    public void insert(TraineeActivity pTraineeActivity) throws SQLException {
         Connection con = null;
         PreparedStatement pStmt = null;
         String query1;
@@ -220,7 +220,7 @@ public class JDBCTrainingManager implements ITrainingManager {
      */
 
     @Override
-    public void deleteActivity(TraineeActivity pTraineeActivity) throws SQLException {
+    public void delete(TraineeActivity pTraineeActivity) throws SQLException {
         Connection con = null;
         PreparedStatement pStmt = null;
         String query;
@@ -243,13 +243,14 @@ public class JDBCTrainingManager implements ITrainingManager {
         Connection con = null;
         Statement stmt = null;
         String query;
-        ArrayList<TraineeActivity> listActivity = null;
+        ArrayList<TraineeActivity> listActivity = new ArrayList<TraineeActivity>();
         try {
             
             con = DBConnectionPool.getConnection();
             query = "SELECT * FROM " + DBNames.TABLE_ACT +" WHERE "+DBNames.ATT_TRAINEEACTIVITY_TRAINEE+"='"+pTrainee.getRegister()+"'";
             stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
+            con.commit();
             while(rs.next()){
                 TraineeActivity activity=new TraineeActivity();
                 String name=rs.getString(DBNames.ATT_TRAINEEACTIVITY_NAME);
@@ -279,5 +280,10 @@ public class JDBCTrainingManager implements ITrainingManager {
         }
 
 
+    }
+
+    @Override
+    public void update(TraineeActivity pTrainee) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
