@@ -3,7 +3,7 @@ package it.unisa.kids.serviceManagement.paymentManagement;
 import java.io.Serializable;
 import java.util.GregorianCalendar;
 
-public class Payment implements Serializable {
+public class PaymentBean implements Serializable {
 
 	private int id;
 	private GregorianCalendar expDate;
@@ -18,7 +18,7 @@ public class Payment implements Serializable {
 	private String payee;
 	private int parentId;
 
-	public Payment() {
+	public PaymentBean() {
 
 	}
 
