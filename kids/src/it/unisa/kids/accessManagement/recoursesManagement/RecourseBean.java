@@ -1,5 +1,8 @@
 package it.unisa.kids.accessManagement.recoursesManagement;
 
+import java.util.GregorianCalendar;
+
+
 /**
  * This class models the Account entity
  * @author Gianmarco Del Pozzo
@@ -9,9 +12,9 @@ package it.unisa.kids.accessManagement.recoursesManagement;
 
 public class RecourseBean {
 	private int id;
-	private String date;
+	private GregorianCalendar date;
 	private String reason;
-	private String valutation;
+	private boolean valutation;
 	private int id_registration;
 	
 
@@ -50,7 +53,7 @@ public class RecourseBean {
 	 * @return String data
 	 */
 
-	public String getData() {
+	public GregorianCalendar getDate() {
 		return date;
 	}
 	
@@ -66,7 +69,7 @@ public class RecourseBean {
 	 * @return String valutation
 	 */
 
-	public String getValutation() {
+	public boolean getValutation() {
 		return valutation;
 	}
 	
@@ -82,7 +85,7 @@ public class RecourseBean {
 	 * @param String pDate
 	 */
 	
-	public void setData(String pDate) {
+	public void setDate(GregorianCalendar pDate) {
 		this.date = pDate;
 	}
 	
@@ -98,7 +101,7 @@ public class RecourseBean {
 	 * @param String pValutation
 	 * 	 */
 
-	public void setValutation(String pValutation) {
+	public void setValutation(boolean pValutation) {
 		this.valutation = pValutation;
 	}
 

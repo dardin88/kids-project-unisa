@@ -7,7 +7,7 @@ public final class DBNames {
 	}
 
 	public static final String TABLE_ACCOUNT = "Account";
-	public static final String TABLE_RECOURSE = "recourse";
+	public static final String TABLE_RECOURSE = "Ricorso";
 	public static final String TABLE_RINUNCIA = "";		// da completare/definire
 	public static final String TABLE_CLASSIFICATION = "Graduatoria";
 	public static final String TABLE_CLASS = "class";
@@ -147,11 +147,11 @@ public final class DBNames {
 	public static final String ATT_RESULT_RESULT ="Esito";
 	
 	// Recourses's attributes
-	public static final String ATT_RECOURSE_ID="id";
-	public static final String ATT_RECOURSE_DATA="date";
-	public static final String ATT_RECOURSE_REASON="reason";
-	public static final String ATT_RECOURSE_VALUTATION="valutation";
-	public static final String ATT_RECOURSE_IDREGISTRATION="id_registration";
+	public static final String ATT_RECOURSE_ID="Id";
+	public static final String ATT_RECOURSE_DATA="Data";
+	public static final String ATT_RECOURSE_REASON="Motivo";
+	public static final String ATT_RECOURSE_VALUTATION="Valutazione";
+	public static final String ATT_RECOURSE_IDREGISTRATION="Iscrizione";
 
 	
 	// Reunion's attributes
