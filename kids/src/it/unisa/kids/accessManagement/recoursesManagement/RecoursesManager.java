@@ -25,7 +25,7 @@ public class RecoursesManager {
 			return manager=new RecoursesManager();
 	}
 
-	public Recourse Create(Recourse recourse) throws SQLException{
+	public RecourseBean Create(RecourseBean recourse) throws SQLException{
 		Connection con = null;
 		Statement stmt=null;
 
@@ -45,7 +45,7 @@ public class RecoursesManager {
 		return recourse;
 	}
 
-	public Recourse Delete(Recourse recourse) throws SQLException{
+	public RecourseBean Delete(RecourseBean recourse) throws SQLException{
 		Connection con = null;
 		Statement stmt=null;
 		try {
@@ -66,7 +66,7 @@ public class RecoursesManager {
 
 
 
-	public Recourse Accept(Recourse recourse) throws SQLException{
+	public RecourseBean Accept(RecourseBean recourse) throws SQLException{
 		Connection con = null;
 		Statement stmt=null;
 
@@ -89,7 +89,7 @@ public class RecoursesManager {
 		return recourse;
 	}
 
-	public Recourse Refuse(Recourse recourse) throws SQLException{
+	public RecourseBean Refuse(RecourseBean recourse) throws SQLException{
 		Connection con = null;
 		Statement stmt=null;
 
@@ -113,12 +113,12 @@ public class RecoursesManager {
 		return recourse;
 	}
 
-	public ArrayList<Recourse> Search(Recourse recourse) throws SQLException{
+	public ArrayList<RecourseBean> Search(RecourseBean recourse) throws SQLException{
 		Connection con = null;
 		Statement stmt=null;
 		ResultSet rsRecourse=null;
-		Recourse recourse2=new Recourse();
-		ArrayList<Recourse> listRecourse=new ArrayList<Recourse>();
+		RecourseBean recourse2=new RecourseBean();
+		ArrayList<RecourseBean> listRecourse=new ArrayList<RecourseBean>();
 
 		try {
 			con=DBConnectionPool.getConnection();

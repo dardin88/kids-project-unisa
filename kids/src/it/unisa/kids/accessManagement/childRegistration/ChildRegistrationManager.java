@@ -11,23 +11,23 @@ import java.util.List;
 
 public class ChildRegistrationManager {
 	
-	private static ChildRegistration manager;
+	private static ChildRegistrationBean manager;
 
 	  private ChildRegistrationManager()
 	  {
 	  }
 
-	  public static ChildRegistration getInstance()
+	  public static ChildRegistrationBean getInstance()
 	  {
 	    if (manager == null)
 	    {
-	      manager = new ChildRegistration();
+	      manager = new ChildRegistrationBean();
 	    }
 
 	    return manager;
 	  }
 	  
-	  public ChildRegistration create(ChildRegistration aChildReg) throws SQLException
+	  public ChildRegistrationBean create(ChildRegistrationBean aChildReg) throws SQLException
 	  {
 		  Connection con = null;
 		  Statement stmt=null;
@@ -49,7 +49,7 @@ public class ChildRegistrationManager {
 		  return aChildReg;
 	  }
 	  
-	  public ChildRegistration delete(ChildRegistration aChildReg) throws SQLException
+	  public ChildRegistrationBean delete(ChildRegistrationBean aChildReg) throws SQLException
 	  {
 		  Connection con = null;
 		  Statement stmt=null;
@@ -70,12 +70,12 @@ public class ChildRegistrationManager {
 	  }
 	  
 	  
-	  public List<ChildRegistration> search(ChildRegistration aChildReg) throws SQLException
+	  public List<ChildRegistrationBean> search(ChildRegistrationBean aChildReg) throws SQLException
 	  {
 		  Connection con = null;
 		  Statement stmt=null;
 		  ResultSet result=null;
-		  List<ChildRegistration> listOfChildReg=new ArrayList<ChildRegistration>();		//deve essere riempito con il risultato della query
+		  List<ChildRegistrationBean> listOfChildReg=new ArrayList<ChildRegistrationBean>();		//deve essere riempito con il risultato della query
 		  String query="SELECT * FROM 'iscrizionebambino' WHERE ";				
 		  
 		  if (aChildReg.getBornDate()!=null)
@@ -118,7 +118,7 @@ public class ChildRegistrationManager {
 		  return listOfChildReg;
 	  }
 	  
-	  public ChildRegistration modify(ChildRegistration aChildReg) throws SQLException
+	  public ChildRegistrationBean modify(ChildRegistrationBean aChildReg) throws SQLException
 	  {
 		  	Connection con = null;
 		  	Statement stmt=null;
