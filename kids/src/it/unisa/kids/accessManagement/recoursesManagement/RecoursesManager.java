@@ -115,7 +115,7 @@ public class RecoursesManager {
 		return recourse;
 	}
 
-	public ArrayList<Recourse> Search(Recourse recourse){
+	public ArrayList<Recourse> Search(Recourse recourse) throws SQLException{
 		Connection con = null;
 		Statement stmt=null;
 		ResultSet rsRecourse=null;
@@ -130,7 +130,7 @@ public class RecoursesManager {
 			String query="SELECT * " +
 					     "FROM "+DBNames.TABLE_RECOURSE+","+DBNames.TABLE_REQUEST+","+DBNames.TABLE_ACCOUNT+
 					     "WHERE "+DBNames.ATT_RECOURSE_IDREGISTRATION+"="+DBNames.TABLE_REQUEST+"." + DBNames.ATT_REQUEST_ID +
-			        		     " AND "+DBNames.ATT_REQUEST_IDACCOUNT+"="+DBNames.TABLE_ACCOUNT+"."+ DBNames.ATT_ACCOUNT_ID+"";
+			        		     " AND "+DBNames.ATT_REQUEST_ACCOUNT_PARENT +"="+DBNames.TABLE_ACCOUNT+"."+ DBNames.ATT_ACCOUNT_ID+"";
 			
 			
 			

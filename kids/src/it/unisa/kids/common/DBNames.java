@@ -33,6 +33,14 @@ public final class DBNames {
 	public static final String TABLE_DAILY_SECTION_ACT = "daily_section_act";
 	public static final String TABLE_CHILD_PARTICIPATION = "child_participation";
 	
+	//RequestTable's attributes
+	public static final String ATT_REQUEST_ID= "id";
+	public static final String ATT_REQUEST_DATE="data";
+	public static final String ATT_REQUEST_DESCRIPTION ="descrizione";
+	public static final String ATT_REQUEST_TIME= "time";
+	public static final String ATT_REQUEST_ACCOUNT_PARENT ="accountGenitore";
+	
+	
 	//PaymentTable's attributes
 	public static final String ATT_PAYMENT_ID = "id";
 	public static final String ATT_PAYMENT_EXPDATE = "exp_date";

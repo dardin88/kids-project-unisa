@@ -60,7 +60,7 @@ public class JDBCManagerAccount implements IAccountManager {
 		return pAccount;
 	}
 
-	public Account modify(Account pChangedAccount) throws SQLException{
+	public Account update (Account pChangedAccount) throws SQLException{
 		Connection con = null;
 		Statement stmt=null;
 		try{
