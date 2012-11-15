@@ -1,6 +1,6 @@
 package it.unisa.kids.serviceManagement.trainingManagement;
 
-import it.unisa.kids.accessManagement.Account;
+import it.unisa.kids.accessManagement.accountManagement.Account;
 
 import java.util.GregorianCalendar;
 

@@ -1,6 +1,6 @@
 package it.unisa.kids.communicationManagement.reunion;
 
-import it.unisa.kids.accessManagement.Account;
+import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.DBNames;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 
