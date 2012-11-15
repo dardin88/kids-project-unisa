@@ -1,4 +1,4 @@
-package it.unisa.kids.accessManagement.Renunciation;
+package it.unisa.kids.accessManagement.renunciation;
 
 import java.util.GregorianCalendar;
 
