@@ -36,7 +36,7 @@ public class JDBCManagerAccount implements IAccountManager {
 			/*generation of nickname */
 			while(true){
 				nickname= pAccount.getNameUser()+pAccount.getSurnameUser();
-				query1="Select"+DBNames.ATT_ACCOUNT_NAMEUSER+"From"+DBNames.TABLE_ACCOUNT+"Where nameUser='"+pAccount.getNameUser()+"'";
+				query1="Select"+DBNames.ATT_ACCOUNT_NAME +"From"+DBNames.TABLE_ACCOUNT+"Where nameUser='"+pAccount.getNameUser()+"'";
 				if(query1!=null)
 					nickname=nickname+i;
 				else 
@@ -46,7 +46,25 @@ public class JDBCManagerAccount implements IAccountManager {
 			/*generation of password*/
 			String password=getPWD();
 
-			query2="Insert into"+DBNames.TABLE_ACCOUNT+"("+DBNames.ATT_ACCOUNT_NAMEUSER+","+DBNames.ATT_ACCOUNT_REGISTRATIONDATE+","+DBNames.ATT_ACCOUNT_CAPDOMICILIE+","+DBNames.ATT_ACCOUNT_CAPRESIDENCE+","+DBNames.ATT_ACCOUNT_CELLULARNUMBER+","+DBNames.ATT_ACCOUNT_CITIZENSHIP+","+DBNames.ATT_ACCOUNT_TAXCODE+","+DBNames.ATT_ACCOUNT_SURNAMEUSER+","+DBNames.ATT_ACCOUNT_MUNICIPALITYRESIDENCE+","+DBNames.ATT_ACCOUNT_DATEOFBIRTH+","+DBNames.ATT_ACCOUNT_CONTRACTEXPIRATIONDATE+","+DBNames.ATT_ACCOUNT_EMAIL+","+DBNames.ATT_ACCOUNT_FACULTY+","+DBNames.ATT_ACCOUNT_FAX+","+DBNames.ATT_ACCOUNT_PLACEOFBIRTH+","+DBNames.ATT_ACCOUNT_NICKNAME+","+DBNames.ATT_ACCOUNT_NAMEUSER+","+DBNames.ATT_ACCOUNT_STREETNUMBERDOMICILIE+","+DBNames.ATT_ACCOUNT_STREETNUMBERRESIDENCE+","+DBNames.ATT_ACCOUNT_PASSWORD+","+DBNames.ATT_ACCOUNT_PROVINCEDOMICILIE+","+DBNames.ATT_ACCOUNT_PROVINCERESIDENCE+","+DBNames.ATT_ACCOUNT_INCOME+","+DBNames.ATT_ACCOUNT_MUNICIPALITYDOMICILIE+","+DBNames.ATT_ACCOUNT_FAMILYSITUATION+","+DBNames.ATT_ACCOUNT_TELEPHONENUMBER+","+DBNames.ATT_ACCOUNT_TYPEACCOUNT+","+DBNames.ATT_ACCOUNT_TYPEPARENT+","+DBNames.ATT_ACCOUNT_QUALIFICATION+","+DBNames.ATT_ACCOUNT_VIADOMICILE+","+DBNames.ATT_ACCOUNT_VIARESIDENCE+") values("+nickname+","+pAccount.getRegistrationDate()+","+pAccount.getCapDomicilie()+","+pAccount.getCapResidence()+","+pAccount.getCellularNumber()+","+pAccount.getCitizenship()+","+pAccount.getTaxCode()+","+pAccount.getSurnameUser()+","+pAccount.getMunicipalityResidence()+","+pAccount.getDataOfBirth()+","+pAccount.getContractExpirationDate()+","+pAccount.getEmail()+","+pAccount.getFaculty()+","+pAccount.getFax()+","+pAccount.getPlaceOfBirth()+","+nickname+","+pAccount.getNameUser()+","+pAccount.getStreetNumberDomicilie()+","+pAccount.getStreetNumberResidence()+","+pAccount.getPassword()+","+pAccount.getProvinceDomicilie()+","+pAccount.getProvinceResidence()+","+pAccount.getIncome()+","+pAccount.getMunicipalityDomicilie()+","+pAccount.getFamilySituation()+","+pAccount.getTelephoneNumber()+","+pAccount.getTypeAccount()+","+pAccount.getTypeParent()+","+pAccount.getQualification()+","+pAccount.getViaDomicile()+","+pAccount.getViaResidence()+")";
+			query2="Insert into"+DBNames.TABLE_ACCOUNT+"("+DBNames.ATT_ACCOUNT_NAME+","+DBNames.ATT_ACCOUNT_REGISTRATIONDATE +
+					","+DBNames.ATT_ACCOUNT_CAPDOMICILIE+","+DBNames.ATT_ACCOUNT_CAPRESIDENCE+","+DBNames.ATT_ACCOUNT_CELLULARNUMBER +
+					","+DBNames.ATT_ACCOUNT_CITIZENSHIP+","+DBNames.ATT_ACCOUNT_TAXCODE+","+DBNames.ATT_ACCOUNT_SURNAMEUSER + 
+					","+DBNames.ATT_ACCOUNT_MUNICIPALITYRESIDENCE+","+DBNames.ATT_ACCOUNT_DATEOFBIRTH+","+DBNames.ATT_ACCOUNT_CONTRACTEXPIRATIONDATE + 
+					","+DBNames.ATT_ACCOUNT_EMAIL+","+DBNames.ATT_ACCOUNT_FACULTY+","+DBNames.ATT_ACCOUNT_FAX+","+DBNames.ATT_ACCOUNT_PLACEOFBIRTH + 
+					","+DBNames.ATT_ACCOUNT_NICKNAME+","+DBNames.ATT_ACCOUNT_NAME+","+DBNames.ATT_ACCOUNT_STREETNUMBERDOMICILIE + 
+					","+DBNames.ATT_ACCOUNT_STREETNUMBERRESIDENCE+","+DBNames.ATT_ACCOUNT_PASSWORD+","+DBNames.ATT_ACCOUNT_PROVINCEDOMICILIE +
+					","+DBNames.ATT_ACCOUNT_PROVINCERESIDENCE+","+DBNames.ATT_ACCOUNT_INCOME+","+DBNames.ATT_ACCOUNT_MUNICIPALITYDOMICILIE +
+					","+DBNames.ATT_ACCOUNT_FAMILYSITUATION+","+DBNames.ATT_ACCOUNT_TELEPHONENUMBER+","+DBNames.ATT_ACCOUNT_TYPEACCOUNT+
+					"," + DBNames.ATT_ACCOUNT_TYPEPARENT+","+DBNames.ATT_ACCOUNT_QUALIFICATION+","+DBNames.ATT_ACCOUNT_VIADOMICILE +
+					","+DBNames.ATT_ACCOUNT_VIARESIDENCE+") values("+nickname+","+pAccount.getRegistrationDate() + 
+					","+pAccount.getCapDomicilie()+","+pAccount.getCapResidence()+","+pAccount.getCellularNumber() +
+					","+pAccount.getCitizenship()+","+pAccount.getTaxCode()+","+pAccount.getSurnameUser() + 
+					","+pAccount.getMunicipalityResidence()+","+pAccount.getDataOfBirth()+","+pAccount.getContractExpirationDate() +
+					","+pAccount.getEmail()+","+pAccount.getFaculty()+","+pAccount.getFax()+","+pAccount.getPlaceOfBirth()+
+					","+nickname+","+pAccount.getNameUser()+","+pAccount.getStreetNumberDomicilie()+","+pAccount.getStreetNumberResidence() +
+					","+pAccount.getPassword()+","+pAccount.getProvinceDomicilie()+","+pAccount.getProvinceResidence()+","+pAccount.getIncome() +
+					","+pAccount.getMunicipalityDomicilie()+","+pAccount.getFamilySituation()+","+pAccount.getTelephoneNumber()+","+pAccount.getTypeAccount() +
+					","+pAccount.getTypeParent()+","+pAccount.getQualification()+","+pAccount.getViaDomicile()+","+pAccount.getViaResidence()+")";
 
 			stmt = con.createStatement();
 			stmt.executeUpdate(query2);
@@ -66,7 +84,7 @@ public class JDBCManagerAccount implements IAccountManager {
 		try{
 			con=DBConnectionPool.getConnection();
 			String query="Update table_name " +
-					"SET "+DBNames.ATT_ACCOUNT_REGISTRATIONDATE+"="+pChangedAccount.getRegistrationDate()+","+DBNames.ATT_ACCOUNT_CAPDOMICILIE+"="+pChangedAccount.getCapDomicilie()+","+DBNames.ATT_ACCOUNT_CAPRESIDENCE+"="+pChangedAccount.getCapResidence()+","+DBNames.ATT_ACCOUNT_CELLULARNUMBER+"="+pChangedAccount.getCellularNumber()+","+DBNames.ATT_ACCOUNT_CITIZENSHIP+"="+pChangedAccount.getCitizenship()+","+DBNames.ATT_ACCOUNT_TAXCODE+"="+pChangedAccount.getTaxCode()+","+DBNames.ATT_ACCOUNT_SURNAMEUSER+"="+pChangedAccount.getSurnameUser()+","+DBNames.ATT_ACCOUNT_MUNICIPALITYRESIDENCE+"="+pChangedAccount.getMunicipalityResidence()+","+DBNames.ATT_ACCOUNT_DATEOFBIRTH+"="+pChangedAccount.getDataOfBirth()+","+DBNames.ATT_ACCOUNT_CONTRACTEXPIRATIONDATE+"="+pChangedAccount.getContractExpirationDate()+","+DBNames.ATT_ACCOUNT_EMAIL+"="+pChangedAccount.getEmail()+","+DBNames.ATT_ACCOUNT_FACULTY+"="+pChangedAccount.getFaculty()+","+DBNames.ATT_ACCOUNT_FAX+"="+pChangedAccount.getFax()+""+DBNames.ATT_ACCOUNT_PLACEOFBIRTH+"="+pChangedAccount.getPlaceOfBirth()+","+DBNames.ATT_ACCOUNT_NICKNAME+"="+pChangedAccount.getNickName()+","+DBNames.ATT_ACCOUNT_NAMEUSER+"="+pChangedAccount.getNameUser()+","+DBNames.ATT_ACCOUNT_STREETNUMBERDOMICILIE+"="+pChangedAccount.getStreetNumberDomicilie()+","+DBNames.ATT_ACCOUNT_STREETNUMBERRESIDENCE+"="+pChangedAccount.getStreetNumberResidence()+","+DBNames.ATT_ACCOUNT_PASSWORD+"="+pChangedAccount.getPassword()+","+DBNames.ATT_ACCOUNT_PROVINCEDOMICILIE+"="+pChangedAccount.getProvinceDomicilie()+","+DBNames.ATT_ACCOUNT_PROVINCERESIDENCE+"="+pChangedAccount.getProvinceResidence()+","+DBNames.ATT_ACCOUNT_INCOME+"="+pChangedAccount.getIncome()+","+DBNames.ATT_ACCOUNT_MUNICIPALITYDOMICILIE+"="+pChangedAccount.getMunicipalityDomicilie()+","+DBNames.ATT_ACCOUNT_FAMILYSITUATION+"="+pChangedAccount.getFamilySituation()+","+DBNames.ATT_ACCOUNT_TELEPHONENUMBER+"="+pChangedAccount.getTelephoneNumber()+","+DBNames.ATT_ACCOUNT_TYPEACCOUNT+"="+pChangedAccount.getTypeAccount()+","+DBNames.ATT_ACCOUNT_TYPEPARENT+"="+pChangedAccount.getTypeParent()+","+DBNames.ATT_ACCOUNT_QUALIFICATION+"="+pChangedAccount.getQualification()+","+DBNames.ATT_ACCOUNT_VIADOMICILE+"="+pChangedAccount.getViaDomicile()+","+DBNames.ATT_ACCOUNT_VIARESIDENCE+"="+pChangedAccount.getViaResidence()+
+					"SET "+DBNames.ATT_ACCOUNT_REGISTRATIONDATE+"="+pChangedAccount.getRegistrationDate()+","+DBNames.ATT_ACCOUNT_CAPDOMICILIE+"="+pChangedAccount.getCapDomicilie()+","+DBNames.ATT_ACCOUNT_CAPRESIDENCE+"="+pChangedAccount.getCapResidence()+","+DBNames.ATT_ACCOUNT_CELLULARNUMBER+"="+pChangedAccount.getCellularNumber()+","+DBNames.ATT_ACCOUNT_CITIZENSHIP+"="+pChangedAccount.getCitizenship()+","+DBNames.ATT_ACCOUNT_TAXCODE+"="+pChangedAccount.getTaxCode()+","+DBNames.ATT_ACCOUNT_SURNAMEUSER+"="+pChangedAccount.getSurnameUser()+","+DBNames.ATT_ACCOUNT_MUNICIPALITYRESIDENCE+"="+pChangedAccount.getMunicipalityResidence()+","+DBNames.ATT_ACCOUNT_DATEOFBIRTH+"="+pChangedAccount.getDataOfBirth()+","+DBNames.ATT_ACCOUNT_CONTRACTEXPIRATIONDATE+"="+pChangedAccount.getContractExpirationDate()+","+DBNames.ATT_ACCOUNT_EMAIL+"="+pChangedAccount.getEmail()+","+DBNames.ATT_ACCOUNT_FACULTY+"="+pChangedAccount.getFaculty()+","+DBNames.ATT_ACCOUNT_FAX+"="+pChangedAccount.getFax()+""+DBNames.ATT_ACCOUNT_PLACEOFBIRTH+"="+pChangedAccount.getPlaceOfBirth()+","+DBNames.ATT_ACCOUNT_NICKNAME+"="+pChangedAccount.getNickName()+","+DBNames.ATT_ACCOUNT_NAME+"="+pChangedAccount.getNameUser()+","+DBNames.ATT_ACCOUNT_STREETNUMBERDOMICILIE+"="+pChangedAccount.getStreetNumberDomicilie()+","+DBNames.ATT_ACCOUNT_STREETNUMBERRESIDENCE+"="+pChangedAccount.getStreetNumberResidence()+","+DBNames.ATT_ACCOUNT_PASSWORD+"="+pChangedAccount.getPassword()+","+DBNames.ATT_ACCOUNT_PROVINCEDOMICILIE+"="+pChangedAccount.getProvinceDomicilie()+","+DBNames.ATT_ACCOUNT_PROVINCERESIDENCE+"="+pChangedAccount.getProvinceResidence()+","+DBNames.ATT_ACCOUNT_INCOME+"="+pChangedAccount.getIncome()+","+DBNames.ATT_ACCOUNT_MUNICIPALITYDOMICILIE+"="+pChangedAccount.getMunicipalityDomicilie()+","+DBNames.ATT_ACCOUNT_FAMILYSITUATION+"="+pChangedAccount.getFamilySituation()+","+DBNames.ATT_ACCOUNT_TELEPHONENUMBER+"="+pChangedAccount.getTelephoneNumber()+","+DBNames.ATT_ACCOUNT_TYPEACCOUNT+"="+pChangedAccount.getTypeAccount()+","+DBNames.ATT_ACCOUNT_TYPEPARENT+"="+pChangedAccount.getTypeParent()+","+DBNames.ATT_ACCOUNT_QUALIFICATION+"="+pChangedAccount.getQualification()+","+DBNames.ATT_ACCOUNT_VIADOMICILE+"="+pChangedAccount.getViaDomicile()+","+DBNames.ATT_ACCOUNT_VIARESIDENCE+"="+pChangedAccount.getViaResidence()+
 					"WHERE "+DBNames.ATT_ACCOUNT_ID+"="+pChangedAccount.getId(); 
 
 			stmt = con.createStatement();
@@ -99,7 +117,6 @@ public class JDBCManagerAccount implements IAccountManager {
 
 
 	public ArrayList<Account> search(Account pAccount) throws SQLException{
-		Account account2= new Account();
 		Connection con = null;
 		Statement stmt=null;
 		ResultSet rsAccount=null;
@@ -111,7 +128,7 @@ public class JDBCManagerAccount implements IAccountManager {
 			if (pAccount.getNickName()!=null)
 				query=query+""+DBNames.ATT_ACCOUNT_NICKNAME+"='"+pAccount.getNickName()+"'";
 			if (pAccount.getNameUser()!=null)
-				query=query+""+DBNames.ATT_ACCOUNT_NAMEUSER+"='"+pAccount.getNameUser()+"'";
+				query=query+""+DBNames.ATT_ACCOUNT_NAME+"='"+pAccount.getNameUser()+"'";
 			if (pAccount.getSurnameUser()!=null)
 				query=query+""+DBNames.ATT_ACCOUNT_SURNAMEUSER+"='"+pAccount.getSurnameUser()+"'";
 			if (pAccount.getTypeAccount()!=null)
@@ -119,7 +136,7 @@ public class JDBCManagerAccount implements IAccountManager {
 
 			stmt = con.createStatement();
 			rsAccount=stmt.executeQuery(query);
-			
+
 			while(rsAccount.next()){
 				int    id=rsAccount.getInt(DBNames.ATT_ACCOUNT_ID);
 				String registrationDate=rsAccount.getString(DBNames.ATT_ACCOUNT_REGISTRATIONDATE);
@@ -137,7 +154,7 @@ public class JDBCManagerAccount implements IAccountManager {
 				String fax=rsAccount.getString(DBNames.ATT_ACCOUNT_FAX);
 				String placeOfBirth=rsAccount.getString(DBNames.ATT_ACCOUNT_PLACEOFBIRTH);
 				String nickName=rsAccount.getString(DBNames.ATT_ACCOUNT_NICKNAME);
-				String nameUser=rsAccount.getString(DBNames.ATT_ACCOUNT_NAMEUSER);
+				String nameUser=rsAccount.getString(DBNames.ATT_ACCOUNT_NAME);
 				String streetNumberDomicilie=rsAccount.getString(DBNames.ATT_ACCOUNT_STREETNUMBERDOMICILIE);
 				String streetNumberResidence=rsAccount.getString(DBNames.ATT_ACCOUNT_STREETNUMBERRESIDENCE);
 				String password=rsAccount.getString(DBNames.ATT_ACCOUNT_PASSWORD);
