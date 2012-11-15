@@ -1,4 +1,4 @@
-package it.unisa.kids.accessManagement;
+package it.unisa.kids.accessManagement.Class;
 
 import java.util.ArrayList;
 import java.util.List;

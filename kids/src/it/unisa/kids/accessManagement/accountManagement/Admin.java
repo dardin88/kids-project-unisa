@@ -1,5 +1,10 @@
 package it.unisa.kids.accessManagement.accountManagement;
 
+/**
+ * 
+ * @author Michele Nappo
+ *
+ */
 
 public class Admin extends Account
 {

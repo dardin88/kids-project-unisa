@@ -1,5 +1,7 @@
-package it.unisa.kids.accessManagement;
+package it.unisa.kids.accessManagement.Classification;
 
+import it.unisa.kids.accessManagement.ChildRegistration.ChildRegistration;
+import it.unisa.kids.accessManagement.Result.Result;
 import it.unisa.kids.common.DBNames;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 import java.sql.*;
