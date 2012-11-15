@@ -30,7 +30,6 @@ public class JDBCClassificationManager implements IClassificationManager
 	}
 	// end of Singleton Design Pattern's implementation
 
-
 	public synchronized void insert (ClassificationBean pClassification) throws SQLException
 	{
 
@@ -49,12 +48,11 @@ public class JDBCClassificationManager implements IClassificationManager
 
 					+ ") VALUES(?, ?, ?)";
 
-			pstmt = con.prepareStatement(query);
 
 			//setting pstmt's parameters
 			pstmt.setInt(1, pClassification.getId());
 			pstmt.setDate(2, new java.sql.Date(pClassification.getDate().getTimeInMillis()));
-			pstmt.setDate(2, new java.sql.Date(pClassification.getDateTerm().getTimeInMillis()));
+			pstmt.setDate(3, new java.sql.Date(pClassification.getDateTerm().getTimeInMillis()));
 
 			pstmt.executeUpdate();
 			con.commit();
@@ -65,8 +63,6 @@ public class JDBCClassificationManager implements IClassificationManager
 				DBConnectionPool.releaseConnection(con);
 		}
 	}
-
-
 
 	public synchronized void update(ClassificationBean pClassification) throws SQLException
 	{
@@ -214,7 +210,6 @@ public class JDBCClassificationManager implements IClassificationManager
 	private String useAnd(boolean pEnableAnd) {
 		return pEnableAnd ? " AND " : " ";
 	}
-
 
 	public synchronized List<ClassificationBean> getClassificationList() throws SQLException 
 	{
