@@ -1,8 +1,10 @@
 package it.unisa.kids.serviceManagement.paymentManagement;
 
-public class RefinedAbstractPaymentManager extends AbstractPaymentManager {
+import it.unisa.kids.common.AbstractManager;
 
-	public IPaymentManager getPaymentManagerImplementor() {
+public class RefinedAbstractPaymentManager extends AbstractManager<IPaymentManager> {
+
+	public IPaymentManager getManagerImplementor() {
 		this.imp = JDBCPaymentManager.getInstance();
 		return this.imp;
 	}
