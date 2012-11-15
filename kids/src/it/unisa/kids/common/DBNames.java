@@ -172,5 +172,12 @@ public final class DBNames {
 	public static final String ATT_NEWS_ATTACHED="attached";
 	public static final String ATT_NEWS_DELEGATEACCOUNT="delegate_account";
 
+	//Communication's attributes
+	public static final String ATT_COMMUNICATION_ID="id";
+	public static final String ATT_COMMUNICATION_TYPE="type";
+	public static final String ATT_COMMUNICATION_IDEDUCATOR="idEducator";
+	public static final String ATT_COMMUNICATION_IDPARENT="idParent";
+	public static final String ATT_COMMUNICATION_DESCRIPTION="description";
+	public static final String ATT_COMMUNICATION_DATE="date";
 
 }
