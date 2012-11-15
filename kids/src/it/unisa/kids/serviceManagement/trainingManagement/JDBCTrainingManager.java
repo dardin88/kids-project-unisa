@@ -1,7 +1,5 @@
 package it.unisa.kids.serviceManagement.trainingManagement;
 
-import it.unisa.kids.accessManagement.accountManagement.Account;
-import it.unisa.kids.accessManagement.accountManagement.ManagerAccount;
 import it.unisa.kids.common.DBNames;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 
