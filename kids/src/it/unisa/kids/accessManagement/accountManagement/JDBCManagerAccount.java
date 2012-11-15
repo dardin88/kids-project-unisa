@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class JDBCManagerAccount {
+public class JDBCManagerAccount implements IAccountManager {
 
 	private static JDBCManagerAccount manager;
 
