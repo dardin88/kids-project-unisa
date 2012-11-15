@@ -21,6 +21,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * Avremo una servlet per ogni operazione (inserimento, modifica, cancellazione...)
+ * Quindi non conviene chiamare una servlet con questo nome, ma indichiamo subito di che responsabilità si 
+ * occupa di gestire.
+ * 
+ * In più, organizziamo le Servlet in maniera migliore: possiamo inserire un package 
+ * it.unisa.kids.serviceManagement.trainingManagement.servlet
  *
  * @author utente
  */
@@ -41,6 +47,17 @@ public class TrainingManagerServlet extends HttpServlet {
         if (operation.equals(INSERTTRAINEE)) {
             try {
                 Trainee trainee = new Trainee();
+                // Quando leggi un parametro, lo stai leggendo appunto dalla HTTPRequest.
+                // Questo oggetto ti da informazioni riguardo la JSP che richiama questa Servlet.
+                // Se leggi come parametro DBNames.ATT_TRAINEE_NAME, significa che il campo nell'interfaccia
+                // che viene visualizzata dall'utente ha come nome DBNames.ATT_TRAINEE_NAME. Si può fare, ma di 
+                // questa cosa bisogna ricordarsene quando si fanno le JSP.
+                
+                // Lo so che fin quando non si risolvono le cose con le JSP non puoi fare altrimenti, e quindi va bene 
+                // così, ma non appena hai la possibilità, conviene che lavori prima alle JSP perché le Servlet sono
+                // solo una logica conseguenza
+                
+                // In generale, comunque, va bene così! ;)
                 trainee.setName(request.getParameter(DBNames.ATT_TRAINEE_NAME));
                 trainee.setAddress(request.getParameter(DBNames.ATT_TRAINEE_ADDRESS));
                 trainee.setRegister(request.getParameter(DBNames.ATT_TRAINEE_REGISTER));
@@ -62,7 +79,7 @@ public class TrainingManagerServlet extends HttpServlet {
         }
 
     }
-
+    
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
