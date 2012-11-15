@@ -13,20 +13,20 @@ import java.util.GregorianCalendar;
  *
  */
 
-public class ManagerClassification 
+public class ClassificationManager 
 {
-	private static ManagerClassification manager;
+	private static ClassificationManager manager;
 
 	// Singleton Design Pattern's implementation
-	private ManagerClassification()
+	private ClassificationManager()
 	{
 	}
 
-	public static ManagerClassification getInstance(){
+	public static ClassificationManager getInstance(){
 		if (manager!=null)
 			return manager;
 		else
-			return manager=new ManagerClassification();
+			return manager=new ClassificationManager();
 	}
 	// end of Singleton Design Pattern's implementation
 

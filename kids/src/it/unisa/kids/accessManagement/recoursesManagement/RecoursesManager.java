@@ -11,20 +11,20 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManagerRecourses {
+public class RecoursesManager {
 
-	private static ManagerRecourses manager;
+	private static RecoursesManager manager;
 	private Account parent;
 
-	private ManagerRecourses(){
+	private RecoursesManager(){
 		parent=new Account();
 	}
 
-	public static ManagerRecourses getInstace(){
+	public static RecoursesManager getInstace(){
 		if (manager!=null)
 			return manager;
 		else
-			return manager=new ManagerRecourses();
+			return manager=new RecoursesManager();
 	}
 
 	public Recourse Create(Recourse recourse) throws SQLException{
@@ -127,7 +127,14 @@ public class ManagerRecourses {
 
 
 			//request= iscrizione?
-			String query="Select * From "+DBNames.TABLE_RECOURSE+","+DBNames.TABLE_REQUEST+","+DBNames.TABLE_ACCOUNT+" where "+DBNames.ATT_RECOURSE_IDREGISTRATION+"="+DBNames.TABLE_REQUEST+"."+DBNames.ATT_REQUEST_ID+" AND "+DBNames.ATT_REQUEST_IDACCOUNT+"="+DBNames.TABLE_ACCOUNT+"."+DBNames.ATT_ACCOUNT_ID+"";
+			String query="SELECT * " +
+					     "FROM "+DBNames.TABLE_RECOURSE+","+DBNames.TABLE_REQUEST+","+DBNames.TABLE_ACCOUNT+
+					     "WHERE "+DBNames.ATT_RECOURSE_IDREGISTRATION+"="+DBNames.TABLE_REQUEST+"." + DBNames.ATT_REQUEST_ID +
+			        		     " AND "+DBNames.ATT_REQUEST_IDACCOUNT+"="+DBNames.TABLE_ACCOUNT+"."+ DBNames.ATT_ACCOUNT_ID+"";
+			
+			
+			
+			
 			if (recourse.getId()!=0) // dubbi
 				query=query+"'"+DBNames.ATT_RECOURSE_ID+"'='"+recourse.getId()+"'";
 			if (recourse.getData()!=null)
