@@ -145,6 +145,7 @@ public class JDBCNewsManager implements INewsManager
 	 * @param News pNews
 	 */
 
+	//controllare delete
 	public void deleteNews(News pNews) throws SQLException 
 	{
 		Connection connection=null;
@@ -157,7 +158,6 @@ public class JDBCNewsManager implements INewsManager
 			query="delete from "+DBNames.TABLE_NEWS+" where "+DBNames.ATT_NEWS_DATE+"='"+pNews.getDate().get(Calendar.YEAR)+"-"+pNews.getDate().get(Calendar.MONTH)+"-"+pNews.getDate().get(Calendar.DAY_OF_MONTH)+"'";
 			System.out.println(query);
 			stmt=connection.createStatement();
-		//controllare
 			stmt.executeUpdate(query);
 			System.out.println("fff");
 		
