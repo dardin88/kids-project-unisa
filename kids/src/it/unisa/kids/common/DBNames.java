@@ -14,6 +14,7 @@ public final class DBNames {
 	public static final String TABLE_CHILD = "child_inscription";
 	public static final String TABLE_RESULT = "esito";		// da completare/definire
 	public static final String TABLE_ASSIGNATION = "assignation";
+	public static final String TABLE_REGISTRATION = "registrazioneBambino";
 	
 	public static final String TABLE_REQUEST = "request";
 	public static final String TABLE_DIFF_MENU = "diff_menu";
@@ -40,6 +41,10 @@ public final class DBNames {
 	public static final String ATT_REQUEST_TIME= "time";
 	public static final String ATT_REQUEST_ACCOUNT_PARENT ="accountGenitore";
 	
+	//RegistrationTable 's attributes
+	public static final String ATT_REGISTRATION_ID= "id";
+	public static final String ATT_REGISTRATION_SURNAME="cognome";
+	public static final String ATT_REGISTRATION_NAME = "nome";
 	
 	//PaymentTable's attributes
 	public static final String ATT_PAYMENT_ID = "id";
