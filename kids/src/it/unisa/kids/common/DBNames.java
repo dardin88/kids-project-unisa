@@ -6,15 +6,15 @@ public final class DBNames {
 		
 	}
 
-	public static final String TABLE_ACCOUNT = "account";
+	public static final String TABLE_ACCOUNT = "Account";
 	public static final String TABLE_RECOURSE = "recourse";
 	public static final String TABLE_RINUNCIA = "";		// da completare/definire
-	public static final String TABLE_CLASSIFICATION = "graduatoria";
+	public static final String TABLE_CLASSIFICATION = "Graduatoria";
 	public static final String TABLE_CLASS = "class";
 	public static final String TABLE_CHILD = "child_inscription";
-	public static final String TABLE_RESULT = "esito";		// da completare/definire
+	public static final String TABLE_RESULT = "Esito";		// da completare/definire
 	public static final String TABLE_ASSIGNATION = "assignation";
-	public static final String TABLE_REGISTRATION = "registrazioneBambino";
+	public static final String TABLE_REGISTRATION = "IscrizioneBambino";
 	
 	public static final String TABLE_REQUEST = "request";
 	public static final String TABLE_DIFF_MENU = "diff_menu";
@@ -42,9 +42,19 @@ public final class DBNames {
 	public static final String ATT_REQUEST_ACCOUNT_PARENT ="accountGenitore";
 	
 	//RegistrationTable 's attributes
-	public static final String ATT_REGISTRATION_ID= "id";
-	public static final String ATT_REGISTRATION_SURNAME="cognome";
-	public static final String ATT_REGISTRATION_NAME = "nome";
+	public static final String ATT_REGISTRATION_ID= "Id";
+	public static final String ATT_REGISTRATION_SURNAME="Cognome";
+	public static final String ATT_REGISTRATION_NAME = "Nome";
+	public static final String ATT_REGISTRATION_BORN ="DataNascita";
+	public static final String ATT_REGISTRATION_CITY_BIRTH = "ComuneNascita";
+	public static final String ATT_REGISTRATION_TAX_CODE= "CodiceFiscale";
+	public static final String ATT_REGISTRATION_NATIONALITY ="Cittadinanza";
+	public static final String ATT_REGISTRATION_END_USER = "FasciaUtenza";
+	public static final String ATT_REGISTRATION_SIGNUP_DATE ="DataIscrizione";
+	public static final String ATT_REGISTRATION_DIDEASE= "Malattia";
+	public static final String ATT_REGISTRATION_ENROLLEMENT_PHASE= "FaseDellIscrizione";
+	public static final String ATT_REGISTRATION_ACCOUNT_GENITORE ="AccountGenitore";
+	public static final String ATT_REGISTRATION_CLASS= "Classe";
 	
 	//PaymentTable's attributes
 	public static final String ATT_PAYMENT_ID = "id";
@@ -80,37 +90,42 @@ public final class DBNames {
 	public static final String ATT_TRAINEE_DELEGATEACCOUNT="delegate_account";
 	
 	//Account's attributes
-	public static final String ATT_ACCOUNT_CAPDOMICILIE="cap_domicilie";
-	public static final String ATT_ACCOUNT_CAPRESIDENCE="cap_residence";
-	public static final String ATT_ACCOUNT_CELLULARNUMBER="cellular_number";
-	public static final String ATT_ACCOUNT_CITIZENSHIP="citizenship";
-	public static final String ATT_ACCOUNT_CONTRACTEXPIRATIONDATE="contract_expiration_date";
-	public static final String ATT_ACCOUNT_DATEOFBIRTH="date_of_birth";
-	public static final String ATT_ACCOUNT_EMAIL="email";
+	public static final String ATT_ACCOUNT_CAPDOMICILIE="DomicilioCap";
+	public static final String ATT_ACCOUNT_CAPRESIDENCE="ResidenzaCap";
+	public static final String ATT_ACCOUNT_CELLULARNUMBER="Cellulare";
+	public static final String ATT_ACCOUNT_CITIZENSHIP="Cittadinaza";
+	public static final String ATT_ACCOUNT_CONTRACTEXPIRATIONDATE="DataScadenzaContratto";
+	public static final String ATT_ACCOUNT_DATEOFBIRTH="DataNascita";
+	public static final String ATT_ACCOUNT_EMAIL="Email";
+	// Si devono inserire tra "" i nomi come stanno nel DB
 	public static final String ATT_ACCOUNT_FACULTY="faculty";
-	public static final String ATT_ACCOUNT_FAMILYSITUATION="family_situation";
-	public static final String ATT_ACCOUNT_FAX="fax";
-	public static final String ATT_ACCOUNT_ID="id";
-	public static final String ATT_ACCOUNT_INCOME="income";
-	public static final String ATT_ACCOUNT_MUNICIPALITYDOMICILIE="municipality_domicilie";
-	public static final String ATT_ACCOUNT_MUNICIPALITYRESIDENCE="municipality_residence";
-	public static final String ATT_ACCOUNT_NAMEUSER="name_user";
-	public static final String ATT_ACCOUNT_NICKNAME="nickname";
-	public static final String ATT_ACCOUNT_PASSWORD="password";
-	public static final String ATT_ACCOUNT_PLACEOFBIRTH="place_of_birth";
-	public static final String ATT_ACCOUNT_PROVINCERESIDENCE="province_residence";
-	public static final String ATT_ACCOUNT_PROVINCEDOMICILIE="province_domicilie";
-	public static final String ATT_ACCOUNT_QUALIFICATION="qualification";
+	
+	public static final String ATT_ACCOUNT_FAMILYSITUATION="SituazioneFamiliare";
+	public static final String ATT_ACCOUNT_FAX="Dax";
+	public static final String ATT_ACCOUNT_ID="Id";
+	public static final String ATT_ACCOUNT_INCOME="Reddito";
+	public static final String ATT_ACCOUNT_MUNICIPALITYDOMICILIE="DomicilioComune";
+	public static final String ATT_ACCOUNT_MUNICIPALITYRESIDENCE="ResidenzaComune";
+	public static final String ATT_ACCOUNT_NAME="Nome";
+	public static final String ATT_ACCOUNT_NICKNAME="Nickname";
+	public static final String ATT_ACCOUNT_PASSWORD="Password";
+	public static final String ATT_ACCOUNT_PLACEOFBIRTH="ComuneNascita";
+	public static final String ATT_ACCOUNT_PROVINCERESIDENCE="ResidenzaProvincia";
+	public static final String ATT_ACCOUNT_PROVINCEDOMICILIE="DomicilioProvincia";
+	public static final String ATT_ACCOUNT_QUALIFICATION="TitoloStudio";
+
+	//Si devono inserire tra "" i nomi come stanno nel DB
 	public static final String ATT_ACCOUNT_REGISTRATIONDATE="registration_date";
 	public static final String ATT_ACCOUNT_STREETNUMBERDOMICILIE="street_number_domicilie";
 	public static final String ATT_ACCOUNT_STREETNUMBERRESIDENCE="street_number_residence";
-	public static final String ATT_ACCOUNT_SURNAMEUSER="surname_user";
-	public static final String ATT_ACCOUNT_TAXCODE="tax_code";
-	public static final String ATT_ACCOUNT_TELEPHONENUMBER="telephone_number";
-	public static final String ATT_ACCOUNT_TYPEACCOUNT="type_account";
-	public static final String ATT_ACCOUNT_TYPEPARENT="type_parent";
-	public static final String ATT_ACCOUNT_VIADOMICILE="via_domicile";
-	public static final String ATT_ACCOUNT_VIARESIDENCE="via_residence";
+	
+	public static final String ATT_ACCOUNT_SURNAMEUSER="Cognome";
+	public static final String ATT_ACCOUNT_TAXCODE="CodiceFiscale";
+	public static final String ATT_ACCOUNT_TELEPHONENUMBER="Telefono";
+	public static final String ATT_ACCOUNT_TYPEACCOUNT="TipologiaAccount";
+	public static final String ATT_ACCOUNT_TYPEPARENT="TipologiaGenitore";
+	public static final String ATT_ACCOUNT_VIADOMICILE="DomicilioIndirizzo";
+	public static final String ATT_ACCOUNT_VIARESIDENCE="ResidenzaIndirizzo";
 	
 	//Trainee activity's attributes
 	public static final String ATT_TRAINEEACTIVITY_DATE="date";
@@ -122,14 +137,14 @@ public final class DBNames {
         public static final String ATT_TRAINEEACTIVITY_TRAINEE="Tirocinante";
 	
 	//Classification attributes
-	public static final String ATT_CLASSIFICATION_ID="id";
-	public static final String ATT_CLASSIFICATION_DATA="date";
-	public static final String ATT_CLASSIFICATION_DATA_TERM= "dataTerm";
+	public static final String ATT_CLASSIFICATION_ID="Id";
+	public static final String ATT_CLASSIFICATION_DATA="data";
+	public static final String ATT_CLASSIFICATION_DATA_TERM= "DataScadenza";
 
 	//Result's attributes
-	public static final String ATT_RESULT_REGISTRATION ="registration";
-	public static final String ATT_RESULT_CLASSIFICATION ="classification";
-	public static final String ATT_RESULT_RESULT ="result";
+	public static final String ATT_RESULT_REGISTRATION ="Iscrizione";
+	public static final String ATT_RESULT_CLASSIFICATION ="Graduatoria";
+	public static final String ATT_RESULT_RESULT ="Esito";
 	
 	// Recourses's attributes
 	public static final String ATT_RECOURSE_ID="id";
