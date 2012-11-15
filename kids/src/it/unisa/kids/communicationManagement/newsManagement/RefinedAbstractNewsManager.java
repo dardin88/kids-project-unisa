@@ -1,11 +1,12 @@
 package it.unisa.kids.communicationManagement.newsManagement;
 
-public class RefinedAbstractNewsManager extends AbstractNewsManager 
+import it.unisa.kids.common.AbstractManager;
+
+public class RefinedAbstractNewsManager extends AbstractManager<INewsManager> 
 {
-	public INewsManager getNewsManagerImplementator() 
+	public INewsManager getManagerImplementor() 
 	{
 		this.imp= JDBCNewsManager.getInstance();
 		return imp;
 	}
-
 }
