@@ -8,10 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-
-import com.sun.org.glassfish.external.arc.Taxonomy;
 
 public class ManagerAccount {
 
