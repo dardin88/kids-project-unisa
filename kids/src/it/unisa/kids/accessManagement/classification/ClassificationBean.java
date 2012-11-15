@@ -4,11 +4,9 @@ import java.util.GregorianCalendar;
 
 public class ClassificationBean 
 {
-	public ClassificationBean(int id,GregorianCalendar date,GregorianCalendar dateTerm) 
+	public ClassificationBean() 
 	{
-		this.id=id;
-		this.date=date;
-		this.dateTerm=dateTerm;
+		
 	}
 
 	public int getId()
