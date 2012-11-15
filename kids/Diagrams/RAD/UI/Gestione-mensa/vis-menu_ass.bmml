@@ -1,0 +1,87 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1034" measuredH="499" mockupW="853" mockupH="480">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="181" y="19" w="853" h="480" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>16777215</color>
+        <text>A%20Web%20Page%0Ahttp%3A//Kids.unisa.it</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::TextArea" x="243" y="103" w="93" h="62" measuredW="200" measuredH="140" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>center</align>
+        <bold>true</bold>
+        <borderColor>16777215</borderColor>
+        <size>32</size>
+        <state>up</state>
+        <text>Kids</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::TextArea" x="208" y="180" w="128" h="39" measuredW="200" measuredH="140" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>center</align>
+        <borderColor>16777215</borderColor>
+        <size>14</size>
+        <text>Gestione%20Mensa</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::TextArea" x="655" y="113" w="188" h="42" measuredW="200" measuredH="140" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>center</align>
+        <borderColor>16777215</borderColor>
+        <size>14</size>
+        <text>Delegato%20Ufficio%20%3A%20Piero%20Bruni</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::TextArea" x="947" y="115" w="72" h="39" measuredW="200" measuredH="140" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>center</align>
+        <borderColor>16777215</borderColor>
+        <size>14</size>
+        <text>Logout</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::Button" x="197" y="262" w="171" h="31" measuredW="164" measuredH="27" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>center</align>
+        <menuIcon>false</menuIcon>
+        <size>13</size>
+        <text>Modifica%20men%F9%20del%20giorno</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::Button" x="197" y="219" w="170" h="30" measuredW="168" measuredH="27" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>selected</state>
+        <text>Visualizza%20men%F9%20associati</text>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::HSplitter" x="368" y="148" w="-1" h="321" measuredW="11" measuredH="100" zOrder="7" locked="false" isInGroup="-1"/>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::HRule" x="379" y="155" w="646" h="-1" measuredW="100" measuredH="10" zOrder="8" locked="false" isInGroup="-1"/>
+    <control controlID="11" controlTypeID="com.balsamiq.mockups::TextArea" x="499" y="165" w="377" h="57" measuredW="200" measuredH="140" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>center</align>
+        <bold>true</bold>
+        <borderColor>16777215</borderColor>
+        <size>32</size>
+        <text>Visualizza%20men%F9</text>
+      </controlProperties>
+    </control>
+    <control controlID="47" controlTypeID="com.balsamiq.mockups::DataGrid" x="477" y="234" w="414" h="186" measuredW="239" measuredH="91" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <alternateRowColor>15594478</alternateRowColor>
+        <borderStyle>square</borderStyle>
+        <color>16777215</color>
+        <hasHeader>true</hasHeader>
+        <hLines>true</hLines>
+        <rowHeight>34</rowHeight>
+        <selectedIndex>0</selectedIndex>
+        <text>Nome%20%2C%20Cognome%2C%20Tipo%20di%20men%F9%20%0ALuigi%2C%20Martone%2C%20Men%F9%20tradizionale%0AFelicia%2C%20Lombardi%2C%20Men%F9%20alternativo</text>
+        <vLines>true</vLines>
+      </controlProperties>
+    </control>
+    <control controlID="49" controlTypeID="com.balsamiq.mockups::Button" x="197" y="308" w="170" h="48" measuredW="106" measuredH="36" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Inserisci%20men%F9%5Crdifferenziato</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

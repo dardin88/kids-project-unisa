@@ -1,0 +1,79 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1236" measuredH="658" mockupW="1167" mockupH="658">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="69" y="0" w="1167" h="658" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>A%20Web%20Page%0Ahttp%3A//kids.unisa.it</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="913" y="95" w="302" h="21" measuredW="213" measuredH="21" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Genitore%20%3A%20Angelo%20Menna%09%09Logout</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::HSplitter" x="290" y="130" w="-1" h="498" measuredW="11" measuredH="100" zOrder="2" locked="false" isInGroup="-1"/>
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::Label" x="86" y="146" w="-1" h="-1" measuredW="151" measuredH="21" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Gestione%20Orari%20di%20servizio</text>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::PointyButton" x="103" y="236" w="171" h="-1" measuredW="162" measuredH="27" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>center</direction>
+        <text>Richiesta%20orari%20di%20servizio</text>
+      </controlProperties>
+    </control>
+    <control controlID="11" controlTypeID="com.balsamiq.mockups::PointyButton" x="103" y="190" w="171" h="-1" measuredW="166" measuredH="27" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>center</direction>
+        <text>Visualizza%20orari%20di%20servizio</text>
+      </controlProperties>
+    </control>
+    <control controlID="18" controlTypeID="com.balsamiq.mockups::PointyButton" x="1116" y="563" w="-1" h="-1" measuredW="99" measuredH="27" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>center</direction>
+        <text>Invia%20richiesta</text>
+      </controlProperties>
+    </control>
+    <control controlID="20" controlTypeID="com.balsamiq.mockups::HRule" x="301" y="130" w="925" h="-1" measuredW="100" measuredH="10" zOrder="7" locked="false" isInGroup="-1"/>
+    <control controlID="22" controlTypeID="com.balsamiq.mockups::Title" x="143" y="80" w="154" h="-1" measuredW="79" measuredH="50" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Kids</text>
+      </controlProperties>
+    </control>
+    <control controlID="28" controlTypeID="com.balsamiq.mockups::SubTitle" x="385" y="140" w="712" h="-1" measuredW="439" measuredH="50" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>center</align>
+        <size>40</size>
+        <text>Richiesta%20orari%20di%20servizio</text>
+      </controlProperties>
+    </control>
+    <control controlID="41" controlTypeID="com.balsamiq.mockups::PointyButton" x="1046" y="563" w="-1" h="-1" measuredW="60" measuredH="27" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>center</direction>
+        <text>Annulla</text>
+      </controlProperties>
+    </control>
+    <control controlID="49" controlTypeID="com.balsamiq.mockups::CheckBoxGroup" x="345" y="247" w="-1" h="-1" measuredW="89" measuredH="105" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%5Bx%5D%20lunedi%0A%5Bx%5D%20martedi%0A%5B%20%5D%20mercoledi%0A%5B%5D%20giovedi%0A%5B%20%5D%20venerdi</text>
+      </controlProperties>
+    </control>
+    <control controlID="50" controlTypeID="com.balsamiq.mockups::SubTitle" x="345" y="224" w="231" h="-1" measuredW="148" measuredH="24" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>Selezione%20del%20giorno</text>
+      </controlProperties>
+    </control>
+    <control controlID="51" controlTypeID="com.balsamiq.mockups::SubTitle" x="345" y="380" w="-1" h="-1" measuredW="134" measuredH="24" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>Selezione%20servizio</text>
+      </controlProperties>
+    </control>
+    <control controlID="52" controlTypeID="com.balsamiq.mockups::CheckBoxGroup" x="345" y="404" w="-1" h="-1" measuredW="217" measuredH="84" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%5Bx%5D%20pre-accoglienza%287%2C30%20-%208%2C00%29%0A%5B%20%5D%20post-accoglienza%20%2818%2C00%20-%2019%2C30%29%0A%5B%20%5D%20orario%20prolungato%20%288%2C00-%2018%2C00%29%0A%5Bx%5D%20Apertura%20asillo%20luglio</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

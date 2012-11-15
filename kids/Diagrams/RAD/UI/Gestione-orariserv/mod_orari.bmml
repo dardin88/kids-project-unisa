@@ -1,0 +1,94 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1236" measuredH="658" mockupW="1167" mockupH="658">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="69" y="0" w="1167" h="658" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>A%20Web%20Page%0Ahttp%3A//kids.unisa.it</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="913" y="95" w="302" h="21" measuredW="299" measuredH="21" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Delegato%20ufficio%20%3A%20Massimo%20Basilicata%09%09Logout</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::HSplitter" x="290" y="130" w="-1" h="498" measuredW="11" measuredH="100" zOrder="2" locked="false" isInGroup="-1"/>
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::Label" x="86" y="146" w="-1" h="-1" measuredW="151" measuredH="21" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Gestione%20Orari%20di%20servizio</text>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::PointyButton" x="119" y="182" w="144" h="-1" measuredW="140" measuredH="27" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>center</direction>
+        <text>Crea%20orari%20di%20servizio</text>
+      </controlProperties>
+    </control>
+    <control controlID="11" controlTypeID="com.balsamiq.mockups::PointyButton" x="119" y="224" w="162" h="-1" measuredW="157" measuredH="27" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>center</direction>
+        <text>Modifica%20orari%20di%20servizio</text>
+      </controlProperties>
+    </control>
+    <control controlID="18" controlTypeID="com.balsamiq.mockups::PointyButton" x="1152" y="563" w="-1" h="-1" measuredW="63" measuredH="27" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>center</direction>
+        <text>SALVA</text>
+      </controlProperties>
+    </control>
+    <control controlID="20" controlTypeID="com.balsamiq.mockups::HRule" x="290" y="130" w="937" h="-1" measuredW="100" measuredH="10" zOrder="7" locked="false" isInGroup="-1"/>
+    <control controlID="22" controlTypeID="com.balsamiq.mockups::Title" x="143" y="80" w="154" h="-1" measuredW="79" measuredH="50" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Kids</text>
+      </controlProperties>
+    </control>
+    <control controlID="25" controlTypeID="com.balsamiq.mockups::TextArea" x="320" y="430" w="470" h="139" measuredW="200" measuredH="140" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>gioved%EC%201%20e%20venerd%EC%202%20novembre%202012%20Ognissanti%20/%20ponte%0AFesta%20patronale%2015%20dicembre%202012%0Ada%20luned%EC%2024%20dicembre%202012%20a%20venerd%EC%204%20gennaio%202013%20chiusura%20natalizia%20%28luned%EC%207%20gennaio%202013%20riapertura%20del%20servizio%29%0Ada%20gioved%EC%2028%20marzo%202013%20a%20marted%EC%202%20aprile%202013%20chiusura%20pasquale%20%28mercoled%EC%203%20aprile%202013%20riapertura%20del%20servizio%29%0Agioved%EC%2025%20%20e%20venerd%EC%20%2026%20%20aprile%202013%20Festa%20Liberazione%20/%20ponte%0Amercoled%EC%201%20%20maggio%202013%20Festa%20Lavoratori</text>
+      </controlProperties>
+    </control>
+    <control controlID="27" controlTypeID="com.balsamiq.mockups::SubTitle" x="320" y="406" w="253" h="-1" measuredW="275" measuredH="24" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>ORARI%20GIORNI%20DI%20CHIUSURA%20ASILO</text>
+      </controlProperties>
+    </control>
+    <control controlID="28" controlTypeID="com.balsamiq.mockups::SubTitle" x="385" y="140" w="712" h="-1" measuredW="256" measuredH="33" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>center</align>
+        <text>Modifica%20orari%20di%20servizio</text>
+      </controlProperties>
+    </control>
+    <control controlID="35" controlTypeID="com.balsamiq.mockups::TextArea" x="320" y="224" w="470" h="133" measuredW="200" measuredH="140" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>5%20settembre%202012%20al%2030%20giugno%202013%2Cdal%20luned%EC%20al%20venerd%EC%2Cdalle%20ore%208%2C30%20alle%20ore%2016%2C30.%20%20%0A1%20luglio%202013%20al%2031%20luglio%202013%28apertura%20asilo%20da%20richiesta%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="36" controlTypeID="com.balsamiq.mockups::SubTitle" x="320" y="200" w="342" h="-1" measuredW="280" measuredH="24" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>ORARI%20GIORNI%20DI%20APERTURA%20ASILO</text>
+      </controlProperties>
+    </control>
+    <control controlID="41" controlTypeID="com.balsamiq.mockups::PointyButton" x="1067" y="563" w="-1" h="-1" measuredW="80" measuredH="27" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>center</direction>
+        <text>ANNULLA</text>
+      </controlProperties>
+    </control>
+    <control controlID="42" controlTypeID="com.balsamiq.mockups::Arrow" x="878" y="406" w="313" h="151" measuredW="150" measuredH="100" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="43" controlTypeID="com.balsamiq.mockups::Alert" x="669" y="345" w="-1" h="-1" measuredW="200" measuredH="113" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Alert%0ASei%20sicuro%20di%20voler%20salvare%0AOk%2C%20Annulla</text>
+      </controlProperties>
+    </control>
+    <control controlID="44" controlTypeID="com.balsamiq.mockups::PointyButton" x="119" y="265" w="144" h="-1" measuredW="128" measuredH="27" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>center</direction>
+        <text>Visualizza%20richieste</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
