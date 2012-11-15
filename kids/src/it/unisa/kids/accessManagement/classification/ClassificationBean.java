@@ -2,9 +2,9 @@ package it.unisa.kids.accessManagement.classification;
 
 import java.util.GregorianCalendar;
 
-public class Classification 
+public class ClassificationBean 
 {
-	public Classification(int id,GregorianCalendar date,GregorianCalendar dateTerm) 
+	public ClassificationBean(int id,GregorianCalendar date,GregorianCalendar dateTerm) 
 	{
 		this.id=id;
 		this.date=date;

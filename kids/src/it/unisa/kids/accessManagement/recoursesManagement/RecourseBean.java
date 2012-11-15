@@ -7,7 +7,7 @@ package it.unisa.kids.accessManagement.recoursesManagement;
  */
 
 
-public class Recourse {
+public class RecourseBean {
 	private int id;
 	private String date;
 	private String reason;
@@ -19,7 +19,7 @@ public class Recourse {
 	 * Empty constructor 
 	 */
 	
-	public Recourse() {
+	public RecourseBean() {
 	}
 
 

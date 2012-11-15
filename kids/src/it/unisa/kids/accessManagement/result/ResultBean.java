@@ -5,9 +5,9 @@ package it.unisa.kids.accessManagement.result;
  *
  */
 
-public class Result 
+public class ResultBean 
 {
-	public Result(int registration, int classification,boolean result) 
+	public ResultBean(int registration, int classification,boolean result) 
 	{																	
 		this.setRegistration(registration);
 		this.setClassification(classification);

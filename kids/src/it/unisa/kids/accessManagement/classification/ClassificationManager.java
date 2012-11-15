@@ -1,7 +1,7 @@
 package it.unisa.kids.accessManagement.classification;
 
-import it.unisa.kids.accessManagement.childRegistration.ChildRegistration;
-import it.unisa.kids.accessManagement.result.Result;
+import it.unisa.kids.accessManagement.childRegistration.ChildRegistrationBean;
+import it.unisa.kids.accessManagement.result.ResultBean;
 import it.unisa.kids.common.DBNames;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 import java.sql.*;
@@ -31,7 +31,7 @@ public class ClassificationManager
 	// end of Singleton Design Pattern's implementation
 
 
-	public void createClassification (Classification pClassification) throws SQLException
+	public void createClassification (ClassificationBean pClassification) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement pStmt=null;
@@ -63,7 +63,7 @@ public class ClassificationManager
 		}
 	}
 
-	public void modifyClassification(Classification pClassification, ChildRegistration pChild,Result pResult) throws SQLException
+	public void modifyClassification(ClassificationBean pClassification, ChildRegistrationBean pChild,ResultBean pResult) throws SQLException
 	{
 		Connection con = null;
 		Statement stmt=null;
@@ -72,12 +72,17 @@ public class ClassificationManager
 		{
 			con=DBConnectionPool.getConnection();
 			stmt = con.createStatement();
-			boolean value = Boolean.parseBoolean(DBNames.ATT_RESULT_RESULT);
-			String query=(
+			/*
+			 boolean value = Boolean.parseBoolean(DBNames.ATT_RESULT_RESULT);
+				String query=(
 					"UPDATE " + DBNames.TABLE_CLASSIFICATION + 
 					"SET " + DBNames.ATT_RESULT_RESULT + "=" + !value
 					);
+			
 			stmt.executeUpdate(query);
+			 
+			*/
+		
 		}
 		finally
 		{
@@ -86,7 +91,7 @@ public class ClassificationManager
 		}
 	}
 	
-	public void defineDataTerm(Classification pClassification, GregorianCalendar dateTerm) throws SQLException
+	public void defineDataTerm(ClassificationBean pClassification, GregorianCalendar dateTerm) throws SQLException
 	{
 		Connection con = null;
 		Statement stmt=null;

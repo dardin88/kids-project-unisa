@@ -2,7 +2,7 @@ package it.unisa.kids.accessManagement.childRegistration;
 
 import java.util.GregorianCalendar;
 
-public class ChildRegistration {
+public class ChildRegistrationBean {
 	
 	String registrationId,surname, name, communeBorn, fiscalCode, citizenship, sickness;
 	GregorianCalendar bornDate,registrationDate; 
