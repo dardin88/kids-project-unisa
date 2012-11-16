@@ -5,7 +5,7 @@ package it.unisa.kids.communicationManagement.programEducativeManagement;
  * @author Francesco Di Lorenzo
  *
  */
-public class ProjectAnnual 
+public class AnnualProject 
 {
 	private String name;
 	private String topic;
@@ -16,7 +16,7 @@ public class ProjectAnnual
 	/**
 	 * the empty costructor
 	 */
-	public ProjectAnnual()
+	public AnnualProject()
 	{	
 	}
 

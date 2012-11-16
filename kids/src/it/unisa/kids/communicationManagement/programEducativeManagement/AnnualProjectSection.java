@@ -6,7 +6,7 @@ package it.unisa.kids.communicationManagement.programEducativeManagement;
  * @author Francesco Di Lorenzo
  *
  */
-public class ProjectAnnualSection extends ProjectAnnual 
+public class AnnualProjectSection extends AnnualProject 
 {
 	private int id;
 	private String name;
@@ -17,7 +17,7 @@ public class ProjectAnnualSection extends ProjectAnnual
 	/**
 	 * the costructor recall the costuctor of the father
 	 */
-	public ProjectAnnualSection(){
+	public AnnualProjectSection(){
 		super();
 	}
 
