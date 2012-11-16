@@ -1,41 +1,40 @@
 package it.unisa.kids.communicationManagement.reunion;
 
-import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.IManager;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.GregorianCalendar;
 
-public class ReunionManager {
+public class JDBCReunionManager implements IManager {
 
-	private static ReunionManager manager;
+	private static JDBCReunionManager manager;
 	
 	/**
 	 * the constructor empty
 	 */
-	private ReunionManager(){
+	private JDBCReunionManager(){
 	}
 
 	/**
 	 * this method implements the design pattern "singleton"
 	 * @return manager
 	 */
-	public ReunionManager getIstance(){
+	public static JDBCReunionManager getInstance(){
 		if(manager==null)
-			return manager=new ReunionManager();
+			return manager=new JDBCReunionManager();
 		else 
 			return manager;
 	}
 
 	/**
 	 * this method insert the reunion in the database.
-	 * @param Reunion reunion
+	 * @param Reunion reunion 
 	 * 
 	 */
-	public void insert (Reunion reunion) throws ErroreNeiDati{
+	public void insert (Reunion reunion) throws ErroreNeiDati, SQLException{
 		Connection con = null;
 		Statement stmt = null;
 		
