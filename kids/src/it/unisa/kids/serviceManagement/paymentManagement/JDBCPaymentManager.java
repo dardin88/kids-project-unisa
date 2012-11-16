@@ -527,13 +527,13 @@ public class JDBCPaymentManager implements IPaymentManager {
 			// constructing refund list
 			refunds = new ArrayList<RefundBean>();
 			while (rs.next()) {
-				RefundBean p = new RefundBean();
-				p.setId(rs.getInt(DBNames.ATT_REFUND_ID));
-				p.setDescription(rs.getString(DBNames.ATT_REFUND_DESCRIPTION));
-				p.setAmount(rs.getDouble(DBNames.ATT_REFUND_AMOUNT));
-				p.setParentId(rs.getInt(DBNames.ATT_REFUND_PARENTID));
+				RefundBean rp = new RefundBean();
+				rp.setId(rs.getInt(DBNames.ATT_REFUND_ID));
+				rp.setDescription(rs.getString(DBNames.ATT_REFUND_DESCRIPTION));
+				rp.setAmount(rs.getDouble(DBNames.ATT_REFUND_AMOUNT));
+				rp.setParentId(rs.getInt(DBNames.ATT_REFUND_PARENTID));
 				
-				refunds.add(p);
+				refunds.add(rp);
 			}
 		} finally {
 			if (rs != null)
@@ -563,13 +563,13 @@ public class JDBCPaymentManager implements IPaymentManager {
 			// constructing refund list
 			refunds = new ArrayList<RefundBean>();
 			while (rs.next()) {
-				RefundBean p = new RefundBean();
-				p.setId(rs.getInt(DBNames.ATT_REFUND_ID));
-				p.setDescription(rs.getString(DBNames.ATT_REFUND_DESCRIPTION));
-				p.setAmount(rs.getDouble(DBNames.ATT_REFUND_AMOUNT));
-				p.setParentId(rs.getInt(DBNames.ATT_REFUND_PARENTID));
+				RefundBean rp = new RefundBean();
+				rp.setId(rs.getInt(DBNames.ATT_REFUND_ID));
+				rp.setDescription(rs.getString(DBNames.ATT_REFUND_DESCRIPTION));
+				rp.setAmount(rs.getDouble(DBNames.ATT_REFUND_AMOUNT));
+				rp.setParentId(rs.getInt(DBNames.ATT_REFUND_PARENTID));
 				
-				refunds.add(p);
+				refunds.add(rp);
 			}
 		} finally {
 			if (rs != null)
