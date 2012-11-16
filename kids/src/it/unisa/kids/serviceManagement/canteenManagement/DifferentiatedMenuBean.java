@@ -4,30 +4,23 @@ import java.io.Serializable;
 
 public class DifferentiatedMenuBean implements Serializable {
 
-	private String id;
+	private int id;
 	private String motivation;
 	private String first;
 	private String second;
 	private String sideDish;
 	private String fruit;
-	private String childInscriptionId;
+	private int childInscriptionId;
 
 	public DifferentiatedMenuBean() {
 
 	}
 	
-	public DifferentiatedMenuBean(String pId, String pMotivation, String pChildInscriptionId) {
-		setId(pId);
-		setMotivation(pMotivation);
-		setChildInscriptionId(pChildInscriptionId);
-	}
-	
-
-	public String getId() {
+	public int getId() {
 		return this.id;
 	}
 
-	public void setId(String pId) {
+	public void setId(int pId) {
 		this.id = pId;
 	}
 
@@ -71,11 +64,11 @@ public class DifferentiatedMenuBean implements Serializable {
 		this.fruit = pFruit;
 	}
 
-	public String getChildInscriptionId() {
+	public int getChildInscriptionId() {
 		return this.childInscriptionId;
 	}
 
-	public void setChildInscriptionId(String pChildInscriptionId) {
+	public void setChildInscriptionId(int pChildInscriptionId) {
 		this.childInscriptionId = pChildInscriptionId;
 	}
 }
