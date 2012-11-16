@@ -77,17 +77,17 @@ public final class DBNames {
 	public static final String ATT_REFUND_PARENTID = "Genitore";
 	
 	//Trainee' attributes
-	public static final String ATT_TRAINEE_REGISTER="register";
-	public static final String ATT_TRAINEE_NAME="name";
-	public static final String ATT_TRAINEE_SURNAME="surname";
-	public static final String ATT_TRAINEE_EMAIL="email";
-	public static final String ATT_TRAINEE_BIRTHDATE="birth_date";
-	public static final String ATT_TRAINEE_BIRTHCITY="birth_city";
-	public static final String ATT_TRAINEE_CITYOFRESIDENCE="city_of_residence";
-	public static final String ATT_TRAINEE_ADDRESS="address";
-	public static final String ATT_TRAINEE_CAP="cap";
-	public static final String ATT_TRAINEE_TELEPHONENUMBER="telephone_number";
-	public static final String ATT_TRAINEE_DELEGATEACCOUNT="delegate_account";
+	public static final String ATT_TRAINEE_REGISTER="Matricola";
+	public static final String ATT_TRAINEE_NAME="Nome";
+	public static final String ATT_TRAINEE_SURNAME="Cognome";
+	public static final String ATT_TRAINEE_EMAIL="Email";
+	public static final String ATT_TRAINEE_BIRTHDATE="DataNascita";
+	public static final String ATT_TRAINEE_BIRTHCITY="CittaNascita";
+	public static final String ATT_TRAINEE_CITYOFRESIDENCE="CittaResidenza";
+	public static final String ATT_TRAINEE_ADDRESS="Indirizzo";
+	public static final String ATT_TRAINEE_CAP="CAP";
+	public static final String ATT_TRAINEE_TELEPHONENUMBER="NumeroTelefonico";
+	public static final String ATT_TRAINEE_DELEGATEACCOUNT="AccountDelegato";
 	
 	//Account's attributes
 	public static final String ATT_ACCOUNT_CAPDOMICILIE="DomicilioCap";
@@ -128,12 +128,12 @@ public final class DBNames {
 	public static final String ATT_ACCOUNT_VIARESIDENCE="ResidenzaIndirizzo";
 	
 	//Trainee activity's attributes
-	public static final String ATT_TRAINEEACTIVITY_DATE="date";
-	public static final String ATT_TRAINEEACTIVITY_NAME="name";
-	public static final String ATT_TRAINEEACTIVITY_DESCRIPTION="description";
-	public static final String ATT_TRAINEEACTIVITY_STARTTIME="start_time";
-	public static final String ATT_TRAINEEACTIVITY_ENDTIME="end_time";
-	public static final String ATT_TRAINEEACTIVITY_DELEGATEACCOUNT="delegate_account";
+	public static final String ATT_TRAINEEACTIVITY_DATE="Data";
+	public static final String ATT_TRAINEEACTIVITY_NAME="Nome";
+	public static final String ATT_TRAINEEACTIVITY_DESCRIPTION="Descrizione";
+	public static final String ATT_TRAINEEACTIVITY_STARTTIME="OraInizio";
+	public static final String ATT_TRAINEEACTIVITY_ENDTIME="OraFine";
+	public static final String ATT_TRAINEEACTIVITY_DELEGATEACCOUNT="Delegato";
         public static final String ATT_TRAINEEACTIVITY_TRAINEE="Tirocinante";
 	
 	//Classification attributes

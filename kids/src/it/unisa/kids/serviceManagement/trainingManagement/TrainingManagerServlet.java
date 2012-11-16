@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author utente
  */
 public class TrainingManagerServlet extends HttpServlet {
-
+    public static Logger logger=Logger.getLogger("global");
     public static final String OPERATION = "operation";
     public static final String INSERTTRAINEE = "INSERT_TRAINEE";
     private ITrainingManager trainingManager;
@@ -71,9 +71,9 @@ public class TrainingManagerServlet extends HttpServlet {
                 trainee.setBirthDate(parseGregorianCalendar(request.getParameter(DBNames.ATT_TRAINEE_BIRTHDATE)));
                 trainingManager.insert(trainee);
             } catch (SQLException ex) {
-                Logger.getLogger(TrainingManagerServlet.class.getName()).log(Level.SEVERE, null, ex);
+                logger.log(Level.SEVERE, null, ex);
             }catch(ParseException e){
-                Logger.getLogger(TrainingManagerServlet.class.getName()).log(Level.SEVERE,null,e);
+                logger.log(Level.SEVERE,null,e);
             }
 
         }
