@@ -174,11 +174,11 @@ public final class DBNames {
 
 	//Communication's attributes
 	public static final String ATT_COMMUNICATION_ID="id";
-	public static final String ATT_COMMUNICATION_TYPE="type";
-	public static final String ATT_COMMUNICATION_IDEDUCATOR="idEducator";
-	public static final String ATT_COMMUNICATION_IDPARENT="idParent";
-	public static final String ATT_COMMUNICATION_DESCRIPTION="description";
-	public static final String ATT_COMMUNICATION_DATE="date";
+	public static final String ATT_COMMUNICATION_TYPE="tipo";
+	public static final String ATT_COMMUNICATION_IDEDUCATOR="idEducatore";
+	public static final String ATT_COMMUNICATION_IDCHILD="idBambino";
+	public static final String ATT_COMMUNICATION_DESCRIPTION="descrizione";
+	public static final String ATT_COMMUNICATION_DATE="data";
 	
 	//Project Annual attributes
 	public static final String ATT_PROJECTANNUAL_ID="Id";
