@@ -8,7 +8,7 @@ import java.util.GregorianCalendar;
  * @author Francesco Di Lorenzo
  *
  */
-public class ActivitySectionDaily extends AnnualProjectSection 
+public class DailyActivitySection extends AnnualProjectSection 
 {
 	
 	private int id;

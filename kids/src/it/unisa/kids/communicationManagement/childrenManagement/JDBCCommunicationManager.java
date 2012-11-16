@@ -1,6 +1,7 @@
 package it.unisa.kids.communicationManagement.childrenManagement;
 
 import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.IManager;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 
 import java.sql.Connection;
@@ -17,7 +18,7 @@ import java.util.GregorianCalendar;
  * @author Elena Sollai
  *
  */
-public class JDBCCommunicationManager {
+public class JDBCCommunicationManager implements IManager {
 	
 	private static JDBCCommunicationManager  manager; 
 	
@@ -25,17 +26,6 @@ public class JDBCCommunicationManager {
 	 * Empty constructor
 	 */
 	private JDBCCommunicationManager (){
-	}
-	
-	/**
-	 * this method implements the design pattern "singleton"
-	 * @return manager
-	 */
-	public JDBCCommunicationManager getIstance(){
-		if(manager==null)
-			return manager=new JDBCCommunicationManager();
-		else 
-			return manager;
 	}
 	
 	/**
