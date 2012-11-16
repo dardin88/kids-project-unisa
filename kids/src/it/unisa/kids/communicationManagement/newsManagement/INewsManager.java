@@ -1,9 +1,11 @@
 package it.unisa.kids.communicationManagement.newsManagement;
 
+import it.unisa.kids.common.IManager;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface INewsManager
+public interface INewsManager extends IManager
 {
 	abstract void insertNews(News pNews) throws SQLException;
 	abstract ArrayList<News> showNews()throws SQLException ;
