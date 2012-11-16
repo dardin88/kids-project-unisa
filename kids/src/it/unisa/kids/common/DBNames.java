@@ -165,7 +165,7 @@ public final class DBNames {
 	
 	//News attributes
 	public static final String ATT_NEWS_TITLE="Titolo";
-	public static final String ATT_NEWS_DESCRIPTION="Descrizione";
+	public static final String ATT_NEWS_DESCRIPTION="Contenuto";
 	public static final String ATT_NEWS_TYPE="Tipo";
 	public static final String ATT_NEWS_DATE="Data";
 	public static final String ATT_NEWS_TIME="Ora";
@@ -179,5 +179,50 @@ public final class DBNames {
 	public static final String ATT_COMMUNICATION_IDPARENT="idParent";
 	public static final String ATT_COMMUNICATION_DESCRIPTION="description";
 	public static final String ATT_COMMUNICATION_DATE="date";
+	
+	//Project Annual attributes
+	public static final String ATT_PROJECTANNUAL_ID="Id";
+	public static final String ATT_PROJECTANNUAL_NAME="Nome";
+	public static final String ATT_PROJECTANNUAL_TOPIC="Tema";
+	public static final String ATT_PROJECTANNUAL_DESCRIPTION="Contenuto";
+	public static final String ATT_PROJECTANNUAL_APPLICATIONYEAR="Anno applicazione";
+	
+	//ProjectAnnualSection attributes
+	public static final String ATT_PROJECTANNUALSECTION_ID="Id";
+	public static final String ATT_PROJECTANNUALSECTION_NAME="Nome";
+	public static final String ATT_PROJECTANNUALSECTION_SECTION="Sezione";
+	public static final String ATT_PROJECTANNUALSECTION_DESCRIPTION="COntenuto";
+	public static final String ATT_PROJECTANNUALSECTION_IDYEAR="IdAnnuale";
+
+	//Comment attributes
+	public static final String ATT_COMMENT_ID="Id";
+	public static final String ATT_COMMENT_DATE="Data";
+	public static final String ATT_COMMENT_TYPEMODIFY="TipoModifica";
+	public static final String ATT_COMMENT_DESCRIPTION="Contenuto";
+	public static final String ATT_COMMENT_IDYEAR="IdAnnuale";
+	public static final String ATT_COMMENT_IDSECTION="IdSezione";
+	public static final String ATT_COMMENT_IDAUTHOR="IdAutore";
+	
+	//Activity attributes
+	public static final String ATT_ACTIVITY_ID="Id";
+	public static final String ATT_ACTIVITY_PERIOD="Periodo";
+	public static final String ATT_ACTIVITY_NAME="Nome";
+	public static final String ATT_ACTIVITY_DESCRIPTION="Contenuto";
+	
+	//Activity Section Daily
+	public static final String ATT_ACTIVITYSECTTIONDAILY_ID="Id";
+	public static final String ATT_ACTIVITYSECTTIONDAILY_IDACTITIVTY="IdAttivit‡";
+	public static final String ATT_ACTIVITYSECTTIONDAILY_IDEDUCATORE="IdEducatore";
+	public static final String ATT_ACTIVITYSECTTIONDAILY_DATE="Data";
+	public static final String ATT_ACTIVITYSECTTIONDAILY_NOTES="Note";
+	
+	//Child Partecipant attributes
+	public static final String ATT_CHILDPARTECIPANT_IDCHILD="IdBambino";
+	public static final String ATT_CHILDPARTECIPANT_IDACTIVITYDAILY="IdAttivit‡Giornaliera"; 
+	public static final String ATT_CHILDPARTECIPANT_STATE="Stato";
+
+	
+	
+
 
 }
