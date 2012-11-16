@@ -145,7 +145,7 @@ public class Account {
 
 
 
-	public void setViaResidece(String pViaResidence) {
+	public void setViaResidence(String pViaResidence) {
 		this.viaResidence = pViaResidence;
 	}
 	
@@ -153,7 +153,7 @@ public class Account {
 	 * @param String pStreetNumberResidence
 	 */
 
-	public void setStreetNumberResidece(String pStreetNumberResidence) {
+	public void setStreetNumberResidence(String pStreetNumberResidence) {
 		this.streetNumberResidence = pStreetNumberResidence;
 	}
 	
@@ -201,7 +201,7 @@ public class Account {
 	 * @param String pStreetNumberDomicile
 	 */
 
-	public void setStreetNumberDomicilie(String pStreetNumberDomicile) {
+	public void setStreetNumberDomicile(String pStreetNumberDomicile) {
 		this.streetNumberDomicilie = pStreetNumberDomicile;
 	}
 	
@@ -209,7 +209,7 @@ public class Account {
 	 * @param String pMunicipalityDomicile
 	 */
 
-	public void setMunicipalityDomicilie(String pMunicipalityDomicile) {
+	public void setMunicipalityDomicile(String pMunicipalityDomicile) {
 		this.municipalityDomicilie = pMunicipalityDomicile;
 	}
 	
@@ -217,7 +217,7 @@ public class Account {
 	 * @param String pProviceDomicile
 	 */
 
-	public void setProvinceDomicilie(String pProvinceDomicile) {
+	public void setProvinceDomicile(String pProvinceDomicile) {
 		this.provinceDomicilie = pProvinceDomicile;
 	}
 	
@@ -233,7 +233,7 @@ public class Account {
 	 * @param String pCapDomicile
 	 */
 
-	public void setCapDomicilie(String pCapDomicile) {
+	public void setCapDomicile(String pCapDomicile) {
 		this.capDomicilie = pCapDomicile;
 	}
 	
@@ -454,7 +454,7 @@ public class Account {
 	 * @return String streetNumberDomicile
 	 */
 	
-	public String getStreetNumberDomicilie() {
+	public String getStreetNumberDomicile() {
 		return streetNumberDomicilie;
 	}
 	
@@ -462,7 +462,7 @@ public class Account {
 	 * @return String municipalityDomicile
 	 */
 	
-	public String getMunicipalityDomicilie() {
+	public String getMunicipalityDomicile() {
 		return municipalityDomicilie;
 	}
 	
@@ -470,7 +470,7 @@ public class Account {
 	 * @return String provinceDoicile
 	 */
 	
-	public String getProvinceDomicilie() {
+	public String getProvinceDomicile() {
 		return provinceDomicilie;
 	}
 	
@@ -487,7 +487,7 @@ public class Account {
 	 */
 	
 	
-	public String getCapDomicilie() {
+	public String getCapDomicile() {
 		return capDomicilie;
 	}
 	
