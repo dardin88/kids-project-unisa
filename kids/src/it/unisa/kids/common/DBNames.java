@@ -164,13 +164,13 @@ public final class DBNames {
 	
 	
 	//News attributes
-	public static final String ATT_NEWS_TITLE="title";
-	public static final String ATT_NEWS_DESCRIPTION="description";
-	public static final String ATT_NEWS_TYPE="type";
-	public static final String ATT_NEWS_DATE="date";
-	public static final String ATT_NEWS_TIME="time";
-	public static final String ATT_NEWS_ATTACHED="attached";
-	public static final String ATT_NEWS_DELEGATEACCOUNT="delegate_account";
+	public static final String ATT_NEWS_TITLE="Titolo";
+	public static final String ATT_NEWS_DESCRIPTION="Descrizione";
+	public static final String ATT_NEWS_TYPE="Tipo";
+	public static final String ATT_NEWS_DATE="Data";
+	public static final String ATT_NEWS_TIME="Ora";
+	public static final String ATT_NEWS_ATTACHED="Allegato";
+	public static final String ATT_NEWS_DELEGATEACCOUNT="Delegato";
 
 	//Communication's attributes
 	public static final String ATT_COMMUNICATION_ID="id";
