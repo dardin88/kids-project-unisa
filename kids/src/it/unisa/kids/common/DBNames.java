@@ -159,7 +159,7 @@ public final class DBNames {
 	public static final String ATT_REUNION_TITLE="title";
 	public static final String ATT_REUNION_DESCRIPTION="description";
 	public static final String ATT_REUNION_DATA="date";
-	public static final String ATT_REUNION_HOUR="hour";
+	public static final String ATT_REUNION_TIME="time";
 	public static final String ATT_REUNION_TYPE="type";
 	
 	

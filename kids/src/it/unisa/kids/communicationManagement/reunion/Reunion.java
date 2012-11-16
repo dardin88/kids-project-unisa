@@ -12,7 +12,7 @@ public class Reunion {
 	private String title;
 	private String description;
 	private GregorianCalendar date;
-	private GregorianCalendar hour;
+	private GregorianCalendar time;
 	private String type;
 	
 	
@@ -21,15 +21,15 @@ public class Reunion {
 	 *@param title
 	 *@param description
 	 *@param date
-	 *@param hour
+	 *@param time
 	 *@param type
 	 */
-	public Reunion (int id, String title, String description, GregorianCalendar date, GregorianCalendar hour, String type){
+	public Reunion (int id, String title, String description, GregorianCalendar date, GregorianCalendar time, String type){
 		this.id=id;
 		this.title=title;
 		this.description=description;
 		this.date=date;
-		this.hour=hour;
+		this.time=time;
 		this.type=type;
 	}
 	
@@ -92,15 +92,15 @@ public class Reunion {
 	/**this method returns the hour of reunion
 	 * @return GregorianCalendar hour
 	 */
-	public GregorianCalendar getHour() {
-		return hour;
+	public GregorianCalendar getTime() {
+		return time;
 	}
 	
 	/**this method sets the hour of reunion
 	 * @param GregorianCalendar hour
 	 */
-	public void setHour(GregorianCalendar hour) {
-		this.hour = hour;
+	public void setTime(GregorianCalendar time) {
+		this.time = time;
 	}
 	
 	/**this method returns the type of reunion
