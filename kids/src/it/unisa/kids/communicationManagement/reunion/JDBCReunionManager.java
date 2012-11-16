@@ -47,7 +47,7 @@ public class JDBCReunionManager implements IManager {
 				stmt = con.createStatement();
 
 				String query = "Insert  into" + DBNames.TABLE_REUNION + "values("+ 
-						reunion.getId() + "," + reunion.getTitle() + "," + reunion.getDescription() + "," + reunion.getDate() + "," + reunion.getHour() + "," + reunion.getType();
+						reunion.getId() + "," + reunion.getTitle() + "," + reunion.getDescription() + "," + reunion.getDate() + "," + reunion.getTime() + "," + reunion.getType();
 
 				stmt.executeUpdate(query);
 
@@ -72,7 +72,7 @@ public class JDBCReunionManager implements IManager {
 			con=DBConnectionPool.getConnection();
 			
 			String query="Update table_riunion " +
-					"SET "+ DBNames.ATT_REUNION_TITLE + "=" + changedReunion.getTitle() + "," + DBNames.ATT_REUNION_DESCRIPTION + "=" + changedReunion.getDescription() + "," + DBNames.ATT_REUNION_DATA + "=" + changedReunion.getDate() + "," + DBNames.ATT_REUNION_HOUR + "=" + changedReunion.getHour() + "," + DBNames.ATT_REUNION_TYPE + "=" + changedReunion.getType() +
+					"SET "+ DBNames.ATT_REUNION_TITLE + "=" + changedReunion.getTitle() + "," + DBNames.ATT_REUNION_DESCRIPTION + "=" + changedReunion.getDescription() + "," + DBNames.ATT_REUNION_DATA + "=" + changedReunion.getDate() + "," + DBNames.ATT_REUNION_TIME + "=" + changedReunion.getTime() + "," + DBNames.ATT_REUNION_TYPE + "=" + changedReunion.getType() +
 					"WHERE "+ DBNames.ATT_REUNION_ID + "=" + changedReunion.getId(); 
 
 			stmt = con.createStatement();
