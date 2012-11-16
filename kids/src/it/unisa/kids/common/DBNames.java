@@ -17,7 +17,7 @@ public final class DBNames {
 	public static final String TABLE_REGISTRATION = "IscrizioneBambino";
 	
 	public static final String TABLE_REQUEST = "request";
-	public static final String TABLE_DIFF_MENU = "diff_menu";
+	public static final String TABLE_DIFFMENU = "menu_differenziato";
 	public static final String TABLE_REFUND = "refund";
 	public static final String TABLE_PAYMENT = "payment";
 	public static final String TABLE_TRAINEE = "trainee";
@@ -55,6 +55,15 @@ public final class DBNames {
 	public static final String ATT_REGISTRATION_ENROLLEMENT_PHASE= "FaseDellIscrizione";
 	public static final String ATT_REGISTRATION_ACCOUNT_GENITORE ="AccountGenitore";
 	public static final String ATT_REGISTRATION_CLASS= "Classe";
+	
+	//DifferentiatedMenuTable's attributes
+	public static final String ATT_DIFFMENU_ID = "Id";
+	public static final String ATT_DIFFMENU_MOTIVATION = "Motivazione";
+	public static final String ATT_DIFFMENU_FIRST = "Primo";
+	public static final String ATT_DIFFMENU_SECOND = "Secondo";
+	public static final String ATT_DIFFMENU_SIDEDISH = "Contorno";
+	public static final String ATT_DIFFMENU_FRUIT = "Frutta";
+	public static final String ATT_DIFFMENU_CHILDINSCID = "Iscrizione";
 	
 	//PaymentTable's attributes
 	public static final String ATT_PAYMENT_ID = "id";
