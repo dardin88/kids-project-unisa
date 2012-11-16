@@ -42,10 +42,10 @@ public class JDBCCommunicationManager {
 	 * this method implements the design pattern "singleton"
 	 * @return manager
 	 */
-	public static ICommunicationManager getInstance()
+	public static JDBCCommunicationManager getInstance()
 	{
 		if(manager==null)
-			return (manager=new JDBCCommunicationManager());
+			return manager=new JDBCCommunicationManager();
 		else
 			return manager;
 	}
