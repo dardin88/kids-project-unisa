@@ -1,9 +1,11 @@
 package it.unisa.kids.serviceManagement.paymentManagement;
 
+import it.unisa.kids.common.IManager;
+
 import java.sql.SQLException;
 import java.util.List;
 
-public interface IPaymentManager {
+public interface IPaymentManager extends IManager {
 
 	public void insert(PaymentBean pPayment) throws SQLException;
 	public void update(PaymentBean pPayment) throws SQLException;
