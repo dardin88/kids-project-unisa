@@ -11,7 +11,7 @@ public class Communication {
 	private int id;
 	private int type;
 	private int idEducator;
-	private int idParent;
+	private int idChild;
 	private String description;
 	private GregorianCalendar date;
 
@@ -62,18 +62,18 @@ public class Communication {
 		this.idEducator = idEducator;
 	}
 	
-	/**this method returns the idParent
-	 * @return int idParent
+	/**this method returns the idChild
+	 * @return int idChild
 	 */
-	public int getIdParent() {
-		return idParent;
+	public int getIdChild() {
+		return idChild;
 	}
 
-	/**this method sets the idParent
-	 * @param int idParent
+	/**this method sets the idChild
+	 * @param int idChild
 	 */
-	public void setIdParent(int idParent) {
-		this.idParent = idParent;
+	public void setIdChild(int idChild) {
+		this.idChild = idChild;
 	}
 	
 	/**this method returns the description
