@@ -14,4 +14,12 @@ public interface ICanteenManager extends IManager {
 	public List<DifferentiatedMenuBean> search(DifferentiatedMenuBean pDiffMenu)
 			throws SQLException;
 	public List<DifferentiatedMenuBean> getDiffMenuList() throws SQLException;
+	
+	
+	public void insert(MenuBean pMenu) throws SQLException;
+	public void update(MenuBean pMenu) throws SQLException;
+	public void delete(MenuBean pMenu) throws SQLException;
+	
+	public List<MenuBean> search(MenuBean pMenu) throws SQLException;
+	public List<MenuBean> getMenuList() throws SQLException;
 }

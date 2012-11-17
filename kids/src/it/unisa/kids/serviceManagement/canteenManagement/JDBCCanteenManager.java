@@ -1,6 +1,9 @@
 package it.unisa.kids.serviceManagement.canteenManagement;
 
 import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
+import it.unisa.kids.communicationManagement.newsManagement.INewsManager;
+import it.unisa.kids.communicationManagement.newsManagement.News;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 
 import java.sql.Connection;
@@ -12,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JDBCCanteenManager implements ICanteenManager {
+	
+	private static final String delimiter = "^";
 	
 	// Singleton Design Pattern's implementation
 	private static JDBCCanteenManager manager;
@@ -288,5 +293,93 @@ public class JDBCCanteenManager implements ICanteenManager {
 				DBConnectionPool.releaseConnection(con);
 		}
 		return diffMenus;
+	}
+	
+	public void insert(MenuBean pMenu) throws SQLException {
+		INewsManager newsManager = getNewsManager();
+		
+		pMenu.setDescription(parseMenuBean(pMenu));
+		newsManager.insertNews(pMenu);
+	}
+	
+	public void update(MenuBean pMenu) throws SQLException {
+		INewsManager newsManager = getNewsManager();
+		
+		pMenu.setDescription(parseMenuBean(pMenu));
+		newsManager.modifyNews(pMenu);
+	}
+	
+	public void delete(MenuBean pMenu) throws SQLException {
+		INewsManager newsManager = getNewsManager();
+		
+		pMenu.setDescription(parseMenuBean(pMenu));
+		newsManager.deleteNews(pMenu);
+	}
+	
+	public List<MenuBean> search(MenuBean pMenu) throws SQLException {
+		INewsManager newsManager = getNewsManager();
+		List<MenuBean> menus = null;
+		
+		pMenu.setDescription(parseMenuBean(pMenu));
+		List<News> news = newsManager.searchNews(pMenu.getDescription());
+		
+		menus = new ArrayList<MenuBean>();
+		for (News n : news) {
+			MenuBean mb = new MenuBean();
+			mb.setType(n.getType());
+			mb.setDescription(n.getDescription());
+			mb.setTitle(n.getTitle());
+			mb.setAttached(n.getAttached());
+			mb.setDate(n.getDate());
+			mb.setTime(n.getTime());
+			mb.setDelegate(n.getDelegate());
+			
+			String[] menuStrings = parseMenuString(mb.getDescription());
+			mb.setFirst(menuStrings[0]);
+			mb.setSecond(menuStrings[1]);
+			mb.setSideDish(menuStrings[2]);
+			mb.setFruit(menuStrings[3]);
+			
+			menus.add(mb);
+		}
+		return menus;
+	}
+	
+	public List<MenuBean> getMenuList() throws SQLException {		
+		MenuBean mb = new MenuBean();
+		
+		mb.setType(MenuBean.MAIN_MENU);
+		List<MenuBean> menus1 = search(mb);
+		
+		mb.setType(MenuBean.ALTERNATIVE_MENU);
+		List<MenuBean> menus2 = search(mb);
+		
+		menus1.addAll(menus2);
+		return menus1;
+	}
+	
+	private String parseMenuBean(MenuBean pMenu) {
+		return pMenu.getFirst() + delimiter
+				+ pMenu.getSecond() + delimiter
+				+ pMenu.getSideDish() + delimiter
+				+ pMenu.getFruit();
+	}
+	
+	private String[] parseMenuString(String pMenuStr) {
+		String menuStr = pMenuStr;
+		String[] menuList = new String[4];
+		
+		for (int i = 3; i >= 0; i--) {
+			while (menuStr.lastIndexOf(delimiter) == menuStr.length() - 1)
+				menuStr = menuStr.substring(0, menuStr.length() - 1);
+			menuList[i] = menuStr.substring(menuStr.lastIndexOf(delimiter) + 1);
+			menuStr = menuStr.substring(0, menuStr.lastIndexOf(delimiter));
+		}
+		return menuList;
+	}
+	
+	private INewsManager getNewsManager() {
+		return (INewsManager) new RefinedAbstractManager().
+				getManagerImplementor(DBNames.TABLE_NEWS);
 	}
 }
