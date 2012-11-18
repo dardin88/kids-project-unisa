@@ -1,9 +1,7 @@
 package it.unisa.kids.serviceManagement.canteenManagement;
 
 import it.unisa.kids.common.DBNames;
-import it.unisa.kids.common.RefinedAbstractManager;
-import it.unisa.kids.communicationManagement.newsManagement.INewsManager;
-import it.unisa.kids.communicationManagement.newsManagement.News;
+import it.unisa.kids.common.bean.MenuBean;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 
 import java.sql.Connection;
@@ -15,8 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JDBCCanteenManager implements ICanteenManager {
-	
-	private static final String delimiter = "^";
 	
 	// Singleton Design Pattern's implementation
 	private static JDBCCanteenManager manager;
@@ -134,7 +130,7 @@ public class JDBCCanteenManager implements ICanteenManager {
 		}
 	}
 	
-	public List<DifferentiatedMenuBean> search(DifferentiatedMenuBean pDiffMenu)
+	public synchronized List<DifferentiatedMenuBean> search(DifferentiatedMenuBean pDiffMenu)
 			throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -295,57 +291,45 @@ public class JDBCCanteenManager implements ICanteenManager {
 		return diffMenus;
 	}
 	
-	public void insert(MenuBean pMenu) throws SQLException {
-		INewsManager newsManager = getNewsManager();
+	public synchronized void insert(MenuBean pMenu) throws SQLException {
+		/* TO-DO: get CommunicationFacade object */
 		
-		pMenu.setDescription(parseMenuBean(pMenu));
-		newsManager.insertNews(pMenu);
+		commFacade.insertMenu(pMenu);
 	}
 	
-	public void update(MenuBean pMenu) throws SQLException {
-		INewsManager newsManager = getNewsManager();
+	public synchronized void update(MenuBean pMenu) throws SQLException {
+		/* TO-DO: get CommunicationFacade object */
 		
-		pMenu.setDescription(parseMenuBean(pMenu));
-		newsManager.modifyNews(pMenu);
+		commFacade.updateMenu(pMenu);
 	}
 	
-	public void delete(MenuBean pMenu) throws SQLException {
-		INewsManager newsManager = getNewsManager();
+	public synchronized void delete(MenuBean pMenu) throws SQLException {
+		/* TO-DO: get CommunicationFacade object */
 		
-		pMenu.setDescription(parseMenuBean(pMenu));
-		newsManager.deleteNews(pMenu);
+		commFacade.deleteMenu(pMenu);
 	}
 	
-	public List<MenuBean> search(MenuBean pMenu) throws SQLException {
-		INewsManager newsManager = getNewsManager();
-		List<MenuBean> menus = null;
+	public synchronized List<MenuBean> search(MenuBean pMenu) throws SQLException {
+		/* TO-DO: get CommunicationFacade object */
 		
-		pMenu.setDescription(parseMenuBean(pMenu));
-		List<News> news = newsManager.searchNews(pMenu.getDescription());
+		// if-block: move to CommunicationFacade
+		if (pMenu.getFirst() != null && pMenu.getSecond() != null
+				&& pMenu.getSideDish() != null && pMenu.getFruit() != null)
+			pMenu.setDescription(unparseMenu(pMenu));
 		
-		menus = new ArrayList<MenuBean>();
-		for (News n : news) {
-			MenuBean mb = new MenuBean();
-			mb.setType(n.getType());
-			mb.setDescription(n.getDescription());
-			mb.setTitle(n.getTitle());
-			mb.setAttached(n.getAttached());
-			mb.setDate(n.getDate());
-			mb.setTime(n.getTime());
-			mb.setDelegate(n.getDelegate());
-			
-			String[] menuStrings = parseMenuString(mb.getDescription());
+		List<MenuBean> menus = commFacade.searchMenu(pMenu);
+		
+		for (MenuBean mb : menus) {
+			String[] menuStrings = parseMenu(mb.getDescription());
 			mb.setFirst(menuStrings[0]);
 			mb.setSecond(menuStrings[1]);
 			mb.setSideDish(menuStrings[2]);
 			mb.setFruit(menuStrings[3]);
-			
-			menus.add(mb);
 		}
 		return menus;
 	}
 	
-	public List<MenuBean> getMenuList() throws SQLException {		
+	public synchronized List<MenuBean> getMenuList() throws SQLException {		
 		MenuBean mb = new MenuBean();
 		
 		mb.setType(MenuBean.MAIN_MENU);
@@ -358,28 +342,36 @@ public class JDBCCanteenManager implements ICanteenManager {
 		return menus1;
 	}
 	
-	private String parseMenuBean(MenuBean pMenu) {
-		return pMenu.getFirst() + delimiter
-				+ pMenu.getSecond() + delimiter
-				+ pMenu.getSideDish() + delimiter
+	public synchronized List<MenuBean> getMenuList(String pMenuType) throws SQLException {
+		MenuBean mb = new MenuBean();
+		
+		if (pMenuType.equals(MenuBean.ALTERNATIVE_MENU))
+			mb.setType(MenuBean.ALTERNATIVE_MENU);
+		else
+			mb.setType(MenuBean.MAIN_MENU);
+		
+		return search(mb);
+	}
+	
+	// move to CommunicationFacade
+	private String unparseMenu(MenuBean pMenu) {
+		return pMenu.getFirst() + MenuBean.DELIMITER
+				+ pMenu.getSecond() + MenuBean.DELIMITER
+				+ pMenu.getSideDish() + MenuBean.DELIMITER
 				+ pMenu.getFruit();
 	}
 	
-	private String[] parseMenuString(String pMenuStr) {
+	// move to CommunicationFacade
+	private String[] parseMenu(String pMenuStr) {
 		String menuStr = pMenuStr;
 		String[] menuList = new String[4];
 		
 		for (int i = 3; i >= 0; i--) {
-			while (menuStr.lastIndexOf(delimiter) == menuStr.length() - 1)
+			while (menuStr.lastIndexOf(MenuBean.DELIMITER) == menuStr.length() - 1)
 				menuStr = menuStr.substring(0, menuStr.length() - 1);
-			menuList[i] = menuStr.substring(menuStr.lastIndexOf(delimiter) + 1);
-			menuStr = menuStr.substring(0, menuStr.lastIndexOf(delimiter));
+			menuList[i] = menuStr.substring(menuStr.lastIndexOf(MenuBean.DELIMITER) + 1);
+			menuStr = menuStr.substring(0, menuStr.lastIndexOf(MenuBean.DELIMITER));
 		}
 		return menuList;
-	}
-	
-	private INewsManager getNewsManager() {
-		return (INewsManager) new RefinedAbstractManager().
-				getManagerImplementor(DBNames.TABLE_NEWS);
 	}
 }

@@ -1,6 +1,7 @@
 package it.unisa.kids.serviceManagement.canteenManagement;
 
 import it.unisa.kids.common.IManager;
+import it.unisa.kids.common.bean.MenuBean;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -22,4 +23,5 @@ public interface ICanteenManager extends IManager {
 	
 	public List<MenuBean> search(MenuBean pMenu) throws SQLException;
 	public List<MenuBean> getMenuList() throws SQLException;
+	public List<MenuBean> getMenuList(String pMenuType) throws SQLException;
 }
