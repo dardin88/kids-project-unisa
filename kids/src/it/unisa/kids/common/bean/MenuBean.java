@@ -1,4 +1,4 @@
-package it.unisa.kids.serviceManagement.canteenManagement;
+package it.unisa.kids.common.bean;
 
 import it.unisa.kids.communicationManagement.newsManagement.News;
 
@@ -6,6 +6,7 @@ public class MenuBean extends News {
 
 	public static final String MAIN_MENU 		= "Main menu";
 	public static final String ALTERNATIVE_MENU = "Alternative menu";
+	public static final String DELIMITER = "^";
 	
 	private String first;
 	private String second;
