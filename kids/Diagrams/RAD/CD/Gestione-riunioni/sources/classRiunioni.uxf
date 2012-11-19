@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.5.1">
+  <zoom_level>13</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>78</x>
+      <y>533</y>
+      <w>273</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>riunione
+--
+Data: data
+Ora: time
+Titolo: string
+Descrizione: string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>468</x>
+      <y>338</y>
+      <w>273</w>
+      <h>143</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;control&gt;&gt; GestioneRiunioni
+--
++inserisciRiunione()
++modificaRiunione()
++eliminaRiunione()
++visualizzaCalendario()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>78</x>
+      <y>169</y>
+      <w>325</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;boundary&gt;&gt; formInserisciRiunione
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>455</x>
+      <y>169</y>
+      <w>351</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;boundary&gt;&gt; formModificaRiunione
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>858</x>
+      <y>169</y>
+      <w>351</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;boundary&gt;&gt; formEliminaRiunione
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>858</x>
+      <y>403</y>
+      <w>377</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;boundary&gt;&gt; formVisualizzaCalendario
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>208</x>
+      <y>195</y>
+      <w>285</w>
+      <h>207</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>39;39;39;182;260;182</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>559</x>
+      <y>195</y>
+      <w>64</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>39;39;39;143</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>702</x>
+      <y>195</y>
+      <w>337</w>
+      <h>207</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>39;182;312;182;312;39</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>702</x>
+      <y>403</y>
+      <w>181</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>39;39;156;39</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>468</x>
+      <y>533</y>
+      <w>273</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;entity&gt;&gt;listaRiunioni
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>312</x>
+      <y>533</y>
+      <w>181</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>156;39;39;39</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>585</x>
+      <y>442</y>
+      <w>64</w>
+      <h>116</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>39;39;39;91</additional_attributes>
+  </element>
+</diagram>
