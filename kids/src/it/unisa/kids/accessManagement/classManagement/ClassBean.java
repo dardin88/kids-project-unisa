@@ -1,15 +1,18 @@
 package it.unisa.kids.accessManagement.classManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Educator;
+import it.unisa.kids.accessManagement.childRegisteredManagement.ChildRegistrationBean;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClassBean {
 	private String idClasse;
 	private String className;
-	private List<Educatore> educatori;				//bisogna creare la classe educatore
-	private List<Bambini> bambini;					//bisogna creare la classe bambini
+	private List<Educator> educatori;				//bisogna creare la classe educatore <- già esistenti
+	private List<ChildRegistrationBean> bambini;					//bisogna creare la classe bambini <- già esistenti: ChildRegistrationBean
 	
-	public ClassBean(String name,ArrayList<Educatore> educa,ArrayList<Bambini> bamb)
+	public ClassBean(String name,ArrayList<Educator> educa,ArrayList<ChildRegistrationBean> bamb)
 	{
 		className=name;
 		this.educatori=educa;
@@ -32,19 +35,19 @@ public class ClassBean {
 		this.className = className;
 	}
 
-	public List<Educatore> getEducatori() {
+	public List<Educator> getEducatori() {
 		return educatori;
 	}
 
-	public void setEducatori(List<Educatore> educatori) {
+	public void setEducatori(List<Educator> educatori) {
 		this.educatori = educatori;
 	}
 
-	public List<Bambini> getBambini() {
+	public List<ChildRegistrationBean> getBambini() {
 		return bambini;
 	}
 
-	public void setBambini(List<Bambini> bambini) {
+	public void setBambini(List<ChildRegistrationBean> bambini) {
 		this.bambini = bambini;
 	}
 }
