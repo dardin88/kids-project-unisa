@@ -1,4 +1,4 @@
-package it.unisa.kids.accessManagement.childRegisteredManagement;
+package it.unisa.kids.accessManagement.registrationChildManagement;
 
 import it.unisa.storage.connectionPool.DBConnectionPool;
 
@@ -9,25 +9,25 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChildRegistrationManager {
+public class RegistrationChildManager {
 	
-	private static ChildRegistrationBean manager;
+	private static RegistrationChild manager;
 
-	  private ChildRegistrationManager()
+	  private RegistrationChildManager()
 	  {
 	  }
 
-	  public static ChildRegistrationBean getInstance()
+	  public static RegistrationChild getInstance()
 	  {
 	    if (manager == null)
 	    {
-	      manager = new ChildRegistrationBean();
+	      manager = new RegistrationChild();
 	    }
 
 	    return manager;
 	  }
 	  
-	  public ChildRegistrationBean create(ChildRegistrationBean aChildReg) throws SQLException
+	  public RegistrationChild create(RegistrationChild aChildReg) throws SQLException
 	  {
 		  Connection con = null;
 		  Statement stmt=null;
@@ -49,7 +49,7 @@ public class ChildRegistrationManager {
 		  return aChildReg;
 	  }
 	  
-	  public ChildRegistrationBean delete(ChildRegistrationBean aChildReg) throws SQLException
+	  public RegistrationChild delete(RegistrationChild aChildReg) throws SQLException
 	  {
 		  Connection con = null;
 		  Statement stmt=null;
@@ -70,12 +70,12 @@ public class ChildRegistrationManager {
 	  }
 	  
 	  
-	  public List<ChildRegistrationBean> search(ChildRegistrationBean aChildReg) throws SQLException
+	  public List<RegistrationChild> search(RegistrationChild aChildReg) throws SQLException
 	  {
 		  Connection con = null;
 		  Statement stmt=null;
 		  ResultSet result=null;
-		  List<ChildRegistrationBean> listOfChildReg=new ArrayList<ChildRegistrationBean>();		//deve essere riempito con il risultato della query
+		  List<RegistrationChild> listOfChildReg=new ArrayList<RegistrationChild>();		//deve essere riempito con il risultato della query
 		  String query="SELECT * FROM 'iscrizionebambino' WHERE ";				
 		  
 		  if (aChildReg.getBornDate()!=null)
@@ -118,7 +118,7 @@ public class ChildRegistrationManager {
 		  return listOfChildReg;
 	  }
 	  
-	  public ChildRegistrationBean modify(ChildRegistrationBean aChildReg) throws SQLException
+	  public RegistrationChild modify(RegistrationChild aChildReg) throws SQLException
 	  {
 		  	Connection con = null;
 		  	Statement stmt=null;

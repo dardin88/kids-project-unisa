@@ -1,8 +1,8 @@
-package it.unisa.kids.accessManagement.childRegisteredManagement;
+package it.unisa.kids.accessManagement.registrationChildManagement;
 
 import java.util.GregorianCalendar;
 
-public class ChildRegistrationBean {
+public class RegistrationChild {
 	
 	private String registrationId;
 	private String surname;

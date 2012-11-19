@@ -9,6 +9,4 @@ public class RefinedAbstractAccountManager extends AbstractManager<IAccountManag
 		return this.imp;
 	}
 
-	
-	
 }

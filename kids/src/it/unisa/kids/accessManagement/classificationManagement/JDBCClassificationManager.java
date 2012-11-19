@@ -30,7 +30,7 @@ public class JDBCClassificationManager implements IClassificationManager
 	}
 	// end of Singleton Design Pattern's implementation
 
-	public synchronized void insert (ClassificationBean pClassification) throws SQLException
+	public synchronized void insert (Classification pClassification) throws SQLException
 	{
 
 		Connection con = null;
@@ -64,7 +64,7 @@ public class JDBCClassificationManager implements IClassificationManager
 		}
 	}
 
-	public synchronized void update(ClassificationBean pClassification) throws SQLException
+	public synchronized void update(Classification pClassification) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement pstmt=null;
@@ -102,7 +102,7 @@ public class JDBCClassificationManager implements IClassificationManager
 		}
 	}
 
-	public synchronized void delete(ClassificationBean pClassification) throws SQLException {
+	public synchronized void delete(Classification pClassification) throws SQLException {
 		Connection con = null;
 		Statement stmt = null;
 		String query = null;
@@ -125,12 +125,12 @@ public class JDBCClassificationManager implements IClassificationManager
 		}
 	}
 
-	public synchronized List<ClassificationBean> search(ClassificationBean pClassification) throws SQLException {
+	public synchronized List<Classification> search(Classification pClassification) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String query = null;
-		List<ClassificationBean> classification = null;
+		List<Classification> classification = null;
 
 		boolean andState = false;
 
@@ -176,10 +176,10 @@ public class JDBCClassificationManager implements IClassificationManager
 			con.commit();
 
 			// constructing payment list
-			classification = new ArrayList<ClassificationBean>();
+			classification = new ArrayList<Classification>();
 			while (rs.next()) 
 			{
-				ClassificationBean p = new ClassificationBean();
+				Classification p = new Classification();
 				p.setId(rs.getInt(DBNames.ATT_CLASSIFICATION_ID));
 
 				//getting Date from ResultSet and converting it to GregorianCalendar
@@ -211,13 +211,13 @@ public class JDBCClassificationManager implements IClassificationManager
 		return pEnableAnd ? " AND " : " ";
 	}
 
-	public synchronized List<ClassificationBean> getClassificationList() throws SQLException 
+	public synchronized List<Classification> getClassificationList() throws SQLException 
 	{
 		Connection con = null;
 		Statement stmt = null;
 		ResultSet rs = null;
 		String query = null;
-		List<ClassificationBean> classification = null;
+		List<Classification> classification = null;
 
 		try {
 			con = DBConnectionPool.getConnection();
@@ -227,10 +227,10 @@ public class JDBCClassificationManager implements IClassificationManager
 			rs = stmt.executeQuery(query);
 
 			// constructing payment list
-			classification = new ArrayList<ClassificationBean>();
+			classification = new ArrayList<Classification>();
 			while (rs.next()) 
 			{
-				ClassificationBean p = new ClassificationBean();
+				Classification p = new Classification();
 				p.setId(rs.getInt(DBNames.ATT_CLASSIFICATION_ID));
 
 				//getting Date from ResultSet and converting it to GregorianCalendar

@@ -29,7 +29,7 @@ public class JDBCRecoursesManager implements IRecoursesManager {
 			return manager=new JDBCRecoursesManager();
 	}
 
-	public synchronized void insert (RecourseBean pRecourse) throws SQLException
+	public synchronized void insert (Recourse pRecourse) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -64,7 +64,7 @@ public class JDBCRecoursesManager implements IRecoursesManager {
 
 	}
 
-	public synchronized void update(RecourseBean pRecourse) throws SQLException
+	public synchronized void update(Recourse pRecourse) throws SQLException
 	{
 		Connection con = null;
 		PreparedStatement pstmt=null;
@@ -106,7 +106,7 @@ public class JDBCRecoursesManager implements IRecoursesManager {
 		}
 	}
 
-	public void delete(RecourseBean recourse) throws SQLException{
+	public void delete(Recourse recourse) throws SQLException{
 		Connection con = null;
 		Statement stmt=null;
 		try {
@@ -127,7 +127,7 @@ public class JDBCRecoursesManager implements IRecoursesManager {
 		}
 	}
 
-	public RecourseBean accept(RecourseBean recourse) throws SQLException{
+	public Recourse accept(Recourse recourse) throws SQLException{
 		Connection con = null;
 		Statement stmt=null;
 
@@ -150,7 +150,7 @@ public class JDBCRecoursesManager implements IRecoursesManager {
 		return recourse;
 	}
 
-	public RecourseBean refuse(RecourseBean recourse) throws SQLException{
+	public Recourse refuse(Recourse recourse) throws SQLException{
 		Connection con = null;
 		Statement stmt=null;
 
@@ -174,12 +174,12 @@ public class JDBCRecoursesManager implements IRecoursesManager {
 		return recourse;
 	}
 
-	public synchronized List<RecourseBean> search(RecourseBean pRecourse) throws SQLException {
+	public synchronized List<Recourse> search(Recourse pRecourse) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String query = null;
-		List<RecourseBean> recourse = null;
+		List<Recourse> recourse = null;
 
 		boolean andState = false;
 
@@ -223,10 +223,10 @@ public class JDBCRecoursesManager implements IRecoursesManager {
 			con.commit();
 
 			// constructing payment list
-			recourse = new ArrayList<RecourseBean>();
+			recourse = new ArrayList<Recourse>();
 			while (rs.next()) 
 			{
-				RecourseBean p = new RecourseBean();
+				Recourse p = new Recourse();
 				p.setId(rs.getInt(DBNames.ATT_RECOURSE_ID));
 
 				//getting Date from ResultSet and converting it to GregorianCalendar

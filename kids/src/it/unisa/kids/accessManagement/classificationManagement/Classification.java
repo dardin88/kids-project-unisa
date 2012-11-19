@@ -2,13 +2,15 @@ package it.unisa.kids.accessManagement.classificationManagement;
 
 import java.util.GregorianCalendar;
 
-public class ClassificationBean 
+public class Classification 
 {
-	public ClassificationBean() 
+	public Classification() 
 	{
 		
 	}
-
+	/*
+	 * aggiungere la lista di bambini appartenenti a questa graduatoria
+	 */
 	public int getId()
 	{
 		return this.id;

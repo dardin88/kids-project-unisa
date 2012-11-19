@@ -10,7 +10,7 @@ import java.util.GregorianCalendar;
  */
 
 
-public class RecourseBean {
+public class Recourse {
 	private int id;
 	private GregorianCalendar date;
 	private String reason;
@@ -22,7 +22,7 @@ public class RecourseBean {
 	 * Empty constructor 
 	 */
 	
-	public RecourseBean() {
+	public Recourse() {
 	}
 
 
