@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.5.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>20</x>
+      <y>20</y>
+      <w>790</w>
+      <h>480</h>
+    </coordinates>
+    <panel_attributes>RecoursesManagement</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>430</x>
+      <y>270</y>
+      <w>320</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>JDBCClassificationManager
+--
+- manager: JDBCClassificationManager
+--
+- JDBCClassificationManager()
++ getInstance() : JDBCClassificationManager
++ create(Recourse) : Classification
++ modify(Recourse) : Classification
++ delete(Recourse) : Classification
++ search(Recourse) : List&lt;Recourse&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>720</x>
+      <y>290</y>
+      <w>80</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&gt;</panel_attributes>
+    <additional_attributes>30;90;60;90;60;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>320</x>
+      <y>120</y>
+      <w>140</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>30;30;120;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>440</x>
+      <y>70</y>
+      <w>300</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+IRecoursesManager
+--
+ 
+--
++ create(Recourse) : Recourse
++ modify(Recourse) : Recourse
++ delete(Recourse) : Recourse
++ search(Recourse) : List&lt;Recourse&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>540</x>
+      <y>180</y>
+      <w>50</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>30;30;30;90</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>60</x>
+      <y>60</y>
+      <w>290</w>
+      <h>330</h>
+    </coordinates>
+    <panel_attributes>Recourse
+--
+- id : int
+- insertDate : GregorianCalendar
+- reason : String
+- valutation : boolean
+- registrationId : int
+--
++ Recourse()
++ setId(int) : void
++ setInsertDate(GregorianCalendar) : void
++ setReason(String) : void
++ setValutation(boolean) : void
++ setRegistrationId(int) : void
++ getId() : int
++ getInsertDate() : GregorianCalendar
++ getReason() : String
++ getValutation() : boolean
++ getRegistrationId() : int</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

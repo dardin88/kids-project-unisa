@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.5.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>20</x>
+      <y>20</y>
+      <w>870</w>
+      <h>420</h>
+    </coordinates>
+    <panel_attributes>RenunciationManagement</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>520</x>
+      <y>260</y>
+      <w>320</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>JDBCRenunciationManager
+--
+- manager: JDBCRenunciationManager
+--
+- JDBCRenunciationManager()
++ getInstance() : JDBCRenunciationManager
++ create(Renunciation) : Renunciation
++ modify(Renunciation) : Renunciation
++ delete(Renunciation) : Renunciation
++ search(Renunciation) : List&lt;Renunciation&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>810</x>
+      <y>280</y>
+      <w>80</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&gt;</panel_attributes>
+    <additional_attributes>30;90;60;90;60;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>410</x>
+      <y>110</y>
+      <w>140</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>30;30;120;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>530</x>
+      <y>60</y>
+      <w>300</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+IRenunciationManager
+--
+ 
+--
++ create(Recourse) : Recourse
++ modify(Recourse) : Recourse
++ delete(Recourse) : Recourse
++ search(Recourse) : List&lt;Recourse&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>630</x>
+      <y>170</y>
+      <w>50</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>30;30;30;90</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>50</x>
+      <y>60</y>
+      <w>390</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>Renunciation
+--
+- id : int
+- insertDate : GregorianCalendar
+- confirmation : boolean
+--
++ Renunciation()
++ setId(int) : void
++ setInsertDate(GregorianCalendar) : void
++ setConfirmation(boolean) : void
++ getId() : int
++ getInsertDate() : GregorianCalendar
++ getConfirmation() : </panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
