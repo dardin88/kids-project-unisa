@@ -1,4 +1,4 @@
-package it.unisa.kids.accessManagement.classification;
+package it.unisa.kids.accessManagement.classificationManagement;
 
 import it.unisa.kids.common.DBNames;
 import it.unisa.storage.connectionPool.DBConnectionPool;
