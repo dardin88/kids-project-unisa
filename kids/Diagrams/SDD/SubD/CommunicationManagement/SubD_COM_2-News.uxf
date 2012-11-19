@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.5.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>250</x>
+      <y>50</y>
+      <w>660</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>GestioneNewsPresentationLayer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>270</x>
+      <y>90</y>
+      <w>190</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>:GUIInserisciNews
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>670</x>
+      <y>90</y>
+      <w>210</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>:GUIModificaNews</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>670</x>
+      <y>230</y>
+      <w>210</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>:GUIEliminaNews
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>270</x>
+      <y>230</y>
+      <w>200</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>:GUIVisualizzaNews
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>250</x>
+      <y>350</y>
+      <w>660</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>GestioneNewsApplicationLayer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>270</x>
+      <y>390</y>
+      <w>190</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>:InserisciNews
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>680</x>
+      <y>390</y>
+      <w>210</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>:ModificaNews
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>670</x>
+      <y>540</y>
+      <w>220</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>:EliminaNews
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>270</x>
+      <y>530</y>
+      <w>200</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>:VisualizzaNews
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>250</x>
+      <y>630</y>
+      <w>660</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>GestioneNewsDataLayer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>850</x>
+      <y>100</y>
+      <w>120</w>
+      <h>340</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>40;320;100;320;100;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>850</x>
+      <y>240</y>
+      <w>100</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>40;340;80;340;80;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>550</x>
+      <y>590</y>
+      <w>50</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>30;60;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>170</x>
+      <y>90</y>
+      <w>120</w>
+      <h>350</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>100;330;30;330;30;30;100;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>190</x>
+      <y>230</y>
+      <w>100</w>
+      <h>350</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>80;330;30;330;30;30;80;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>470</x>
+      <y>460</y>
+      <w>210</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>:RicercaNews</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>470</x>
+      <y>160</y>
+      <w>210</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>:GUIRicercaNews</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>550</x>
+      <y>190</y>
+      <w>50</w>
+      <h>310</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>30;290;30;30</additional_attributes>
+  </element>
+</diagram>

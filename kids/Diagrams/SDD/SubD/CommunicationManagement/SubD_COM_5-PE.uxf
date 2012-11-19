@@ -1,0 +1,779 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.5.1">
+  <zoom_level>4</zoom_level>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>460</x>
+      <y>148</y>
+      <w>488</w>
+      <h>256</h>
+    </coordinates>
+    <panel_attributes>GestioneProgrammaEducativoPresentationLayer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>468</x>
+      <y>172</y>
+      <w>92</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:GUIInserisciProgettoAnnuale
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>592</x>
+      <y>172</y>
+      <w>100</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:GUIVisualizzaProgettoAnnuale
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>828</x>
+      <y>172</y>
+      <w>104</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:GUIModificaSostanzialeProgetto
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>716</x>
+      <y>172</y>
+      <w>96</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:GUIModificaPiccolaProgetto
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>460</x>
+      <y>440</y>
+      <w>488</w>
+      <h>248</h>
+    </coordinates>
+    <panel_attributes>GestioneProgrammaEducativoApplicationLayer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>460</x>
+      <y>708</y>
+      <w>488</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>GestioneProgrammaEducativoDataLayer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>600</x>
+      <y>184</y>
+      <w>168</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>12;272;12;236;104;236;104;160;160;160;160;120;100;120;100;76;84;64;84;28;84;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>568</x>
+      <y>364</y>
+      <w>32</w>
+      <h>308</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>20;300;12;300;12;12;24;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>904</x>
+      <y>324</y>
+      <w>84</w>
+      <h>304</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>12;296;76;296;76;12;24;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>436</x>
+      <y>172</y>
+      <w>40</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>32;292;12;292;12;12;32;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>740</x>
+      <y>136</y>
+      <w>264</w>
+      <h>364</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>12;344;12;356;256;356;256;172;256;12;32;12;32;36</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>916</x>
+      <y>172</y>
+      <w>48</w>
+      <h>304</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>12;296;40;296;40;12;16;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>916</x>
+      <y>276</y>
+      <w>64</w>
+      <h>312</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>12;304;56;304;56;12;12;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>420</x>
+      <y>276</y>
+      <w>60</w>
+      <h>304</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>48;296;12;296;12;248;12;12;52;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>400</x>
+      <y>368</y>
+      <w>76</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>68;292;12;292;12;12;68;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>408</x>
+      <y>320</y>
+      <w>64</w>
+      <h>304</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>56;296;12;296;12;12;56;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>740</x>
+      <y>128</y>
+      <w>272</w>
+      <h>428</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>12;408;12;420;264;420;264;12;20;12;20;92</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>688</x>
+      <y>676</y>
+      <w>20</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>12;40;12;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>472</x>
+      <y>220</y>
+      <w>76</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:GUICommentaProgetto
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>596</x>
+      <y>220</y>
+      <w>76</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:GUIApprovaProgetto
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>836</x>
+      <y>276</y>
+      <w>92</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:GUINotificaScadenzaPiano
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>464</x>
+      <y>316</y>
+      <w>108</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>:GUIVisualizzaNotificaScadenzaPiano
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>472</x>
+      <y>272</y>
+      <w>84</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:GUIInsesciProgettoSezione
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>600</x>
+      <y>272</y>
+      <w>96</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:GUIVisualizzaProgettoSezione
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>704</x>
+      <y>272</y>
+      <w>124</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>:GUIInserisciAttivitàGiornaliereSezione
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>808</x>
+      <y>316</y>
+      <w>120</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>:GUIModificaAttivitàGiornaliereSezione
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>628</x>
+      <y>312</y>
+      <w>124</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>:GUIVisualizzaAttivitàGiornaliereSezione
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>900</x>
+      <y>372</y>
+      <w>96</w>
+      <h>308</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>12;300;88;300;88;12;16;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>912</x>
+      <y>224</y>
+      <w>60</w>
+      <h>312</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>12;304;52;304;52;12;16;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>828</x>
+      <y>220</y>
+      <w>100</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:GUIRespingiModificheProposte
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>716</x>
+      <y>220</y>
+      <w>100</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:GUIApprovaModificheProposte
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>592</x>
+      <y>364</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:GUIModificaPresenze
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>468</x>
+      <y>364</y>
+      <w>84</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:GUIInserisciPresenze
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>740</x>
+      <y>368</y>
+      <w>84</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:GUIVisualizzaPresenze
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>840</x>
+      <y>364</y>
+      <w>76</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:GUIRicercabambino
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>468</x>
+      <y>452</y>
+      <w>92</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:InserisciProgettoAnnuale
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>592</x>
+      <y>456</y>
+      <w>88</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:VisualizzaProgettoAnnuale
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>704</x>
+      <y>456</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:ModificaPiccolaProgetto
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>824</x>
+      <y>456</y>
+      <w>104</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:ModificaSostanzialeProgetto
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>824</x>
+      <y>508</y>
+      <w>100</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:RespingiModificheProposte
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>704</x>
+      <y>512</y>
+      <w>88</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:ApprovaModificheProposte
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>596</x>
+      <y>508</y>
+      <w>64</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:ApprovaProgetto
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>472</x>
+      <y>504</y>
+      <w>76</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:CommentaProgetto
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>468</x>
+      <y>556</y>
+      <w>84</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:InsesciProgettoSezione
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>588</x>
+      <y>552</y>
+      <w>84</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:VisualizzaProgettoSezione
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>700</x>
+      <y>560</y>
+      <w>108</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>:InserisciAttivitàGiornaliereSezione
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>836</x>
+      <y>564</y>
+      <w>92</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:NotificaScadenzaPiano
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>796</x>
+      <y>604</y>
+      <w>120</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>:ModificaAttivitàGiornaliereSezione
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>836</x>
+      <y>656</y>
+      <w>76</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:Ricercabambino
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>712</x>
+      <y>656</y>
+      <w>84</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:VisualizzaPresenze
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>632</x>
+      <y>600</y>
+      <w>112</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:VisualizzaAttivitàGiornaliereSezione
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>588</x>
+      <y>652</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:ModificaPresenze
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>468</x>
+      <y>648</y>
+      <w>84</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:InserisciPresenze
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>464</x>
+      <y>600</y>
+      <w>96</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:VisualizzaNotificaScadenzaPiano
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>428</x>
+      <y>220</y>
+      <w>52</w>
+      <h>308</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>44;300;12;300;12;12;44;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>680</x>
+      <y>392</y>
+      <w>20</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>12;56;12;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>576</x>
+      <y>220</y>
+      <w>28</w>
+      <h>308</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>20;300;12;300;12;12;20;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>564</x>
+      <y>276</y>
+      <w>44</w>
+      <h>296</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>24;288;12;288;12;12;36;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>672</x>
+      <y>328</y>
+      <w>20</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>12;272;12;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>764</x>
+      <y>380</y>
+      <w>60</w>
+      <h>292</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>12;284;12;220;52;220;52;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>716</x>
+      <y>288</y>
+      <w>96</w>
+      <h>288</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>88;280;88;140;12;140;12;64;68;64;68;12</additional_attributes>
+  </element>
+</diagram>

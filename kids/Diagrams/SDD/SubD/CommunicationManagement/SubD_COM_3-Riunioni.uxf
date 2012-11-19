@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.5.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>250</x>
+      <y>50</y>
+      <w>540</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>GestioneRiunioniPresentationLayer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>270</x>
+      <y>90</y>
+      <w>190</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>:GUIInserisciRiunione
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>530</x>
+      <y>90</y>
+      <w>210</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>:GUIModificaRiunione</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>530</x>
+      <y>230</y>
+      <w>210</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>:GUIEliminaRiunione
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>270</x>
+      <y>230</y>
+      <w>200</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>:GUIVisualizzaCalendario
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>250</x>
+      <y>350</y>
+      <w>540</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>GestioneRiunioniApplicationLayer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>270</x>
+      <y>390</y>
+      <w>190</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>:InserisciRiunione
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>540</x>
+      <y>390</y>
+      <w>210</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>:ModificaRiunione
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>540</x>
+      <y>530</y>
+      <w>220</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>:EliminaRiunione
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>270</x>
+      <y>530</y>
+      <w>200</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>:VisualizzaCalendario
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>250</x>
+      <y>630</y>
+      <w>540</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>GestioneRiunioniDataLayer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>710</x>
+      <y>100</y>
+      <w>140</w>
+      <h>340</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>40;320;120;320;120;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>710</x>
+      <y>240</y>
+      <w>120</w>
+      <h>350</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>50;330;100;330;100;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>500</x>
+      <y>590</y>
+      <w>50</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>30;60;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>170</x>
+      <y>90</y>
+      <w>120</w>
+      <h>350</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>100;330;30;330;30;30;100;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>190</x>
+      <y>230</y>
+      <w>100</w>
+      <h>350</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>80;330;30;330;30;30;80;30</additional_attributes>
+  </element>
+</diagram>
