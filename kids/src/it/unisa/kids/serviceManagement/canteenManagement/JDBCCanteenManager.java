@@ -2,6 +2,9 @@ package it.unisa.kids.serviceManagement.canteenManagement;
 
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.bean.MenuBean;
+import it.unisa.kids.serviceManagement.paymentManagement.IPaymentManager;
+import it.unisa.kids.serviceManagement.paymentManagement.JDBCPaymentManager;
+import it.unisa.kids.serviceManagement.paymentManagement.PaymentBean;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 
 import java.sql.Connection;
@@ -10,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class JDBCCanteenManager implements ICanteenManager {
@@ -373,5 +377,220 @@ public class JDBCCanteenManager implements ICanteenManager {
 			menuStr = menuStr.substring(0, menuStr.lastIndexOf(MenuBean.DELIMITER));
 		}
 		return menuList;
+	}
+	
+	public synchronized void insert(MealRequestBean pMealReq) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String query;
+		
+		try {
+			con = DBConnectionPool.getConnection();
+			
+			// constructing query string
+			query = "INSERT INTO " + DBNames.TABLE_MEAL_REQUEST + " ("
+					+ DBNames.ATT_MEALREQ_ID + ", "
+					+ DBNames.ATT_MEALREQ_MENUTYPE + ", "
+					+ DBNames.ATT_MEALREQ_DATE + ", "
+					+ DBNames.ATT_MEALREQ_CHILDINSCID
+					+ ") VALUES(?, ?, ?, ?)";
+			
+			pstmt = con.prepareStatement(query);
+			
+			//setting pstmt's parameters
+			pstmt.setInt(1, pMealReq.getId());
+			pstmt.setString(2, pMealReq.getRequestedMenuType());
+			pstmt.setDate(3, new java.sql.Date(pMealReq.getDate().getTimeInMillis()));
+			pstmt.setInt(4, pMealReq.getChildInscriptionId());
+			
+			pstmt.executeUpdate();
+			con.commit();
+		} finally {
+			if (pstmt != null)
+				pstmt.close();
+			if (con != null)
+				DBConnectionPool.releaseConnection(con);
+		}
+		
+		// adding charge for this meal request
+		// da valutare se spostarlo nella servlet
+		IPaymentManager paymentManager = JDBCPaymentManager.getInstance();
+		PaymentBean chargePayment = new PaymentBean();
+		chargePayment.setCharge(true);
+		chargePayment.setAmount(MealRequestBean.PRICE_MEALREQ);
+		chargePayment.setAmountDue(MealRequestBean.PRICE_MEALREQ);
+		chargePayment.setPayee("");
+		chargePayment.setPaymentDescription("");
+		chargePayment.setParentId(0);	// serve un metodo getParentId(Child c);
+		paymentManager.addCharge(chargePayment);
+	}
+	
+	public synchronized void update(MealRequestBean pMealReq) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String query = null;
+		
+		try {
+			con = DBConnectionPool.getConnection();
+			
+			// constructing query string
+			query = "UPDATE " + DBNames.TABLE_MEAL_REQUEST + " SET "
+					+ DBNames.ATT_MEALREQ_MENUTYPE + " = ?, "
+					+ DBNames.ATT_MEALREQ_DATE + " = ?, "
+					+ DBNames.ATT_MEALREQ_CHILDINSCID + " = ? "
+					+ "WHERE " + DBNames.ATT_MEALREQ_ID + " = ?";
+			
+			pstmt = con.prepareStatement(query);
+			
+			// setting pstmt's parameters
+			pstmt.setString(1, pMealReq.getRequestedMenuType());
+			pstmt.setDate(2, new java.sql.Date(pMealReq.getDate().getTimeInMillis()));
+			pstmt.setInt(3, pMealReq.getChildInscriptionId());
+			pstmt.setInt(4, pMealReq.getId());
+			
+			pstmt.executeUpdate();
+			con.commit();
+		} finally {
+			if (pstmt != null)
+				pstmt.close();
+			if (con != null)
+				DBConnectionPool.releaseConnection(con);
+		}
+	}
+	
+	public synchronized void delete(MealRequestBean pMealReq) throws SQLException {
+		Connection con = null;
+		Statement stmt = null;
+		String query = null;
+		
+		try {
+			con = DBConnectionPool.getConnection();
+			
+			// constructing query string
+			query = "DELETE FROM " + DBNames.TABLE_MEAL_REQUEST
+					+ "WHERE " + DBNames.ATT_MEALREQ_ID + " = " + pMealReq.getId();
+			
+			stmt = con.createStatement();
+			stmt.executeUpdate(query);
+			con.commit();
+		} finally {
+			if (stmt != null)
+				stmt.close();
+			if (con != null)
+				DBConnectionPool.releaseConnection(con);
+		}
+	}
+	
+	public synchronized List<MealRequestBean> search(MealRequestBean pMealReq) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = null;
+		List<MealRequestBean> mealReqs = null;
+		
+		boolean andState = false;
+		
+		try {
+			con = DBConnectionPool.getConnection();
+			
+			// constructing search query string
+			query = "SELECT * FROM " + DBNames.TABLE_MEAL_REQUEST + " WHERE";
+			if (pMealReq.getId() > 0) {		// or >= 0 ???
+				query += " " + DBNames.ATT_MEALREQ_ID + " = ?";
+				andState = true;
+			}
+			
+			if (pMealReq.getRequestedMenuType() != null) {
+				query += useAnd(andState) + DBNames.ATT_MEALREQ_MENUTYPE + " = ?";
+				andState = true;
+			}
+			
+			if (pMealReq.getDate() != null) {
+				query += useAnd(andState) + DBNames.ATT_MEALREQ_DATE + " = ?";
+				andState = true;
+			}
+			
+			if (pMealReq.getChildInscriptionId() > 0) {		// or >= 0 ???
+				query += useAnd(andState) + DBNames.ATT_MEALREQ_CHILDINSCID + " = ?";
+				andState = true;
+			}
+			
+			pstmt = con.prepareStatement(query);
+			
+			// setting pstmt's parameters
+			int i = 1;		// index of pstmt first argument
+			if (pMealReq.getId() > 0) {		// >= 0 ??
+				pstmt.setInt(i, pMealReq.getId());
+				i++;
+			}
+			
+			if (pMealReq.getRequestedMenuType() != null) {
+				pstmt.setString(i, pMealReq.getRequestedMenuType());
+				i++;
+			}
+			
+			if (pMealReq.getDate() != null) {
+				pstmt.setDate(i, new java.sql.Date(pMealReq.getDate().getTimeInMillis()));
+				i++;
+			}
+			
+			if (pMealReq.getChildInscriptionId() > 0) {
+				pstmt.setInt(i, pMealReq.getChildInscriptionId());
+				i++;
+			}
+			
+			// executing select query
+			rs = pstmt.executeQuery();
+			con.commit();
+			
+			// constructing mealReq list
+			mealReqs = new ArrayList<MealRequestBean>();
+			while (rs.next()) {
+				MealRequestBean mr = new MealRequestBean();
+				mr.setId(rs.getInt(DBNames.ATT_MEALREQ_ID));
+				mr.setRequestedMenuType(rs.getString(DBNames.ATT_MEALREQ_MENUTYPE));
+				
+				//getting Date from ResultSet and converting it to GregorianCalendar
+				GregorianCalendar sqlDate = new GregorianCalendar();
+				sqlDate.setTime(rs.getDate(DBNames.ATT_MEALREQ_DATE));
+				mr.setDate(sqlDate);
+				
+				mr.setChildInscriptionId(rs.getInt(DBNames.ATT_MEALREQ_CHILDINSCID));
+				
+				mealReqs.add(mr);
+			}
+		} finally {
+			if (rs != null)
+				rs.close();
+			if (pstmt != null)
+				pstmt.close();
+			if (con != null)
+				DBConnectionPool.releaseConnection(con);
+		}
+		return mealReqs;
+	}
+	
+	public synchronized List<MealRequestBean> getMealReqList() throws SQLException {
+		MealRequestBean mr = new MealRequestBean();
+
+		mr.setRequestedMenuType(MenuBean.MAIN_MENU);
+		List<MealRequestBean> mealReqs1 = search(mr);
+
+		mr.setRequestedMenuType(MenuBean.ALTERNATIVE_MENU);
+		List<MealRequestBean> mealReqs2 = search(mr);
+
+		mealReqs1.addAll(mealReqs2);
+		return mealReqs1;
+	}
+
+	public synchronized List<MealRequestBean> getMealReqList(String pMealType) throws SQLException {
+		MealRequestBean mr = new MealRequestBean();
+		
+		if (pMealType.equals(MenuBean.ALTERNATIVE_MENU))
+			mr.setRequestedMenuType(MenuBean.ALTERNATIVE_MENU);
+		else
+			mr.setRequestedMenuType(MenuBean.MAIN_MENU);
+		
+		return search(mr);
 	}
 }
