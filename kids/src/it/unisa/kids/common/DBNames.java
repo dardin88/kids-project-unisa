@@ -76,7 +76,7 @@ public final class DBNames {
 	public static final String ATT_REGISTRATION_SIGNUP_DATE ="DataIscrizione";
 	public static final String ATT_REGISTRATION_DIDEASE= "Malattia";
 	public static final String ATT_REGISTRATION_ENROLLEMENT_PHASE= "FaseDellIscrizione";
-	public static final String ATT_REGISTRATION_ACCOUNT_GENITORE ="AccountGenitore";
+	public static final String ATT_REGISTRATION_ACCOUNT_PARENT ="AccountGenitore";
 	public static final String ATT_REGISTRATION_CLASS= "Classe";
 	
 	//MealRequestTable's attributes
