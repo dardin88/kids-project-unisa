@@ -2,14 +2,14 @@ package it.unisa.kids.accessManagement.renunciationManagement;
 
 import java.util.GregorianCalendar;
 
-public class RenunciationBean {
+public class Renunciation {
 	
 	String id; 
 	GregorianCalendar date; 	//DATA 
 	boolean confirmation; 		//CONFERMA	
 	//devo inserire anche il campo iscrizione?
 	
-	public RenunciationBean(GregorianCalendar date, boolean confirmation) 		//l'id dovrebbe essere autoincrementale e non l'ho inserito nel costruttore giusto?
+	public Renunciation(GregorianCalendar date, boolean confirmation) 		//l'id dovrebbe essere autoincrementale e non l'ho inserito nel costruttore giusto?
 	{																		//e poi altra cosa che avevo pensato potrebbe essere inserita solo la data tanto se uno richiama questa funzione è ovvio che vuole rifuitare giusto?
 		this.date = date;
 		this.confirmation = confirmation;

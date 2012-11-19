@@ -27,7 +27,7 @@ public class RenunciationManager {
 	    return manager;
 	  }
 	  
-	  public RenunciationBean create(RenunciationBean aWaiver) throws SQLException
+	  public Renunciation create(Renunciation aWaiver) throws SQLException
 	  {
 		  Connection con = null;
 		  Statement stmt=null;
@@ -48,7 +48,7 @@ public class RenunciationManager {
 		  return aWaiver;
 	  }
 	  
-	  public RenunciationBean delete(RenunciationBean aWaiver) throws SQLException
+	  public Renunciation delete(Renunciation aWaiver) throws SQLException
 	  {
 		  Connection con = null;
 		  Statement stmt=null;
@@ -69,12 +69,12 @@ public class RenunciationManager {
 	  }
 	  
 	  
-	  public List<RenunciationBean> search(RenunciationBean aWaiver) throws SQLException
+	  public List<Renunciation> search(Renunciation aWaiver) throws SQLException
 	  {
 		  Connection con = null;
 		  Statement stmt=null;
 		  ResultSet result=null;
-		  List<RenunciationBean> listOfWaiver=new ArrayList<RenunciationBean>();		//deve essere riempito con il risultato della query
+		  List<Renunciation> listOfWaiver=new ArrayList<Renunciation>();		//deve essere riempito con il risultato della query
 		  String query="SELECT * FROM 'rinunce' WHERE ";				
 		  
 		  if (aWaiver.getId()!=null)
@@ -102,7 +102,7 @@ public class RenunciationManager {
 		  return listOfWaiver;
 	  }
 	  
-	  public RenunciationBean modify(RenunciationBean aWaiver)throws SQLException
+	  public Renunciation modify(Renunciation aWaiver)throws SQLException
 	  {
 		  	Connection con = null;
 		  	Statement stmt=null;

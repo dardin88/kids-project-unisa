@@ -4,22 +4,22 @@ import java.util.GregorianCalendar;
 
 public class RegistrationChild {
 	
-	private String registrationId;
+	private int registrationId;
 	private String surname;
 	private String name;
 	private String communeBorn;
 	private String fiscalCode;
 	private String citizenship;
-	private String sickness;
+	private boolean sickness;
 	private GregorianCalendar bornDate;
 	private GregorianCalendar registrationDate; 
 	private String userSection;			// deve essere String perchè e' l'id della Classe
 	private String faseDellIscrizione;
 	
-	public String getRegistrationId() {
+	public int getRegistrationId() {
 		return registrationId;
 	}
-	public void setRegistrationId(String registrationId) {
+	public void setRegistrationId(int registrationId) {
 		this.registrationId = registrationId;
 	}
 	public String getSurname() {
@@ -52,10 +52,10 @@ public class RegistrationChild {
 	public void setCitizenship(String citizenship) {
 		this.citizenship = citizenship;
 	}
-	public String getSickness() {
+	public boolean isSick() {
 		return sickness;
 	}
-	public void setSickness(String sickness) {
+	public void setSickness(boolean sickness) {
 		this.sickness = sickness;
 	}
 	public GregorianCalendar getBornDate() {
