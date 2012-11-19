@@ -1,0 +1,42 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1227" measuredH="595" mockupW="1005" mockupH="595">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="222" y="0" w="988" h="595" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>A%20Web%20Page%0Ahttp%3A//kids.unisa.it</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="950" y="95" w="277" h="21" measuredW="242" measuredH="21" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Attore%20%3A%20Nome%20Cognome%09%09%09Logout</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::HSplitter" x="448" y="126" w="-1" h="443" measuredW="11" measuredH="100" zOrder="2" locked="false" isInGroup="-1"/>
+    <control controlID="14" controlTypeID="com.balsamiq.mockups::SearchBox" x="1012" y="160" w="-1" h="-1" measuredW="120" measuredH="25" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>search</text>
+      </controlProperties>
+    </control>
+    <control controlID="20" controlTypeID="com.balsamiq.mockups::HRule" x="460" y="126" w="746" h="-1" measuredW="100" measuredH="10" zOrder="4" locked="false" isInGroup="-1"/>
+    <control controlID="22" controlTypeID="com.balsamiq.mockups::Title" x="279" y="80" w="154" h="-1" measuredW="79" measuredH="50" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Kids</text>
+      </controlProperties>
+    </control>
+    <control controlID="24" controlTypeID="com.balsamiq.mockups::PointyButton" x="257" y="189" w="-1" h="-1" measuredW="88" measuredH="27" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>false</bold>
+        <color>10066329</color>
+        <direction>center</direction>
+        <menuIcon>false</menuIcon>
+        <state>up</state>
+        <text>Graduatoria</text>
+      </controlProperties>
+    </control>
+    <control controlID="25" controlTypeID="com.balsamiq.mockups::DataGrid" x="590" y="208" w="422" h="207" measuredW="277" measuredH="203" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Nome%20bambino%20%2C%20Mesi%20%2C%20Stato%20%2C%0AMario%20Rossi%2C%206%20%2C%20Non%20concessa%0AClaudio%20Amendola%2C%207%2C%20Concessa%0AGiuseppe%20Verdi%2C%203%2C%20Non%20concessa%0AValeria%20Tedesco%2C%2010%2C%20Concessa%0AMichele%20Procida%2C%206%2C%20Non%20concessa%0AAntonio%20Esposito%2C6%2C%20Concessa%0A%7B65L%2C%200R%2C%2035%2C%200C%7D</text>
+      </controlProperties>
+    </control>
+    <control controlID="26" controlTypeID="com.balsamiq.mockups::VerticalScrollBar" x="996" y="209" w="-1" h="204" measuredW="16" measuredH="100" zOrder="8" locked="false" isInGroup="-1"/>
+  </controls>
+</mockup>
