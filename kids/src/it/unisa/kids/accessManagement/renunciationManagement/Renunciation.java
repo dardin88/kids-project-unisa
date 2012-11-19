@@ -4,15 +4,16 @@ import java.util.GregorianCalendar;
 
 public class Renunciation {
 	
-	String id; 
-	GregorianCalendar date; 	//DATA 
-	boolean confirmation; 		//CONFERMA	
-	//devo inserire anche il campo iscrizione?
+	private String id; 
+	private GregorianCalendar date; 	//DATA 
+	private boolean confirmation; 		//CONFERMA	
+	//devo inserire anche il campo iscrizione? si
 	
-	public Renunciation() {  }
+	public Renunciation() {
+		
+	}
 	
-	public Renunciation(GregorianCalendar date, boolean confirmation) 		
-	{																			//e poi altra cosa che avevo pensato potrebbe essere inserita solo la data tanto se uno richiama questa funzione è ovvio che vuole rifuitare giusto?
+	public Renunciation(GregorianCalendar date, boolean confirmation) {																			//e poi altra cosa che avevo pensato potrebbe essere inserita solo la data tanto se uno richiama questa funzione è ovvio che vuole rifuitare giusto?
 		this.date = date;
 		this.confirmation = confirmation;
 	}

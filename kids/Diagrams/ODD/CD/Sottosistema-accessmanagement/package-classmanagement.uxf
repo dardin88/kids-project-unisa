@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.5.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>20</x>
+      <y>20</y>
+      <w>820</w>
+      <h>460</h>
+    </coordinates>
+    <panel_attributes>ClassManagement</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>470</x>
+      <y>280</y>
+      <w>310</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>JDBCClassManager
+--
+- manager: JDBCClassManager
+--
+- JDBCClassManager()
++ getInstance() : JDBCClassManager
++ create(Class) : Class
++ modify(Class) : Class
++ delete(Class) : Class
++ search(Class) : List&lt;Class&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>750</x>
+      <y>300</y>
+      <w>80</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&gt;</panel_attributes>
+    <additional_attributes>30;90;60;90;60;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>470</x>
+      <y>80</y>
+      <w>300</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+IClassManager
+--
+ 
+--
++ create(Class) : Class
++ modify(Class) : Class
++ delete(Class) : Class
++ search(Class) : List&lt;Class&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>570</x>
+      <y>190</y>
+      <w>50</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>30;30;30;90</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>60</x>
+      <y>70</y>
+      <w>320</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>Class
+--
+- id : int
+- className : String
+- educators : List&lt;Educator&gt;
+- childs : List&lt;RegistrationChild&gt;
+--
++ Class()
++ setId(String)
++ setClassName(String)
++ setEducators(List&lt;Educator&gt;)
++ setChilds(List&lt;RegistrationChild&gt;)
++ getId() : int
++ getClassName() : String
++ getEducators() : List&lt;Educator&gt;
++ getChilds() : List&lt;RegistrationChild&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>350</x>
+      <y>100</y>
+      <w>140</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>30;30;120;30</additional_attributes>
+  </element>
+</diagram>

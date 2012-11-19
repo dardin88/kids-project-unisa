@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.5.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>70</x>
+      <y>0</y>
+      <w>800</w>
+      <h>710</h>
+    </coordinates>
+    <panel_attributes>RegistrationChildManagement</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>90</x>
+      <y>30</y>
+      <w>320</w>
+      <h>670</h>
+    </coordinates>
+    <panel_attributes>RegistrationChild
+--
+- id : int
+- surname : String
+- name : String
+- communeBorn : String
+- fiscalCode : String
+- citizenship : String
+- sickness : String
+- bornDate : GregorianCalendar
+- registrationDate : GregorianCalendar
+- faseDellIscrizione : String
+- section : Class
+- parent : Parent
+--
++ RegistrationChild()
++ getId() : int
++ getSurname() : String
++ getName() : String
++ getCommuneBorn() : String
++ getFiscalCode() : String
++ getCitizenship() : String
++ getSickness() : String
++ getBornDate() : GregorianCalendar
++ getRegistrationDate() : GregorianCalendar
++ getFaseDellIscrizione() : String
++ getSection() : Class
++ getParent() : Parent
++ setId(int) : void
++ setSurname(String) : void
++ setName(String) : void
++ setCommuneBorn(String) : void
++ setFiscalCode(String) : void
++ setCitizenship(String) : void
++ setSickness(String) : void
++ setBornDate(GregorianCalendar) : void
++ setRegistrationDate(GregorianCalendar) : void
++ setFaseDellIscrizione(String) : void
++ setSection(Class) : void
++ setParent(Parent) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>490</x>
+      <y>280</y>
+      <w>320</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>JDBCRegistrationChildManager
+--
+- manager: JDBCRegistrationChildManager
+--
+- JDBCRegistrationChildManager()
++ getInstance() : JDBCRegistrationChildManager
++ create(Account) : RegistrationChild
++ modify(Account) : RegistrationChild
++ delete(Account) : RegistrationChild
++ search(Account) : List&lt;RegistrationChild&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>780</x>
+      <y>300</y>
+      <w>80</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&gt;</panel_attributes>
+    <additional_attributes>30;90;60;90;60;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>380</x>
+      <y>140</y>
+      <w>140</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>30;30;120;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>500</x>
+      <y>80</y>
+      <w>270</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+IRegistrationChildManager
+--
+ 
+--
++ create(Account) : Account
++ modify(Account) : Account
++ delete(Account) : Account
++ search(Account) : List&lt;Account&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>600</x>
+      <y>190</y>
+      <w>50</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>30;30;30;90</additional_attributes>
+  </element>
+</diagram>

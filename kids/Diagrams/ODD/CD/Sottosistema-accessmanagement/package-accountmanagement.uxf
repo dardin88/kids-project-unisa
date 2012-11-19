@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.5.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>80</x>
+      <y>0</y>
+      <w>880</w>
+      <h>1640</h>
+    </coordinates>
+    <panel_attributes>AccountManagement</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>130</x>
+      <y>30</y>
+      <w>350</w>
+      <h>1590</h>
+    </coordinates>
+    <panel_attributes>Account
+--
+- id : int
+- nickName : String
+- password : String
+- nameUser : String
+- surnameUser : String
+- dataOfBirth : GregorianCalendar
+- placeOfBirth : String
+- taxCode : String
+- citizenship : String
+- municipalityResidence : String
+- provinceResidence : String
+- viaResidence : String
+- streetNumberResidence : String
+- telephoneNumber : String
+- cellularNumber : String
+- fax : String
+- email : String
+- viaDomicile : String
+- streetNumberDomicilie : String
+- municipalityDomicilie : String
+- provinceDomicilie : String
+- capResidence : String
+- capDomicilie : String
+- qualification : String
+- accountType : String
+- familySituation : String
+- income : double
+- contractExpirationDate : GregorianCalendar
+- faculty : String
+- registrationDate : GregorianCalendar
+--
++ Account()
++ setId(int) : void
++ setNickName(String) : void
++ setPassword(String) : void
++ setNameUser(String) : void
++ setSurnameUser(String) : void
++ setDataOfBirth(GregorianCalendar) : void
++ setPlaceofBirth(String) : void
++ setTaxCode(String) : void
++ setCitizenship(String) : void
++ setMunicipalityResidence(String) : void
++ setProvinceResidence(String) : void
++ setViaResidence(String) : void
++ setStreetNumberResidence(String) : void
++ setTelephoneNumber(String) : void
++ setCellularNumber(String) : void
++ setFax(String) : void
++ setEmail(String) : void
++ setViaDomicile(String) : void
++ setStreetNumberDomicile(String) : void
++ setMunicipalityDomicile(String) : void
++ setProvinceDomicile(String) : void
++ setCapResidence(String) : void
++ setCapDomicile(String) : void
++ setQualification(String) : void
++ setAccountType(String) : void
++ setFamilySituation(String) : void
++ setIncome(double) : void
++ setContractExpirationDate(GregorianCalendar) : void
++ setFaculty(String) : void
++ setRegistrationDate(GregorianCalendar) : void
++ getId() : int
++ getNickName() : String
++ getPassword() : String
++ getNameUser() : String
++ getSurnameUser() : String
++ getDataOfBirth() : GregorianCalendar
++ getPlaceOfBirth() : String
++ getTaxCode() : String
++ getCitizenship() : String
++ getMunicipalityResidence() : String
++ getProvinceResidence() : String
++ getViaResidence() : String
++ getStreetNumberResidence() : String
++ getTelephoneNumber() : String
++ getCellularNumber() : String
++ getFax() : String
++ getEmail() : String
++ getViaDomicile() : String
++ getStreetNumberDomicile() : String
++ getMunicipalityDomicile() : String
++ getProvinceDomicile() : String
++ getCapResidence() : String
++ getCapDomicile() : String
++ getQualification() : String
++ getAccountType() : String
++ getFamilySituation() : String
++ getIncome() : double
++ getContractExpirationDate() : GregorianCalendar
++ getFaculty() : String
++ getRegistrationDate() : GregorianCalendar</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>560</x>
+      <y>500</y>
+      <w>210</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>Account
+--
+- type : String
+--
++ Account()
++ getType() : String
++ setType(String) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>560</x>
+      <y>630</y>
+      <w>210</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>Educator
+--
+- type : String
+--
++ Educator()
++ getType() : String
++ setType(String) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>560</x>
+      <y>760</y>
+      <w>210</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>ExecutiveOffice
+--
+- type : String
+--
++ ExecutiveOffice()
++ getType() : String
++ setType(String) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>560</x>
+      <y>890</y>
+      <w>210</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>Parent
+--
+- type : String
+- parentType : String
+--
++ Parent()
++ getType() : String
++ setType(String) : void
++ getParentType() : String
++ setParentType(String) : void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>560</x>
+      <y>1080</y>
+      <w>210</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>PPCoordinator
+--
+- type : String
+--
++ PPCoordinator()
++ getType() : String
++ setType(String) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>560</x>
+      <y>1210</y>
+      <w>210</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>Scientific
+--
+- type : String
+--
++ Scientific()
++ getType() : String
++ setType(String) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>450</x>
+      <y>940</y>
+      <w>90</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;70;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>490</x>
+      <y>530</y>
+      <w>90</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>70;170;30;170;30;30;70;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>490</x>
+      <y>670</y>
+      <w>90</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>70;170;30;170;30;30;70;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>490</x>
+      <y>810</y>
+      <w>90</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>70;170;30;170;30;30;70;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>490</x>
+      <y>950</y>
+      <w>90</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>70;180;30;180;30;30;70;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>490</x>
+      <y>1100</y>
+      <w>90</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>70;160;30;160;30;30;70;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>530</x>
+      <y>60</y>
+      <w>260</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+IAccountManager
+--
+ 
+--
++ create(Account) : Account
++ modify(Account) : Account
++ delete(Account) : Account
++ search(Account) : List&lt;Account&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>530</x>
+      <y>260</y>
+      <w>270</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>JDBCAccountManager
+--
+- manager: JDBCAccountManager
+--
+- JDBCManagerAccount()
++ getInstance() : JDBCAccountManager
++ create(Account) : Account
++ modify(Account) : Account
++ delete(Account) : Account
++ search(Account) : List&lt;Account&gt;
+- generatePassword() : String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>610</x>
+      <y>170</y>
+      <w>50</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>30;30;30;90</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>770</x>
+      <y>280</y>
+      <w>80</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&gt;</panel_attributes>
+    <additional_attributes>30;90;60;90;60;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>450</x>
+      <y>100</y>
+      <w>100</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>30;30;80;30</additional_attributes>
+  </element>
+</diagram>

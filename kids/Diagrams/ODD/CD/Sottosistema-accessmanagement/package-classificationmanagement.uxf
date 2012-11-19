@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.5.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>20</x>
+      <y>30</y>
+      <w>880</w>
+      <h>430</h>
+    </coordinates>
+    <panel_attributes>ClassificationManagement</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>510</x>
+      <y>270</y>
+      <w>320</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>JDBCClassificationManager
+--
+- manager: JDBCClassificationManager
+--
+- JDBCClassificationManager()
++ getInstance() : JDBCClassificationManager
++ create(Classification) : Classification
++ modify(Classification) : Classification
++ delete(Classification) : Classification
++ search(Classification) : List&lt;Classification&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>800</x>
+      <y>290</y>
+      <w>80</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&gt;</panel_attributes>
+    <additional_attributes>30;90;60;90;60;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>400</x>
+      <y>120</y>
+      <w>140</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>30;30;120;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>520</x>
+      <y>70</y>
+      <w>300</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+IClassificationManager
+--
+ 
+--
++ create(Classification) : Classification
++ modify(Classification) : Classification
++ delete(Classification) : Classification
++ search(Classification) : List&lt;Classification&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>620</x>
+      <y>180</y>
+      <w>50</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>30;30;30;90</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>60</x>
+      <y>70</y>
+      <w>370</w>
+      <h>260</h>
+    </coordinates>
+    <panel_attributes>Classification
+--
+- id : int
+- creationDate : GregorianCalendar
+- expirationDate : GregorianCalendar
+- approvatedChilds : List&lt;RegistrationChild&gt;
+--
++ Classification()
++ setId(int) : void
++ setCreationDate(GregorianCalendar) : void
++ setExpirationDate(GregorianCalendar) : void
++ setApprovatedChilds(List&lt;RegistrationChild&gt;) : void
++ getId() : ind
++ getCreationDate() : GregorianCalendar
++ getExpirationDate() : GregorianCalendar
++ getApprovatedChilds() : List&lt;RegistrationChild&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
