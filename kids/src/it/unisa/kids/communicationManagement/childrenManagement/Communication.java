@@ -14,6 +14,7 @@ public class Communication {
 	private int idChild;
 	private String description;
 	private GregorianCalendar date;
+	private boolean solved;
 
 	/**Empty constructor
 	 */
@@ -102,5 +103,18 @@ public class Communication {
 	 */
 	public void setDate(GregorianCalendar date) {
 		this.date = date;
+	}
+	/**this method returns the solved
+	 * @return boolean solved
+	 */
+	public boolean getSolved() {
+		return solved;
+	}
+
+	/**this method sets the solved
+	 * @param boolean solved
+	 */
+	public void setSolved(boolean solved) {
+		this.solved = solved;
 	}
 }

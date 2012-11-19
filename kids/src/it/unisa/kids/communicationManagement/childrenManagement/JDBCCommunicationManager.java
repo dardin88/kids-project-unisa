@@ -59,6 +59,7 @@ public class JDBCCommunicationManager implements IManager {
 					DBNames.ATT_COMMUNICATION_IDCHILD+","+
 					DBNames.ATT_COMMUNICATION_DESCRIPTION+","+
 					DBNames.ATT_COMMUNICATION_DATE+
+					DBNames.ATT_COMMUNICATION_SOLVED+
 					") values (?,?,?,?,?,?,?)";
 		
 			stmt=connection.prepareStatement(query1);
@@ -68,6 +69,7 @@ public class JDBCCommunicationManager implements IManager {
 			stmt.setInt(4, pCommunication.getIdChild());
 			stmt.setString(5, pCommunication.getDescription());
 			stmt.setDate(6, new Date(pCommunication.getDate().getTimeInMillis()));
+			stmt.setBoolean(7, pCommunication.getSolved());
 			
 			stmt.executeUpdate();
 			connection.commit();
@@ -104,6 +106,7 @@ public class JDBCCommunicationManager implements IManager {
 				GregorianCalendar data=new GregorianCalendar();
 				data.setTime(date);
 				data.set(Calendar.MONTH, (data.get(Calendar.MONTH))+1);
+				boolean solved = rsCommunication.getSolved(DBNames.ATT_COMMUNICATION_SOLVED);
 
 				Communication communication = new Communication();
 				communication.setId(id);
@@ -112,6 +115,7 @@ public class JDBCCommunicationManager implements IManager {
 				communication.setIdChild(idChild);
 				communication.setDescription(description);
 				communication.setDate(data);
+				communication.setSolved(solved);
 				listCommunication.add(communication);
 			}
 		}
@@ -169,6 +173,7 @@ public class JDBCCommunicationManager implements IManager {
 				Date date=rsCommunication.getDate(DBNames.ATT_COMMUNICATION_DATE);
 				GregorianCalendar data=new GregorianCalendar();
 				data.setTime(date);
+				boolean solved =rsCommunication.getSolved(DBNames.ATT_COMMUNICATION_SOLVED);
 
 				Communication communication = new Communication();
 				communication.setId(id);
@@ -177,6 +182,7 @@ public class JDBCCommunicationManager implements IManager {
 				communication.setIdChild(idChild);
 				communication.setDescription(description);
 				communication.setDate(data);
+				communication.setSolved(solved);
 		
 				deleteCommunication(communication);
 				insertCommunication(pCommunication);
@@ -190,7 +196,3 @@ public class JDBCCommunicationManager implements IManager {
 	}
 	
 }
-
-
-
-

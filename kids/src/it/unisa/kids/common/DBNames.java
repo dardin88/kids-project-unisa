@@ -188,6 +188,7 @@ public final class DBNames {
 	public static final String ATT_COMMUNICATION_IDCHILD="idBambino";
 	public static final String ATT_COMMUNICATION_DESCRIPTION="descrizione";
 	public static final String ATT_COMMUNICATION_DATE="data";
+	public static final String ATT_COMMUNICATION_SOLVED="risolto";
 	
 	//Project Annual attributes
 	public static final String ATT_PROJECTANNUAL_ID="Id";
