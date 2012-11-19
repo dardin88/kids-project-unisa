@@ -1,5 +1,6 @@
 package it.unisa.kids.accessManagement.renunciationManagement;
 
+import it.unisa.kids.common.DBNames;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 
 import java.sql.Connection;
@@ -27,7 +28,7 @@ public class RenunciationManager {
 	    return manager;
 	  }
 	  
-	  public Renunciation create(Renunciation aWaiver) throws SQLException
+	  public Renunciation create(Renunciation pWaiver) throws SQLException
 	  {
 		  Connection con = null;
 		  Statement stmt=null;
@@ -35,8 +36,10 @@ public class RenunciationManager {
 		  try
 		  {
 			  con=DBConnectionPool.getConnection();
-			  String query="INSERT INTO 'rinunce' (Data , Conferma) VALUES"+		//l'id deve essere inserito manualmente?
-	  					"('"+aWaiver.getDate()+"', '"+aWaiver.isConfirmation()+"' );"; 			
+			  String query="INSERT INTO '"+DBNames.TABLE_RINUNCIA+"' ("+DBNames.ATT_RINUNCIA_DATE+" , "+DBNames.ATT_RINUNCIA_CONFIRM+") " +
+			  		"VALUES"+		
+	  					"('"+pWaiver.getDate()+
+	  					"', '"+pWaiver.isConfirmation()+"' );"; 			
 			  stmt = con.createStatement();
 			  stmt.executeUpdate(query);
 		  }
@@ -45,10 +48,10 @@ public class RenunciationManager {
 			DBConnectionPool.releaseConnection(con);
 		  }
 		  
-		  return aWaiver;
+		  return pWaiver;
 	  }
 	  
-	  public Renunciation delete(Renunciation aWaiver) throws SQLException
+	  public Renunciation delete(Renunciation pWaiver) throws SQLException
 	  {
 		  Connection con = null;
 		  Statement stmt=null;
@@ -56,7 +59,7 @@ public class RenunciationManager {
 		  try
 		  {
 			  con=DBConnectionPool.getConnection();
-			  String query="DELETE FROM 'rinunce' WHERE 'Id'='"+aWaiver.getId()+"';";
+			  String query="DELETE FROM '"+DBNames.TABLE_RINUNCIA+"' WHERE '"+DBNames.ATT_RINUNCIA_ID+"'='"+pWaiver.getId()+"';";
 			  stmt = con.createStatement();
 			  stmt.executeUpdate(query);
 		  }
@@ -65,26 +68,29 @@ public class RenunciationManager {
 			  DBConnectionPool.releaseConnection(con);
 		  }
 		  
-		  return aWaiver;
+		  return pWaiver;
 	  }
 	  
 	  
-	  public List<Renunciation> search(Renunciation aWaiver) throws SQLException
+	  public List<Renunciation> search(Renunciation pWaiver) throws SQLException
 	  {
 		  Connection con = null;
 		  Statement stmt=null;
 		  ResultSet result=null;
-		  List<Renunciation> listOfWaiver=new ArrayList<Renunciation>();		//deve essere riempito con il risultato della query
-		  String query="SELECT * FROM 'rinunce' WHERE ";				
+		  Renunciation tmpWaiver=new Renunciation();
+		  List<Renunciation> listOfWaiver=new ArrayList<Renunciation>();		
+		  String query="SELECT * FROM '"+DBNames.TABLE_RINUNCIA+"' WHERE ";				
 		  
-		  if (aWaiver.getId()!=null)
-			  query=query+"'Id'='"+aWaiver.getId()+"'";
-		  if (aWaiver.getDate()!=null)
-			  query=query+"'Data'='"+aWaiver.getDate()+"'"; 
-		  if (aWaiver.isConfirmation()==true)									//Chiedo conferma :D
-			  query=query+"'Conferma'='"+aWaiver.isConfirmation()+"'";
+		  if (pWaiver.getId()!=null)
+			  query=query+"'"+DBNames.ATT_RINUNCIA_ID+"'='"+pWaiver.getId()+"'";
+		  if (pWaiver.getDate()!=null)
+			  query=query+"'"+DBNames.ATT_RINUNCIA_DATE+"'='"+pWaiver.getDate()+"'"; 
+		  if (pWaiver.isConfirmation()==true)									//Chiedo conferma :D
+			  query=query+"'"+DBNames.ATT_RINUNCIA_CONFIRM+"'='"+pWaiver.isConfirmation()+"'";
 		  
 		  query=query+";";
+		  
+		  //ci vogliono gli and
 		  		
 		  try
 		  {
@@ -92,7 +98,14 @@ public class RenunciationManager {
 			  stmt = con.createStatement();
 			  result=stmt.executeQuery(query);
 			  
-			  //organizza il risultato
+			  while(result.next())
+			  {
+				  tmpWaiver.setConfirmation(result.getBoolean(DBNames.ATT_RINUNCIA_CONFIRM));
+				  tmpWaiver.setDate(result.getString(DBNames.ATT_RINUNCIA_DATE));
+				  tmpWaiver.setId(result.getString(DBNames.ATT_RINUNCIA_ID));
+				  
+				  listOfWaiver.add(tmpWaiver);
+			  }
 		  }
 		  finally{
 			  stmt.close();
@@ -102,14 +115,15 @@ public class RenunciationManager {
 		  return listOfWaiver;
 	  }
 	  
-	  public Renunciation modify(Renunciation aWaiver)throws SQLException
+	  public Renunciation update(Renunciation pWaiver)throws SQLException
 	  {
 		  	Connection con = null;
 		  	Statement stmt=null;
-			String query="UPDATE 'rinunce' " + 			//l'id deve essere modificato manualmente?
-					"SET (Data , Conferma) VALUES"+ 
-					"('"+aWaiver.getDate()+"', '"+aWaiver.isConfirmation()+"' )"+ 
-					"WHERE 'Id'="+aWaiver.getId()+";"; 
+			String query="UPDATE '"+DBNames.TABLE_RINUNCIA+"' " + 	
+					"SET ("+DBNames.ATT_RINUNCIA_DATE+" , "+DBNames.ATT_RINUNCIA_CONFIRM+") VALUES"+ 
+					"('"+pWaiver.getDate()+
+  					"', '"+pWaiver.isConfirmation()+"' )"+ 
+					"WHERE '"+DBNames.ATT_RINUNCIA_ID+"'="+pWaiver.getId()+";"; 
 			
 			try
 			  {
@@ -122,6 +136,6 @@ public class RenunciationManager {
 				  DBConnectionPool.releaseConnection(con);
 			  }	
 			
-			return aWaiver;
+			return pWaiver;
 		}
 }
