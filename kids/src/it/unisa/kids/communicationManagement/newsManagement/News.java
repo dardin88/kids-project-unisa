@@ -11,7 +11,7 @@ public class News
 {
 	private String title;
 	private String description;
-	private Object attached;
+	private String attached;
 	private GregorianCalendar date;
 	private Time time;
 	private int delegate;
@@ -49,15 +49,15 @@ public class News
 		this.description = pDescription;
 	}
 	/**this method returns the attached of news
-	 * @return Object attached
+	 * @return String attached
 	 */
-	public Object getAttached() {
+	public String getAttached() {
 		return attached;
 	}
 	/**this method sets the attached of news
-	 * @param Object attached
+	 * @param String pAttached
 	 */
-	public void setAttached(Object pAttached) {
+	public void setAttached(String pAttached) {
 		this.attached = pAttached;
 	}
 	/**this method returns the date of news

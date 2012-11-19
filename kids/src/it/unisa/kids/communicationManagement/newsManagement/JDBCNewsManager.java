@@ -67,7 +67,7 @@ public class JDBCNewsManager implements INewsManager
 			stmt.setString(3, pNews.getType());
 			stmt.setDate(4, new Date(pNews.getDate().getTimeInMillis()));
 			stmt.setTime(5, pNews.getTime());
-			stmt.setObject(6, pNews.getAttached());
+			stmt.setString(6, pNews.getAttached());
 			stmt.setInt(7, pNews.getDelegate());
 			
 			stmt.executeUpdate();
@@ -111,7 +111,7 @@ public class JDBCNewsManager implements INewsManager
 				data.set(Calendar.MONTH, (data.get(Calendar.MONTH))+1);
 				Time time=rsNews.getTime(DBNames.ATT_NEWS_TIME);
 				//Date ora=new Date(time.getTime());
-				Object attached=rsNews.getObject(DBNames.ATT_NEWS_ATTACHED);
+				String attached=rsNews.getString(DBNames.ATT_NEWS_ATTACHED);
 				int idDelegate=rsNews.getInt(DBNames.ATT_NEWS_DELEGATEACCOUNT);
 			/*	Account delegate=new Account();
 				delegate.setId(idDelegate);
@@ -193,7 +193,7 @@ public class JDBCNewsManager implements INewsManager
 			//	data.set(Calendar.MONTH, (data.get(Calendar.MONTH))+1);
 				Time time=rsNews.getTime(DBNames.ATT_NEWS_TIME);
 				//Date ora=new Date(time.getTime());
-				Object attached=rsNews.getObject(DBNames.ATT_NEWS_ATTACHED);
+				String attached=rsNews.getString(DBNames.ATT_NEWS_ATTACHED);
 				int idDelegate=rsNews.getInt(DBNames.ATT_NEWS_DELEGATEACCOUNT);
 				News news=new News();
 				news.setTitle(title);
@@ -244,7 +244,7 @@ public class JDBCNewsManager implements INewsManager
 				data.set(Calendar.MONTH, (data.get(Calendar.MONTH))+1);
 				Time time=rsNews.getTime(DBNames.ATT_NEWS_TIME);
 				//Date ora=new Date(time.getTime());
-				Object attached=rsNews.getObject(DBNames.ATT_NEWS_ATTACHED);
+				String attached=rsNews.getString(DBNames.ATT_NEWS_ATTACHED);
 				int idDelegate=rsNews.getInt(DBNames.ATT_NEWS_DELEGATEACCOUNT);
 				News news=new News();
 				news.setTitle(title);
