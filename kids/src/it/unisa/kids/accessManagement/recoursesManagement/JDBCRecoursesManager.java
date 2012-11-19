@@ -22,15 +22,14 @@ public class JDBCRecoursesManager implements IRecoursesManager {
 		parent=new Account();
 	}
 
-	public static JDBCRecoursesManager getInstace(){
+	public static JDBCRecoursesManager getInstace() {
 		if (manager!=null)
 			return manager;
 		else
 			return manager=new JDBCRecoursesManager();
 	}
 
-	public synchronized void insert (Recourse pRecourse) throws SQLException
-	{
+	public synchronized void insert(Recourse pRecourse) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String query;
@@ -61,17 +60,14 @@ public class JDBCRecoursesManager implements IRecoursesManager {
 				DBConnectionPool.releaseConnection(con);
 		}
 
-
 	}
 
-	public synchronized void update(Recourse pRecourse) throws SQLException
-	{
+	public synchronized void modify(Recourse pRecourse) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt=null;
 		String query;
 
-		try
-		{
+		try {
 			con=DBConnectionPool.getConnection();
 
 			// constructing query string
@@ -96,9 +92,7 @@ public class JDBCRecoursesManager implements IRecoursesManager {
 			pstmt.executeUpdate();
 			con.commit();
 
-		}
-		finally
-		{
+		} finally {
 			if (pstmt != null)
 				pstmt.close();
 			if (con != null)
@@ -106,9 +100,9 @@ public class JDBCRecoursesManager implements IRecoursesManager {
 		}
 	}
 
-	public void delete(Recourse recourse) throws SQLException{
+	public void delete(Recourse recourse) throws SQLException {
 		Connection con = null;
-		Statement stmt=null;
+		Statement stmt = null;
 		try {
 			con=DBConnectionPool.getConnection();
 
@@ -118,54 +112,50 @@ public class JDBCRecoursesManager implements IRecoursesManager {
 			stmt = con.createStatement();
 			stmt.executeUpdate(query);
 			con.commit();
-		} 
-		finally{
-			if (stmt != null)
+		} finally {
+			if(stmt != null)
 				stmt.close();
-			if (con != null)
+			if(con != null)
 				DBConnectionPool.releaseConnection(con);
 		}
 	}
 
-	public Recourse accept(Recourse recourse) throws SQLException{
+	public Recourse accept(Recourse recourse) throws SQLException {
 		Connection con = null;
-		Statement stmt=null;
+		Statement stmt = null;
 
 		try {
-			con=DBConnectionPool.getConnection();
+			con = DBConnectionPool.getConnection();
 
-			String query="Update "+DBNames.TABLE_RECOURSE+"" +
+			String query = "Update "+DBNames.TABLE_RECOURSE+"" +
 					"set "+DBNames.ATT_RECOURSE_VALUTATION+"='"+recourse.getValutation()+
 					"where "+DBNames.ATT_RECOURSE_ID+"='"+recourse.getId()+"";
 
 			stmt = con.createStatement();
 			stmt.executeUpdate(query);
-		} 
-		finally{
+		} finally {
 			stmt.close();
 			DBConnectionPool.releaseConnection(con);
 		}
-
-
+		
 		return recourse;
 	}
 
-	public Recourse refuse(Recourse recourse) throws SQLException{
+	public Recourse refuse(Recourse recourse) throws SQLException {
 		Connection con = null;
-		Statement stmt=null;
+		Statement stmt = null;
 
 		try {
 			con=DBConnectionPool.getConnection();
 
-			String query="Update "+DBNames.TABLE_RECOURSE+"" +
+			String query = "Update "+DBNames.TABLE_RECOURSE+"" +
 					"set "+DBNames.ATT_RECOURSE_VALUTATION+"='"+recourse.getValutation()+
 					"where "+DBNames.ATT_RECOURSE_ID+"='"+recourse.getId()+"";
 
 
 			stmt = con.createStatement();
 			stmt.executeUpdate(query);
-		} 
-		finally{
+		} finally {
 			stmt.close();
 			DBConnectionPool.releaseConnection(con);
 		}
@@ -208,12 +198,12 @@ public class JDBCRecoursesManager implements IRecoursesManager {
 
 			// setting pstmt's parameters
 			int i = 1;		// index of pstmt first argument
-			if (pRecourse.getId() > 0) {		// >= 0 ??
+			if(pRecourse.getId() > 0) {		// >= 0 ??
 				pstmt.setInt(i, pRecourse.getId());
 				i++;
 			}
 
-			if (pRecourse.getDate() != null) {
+			if(pRecourse.getDate() != null) {
 				pstmt.setDate(i, new java.sql.Date(pRecourse.getDate().getTimeInMillis()));
 				i++;
 			}
@@ -224,8 +214,7 @@ public class JDBCRecoursesManager implements IRecoursesManager {
 
 			// constructing payment list
 			recourse = new ArrayList<Recourse>();
-			while (rs.next()) 
-			{
+			while(rs.next()) {
 				Recourse p = new Recourse();
 				p.setId(rs.getInt(DBNames.ATT_RECOURSE_ID));
 
@@ -239,9 +228,7 @@ public class JDBCRecoursesManager implements IRecoursesManager {
 
 				recourse.add(p);
 			}
-		} 
-		finally 
-		{
+		} finally {
 			if (rs != null)
 				rs.close();
 			if (pstmt != null)
@@ -256,8 +243,5 @@ public class JDBCRecoursesManager implements IRecoursesManager {
 	private String useAnd(boolean pEnableAnd) {
 		return pEnableAnd ? " AND " : " ";
 	}
-
-
-
 
 }

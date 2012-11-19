@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface IRecoursesManager 
 {
-	void insert (Recourse pRecourse) throws SQLException;
-	void update(Recourse pRecourse) throws SQLException;
+	void insert(Recourse pRecourse) throws SQLException;
+	void modify(Recourse pRecourse) throws SQLException;
 	void delete(Recourse pRecourse) throws SQLException;
 	Recourse accept(Recourse pRecourse) throws SQLException;
 	Recourse refuse(Recourse pRecourse) throws SQLException;
