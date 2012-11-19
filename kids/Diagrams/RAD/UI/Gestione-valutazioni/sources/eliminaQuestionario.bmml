@@ -1,0 +1,64 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1190" measuredH="664" mockupW="988" mockupH="595">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="202" y="69" w="988" h="595" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Elimina%20Questionario%0Ahttp%3A//kids.unisa.it</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::Title" x="255" y="149" w="154" h="-1" measuredW="79" measuredH="50" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Kids</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="240" y="225" w="-1" h="-1" measuredW="139" measuredH="21" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Questionari%20Valutazione</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::PointyButton" x="255" y="261" w="154" h="-1" measuredW="125" measuredH="27" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>16777215</color>
+        <direction>center</direction>
+        <text>Crea%20Questionario</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::PointyButton" x="255" y="318" w="154" h="-1" measuredW="142" measuredH="27" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>16777215</color>
+        <direction>center</direction>
+        <text>Modifica%20Questionario</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::PointyButton" x="255" y="372" w="154" h="-1" measuredW="134" measuredH="27" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13576743</color>
+        <direction>center</direction>
+        <text>Elimina%20Questionario</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::HSplitter" x="424" y="195" w="-1" h="443" measuredW="11" measuredH="100" zOrder="6" locked="false" isInGroup="-1"/>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::HRule" x="436" y="195" w="746" h="-1" measuredW="100" measuredH="10" zOrder="7" locked="false" isInGroup="-1"/>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::Label" x="856" y="172" w="326" h="21" measuredW="299" measuredH="21" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Delegato%20Ufficio%20%3A%20Giovanni%20Di%20Giacomo%09%09Logout</text>
+      </controlProperties>
+    </control>
+    <control controlID="29" controlTypeID="com.balsamiq.mockups::DataGrid" x="450" y="225" w="693" h="387" measuredW="230" measuredH="113" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>NOME%2C%20DATA%20%0AQuestionario%20%231%2C%2015/03/2012%0AQuestionario%20%232%2C%2018/05/2012%0AQuestionario%20%233%2C%2026/09/2012%20%2C%5Bx%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="34" controlTypeID="com.balsamiq.mockups::Alert" x="696" y="353" w="-1" h="-1" measuredW="200" measuredH="127" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Avviso%21%0ASei%20sicuro%20di%20voler%20eliminare%20il%20questionario%20selezionato%3F%0AS%EC%2C%20No</text>
+      </controlProperties>
+    </control>
+    <control controlID="35" controlTypeID="com.balsamiq.mockups::PointyButton" x="255" y="423" w="154" h="-1" measuredW="124" measuredH="27" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>16777215</color>
+        <direction>center</direction>
+        <text>Visualizza%20Risultati</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
