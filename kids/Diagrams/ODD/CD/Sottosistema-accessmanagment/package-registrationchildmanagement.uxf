@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.5.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>20</x>
+      <y>20</y>
+      <w>880</w>
+      <h>660</h>
+    </coordinates>
+    <panel_attributes>RegistrationChildManagement</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>40</x>
+      <y>50</y>
+      <w>250</w>
+      <h>620</h>
+    </coordinates>
+    <panel_attributes>RegistrationChild
+--
+- registrationId : String
+- surname : String
+- name : String
+- communeBorn : String
+- fiscalCode : String
+- citizenship : String
+- sickness : String
+- bornDate : GregorianCalendar
+- registrationDate : GregorianCalendar
+- userSection : String
+- faseDellIscrizione : String
+--
++ Registration()
++ getRegistrationId() : String
++ getSurname() : String
++ getName() : String
++ getCommuneBorn() : String
++ getFiscalCode() : String
++ getCitizenship() : String
++ getSickness() : String
++ getBornDate() : GregorianCalendar
++ getRegistrationDate() : GregorianCalendar
++ getUserSection() : String
++ getFaseDellIscrizione() : String
++ setRegistrationId(String) : void
++ setSurname(String) : void
++ setName(String) : void
++ setCommuneBorn(String) : void
++ setFiscalCode(String) : void
++ setCitizenship(String) : void
++ setSickness(String) : void
++ setBornDate(GregorianCalendar) : void
++ setRegistrationDate(GregorianCalendar) : void
++ setUserSection(String) : void
++ setFaseDellIscrizione(String) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>370</x>
+      <y>130</y>
+      <w>290</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>RegistrationChildManager
+--
+- manager: RegistrationChildManager
+--
+- RegistrationChildManager()
++ getInstance(): RegistrationChildManager
++ create(Account): RegistrationChild
++ modify(Account): RegistrationChild
++ delete(Account): RegistrationChild
++ search(Account): List&lt;RegistrationChild&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>630</x>
+      <y>150</y>
+      <w>80</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&gt;</panel_attributes>
+    <additional_attributes>30;90;60;90;60;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>260</x>
+      <y>160</y>
+      <w>130</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>30;30;110;30</additional_attributes>
+  </element>
+</diagram>
