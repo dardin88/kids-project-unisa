@@ -13,26 +13,22 @@ import java.util.List;
  *
  */
 
-public class JDBCClassificationManager implements IClassificationManager
-{
+public class JDBCClassificationManager implements IClassificationManager {
 	private static JDBCClassificationManager manager;
 
 	// Singleton Design Pattern's implementation
-	private JDBCClassificationManager()
-	{
+	private JDBCClassificationManager() {
 	}
 
 	public static synchronized JDBCClassificationManager getInstance(){
-		if (manager!=null)
+		if(manager!=null)
 			return manager;
 		else
 			return manager=new JDBCClassificationManager();
 	}
 	// end of Singleton Design Pattern's implementation
 
-	public synchronized void insert (Classification pClassification) throws SQLException
-	{
-
+	public synchronized void insert (Classification pClassification) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String query;
@@ -45,7 +41,6 @@ public class JDBCClassificationManager implements IClassificationManager
 					+ DBNames.ATT_CLASSIFICATION_ID + ", "
 					+ DBNames.ATT_CLASSIFICATION_DATA+ ", "
 					+ DBNames.ATT_CLASSIFICATION_DATA_TERM + ", "
-
 					+ ") VALUES(?, ?, ?)";
 
 
@@ -64,8 +59,7 @@ public class JDBCClassificationManager implements IClassificationManager
 		}
 	}
 
-	public synchronized void update(Classification pClassification) throws SQLException
-	{
+	public synchronized void modify(Classification pClassification) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt=null;
 		String query;

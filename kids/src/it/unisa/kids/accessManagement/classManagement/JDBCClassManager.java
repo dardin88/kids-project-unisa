@@ -9,19 +9,19 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClassManager { 
+public class JDBCClassManager { 
 	
-	  private static ClassManager manager;
+	  private static JDBCClassManager manager;
 
-	  private ClassManager()
+	  private JDBCClassManager()
 	  {
 	  }
 
-	  public static ClassManager getInstance()
+	  public static JDBCClassManager getInstance()
 	  {
 	    if (manager == null)
 	    {
-	      manager = new ClassManager();
+	      manager = new JDBCClassManager();
 	    }
 
 	    return manager;

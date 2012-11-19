@@ -6,7 +6,7 @@ import java.util.List;
 public interface IClassificationManager 
 {
 	public void insert(Classification pClassification) throws SQLException;
-	public void update(Classification pClassification) throws SQLException;
+	public void modify(Classification pClassification) throws SQLException;
 	public void delete(Classification pClassification) throws SQLException;
 	
 	public List<Classification> search(Classification pClassification) throws SQLException;
