@@ -10,18 +10,18 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class JDBCManagerAccount implements IAccountManager {
+public class JDBCAccountManager implements IAccountManager {
 
-	private static JDBCManagerAccount manager;
+	private static JDBCAccountManager manager;
 
-	private JDBCManagerAccount(){
+	private JDBCAccountManager(){
 	}
 
-	public static JDBCManagerAccount getInstance(){
+	public static JDBCAccountManager getInstance(){
 		if (manager!=null)
 			return manager;
 		else
-			return (manager=new JDBCManagerAccount());
+			return (manager=new JDBCAccountManager());
 	}
 
 	public Account create(Account pAccount) throws SQLException{

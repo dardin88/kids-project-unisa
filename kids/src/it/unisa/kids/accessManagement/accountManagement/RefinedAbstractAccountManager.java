@@ -5,7 +5,7 @@ import it.unisa.kids.common.AbstractManager;
 
 public class RefinedAbstractAccountManager extends AbstractManager<IAccountManager> {
 	public IAccountManager getManagerImplementor() {
-		this.imp = JDBCManagerAccount.getInstance();
+		this.imp = JDBCAccountManager.getInstance();
 		return this.imp;
 	}
 
