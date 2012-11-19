@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.5.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>100</x>
+      <y>40</y>
+      <w>930</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>GestioneValutazioniPresentationLayer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>140</x>
+      <y>90</y>
+      <w>190</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>:GUIInserisciQuestionario
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>450</x>
+      <y>80</y>
+      <w>210</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>:GUIModificaQuestionario</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>760</x>
+      <y>80</y>
+      <w>190</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>:GUIEliminaQuestionario
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>120</x>
+      <y>220</y>
+      <w>220</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>:GUIVisualizzaQuestionario
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>450</x>
+      <y>220</y>
+      <w>210</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>:GUICompilaQuestionario
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>750</x>
+      <y>220</y>
+      <w>220</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>:GUIVisualizzaRisultatiGrafica
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>100</x>
+      <y>340</y>
+      <w>930</w>
+      <h>250</h>
+    </coordinates>
+    <panel_attributes>GestioneValutazioniApplicationLayer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>140</x>
+      <y>380</y>
+      <w>190</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>:InserisciQuestionario
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>450</x>
+      <y>380</y>
+      <w>210</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>:ModificaQuestionario
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>750</x>
+      <y>380</y>
+      <w>220</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>:EliminaQuestionario
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>130</x>
+      <y>480</y>
+      <w>200</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>:VisualizzaQuestionario
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>750</x>
+      <y>490</y>
+      <w>220</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>:VisualizzaRisultatiGrafica
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>450</x>
+      <y>480</y>
+      <w>210</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>:CompilaQuestionario
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>100</x>
+      <y>620</y>
+      <w>930</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>GestioneValutazioniDataLayer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>40</x>
+      <y>80</y>
+      <w>120</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>100;340;30;340;30;30;100;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>20</x>
+      <y>210</y>
+      <w>130</w>
+      <h>330</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>110;310;30;310;30;30;110;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>380</x>
+      <y>80</y>
+      <w>90</w>
+      <h>350</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>70;330;30;330;30;30;70;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>360</x>
+      <y>200</y>
+      <w>110</w>
+      <h>340</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>90;320;30;320;30;30;90;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>920</x>
+      <y>90</y>
+      <w>160</w>
+      <h>350</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>50;330;140;330;140;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>940</x>
+      <y>230</y>
+      <w>160</w>
+      <h>310</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>30;290;140;290;140;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>570</x>
+      <y>560</y>
+      <w>50</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>30;80;30;30</additional_attributes>
+  </element>
+</diagram>
