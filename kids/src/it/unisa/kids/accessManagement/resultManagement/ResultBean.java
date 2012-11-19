@@ -1,4 +1,4 @@
-package it.unisa.kids.accessManagement.result;
+package it.unisa.kids.accessManagement.resultManagement;
 /**
  * 
  * @author Michele Nappo

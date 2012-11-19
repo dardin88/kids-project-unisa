@@ -1,4 +1,4 @@
-package it.unisa.kids.accessManagement.classification;
+package it.unisa.kids.accessManagement.classificationManagement;
 
 import java.util.GregorianCalendar;
 

@@ -1,4 +1,4 @@
-package it.unisa.kids.accessManagement.renunciation;
+package it.unisa.kids.accessManagement.renunciationManagement;
 
 import it.unisa.storage.connectionPool.DBConnectionPool;
 

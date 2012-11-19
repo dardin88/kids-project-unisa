@@ -1,4 +1,4 @@
-package it.unisa.kids.accessManagement.Class;
+package it.unisa.kids.accessManagement.classManagement;
 
 import it.unisa.storage.connectionPool.DBConnectionPool;
 
