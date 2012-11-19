@@ -1,6 +1,7 @@
 package it.unisa.kids.serviceManagement.timeServiceManagement;
 
 import it.unisa.kids.common.IManager;
+import it.unisa.kids.common.bean.TimeServiceBean;
 
 import java.sql.SQLException;
 import java.util.List;
