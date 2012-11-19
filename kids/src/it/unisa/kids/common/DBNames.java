@@ -16,7 +16,8 @@ public final class DBNames {
 	public static final String TABLE_ASSIGNATION = "assignation";
 	public static final String TABLE_REGISTRATION = "IscrizioneBambino";
 	
-	public static final String TABLE_REQUEST = "request";
+	public static final String TABLE_MEAL_REQUEST = "meal_request";
+	public static final String TABLE_TIMESERV_REQUEST = "timeserv_request";
 	public static final String TABLE_DIFFMENU = "menu_differenziato";
 	public static final String TABLE_REFUND = "refund";
 	public static final String TABLE_PAYMENT = "payment";
@@ -55,6 +56,19 @@ public final class DBNames {
 	public static final String ATT_REGISTRATION_ENROLLEMENT_PHASE= "FaseDellIscrizione";
 	public static final String ATT_REGISTRATION_ACCOUNT_GENITORE ="AccountGenitore";
 	public static final String ATT_REGISTRATION_CLASS= "Classe";
+	
+	//MealRequestTable's attributes
+	public static final String ATT_MEALREQ_ID = "Id";
+	public static final String ATT_MEALREQ_MENUTYPE = "type";
+	public static final String ATT_MEALREQ_DATE = "date";
+	public static final String ATT_MEALREQ_CHILDINSCID = "Iscrizione";
+	
+	//TimeServiceRequestTable's attributes
+	public static final String ATT_TIMESERVREQ_ID = "Id";
+	public static final String ATT_TIMESERVREQ_DAYREQ = "day_requested";
+	public static final String ATT_TIMESERVREQ_SERVTYPE = "service_type";
+	public static final String ATT_TIMESERVREQ_DATE = "date";
+	public static final String ATT_TIMESERVREQ_PARENTID = "parent_id";
 	
 	//DifferentiatedMenuTable's attributes
 	public static final String ATT_DIFFMENU_ID = "Id";
