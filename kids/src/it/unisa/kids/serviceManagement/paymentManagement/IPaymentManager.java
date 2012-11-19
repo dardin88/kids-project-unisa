@@ -11,12 +11,14 @@ public interface IPaymentManager extends IManager {
 	public void update(PaymentBean pPayment) throws SQLException;
 	public void delete(PaymentBean pPayment) throws SQLException;
 	
+	public List<PaymentBean> search(PaymentBean pPayment) throws SQLException;
+	public List<PaymentBean> getPaymentList() throws SQLException;
+	public void addCharge(PaymentBean pPayment) throws SQLException;
+	
+	
 	public void insert(RefundBean pRefund) throws SQLException;
 	public void update(RefundBean pRefund) throws SQLException;
 	public void delete(RefundBean pRefund) throws SQLException;
-	
-	public List<PaymentBean> search(PaymentBean pPayment) throws SQLException;
-	public List<PaymentBean> getPaymentList() throws SQLException;
 	
 	public List<RefundBean> search(RefundBean pRefund) throws SQLException;
 	public List<RefundBean> getRefundList() throws SQLException;
