@@ -1,0 +1,99 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1211" measuredH="664" mockupW="1009" mockupH="595">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="202" y="69" w="988" h="595" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Notifica%20Scadenze%0Ahttp%3A//kids.unisa.it/progeducativo/not.html</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::Title" x="255" y="149" w="154" h="-1" measuredW="79" measuredH="50" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Kids</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="217" y="225" w="-1" h="-1" measuredW="201" measuredH="21" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Questionari%20Programma%20Educativo</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::PointyButton" x="240" y="261" w="169" h="-1" measuredW="134" measuredH="27" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13576743</color>
+        <direction>center</direction>
+        <text>Gestione%20Scadenze</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::HSplitter" x="424" y="195" w="-1" h="443" measuredW="11" measuredH="100" zOrder="4" locked="false" isInGroup="-1"/>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::HRule" x="436" y="195" w="746" h="-1" measuredW="100" measuredH="10" zOrder="5" locked="false" isInGroup="-1"/>
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::PointyButton" x="950" y="587" w="-1" h="-1" measuredW="80" measuredH="27" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>center</direction>
+        <text>ANNULLA</text>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::PointyButton" x="1043" y="587" w="-1" h="-1" measuredW="63" measuredH="27" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>center</direction>
+        <text>SALVA</text>
+      </controlProperties>
+    </control>
+    <control controlID="68" controlTypeID="com.balsamiq.mockups::Arrow" x="925" y="271" w="142" h="50" measuredW="150" measuredH="100" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>1</backgroundAlpha>
+        <curvature>0</curvature>
+      </controlProperties>
+    </control>
+    <control controlID="76" controlTypeID="com.balsamiq.mockups::Label" x="887" y="172" w="291" h="21" measuredW="275" measuredH="21" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Admin%3A%20Guglielmo%20Guglielmi%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20Logout</text>
+      </controlProperties>
+    </control>
+    <control controlID="79" controlTypeID="com.balsamiq.mockups::DateChooser" x="711" y="246" w="148" h="-1" measuredW="90" measuredH="25" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20%20/%20%20/%20%20%20%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="80" controlTypeID="com.balsamiq.mockups::DateChooser" x="711" y="306" w="148" h="-1" measuredW="90" measuredH="25" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20%20/%20%20/%20%20%20%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="81" controlTypeID="com.balsamiq.mockups::Calendar" x="1067" y="248" w="-1" h="-1" measuredW="96" measuredH="96" zOrder="12" locked="false" isInGroup="-1"/>
+    <control controlID="83" controlTypeID="com.balsamiq.mockups::VCurly" x="887" y="235" w="-1" h="-1" measuredW="180" measuredH="140" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="85" controlTypeID="com.balsamiq.mockups::Paragraph" x="450" y="248" w="236" h="20" measuredW="200" measuredH="80" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Inserire%20termine%20compilazione%20piano</text>
+      </controlProperties>
+    </control>
+    <control controlID="86" controlTypeID="com.balsamiq.mockups::Paragraph" x="460" y="308" w="236" h="20" measuredW="200" measuredH="80" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Inserire%20termine%20convalida%20piano</text>
+      </controlProperties>
+    </control>
+    <control controlID="87" controlTypeID="com.balsamiq.mockups::RadioButtonGroup" x="460" y="416" w="-1" h="-1" measuredW="212" measuredH="105" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Tipo%20di%20Piano%3A%0A%28o%29%20Progetto%20Annuale%0A%28%20%29%20Progetto%20per%20Sezione%0A%28%20%29%20Attivit%E0%20Giornaliere%20per%20Sezione%20%0A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="88" controlTypeID="com.balsamiq.mockups::CheckBoxGroup" x="838" y="426" w="-1" h="-1" measuredW="215" measuredH="84" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Modalit%E0%20di%20notifica%3A%0A%5Bx%5D%20Ad%20ogni%20accesso%0A%5B%5D%20Non%20avvisare%20mai%20%0A%5B%5D%20Invia%20promemoria%202%20giorni%20prima.</text>
+      </controlProperties>
+    </control>
+    <control controlID="89" controlTypeID="com.balsamiq.mockups::Arrow" x="1079" y="437" w="27" h="150" measuredW="150" measuredH="100" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <curvature>-1</curvature>
+        <direction>bottom</direction>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="90" controlTypeID="com.balsamiq.mockups::Alert" x="1011" y="375" w="-1" h="-1" measuredW="200" measuredH="62" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Avviso%21%0AImpostioni%20di%20notifica%20attivate%21</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
