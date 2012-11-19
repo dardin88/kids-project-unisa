@@ -4,9 +4,17 @@ import java.util.GregorianCalendar;
 
 public class ChildRegistrationBean {
 	
-	String registrationId,surname, name, communeBorn, fiscalCode, citizenship, sickness;
-	GregorianCalendar bornDate,registrationDate; 
-	// userSection,FaseDellIscrizione;					di che tipo devono essere?
+	private String registrationId;
+	private String surname;
+	private String name;
+	private String communeBorn;
+	private String fiscalCode;
+	private String citizenship;
+	private String sickness;
+	private GregorianCalendar bornDate;
+	private GregorianCalendar registrationDate; 
+	private String userSection;			// deve essere String perchè e' l'id della Classe
+	private String faseDellIscrizione;
 	
 	public String getRegistrationId() {
 		return registrationId;
@@ -62,5 +70,16 @@ public class ChildRegistrationBean {
 	public void setRegistrationDate(GregorianCalendar registrationDate) {
 		this.registrationDate = registrationDate;
 	}
-	
+	public String getUserSection() {
+		return userSection;
+	}
+	public void setUserSection(String userSection) {
+		this.userSection = userSection;
+	}
+	public String getFaseDellIscrizione() {
+		return faseDellIscrizione;
+	}
+	public void setFaseDellIscrizione(String faseDellIscrizione) {
+		this.faseDellIscrizione = faseDellIscrizione;
+	}
 }
