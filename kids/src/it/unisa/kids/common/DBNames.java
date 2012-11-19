@@ -34,6 +34,28 @@ public final class DBNames {
 	public static final String TABLE_ACT = "activity";
 	public static final String TABLE_DAILY_SECTION_ACT = "daily_section_act";
 	public static final String TABLE_CHILD_PARTICIPATION = "child_participation";
+
+	//ClassTable's attributes
+	public static final String ATT_CLASS_ID = "Id";
+	public static final String ATT_CLASS_NAME = "Nome";
+	
+	//RinunciaTable's attributes
+	public static final String ATT_RINUNCIA_ID = "Id";
+	public static final String ATT_RINUNCIA_DATE = "Data";
+	public static final String ATT_RINUNCIA_CONFIRM = "Conferma";
+
+	//ChildTable's attributes
+	public static final String ATT_CHILD_ID = "Id";
+	public static final String ATT_CHILD_SURNAME = "Cognome";
+	public static final String ATT_CHILD_NAME = "Nome";
+	public static final String ATT_CHILD_BORNDATE = "DataNascita";
+	public static final String ATT_CHILD_COMMONBORN = "ComuneNascita";
+	public static final String ATT_CHILD_FISCALCODE = "CodiceFiscale";
+	public static final String ATT_CHILD_CITIZENSHIP = "Cittadinanza";
+	public static final String ATT_CHILD_USERSECTION = "FasciaUtenza";
+	public static final String ATT_CHILD_REGISTRATIONDATE = "DataIscrizione";
+	public static final String ATT_CHILD_SICK = "Malattia";
+	public static final String ATT_CHILD_REGISTRATIONPHASE = "FaseDellIscrizione";
 	
 	//RequestTable's attributes
 	public static final String ATT_REQUEST_ID= "id";
@@ -235,14 +257,14 @@ public final class DBNames {
 	
 	//Activity Section Daily
 	public static final String ATT_ACTIVITYSECTTIONDAILY_ID="Id";
-	public static final String ATT_ACTIVITYSECTTIONDAILY_IDACTITIVTY="IdAttività";
+	public static final String ATT_ACTIVITYSECTTIONDAILY_IDACTITIVTY="IdAttivitï¿½";
 	public static final String ATT_ACTIVITYSECTTIONDAILY_IDEDUCATORE="IdEducatore";
 	public static final String ATT_ACTIVITYSECTTIONDAILY_DATE="Data";
 	public static final String ATT_ACTIVITYSECTTIONDAILY_NOTES="Note";
 	
 	//Child Partecipant attributes
 	public static final String ATT_CHILDPARTECIPANT_IDCHILD="IdBambino";
-	public static final String ATT_CHILDPARTECIPANT_IDACTIVITYDAILY="IdAttivitàGiornaliera"; 
+	public static final String ATT_CHILDPARTECIPANT_IDACTIVITYDAILY="IdAttivitï¿½Giornaliera"; 
 	public static final String ATT_CHILDPARTECIPANT_STATE="Stato";
 
 	
