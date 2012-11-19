@@ -2,6 +2,7 @@ package it.unisa.kids.serviceManagement.timeServiceManagement;
 
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.bean.MenuBean;
+import it.unisa.kids.common.bean.TimeServiceBean;
 import it.unisa.kids.serviceManagement.canteenManagement.MealRequestBean;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 

@@ -1,4 +1,4 @@
-package it.unisa.kids.serviceManagement.timeServiceManagement;
+package it.unisa.kids.common.bean;
 
 import it.unisa.kids.communicationManagement.newsManagement.News;
 
