@@ -371,8 +371,13 @@ public class JDBCPaymentManager implements IPaymentManager {
 		}
 		return payments;
 	}
+	
+	public synchronized void addCharge(PaymentBean pPayment) throws SQLException {
+		pPayment.setCharge(true);
+		insert(pPayment);
+	}
 
-	public void insert(RefundBean pRefund) throws SQLException {
+	public synchronized void insert(RefundBean pRefund) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String query;
@@ -406,7 +411,7 @@ public class JDBCPaymentManager implements IPaymentManager {
 		}
 	}
 
-	public void update(RefundBean pRefund) throws SQLException {
+	public synchronized void update(RefundBean pRefund) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String query = null;
@@ -439,7 +444,7 @@ public class JDBCPaymentManager implements IPaymentManager {
 		}
 	}
 
-	public void delete(RefundBean pRefund) throws SQLException {
+	public synchronized void delete(RefundBean pRefund) throws SQLException {
 		Connection con = null;
 		Statement stmt = null;
 		String query = null;
@@ -462,7 +467,7 @@ public class JDBCPaymentManager implements IPaymentManager {
 		}
 	}
 
-	public List<RefundBean> search(RefundBean pRefund) throws SQLException {
+	public synchronized List<RefundBean> search(RefundBean pRefund) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -546,7 +551,7 @@ public class JDBCPaymentManager implements IPaymentManager {
 		return refunds;
 	}
 
-	public List<RefundBean> getRefundList() throws SQLException {
+	public synchronized List<RefundBean> getRefundList() throws SQLException {
 		Connection con = null;
 		Statement stmt = null;
 		ResultSet rs = null;
