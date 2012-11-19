@@ -5,11 +5,11 @@ import java.util.List;
 
 public interface IClassificationManager 
 {
-	public void insert(ClassificationBean pClassification) throws SQLException;
-	public void update(ClassificationBean pClassification) throws SQLException;
-	public void delete(ClassificationBean pClassification) throws SQLException;
+	public void insert(Classification pClassification) throws SQLException;
+	public void update(Classification pClassification) throws SQLException;
+	public void delete(Classification pClassification) throws SQLException;
 	
-	public List<ClassificationBean> search(ClassificationBean pClassification) throws SQLException;
-	public List<ClassificationBean> getClassificationList() throws SQLException;
+	public List<Classification> search(Classification pClassification) throws SQLException;
+	public List<Classification> getClassificationList() throws SQLException;
 
 }

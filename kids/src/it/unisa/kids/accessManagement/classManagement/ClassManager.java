@@ -27,7 +27,7 @@ public class ClassManager {
 	    return manager;
 	  }
 	  
-	  public ClassBean create(ClassBean aClass) throws SQLException
+	  public Class create(Class aClass) throws SQLException
 	  {
 		  Connection con = null;
 		  Statement stmt=null;
@@ -47,7 +47,7 @@ public class ClassManager {
 		  return aClass;
 	  }
 	  
-	  public ClassBean delete(ClassBean aClass) throws SQLException
+	  public Class delete(Class aClass) throws SQLException
 	  {
 		  Connection con = null;
 		  Statement stmt=null;
@@ -69,12 +69,12 @@ public class ClassManager {
 	  }
 	  
 	  
-	  public List<ClassBean> search(ClassBean aClass) throws SQLException
+	  public List<Class> search(Class aClass) throws SQLException
 	  {
 		  Connection con = null;
 		  Statement stmt=null;
 		  ResultSet result=null;
-		  List<ClassBean> listOfClass=new ArrayList<ClassBean>();		//deve essere riempito con il risultato della query
+		  List<Class> listOfClass=new ArrayList<Class>();		//deve essere riempito con il risultato della query
 		  String query="SELECT * FROM 'classe' WHERE ";			
 		  
 		  if (aClass.getIdClasse()!=null)
@@ -100,7 +100,7 @@ public class ClassManager {
 		  return listOfClass;
 	  }
 	  
-	  public ClassBean modify(ClassBean aClass) throws SQLException
+	  public Class modify(Class aClass) throws SQLException
 	  {
 		  Connection con = null;
 		  Statement stmt=null;

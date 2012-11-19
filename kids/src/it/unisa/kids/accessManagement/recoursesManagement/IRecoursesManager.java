@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface IRecoursesManager 
 {
-	void insert (RecourseBean pRecourse) throws SQLException;
-	void update(RecourseBean pRecourse) throws SQLException;
-	void delete(RecourseBean pRecourse) throws SQLException;
-	RecourseBean accept(RecourseBean pRecourse) throws SQLException;
-	RecourseBean refuse(RecourseBean pRecourse) throws SQLException;
-	List<RecourseBean> search(RecourseBean pRecourse) throws SQLException;
+	void insert (Recourse pRecourse) throws SQLException;
+	void update(Recourse pRecourse) throws SQLException;
+	void delete(Recourse pRecourse) throws SQLException;
+	Recourse accept(Recourse pRecourse) throws SQLException;
+	Recourse refuse(Recourse pRecourse) throws SQLException;
+	List<Recourse> search(Recourse pRecourse) throws SQLException;
 	
 }
