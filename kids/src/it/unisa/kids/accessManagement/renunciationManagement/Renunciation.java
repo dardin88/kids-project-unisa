@@ -23,6 +23,7 @@ public class Renunciation {
 	public void setId(String id) {
 		this.id = id;
 	}
+	@SuppressWarnings("static-access")
 	public String getDate() {
 		String tmp="";
 		return tmp=tmp+date.YEAR+"-"+date.MONTH+"-"+date.DATE;
