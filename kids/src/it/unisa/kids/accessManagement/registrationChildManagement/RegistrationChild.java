@@ -10,11 +10,17 @@ public class RegistrationChild {
 	private String communeBorn;
 	private String fiscalCode;
 	private String citizenship;
-	private boolean sickness;
+	private boolean sick;
 	private GregorianCalendar bornDate;
 	private GregorianCalendar registrationDate; 
-	private String userSection;			// deve essere String perchè e' l'id della Classe
-	private String faseDellIscrizione;
+	
+	private enum userSection {FULLTIME, PART_TIME_POMERIDIANA, PART_TIME_MATTUTINA};			
+	private enum registrationPhase {REGISTRATA, CONFERMATA, ACCETTATA, ELIMINATA, RINUNCIATA, RICORSO};
+	
+	private userSection usSec;
+	private registrationPhase regPh;
+	
+	public RegistrationChild() { }
 	
 	public int getRegistrationId() {
 		return registrationId;
@@ -53,33 +59,73 @@ public class RegistrationChild {
 		this.citizenship = citizenship;
 	}
 	public boolean isSick() {
-		return sickness;
+		return sick;
 	}
-	public void setSickness(boolean sickness) {
-		this.sickness = sickness;
+	public void setSick(boolean sickness) {
+		this.sick = sickness;
 	}
-	public GregorianCalendar getBornDate() {
-		return bornDate;
+	public String getBornDate() {
+		String tmp="";
+		return tmp=tmp+bornDate.YEAR+"-"+bornDate.MONTH+"-"+bornDate.DATE;
 	}
-	public void setBornDate(GregorianCalendar bornDate) {
-		this.bornDate = bornDate;
+	public void setBornDate(String bornDates) {
+		this.bornDate.set(Integer.parseInt(bornDates.substring(0, 3)), Integer.parseInt(bornDates.substring(5, 7)), Integer.parseInt(bornDates.substring(8, 10)));
 	}
-	public GregorianCalendar getRegistrationDate() {
-		return registrationDate;
+	public String getRegistrationDate() {
+		String tmp="";
+		return tmp=tmp+registrationDate.YEAR+"-"+registrationDate.MONTH+"-"+registrationDate.DATE;
 	}
-	public void setRegistrationDate(GregorianCalendar registrationDate) {
-		this.registrationDate = registrationDate;
+	public void setRegistrationDate(String registrationDates) {
+		this.registrationDate.set(Integer.parseInt(registrationDates.substring(0, 3)), Integer.parseInt(registrationDates.substring(5, 7)), Integer.parseInt(registrationDates.substring(8, 10)));
 	}
-	public String getUserSection() {
-		return userSection;
+	public String getUserSection() 
+	{
+		String result="";
+		
+		switch (usSec)
+		{
+			case PART_TIME_MATTUTINA:
+				result="PartTimeMattutina";
+				break;
+			case FULLTIME:
+				result="FullTime";
+				break;
+			case PART_TIME_POMERIDIANA:
+				result="PartTimePomeridiana";
+				break;
+		}
+		return result;
 	}
 	public void setUserSection(String userSection) {
 		this.userSection = userSection;
 	}
-	public String getFaseDellIscrizione() {
-		return faseDellIscrizione;
+	public String getRegistrationPhase() {
+		String result="";
+		
+		switch (regPh)
+		{
+			case ACCETTATA:
+				result="Accettata";
+				break;
+			case ELIMINATA:
+				result="Eliminata";
+				break;
+			case REGISTRATA:
+				result="Registrata";
+				break;
+			case CONFERMATA:
+				result="Confermata";
+				break;
+			case RINUNCIATA:
+				result="Rinunciata";
+				break;
+			case RICORSO:
+				result="Ricorso";
+				break;
+		}
+		return result;
 	}
-	public void setFaseDellIscrizione(String faseDellIscrizione) {
-		this.faseDellIscrizione = faseDellIscrizione;
+	public void setRegistrationPhase(String registrationPhase) {
+		this.registrationPhase = registrationPhase;
 	}
 }
