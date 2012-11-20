@@ -2,9 +2,10 @@ package it.unisa.kids.serviceManagement.paymentManagement;
 
 import java.io.Serializable;
 import java.util.GregorianCalendar;
+import java.util.Observable;
 
-public class PaymentBean implements Serializable {
-
+public class PaymentBean extends Observable implements Serializable {
+	
 	private int id;
 	private GregorianCalendar expDate;
 	private boolean charge;
@@ -44,6 +45,7 @@ public class PaymentBean implements Serializable {
 
 	public void setCharge(boolean pCharge) {
 		this.charge = pCharge;
+		setChanged();		// marks this Observable object as having been changed
 	}
 
 	public String getPaymentDescription() {

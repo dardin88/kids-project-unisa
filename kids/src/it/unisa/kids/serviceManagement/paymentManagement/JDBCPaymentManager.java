@@ -373,8 +373,23 @@ public class JDBCPaymentManager implements IPaymentManager {
 	}
 	
 	public synchronized void addCharge(PaymentBean pPayment) throws SQLException {
-		pPayment.setCharge(true);
+		// if !charge, throw error...
+		String email = accessFacade.getEmail(pPayment.getParentId());
+		String name = accessFacade.getName(pPayment.getParentId());
+		String surname = accessFacade.getSurname(pPayment.getParentId());
+		String body = "Salve " + name + " " + surname + ".\n";
+		body += "La informiamo che le è stato addebitato il seguente pagamento dell'importo "
+				+ pPayment.getAmount() + ": "
+				+ pPayment.getPaymentDescription();
+		
 		insert(pPayment);
+		
+		Email e = new Email();
+		e.setEmail(email);
+		e.setBody(body);
+		
+		pPayment.addObserver(new EmailObserver());
+		pPayment.notifyObservers(e);
 	}
 
 	public synchronized void insert(RefundBean pRefund) throws SQLException {
