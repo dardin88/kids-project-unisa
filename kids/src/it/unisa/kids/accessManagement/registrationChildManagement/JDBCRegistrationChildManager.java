@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JDBCRegistrationChildManager {
+public class JDBCRegistrationChildManager implements IRegistrationChildManager {
 	
 	private static JDBCRegistrationChildManager manager;
 
@@ -95,7 +95,7 @@ public class JDBCRegistrationChildManager {
 		  Statement stmt=null;
 		  ResultSet result=null;
 		  RegistrationChild tmpRegChild=new RegistrationChild();
-		  List<RegistrationChild> listOfChildReg=new ArrayList<RegistrationChild>();		//deve essere riempito con il risultato della query
+		  List<RegistrationChild> listOfChildReg=new ArrayList<RegistrationChild>();		
 		  String query="SELECT * FROM '"+DBNames.TABLE_CHILD+"' WHERE ";				
 		  
 		  if (pChildReg.getBornDate()!=null)
