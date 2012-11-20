@@ -94,34 +94,68 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
 		  Connection con = null;
 		  Statement stmt=null;
 		  ResultSet result=null;
-		  RegistrationChild tmpRegChild=new RegistrationChild();
+		  RegistrationChild tmpRegChild=new RegistrationChild();		  
+		  boolean andState = false;
 		  List<RegistrationChild> listOfChildReg=new ArrayList<RegistrationChild>();		
 		  String query="SELECT * FROM '"+DBNames.TABLE_CHILD+"' WHERE ";				
 		  
 		  if (pChildReg.getBornDate()!=null)
+		  {
 			  query=query+"'"+DBNames.ATT_CHILD_BORNDATE+"'='"+pChildReg.getBornDate()+"'";
+			  andState=true;
+		  }
 		  if (pChildReg.getCitizenship()!=null)
-			  query=query+"'"+DBNames.ATT_CHILD_CITIZENSHIP+"'='"+pChildReg.getCitizenship()+"'"; 
+		  {
+			  query+=useAnd(andState)+"'"+DBNames.ATT_CHILD_CITIZENSHIP+"'='"+pChildReg.getCitizenship()+"'";
+			  andState=true;
+		  } 
 		  if (pChildReg.getCommuneBorn()!=null)
-			  query=query+"'"+DBNames.ATT_CHILD_COMMONBORN+"'='"+pChildReg.getCommuneBorn()+"'";
+		  {
+			  query+=useAnd(andState)+"'"+DBNames.ATT_CHILD_COMMONBORN+"'='"+pChildReg.getCommuneBorn()+"'";
+			  andState=true;
+		  }
 		  if (pChildReg.getFiscalCode()!=null)
-			  query=query+"'"+DBNames.ATT_CHILD_FISCALCODE+"'='"+pChildReg.getFiscalCode()+"'";
+		  {
+			  query+=useAnd(andState)+"'"+DBNames.ATT_CHILD_FISCALCODE+"'='"+pChildReg.getFiscalCode()+"'";
+			  andState=true;
+		  }
 		  if (pChildReg.getName()!=null)
-			  query=query+"'"+DBNames.ATT_CHILD_NAME+"'='"+pChildReg.getName()+"'";
+		  {
+			  query+=useAnd(andState)+"'"+DBNames.ATT_CHILD_NAME+"'='"+pChildReg.getName()+"'";
+			  andState=true;
+		  }
 		  if (pChildReg.getRegistrationDate()!=null)
-			  query=query+"'"+DBNames.ATT_CHILD_REGISTRATIONDATE+"'='"+pChildReg.getRegistrationDate()+"'";
+		  {
+			  query+=useAnd(andState)+"'"+DBNames.ATT_CHILD_REGISTRATIONDATE+"'='"+pChildReg.getRegistrationDate()+"'";
+			  andState=true;
+		  }
 		  if (pChildReg.getRegistrationId()>0)
+		  {
 			  query=query+"'"+DBNames.ATT_CHILD_ID+"'='"+pChildReg.getRegistrationId()+"'";
+			  andState=true;
+		  }
 		  if (pChildReg.isSick()!=true)							//chiedo conferma per la gestione del boolean
-			  query=query+"'"+DBNames.ATT_CHILD_SICK+"'='"+pChildReg.isSick()+"'";
+		  {
+			  query+=useAnd(andState)+"'"+DBNames.ATT_CHILD_SICK+"'='"+pChildReg.isSick()+"'";
+			  andState=true;
+		  }
 		  if (pChildReg.getSurname()!=null)
-			  query=query+"'"+DBNames.ATT_CHILD_SURNAME+"'='"+pChildReg.getSurname()+"'";
+		  {
+			  query+=useAnd(andState)+"'"+DBNames.ATT_CHILD_SURNAME+"'='"+pChildReg.getSurname()+"'";
+			  andState=true;
+		  }
 		  if (pChildReg.getUserSection()!=null)
-			  query=query+"'"+DBNames.ATT_CHILD_USERSECTION+"'='"+pChildReg.getUserSection()+"'";
+		  {
+			  query+=useAnd(andState)+"'"+DBNames.ATT_CHILD_USERSECTION+"'='"+pChildReg.getUserSection()+"'";
+			  andState=true;
+		  }
 		  if (pChildReg.getRegistrationPhase()!=null)
-			  query=query+"'"+DBNames.ATT_CHILD_REGISTRATIONPHASE+"'='"+pChildReg.getRegistrationPhase()+"'";
+		  {
+			  query+=useAnd(andState)+"'"+DBNames.ATT_CHILD_REGISTRATIONPHASE+"'='"+pChildReg.getRegistrationPhase()+"'";
+			  andState=true;
+		  }
 		  
-		  //ci vogliono gli and, e forse ci manca if: accountgenitore, classe
+		  //forse ci manca if: accountgenitore, classe
 		  
 		  query=query+";";
 		  		  
@@ -146,7 +180,7 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
 				  tmpRegChild.setUserSection(result.getString(DBNames.ATT_CHILD_USERSECTION));
 				  tmpRegChild.setRegistrationPhase(result.getString(DBNames.ATT_CHILD_REGISTRATIONPHASE));
 				  
-				  //account genitore e classe
+				  //accountgenitore e classe
 				  
 				  listOfChildReg.add(tmpRegChild);
 			  }
@@ -158,6 +192,10 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
 		  
 		  return listOfChildReg;
 	  }
+	  
+		private String useAnd(boolean pEnableAnd) {
+			return pEnableAnd ? " AND " : " ";
+		}
 	  
 	  public synchronized RegistrationChild update(RegistrationChild pChildReg) throws SQLException
 	  {
