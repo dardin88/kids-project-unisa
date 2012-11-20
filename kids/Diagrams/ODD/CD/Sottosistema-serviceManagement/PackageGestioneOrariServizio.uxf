@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.5.1">
+  <zoom_level>7</zoom_level>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>21</x>
+      <y>7</y>
+      <w>1064</w>
+      <h>707</h>
+    </coordinates>
+    <panel_attributes>TimeServiceManagement</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>35</x>
+      <y>42</y>
+      <w>252</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>*AbstractManager*
+--
+#Imp: T
+--
+/+getManagerImplementor(pManagerType: String): T/</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>266</x>
+      <y>28</y>
+      <w>83</w>
+      <h>34</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>21;21;70;21</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>336</x>
+      <y>42</y>
+      <w>371</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>*ITimeService	Manager*
+--
+/+insert(pTimeServ: TimeServiceBean): Void/
+/+update(pTimeServ: TimeServiceBean): Void/
+/+delete(pTimeServ: TimeServiceBean): Void/
+/+insert(pTimeServReq: TimeServiceRequestBean): Void/
+/+update(pTimeServReq: TimeServiceRequestBean): Void/
+/+delete(pTimeServReq: TimeServiceRequestBean): Void/
+/+search(pTimeServ: TimeServiceBean): List&lt;TimeServiceBean&gt;/
+/+getTimeServiceList(): List&lt;TimeServiceBean&gt;/
+/+getTimeServiceList(pTimeServType: String): List&lt;TimeServiceBean&gt;/
+/+search(pTimeServReq: TimeServiceRequestBean): List&lt;TimeServiceRequestBean&gt;/
+/+getTimeServRequestList(): List&lt;TimeServiceRequestBean&gt;/
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>35</x>
+      <y>126</y>
+      <w>252</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>*RefinedAbstractManager*
+--
+/+getManagerImplementor(PManagerType: String): T/</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>133</x>
+      <y>77</y>
+      <w>34</w>
+      <h>62</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>21;21;21;49</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>336</x>
+      <y>245</y>
+      <w>378</w>
+      <h>203</h>
+    </coordinates>
+    <panel_attributes>*JDBCTimeServiceManager*
+--
+-Manager: JDBCTimeServiceManager
+--
+/+getIstance(): JDBCTimeServiceManager/
+/+insert(pTimeServ: TimeServiceBean): Void/
+/+update(pTimeServ: TimeServiceBean): Void/
+/+delete(pTimeServ: TimeServiceBean): Void/
+/+insert(pTimeServReq: TimeServiceRequestBean): Void/
+/+update(pTimeServReq: TimeServiceRequestBean): Void/
+/+delete(pTimeServReq: TimeServiceRequestBean): Void/
+/+search(pTimeServ: TimeServiceBean): List&lt;TimeServiceBean&gt;/
+/+getTimeServiceList(): List&lt;TimeServiceBean&gt;/
+/+getTimeServiceList(pTimeServType: String): List&lt;TimeServiceBean&gt;/
+/+search(pTimeServReq: TimeServiceRequestBean): List&lt;TimeServiceRequestBean&gt;/
+/+getTimeServRequestList(): List&lt;TimeServiceRequestBean&gt;/
+/+useAnd(pEnableAnd: Boolean): String/</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>448</x>
+      <y>175</y>
+      <w>34</w>
+      <h>83</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>21;21;21;70</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>777</x>
+      <y>42</y>
+      <w>294</w>
+      <h>322</h>
+    </coordinates>
+    <panel_attributes>*TimeServiceRequestBean*
+--
+-id: Int
+-dayRequested: String
+-serviceType: String
+-date: GregorianCalendar
+-parentId: Int
++PRE_ACCEPTANCE_TIMESERV: String
++POST_ACCEPTANCE_TIMESERV: String
++EXTENDED_TIME_TIMESERV: String
++AUGUST_OPENING_TIMESERV: String
++MON: String
++TUE: String
++WED: String
++THU: String
++FRI: String
+--
+/+getId(): Int/
+/+setId(pId: Int): Void/
+/+getDayRequest(): String/
+/+setDayRequest(pDayReq: String): Void/
+/+getServiceType(): String/
+/+setServiceType(pServType: String): Void/
+/+getDate(): GregorianCalendar/
+/+setDate(pDate: GregorianCalendar): Void/
+/+getParentId(): Int/
+/+setParentId(pParentId: Int): Void/
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>686</x>
+      <y>84</y>
+      <w>104</w>
+      <h>34</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>21;21;91;21</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>777</x>
+      <y>413</y>
+      <w>259</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>*TimeServiceBean*
+--
++OPENING_TIMESERV: String
++CLOSING_TIMESERV: String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>686</x>
+      <y>98</y>
+      <w>104</w>
+      <h>377</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>21;21;56;21;56;364;91;364</additional_attributes>
+  </element>
+</diagram>
