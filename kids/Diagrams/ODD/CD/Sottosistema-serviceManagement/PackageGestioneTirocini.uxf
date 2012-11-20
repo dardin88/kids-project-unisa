@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.5.1">
+  <zoom_level>6</zoom_level>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>66</x>
+      <y>0</y>
+      <w>858</w>
+      <h>642</h>
+    </coordinates>
+    <panel_attributes>TrainingManagement</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>84</x>
+      <y>24</y>
+      <w>216</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>*AbstractManager*
+--
+#Imp: T
+--
+/+getManagerImplementor(pManagerType: String): T/</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>282</x>
+      <y>12</y>
+      <w>114</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>18;18;102;18</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>384</x>
+      <y>24</y>
+      <w>222</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>*ITrainingManager*
+--
+/+insert(pTrainee: Trainee): Void/
+/+update(pTrainee: Trainee): Void/
+/+delete(pTrainee: Trainee): Void/
+/+insert(pTraineeActivity: TraineeActivity): Void/
+/+update(pTraineeActivity: TraineeActivity): Void/
+/+delete(pTraineeActivity: TraineeActivity): Void/
+/+search(pTrainee: Trainee): ArrayList&lt;Trainee&gt;/
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>84</x>
+      <y>96</y>
+      <w>216</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>*RefinedAbstractTrainingManager*
+--
+/+getManagerImplementor(): ITrainingManager/</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>168</x>
+      <y>54</y>
+      <w>30</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>18;18;18;42</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>360</x>
+      <y>150</y>
+      <w>270</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>*JDBCTrainingManager*
+--
+-Manager: JDBCTrainingManager
+--
+/+getIstance(): ITrainingManager/
+/+insert(pTrainee: Trainee): Void/
+/+update(pTrainee: Trainee): Void/
+/+delete(pTrainee: Trainee): Void/
+/+insert(pTraineeActivity: TraineeActivity): Void/
+/+update(pTraineeActivity: TraineeActivity): Void/
+/+delete(pTraineeActivity: TraineeActivity): Void/
+/+search(pTrainee: Trainee): ArrayList&lt;Trainee&gt;/
+/+getActivitiesByTrainee(pTrainee: Trainee): ArrayList&lt;TraineeActivity&gt;/</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>480</x>
+      <y>96</y>
+      <w>30</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>18;18;18;54</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>672</x>
+      <y>24</y>
+      <w>252</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>*Trainee*
+--
+-register: String
+-name: String
+-surname: String
+-email: String
+-address: String
+-birthCity: String
+-cityOfResidence: String
+-cap: String
+-telephoneNumber: String
+-birthDate: GregorianCalendar
+-delegate: Int
+--
+/+getRegister(): String/
+/+setRegister(pRegister: String): Void/
+/+getName(): String/
+/+setName(pName: String): Void/
+/+getSurname(): String/
+/+setSurname(pSurname: String): Void/
+/+getEmail(): String/
+/+setEmail(pEmail: String): Void/
+/+getAddress(): String/
+/+setAddress(pAddress: String): Void/
+/+getBirthCity(): String/
+/+setBirthCity(pBirthCity: String): Void/
+/+getCityOfResidence(): String/
+/+setCityOfResidence(pCityOfResidence: String): Void/
+/+getCap(): String/
+/+setCap(pCap: String): Void/
+/+getTelephonNumber(): String/
+/+setTelephoneNumber(pTelephoneNumber: String): Void/
+/+getBirthDate(): GregorianCalendar/
+/+setBirthDate(pBirthDate: GregorianCalendar): Void/
+/+getDelegate(): Int/
+/+setDelegate(pDelegate: Int): Void/</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>588</x>
+      <y>60</y>
+      <w>96</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>18;18;84;18</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>672</x>
+      <y>390</y>
+      <w>222</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>*TraineeActivity*
+--
+-date: GregorianCalendar
+-name: String
+-description: String
+-start: Time
+-end: Time
+-delegate: Int
+-trainee: String
+--
+/+getDate(): GregorianCalendar/
+/+setDate(pDate: GregorianCalendar): Void/
+/+getName(): String/
+/+setname(pName: String): Void/
+/+getDescription(): String/
+/+setDescription(pDescription: String): Void/
+/+getStart(): Time/
+/+setStart(pStart: Time): Void/
+/+getEnd(): Time/
+/+setEnd(pEnd: Time): Void/
+/+getDelegate(): Int/
+/+setDelegate(pDelegate: Int): Void/
+/+getTrainee(): String/
+/+setTrainee(pTrainee: String): Void/</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>588</x>
+      <y>72</y>
+      <w>96</w>
+      <h>372</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>18;18;54;18;54;360;84;360</additional_attributes>
+  </element>
+</diagram>
