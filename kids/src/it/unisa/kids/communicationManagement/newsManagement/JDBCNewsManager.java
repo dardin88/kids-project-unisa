@@ -150,8 +150,7 @@ public class JDBCNewsManager implements INewsManager
 		try
 		{
 			connection=DBConnectionPool.getConnection();
-			query="delete from "+DBNames.TABLE_NEWS+" where "+DBNames.ATT_NEWS_DATE+"='"+pNews.getDate().get(Calendar.YEAR)+"-"+((pNews.getDate().get(Calendar.MONTH))+1)+"-"+pNews.getDate().get(Calendar.DAY_OF_MONTH)+"' && "+DBNames.ATT_NEWS_TIME+" = '"+pNews.getTime()+"'";
-			System.out.println(query);
+			query="delete from "+DBNames.TABLE_NEWS+" where "+DBNames.ATT_NEWS_ID+"='"+pNews.getId();
 			stmt=connection.createStatement();
 			stmt.executeUpdate(query);
 			connection.commit();
@@ -175,37 +174,18 @@ public class JDBCNewsManager implements INewsManager
 		Connection connection=null;
 		Statement stmt=null;
 		String query;
-		ResultSet rsNews=null;
 		try
 		{
 			connection=DBConnectionPool.getConnection();
-			query="select * from "+DBNames.TABLE_NEWS+" where "+DBNames.ATT_NEWS_DATE+"='"+pNews.getDate().get(Calendar.YEAR)+"-"+((pNews.getDate().get(Calendar.MONTH))+1)+"-"+pNews.getDate().get(Calendar.DAY_OF_MONTH)+"'&& "+DBNames.ATT_NEWS_TIME+" = '"+pNews.getTime()+"'";
+			query="update "+DBNames.TABLE_NEWS+" set "+DBNames.ATT_NEWS_DATE+"="+pNews.getDate()+" "+
+					DBNames.ATT_NEWS_ATTACHED+"="+pNews.getAttached()+" "+
+					DBNames.ATT_NEWS_DELEGATEACCOUNT+"="+pNews.getDelegate()+" "+
+					DBNames.ATT_NEWS_DESCRIPTION+"="+pNews.getDescription()+" "+
+					DBNames.ATT_NEWS_TIME+"="+pNews.getTime()+" "+DBNames.ATT_NEWS_TITLE+"="+pNews.getTitle()+" "+
+					DBNames.ATT_NEWS_TYPE+"="+pNews.getType()+" where "+DBNames.ATT_NEWS_ID+"="+pNews.getId();
 			stmt=connection.createStatement();
-			rsNews=stmt.executeQuery(query);
-			while(rsNews.next())
-			{	
-				String title=rsNews.getString(DBNames.ATT_NEWS_TITLE);
-				String description=rsNews.getString(DBNames.ATT_NEWS_DESCRIPTION);
-				String type=rsNews.getString(DBNames.ATT_NEWS_TYPE);
-				Date date=rsNews.getDate(DBNames.ATT_NEWS_DATE);
-				GregorianCalendar data=new GregorianCalendar();
-				data.setTime(date);
-			//	data.set(Calendar.MONTH, (data.get(Calendar.MONTH))+1);
-				Time time=rsNews.getTime(DBNames.ATT_NEWS_TIME);
-				//Date ora=new Date(time.getTime());
-				String attached=rsNews.getString(DBNames.ATT_NEWS_ATTACHED);
-				int idDelegate=rsNews.getInt(DBNames.ATT_NEWS_DELEGATEACCOUNT);
-				News news=new News();
-				news.setTitle(title);
-				news.setDescription(description);
-				news.setType(type);
-				news.setDate(data);
-				news.setTime(time);
-				news.setAttached(attached);
-				news.setDelegate(idDelegate);
-				deleteNews(news);
-				insertNews(pNews);
-			}
+			stmt.executeUpdate(query);
+			connection.commit();
 		}
 		finally
 		{

@@ -209,6 +209,7 @@ public final class DBNames {
 	
 	
 	//News attributes
+	public static final String ATT_NEWS_ID="Id";
 	public static final String ATT_NEWS_TITLE="Titolo";
 	public static final String ATT_NEWS_DESCRIPTION="Contenuto";
 	public static final String ATT_NEWS_TYPE="Tipo";
