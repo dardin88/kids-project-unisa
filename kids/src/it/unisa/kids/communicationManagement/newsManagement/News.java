@@ -16,6 +16,7 @@ public class News
 	private Time time;
 	private int delegate;
 	private String type;
+	private int id;
 	
 	/**The constructor of the class News 
 	 * empty
@@ -24,65 +25,81 @@ public class News
 	{
 	}
 	
+	/**this method returns the id of news
+	 * @return int id
+	 */
+	protected int getId()
+	{
+		return id;
+	}
+	
+	/**this method set the id of news
+	 * @param int pId
+	 */
+	protected void setId(int pId)
+	{
+		this.id=pId;
+	}
+	
 	/**this method returns the title of news
 	 * @return String title
 	 */
-	public String getTitle() {
+	protected String getTitle() {
 		return title;
 	}
 	/**this method sets the title of news
 	 * @param String title
 	 */
-	public void setTitle(String pTitle) {
+	protected void setTitle(String pTitle) {
 		this.title = pTitle;
 	}
 	/**this method returns the description of news
 	 * @return String description
 	 */
-	public String getDescription() {
+	protected String getDescription() {
 		return description;
 	}
 	/**this method sets the description of news
 	 * @param String description
 	 */
-	public void setDescription(String pDescription) {
+	protected void setDescription(String pDescription) {
 		this.description = pDescription;
 	}
 	/**this method returns the attached of news
 	 * @return String attached
 	 */
-	public String getAttached() {
+	protected String getAttached() {
 		return attached;
 	}
 	/**this method sets the attached of news
 	 * @param String pAttached
 	 */
-	public void setAttached(String pAttached) {
+	protected void setAttached(String pAttached) {
 		this.attached = pAttached;
 	}
 	/**this method returns the date of news
 	 * @return GregorianCalendar date
 	 */
-	public GregorianCalendar getDate() {
+	protected GregorianCalendar getDate() {
 		return date;
 	}
 	/**this method sets the date of news
 	 * @param GregorianCalendar date
 	 */
-	public void setDate(GregorianCalendar pDate) {
+	protected void setDate(GregorianCalendar pDate) {
 		this.date = pDate;
 	}
 	/**this method returns the time of news
 	 * @return GregorianCalendar time
 	 */
-	public Time getTime() {
+	protected Time getTime() {
 		return time;
 	}
 	/**this method sets the time of news
 	 * @param GregorianCalendar time
 	 */
 
-	public void setTime(Time pTime) {
+	protected void setTime(Time pTime) {
 		this.time = pTime;
 	}
 
@@ -90,25 +107,25 @@ public class News
 	 * @param Account delegate
 	 */
 
-	public void setDelegate(int pDelegate){
+	protected void setDelegate(int pDelegate){
 		this.delegate=pDelegate;
 	}
 	/**this method returns the author of news
 	 * @return Account author
 	 */
-	public int getDelegate(){
+	protected int getDelegate(){
 		return delegate;
 	}
 	/**this method returns the type of news
 	 * @return String type
 	 */
-	public String getType() {
+	protected String getType() {
 		return type;
 	}
 	/**this method sets the type of news
 	 * @param String type
 	 */
-	public void setType(String pType) {
+	protected void setType(String pType) {
 		this.type = pType;
 	}
 	
