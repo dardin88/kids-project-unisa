@@ -1,0 +1,836 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.5.1">
+  <zoom_level>5</zoom_level>
+  <element>
+    <type>com.umlet.element.custom.InitialState</type>
+    <coordinates>
+      <x>50</x>
+      <y>20</y>
+      <w>10</w>
+      <h>10</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>10</x>
+      <y>10</y>
+      <w>135</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Coordinatore Psico-pedagogico
+viene commissionato di
+compilare un Programma Educativo</panel_attributes>
+    <additional_attributes>95;55;45;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>105</x>
+      <y>65</y>
+      <w>50</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>Programma
+compilato</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>135</x>
+      <y>75</y>
+      <w>109</w>
+      <h>74</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Coordinatore sottomette 
+Programma a Comitato </panel_attributes>
+    <additional_attributes>100;65;15;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>235</x>
+      <y>80</y>
+      <w>695</w>
+      <h>665</h>
+    </coordinates>
+    <panel_attributes>Programma in Valutazione dal Comitato
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>335</x>
+      <y>130</y>
+      <w>50</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>Programma
+disponibile</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>360</x>
+      <y>180</y>
+      <w>75</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>Programma
+visionato</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>710</x>
+      <y>170</y>
+      <w>120</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Programma
+con Proposta di Piccola Modifica
+Responsabile Scientifico
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>915</x>
+      <y>315</y>
+      <w>39</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>30;15;15;55</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>945</x>
+      <y>315</y>
+      <w>45</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>Programma
+approvato</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.InitialState</type>
+    <coordinates>
+      <x>250</x>
+      <y>100</y>
+      <w>10</w>
+      <h>10</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>240</x>
+      <y>90</y>
+      <w>49</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>40;40;15;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>800</x>
+      <y>475</y>
+      <w>182</w>
+      <h>139</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Delegato del Rettore richiede
+modifiche [Proposte Responsabile Scientifico non 
+sufficienti]</panel_attributes>
+    <additional_attributes>85;130;95;130;95;15;65;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>670</x>
+      <y>390</y>
+      <w>200</w>
+      <h>79</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Delegato del Rettore identifica nessuna
+modifica da apportare</panel_attributes>
+    <additional_attributes>130;70;130;25;15;25</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>415</x>
+      <y>130</y>
+      <w>379</w>
+      <h>59</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Responsabile Scientifico
+prende visione del Programma</panel_attributes>
+    <additional_attributes>15;50;370;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>420</x>
+      <y>165</y>
+      <w>299</w>
+      <h>46</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Responsabile Scientifico
+identifica Piccole Modifiche  da apportare</panel_attributes>
+    <additional_attributes>290;25;15;25</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>280</x>
+      <y>105</y>
+      <w>630</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>Programma in valutazione dal Responsabile Scientifico
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>635</x>
+      <y>405</y>
+      <w>50</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>Programma
+visionato</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>725</x>
+      <y>665</y>
+      <w>55</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Programma
+Modificato</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.FinalState</type>
+    <coordinates>
+      <x>655</x>
+      <y>520</y>
+      <w>10</w>
+      <h>10</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.FinalState</type>
+    <coordinates>
+      <x>910</x>
+      <y>435</y>
+      <w>10</w>
+      <h>10</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>890</x>
+      <y>430</y>
+      <w>34</w>
+      <h>39</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>25;15;15;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>0</x>
+      <y>60</y>
+      <w>829</w>
+      <h>612</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Delegato del Rettore sottomette 
+Programma con Proposta di Modifica Sostanziale
+a Coordinatore per ricompilazione</panel_attributes>
+    <additional_attributes>105;15;95;15;95;585;820;585;820;555</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>180</x>
+      <y>320</y>
+      <w>399</w>
+      <h>284</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+    Responsabile Scientifico
+    sottomette Programma con Proposta
+     a Delegato del Rettore</panel_attributes>
+    <additional_attributes>100;275;75;275;75;35;390;35;390;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>270</x>
+      <y>375</y>
+      <w>635</w>
+      <h>345</h>
+    </coordinates>
+    <panel_attributes>Programma in valutazione dal Delegato del Rettore
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.InitialState</type>
+    <coordinates>
+      <x>310</x>
+      <y>405</y>
+      <w>10</w>
+      <h>10</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>305</x>
+      <y>395</y>
+      <w>54</w>
+      <h>29</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>45;20;15;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>515</x>
+      <y>390</y>
+      <w>129</w>
+      <h>46</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Delegato del Rettore
+prende visione del Programma</panel_attributes>
+    <additional_attributes>120;25;15;25</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>330</x>
+      <y>185</y>
+      <w>134</w>
+      <h>74</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Responsabile Scientifico identifica 
+nessuna modifica da apportare</panel_attributes>
+    <additional_attributes>70;65;70;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>760</x>
+      <y>125</y>
+      <w>50</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>Programma
+visualizzato</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>370</x>
+      <y>115</y>
+      <w>399</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Responsabile Scientifico
+visualizza Programma</panel_attributes>
+    <additional_attributes>390;20;15;25</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>350</x>
+      <y>405</y>
+      <w>50</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>Programma
+disponibile</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>415</x>
+      <y>410</y>
+      <w>234</w>
+      <h>69</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Delegato del Rettore identifica
+Piccole Modifiche da apportare</panel_attributes>
+    <additional_attributes>65;60;65;35;225;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>480</x>
+      <y>405</y>
+      <w>50</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>Programma
+visualizzato</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>385</x>
+      <y>390</y>
+      <w>104</w>
+      <h>46</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Delegato del Rettore
+visualizza il Programma</panel_attributes>
+    <additional_attributes>95;25;15;25</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>970</x>
+      <y>270</y>
+      <w>34</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>25;15;15;45</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.FinalState</type>
+    <coordinates>
+      <x>995</x>
+      <y>275</y>
+      <w>10</w>
+      <h>10</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>220</x>
+      <y>330</y>
+      <w>719</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>15;15;710;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>420</x>
+      <y>180</y>
+      <w>279</w>
+      <h>101</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Responsabile Scientifico
+identifica Modifiche Sostanziali  da apportare</panel_attributes>
+    <additional_attributes>270;85;155;80;15;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>690</x>
+      <y>250</y>
+      <w>130</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Programma
+con Proposta di Modifica Sostanziale
+Responsabile Scientifico
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>345</x>
+      <y>250</y>
+      <w>120</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Programma
+con Proposta di Approvazione
+Responsabile Scientifico
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>530</x>
+      <y>175</y>
+      <w>324</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>15;135;15;145;315;145;315;15;300;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>535</x>
+      <y>270</y>
+      <w>244</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>15;35;235;35;235;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>385</x>
+      <y>270</y>
+      <w>164</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>155;35;15;35;15;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.FinalState</type>
+    <coordinates>
+      <x>540</x>
+      <y>300</y>
+      <w>10</w>
+      <h>10</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.InitialState</type>
+    <coordinates>
+      <x>305</x>
+      <y>125</y>
+      <w>10</w>
+      <h>10</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>295</x>
+      <y>115</y>
+      <w>49</w>
+      <h>29</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>40;20;15;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>425</x>
+      <y>470</y>
+      <w>115</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Programma con Proposta di 
+Piccola Modifica
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>600</x>
+      <y>470</y>
+      <w>115</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Programma con Proposta di 
+Modifica Sostanziale
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>730</x>
+      <y>460</y>
+      <w>120</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Programma con Proposta di 
+Approvazione
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>585</x>
+      <y>410</y>
+      <w>136</w>
+      <h>69</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Delegato del Rettore identifica 
+Modifiche Sostanziali da apportare</panel_attributes>
+    <additional_attributes>70;60;70;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>765</x>
+      <y>600</y>
+      <w>169</w>
+      <h>107</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Delegato del Rettore
+richiede a Coordinatore
+piccole modifiche da apportare</panel_attributes>
+    <additional_attributes>15;80;110;80;110;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>800</x>
+      <y>590</y>
+      <w>85</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>Programma con 
+Proposte Confermate</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>305</x>
+      <y>395</y>
+      <w>560</w>
+      <h>145</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.InitialState</type>
+    <coordinates>
+      <x>285</x>
+      <y>400</y>
+      <w>10</w>
+      <h>10</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>275</x>
+      <y>390</y>
+      <w>39</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>30;35;15;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>280</x>
+      <y>580</y>
+      <w>85</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Programma con Proposta
+Responsabile Scientifico
+disponibile
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>505</x>
+      <y>575</y>
+      <w>119</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Delegato del Rettore
+prende visione delle proposte
+di modifica del 
+Responsabile Scientifico</panel_attributes>
+    <additional_attributes>110;25;15;25</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>685</x>
+      <y>575</y>
+      <w>124</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Delegato del Rettore valuta
+le modifiche proposte 
+da Responsabile Scientifico</panel_attributes>
+    <additional_attributes>115;25;15;25</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>470</x>
+      <y>490</y>
+      <w>194</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>185;35;15;35;15;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>650</x>
+      <y>480</y>
+      <w>174</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>15;45;165;45;165;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>645</x>
+      <y>490</y>
+      <w>24</w>
+      <h>39</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>15;30;15;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.FinalState</type>
+    <coordinates>
+      <x>585</x>
+      <y>695</y>
+      <w>10</w>
+      <h>10</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>580</x>
+      <y>660</y>
+      <w>154</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Programma modificato 
+da Coordinatore
+approvato</panel_attributes>
+    <additional_attributes>15;40;145;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>435</x>
+      <y>585</y>
+      <w>85</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Programma con Proposta
+Responsabile Scientifico
+visualizzato
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>615</x>
+      <y>585</y>
+      <w>85</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Programma con Proposta
+Responsabile Scientifico
+visionato
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>345</x>
+      <y>575</y>
+      <w>104</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Delegato del Rettore
+visualizza proposte
+di modifica del 
+Responsabile Scientifico</panel_attributes>
+    <additional_attributes>90;25;20;25</additional_attributes>
+  </element>
+</diagram>
