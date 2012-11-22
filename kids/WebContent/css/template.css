@@ -1,0 +1,335 @@
+/* 
+    Document   : template.css
+    Created on : 7-feb-2011, 18.35.59
+    Author     : Dario Di Nucci
+    Description:
+        Purpose of the stylesheet follows.
+*/
+@import "reset.css";
+
+html{
+    height: 100%;
+}
+
+body {
+    background-color: #E3E3E3;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    height: 100%;
+}
+
+label {
+    height: 16px;
+}
+
+fieldset {
+    border: 0;
+    margin-top: 1%;
+}
+
+p {
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:visited, a:active, a:link, u:visited, u:active, u:link{
+    color: #FFFFFF;
+}
+
+a:hover, u:hover{
+    color: #FEF167;
+}
+
+u {
+    padding: 8%;
+    text-decoration: none;
+}
+
+tr {
+    height: 30px;
+}
+
+.ui-dialog .ui-state-error {
+    padding: .3em;
+}
+
+.validateTips {
+    border: 1px solid transparent;
+    padding: 0.3em;
+}
+
+form.cmxform label.error {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+}
+
+div.error {
+    display: none;
+}
+
+input.error {
+    border: 1px red;
+}
+
+/*
+* header.jsp
+*/
+#header {
+    border-bottom: 1px #eeeeee solid;
+    height: 18%;
+    background-color: #424242;
+    color: white;
+}
+
+#logo {
+    border: 0px;
+    width: 200px;
+    height: 120px;
+    padding: 0px;
+    margin-right: 2%;
+    margin-left: 2%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#title {
+    font-weight: bold;
+    font-size: 28px;
+    position: relative;
+    bottom: 25%;
+}
+
+#userMenu {
+    font-size: 14px;
+    float: right;
+    margin-right: 2%;
+    margin-top: 6.9%;
+    width: 18%;
+    text-align: right;
+    position: relative;
+    bottom: 5px;
+}
+
+.userMenuEl {
+    font-weight: bold;
+    color: #ffffff;
+}
+
+div#navigation {
+    position:relative;
+    width: 15%;
+    height: 87%;
+    font-weight: bold;
+    clear:both;
+    float:left;
+    overflow:hidden;
+    background: #424242;
+}
+
+div#navigation ul{
+    padding: 0px;
+    list-style: none;
+}
+
+div#navigation li{
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #CCCCCC;
+    border-bottom: 1px solid #CCCCCC;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+/*
+* footer.jsp
+*/
+#footer {
+    background: #424242;
+    text-align: right;
+    color: white;
+    font-weight: bold;
+    padding-top: 1%;
+    padding-right: 3%;
+    height: 3%;
+    float:left;
+    width:97%;
+}
+
+/*
+* index.jsp
+*/
+#bodyLogin {
+    background: #424242;
+}
+
+#loginHeader{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#loginTitle{
+    font-weight: bold;
+    font-size: 28px;
+    color: white;
+}
+
+#loginImage{
+    margin-top: 5%;
+    border: 0px;
+    width: 200px;
+    height: 120px;
+    padding: 0px;
+}
+
+#loginForm {
+    width: 500px;
+    height: 300px;
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#loginFieldSet {
+    margin-top: 5px;
+}
+
+.loginField {
+    width: 92%;
+    height: 25%;
+    padding: 1.2%;
+    margin-bottom: 2%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#loginButton {
+    margin-top: 3%;
+    width: 95%;
+}
+
+#errorBox {
+    color: red;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+}
+
+/*
+* common
+*/
+.formp {
+    margin:2%;
+}
+
+.windowButton {
+    height: 30px;
+    width: 98%;
+    margin: 5px;
+    margin-bottom: 0px;
+}
+
+.tableImage {
+    padding: 5px;
+    border: 0px;
+}
+
+.confirmRemoveButton {
+    width: 40%;
+}
+
+.notConfirmRemoveButton {
+    width: 40%;
+}
+
+/*
+* artefactsTable.jsp
+*/
+.artefactInput {
+    width: 60%;
+    padding: 2px;
+    margin-left: 5%;
+}
+
+.artefactLabel {
+    margin: 1%;
+    margin-left: 1.5%;
+}
+
+#addArtefactButton{
+    width: 25%;
+    margin-bottom: 2%;
+}
+
+#artefactsManagement{
+    float: left;
+    padding: 2%;
+    padding-top: 1%;
+    width: 80%;
+}
+
+#artefactsTable{
+    text-align: center;
+}
+
+/*
+* linksTable.jsp
+*/
+.artefactSelect {
+    width: 70%;
+    padding: 2px;
+    margin-left: 5%;
+}
+
+.artefactLabel {
+    margin: 1%;
+    margin-left: 1.5%;
+}
+
+#addLinkButton{
+    width: 25%;
+    margin-bottom: 2%;
+}
+
+#linksManagement{
+    float: left;
+    padding: 2%;
+    padding-top: 1%;
+    width: 80%;
+}
+
+#linksTable{
+    text-align: center;
+}
+
+/*
+* searchLinks.js
+*/
+#showLinksForm {
+    margin-bottom: 2%;
+}
+
+#directLinksTableContainer{
+    width: 48%;
+    margin-right: 2%;
+    float: left;
+}
+
+#directLinksTable{
+    text-align: center;
+}
+
+#indirectLinksTableContainer{
+    width: 48%;
+    margin-left: 2%;
+    float: left;
+}
+
+#indirectLinksTable{
+    text-align: center;
+}
