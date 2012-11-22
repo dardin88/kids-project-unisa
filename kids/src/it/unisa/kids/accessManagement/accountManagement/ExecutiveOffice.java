@@ -3,10 +3,11 @@ package it.unisa.kids.accessManagement.accountManagement;
 
 public class ExecutiveOffice extends Account
 {
-    public ExecutiveOffice()
+	private String type;
+	
+	public ExecutiveOffice()
     {
     }
-    
    
 	protected String getType() {
 		return this.type;
@@ -15,7 +16,4 @@ public class ExecutiveOffice extends Account
 	protected void setType(String type) {
 		this.type = type;
 	}
-    
-	 private String type;
-
 }

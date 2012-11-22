@@ -3,11 +3,12 @@ package it.unisa.kids.accessManagement.accountManagement;
 
 public class Educator extends Account
 {
-    public Educator()
-    {
-    }
-    
-   
+	private String type;
+
+	public Educator()
+	{
+	}
+
 	protected String getType() {
 		return this.type;
 	}
@@ -15,7 +16,4 @@ public class Educator extends Account
 	protected void setType(String type) {
 		this.type = type;
 	}
-    
-	 private String type;
-
 }
