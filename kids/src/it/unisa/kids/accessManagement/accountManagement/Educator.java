@@ -8,11 +8,11 @@ public class Educator extends Account
     }
     
    
-	public String getType() {
+	protected String getType() {
 		return this.type;
 	}
 
-	public void setType(String type) {
+	protected void setType(String type) {
 		this.type = type;
 	}
     

@@ -3,7 +3,7 @@ package it.unisa.kids.accessManagement.registrationChildManagement;
 import java.util.GregorianCalendar;
 
 public class RegistrationChild {
-	
+
 	private int registrationId;
 	private String surname;
 	private String name;
@@ -13,21 +13,26 @@ public class RegistrationChild {
 	private boolean sick;
 	private GregorianCalendar bornDate;
 	private GregorianCalendar registrationDate; 
-	
-	private enum userSection {FULL_TIME("FullTime"), PART_TIME_POMERIDIANA("PartTimePomeridiana"), PART_TIME_MATTUTINA("PartTimeMattutina");
-		
-			private final String description; // attributo
+	private int idParent; 
 
-			userSection(String desc) { // costruttore
-				this.description = desc;
-			}
-			public String getDescription() { // metodo
-				return description;
-			}
+	private enum userSection 
+	{
+		FULL_TIME("FullTime"), PART_TIME_POMERIDIANA("PartTimePomeridiana"), PART_TIME_MATTUTINA("PartTimeMattutina");
+
+		private final String description; // attributo
+
+		userSection(String desc) { // costruttore
+			this.description = desc;
+		}
+		public String getDescription() { // metodo
+			return description;
+		}
 	};		
-	
-	private enum registrationPhase {REGISTRATA("Registrata"), CONFERMATA("Confermata"), ACCETTATA("Accettata"), ELIMINATA("Eliminata"), RINUNCIATA("Rinunciata"), RICORSO("Ricorso");
-		
+
+	private enum registrationPhase 
+	{
+		REGISTRATA("Registrata"), CONFERMATA("Confermata"), ACCETTATA("Accettata"), ELIMINATA("Eliminata"), RINUNCIATA("Rinunciata"), RICORSO("Ricorso");
+
 		private final String description; // attributo
 
 		registrationPhase(String desc) { // costruttore
@@ -37,12 +42,12 @@ public class RegistrationChild {
 			return description;
 		}
 	};
-	
+
 	private userSection usSec;
 	private registrationPhase regPh;
-	
+
 	public RegistrationChild() { }
-	
+
 	public int getRegistrationId() {
 		return registrationId;
 	}
@@ -104,18 +109,18 @@ public class RegistrationChild {
 	public String getUserSection() 
 	{
 		String result="";
-		
+
 		switch (usSec)
 		{
-			case PART_TIME_MATTUTINA:
-				result="PartTimeMattutina";
-				break;
-			case FULL_TIME:
-				result="FullTime";
-				break;
-			case PART_TIME_POMERIDIANA:
-				result="PartTimePomeridiana";
-				break;
+		case PART_TIME_MATTUTINA:
+			result="PartTimeMattutina";
+			break;
+		case FULL_TIME:
+			result="FullTime";
+			break;
+		case PART_TIME_POMERIDIANA:
+			result="PartTimePomeridiana";
+			break;
 		}
 		return result;
 	}
@@ -129,27 +134,27 @@ public class RegistrationChild {
 	}
 	public String getRegistrationPhase() {
 		String result="";
-		
+
 		switch (regPh)
 		{
-			case ACCETTATA:
-				result=registrationPhase.ACCETTATA.getDescription();
-				break;
-			case ELIMINATA:
-				result=registrationPhase.ELIMINATA.getDescription();
-				break;
-			case REGISTRATA:
-				result=registrationPhase.REGISTRATA.getDescription();
-				break;
-			case CONFERMATA:
-				result=registrationPhase.CONFERMATA.getDescription();
-				break;
-			case RINUNCIATA:
-				result=registrationPhase.RINUNCIATA.getDescription();
-				break;
-			case RICORSO:
-				result=registrationPhase.RICORSO.getDescription();
-				break;
+		case ACCETTATA:
+			result=registrationPhase.ACCETTATA.getDescription();
+			break;
+		case ELIMINATA:
+			result=registrationPhase.ELIMINATA.getDescription();
+			break;
+		case REGISTRATA:
+			result=registrationPhase.REGISTRATA.getDescription();
+			break;
+		case CONFERMATA:
+			result=registrationPhase.CONFERMATA.getDescription();
+			break;
+		case RINUNCIATA:
+			result=registrationPhase.RINUNCIATA.getDescription();
+			break;
+		case RICORSO:
+			result=registrationPhase.RICORSO.getDescription();
+			break;
 		}
 		return result;
 	}
@@ -166,5 +171,13 @@ public class RegistrationChild {
 			regPh=registrationPhase.RICORSO;
 		if(registrationPhases.equals(registrationPhase.RINUNCIATA.getDescription()))
 			regPh=registrationPhase.RINUNCIATA;
+	}
+
+	public int getIdParent() {
+		return this.idParent;
+	}
+
+	public void setIdParent(int idParent) {
+		this.idParent = idParent;
 	}
 }
