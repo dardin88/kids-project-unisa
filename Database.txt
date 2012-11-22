@@ -1,0 +1,332 @@
+Tabella: Account
+
+create table Account
+(
+	Id			int	PRIMARY KEY	AUTO_INCREMENT,
+        Nickname		varchar(30)	not null,
+        Password		varchar(30)	not null,
+        Cognome			varchar(25)	not null,
+        Nome			varchar(25)	not null,
+        Email			varchar(35)	not null,
+        Telefono		varchar(20),
+        Cellulare		varchar(20),
+        Fax			varchar(20),
+        DataNascita		date	not null,
+        ComuneNascita		varchar(20)	not null,
+        CodiceFiscale		char(16)	not null,
+        Cittadinanza		varchar(20)	not null,
+        ResidenzaIndirizzo	varchar(30)	not null,
+        ResidenzaComune		varchar(20)	not null,
+        ResidenzaProvincia	varchar(20)	not null,
+        ResidenzaCap		varchar(10)	not null,
+        DomicilioIndirizzo	varchar(30)	not null,
+        DomicilioComune		varchar(20)	not null,
+        DomicilioProvincia	varchar(20)	not null,
+        DomicilioCap		varchar(10)	not null,
+        TitoloStudio		varchar(30),
+        SituazioneFamiliare	varchar(15),
+        Reddito			real,
+        TipologiaAccount	ENUM('Admin','Delegato Ufficio','Genitore','Educatore','Delegato scienze della formazione','Coordinatore Psicopedagogico','Responsabile Scientifico') 	not null,
+        TipologiaGenitore	ENUM('Studente','Tecnico amministrativo','Docente','Ricercatore','Determinato','Dottorando'),
+        DataScadenzaContratto	date
+)
+
+Tabella: Ricorso
+
+create table Ricorso
+(
+	Id		int	PRIMARY KEY	AUTO_INCREMENT,
+        Data		date	not null,
+        Motivo		text	not null,
+        Valutazione	boolean	not null,
+        Iscrizione	int	not null
+)
+
+Tabella: Rinunce
+
+create table Rinunce
+(
+	Id		int	PRIMARY KEY	AUTO_INCREMENT,
+        Data		date	not null,
+        Conferma	boolean	not null,
+        Iscrizione	int	not null
+)
+
+Tabella: Graduatoria
+
+
+
+create table Graduatoria
+(
+	Id		int	PRIMARY KEY	AUTO_INCREMENT,
+        Data		date	not null,
+       	DataScadenza	date	not null
+)
+
+Tabella: Classe
+
+create table Classe
+(
+	Id	int	PRIMARY KEY	AUTO_INCREMENT,
+        Nome	varchar(15)	not null	
+)
+
+Tabella: IscrizioneBambino
+
+
+create table IscrizioneBambino
+(
+	Id			int	PRIMARY KEY	AUTO_INCREMENT,
+        Cognome			varchar(25)	not null,
+        Nome			varchar(25)	not null,
+        DataNascita		date		not null,
+        ComuneNascita		varchar(20)	not null,
+        CodiceFiscale		char(16)	not null,
+        Cittadinanza		varchar(20)	not null,
+	FasciaUtenza		ENUM('full time','part time pomeridiana','part time mattutina')	not null,
+        DataIscrizione		date 		not null,
+        Malattia		text,
+        FaseDellIscrizione	ENUM('registrata','confermata','accettata','eliminata','rinunciata','ricorso')	default 'registrata'	not null,
+        AccountGenitore		int		not null,
+        Classe			int		not null
+)
+
+Tabella: Esito
+
+
+create table Esito
+(
+	Iscrizione	int		not null,
+        Graduatoria	int		not null,
+	Esito		boolean		not null
+)
+
+Tabella: Assegnazione
+
+
+create table Assegnazione
+(
+	Classe		int		not null,
+        Educatore	int		not null
+)
+
+
+Tabella: Richiesta
+
+
+create table Richiesta
+(
+	Id			int		PRIMARY KEY	AUTO_INCREMENT,
+       	Data			date		not null,
+        Descrizione		varchar(200),
+        Ora			time		not null,
+        AccountGenitore		int		not null
+)
+
+Tabella: Menù differenziato
+
+
+create table Menu_differenziato
+(
+	Id			int		PRIMARY KEY	AUTO_INCREMENT,
+       	Motivazione		varchar(200)	not null,
+        Primo			varchar(200),
+        Secondo			varchar(200),
+        Contorno		varchar(200),
+        Frutta			varchar(200),
+        Iscrizione		int		not null
+)
+
+
+Tabella: Rimborso
+
+
+create table Rimborso
+(
+	Id			int		PRIMARY KEY	AUTO_INCREMENT,
+       	Descrizione		varchar(200),
+        Importo			real		not null,
+        Genitore		int		not null
+)
+
+
+Tabella: Pagamento
+
+
+create table Pagamento
+(
+	Id			int		PRIMARY KEY	AUTO_INCREMENT,
+       	DataScadenza		date		not null,
+      	Addebito		boolean,
+	Descrizione		varchar(200),
+	Sconto			varchar(10),
+        DescrizioneSconto	varchar(200),
+        Importo			real		not null,
+        ImportoDovuto		real		not null,
+        Effettuato		boolean		not null,
+        Conto			varchar(30)	not null,
+        Beneficiario		varchar(30)	not null,
+        AccountGenitore		int		not null
+)
+
+
+Tabella: Tirocinante
+
+
+create table Tirocinante
+(
+	Matricola		char(10)	PRIMARY KEY,
+        Nome			varchar(30)	not null,
+        Cognome			varchar(30)	not null,
+        Email			varchar(30)	not null,
+        DataNascita		date		not null,
+        CittaNascita		varchar(25)	not null,
+        CittaResidenza		varchar(25)	not null,
+        Indirizzo		varchar(40)	not null,
+        CAP			int		not null,
+        NumeroTelefenico	int,
+        AccountDelegato		int		not null
+)
+
+
+Tabella: Attività Tirocinante
+
+
+create table Attivita_Tirocinante
+(
+	Data		date,
+        Nome		varchar(25),
+        Descrizione	varchar(200),
+        OraInizio	time		not null,
+        OraFine		time		not null,
+        Delegato	int		not null,
+        PRIMARY KEY(Data,Nome)
+)
+
+
+Tabella: Partecipa
+
+
+create table Partecipa
+(
+	GiornoAttivita		date,
+        NomeAttivita		varchar(25),
+        Tirocinante		char(10),
+        PRIMARY KEY(GiornoAttivita,NomeAttivita,Tirocinante)
+)
+
+
+Tabella: Comunicazioni
+
+
+create table Comunicazioni
+(
+	Id			int		PRIMARY KEY	AUTO_INCREMENT,
+       	Tipo			int		not null,
+        IdEducatore		int		not null,
+        IdBambino		int		not null,
+        Contenuto		varchar(500)	not null,
+        Data			date		not null
+)
+
+
+Tabella: Riunione
+
+
+create table Riunione
+(
+	Id			int		PRIMARY KEY	AUTO_INCREMENT,
+       	Luogo			varchar(40)	not null,
+        Descrizione		varchar(200),
+        Data			date		not null
+)
+
+
+Tabella: News
+
+
+create table News
+(
+	Id			int		PRIMARY KEY	AUTO_INCREMENT,
+       	Tipo			varchar(40)	not null,
+        Contenuto		varchar(200)	not null,
+        Data			date		not null,
+        IdAutore		int		not null
+)
+
+
+Tabella: Progetto Annuale
+
+
+create table Progetto_Annuale
+(
+	Id			int		PRIMARY KEY	AUTO_INCREMENT,
+       	Nome			varchar(40)	not null,
+        Tema			varchar(200)	not null,
+        Contenuto		varchar(1500)	not null,
+       	AnnoApplicazione	varchar(10)	not null
+)
+
+
+Tabella: Progetto Sezione
+
+
+create table Progetto_Sezione
+(
+	Id			int		PRIMARY KEY	AUTO_INCREMENT,
+       	Nome			varchar(40)	not null,
+        Sezione			varchar(2)	not null,
+        Contenuto		varchar(1500)	not null,
+       	IdAnnuale		int		not null
+)
+
+
+Tabella: Commento
+
+
+create table Commento
+(
+	Id			int		PRIMARY KEY	AUTO_INCREMENT,
+       	Data			date		not null,
+        TipoModifica		varchar(40)	not null,
+        Contenuto		varchar(1500)	not null,
+        IdAnnuale		int		not null,
+        IdSezione		int		not null,
+        IdAutore		int		not null
+)
+
+
+Tabella: Attività
+
+
+create table Attivita
+(
+	Id			int		PRIMARY KEY	AUTO_INCREMENT,
+       	Periodo			varchar(20)	not null,
+        Nome			varchar(40)	not null,
+        Contenuto		varchar(1500)	not null
+       
+)
+
+
+Tabella: Attivita Giornaliera per Sezione
+
+
+create table Attivita_giornaliera_per_sezione
+(
+	Id			int		PRIMARY KEY	AUTO_INCREMENT,
+       	IdAttivita		int		not null,
+        IdEducatore		int		not null,
+       	Note			varchar(1500)
+)
+
+
+Tabella: Partecipazione
+
+
+create table Partecipazione
+(
+	IdBambino		int,
+       	IdAttivitaGiornaliera	int,
+        PRIMARY KEY(IdBambino, IdAttivitaGiornaliera)
+)
