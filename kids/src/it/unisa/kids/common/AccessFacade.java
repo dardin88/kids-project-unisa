@@ -1,26 +1,29 @@
 package it.unisa.kids.common;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.GregorianCalendar;
 
 import it.unisa.kids.accessManagement.accountManagement.Parent;
-import it.unisa.kids.accessManagement.classificationManagement.Classification;
+import it.unisa.kids.accessManagement.registrationChildManagement.JDBCRegistrationChildManager;
 import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 
 public class AccessFacade implements IAccessFacade
 {
 
-	public int getParentId(RegistrationChild c) {
-
-		return c.getRegistrationId();
+	// Stato di Standby
+	public int getParentId(int childId)
+	{
+		JDBCRegistrationChildManager c;
+		RegistrationChild child = new RegistrationChild();
+		child.setIdParent(childId);
+		
+		return child.getIdParent();
 	}
 
-	public int getNumberOfChildren(Parent p) throws SQLException 
+	public int getNumberOfChildren(int parentId) throws SQLException 
 	{
 		int idP=p.getId();
 
@@ -50,8 +53,8 @@ public class AccessFacade implements IAccessFacade
 
 
 		int num=0;
-		while (rs.next()) 
-			num=rs.getInt("PIPPO");
+		if (rs.next())
+			return rs.getInt("PIPPO");
 
 		return num;
 	}

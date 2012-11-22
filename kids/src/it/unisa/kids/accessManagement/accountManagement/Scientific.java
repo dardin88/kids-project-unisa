@@ -1,21 +1,21 @@
 package it.unisa.kids.accessManagement.accountManagement;
 
 
-public class Scientific extends Account
-{
-    public Scientific()
-    {
-    }
-    
-   
-	public String getType() {
+public class Scientific extends Account {
+	private String type;
+
+	public Scientific() {
+	}
+
+
+	protected String getType() {
 		return this.type;
 	}
 
-	public void setType(String type) {
+	protected void setType(String type) {
 		this.type = type;
 	}
-    
-	 private String type;
+
+
 
 }

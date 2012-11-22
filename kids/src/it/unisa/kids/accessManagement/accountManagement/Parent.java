@@ -3,19 +3,27 @@ package it.unisa.kids.accessManagement.accountManagement;
 
 public class Parent extends Account
 {
-    public Parent()
-    {
-    }
-    
-   
-	public String getType() {
+	private String parentType;
+	private String type;
+
+	public Parent()
+	{
+	}
+
+	protected String getType() {
 		return this.type;
 	}
 
-	public void setType(String type) {
+	protected void setType(String type) {
 		this.type = type;
 	}
-    
-	 private String type;
 
+	protected String getParentType() {
+		return this.parentType;
+	}
+
+
+	protected void setParentType(String parentType) {
+		this.parentType = parentType;
+	}
 }
