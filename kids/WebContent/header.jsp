@@ -16,9 +16,9 @@
 </div>
 <div id="navigation">
     <ul>
-        <li id="artefactsTableMenuEL"><a href="artefactsTable.jsp">Gestisci artefatti</a></li>
-        <li id="linksTableMenuEL"><a href="linksTable.jsp">Gestisci link di tracciabilità</a></li>
-        <li id="searchLinksMenuEL"><a href="searchLinks.jsp">Cerca link di tracciabilità</a></li>
+        <div class="div"><li id="artefactsTableMenuEL"><a href="artefactsTable.jsp">Gestisci artefatti</a></li></div>
+        <div class="div"><li id="linksTableMenuEL"><a href="linksTable.jsp">Gestisci link di tracciabilità</a></li></div>
+        <div class="div"><li id="searchLinksMenuEL"><a href="searchLinks.jsp">Cerca link di tracciabilità</a></li></div>
     </ul>
 </div>
 
