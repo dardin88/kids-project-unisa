@@ -201,12 +201,12 @@ public final class DBNames {
 
 	
 	// Reunion's attributes
-	public static final String ATT_REUNION_ID="id";
-	public static final String ATT_REUNION_TITLE="title";
-	public static final String ATT_REUNION_DESCRIPTION="description";
-	public static final String ATT_REUNION_DATA="date";
-	public static final String ATT_REUNION_TIME="time";
-	public static final String ATT_REUNION_TYPE="type";
+	public static final String ATT_REUNION_ID="Id";
+	public static final String ATT_REUNION_TITLE="Titolo";
+	public static final String ATT_REUNION_DESCRIPTION="Descrizione";
+	public static final String ATT_REUNION_DATA="Data";
+	public static final String ATT_REUNION_TIME="Ora";
+	public static final String ATT_REUNION_TYPE="Tipo";
 	
 	
 	//News attributes

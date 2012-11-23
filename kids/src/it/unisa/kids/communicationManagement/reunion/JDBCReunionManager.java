@@ -2,7 +2,6 @@ package it.unisa.kids.communicationManagement.reunion;
 
 import it.unisa.kids.common.DBNames;
 import it.unisa.storage.connectionPool.DBConnectionPool;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;

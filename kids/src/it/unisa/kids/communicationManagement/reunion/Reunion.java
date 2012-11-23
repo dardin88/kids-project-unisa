@@ -32,6 +32,10 @@ public class Reunion {
 		this.time=time;
 		this.type=type;
 	}
+        
+        public Reunion(){
+            
+        }
 	
 	/**this method returns the id of reunion
 	 * @return int id

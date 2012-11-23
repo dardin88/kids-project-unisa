@@ -59,3 +59,11 @@ input, textarea, select {
 }
 	
 select { padding: 0; }
+
+/*
+* Gestione Riunioni
+*/
+
+h2{
+    font-size: 20pt;
+}
