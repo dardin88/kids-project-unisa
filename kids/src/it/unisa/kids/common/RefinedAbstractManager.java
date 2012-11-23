@@ -4,6 +4,7 @@ import it.unisa.kids.communicationManagement.childrenManagement.JDBCCommunicatio
 import it.unisa.kids.communicationManagement.newsManagement.JDBCNewsManager;
 import it.unisa.kids.serviceManagement.paymentManagement.JDBCPaymentManager;
 import it.unisa.kids.serviceManagement.trainingManagement.JDBCTrainingManager;
+import it.unisa.kids.accessManagement.accountManagement.*;
 
 public class RefinedAbstractManager extends AbstractManager<IManager> {
 
@@ -19,6 +20,9 @@ public class RefinedAbstractManager extends AbstractManager<IManager> {
 		
 		else if(pManagerType.equals(DBNames.TABLE_COMUNICATION))
 			this.imp=JDBCCommunicationManager.getInstance();
+                
+                else if(pManagerType.equals(DBNames.TABLE_ACCOUNT))
+                        this.imp=JDBCAccountManager.getInstance();
 		
 		return this.imp;
 	}
