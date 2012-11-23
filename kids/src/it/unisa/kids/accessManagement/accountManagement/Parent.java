@@ -14,8 +14,8 @@ public class Parent extends Account
 		return this.type;
 	}
 
-	protected void setType(String type) {
-		this.type = type;
+	protected void setType(String pType) {
+		this.type = pType;
 	}
 
 	protected String getParentType() {
@@ -23,7 +23,7 @@ public class Parent extends Account
 	}
 
 
-	protected void setParentType(String parentType) {
-		this.parentType = parentType;
+	protected void setParentType(String pParentType) {
+		this.parentType = pParentType;
 	}
 }
