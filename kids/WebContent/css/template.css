@@ -357,3 +357,36 @@ div#navigation li{
 .div:hover{
      background-color: #444;
 }
+
+/*
+* account.jsp
+*/
+#bodyRegistration {
+    background: #424242;
+}
+
+#registrationForm {
+    width: 500px;
+    height: 300px;
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#registrationFieldSet {
+    margin-top: 5px;
+}
+
+.registrationField {
+    width: 92%;
+    height: 25%;
+    padding: 1.2%;
+    margin-bottom: 2%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#registrationButton {
+    margin-top: 3%;
+    width: 95%;
+}
