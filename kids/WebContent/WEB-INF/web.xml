@@ -5,9 +5,33 @@
         <servlet-name>addMeetingServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.reunion.addMeetingServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addAccountServlet</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.accountManagement.AddAccountServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteAccountServlet</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.accountManagement.DeleteAccountServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModifyAccountServlet</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.accountManagement.ModifyAccountServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>addMeetingServlet</servlet-name>
         <url-pattern>/addMeeting</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addAccountServlet</servlet-name>
+        <url-pattern>/addAccountServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteAccountServlet</servlet-name>
+        <url-pattern>/deleteAccountServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModifyAccountServlet</servlet-name>
+        <url-pattern>/ModifyAccountServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

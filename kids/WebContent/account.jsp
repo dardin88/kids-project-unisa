@@ -1,7 +1,7 @@
 <%-- 
     Document   : account
     Created on : 23-nov-2012, 14.57.05
-    Author     : tonino
+    Author     : tonino ft. gianma
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
