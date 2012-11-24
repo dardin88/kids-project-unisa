@@ -24,12 +24,14 @@
                             <script type="text/javascript" src="js/jquery.validate.min.js"></script>
                             <script type="text/javascript" src="js/additional-methods.min.js"></script>
                             <script type="text/javascript" src="js/functions.js"></script>
-                            <script type="text/javascript" src="js/meetingCalendar.js"></script>
+                            <script type="text/javascript" src="js/jquery.timePicker.min.js"></script>
+
+                            <script type="text/javascript" src="js/meetingManager.js"></script>
                             <link rel='stylesheet' type='text/css' href='./calendario/fullcalendar/fullcalendar.css' /> 
                             <script type='text/javascript' src='./calendario/jquery/jquery.js'></script> 
                             <script type='text/javascript' src='./calendario/jquery/jquery-ui.js'></script> 
                             <script type='text/javascript' src='./calendario/fullcalendar/fullcalendar.min.js'></script>
-                            <title>Visualizza Calendario - Kids Project</title>
+                            <title>Kids</title>
 
                             <script type='text/javascript'>
                                 $(document).ready(function() {
@@ -94,16 +96,73 @@
                                 }); 
                             </script>
                             <script type="text/javascript">
-                              $(document).ready(function() {
-                              activePage();
-                              initializeShowCalendar();
-                           });
-                           </script>
-                  </head>
+                                $(document).ready(function() {
+                                    activePage();
+                                    initializeMeetingManager();
+                                    $("#dataMeeting").datepicker({dateFormat:'dd/mm/yy'});
+                                    $("#firstTimeMeeting, #secondTimeMeeting").timePicker();
+                                   
+                                });
+                            </script>
 
-                            <body>
-                                <%@include file="header.jsp" %>
-                                <div id='meetingCalendar'></div>
-                                <%@include file="footer.jsp" %>
-                            </body>
-                            </html>
+                            </head>
+
+                           
+
+                            <div id="newMeetingWindow" title="Inserisci Riunione" style="display: inline">
+
+                                <form id="addMeetingForm" class="cmxform" method="get" action="">
+                                    <fieldset>
+                                        <div id="artefactsManagement">
+                                            <p class="formp">
+                                                <label ><h3> Titolo: </h3></label> <br>
+                                                    <input id="titleMeeting" name="titleMeeting" type="text" size=50%> <br> <br>
+                                            </p>
+                                            <p class="formp">
+                                                 <label ><h3> Descrizione: </h3></label> <br>
+                                                     <textarea id="descriptionMeeting" name="descriptionMeeting" class="textarea" rows="5" cols=120%> 
+                                                     </textarea> <br> 
+                                            </p>
+                                            <p class="formp">
+                                                  <label><h3 style="float: left"> Data </h3></label> 
+                                                  <label class="hourLabel" style="float: left"><h3> Ora </h3></label> <br> <br>
+                                                  <input type="text" id="dataMeeting" name="dataMeeting">  
+                                                  <input type="text" id="firstTimeMeeting" name="firstTimeMeeting">
+                                                  <input type="text" id="secondTimeMeeting" name="secondTimeMeeting">
+                                            </p>
+                                            <p class="formp"> 
+                                                  <legend> <h3> Tipologia: </h3></legend> <br>
+                                                  <ul>
+                                                  <input type="radio" id="typeMeeting" name="typeMeeting" checked> Riunione tra rappresentanti      
+                                                  <input type="radio" id="typeMeeting" name="typeMeeting"> Riunione bimestrale    
+                                                  <input type="radio" id="typeMeeting" name="typeMeeting"> Riunione Scuola-Famiglia   
+                                            </ul> <br>
+                                            </p>
+                                            <p>
+                                                  <input type="button" id="addMeetingButton" value="Inserisci Riunione" />
+                                                  <input type="button" id="notAddMeetingButton" value="Annula" />
+                                            </p>
+                                        </div>
+                                    </fieldset>
+                                 </form>
+                                 </div>
+    
+                                <div id="addMeetingWindow" title="Inserisci Riunione" style="display: inline">
+                                    <fieldset>
+                                        <p class="formp">
+                                            <label class="artefactLabel" for="artefact">Vuoi inserire la runione?</label>
+                                        </p>
+                                        <p class="formp">
+                                            <input type="button" class="confirmAddButton" id="addMeetingButtonSi" value="Si"/>
+                                            <input type="button" class="notConfirmAddButton" id="addMeetingButtonNo" value="No"/>
+                                        </p>
+                                    </fieldset>
+                                </div>
+    
+                           <body>
+                               <%@include file="header.jsp" %>
+                               <input type="button" class="confirmAddButton" id="newMeetingButton" value="Inserisci Riunione"/>
+                               <div id='meetingCalendar'></div>
+                               <%@include file="footer.jsp" %>
+                           </body>
+</html>
