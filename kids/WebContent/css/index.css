@@ -1,0 +1,66 @@
+/* 
+    Document   : index
+    Created on : 20-nov-2012, 12.36.02
+    Author     : Marco
+    Description:
+        Purpose of the stylesheet follows.
+*/
+@import "template1.css";
+
+#bodyLogin {
+    background: #424242;
+}
+
+#loginHeader{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#loginTitle{
+    font-weight: bold;
+    font-size: 28px;
+    color: white;
+}
+
+#loginImage{
+    margin-top: 5%;
+    border: 0px;
+    width: 200px;
+    height: 120px;
+    padding: 0px;
+}
+
+#loginForm {
+    width: 500px;
+    height: 300px;
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#loginFieldSet {
+    margin-top: 5px;
+}
+
+.loginField {
+    width: 92%;
+    height: 25%;
+    padding: 1.2%;
+    margin-bottom: 2%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#loginButton {
+    margin-top: 3%;
+    width: 95%;
+}
+
+#errorBox {
+    color: red;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+}
+

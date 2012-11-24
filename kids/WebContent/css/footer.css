@@ -1,0 +1,17 @@
+/* 
+    Document   : footer
+    Created on : 20-nov-2012, 12.30.49
+    Author     : utente
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#footer {
+    background: #424242;
+    text-align: right;
+    color: white;
+    font-weight: bold;
+    padding: 1%;
+    float:left;
+    width:98%;
+}

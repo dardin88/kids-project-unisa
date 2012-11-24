@@ -1,0 +1,22 @@
+/* 
+    Document   : traineeInformation
+    Created on : 20-nov-2012, 13.22.51
+    Author     : utente
+    Description:
+        Purpose of the stylesheet follows.
+*/
+@import "template1.css";
+    
+#modifyButton{
+    right:40px;
+    float:right;
+    width: 25%;
+    margin-bottom: 2%;
+}
+#genericButton{
+    right:40px;
+    float:right;
+    width: 25%;
+    margin-bottom: 2%;
+}
+

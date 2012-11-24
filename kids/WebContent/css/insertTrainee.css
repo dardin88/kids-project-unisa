@@ -1,0 +1,27 @@
+/* 
+    Document   : insertTrainee
+    Created on : 20-nov-2012, 12.59.05
+    Author     : Marco
+    Description:
+        Purpose of the stylesheet follows.
+*/
+@import "template1.css";
+
+.formp {
+    margin:2%;
+}
+.requirementLabel {
+    margin: 1%;
+    margin-left: 1.5%;
+}
+.confirmButton {
+    width: 40%;
+}
+#insertButton{
+    right:40px;
+    float:right;
+    width: 25%;
+    margin-bottom: 2%;
+}
+
+
