@@ -1,0 +1,21 @@
+/* 
+    Document   : delegatePage
+    Created on : 23-nov-2012, 16.16.07
+    Author     : Marco Moretti
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+@import "template1.css";
+
+
+.formp {
+    margin:2%;
+}
+.requirementLabel {
+    margin: 1%;
+    margin-left: 1.5%;
+}
+.confirmButton {
+    width: 40%;
+}

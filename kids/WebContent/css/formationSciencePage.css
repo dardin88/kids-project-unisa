@@ -1,0 +1,21 @@
+/* 
+    Document   : formationSciencePage
+    Created on : 20-nov-2012, 12.37.27
+    Author     : Marco
+    Description:
+        Purpose of the stylesheet follows.
+*/
+@import "template1.css";
+
+
+.formp {
+    margin:2%;
+}
+.requirementLabel {
+    margin: 1%;
+    margin-left: 1.5%;
+}
+.confirmButton {
+    width: 40%;
+}
+
