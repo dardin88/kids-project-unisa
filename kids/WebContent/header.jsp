@@ -22,13 +22,16 @@
     </span>
 </div>
 
-<!--    <li id="newsInsertTable"><a href="insertTable.jsp">Inserisci News</a></li>
-        <li id="newsModifyTable"><a href="modifyTable.jsp">Modifica News</a></li>
-        <li id="newsSearchTable"><a href="newsSearchTable.jsp">Ricerca News</a></li>
-        <li id="newsDeleteTable"><a href="deleteLinks.jsp">Elimina News</a></li> -->
+<c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
+    <div id="navigation">
+        <ul>
+            <div class="div">
+                <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
+            </div>
+        </ul>
+    </div>
+</c:if>
 
-</ul>
-</div>
 <div id="navigation">
     <ul>
         <c:if test="${sessionScope.user.getTypeAccount()=='Delegato scienze della formazione'}">
@@ -38,7 +41,6 @@
         </c:if>
         <c:if test="${sessionScope.user.getAccountType()=='Genitore'}">  
 
-            <!--  <li id="newsSearchTable"><a href="newsSearchTable.jsp">Ricerca News</a></li> -->
             <div class="div"><li id="meetingCalendarMenuEL"><a href="meetingCalendar.jsp">Gestione Riunioni</a></li></div>
             <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
         </c:if>
