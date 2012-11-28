@@ -1,5 +1,6 @@
-package it.unisa.kids.serviceManagement.paymentManagement;
+package it.unisa.kids.common;
 
+import it.unisa.kids.common.Email;
 import java.util.Observable;
 import java.util.Observer;
 

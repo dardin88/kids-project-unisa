@@ -1,4 +1,4 @@
-package it.unisa.kids.common;
+package it.unisa.kids.common.facade;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
 import java.sql.SQLException;
@@ -15,5 +15,7 @@ public interface IAccessFacade
         public Account update(Account pAccount);
         public List<Account> search(Account pAccount);
         public Account delete(Account pAccount);
+        
+        public Account getParentById(int pParentId) throws SQLException;
 
 }
