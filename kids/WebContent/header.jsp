@@ -9,16 +9,30 @@
 
 <div id="header">
     <input id="logo" type="image" src="img/logo.png" onclick="goToIndex()"/>
-    <span id="title"></span>
+    <span id="title">Gestione News - Kids Project</span>
     <span id="userMenu">
+        <b class="userMenuEl"> Benvenuto ${sessionScope.user.getNameUser()}</b> 
         <u class="userMenuEl" id="logout" onclick="logout()" onmouseover="this.style.cursor='pointer';">Logout</u>
     </span>
 </div>
-<div id="navigation">
-    <ul>
-        <div class="div"><li id="meetingCalendarMenuEL"><a href="meetingCalendar.jsp">Gestione Riunioni</a></li></div>
-        <div class="div"><li id="linksTableMenuEL"><a href="linksTable.jsp">Gestisci link di tracciabilità</a></li></div>
-        <div class="div"><li id="searchLinksMenuEL"><a href="searchLinks.jsp">Cerca link di tracciabilità</a></li></div>
-    </ul>
-</div>
+<c:if test="${sessionScope.user.getAccountType()=='Delegato Ufficio'}"> 
+    <div id="navigation">
+        <ul>
+            <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
 
+    <!--    <li id="newsInsertTable"><a href="insertTable.jsp">Inserisci News</a></li>
+            <li id="newsModifyTable"><a href="modifyTable.jsp">Modifica News</a></li>
+            <li id="newsSearchTable"><a href="newsSearchTable.jsp">Ricerca News</a></li>
+            <li id="newsDeleteTable"><a href="deleteLinks.jsp">Elimina News</a></li> -->
+
+        </ul>
+    </div>
+</c:if>
+<c:if test="${sessionScope.user.getAccountType()=='Genitore'}">  
+    <div id="navigation">
+        <ul>
+          <!--  <li id="newsSearchTable"><a href="newsSearchTable.jsp">Ricerca News</a></li> -->
+            <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
+        </ul>
+    </div>
+</c:if>

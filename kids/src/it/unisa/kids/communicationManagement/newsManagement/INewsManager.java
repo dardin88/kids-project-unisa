@@ -7,10 +7,10 @@ import java.util.ArrayList;
 
 public interface INewsManager extends IManager
 {
-	abstract void insertNews(News pNews) throws SQLException;
-	abstract ArrayList<News> showNews()throws SQLException ;
-	abstract void deleteNews(News pNews) throws SQLException;
-	abstract void modifyNews(News pNews)throws SQLException;
-	abstract ArrayList<News> searchNews(String word)throws SQLException;
+	abstract void insert(News pNews) throws SQLException;
+	abstract ArrayList<News> show()throws SQLException ;
+	abstract void delete(News pNews) throws SQLException;
+	abstract void update(News pNews)throws SQLException;
+	abstract ArrayList<News> search(String word)throws SQLException;
 
 }

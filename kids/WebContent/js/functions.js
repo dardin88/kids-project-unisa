@@ -32,6 +32,10 @@ function activePage(){
             $("#insertTraineeActivity").css("background-color","#F82025");
             $("#insertTraineeActivity").css("color","#FFFFFF");
             break;
-       
+         case 'newsInsertNews.jsp':
+        //   $("#newsShowTable").css("background-color","#F82025");
+        //    $("#newsShowTable").css("color","#FFFFFF");
+            //rendere bottone sinistra invisibile
+            break;
     }
 }

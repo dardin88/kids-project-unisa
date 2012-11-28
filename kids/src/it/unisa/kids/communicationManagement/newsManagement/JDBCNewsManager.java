@@ -43,7 +43,7 @@ public class JDBCNewsManager implements INewsManager
 	 * 
 	 */
 
-	public void insertNews(News pNews) throws SQLException 
+	public void insert(News pNews) throws SQLException 
 	{
 		Connection connection = null;
 		PreparedStatement stmt=null;
@@ -86,7 +86,7 @@ public class JDBCNewsManager implements INewsManager
 	 * @return ArrayListNews<News> listNews
 	 */
 
-	public ArrayList<News> showNews() throws SQLException 
+	public ArrayList<News> show() throws SQLException 
 	{
 		Connection connection=null;
 		Statement stmt=null;
@@ -142,7 +142,7 @@ public class JDBCNewsManager implements INewsManager
 	 * @param News pNews
 	 */
 
-	public void deleteNews(News pNews) throws SQLException 
+	public void delete(News pNews) throws SQLException 
 	{
 		Connection connection=null;
 		Statement stmt=null;
@@ -169,7 +169,7 @@ public class JDBCNewsManager implements INewsManager
 	 * and delete it, reinsert the news across the parameter
 	 * @param News pNews
 	 */
-	public void modifyNews(News pNews) throws SQLException 
+	public void update(News pNews) throws SQLException 
 	{
 		Connection connection=null;
 		Statement stmt=null;
@@ -201,7 +201,7 @@ public class JDBCNewsManager implements INewsManager
 	 * @param String word
 	 * @return ArrayList<News> listSearchNews
 	 */
-	public ArrayList<News> searchNews(String word) throws SQLException 
+	public ArrayList<News> search(String word) throws SQLException 
 	{
 		ArrayList<News> listNews=new ArrayList<News>();
 		Connection connection=null;
@@ -210,7 +210,7 @@ public class JDBCNewsManager implements INewsManager
 		try
 		{
 			connection=DBConnectionPool.getConnection();
-			String query="select * from "+DBNames.TABLE_NEWS+" WHERE " + DBNames.ATT_NEWS_DESCRIPTION + " like '_%" +word+ "%'";
+			String query="select * from "+DBNames.TABLE_NEWS+" WHERE " + DBNames.ATT_NEWS_DESCRIPTION + " like '%" +word+ "%'";
 			stmt=connection.createStatement();
 			rsNews=stmt.executeQuery(query);
 			while(rsNews.next())
