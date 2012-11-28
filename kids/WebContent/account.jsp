@@ -6,9 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:if test="${sessionScope.user==null}">
+<%--<c:if test="${sessionScope.user==null}">
     <c:redirect url="index.jsp" />
-</c:if>
+</c:if>--%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,33 +26,34 @@
             });
         </script>
     </head>
+    <%@include file="header.jsp"%>
     <body id="bodyRegistration">
-        <%@include file="header.jsp"%>
         
-        <h1  id="title" align="center">Form di Registrazione</h1>
+        
+        <h1  id="titleReg" align="center">Form di Registrazione</h1>
         
         <form id="registrationForm" action="Registrati" method="post">
             <fieldset id="registrationFieldSet">
                 <div>
-                    <input id="accountName" class="registrationField" type="text" name="name">
-                    <input id="accountSurname" class="registrationField" type="text" name="surname">
-                    <input id="dateOfBirth" class="registrationField" type="text" name="dateOfBirth">
-                    <input id="placeOfBirth" class="registrationField" type="text" name="placeOfBirth">
+                    Nome: <input id="accountName" class="registrationField" type="text" name="name">
+                    Cognome: <input id="accountSurname" class="registrationField" type="text" name="surname">
+                    Data di nascita: <input id="dateOfBirth" class="registrationField" type="text" name="dateOfBirth">
+                    Comune di nascita <input id="placeOfBirth" class="registrationField" type="text" name="placeOfBirth">
                     <input id="taxCode" class="registrationField" type="text" name="taxCode">
-                    <input id="citizenship" class="registrationField" type="text" name="citizenship">
-                    <input id="municipalityResidence" class="registrationField" type="text" name="municipalityResidence">
-                    <input id="provinceResidence" class="registrationField" type="text" name="provinceResidence">
-                    <input id="viaResidence" class="registrationField" type="text" name="viaResidence">
-                    <input id="streetNumberResidence" class="registrationField" type="text" name="streetNumberResidence">
-                    <input id="telephoneNumber" class="registrationField" type="text" name="telephoneNumber">
-                    <input id="cellularNumber" class="registrationField" type="text" name="cellularNumber">
-                    <input id="fax" class="registrationField" type="text" name="fax">
-                    <input id="email" class="registrationField" type="text" name="cellularNumber">
-                    <input id="viaDomicile" class="registrationField" type="text" name="viaDomicile">
-                    <input id="streetNumberDomicilie" class="registrationField" type="text" name="streetNumberDomicilie">
+                    Cittadinanza: <input id="citizenship" class="registrationField" type="text" name="citizenship">
+                    Comune di residenza: <input id="municipalityResidence" class="registrationField" type="text" name="municipalityResidence">
+                    Provincia: <input id="provinceResidence" class="registrationField" type="text" name="provinceResidence">
+                    Via: <input id="viaResidence" class="registrationField" type="text" name="viaResidence">
+                    Numero civico: <input id="streetNumberResidence" class="registrationField" type="text" name="streetNumberResidence">
+                    C.A.P.: <input id="capResidence" class="registrationField" type="text" name="capResidence">
+                    Numero di telefono: <input id="telephoneNumber" class="registrationField" type="text" name="telephoneNumber">
+                    Numero di cellulare: <input id="cellularNumber" class="registrationField" type="text" name="cellularNumber">
+                    Fax: <input id="fax" class="registrationField" type="text" name="fax">
+                    Indirizzo email: <input id="email" class="registrationField" type="text" name="cellularNumber">
                     <input id="municipalityDomicilie" class="registrationField" type="text" name="municipalityDomicilie">
                     <input id="provinceDomicilie" class="registrationField" type="text" name="provinceDomicilie">
-                    <input id="capResidence" class="registrationField" type="text" name="capResidence">
+                    <input id="viaDomicile" class="registrationField" type="text" name="viaDomicile">
+                    <input id="streetNumberDomicilie" class="registrationField" type="text" name="streetNumberDomicilie">
                     <input id="capDomicilie" class="registrationField" type="text" name="capDomicilie">
                     <input id="qualification" class="registrationField" type="text" name="qualification">
                     <input id="accountType" class="registrationField" type="text" name="accountType">
