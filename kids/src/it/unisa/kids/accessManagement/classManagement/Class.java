@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Class {
-	private String idClasse;
+	private int idClasse;
 	private String className;
-	private List<Educator> educatori;				//bisogna creare la classe educatore <- già esistenti
-	private List<RegistrationChild> bambini;					//bisogna creare la classe bambini <- già esistenti: ChildRegistrationBean
+	private List<Educator> educatori;				//bisogna creare la classe educatore <- giï¿½ esistenti
+	private List<RegistrationChild> bambini;					//bisogna creare la classe bambini <- giï¿½ esistenti: ChildRegistrationBean
 	
 	public Class(String name,ArrayList<Educator> educa,ArrayList<RegistrationChild> bamb)
 	{
@@ -19,11 +19,11 @@ public class Class {
 		this.bambini=bamb;
 	}
 
-	public String getIdClasse() {
+	public int getIdClasse() {
 		return idClasse;
 	}
 
-	public void setIdClasse(String idClasse) {				//credo che il set non debba esserci visto che Ã¨ autoincrementale
+	public void setIdClasse(int idClasse) {				//credo che il set non debba esserci visto che Ã¨ autoincrementale
 		this.idClasse = idClasse;
 	}
 
