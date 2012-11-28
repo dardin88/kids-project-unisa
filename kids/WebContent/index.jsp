@@ -13,7 +13,17 @@
     </c:if>
     <c:if test="${sessionScope.user.getAccountType()=='Delegato Ufficio'}">
         <c:redirect url="newsDelegatoPage.jsp" />
-    </c:if>     
+    </c:if>
+    <c:if test="${sessionScope.user.getTypeAccount()=='Tirocinante'}">
+        <c:redirect url="traineePage.jsp" />
+    </c:if>
+     <c:if test="${sessionScope.user.getTypeAccount()=='Delegato scienze della formazione'}">
+        <c:redirect url="formationSciencePage.jsp" />
+    </c:if>
+    <c:if test="${sessionScope.user.getTypeAccount()=='Segreteria'}">
+        <c:redirect url="segreteryPage.jsp" />
+    </c:if>
+
 </c:if>
 <!DOCTYPE html>
 <html>
