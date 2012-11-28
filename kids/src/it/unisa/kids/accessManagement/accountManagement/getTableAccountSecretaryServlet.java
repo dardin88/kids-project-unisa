@@ -4,6 +4,8 @@
  */
 package it.unisa.kids.accessManagement.accountManagement;
 
+import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.kids.serviceManagement.trainingManagement.GetTraineesServletTable;
 import it.unisa.kids.serviceManagement.trainingManagement.Trainee;
 import java.io.IOException;
@@ -30,8 +32,8 @@ public class getTableAccountSecretaryServlet extends HttpServlet {
     private IAccountManager accountManager;
 
     public void init(ServletConfig config) {
-        RefinedAbstractAccountManager refinedAbstractAccountManager = new RefinedAbstractAccountManager();
-        accountManager = refinedAbstractAccountManager.getManagerImplementor();
+        RefinedAbstractManager refinedAbstractAccountManager = new RefinedAbstractManager();
+        accountManager = (IAccountManager) refinedAbstractAccountManager.getManagerImplementor(DBNames.TABLE_ACCOUNT);
     }
 
     /**
