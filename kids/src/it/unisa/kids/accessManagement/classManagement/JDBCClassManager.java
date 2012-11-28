@@ -9,8 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JDBCClassManager { 
-	
+public class JDBCClassManager {
+
 	  private static JDBCClassManager manager;
 
 	  private JDBCClassManager()
