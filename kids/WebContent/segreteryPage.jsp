@@ -10,7 +10,7 @@
 <c:if test="${sessionScope.user==null}">
     <c:redirect url="index.jsp" />
 </c:if>
-<c:if test="${sessionScope.user.getTypeAccount()!='Delegato Ufficio'}">
+<c:if test="${sessionScope.user.getTypeAccount()!='Segreteria'}">
         <c:redirect url="index.jsp" />
 </c:if>
 
