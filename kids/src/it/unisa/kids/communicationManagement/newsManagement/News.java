@@ -37,7 +37,7 @@ public class News {
      *
      * @return int id
      */
-    protected int getId() {
+    public int getId() {
         return id;
     }
 
@@ -46,7 +46,7 @@ public class News {
      *
      * @param int pId
      */
-    protected void setId(int pId) {
+    public void setId(int pId) {
         this.id = pId;
     }
 
@@ -55,7 +55,7 @@ public class News {
      *
      * @return String title
      */
-    protected String getTitle() {
+    public String getTitle() {
         return title;
     }
 
@@ -64,7 +64,7 @@ public class News {
      *
      * @param String title
      */
-    protected void setTitle(String pTitle) {
+    public void setTitle(String pTitle) {
         this.title = pTitle;
     }
 
@@ -73,7 +73,7 @@ public class News {
      *
      * @return String description
      */
-    protected String getDescription() {
+    public String getDescription() {
         return description;
     }
 
@@ -82,7 +82,7 @@ public class News {
      *
      * @param String description
      */
-    protected void setDescription(String pDescription) {
+    public void setDescription(String pDescription) {
         this.description = pDescription;
     }
 
@@ -91,7 +91,7 @@ public class News {
      *
      * @return String attached
      */
-    protected String getAttached() {
+    public String getAttached() {
         return attached;
     }
 
@@ -100,7 +100,7 @@ public class News {
      *
      * @param String pAttached
      */
-    protected void setAttached(String pAttached) {
+    public void setAttached(String pAttached) {
         this.attached = pAttached;
     }
 
@@ -109,7 +109,7 @@ public class News {
      *
      * @return GregorianCalendar date
      */
-    protected GregorianCalendar getDate() {
+    public GregorianCalendar getDate() {
         return date;
     }
 
@@ -118,7 +118,7 @@ public class News {
      *
      * @param GregorianCalendar date
      */
-    protected void setDate(GregorianCalendar pDate) {
+    public void setDate(GregorianCalendar pDate) {
         this.date = pDate;
     }
 
@@ -127,7 +127,7 @@ public class News {
      *
      * @return GregorianCalendar time
      */
-    protected Time getTime() {
+    public Time getTime() {
         return time;
     }
 
@@ -136,7 +136,7 @@ public class News {
      *
      * @param GregorianCalendar time
      */
-    protected void setTime(Time pTime) {
+    public void setTime(Time pTime) {
         this.time = pTime;
     }
 
@@ -145,7 +145,7 @@ public class News {
      *
      * @param Account delegate
      */
-    protected void setDelegate(int pDelegate) {
+    public void setDelegate(int pDelegate) {
         this.delegate = pDelegate;
     }
 
@@ -154,7 +154,7 @@ public class News {
      *
      * @return Account author
      */
-    protected int getDelegate() {
+    public int getDelegate() {
         return delegate;
     }
 
@@ -163,7 +163,7 @@ public class News {
      *
      * @return String type
      */
-    protected String getType() {
+    public String getType() {
         return type;
     }
 
@@ -172,7 +172,7 @@ public class News {
      *
      * @param String type
      */
-    protected void setType(String pType) {
+    public void setType(String pType) {
         this.type = pType;
     }
 }
