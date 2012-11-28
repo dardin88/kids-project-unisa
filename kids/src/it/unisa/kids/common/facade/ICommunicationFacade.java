@@ -6,6 +6,7 @@ package it.unisa.kids.common.facade;
 
 import it.unisa.kids.communicationManagement.newsManagement.News;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -16,10 +17,10 @@ public interface ICommunicationFacade {
     public void insert(News pNews) throws SQLException;
 
     public void update(News pNews) throws SQLException;
-    
+
     public void delete(News pNews) throws SQLException;
 
-    public void search(News pNews) throws SQLException;
-    
+    public List<News> search(News pNews) throws SQLException;
+
     public int getNumberOfAbsences(int pChildId) throws SQLException;
 }
