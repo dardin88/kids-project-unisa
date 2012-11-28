@@ -14,13 +14,13 @@
     <c:if test="${sessionScope.user.getAccountType()=='Delegato Ufficio'}">
         <c:redirect url="newsDelegatoPage.jsp" />
     </c:if>
-    <c:if test="${sessionScope.user.getTypeAccount()=='Tirocinante'}">
+    <c:if test="${sessionScope.user.getAccountType()=='Tirocinante'}">
         <c:redirect url="traineePage.jsp" />
     </c:if>
-     <c:if test="${sessionScope.user.getTypeAccount()=='Delegato scienze della formazione'}">
+     <c:if test="${sessionScope.user.getAccountType()=='Delegato scienze della formazione'}">
         <c:redirect url="formationSciencePage.jsp" />
     </c:if>
-    <c:if test="${sessionScope.user.getTypeAccount()=='Segreteria'}">
+    <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
         <c:redirect url="segreteryPage.jsp" />
     </c:if>
 
