@@ -237,5 +237,39 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
 			
 			 return pChildReg;
 		}
+          
+             public int getNumberChildren(int parentId) throws SQLException 
+	{
+
+		ResultSet rs=null;
+		Connection con = null;
+		Statement stmt = null;
+		String query = null;
+                int num=0;
+		try {
+			con = DBConnectionPool.getConnection();
+
+			// constructing query string
+			query = "select count * as PIPPO" +
+					"from" + DBNames.TABLE_REGISTRATION + ","+
+					"where" + DBNames.ATT_REGISTRATION_ACCOUNT_PARENT + "=" + parentId;
+
+			stmt = con.createStatement();
+			stmt.executeUpdate(query);
+			rs=stmt.executeQuery(query);
+                        while(rs.next()){
+                            num=rs.getInt("PIPPO");
+                        }
+			con.commit();
+                        return num;
+		} finally {
+			if (stmt != null)
+				stmt.close();
+			if (con != null)
+				DBConnectionPool.releaseConnection(con);
+		}
+
+		
+	}
 }
 

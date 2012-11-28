@@ -23,6 +23,8 @@ public class RefinedAbstractManager extends AbstractManager<IManager> {
                 
                 else if(pManagerType.equals(DBNames.TABLE_ACCOUNT))
                         this.imp=JDBCAccountManager.getInstance();
+                else if(pManagerType.equals(DBNames.TABLE_CHILD_PARTICIPATION))
+                        this.imp=JDBCClassManager.getInstance();
 		
 		return this.imp;
 	}

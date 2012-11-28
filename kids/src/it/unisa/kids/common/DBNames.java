@@ -167,7 +167,11 @@ public final class DBNames {
 	public static final String ATT_ACCOUNT_TYPEPARENT="TipologiaGenitore";
 	public static final String ATT_ACCOUNT_VIADOMICILE="DomicilioIndirizzo";
 	public static final String ATT_ACCOUNT_VIARESIDENCE="ResidenzaIndirizzo";
-	
+	public static final String ATT_ACCOUNT_MATRICOLA="Matricola";
+        public static final String ATT_ACCOUNT_PROVINCERESIDENCE="ProvinciaResidenza";
+        public static final String ATT_ACCOUNT_PROVINCEDOMICILE="ProvinciaDomicilio";
+
+
 	//Trainee activity's attributes
 	public static final String ATT_TRAINEEACTIVITY_DATE="Data";
 	public static final String ATT_TRAINEEACTIVITY_NAME="Nome";
@@ -176,6 +180,7 @@ public final class DBNames {
 	public static final String ATT_TRAINEEACTIVITY_ENDTIME="OraFine";
 	public static final String ATT_TRAINEEACTIVITY_DELEGATEACCOUNT="Delegato";
         public static final String ATT_TRAINEEACTIVITY_TRAINEE="Tirocinante";
+        
 	
 	//Classification attributes
 	public static final String ATT_CLASSIFICATION_ID="Id";
