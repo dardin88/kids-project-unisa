@@ -77,10 +77,11 @@ public final class DBNames {
     public static final String ATT_MEALREQ_CHILDINSCID = "Iscrizione";
     //TimeServiceRequestTable's attributes
     public static final String ATT_TIMESERVREQ_ID = "Id";
-    public static final String ATT_TIMESERVREQ_DAYREQ = "day_requested";
-    public static final String ATT_TIMESERVREQ_SERVTYPE = "service_type";
-    public static final String ATT_TIMESERVREQ_DATE = "date";
-    public static final String ATT_TIMESERVREQ_PARENTID = "parent_id";
+    public static final String ATT_TIMESERVREQ_DAYREQ = "GiornoModifica";
+    public static final String ATT_TIMESERVREQ_SERVTYPE = "TipoServizio";
+    public static final String ATT_TIMESERVREQ_DATE = "Data";
+    public static final String ATT_TIMESERVREQ_REQTIME = "Ora";
+    public static final String ATT_TIMESERVREQ_PARENTID = "AccountGenitore";
     //DifferentiatedMenuTable's attributes
     public static final String ATT_DIFFMENU_ID = "Id";
     public static final String ATT_DIFFMENU_MOTIVATION = "Motivazione";
