@@ -21,13 +21,11 @@ public class Account {
 	private String municipalityResidence;
 	private String provinceResidence;  //elimina
 	private String addressResidence; //indirizzo
-	private String streetNumberResidence; // elimina
 	private String telephoneNumber;
 	private String cellularNumber;
 	private String fax;
 	private String email;
 	private String addressDomicile;  //indirizzo
-	private String streetNumberDomicilie;  // elimina
 	private String municipalityDomicilie;
 	private String provinceDomicilie; // elimina
 	private String capResidence;
@@ -41,6 +39,7 @@ public class Account {
 	private GregorianCalendar registrationDate;
         private String typeParent;
         private String matricola;
+      
 
     public String getMatricola() {
         return matricola;
@@ -151,12 +150,7 @@ public class Account {
 		this.addressResidence = pViaResidence;
 	}
 
-	/**this method set the street number of Residence of all accounts
-	 * @param String pStreetNumberResidence
-	 */
-	protected void setStreetNumberResidence(String pStreetNumberResidence) {
-		this.streetNumberResidence = pStreetNumberResidence;
-	}
+	
 
 	/**this method set the telephone number of all accounts
 	 * @param String pTelephoneNumber
@@ -193,13 +187,7 @@ public class Account {
 		this.addressDomicile = pAddressDomicile;
 	}
 
-	/**this method sets the street number of Domicile of all accounts
-	 * @param String pStreetNumberDomicile
-	 */
-	protected void setStreetNumberDomicile(String pStreetNumberDomicile) {
-		this.streetNumberDomicilie = pStreetNumberDomicile;
-	}
-
+	
 	/**this method sets the municipality of Domicile of all accounts
 	 * @param String pMunicipalityDomicile
 	 */
@@ -361,12 +349,6 @@ public class Account {
 		return addressResidence;
 	}
 
-	/**this method returns the street number of Residence of all accounts
-	 * @return String streetNumberResidence
-	 */
-	protected String getStreetNumberResidence() {
-		return streetNumberResidence;
-	}
 
 	/**this method returns the telephone number  of all accounts
 	 * @return String telephoneNumber
@@ -403,12 +385,6 @@ public class Account {
 		return addressDomicile;
 	}
 
-	/**this method returns the street number of domicile of all accounts
-	 * @return String streetNumberDomicile
-	 */
-	protected String getStreetNumberDomicile() {
-		return streetNumberDomicilie;
-	}
 
 	/**this method returns the municipality of domicile of all accounts
 	 * @return String municipalityDomicile
