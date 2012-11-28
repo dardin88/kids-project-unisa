@@ -1,11 +1,12 @@
 package it.unisa.kids.serviceManagement.trainingManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.common.IManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface ITrainingManager {
+public interface ITrainingManager extends IManager {
 //insert
 
     public abstract void insert(Account pTrainee) throws SQLException;
