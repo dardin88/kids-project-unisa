@@ -16,7 +16,7 @@ public class TraineeActivity {
 	private Time start;
 	private Time end;
 	private int delegate;
-	private String trainee;
+	private int trainee;
 	/**Empty constructor of the class
 	 *
 	 */
@@ -121,7 +121,7 @@ public class TraineeActivity {
 	/**the method returns the trainee that has performed the activity
 	 * @return Trainee trainee
 	 */
-	public String getTrainee() {
+	public int getTrainee() {
 		return trainee;
 	}
 
@@ -129,7 +129,7 @@ public class TraineeActivity {
 	/**the method sets the trainee that has performed the activity
 	 * @param Trainee pTrainee
 	 */
-	public void setTrainee(String pTrainee) {
+	public void setTrainee(int pTrainee) {
 		this.trainee = pTrainee;
 	}
 	

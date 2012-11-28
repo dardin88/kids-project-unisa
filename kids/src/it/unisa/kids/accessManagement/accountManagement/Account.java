@@ -19,17 +19,17 @@ public class Account {
 	private String taxCode;
 	private String citizenship;
 	private String municipalityResidence;
-	private String provinceResidence;
-	private String viaResidence;
-	private String streetNumberResidence;
+	private String provinceResidence;  //elimina
+	private String addressResidence; //indirizzo
+	private String streetNumberResidence; // elimina
 	private String telephoneNumber;
 	private String cellularNumber;
 	private String fax;
 	private String email;
-	private String viaDomicile;
-	private String streetNumberDomicilie;
+	private String addressDomicile;  //indirizzo
+	private String streetNumberDomicilie;  // elimina
 	private String municipalityDomicilie;
-	private String provinceDomicilie;
+	private String provinceDomicilie; // elimina
 	private String capResidence;
 	private String capDomicilie;
 	private String qualification;
@@ -39,6 +39,24 @@ public class Account {
 	private GregorianCalendar contractExpirationDate;
 	private String faculty;
 	private GregorianCalendar registrationDate;
+        private String typeParent;
+        private String matricola;
+
+    public String getMatricola() {
+        return matricola;
+    }
+
+    public void setMatricola(String matricola) {
+        this.matricola = matricola;
+    }
+
+    public void setTypeParent(String typeParent) {
+        this.typeParent = typeParent;
+    }
+
+    public String getTypeParent() {
+        return typeParent;
+    }
 
 
 	/**
@@ -130,7 +148,7 @@ public class Account {
 	 * @param String pViaResidence
 	 */
 	protected void setViaResidence(String pViaResidence) {
-		this.viaResidence = pViaResidence;
+		this.addressResidence = pViaResidence;
 	}
 
 	/**this method set the street number of Residence of all accounts
@@ -171,8 +189,8 @@ public class Account {
 	/**this method sets the via of Domicile of all accounts
 	 * @param String pStreetNumberDomicile
 	 */
-	protected void setViaDomicile(String pViaDomicile) {
-		this.viaDomicile = pViaDomicile;
+	protected void setAddressDomicile(String pAddressDomicile) {
+		this.addressDomicile = pAddressDomicile;
 	}
 
 	/**this method sets the street number of Domicile of all accounts
@@ -340,7 +358,7 @@ public class Account {
 	 * @return String viaResidence
 	 */
 	protected String getViaResidence() {
-		return viaResidence;
+		return addressResidence;
 	}
 
 	/**this method returns the street number of Residence of all accounts
@@ -382,7 +400,7 @@ public class Account {
 	 * @return String viaDomicile
 	 */
 	protected String getViaDomicile() {
-		return viaDomicile;
+		return addressDomicile;
 	}
 
 	/**this method returns the street number of domicile of all accounts
