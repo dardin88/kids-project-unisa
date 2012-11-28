@@ -73,7 +73,7 @@
         <%@include file="headerNews.jsp" %>
             <div id="linksManagement">
                 <h1 style="font-size: 35px;text-align: center;"> Lista News </h1>
-                <c:if test="${sessionScope.user.getAccountType()=='Delegato Ufficio'}" >
+                <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}" >
                     <form name="insertNews" method="post" action="newsInsertNews.jsp" >
                         <input type="submit" id="addLinkButton" value="Inserisci News" />
                     </form>
