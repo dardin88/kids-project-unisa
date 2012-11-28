@@ -7,16 +7,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<c:if test="${sessionScope.user==null}">
-    <c:redirect url="index.jsp" />
-</c:if>
-<c:if test="${sessionScope.user.getTypeAccount()!='Delegato scienze della formazione'}">
-        <c:redirect url="index.jsp" />
-</c:if>
+
 <!DOCTYPE html>
 <html>
     <head>      
-        <link rel="stylesheet" type="text/css" href="css/formationSciencePage.css" >
+        <link rel="stylesheet" type="text/css" href="css/template.css" >
         <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.8.18.custom.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css">
