@@ -85,7 +85,7 @@
                             <th>Descrizione</th>
                             <th>Data</th>
                             <th>Ora</th>
-                            <th>Allegato</th>
+                            <th>Tipo</th>
                             <th>Operazione</th>
                         </tr>
                     </thead>
