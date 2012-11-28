@@ -144,10 +144,10 @@ public final class DBNames {
 	public static final String ATT_ACCOUNT_EMAIL="Email";
 
 	// Si devono inserire tra "" i nomi come stanno nel DB
-	public static final String ATT_ACCOUNT_FACULTY="faculty";
+	public static final String ATT_ACCOUNT_FACULTY="Facolta";
 	
 	public static final String ATT_ACCOUNT_FAMILYSITUATION="SituazioneFamiliare";
-	public static final String ATT_ACCOUNT_FAX="Dax";
+	public static final String ATT_ACCOUNT_FAX="Fax";
 	public static final String ATT_ACCOUNT_ID="Id";
 	public static final String ATT_ACCOUNT_INCOME="Reddito";
 	public static final String ATT_ACCOUNT_MUNICIPALITYDOMICILIE="DomicilioComune";
@@ -156,14 +156,10 @@ public final class DBNames {
 	public static final String ATT_ACCOUNT_NICKNAME="Nickname";
 	public static final String ATT_ACCOUNT_PASSWORD="Password";
 	public static final String ATT_ACCOUNT_PLACEOFBIRTH="ComuneNascita";
-	public static final String ATT_ACCOUNT_PROVINCERESIDENCE="ResidenzaProvincia";
-	public static final String ATT_ACCOUNT_PROVINCEDOMICILIE="DomicilioProvincia";
 	public static final String ATT_ACCOUNT_QUALIFICATION="TitoloStudio";
 
 	//Si devono inserire tra "" i nomi come stanno nel DB
-	public static final String ATT_ACCOUNT_REGISTRATIONDATE="registration_date";
-	public static final String ATT_ACCOUNT_STREETNUMBERDOMICILIE="street_number_domicilie";
-	public static final String ATT_ACCOUNT_STREETNUMBERRESIDENCE="street_number_residence";
+	public static final String ATT_ACCOUNT_REGISTRATIONDATE="DataRegistrazione";
 	
 	public static final String ATT_ACCOUNT_SURNAMEUSER="Cognome";
 	public static final String ATT_ACCOUNT_TAXCODE="CodiceFiscale";
@@ -259,14 +255,14 @@ public final class DBNames {
 	
 	//Activity Section Daily
 	public static final String ATT_ACTIVITYSECTTIONDAILY_ID="Id";
-	public static final String ATT_ACTIVITYSECTTIONDAILY_IDACTITIVTY="IdAttivit�";
+	public static final String ATT_ACTIVITYSECTTIONDAILY_IDACTITIVTY="IdAttivita";
 	public static final String ATT_ACTIVITYSECTTIONDAILY_IDEDUCATORE="IdEducatore";
 	public static final String ATT_ACTIVITYSECTTIONDAILY_DATE="Data";
 	public static final String ATT_ACTIVITYSECTTIONDAILY_NOTES="Note";
 	
 	//Child Partecipant attributes
 	public static final String ATT_CHILDPARTECIPANT_IDCHILD="IdBambino";
-	public static final String ATT_CHILDPARTECIPANT_IDACTIVITYDAILY="IdAttivit�Giornaliera"; 
+	public static final String ATT_CHILDPARTECIPANT_IDACTIVITYDAILY="IdAttivitaGiornaliera"; 
 	public static final String ATT_CHILDPARTECIPANT_STATE="Stato";
 
 	
