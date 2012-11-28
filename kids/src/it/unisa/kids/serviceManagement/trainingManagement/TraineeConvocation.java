@@ -17,7 +17,7 @@ public class TraineeConvocation {
     private Time startTime;
     private Time endTime;
     private String activityName;
-    private boolean confirmed;
+    private int confirmed;
     private int delegateId;
     private int traineeId;
 
@@ -53,7 +53,7 @@ public class TraineeConvocation {
         return traineeId;
     }
 
-    public boolean isConfirmed() {
+    public int getConfirmed() {
         return confirmed;
     }
 
@@ -61,7 +61,7 @@ public class TraineeConvocation {
         this.activityName = pActivityName;
     }
 
-    public void setConfirmed(boolean pConfirmed) {
+    public void setConfirmed(int pConfirmed) {
         this.confirmed = pConfirmed;
     }
 
