@@ -542,13 +542,9 @@ public class JDBCAccountManager implements IAccountManager {
         return null;
     }
 
-    @Override
-    public Account create(Account pAccount) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    
+    
 
-    @Override
-    public Account modify(Account pAccount) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    
+    
 }
