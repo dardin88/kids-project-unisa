@@ -14,9 +14,10 @@ import java.sql.SQLException;
  */
 public class CommunicationFacade implements ICommunicationFacade {
 
+   
     @Override
     public void insert(News pNews) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
     }
 
     @Override

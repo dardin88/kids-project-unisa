@@ -17,6 +17,22 @@
         <servlet-name>ModifyAccountServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.ModifyAccountServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.accountManagement.LoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InsertNewsServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.newsManagement.InsertNewsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetNewsServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.newsManagement.GetNewsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NewServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.newsManagement.NewServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>addMeetingServlet</servlet-name>
         <url-pattern>/addMeeting</url-pattern>
@@ -32,6 +48,22 @@
     <servlet-mapping>
         <servlet-name>ModifyAccountServlet</servlet-name>
         <url-pattern>/ModifyAccountServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetNewsServlet</servlet-name>
+        <url-pattern>/GetNews</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertNewsServlet</servlet-name>
+        <url-pattern>/InsertNews</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewServlet</servlet-name>
+        <url-pattern>/NewServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
