@@ -52,15 +52,11 @@ public class AddAccountServlet extends HttpServlet {
            String citizenship = request.getParameter(DBNames.ATT_ACCOUNT_CITIZENSHIP);
            String municipalityResidence = request.getParameter(DBNames.ATT_ACCOUNT_MUNICIPALITYRESIDENCE);
            String provinceResidence = request.getParameter(DBNames.ATT_ACCOUNT_PROVINCERESIDENCE);
-           String viaResidence = request.getParameter(DBNames.ATT_ACCOUNT_VIARESIDENCE);
-           String streetNumberResidence = request.getParameter(DBNames.ATT_ACCOUNT_STREETNUMBERRESIDENCE);
            String telephoneNumber = request.getParameter(DBNames.ATT_ACCOUNT_TELEPHONENUMBER);
            String cellular = request.getParameter(DBNames.ATT_ACCOUNT_CELLULARNUMBER);
            String fax = request.getParameter(DBNames.ATT_ACCOUNT_FAX);
            String email = request.getParameter(DBNames.ATT_ACCOUNT_EMAIL);
-           String provinceDomicile = request.getParameter(DBNames.ATT_ACCOUNT_PROVINCEDOMICILIE);
-           String viaDomicile = request.getParameter(DBNames.ATT_ACCOUNT_VIADOMICILE);
-           String streetNumberDomicile = request.getParameter(DBNames.ATT_ACCOUNT_STREETNUMBERDOMICILIE);
+           String provinceDomicile = request.getParameter(DBNames.ATT_ACCOUNT_PROVINCEDOMICILE);
            String municipalityDomicile = request.getParameter(DBNames.ATT_ACCOUNT_MUNICIPALITYDOMICILIE);
            String capResidence = request.getParameter(DBNames.ATT_ACCOUNT_CAPRESIDENCE);
            String capDomicile = request.getParameter(DBNames.ATT_ACCOUNT_CAPDOMICILIE);
@@ -97,15 +93,11 @@ public class AddAccountServlet extends HttpServlet {
            account.setProvinceResidence(provinceResidence);
            account.setQualification(qualification);
            account.setRegistrationDate(reg);
-           account.setStreetNumberDomicile(streetNumberDomicile);
-           account.setStreetNumberResidence(streetNumberResidence);
            account.setSurnameUser(surname);
            account.setTaxCode(taxCode);
            account.setTelephoneNumber(telephoneNumber);
-           account.setViaDomicile(viaDomicile);
-           account.setViaResidence(viaResidence);
            
-           man.create(account);
+           man.insert(account);
 
            
         } catch (SQLException ex) {
