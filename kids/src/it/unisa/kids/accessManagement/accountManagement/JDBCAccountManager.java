@@ -28,6 +28,40 @@ public class JDBCAccountManager implements IAccountManager {
 			return (manager=new JDBCAccountManager());
 	}
 
+        
+        public Account authenticate(String pUserName, String pPass) throws SQLException {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            con = DBConnectionPool.getConnection();
+            String loginQuery = "select * from account where username=? and password =?";
+            stmt = con.prepareStatement(loginQuery);
+            stmt.setString(1, pUserName);
+            stmt.setString(2, pPass);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                Account u = new Account();
+                u.setNickName(rs.getString("username"));
+                u.setPassword(rs.getString("password"));
+                u.setAccountType(rs.getString(DBNames.ATT_ACCOUNT_TYPEACCOUNT));
+                u.setNameUser(rs.getString(DBNames.ATT_ACCOUNT_NAME));
+                return u;
+            } else {
+                return null;
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+    }
 	public Account insert(Account pAccount) throws SQLException{
 		Connection con = null;
 		Statement stmt=null;
