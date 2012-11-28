@@ -12,15 +12,26 @@ function activePage(){
     urlArray=url.split('/');
     currentPage=urlArray[urlArray.length-1];
     switch(currentPage){
-        case 'meetingCalendar.jsp':
-            $("#meetingCalendarMenuEL").css("background-color","#444");
-            $("#meetingCalendarMenuEL").css("color","#FFFFFF");
-            $("#title").html("Gestione riunioni");
+        case 'insertTrainee.jsp':
+            $("#insertTrainee").css("background-color","#F82025");
+            $("#insertTrainee").css("color","#FFFFFF");
             break;
-         case 'addMeeting.jsp':
-            $("#meetingCalendarMenuEL").css("background-color","#444");
-            $("#meetingCalendarMenuEL").css("color","#FFFFFF");
-            $("#title").html("Gestione riunioni");
-            break;   
+        case 'trainees.jsp':
+            $("#trainees").css("background-color","#F82025");
+            $("#trainees").css("color","#FFFFFF");
+            break;
+        case 'formationScienceNotifications.jsp':
+            $("#notifications").css("background-color","#F82025");
+            $("#notifications").css("color","#FFFFFF");
+            break;
+        case 'schedulerActivity.jsp':
+            $("#scheduler").css("background-color","#F82025");
+            $("#scheduler").css("color","#FFFFFF");
+            break;
+        case 'insertTraineeActivity.jsp':
+            $("#insertTraineeActivity").css("background-color","#F82025");
+            $("#insertTraineeActivity").css("color","#FFFFFF");
+            break;
+       
     }
 }
