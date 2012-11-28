@@ -125,6 +125,8 @@ public final class DBNames {
     public static final String ATT_ACCOUNT_CITIZENSHIP = "Cittadinaza";
     public static final String ATT_ACCOUNT_CONTRACTEXPIRATIONDATE = "DataScadenzaContratto";
     public static final String ATT_ACCOUNT_DATEOFBIRTH = "DataNascita";
+    public static final String ATT_ACCOUNT_PROVINCEDOMICILE = "ProvinciaDomicilio";
+    public static final String ATT_ACCOUNT_PROVINCERESIDENCE = "ProvinciaResidenza";    
     public static final String ATT_ACCOUNT_EMAIL = "Email";
     // Si devono inserire tra "" i nomi come stanno nel DB
     public static final String ATT_ACCOUNT_FACULTY = "Facolta";
