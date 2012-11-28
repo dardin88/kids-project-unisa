@@ -115,14 +115,16 @@ public class AccessFacade implements IAccessFacade
     public Account getParentById(int pParentId) throws SQLException {
         RefinedAbstractManager refinedAbstractAccountManager = new RefinedAbstractManager();
         IAccountManager accountManager = (IAccountManager) refinedAbstractAccountManager.getManagerImplementor(DBNames.TABLE_ACCOUNT);
-        List<Account> listAccount=null;
+        List<Account> listAccount;
         Account account= new Account();
         account.setId(pParentId);
         listAccount= accountManager.search(account);
-        if(listAccount!=null)
+        if(listAccount!=null){
             return listAccount.get(0);
-        else
+        }
+        else{
             return null;
+        }
     }
 
     
