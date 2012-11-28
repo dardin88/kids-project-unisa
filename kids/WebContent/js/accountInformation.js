@@ -45,7 +45,7 @@ $(document).ready(function(){
             ComuneDomicilio:"Inserisci il comune del domicilio",
             Indirizzo:" Inserisci l'indirizzo",
             CAPDomicilio:" Inserisci il CAP del domicilio",
-            CAPDomicilio:"Inserisci il CAP della residenza",
+            CAPResidenza:"Inserisci il CAP della residenza",
             NumeroCivicoResidenza:"Inserisci il numero civico della residenza",
             NumeroCivicoDomicilio:"Inserisci il numero civico del domicilio",
             ProvinciaDomicilio:"Inserisci la provincia del domicilio",

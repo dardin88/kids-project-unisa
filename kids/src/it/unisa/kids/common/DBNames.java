@@ -102,18 +102,17 @@ public final class DBNames {
 	public static final String ATT_DIFFMENU_CHILDINSCID = "Iscrizione";
 	
 	//PaymentTable's attributes
-	public static final String ATT_PAYMENT_ID = "id";
-	public static final String ATT_PAYMENT_EXPDATE = "exp_date";
-	public static final String ATT_PAYMENT_AMOUNT = "amount";
-	public static final String ATT_PAYMENT_AMOUNTDUE = "amount_due";
-	public static final String ATT_PAYMENT_PAID = "paid";
-	public static final String ATT_PAYMENT_ORIGINACCOUNT = "origin_account";
-	public static final String ATT_PAYMENT_PAYEE = "payee";
-	public static final String ATT_PAYMENT_PARENTID = "parent_id";
-	public static final String ATT_PAYMENT_CHARGE = "charge";
-	public static final String ATT_PAYMENT_DESCRIPTION = "description";
-	public static final String ATT_PAYMENT_DISCOUNT = "discount";
-	public static final String ATT_PAYMENT_DISCDESCRIPTION = "discount_description";
+	public static final String ATT_PAYMENT_ID = "Id";
+	public static final String ATT_PAYMENT_EXPDATE = "DataScademza";
+	public static final String ATT_PAYMENT_AMOUNT = "Importo";
+	public static final String ATT_PAYMENT_PAID = "Effettuato";
+	public static final String ATT_PAYMENT_ORIGINACCOUNT = "Conto";
+	public static final String ATT_PAYMENT_PAYEE = "Beneficiario";
+	public static final String ATT_PAYMENT_PARENTID = "AccountGenitore";
+	public static final String ATT_PAYMENT_CHARGE = "Addebito";
+	public static final String ATT_PAYMENT_DESCRIPTION = "Descrizione";
+	public static final String ATT_PAYMENT_DISCOUNT = "Sconto";
+	public static final String ATT_PAYMENT_DISCDESCRIPTION = "DescrizioneSconto";
 	
 	//RefundTable's attributes
 	public static final String ATT_REFUND_ID = "Id";
@@ -180,7 +179,7 @@ public final class DBNames {
 	
 	//Classification attributes
 	public static final String ATT_CLASSIFICATION_ID="Id";
-	public static final String ATT_CLASSIFICATION_DATA="data";
+	public static final String ATT_CLASSIFICATION_DATA="Data";
 	public static final String ATT_CLASSIFICATION_DATA_TERM= "DataScadenza";
 
 	//Result's attributes
@@ -213,7 +212,7 @@ public final class DBNames {
 	public static final String ATT_NEWS_DATE="Data";
 	public static final String ATT_NEWS_TIME="Ora";
 	public static final String ATT_NEWS_ATTACHED="Allegato";
-	public static final String ATT_NEWS_DELEGATEACCOUNT="Delegato";
+	public static final String ATT_NEWS_DELEGATEACCOUNT="IdAutore";
 
 	//Communication's attributes
 	public static final String ATT_COMMUNICATION_ID="id";
