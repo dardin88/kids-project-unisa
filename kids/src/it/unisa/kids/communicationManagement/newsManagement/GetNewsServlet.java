@@ -128,7 +128,7 @@ public class GetNewsServlet extends HttpServlet {
                     int day = a.getDate().get(Calendar.DAY_OF_MONTH);
                     int month = a.getDate().get(Calendar.MONTH);
                     int year = a.getDate().get(Calendar.YEAR);
-                    ja.put(year + "/" + month + "/" + day);
+                    ja.put(year + "-" + month + "-" + day);
                     ja.put(a.getTime().toString());
                     ja.put(a.getType());
                     if(nomeUtente.equals("Delegato Ufficio"))

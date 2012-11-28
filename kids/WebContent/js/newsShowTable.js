@@ -135,7 +135,7 @@ function buildShowTable(){
             "sProcessing":   "Caricamento...",
             "sLengthMenu":   "Visualizza _MENU_ link",
             "sZeroRecords":  "<b>La ricerca non ha portato alcun risultato.</b>",
-            "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Tirocinanti",
+            "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ NEWS",
             "sInfoEmpty":    "<b>Vista da 0 a 0 di 0 di News</b>",
             "sInfoFiltered": "(filtrati da _MAX_ link totali)",
             "sInfoPostFix":  "",
