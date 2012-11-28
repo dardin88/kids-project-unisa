@@ -11,9 +11,8 @@ public class PaymentBean extends Observable implements Serializable {
 	private boolean charge;
 	private String paymentDescription;
 	private double amount;
-	private double amountDue;
 	private boolean paid;
-	private String discount;		// dovrebbe essere double
+	private double discount;		// dovrebbe essere double
 	private String discountDescription;
 	private String originAccount;
 	private String payee;
@@ -64,14 +63,6 @@ public class PaymentBean extends Observable implements Serializable {
 		this.amount = pAmount;
 	}
 
-	public double getAmountDue() {
-		return this.amountDue;
-	}
-
-	public void setAmountDue(double pAmountDue) {
-		this.amountDue = pAmountDue;
-	}
-
 	public boolean isPaid() {
 		return this.paid;
 	}
@@ -80,11 +71,11 @@ public class PaymentBean extends Observable implements Serializable {
 		this.paid = pPaid;
 	}
 
-	public String getDiscount() {
+	public double getDiscount() {
 		return this.discount;
 	}
 
-	public void setDiscount(String pDiscount) {
+	public void setDiscount(double pDiscount) {
 		this.discount = pDiscount;
 	}
 

@@ -1,4 +1,4 @@
-package it.unisa.kids.serviceManagement.paymentManagement;
+package it.unisa.kids.common;
 
 public class Email {
 	

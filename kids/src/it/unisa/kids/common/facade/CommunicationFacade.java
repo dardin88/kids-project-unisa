@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.unisa.kids.common;
+package it.unisa.kids.common.facade;
 
+import it.unisa.kids.common.facade.ICommunicationFacade;
 import it.unisa.kids.communicationManagement.newsManagement.News;
 import java.sql.SQLException;
 

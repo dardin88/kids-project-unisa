@@ -1,5 +1,6 @@
-package it.unisa.kids.common;
+package it.unisa.kids.common.facade;
 
+import it.unisa.kids.common.facade.IAccessFacade;
 import it.unisa.kids.accessManagement.accountManagement.Account;
 import java.sql.Connection;
 import java.sql.ResultSet;
