@@ -8,24 +8,35 @@ import it.unisa.kids.accessManagement.accountManagement.*;
 
 public class RefinedAbstractManager extends AbstractManager<IManager> {
 
-	public IManager getManagerImplementor(String pManagerType) {
-		if (pManagerType.equals(DBNames.TABLE_PAYMENT))
-			this.imp = JDBCPaymentManager.getInstance();
-		
-		else if (pManagerType.equals(DBNames.TABLE_TRAINEE))
-                    this.imp = JDBCTrainingManager.getInstance();
-		
-		else if(pManagerType.equals(DBNames.TABLE_NEWS))
-			this.imp=JDBCNewsManager.getInstance();
-		
-		else if(pManagerType.equals(DBNames.TABLE_COMUNICATION))
-			this.imp=JDBCCommunicationManager.getInstance();
-                
-                else if(pManagerType.equals(DBNames.TABLE_ACCOUNT))
-                        this.imp=JDBCAccountManager.getInstance();
-                else if(pManagerType.equals(DBNames.TABLE_CHILD_PARTICIPATION))
-                        this.imp=JDBCClassManager.getInstance();
-		
-		return this.imp;
-	}
+    // Singleton Design Pattern's implementation
+    private static RefinedAbstractManager refinedManager;
+
+    private RefinedAbstractManager() {
+    }
+
+    public static RefinedAbstractManager getInstance() {
+        if (refinedManager == null) {
+            refinedManager = new RefinedAbstractManager();
+        }
+        return refinedManager;
+    }
+    // end of Singleton Design Pattern's implementation
+    
+    public IManager getManagerImplementor(String pManagerType) {
+        if (pManagerType.equals(DBNames.TABLE_PAYMENT)) {
+            this.imp = JDBCPaymentManager.getInstance();
+        } else if (pManagerType.equals(DBNames.TABLE_TRAINEE)) {
+            this.imp = JDBCTrainingManager.getInstance();
+        } else if (pManagerType.equals(DBNames.TABLE_NEWS)) {
+            this.imp = JDBCNewsManager.getInstance();
+        } else if (pManagerType.equals(DBNames.TABLE_COMUNICATION)) {
+            this.imp = JDBCCommunicationManager.getInstance();
+        } else if (pManagerType.equals(DBNames.TABLE_ACCOUNT)) {
+            this.imp = JDBCAccountManager.getInstance();
+        } else if (pManagerType.equals(DBNames.TABLE_CHILD_PARTICIPATION)) {
+            this.imp = JDBCClassManager.getInstance();
+        }
+
+        return this.imp;
+    }
 }
