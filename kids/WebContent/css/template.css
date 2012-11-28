@@ -101,15 +101,15 @@ input.error {
     font-weight: bold;
     font-size: 28px;
     position: relative;
-    bottom: 25%;
+    bottom: 8%;
 }
 
 #userMenu {
     font-size: 14px;
     float: right;
     margin-right: 2%;
-    margin-top: 6.9%;
-    width: 18%;
+    margin-top: 9%;
+    width: 25%;
     text-align: right;
     position: relative;
     bottom: 5px;
@@ -402,8 +402,3 @@ div#navigation li{
     width: 95%;
 }
 
-#titleReg {
-    font-weight: bold;
-    font-size: 28px;
-    bottom: 25%;
-}
