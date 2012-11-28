@@ -13,7 +13,7 @@ public class RefinedAbstractManager extends AbstractManager<IManager> {
 			this.imp = JDBCPaymentManager.getInstance();
 		
 		else if (pManagerType.equals(DBNames.TABLE_TRAINEE))
-			this.imp = JDBCTrainingManager.getInstance();
+                    this.imp = JDBCTrainingManager.getInstance();
 		
 		else if(pManagerType.equals(DBNames.TABLE_NEWS))
 			this.imp=JDBCNewsManager.getInstance();
