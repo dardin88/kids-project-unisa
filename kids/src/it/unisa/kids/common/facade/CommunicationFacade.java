@@ -34,5 +34,10 @@ public class CommunicationFacade implements ICommunicationFacade {
     public int getNumberOfAbsences(int pChildId) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public void delete(News pNews) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     
 }

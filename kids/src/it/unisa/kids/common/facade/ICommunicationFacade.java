@@ -16,6 +16,8 @@ public interface ICommunicationFacade {
     public void insert(News pNews) throws SQLException;
 
     public void update(News pNews) throws SQLException;
+    
+    public void delete(News pNews) throws SQLException;
 
     public void search(News pNews) throws SQLException;
     

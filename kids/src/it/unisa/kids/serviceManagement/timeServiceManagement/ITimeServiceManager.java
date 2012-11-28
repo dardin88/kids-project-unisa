@@ -1,20 +1,20 @@
 package it.unisa.kids.serviceManagement.timeServiceManagement;
 
 import it.unisa.kids.common.IManager;
-import it.unisa.kids.common.bean.TimeServiceBean;
+import it.unisa.kids.communicationManagement.newsManagement.News;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public interface ITimeServiceManager extends IManager {
 
-	public void insert(TimeServiceBean pTimeServ) throws SQLException;
-	public void update(TimeServiceBean pTimeServ) throws SQLException;
-	public void delete(TimeServiceBean pTimeServ) throws SQLException;
+	public void insert(News pNews) throws SQLException;
+	public void update(News pNews) throws SQLException;
+	public void delete(News pNews) throws SQLException;
 	
-	public List<TimeServiceBean> search(TimeServiceBean pTimeServ) throws SQLException;
-	public List<TimeServiceBean> getTimeServiceList() throws SQLException;
-	public List<TimeServiceBean> getTimeServiceList(String pTimeServType) throws SQLException;
+	public List<News> search(News pNews) throws SQLException;
+	public List<News> getTimeServiceList() throws SQLException;
+	public List<News> getTimeServiceList(String pTimeServType) throws SQLException;
 	
 	public void insert(TimeServiceRequestBean pTimeServReq) throws SQLException;
 	public void update(TimeServiceRequestBean pTimeServReq) throws SQLException;
