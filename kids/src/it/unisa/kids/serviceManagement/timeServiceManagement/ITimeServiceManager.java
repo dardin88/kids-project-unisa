@@ -8,18 +8,25 @@ import java.util.List;
 
 public interface ITimeServiceManager extends IManager {
 
-	public void insert(News pNews) throws SQLException;
-	public void update(News pNews) throws SQLException;
-	public void delete(News pNews) throws SQLException;
-	
-	public List<News> search(News pNews) throws SQLException;
-	public List<News> getTimeServiceList() throws SQLException;
-	public List<News> getTimeServiceList(String pTimeServType) throws SQLException;
-	
-	public void insert(TimeServiceRequestBean pTimeServReq) throws SQLException;
-	public void update(TimeServiceRequestBean pTimeServReq) throws SQLException;
-	public void delete(TimeServiceRequestBean pTimeServReq) throws SQLException;
-	
-	public List<TimeServiceRequestBean> search(TimeServiceRequestBean pTimeServReq) throws SQLException;
-	public List<TimeServiceRequestBean> getTimeServRequestList() throws SQLException;
+    public void insert(News pTimeServ) throws SQLException;
+
+    public void update(News pTimeServ) throws SQLException;
+
+    public void delete(News pTimeServ) throws SQLException;
+
+    public List<News> search(News pTimeServ) throws SQLException;
+
+    public List<News> getTimeServiceList() throws SQLException;
+
+    public List<News> getTimeServiceList(String pTimeServType) throws SQLException;
+
+    public void insert(TimeServiceRequestBean pTimeServReq) throws SQLException;
+
+    public void update(TimeServiceRequestBean pTimeServReq) throws SQLException;
+
+    public void delete(TimeServiceRequestBean pTimeServReq) throws SQLException;
+
+    public List<TimeServiceRequestBean> search(TimeServiceRequestBean pTimeServReq) throws SQLException;
+
+    public List<TimeServiceRequestBean> getTimeServRequestList() throws SQLException;
 }
