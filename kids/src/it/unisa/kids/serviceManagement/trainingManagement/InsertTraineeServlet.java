@@ -4,6 +4,7 @@
  */
 package it.unisa.kids.serviceManagement.trainingManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.DBNames;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -47,9 +48,9 @@ public class InsertTraineeServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            Trainee trainee = new Trainee();
+            Account trainee = new Account();
 
-            trainee.setName(request.getParameter(DBNames.ATT_TRAINEE_NAME));
+            trainee.setName(request.getParameter(DBNames.ATT_ACCOUNT_NAME));
             trainee.setAddress(request.getParameter(DBNames.ATT_TRAINEE_ADDRESS));
             trainee.setRegister(request.getParameter(DBNames.ATT_TRAINEE_REGISTER));
             trainee.setBirthCity(request.getParameter(DBNames.ATT_TRAINEE_BIRTHCITY));
