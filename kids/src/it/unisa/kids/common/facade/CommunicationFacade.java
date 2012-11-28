@@ -4,9 +4,9 @@
  */
 package it.unisa.kids.common.facade;
 
-import it.unisa.kids.common.facade.ICommunicationFacade;
 import it.unisa.kids.communicationManagement.newsManagement.News;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -26,7 +26,7 @@ public class CommunicationFacade implements ICommunicationFacade {
     }
 
     @Override
-    public void search(News pNews) throws SQLException {
+    public List<News> search(News pNews) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
