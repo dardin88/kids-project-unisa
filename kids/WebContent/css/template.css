@@ -402,3 +402,8 @@ div#navigation li{
     width: 95%;
 }
 
+#titleReg {
+    font-weight: bold;
+    font-size: 28px;
+    bottom: 25%;
+}
