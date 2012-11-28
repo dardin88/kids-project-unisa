@@ -131,7 +131,7 @@ public class GetNewsServlet extends HttpServlet {
                     ja.put(year + "-" + month + "-" + day);
                     ja.put(a.getTime().toString());
                     ja.put(a.getType());
-                    if(nomeUtente.equals("Delegato Ufficio"))
+                    if(nomeUtente.equals("Segreteria"))
                     {
                      String operazioni = "<input class='tableImage' type='image' src='img/trash.png' />"+"<input class='tableImage' height='20px' type='image' src='img/lente.gif' />";
                      ja.put(operazioni);
