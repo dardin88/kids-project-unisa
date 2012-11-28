@@ -6,8 +6,14 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <c:if test="${sessionScope.user!=null}">
-    <c:redirect url="artefactsTable.jsp" />
+     <c:if test="${sessionScope.user.getAccountType()=='Genitore'}"> 
+        <c:redirect url="newsGenitorePage.jsp" />
+    </c:if>
+    <c:if test="${sessionScope.user.getAccountType()=='Delegato Ufficio'}">
+        <c:redirect url="newsDelegatoPage.jsp" />
+    </c:if>     
 </c:if>
 <!DOCTYPE html>
 <html>
@@ -19,7 +25,7 @@
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/loginManager.js"></script>
-        <title>Kids Traceability Indexer</title>
+        <title>Kids</title>
         <script type="text/javascript">
             $(document).ready(function() {
                 initializeLoginFields();
@@ -29,7 +35,7 @@
     <body id="bodyLogin">
         <div id="loginHeader">
             <img id="loginImage" src="img/logo.png"/>
-            <div id="loginTitle">Gestione link di tracciabilità - Kids Project</div>
+            <div id="loginTitle">Kids Project</div>
         </div>
         <form id="loginForm" action="Login" method="post">
             <div id="errorBox">${requestScope.error}</div>
