@@ -4,6 +4,8 @@
  */
 package it.unisa.kids.accessManagement.accountManagement;
 
+import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.kids.serviceManagement.trainingManagement.GetTraineesServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -27,10 +29,11 @@ public class GetAccountServlet extends HttpServlet {
     
       private IAccountManager accountManager;
 
-    public void init(ServletConfig config) {
-        RefinedAbstractAccountManager refinedAbstractAccountManager = new RefinedAbstractAccountManager();
-        accountManager = refinedAbstractAccountManager.getManagerImplementor();
+     public void init(ServletConfig config) {
+        RefinedAbstractManager refinedAbstractAccountManager = new RefinedAbstractManager();
+        accountManager = (IAccountManager) refinedAbstractAccountManager.getManagerImplementor(DBNames.TABLE_ACCOUNT);
     }
+
 
     /**
      * Processes requests for both HTTP
@@ -74,8 +77,6 @@ public class GetAccountServlet extends HttpServlet {
             request.setAttribute("provinciaDomicilio", list.get(0).getProvinceDomicile());
             request.setAttribute("provinciaResidenza", list.get(0).getProvinceResidence());
             request.setAttribute("titoloDiStudio", list.get(0).getQualification());
-            request.setAttribute("numeroCivicoDomicilio", list.get(0).getStreetNumberDomicile());
-            request.setAttribute("numeroCivicoResidenza", list.get(0).getStreetNumberResidence());
             request.setAttribute("codFisc", list.get(0).getTaxCode());
             request.setAttribute("viaDomicilio", list.get(0).getViaDomicile());
             request.setAttribute("viaResidenza", list.get(0).getViaResidence());
