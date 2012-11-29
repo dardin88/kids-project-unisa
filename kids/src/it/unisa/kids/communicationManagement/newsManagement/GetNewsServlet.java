@@ -102,7 +102,7 @@ public class GetNewsServlet extends HttpServlet {
             }
             HttpSession s = request.getSession();
             Account account =  (Account) s.getAttribute("user");
-            String nomeUtente=account.getAccountType();
+            String nomeUtente=account.getAccountType();            
             String searchTerm = "";
             searchTerm = request.getParameter("sSearch");            
             listNews = am.search(searchTerm);
@@ -121,6 +121,7 @@ public class GetNewsServlet extends HttpServlet {
 
 
                 }
+                int i=0;
                 for (News a : paginateNewsSet) {
                     JSONArray ja = new JSONArray();
                     ja.put(a.getTitle());
@@ -133,13 +134,14 @@ public class GetNewsServlet extends HttpServlet {
                     ja.put(a.getType());
                     if(nomeUtente.equals("Segreteria"))
                     {
-                     String operazioni = "<input class='tableImage' type='image' src='img/trash.png' />"+"<input class='tableImage' height='20px' type='image' src='img/lente.gif' />";
+                     String operazioni = "<input id=\"removeNews\" onclick=\"removeNews("+a.getId() +")\" class='tableImage' type='image' src='img/trash.png' />"+"<input class='tableImage' height='20px' type='image' src='img/lente.gif' />";
                      ja.put(operazioni);
                     }
                     else {
                         ja.put("");
                     }
                     array.put(ja);
+                    i++;
                 }
             }
             result.put("sEcho", sEcho);
@@ -151,6 +153,7 @@ public class GetNewsServlet extends HttpServlet {
                     "private, no-store, no-cache, must-revalidate");
             response.setHeader("Pragma", "no-cache");
             out.println(result);
+           // request.getSession().setAttribute("numNews",linksNumber);
         } catch (Exception ex) {
             Logger.getLogger(GetNewsServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

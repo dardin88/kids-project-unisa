@@ -17,7 +17,7 @@ import java.util.GregorianCalendar;
 
 public class JDBCNewsManager implements INewsManager
 {
-	private static INewsManager manager; 
+	private static INewsManager manager;
 	/**
 	 * the constructor empty
 	 */
@@ -52,23 +52,26 @@ public class JDBCNewsManager implements INewsManager
 		{
 			connection=DBConnectionPool.getConnection();		
 			query1="insert into "+DBNames.TABLE_NEWS+"(" +
-					DBNames.ATT_NEWS_TITLE+","+
+					DBNames.ATT_NEWS_ID+","+
+                                        DBNames.ATT_NEWS_TITLE+","+
 					DBNames.ATT_NEWS_DESCRIPTION+","+
 					DBNames.ATT_NEWS_TYPE+","+
 					DBNames.ATT_NEWS_DATE+","+
 					DBNames.ATT_NEWS_TIME+","+
 					DBNames.ATT_NEWS_ATTACHED+","+
 					DBNames.ATT_NEWS_DELEGATEACCOUNT+
-					") values (?,?,?,?,?,?,?)";			
+					") values (?,?,?,?,?,?,?,?)";			
 			
 			stmt=connection.prepareStatement(query1);
-			stmt.setString(1, pNews.getTitle());
-			stmt.setString(2, pNews.getDescription());
-			stmt.setString(3, pNews.getType());
-			stmt.setDate(4, new Date(pNews.getDate().getTimeInMillis()));
-			stmt.setTime(5, pNews.getTime());
-			stmt.setString(6, pNews.getAttached());
-			stmt.setInt(7, pNews.getDelegate());
+			stmt.setInt(1,pNews.getId());                       
+                        stmt.setString(2, pNews.getTitle());
+			stmt.setString(3, pNews.getDescription());
+			stmt.setString(4, pNews.getType());
+			stmt.setDate(5, new Date(pNews.getDate().getTimeInMillis()));
+			stmt.setTime(6, pNews.getTime());
+			stmt.setString(7, pNews.getAttached());
+			stmt.setInt(8, pNews.getDelegate());
+                      
 			
 			stmt.executeUpdate();
 			connection.commit();
@@ -101,7 +104,7 @@ public class JDBCNewsManager implements INewsManager
 			rsNews=stmt.executeQuery(query);
 			while(rsNews.next())
 			{
-				
+				int id=rsNews.getInt(DBNames.ATT_NEWS_ID);
 				String title=rsNews.getString(DBNames.ATT_NEWS_TITLE);
 				String description=rsNews.getString(DBNames.ATT_NEWS_DESCRIPTION);
 				String type=rsNews.getString(DBNames.ATT_NEWS_TYPE);
@@ -113,12 +116,8 @@ public class JDBCNewsManager implements INewsManager
 				//Date ora=new Date(time.getTime());
 				String attached=rsNews.getString(DBNames.ATT_NEWS_ATTACHED);
 				int idDelegate=rsNews.getInt(DBNames.ATT_NEWS_DELEGATEACCOUNT);
-			/*	Account delegate=new Account();
-				delegate.setId(idDelegate);
-				ManagerAccount manager=ManagerAccount.getInstance();
-				ArrayList<Account> listAccount= manager.Search(delegate);
-				delegate=listAccount.get(0);
-			*/	News news=new News();
+				News news=new News();
+                                news.setId(id);
 				news.setTitle(title);
 				news.setDescription(description);
 				news.setType(type);
@@ -150,7 +149,7 @@ public class JDBCNewsManager implements INewsManager
 		try
 		{
 			connection=DBConnectionPool.getConnection();
-			query="delete from "+DBNames.TABLE_NEWS+" where "+DBNames.ATT_NEWS_ID+"='"+pNews.getId();
+			query="delete from "+DBNames.TABLE_NEWS+" where "+DBNames.ATT_NEWS_ID+"='"+pNews.getId()+"'";
 			stmt=connection.createStatement();
 			stmt.executeUpdate(query);
 			connection.commit();
@@ -210,8 +209,7 @@ public class JDBCNewsManager implements INewsManager
 		try
 		{
 			connection=DBConnectionPool.getConnection();
-			String query;
-                query = "select * from "+DBNames.TABLE_NEWS+" WHERE " + 
+			String query = "select * from "+DBNames.TABLE_NEWS+" WHERE " + 
                    DBNames.ATT_NEWS_DESCRIPTION + " like '%" +word+ "%'"
                    + " or "+DBNames.ATT_NEWS_DATE+" like '%"+word+"%'"
                    + " or "+DBNames.ATT_NEWS_TITLE+" like '%"+word+"%'"
@@ -221,6 +219,7 @@ public class JDBCNewsManager implements INewsManager
 			rsNews=stmt.executeQuery(query);
 			while(rsNews.next())
 			{
+                                int id=rsNews.getInt(DBNames.ATT_NEWS_ID);
 				String title=rsNews.getString(DBNames.ATT_NEWS_TITLE);
 				String description=rsNews.getString(DBNames.ATT_NEWS_DESCRIPTION);
 				String type=rsNews.getString(DBNames.ATT_NEWS_TYPE);
@@ -233,6 +232,7 @@ public class JDBCNewsManager implements INewsManager
 				String attached=rsNews.getString(DBNames.ATT_NEWS_ATTACHED);
 				int idDelegate=rsNews.getInt(DBNames.ATT_NEWS_DELEGATEACCOUNT);
 				News news=new News();
+                                news.setId(id);
 				news.setTitle(title);
 				news.setDescription(description);
 				news.setType(type);

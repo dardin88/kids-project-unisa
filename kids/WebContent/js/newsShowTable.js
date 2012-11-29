@@ -9,13 +9,13 @@ function initializeLinksManager(){
         modal: true,
         resizable: false,
         width: 600
-    });/*
-    $("#removeLinkWindow").dialog({
+    });
+    $("#removeNewsWindow").dialog({
         autoOpen: false,
         modal: true,
         resizable: false,
         width: 400
-    });*/
+    });
     $.validator.setDefaults({
         highlight: function(input) {
             $(input).addClass("ui-state-highlight");
@@ -25,9 +25,25 @@ function initializeLinksManager(){
         }
     });
     addNews(); 
-    
 }
 
+function removeNews(id){
+    $("#removeNewsWindow").dialog("open");
+    $("#notRemoveNewsButton").button();
+    $("#notRemoveNewsButton").click(function(){
+        $("#removeNewsWindow").dialog("close");
+    });
+    $("#removeNewsButton").button();
+    $("#removeNewsButton").click(function(){
+        $.post("RemoveNews",{
+            idNews:""+id
+        });
+         $("#removeNewsWindow").dialog("close");
+        var oTable = $("#linkTable").dataTable();
+        //alert(responseText);
+        oTable.fnDraw();
+    }) 
+}
 function addNews(){
     $("#addLinkButton").click(function() {
         $("#addLinkWindow").dialog("open");
@@ -119,23 +135,6 @@ function addNews(){
         });
     });
 }
-
-/*function showNews(select){
-    $.getJSON("GetNews",{
-        ajax: 'true',
-        type: "POST",
-        cache: false,
-        async: false
-    }, function (artefacts){
-        select.html("<option value=\"\"></option>");
-        $.each(artefacts, function(index, artefact){
-            select.append(
-                $('<option></option>').val(artefact.id).html(artefact.name)
-                );
-        });
-    });
-}
-*/
 
 function buildShowTable(){
     $('#linkTable').dataTable({
