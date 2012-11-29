@@ -123,7 +123,7 @@ public final class DBNames {
     public static final String ATT_ACCOUNT_CAPDOMICILIE = "DomicilioCap";
     public static final String ATT_ACCOUNT_CAPRESIDENCE = "ResidenzaCap";
     public static final String ATT_ACCOUNT_CELLULARNUMBER = "Cellulare";
-    public static final String ATT_ACCOUNT_CITIZENSHIP = "Cittadinaza";
+    public static final String ATT_ACCOUNT_CITIZENSHIP = "Cittadinanza";
     public static final String ATT_ACCOUNT_CONTRACTEXPIRATIONDATE = "DataScadenzaContratto";
     public static final String ATT_ACCOUNT_DATEOFBIRTH = "DataNascita";
     public static final String ATT_ACCOUNT_PROVINCEDOMICILE = "ProvinciaDomicilio";
@@ -149,8 +149,8 @@ public final class DBNames {
     public static final String ATT_ACCOUNT_TELEPHONENUMBER = "Telefono";
     public static final String ATT_ACCOUNT_TYPEACCOUNT = "TipologiaAccount";
     public static final String ATT_ACCOUNT_TYPEPARENT = "TipologiaGenitore";
-    public static final String ATT_ACCOUNT_VIADOMICILE = "DomicilioIndirizzo";
-    public static final String ATT_ACCOUNT_VIARESIDENCE = "ResidenzaIndirizzo";
+    public static final String ATT_ACCOUNT_ADDRESSDOMICILE = "DomicilioIndirizzo";
+    public static final String ATT_ACCOUNT_ADDRESSRESIDENCE = "ResidenzaIndirizzo";
     //Trainee activity's attributes
     public static final String ATT_TRAINEEACTIVITY_DATE = "Data";
     public static final String ATT_TRAINEEACTIVITY_NAME = "Nome";
