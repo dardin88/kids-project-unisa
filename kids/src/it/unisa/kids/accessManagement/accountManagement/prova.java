@@ -15,12 +15,13 @@ import java.sql.SQLException;
 public class prova {
     public static void main(String args[]) throws SQLException{
     Account account=new Account();
-    account.setId(1);
     account.setNameUser("gianmarco");
+    account.setId(1);
     IAccountManager accountManager =(IAccountManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACCOUNT);
     
     if(accountManager.update(account)!=null){
     System.out.println("modificato con successo");
+    System.out.println(account.getNameUser());
     }
     else{
     System.out.println("non inserito");
