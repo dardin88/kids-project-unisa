@@ -16,24 +16,24 @@ function buildAccountTable(){
             aoData.push(
             {
                 "name" : "name", 
-                "value" : $('#Nome').val()
+                "value" : $('#name').val()
                 },
 
                 {
                 "name" : "surname", 
-                "value" : $('#Cognome').val()
+                "value" : $('#surname').val()
                 },
                  {
                 "name" : "taxCode", 
-                "value" : $('#CodiceFiscale').val()
+                "value" : $('#taxCode').val()
                 },
                  {
                 "name" : "type", 
-                "value" : $('#TipoAccount').val()
+                "value" : $('#type').val()
                 },
                  {
                 "name" : "nickname", 
-                "value" : $('#NickName').val()
+                "value" : $('#nickname').val()
                 }
             );
      
@@ -47,8 +47,8 @@ function buildAccountTable(){
             "sProcessing":   "Caricamento...",
             "sLengthMenu":   "Visualizza _MENU_ link",
             "sZeroRecords":  "La ricerca non ha portato alcun risultato.",
-            "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Tirocinanti",
-            "sInfoEmpty":    "Vista da 0 a 0 di 0 Tirocinanti",
+            "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Account",
+            "sInfoEmpty":    "Vista da 0 a 0 di 0 Account",
             "sInfoFiltered": "(filtrati da _MAX_ link totali)",
             "sInfoPostFix":  "",
             "oPaginate": {
@@ -91,7 +91,7 @@ function removeAccount(id){
             "Annulla": function(){
                 $(this).dialog("close");
             },
-            "Elimina": function(){
+            "Conferma": function(){
                 $.post("DeleteAccount", {
             id:""+id
         });
@@ -107,6 +107,6 @@ function search(){
         
 }
 
-function loadInformationAccountPage(id){
+function showAccount(id){
     window.open("accountInformation.jsp?id="+id);
 }
