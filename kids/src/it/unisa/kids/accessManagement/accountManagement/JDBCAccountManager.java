@@ -53,6 +53,7 @@ public class JDBCAccountManager implements IAccountManager {
         String data1=null;
         String data2=null;
         String data3=null;
+        ResultSet rs=null;
        
         GregorianCalendar birthDate=pAccount.getDataOfBirth();
         GregorianCalendar expDate=pAccount.getContractExpirationDate();
@@ -75,7 +76,9 @@ public class JDBCAccountManager implements IAccountManager {
             while (true) {
                 nickname = pAccount.getNameUser() + pAccount.getSurnameUser();
                 query1 = "Select" + DBNames.ATT_ACCOUNT_NAME + "From" + DBNames.TABLE_ACCOUNT + "Where"+DBNames.ATT_ACCOUNT_NAME+"='" + pAccount.getNameUser() + "'";
-                if (query1 != null) {
+                rs=stmt.executeQuery(query1);
+                
+               if (rs.next()){
                     nickname = nickname + i;
                 } else {
                     break;
@@ -113,7 +116,8 @@ public class JDBCAccountManager implements IAccountManager {
             if(stmt!=null){
             stmt.close();
             }
-            DBConnectionPool.releaseConnection(con);
+                        DBConnectionPool.releaseConnection(con);
+
         }
 
 
