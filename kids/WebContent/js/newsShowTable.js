@@ -2,19 +2,20 @@ function initializeLinksManager(){
     $.ajaxSetup({
         cache: false
     });
-     $("#addLinkButton").button();    
-    /*   $("#addLinkWindow").dialog({
+    $("#addLinkButton").button();   
+    
+    $("#addLinkWindow").dialog({
         autoOpen: false,
         modal: true,
         resizable: false,
-        width: 400
-    });
+        width: 600
+    });/*
     $("#removeLinkWindow").dialog({
         autoOpen: false,
         modal: true,
         resizable: false,
         width: 400
-    });
+    });*/
     $.validator.setDefaults({
         highlight: function(input) {
             $(input).addClass("ui-state-highlight");
@@ -23,59 +24,79 @@ function initializeLinksManager(){
             $(input).removeClass("ui-state-highlight");
         }
     });
-    addNews(); */
-    buildShowTable();
+    addNews(); 
+    
 }
 
 function addNews(){
     $("#addLinkButton").click(function() {
-        //      showArtefacts($("#artefactTitolo"))
-        //    showArtefacts($("#artefactDescrizione"));
         $("#addLinkWindow").dialog("open");
         $("#addLinkButton2").button();
+        $("#addLinkButton3").button();
         $("#addLinkForm").validate({
             rules: {
-                artefactTitolo: {
+                nomeNews: {
                     required: true
                 },
-                artefactDescrizione: {
+                descrizioneNews: {
                     required: true
                 },
-                /*notEqual: true,
-                    remote: {
-                        url:"VerifyTraceabilityLinkExistence",
+                selectNews:{
+                    required:true,
+                  //  equalTo:!"0"
+                    remote:{
+                        url:"VerifyTypeNews",
                         type: "post",
-                        asyn: false,
-                        data: {
-                            artefact1: function(){
-                                var artefact1 = $("#artefact1").val();
-                                return artefact1;
-                            },
-                            artefact2: function(){
-                                var artefact2 = $("#artefact2").val();
-                                return artefact2;
+                        data:{
+                            valore:function(){
+                                var valoreSelect=$("#selectNews").val();
+                                return valoreSelect;
+                              //  var valoreOra=$("#selectNews").val();
+                              //  return valoreOra;
+                            }
+                          
+                        }
+                            
+                    }
+                   
+                },
+                dataNews:{
+                    required:true
+                }/*,
+                oraNews:{
+                    remote:{
+                        url:"VerifyTime",
+                        type: "post",
+                        data:{
+                            valore:function(){
+                                var valoreSelect=$("#selectNews").val();
+                                return valoreSelect;
                             }
                         }
                     }
-                },*/
-                artefactTipo:{
-                    required:true
-                }
+                }*/
             },
             messages: {
-                artefactTitolo: {
+                nomeNews: {
                     required: "Inserisci il titolo."
                 },
-                artefactDescrizione: {
-                    required: "Inserisci la descrizione.",
-                    remote: "Link già esistente."
+                descrizioneNews: {
+                    required: "Inserisci la descrizione."
                 },
-                artefactTipo:{
-                    required: "Devi selezionare il tipo di news."
+                selectNews:{
+                    required: "Non puoi selezionare il primo item.",
+                    remote: "Non puoi selezionare il primo item."
+                },
+                dataNews:{
+                    required:"Selezionare la data"
+                }/*,
+                oraNews:{
+                    remote:"Ora obbligatoria"
                 }
+               */ 
             },
             submitHandler: function() {
-                /* $.post("InsertNews", {
+                 $.post("InsertNews", {
                     artefactTitolo: $("#artefactTitolo").val(),
                     artefactDescrizione: $("#artefactDescrizione").val(),
                     artefactTipo: $("#artefactTipo").val(),
@@ -85,6 +106,7 @@ function addNews(){
 
                 });
                 $("#addLinkWindow").dialog("close"); 
+            //    alert(responseText);
                 var oTable = $("#linksTable").dataTable();
                 oTable.fnDraw();
                 $("#artefactTitolo").val("");
@@ -93,8 +115,6 @@ function addNews(){
                 $("#artefactData").val("");
                 $("#artefactOra").val("");
                 $("#artefactAllegato").val("");
-            */
-                form.submit();
             }
         });
     });
@@ -172,4 +192,8 @@ function buildShowTable(){
             $.post(sSource,aoData,fnCallback,"json");
         }
     });
+    var oTable = $("#linkTable").dataTable();
+    if (oTable.length > 0) {
+            $("#linkTable").css("width", "100%");
+    }
 }

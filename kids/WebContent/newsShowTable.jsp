@@ -31,52 +31,51 @@
             });
         </script>
     </head>
-    <%-- <div id="addLinkWindow" title="Inserisci News" style="display: inline">
+    <div id="addLinkWindow" title="Inserisci News" style="display: inline">
          <form id="addLinkForm" class="cmxform" method="post" action="">
              <fieldset>
                  <p class="formp">
-                     <label class="artefactLabel" for="artefactTitolo">Titolo</label>
-                     <input id="artefactTitolo" type="text" name="nomeNews" ></input>
+                     <label class="artefactLabel" for="artefactTitolo">Titolo *</label>
+                     <input id="artefactTitolo" style="display: block" type="text" name="nomeNews" ></input>                     
                  </p>
                  <p class="formp">
-                     <label class="artefactLabel" for="artefactDescrizione">Descrizione</label>
-                     <input id="artefactDescrizione" type="text" name="descrizioneNews"></input>
+                     <label class="artefactLabel" for="artefactDescrizione">Descrizione *</label>
+                     <input id="artefactDescrizione" style="display:block;" type="text" name="descrizioneNews"></input>
                  </p>
                  <p class="formp">
-                      <label class="artefactLabel" for="artefactTipo">Tipo</label>
-                  <select id="artefactTipo" name="artefactTipo" class="artefactSelect">
-                      <option value="">Evento</option>
-                      <option vale="">Notizia</option>
-                  </select>
+                      <label class="artefactLabel" for="artefactTipo">Tipo *</label>
+                      <select id="artefactTipo"style=" display:block;" name="selectNews" class="artefactSelect">
+                        <option value="0">Scegli tipo News</option>
+                        <option value="1">Evento</option>
+                        <option value="2">Notizia</option>
+                        <option value="3">Apertura Mensa</option>
+                        <option value="4">Chiusura Mensa</option>
+                      </select>
                  </p>
                   <p class="formp">
-                     <label class="artefactLabel" for="artefactData">Data</label>
-                     <input id="artefactData" type="date" name="dataNews"></input>
+                     <label class="artefactLabel" for="artefactData">Data *</label>
+                     <input id="artefactData" style="display:block;" type="date" name="dataNews"></input>
                  </p>
                   <p class="formp">
                      <label class="artefactLabel" for="artefactOra">Ora</label>
-                     <input id="artefactOra" type="time" name="oraNews"></input>
+                     <input id="artefactOra" style="display:block;" type="time" name="oraNews"></input>
                  </p>
                   <p class="formp">
                      <label class="artefactLabel" for="artefactAllegato">Allegato(Può essere anche vuoto)</label>
-                     <input id="artefactAllegato" type="text" name="allegatoNews"></input>
-                 </p>
-                 
-                 
-                 
-                 <input type="submit" class="windowButton" class="submit" id="addLinkButton2" value="Ok"/>
-                 
+                     <input id="artefactAllegato"  type="text" name="allegatoNews"></input>
+                     <input type="button"  id="addLinkButton2" value="Scegli il file" name="scegliFile"></input>
+                 </p>                      
+                 <input type="submit" class="windowButton" id="addLinkButton3" value="Ok"/>                 
              </fieldset>
          </form>
-</div> --%>
+    </div> 
     <body>
-        <%@include file="headerNews.jsp" %>
+        <%@include file="header.jsp" %>
             <div id="linksManagement">
                 <h1 style="font-size: 35px;text-align: center;"> Lista News </h1>
                 <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}" >
-                    <form name="insertNews" method="post" action="newsInsertNews.jsp" >
-                        <input type="submit" id="addLinkButton" value="Inserisci News" />
-                    </form>
+                    <%--     <form name="insertNews" method="post" action="newsInsertNews.jsp" > --%>
+                        <input type="button" id="addLinkButton" value="Inserisci News" />               
                 </c:if>
                 <table id="linkTable" style="width:95%;">
                     <thead>
