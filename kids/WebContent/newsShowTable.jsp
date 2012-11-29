@@ -69,6 +69,12 @@
              </fieldset>
          </form>
     </div> 
+    <div id="removeNewsWindow" title="Rimuovi News" style="display: inline">
+            <h3> Vuoi rimuovere definitivamente questa news?</h3>
+            <input type="button" class="windowButton" id="removeNewsButton" value="Ok" />
+            <input type="button" class="windowButton" id="notRemoveNewsButton" value="Annulla" />
+        
+    </div>
     <body>
         <%@include file="header.jsp" %>
             <div id="linksManagement">

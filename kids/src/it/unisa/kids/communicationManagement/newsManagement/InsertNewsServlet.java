@@ -4,6 +4,7 @@
  */
 package it.unisa.kids.communicationManagement.newsManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -17,6 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -24,6 +26,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class InsertNewsServlet extends HttpServlet {
     private PrintWriter out;
+    private static int count=0;
+
   
 
     /**
@@ -66,14 +70,17 @@ public class InsertNewsServlet extends HttpServlet {
                 }
             }
             String data=request.getParameter("artefactData");
-            System.out.print(data);
             String[] temp=data.split("-");
          //   Date d=new Date(Integer.parseInt(temp[0]),Integer.parseInt(temp[1]),Integer.parseInt(temp[2]));
             
             GregorianCalendar dataFinale=new GregorianCalendar(Integer.parseInt(temp[0]),Integer.parseInt(temp[1])-1,Integer.parseInt(temp[2]));
             n.setDate(dataFinale);
-            System.out.print(dataFinale.get(Calendar.YEAR)+" "+dataFinale.get(Calendar.MONTH)+" "+dataFinale.get(Calendar.DAY_OF_MONTH));
+          //  System.out.print(dataFinale.get(Calendar.YEAR)+" "+dataFinale.get(Calendar.MONTH)+" "+dataFinale.get(Calendar.DAY_OF_MONTH));
             
+            HttpSession s = request.getSession();
+            Account account =  (Account) s.getAttribute("user");
+            int idDelegato=account.getId();
+            n.setDelegate(idDelegato);
             String time=request.getParameter("artefactOra");
             String[] a = time.split(":");
             if (time.length()>=4) {
@@ -83,6 +90,7 @@ public class InsertNewsServlet extends HttpServlet {
                 Time t = new Time(0, 0, 0);
                 n.setTime(t);
             }
+            n.setId(++count);
             mn.insert(n);
             out.print("News Inserita con successo!");
         } catch (SQLException ex) {
