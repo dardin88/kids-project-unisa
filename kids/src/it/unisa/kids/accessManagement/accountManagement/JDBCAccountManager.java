@@ -107,14 +107,18 @@ public class JDBCAccountManager implements IAccountManager {
 
             stmt = con.createStatement();
             stmt.executeUpdate(query2);
+            con.commit();
+            return pAccount;
         } finally {
+            if(stmt!=null){
             stmt.close();
+            }
             DBConnectionPool.releaseConnection(con);
         }
 
 
 
-        return pAccount;
+        
     }
 
     public Account update(Account pChangedAccount) throws SQLException {

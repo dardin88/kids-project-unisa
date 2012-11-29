@@ -13,11 +13,10 @@ import java.sql.SQLException;
  * @author Gianmarco
  */
 public class prova {
-    public static void main() throws SQLException{
+    public static void main(String args[]) throws SQLException{
     Account account=new Account();
     account.setId(5);
-    RefinedAbstractManager refinedAbstractAccountManager = null;
-    IAccountManager accountManager = (IAccountManager) refinedAbstractAccountManager.getManagerImplementor(DBNames.TABLE_ACCOUNT);
+    IAccountManager accountManager =(IAccountManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACCOUNT);
     
     if(accountManager.insert(account)!=null){
     System.out.println("inserito con successo");
