@@ -52,16 +52,16 @@ public class JDBCAccountManager implements IAccountManager {
         String nickname = null;
         String query1 = null;
         String query2 = null;
-        //String data1=null;
-        //String data2=null;
-        //String data3=null;
+        String data1=null;
+        String data2=null;
+        String data3=null;
         ResultSet rs=null;
         
         GregorianCalendar birthDate=pAccount.getDataOfBirth();
         GregorianCalendar expDate=pAccount.getContractExpirationDate();
         GregorianCalendar regDate=pAccount.getRegistrationDate();
         
-        /*if(birthDate!=null){
+        if(birthDate!=null){
            data1= ""+birthDate.YEAR+"-"+birthDate.MONTH+"-"+birthDate.DAY_OF_MONTH;
         }
         if(expDate!=null){
@@ -69,8 +69,8 @@ public class JDBCAccountManager implements IAccountManager {
         }
         if(regDate!=null){
            data1= ""+regDate.YEAR+"-"+regDate.MONTH+"-"+regDate.DAY_OF_MONTH;
-        }*/
-        Date data3;
+        }
+     /*   Date data3;
         Date data2;
         Date data1;
         if(birthDate!=null){
@@ -82,7 +82,7 @@ public class JDBCAccountManager implements IAccountManager {
         data2=null;
         data3=null;
         }
-        
+       */ 
         int i = 2;
         try {
             
@@ -132,14 +132,14 @@ public class JDBCAccountManager implements IAccountManager {
                     + "," + DBNames.ATT_ACCOUNT_TYPEPARENT + 
                     "," + DBNames.ATT_ACCOUNT_QUALIFICATION + 
                     "," + DBNames.ATT_ACCOUNT_ADDRESSDOMICILE
-                    + "," + DBNames.ATT_ACCOUNT_ADDRESSRESIDENCE +") values ('" + pAccount.getNameUser() + "','"+null
-                    + "','" + pAccount.getCapDomicile() + "','" + pAccount.getCapResidence() + "','" + pAccount.getCellularNumber()
+                    + "," + DBNames.ATT_ACCOUNT_ADDRESSRESIDENCE +") values ('" + pAccount.getNameUser() + "',"+data3
+                    + ",'" + pAccount.getCapDomicile() + "','" + pAccount.getCapResidence() + "','" + pAccount.getCellularNumber()
                     + "','" + pAccount.getCitizenship() + "','" + pAccount.getTaxCode() + "','" + pAccount.getSurnameUser()
-                    + "','" + pAccount.getMunicipalityResidence() + "','" + data1 + "','" + data2
-                    + "','" + pAccount.getEmail() + "','" + pAccount.getFaculty() + "','" + pAccount.getFax() + "','" + pAccount.getPlaceOfBirth()
+                    + "','" + pAccount.getMunicipalityResidence() + "'," + data1 + "," + data2
+                    + ",'" + pAccount.getEmail() + "','" + pAccount.getFaculty() + "','" + pAccount.getFax() + "','" + pAccount.getPlaceOfBirth()
                     + "','" + nickname + "','" + pAccount.getNameUser()
-                    + "','" + pAccount.getPassword() + "','" + pAccount.getProvinceDomicile() + "','" + pAccount.getProvinceResidence() + "','" + pAccount.getIncome()
-                    + "','" + pAccount.getMunicipalityDomicile() + "','" + pAccount.getFamilySituation() + "','" + pAccount.getTelephoneNumber() + "','" + pAccount.getAccountType()
+                    + "','" + pAccount.getPassword() + "','" + pAccount.getProvinceDomicile() + "','" + pAccount.getProvinceResidence() + "'," + pAccount.getIncome()
+                    + ",'" + pAccount.getMunicipalityDomicile() + "','" + pAccount.getFamilySituation() + "','" + pAccount.getTelephoneNumber() + "','" + pAccount.getAccountType()
                     + "','" + pAccount.getQualification() + "','" + pAccount.getViaDomicile() + "','" + pAccount.getViaResidence() + "')";
 
             stmt = con.createStatement();
