@@ -39,6 +39,15 @@ public class Account {
 	private GregorianCalendar registrationDate;
         private String typeParent;
         private String matricola;
+        private String typeAccount;
+
+    public String getTypeAccount() {
+        return typeAccount;
+    }
+
+    public void setTypeAccount(String typeAccount) {
+        this.typeAccount = typeAccount;
+    }
       
 
     public String getMatricola() {

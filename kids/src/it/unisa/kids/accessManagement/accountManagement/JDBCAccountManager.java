@@ -62,13 +62,13 @@ public class JDBCAccountManager implements IAccountManager {
         GregorianCalendar regDate=pAccount.getRegistrationDate();
         
         if(birthDate!=null){
-           data1= ""+birthDate.YEAR+"-"+birthDate.MONTH+"-"+birthDate.DAY_OF_MONTH;
+           data1= makeSQLDateString(birthDate);
         }
         if(expDate!=null){
-           data1= ""+expDate.YEAR+"-"+expDate.MONTH+"-"+expDate.DAY_OF_MONTH;
+           data1= makeSQLDateString(expDate);
         }
         if(regDate!=null){
-           data1= ""+regDate.YEAR+"-"+regDate.MONTH+"-"+regDate.DAY_OF_MONTH;
+           data1= makeSQLDateString(regDate);
         }
      /*   Date data3;
         Date data2;
@@ -137,10 +137,10 @@ public class JDBCAccountManager implements IAccountManager {
                     + "','" + pAccount.getCitizenship() + "','" + pAccount.getTaxCode() + "','" + pAccount.getSurnameUser()
                     + "','" + pAccount.getMunicipalityResidence() + "'," + data1 + "," + data2
                     + ",'" + pAccount.getEmail() + "','" + pAccount.getFaculty() + "','" + pAccount.getFax() + "','" + pAccount.getPlaceOfBirth()
-                    + "','" + nickname + "','" + pAccount.getNameUser()
-                    + "','" + pAccount.getPassword() + "','" + pAccount.getProvinceDomicile() + "','" + pAccount.getProvinceResidence() + "'," + pAccount.getIncome()
-                    + ",'" + pAccount.getMunicipalityDomicile() + "','" + pAccount.getFamilySituation() + "','" + pAccount.getTelephoneNumber() + "','" + pAccount.getAccountType()
-                    + "','" + pAccount.getQualification() + "','" + pAccount.getViaDomicile() + "','" + pAccount.getViaResidence() + "')";
+                    + "','" + nickname + "','" + password 
+                    + "','" + pAccount.getProvinceDomicile() + "','" + pAccount.getProvinceResidence() + "'," + pAccount.getIncome()
+                    + ",'" + pAccount.getMunicipalityDomicile() + "','" + pAccount.getFamilySituation() + "','" + pAccount.getTelephoneNumber() + "'," + pAccount.getTypeAccount()+","+ pAccount.getTypeParent()
+                    + ",'" + pAccount.getQualification() + "','" + pAccount.getViaDomicile() + "','" + pAccount.getViaResidence() + "')";
 
             stmt = con.createStatement();
             stmt.executeUpdate(query2);
@@ -619,10 +619,12 @@ public class JDBCAccountManager implements IAccountManager {
         // TODO Auto-generated method stub
         return null;
     }
+    
+    private String makeSQLDateString(GregorianCalendar d) {
+    if (d == null)
+        return "null";
+    else
+        return "'" + d.get(GregorianCalendar.YEAR) + "-" + (d.get(GregorianCalendar.MONTH) + 1) + "-" + d.get(GregorianCalendar.DAY_OF_MONTH) + "'";
 
-    
-    
-
-    
-    
+    }
 }
