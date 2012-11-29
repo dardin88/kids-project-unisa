@@ -74,7 +74,7 @@ public class JDBCAccountManager implements IAccountManager {
             /*generation of nickname */
             while (true) {
                 nickname = pAccount.getNameUser() + pAccount.getSurnameUser();
-                query1 = "Select" + DBNames.ATT_ACCOUNT_NAME + "From" + DBNames.TABLE_ACCOUNT + "Where nameUser='" + pAccount.getNameUser() + "'";
+                query1 = "Select" + DBNames.ATT_ACCOUNT_NAME + "From" + DBNames.TABLE_ACCOUNT + "Where"+DBNames.ATT_ACCOUNT_NAME+"='" + pAccount.getNameUser() + "'";
                 if (query1 != null) {
                     nickname = nickname + i;
                 } else {

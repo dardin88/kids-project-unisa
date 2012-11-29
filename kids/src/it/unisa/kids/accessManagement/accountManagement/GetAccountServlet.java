@@ -30,7 +30,7 @@ public class GetAccountServlet extends HttpServlet {
       private IAccountManager accountManager;
 
      public void init(ServletConfig config) {
-        RefinedAbstractManager refinedAbstractAccountManager = new RefinedAbstractManager();
+        RefinedAbstractManager refinedAbstractAccountManager=null;
         accountManager = (IAccountManager) refinedAbstractAccountManager.getManagerImplementor(DBNames.TABLE_ACCOUNT);
     }
 
