@@ -65,10 +65,10 @@ public class JDBCAccountManager implements IAccountManager {
            data1= makeSQLDateString(birthDate);
         }
         if(expDate!=null){
-           data1= makeSQLDateString(expDate);
+           data3= makeSQLDateString(expDate);
         }
         if(regDate!=null){
-           data1= makeSQLDateString(regDate);
+           data2= makeSQLDateString(regDate);
         }
      /*   Date data3;
         Date data2;
@@ -139,7 +139,7 @@ public class JDBCAccountManager implements IAccountManager {
                     + ",'" + pAccount.getEmail() + "','" + pAccount.getFaculty() + "','" + pAccount.getFax() + "','" + pAccount.getPlaceOfBirth()
                     + "','" + nickname + "','" + password 
                     + "','" + pAccount.getProvinceDomicile() + "','" + pAccount.getProvinceResidence() + "'," + pAccount.getIncome()
-                    + ",'" + pAccount.getMunicipalityDomicile() + "','" + pAccount.getFamilySituation() + "','" + pAccount.getTelephoneNumber() + "'," + pAccount.getTypeAccount()+","+ pAccount.getTypeParent()
+                    + ",'" + pAccount.getMunicipalityDomicile() + "','" + pAccount.getFamilySituation() + "','" + pAccount.getTelephoneNumber() + "'," + pAccount.getAccountType()+","+ pAccount.getTypeParent()
                     + ",'" + pAccount.getQualification() + "','" + pAccount.getViaDomicile() + "','" + pAccount.getViaResidence() + "')";
 
             stmt = con.createStatement();
@@ -174,16 +174,16 @@ public class JDBCAccountManager implements IAccountManager {
            data1= makeSQLDateString(birthDate);
         }
         if(expDate!=null){
-           data1= makeSQLDateString(expDate);
+           data2= makeSQLDateString(expDate);
         }
         if(regDate!=null){
-           data1= makeSQLDateString(regDate);
+           data3= makeSQLDateString(regDate);
         }
         
         try {
             con = DBConnectionPool.getConnection();
             String query = "Update "+DBNames.TABLE_ACCOUNT
-                    + "SET " + DBNames.ATT_ACCOUNT_REGISTRATIONDATE + "=" + data3 + "," 
+                    + " SET " + DBNames.ATT_ACCOUNT_REGISTRATIONDATE + "=" + data3 + "," 
                     + DBNames.ATT_ACCOUNT_CAPDOMICILIE + "='" + pChangedAccount.getCapDomicile() + "',"
                     + DBNames.ATT_ACCOUNT_CAPRESIDENCE + "='" + pChangedAccount.getCapResidence() + "'," 
                     + DBNames.ATT_ACCOUNT_CELLULARNUMBER + "='" + pChangedAccount.getCellularNumber() + "'," 
@@ -211,7 +211,7 @@ public class JDBCAccountManager implements IAccountManager {
                     + DBNames.ATT_ACCOUNT_ADDRESSDOMICILE + "='" + pChangedAccount.getViaDomicile() + "'," 
                     + DBNames.ATT_ACCOUNT_ADDRESSRESIDENCE + "='" + pChangedAccount.getViaResidence()+"',"
                     + DBNames.ATT_ACCOUNT_TYPEPARENT+"="+pChangedAccount.getTypeParent()
-                    + "WHERE " + DBNames.ATT_ACCOUNT_ID + "=" + pChangedAccount.getId();
+                    + " WHERE " + DBNames.ATT_ACCOUNT_ID + "=" + pChangedAccount.getId();
 
             stmt = con.createStatement();
             stmt.executeUpdate(query);
