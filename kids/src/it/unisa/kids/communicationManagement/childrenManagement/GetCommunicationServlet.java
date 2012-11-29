@@ -52,7 +52,7 @@ public class GetCommunicationServlet extends HttpServlet {
             String sAmount = request.getParameter("sAmount");
             String sEcho = request.getParameter("sEcho");
             if (sStart != null) {
-    start = Integer.parseInt(sStart);
+                start = Integer.parseInt(sStart);
                 if (start < 0) {
                     start = 0;
                 }
@@ -63,7 +63,7 @@ public class GetCommunicationServlet extends HttpServlet {
                     amount = 10;
                 }
             }
-        HttpSession s = request.getSession();
+            HttpSession s = request.getSession();
             Account account =  (Account) s.getAttribute("user");
             String nomeUtente=account.getAccountType();
             String searchTerm = "";
@@ -72,7 +72,7 @@ public class GetCommunicationServlet extends HttpServlet {
             int linksNumber = listCommunication.size();
             if (linksNumber < amount) {
                 amount = linksNumber;
-          }
+            }
             if (linksNumber != 0) {
                 int toShow = linksNumber - start;
                 if (toShow > 10) {
@@ -85,14 +85,14 @@ public class GetCommunicationServlet extends HttpServlet {
                 for (Communication a : paginateCommunicationSet) {
                     JSONArray ja = new JSONArray();
                     ja.put(a.getType());
-                     ja.put(a.getIdEducator());
-                      ja.put(a.getIdChild());
+                    ja.put(a.getIdEducator());
+                    ja.put(a.getIdChild());
                     ja.put(a.getDescription());
                     int day = a.getDate().get(Calendar.DAY_OF_MONTH);
                     int month = a.getDate().get(Calendar.MONTH);
                     int year = a.getDate().get(Calendar.YEAR);
                     ja.put(year + "-" + month + "-" + day);
-                     ja.put(a.getSolved());
+                    ja.put(a.getSolved());
                     if(nomeUtente.equals("Educatore"))
                     {
                      String operazioni = "<input class='tableImage' type='image' src='img/trash.png' />"+"<input class='tableImage' height='20px' type='image' src='img/lente.gif' />";
@@ -109,8 +109,7 @@ public class GetCommunicationServlet extends HttpServlet {
             result.put("iTotalDisplayRecords", linksNumber);
             result.put("aaData", array);
             response.setContentType("application/json");
-            response.setHeader("Cache-Control",
-                    "private, no-store, no-cache, must-revalidate");
+            response.setHeader("Cache-Control","private, no-store, no-cache, must-revalidate");
             response.setHeader("Pragma", "no-cache");
             out.println(result);
         } catch (Exception ex) {
