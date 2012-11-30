@@ -4,6 +4,7 @@ public final class DBNames {
 
     private DBNames() {
     }
+    public static final String TABLE_TRAINEE="tirocinante";
     public static final String TABLE_TRAINEECONVOCATION="convocazione";
     public static final String TABLE_TRAINEEREQUEST = "richiesta_tirocinanti";
     public static final String TABLE_TRAINEEACTIVITY = "attivita_tirocinante";
