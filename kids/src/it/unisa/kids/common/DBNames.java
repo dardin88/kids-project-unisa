@@ -120,6 +120,7 @@ public final class DBNames {
     public static final String ATT_TRAINEE_TELEPHONENUMBER = "NumeroTelefonico";
     public static final String ATT_TRAINEE_DELEGATEACCOUNT = "AccountDelegato";
     //Account's attributes
+    public static final String ATT_ACCOUNT_REGISTER = "Matricola";
     public static final String ATT_ACCOUNT_CAPDOMICILIE = "DomicilioCap";
     public static final String ATT_ACCOUNT_CAPRESIDENCE = "ResidenzaCap";
     public static final String ATT_ACCOUNT_CELLULARNUMBER = "Cellulare";
@@ -151,6 +152,8 @@ public final class DBNames {
     public static final String ATT_ACCOUNT_TYPEPARENT = "TipologiaGenitore";
     public static final String ATT_ACCOUNT_ADDRESSDOMICILE = "DomicilioIndirizzo";
     public static final String ATT_ACCOUNT_ADDRESSRESIDENCE = "ResidenzaIndirizzo";
+    public static final String ATT_ACCOUNT_STATE = "Stato";
+
     //Trainee activity's attributes
     public static final String ATT_TRAINEEACTIVITY_DATE = "Data";
     public static final String ATT_TRAINEEACTIVITY_NAME = "Nome";
