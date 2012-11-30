@@ -25,7 +25,7 @@ public class RefinedAbstractManager extends AbstractManager<IManager> {
     public IManager getManagerImplementor(String pManagerType) {
         if (pManagerType.equals(DBNames.TABLE_PAYMENT)) {
             this.imp = JDBCPaymentManager.getInstance();
-        } else if (pManagerType.equals(DBNames.TABLE_TRAINEEACTIVITY)) {
+        } else if (pManagerType.equals(DBNames.TABLE_TRAINEE)) {
             this.imp = JDBCTrainingManager.getInstance();
         } else if (pManagerType.equals(DBNames.TABLE_NEWS)) {
             this.imp = JDBCNewsManager.getInstance();

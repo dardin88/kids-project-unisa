@@ -4,6 +4,9 @@
  */
 package it.unisa.kids.serviceManagement.trainingManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,6 +14,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -30,8 +34,8 @@ public class GetTraineesServletTable extends HttpServlet {
     private ITrainingManager trainingManager;
 
     public void init(ServletConfig config) {
-        RefinedAbstractTrainingManager refinedAbstractTrainingManager = new RefinedAbstractTrainingManager();
-        trainingManager = refinedAbstractTrainingManager.getManagerImplementor();
+        RefinedAbstractManager refinedAbstractTrainingManager = RefinedAbstractManager.getInstance();
+        trainingManager = (ITrainingManager) refinedAbstractTrainingManager.getManagerImplementor(DBNames.TABLE_TRAINEE);
     }
 
     /**
@@ -48,8 +52,8 @@ public class GetTraineesServletTable extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        Trainee[] paginateTraineeSet;
-        ArrayList<Trainee> listTrainee;
+        Account[] paginateTraineeSet;
+        List<Account> listTrainee;
         try {
             out = response.getWriter();
             JSONObject result = new JSONObject();
@@ -72,21 +76,21 @@ public class GetTraineesServletTable extends HttpServlet {
                 }
             }
             if (!request.getParameter("Nome").equals("") && request.getParameter("Cognome").equals("")) {
-                Trainee t = new Trainee();
-                t.setName(request.getParameter("Nome"));
+                Account t = new Account();
+                t.setNameUser(request.getParameter("Nome"));
                 listTrainee = trainingManager.search(t);
             } else if (request.getParameter("Nome").equals("") && !request.getParameter("Cognome").equals("")) {
-                Trainee t = new Trainee();
-                t.setSurname(request.getParameter("Cognome"));
+                Account t = new Account();
+                t.setSurnameUser(request.getParameter("Cognome"));
                 listTrainee = trainingManager.search(t);
             } else if (!request.getParameter("Nome").equals("") && !request.getParameter("Cognome").equals("")) {
-                Trainee t = new Trainee();
-                t.setSurname(request.getParameter("Cognome"));
-                t.setName(request.getParameter("Nome"));
+                Account t = new Account();
+                t.setSurnameUser(request.getParameter("Cognome"));
+                t.setNameUser(request.getParameter("Nome"));
 
                 listTrainee = trainingManager.search(t);
             } else {
-                listTrainee = trainingManager.search();
+                listTrainee = trainingManager.getTraineeList();
 
             }
 
@@ -97,19 +101,20 @@ public class GetTraineesServletTable extends HttpServlet {
             if (linksNumber != 0) {
                 int toShow = linksNumber - start;
                 if (toShow > 10) {
-                    paginateTraineeSet = new Trainee[amount];
+                    paginateTraineeSet = new Account[amount];
                     System.arraycopy(listTrainee.toArray(), start, paginateTraineeSet, 0, amount);
                 } else {
-                    paginateTraineeSet = new Trainee[toShow];
+                    paginateTraineeSet = new Account[toShow];
                     System.arraycopy(listTrainee.toArray(), start, paginateTraineeSet, 0, toShow);
                 }
-                for (Trainee trainee : paginateTraineeSet) {
+                for (Account trainee : paginateTraineeSet) {
                     
                     JSONArray ja = new JSONArray();
                     ja.put(trainee.getRegister());
-                    ja.put(trainee.getName());
-                    ja.put(trainee.getSurname());
-                    String operazioni = "<input class='tableImage' type='image' src='img/trash.png' onclick='removeTrainee(\"" + trainee.getRegister() + "\")'/><input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/zoo.png' onclick='loadInformationTraineePage(\""+trainee.getRegister()+"\")'/>";
+                    ja.put(trainee.getNameUser());
+                    ja.put(trainee.getSurnameUser());
+                    ja.put(trainee.getState());
+                   String operazioni = "<input class='tableImage' type='image' src='img/trash.png' onclick='removeTrainee(\"" + trainee.getId() + "\")'/><input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/zoo.png' onclick='loadInformationTraineePage(\""+trainee.getId()+"\")'/>";
                     ja.put(operazioni);
                     array.put(ja);
                 }

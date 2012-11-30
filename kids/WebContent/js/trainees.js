@@ -22,6 +22,13 @@ function initializeLinksManager(){
         width:400
     });
     $("#saveButton").button();
+    $("#informationTraineeWindow").dialog({
+        autoOpen:false,
+        modal:true,
+        resizable:false,
+        width:400
+    });
+    $("#modifyButton").button();
    
     
 }
@@ -30,7 +37,7 @@ function buildTraineeTable(){
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": "",
+        "sAjaxSource": "GetTraineesTable",
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
@@ -95,14 +102,14 @@ function buildTraineeTable(){
     });
 }
 
-function removeTrainee(register){
+function removeTrainee(id){
     $("#removeTraineeWindow").dialog({
         autoOpen:true
     }); 
     $("#confirmRemoveLinkButton").button();
     $("#confirmRemoveLinkButton").click(function(){
         $.post("RemoveTrainee", {
-            traineeRegister:""+register
+            traineeId:""+id
         });
         $("#removeTraineeWindow").dialog("close"); 
         var oTable = $("#traineesTable").dataTable();
@@ -118,11 +125,66 @@ function search(){
     oTable.fnDraw();
         
 }
-function loadInformationTraineePage(register){
-    window.open("traineeInformation.jsp?matricola="+register);
+function loadInformationTraineePage(id){
+        $("#informationTraineeWindow").dialog("open");
+        $.post("GeTrainees", {
+            traineeId:""+id
+        });
+
 }
 
 function openInsertTraineeDialog(){
     $("#insertTraineeWindow").dialog("open");
 
 }
+function messageDialog(){
+    $("#confirm").dialog({
+        autoOpen: true,
+        modal: true,
+        resizable: false,
+        width: 400
+    });
+    $("#confirmButton").button();
+};
+
+function modify(){
+    document.getElementById("modifyButton").value="Salva";
+    document.getElementById("modifyButton").onclick="ModifyTrainee";
+    document.getElementById("Matricola").readOnly=false;
+    document.getElementById("Nome").readOnly=false;
+    document.getElementById("Cognome").readOnly=false;
+    document.getElementById("DataNascita").readOnly=false;
+    document.getElementById("CittaNascita").readOnly=false;
+    documnet.getElementById("CittaResidenza").readOnly=false;
+    document.getElementById("Indirizzo").readOnly=false;
+    document.getElementById("CAP").readOnly=false;
+    document.getElementById("NumeroTelefonico").readOnly=false;
+    document.getElementById("Email").readOnly=false;
+    document.getElementById("TitoloStudio").readOnly=false;
+}
+
+
+$(document).ready(function(){
+    $("#information").validate({
+        rules:
+        {
+            
+            DataNascita:{
+                date:true
+            },
+            
+            Email:{
+                email:true
+            }
+        },
+        messages:{
+            
+            DataNascita:" Inserisci la data di nascita nel formato corretto(gg/MM/AAAA)",
+           
+            Email:" Inserisci l'email nel formato corretto"
+        },
+        submitHandler:function(form){
+            form.submit();
+        }
+    });
+});

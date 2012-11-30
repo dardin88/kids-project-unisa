@@ -1,9 +1,10 @@
 package it.unisa.kids.serviceManagement.trainingManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
-import it.unisa.kids.common.AccessFacade;
 import it.unisa.kids.common.DBNames;
-import it.unisa.kids.common.IAccessFacade;
+import it.unisa.kids.common.RefinedAbstractManager;
+import it.unisa.kids.common.facade.AccessFacade;
+import it.unisa.kids.common.facade.IAccessFacade;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 import java.sql.Connection;
 import java.util.*;
@@ -15,6 +16,7 @@ import java.sql.Statement;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class JDBCTrainingManager implements ITrainingManager {
@@ -479,4 +481,6 @@ public class JDBCTrainingManager implements ITrainingManager {
         }
         return convocationList;
     }
+    
+    
 }
