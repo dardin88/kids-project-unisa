@@ -162,7 +162,7 @@ public class JDBCAccountManager implements IAccountManager {
         try {
             con = DBConnectionPool.getConnection();
             String query = "Update " + DBNames.TABLE_ACCOUNT
-                    + " SET " + DBNames.ATT_ACCOUNT_REGISTRATIONDATE + "=" + data3 + ","
+                    + " SET " +DBNames.ATT_ACCOUNT_REGISTRATIONDATE + "=" + data3 + ","
                     + DBNames.ATT_ACCOUNT_CAPDOMICILIE + "=" + makeString(pChangedAccount.getCapDomicile()) + ","
                     + DBNames.ATT_ACCOUNT_CAPRESIDENCE + "=" + makeString(pChangedAccount.getCapResidence()) + ","
                     + DBNames.ATT_ACCOUNT_CELLULARNUMBER + "=" + makeString(pChangedAccount.getCellularNumber()) + ","
@@ -212,9 +212,10 @@ public class JDBCAccountManager implements IAccountManager {
         Statement stmt = null;
         try {
             con = DBConnectionPool.getConnection();
-            String query = "Delete From " + DBNames.TABLE_ACCOUNT + " Where " + DBNames.ATT_ACCOUNT_ID + "='" + pDeletedAccount.getId() + "'";
+            String query = "Delete From " + DBNames.TABLE_ACCOUNT + " Where " + DBNames.ATT_ACCOUNT_ID + "=" + pDeletedAccount.getId() + "";
             stmt = con.createStatement();
             stmt.executeUpdate(query);
+            con.commit();
 
         } finally {
             stmt.close();
