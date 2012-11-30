@@ -41,10 +41,12 @@
         </c:if>
         <c:if test="${sessionScope.user.getAccountType()=='Genitore'}">  
 
-            <div class="div"><li id="meetingCalendarMenuEL"><a href="meetingCalendar.jsp">Gestione Riunioni</a></li></div>
-            <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
-            <li id="healthCommunicationTable"><a href="healthCommunicationTable.jsp">Gestione Bambini - Comunicazioni Salute</a></li>
-            <li id="needCommunicationTable"><a href="needCommunicationTable.jsp">Gestione Bambini - Comunicazioni Bisogni</a></li>
+            <div class="div">
+                <li id="meetingCalendarMenuEL"><a href="meetingCalendar.jsp">Gestione Riunioni</a></li>
+                <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
+                <li id="healthCommunicationTable"><a href="healthCommunicationTable.jsp">Gestione Bambini - Comunicazioni Salute</a></li>
+                <li id="needCommunicationTable"><a href="needCommunicationTable.jsp">Gestione Bambini - Comunicazioni Bisogni</a></li>
+            </div>
         </c:if>
         <c:if test="${sessionScope.user.getAccountType()=='Educatrice'}">  
             <li id="healthCommunicationTable"><a href="healthCommunicationTable.jsp">Gestione Bambini - Comunicazioni Salute</a></li>
