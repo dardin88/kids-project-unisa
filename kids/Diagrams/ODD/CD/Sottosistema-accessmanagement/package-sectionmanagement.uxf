@@ -4,40 +4,39 @@
   <element>
     <type>com.umlet.element.Package</type>
     <coordinates>
-      <x>20</x>
-      <y>20</y>
-      <w>820</w>
-      <h>460</h>
+      <x>60</x>
+      <y>40</y>
+      <w>730</w>
+      <h>580</h>
     </coordinates>
-    <panel_attributes>ClassManagement</panel_attributes>
+    <panel_attributes>SectionManagement</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>470</x>
-      <y>280</y>
+      <x>100</x>
+      <y>450</y>
       <w>310</w>
       <h>160</h>
     </coordinates>
-    <panel_attributes>JDBCClassManager
+    <panel_attributes>JDBCSectionManager
 --
-- manager: JDBCClassManager
+- manager: JDBCSectionManager
 --
-- JDBCClassManager()
-+ getInstance() : JDBCClassManager
-+ create(Class) : Class
-+ modify(Class) : Class
-+ delete(Class) : Class
-+ search(Class) : List&lt;Class&gt;
-</panel_attributes>
+- JDBCSectionManager()
++ getInstance() : JDBCSectionManager
++ create(BeanSection) : BeanSection
++ modify(BeanSection) : BeanSection
++ delete(BeanSection) : BeanSection
++ search(BeanSection) : List&lt;BeanSection&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>750</x>
-      <y>300</y>
+      <x>380</x>
+      <y>470</y>
       <w>80</w>
       <h>110</h>
     </coordinates>
@@ -47,27 +46,27 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>470</x>
-      <y>80</y>
+      <x>100</x>
+      <y>250</y>
       <w>300</w>
       <h>140</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
-IClassManager
+ISectionManager
 --
  
 --
-+ create(Class) : Class
-+ modify(Class) : Class
-+ delete(Class) : Class
-+ search(Class) : List&lt;Class&gt;</panel_attributes>
++ create(BeanSection) : BeanSection
++ modify(BeanSection) : BeanSection
++ delete(BeanSection) : BeanSection
++ search(BeanSection) : List&lt;BeanSection&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>570</x>
-      <y>190</y>
+      <x>230</x>
+      <y>360</y>
       <w>50</w>
       <h>110</h>
     </coordinates>
@@ -77,23 +76,23 @@ IClassManager
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>60</x>
-      <y>70</y>
-      <w>320</w>
+      <x>490</x>
+      <y>230</y>
+      <w>280</w>
       <h>280</h>
     </coordinates>
-    <panel_attributes>Class
+    <panel_attributes>BeanSection
 --
 - id : int
 - className : String
 - educators : List&lt;Educator&gt;
 - childs : List&lt;RegistrationChild&gt;
 --
-+ Class()
-+ setId(String)
-+ setClassName(String)
-+ setEducators(List&lt;Educator&gt;)
-+ setChilds(List&lt;RegistrationChild&gt;)
++ BeanSection()
++ setId(String) : void
++ setClassName(String) : void
++ setEducators(List&lt;Educator&gt;) : void
++ setChilds(List&lt;RegistrationChild&gt;) : void
 + getId() : int
 + getClassName() : String
 + getEducators() : List&lt;Educator&gt;
@@ -103,12 +102,38 @@ IClassManager
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>350</x>
-      <y>100</y>
+      <x>370</x>
+      <y>280</y>
       <w>140</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>30;30;120;30</additional_attributes>
+    <additional_attributes>120;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>80</x>
+      <y>70</y>
+      <w>440</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>RefinedAbstractSectionManager
+--
+ 
+--
++ getManagerImplementor(String pManagerType) : ISectionManager</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>220</x>
+      <y>180</y>
+      <w>50</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;30;70</additional_attributes>
   </element>
 </diagram>

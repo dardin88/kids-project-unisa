@@ -4,10 +4,10 @@
   <element>
     <type>com.umlet.element.Package</type>
     <coordinates>
-      <x>20</x>
-      <y>30</y>
-      <w>880</w>
-      <h>430</h>
+      <x>140</x>
+      <y>60</y>
+      <w>780</w>
+      <h>580</h>
     </coordinates>
     <panel_attributes>ClassificationManagement</panel_attributes>
     <additional_attributes/>
@@ -15,8 +15,8 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>510</x>
-      <y>270</y>
+      <x>170</x>
+      <y>470</y>
       <w>320</w>
       <h>160</h>
     </coordinates>
@@ -25,19 +25,19 @@
 - manager: JDBCClassificationManager
 --
 - JDBCClassificationManager()
-+ getInstance() : JDBCClassificationManager
-+ create(Classification) : Classification
-+ modify(Classification) : Classification
-+ delete(Classification) : Classification
-+ search(Classification) : List&lt;Classification&gt;
+# getInstance() : JDBCClassificationManager
+# create(Classification) : Classification
+# modify(Classification) : Classification
+# delete(Classification) : Classification
+# search(Classification) : List&lt;Classification&gt;
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>800</x>
-      <y>290</y>
+      <x>460</x>
+      <y>520</y>
       <w>80</w>
       <h>110</h>
     </coordinates>
@@ -47,19 +47,19 @@
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>400</x>
-      <y>120</y>
-      <w>140</w>
+      <x>450</x>
+      <y>320</y>
+      <w>120</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>30;30;120;30</additional_attributes>
+    <additional_attributes>100;30;30;30</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>520</x>
-      <y>70</y>
+      <x>180</x>
+      <y>270</y>
       <w>300</w>
       <h>140</h>
     </coordinates>
@@ -77,8 +77,8 @@ IClassificationManager
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>620</x>
-      <y>180</y>
+      <x>280</x>
+      <y>380</y>
       <w>50</w>
       <h>110</h>
     </coordinates>
@@ -88,28 +88,54 @@ IClassificationManager
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>60</x>
-      <y>70</y>
-      <w>370</w>
+      <x>550</x>
+      <y>270</y>
+      <w>350</w>
       <h>260</h>
     </coordinates>
     <panel_attributes>Classification
 --
 - id : int
 - creationDate : GregorianCalendar
-- expirationDate : GregorianCalendar
+- classificationStatus : String
 - approvatedChilds : List&lt;RegistrationChild&gt;
 --
-+ Classification()
-+ setId(int) : void
-+ setCreationDate(GregorianCalendar) : void
-+ setExpirationDate(GregorianCalendar) : void
-+ setApprovatedChilds(List&lt;RegistrationChild&gt;) : void
-+ getId() : ind
-+ getCreationDate() : GregorianCalendar
-+ getExpirationDate() : GregorianCalendar
-+ getApprovatedChilds() : List&lt;RegistrationChild&gt;
+# Classification()
+# setId(int) : void
+# setCreationDate(GregorianCalendar) : void
+# setClassificationStatus(GregorianCalendar) : void
+# setApprovatedChilds(List&lt;RegistrationChild&gt;) : void
+# getId() : ind
+# getCreationDate() : GregorianCalendar
+# getClassificationStatus() : String
+# getApprovatedChilds() : List&lt;RegistrationChild&gt;
 </panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>150</x>
+      <y>90</y>
+      <w>480</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>RefinedAbstractClassificationManager
+--
+ 
+--
++ getManagerImplementor(String pManagerType) : IClassificationManager</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>320</x>
+      <y>200</y>
+      <w>50</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;30;70</additional_attributes>
   </element>
 </diagram>
