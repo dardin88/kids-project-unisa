@@ -7,6 +7,7 @@ package it.unisa.kids.accessManagement.accountManagement;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -15,13 +16,13 @@ import java.sql.SQLException;
 public class prova {
     public static void main(String args[]) throws SQLException{
     Account account=new Account();
-    
-    account.setEmail("gianmarco.delpozzo@libero.it");
+    List<Account> list;
+    account.setId(2);
     IAccountManager accountManager =(IAccountManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACCOUNT);
     
-    if(accountManager.insert(account)!=null){
+    if((list=accountManager.search(account))!=null){
     System.out.println("modificato con successo");
-    System.out.println(account.getNameUser());
+    System.out.println(list.get(0).getEmail());
     }
     else{
     System.out.println("non inserito");
