@@ -10,10 +10,10 @@
 <div id="header">
     <input id="logo" type="image" src="img/logo.png" onclick="goToIndex()"/>
 
-    <c:if test="${sessionScope.user.getTypeAccount()=='Delegato scienze della formazione'}">
-        <span id="title">Gestione Tirocini-Delegato Scienze della formazione</span>
+    <c:if test="${sessionScope.user.getAccountType()=='Delegato scienze della formazione'}">
+        <span id="title">Delegato Scienze della formazione-Kids Project</span>
     </c:if>
-    <c:if test="${sessionScope.user.getTypeAccount()=='Segreteria'}">
+    <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
         <span id="title">Segreteria - Kids Project</span>
 
     </c:if>
@@ -27,13 +27,6 @@
 <div id="navigation">
     <ul>
         <div class="div">
-        </div>
-    </ul>
-</div>
-
-<div id="navigation">
-    <ul>
-        <div class="div">
 
             <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
                 <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
@@ -41,7 +34,7 @@
                 <li id="traineeRequest"><a href="">Invia Richiesta di Tirocinanti</a></li>
             </c:if>
 
-            <c:if test="${sessionScope.user.getTypeAccount()=='Delegato scienze della formazione'}">
+            <c:if test="${sessionScope.user.getAccountType()=='Delegato scienze della formazione'}">
                 <li id="trainees"><a href="trainees.jsp">Gestione Tirocinanti</a></li>
                 <li id="notifications"><a href="formationScienceNotifications.jsp">Notifiche</a></li>
                 <li id="scheduler"><a href="schedulerActivity.jsp">Pianificazione attivit&agrave</a></li>

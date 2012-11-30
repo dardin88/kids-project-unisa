@@ -6,8 +6,9 @@ package it.unisa.kids.serviceManagement.trainingManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
+
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -31,8 +32,8 @@ public class InsertTraineeServlet extends HttpServlet {
     private ITrainingManager trainingManager;
 
     public void init(ServletConfig config) {
-        RefinedAbstractTrainingManager refinedAbstractTrainingManager = new RefinedAbstractTrainingManager();
-        trainingManager = refinedAbstractTrainingManager.getManagerImplementor();
+        RefinedAbstractManager refinedAbstractTrainingManager = RefinedAbstractManager.getInstance();
+        trainingManager = (ITrainingManager) refinedAbstractTrainingManager.getManagerImplementor(DBNames.TABLE_TRAINEE);
     }
 
     /**
@@ -49,18 +50,24 @@ public class InsertTraineeServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             Account trainee = new Account();
-
-            trainee.setName(request.getParameter(DBNames.ATT_ACCOUNT_NAME));
-            trainee.setAddress(request.getParameter(DBNames.ATT_TRAINEE_ADDRESS));
-            trainee.setRegister(request.getParameter(DBNames.ATT_TRAINEE_REGISTER));
-            trainee.setBirthCity(request.getParameter(DBNames.ATT_TRAINEE_BIRTHCITY));
-            trainee.setCap(request.getParameter(DBNames.ATT_TRAINEE_CAP));
-            trainee.setCityOfResidence(request.getParameter(DBNames.ATT_TRAINEE_CITYOFRESIDENCE));
-            trainee.setEmail(request.getParameter(DBNames.ATT_TRAINEE_EMAIL));
-            trainee.setSurname(request.getParameter(DBNames.ATT_TRAINEE_SURNAME));
-            trainee.setTelephoneNumber(request.getParameter(DBNames.ATT_TRAINEE_TELEPHONENUMBER));
-            trainee.setDelegate(Integer.parseInt(request.getParameter(DBNames.ATT_TRAINEE_DELEGATEACCOUNT)));
-            trainee.setBirthDate(parseGregorianCalendar(request.getParameter(DBNames.ATT_TRAINEE_BIRTHDATE)));
+            if(request.getParameter("Nome").equals("") || request.getParameter("Indirizzo").equals("") || request.getParameter("Matricola").equals("") || request.getParameter("CittaNascita").equals("") || request.getParameter("CAP").equals("") || request.getParameter("CittaResidenza").equals("") || request.getParameter("Email").equals("") || request.getParameter("Cognome").equals("") || request.getParameter("DataNascita").equals("")){
+                trainee.setState("Bozza");
+            }
+            else
+                trainee.setState("Inserito");
+            trainee.setAccountType("8");
+            trainee.setNameUser(request.getParameter("Nome"));
+            trainee.setViaResidence(request.getParameter("Indirizzo"));
+            trainee.setRegister(request.getParameter("Matricola"));
+            trainee.setPlaceofBirth(request.getParameter("CittaNascita"));
+            trainee.setCapResidence(request.getParameter("CAP"));
+            trainee.setMunicipalityResidence(request.getParameter("CittaResidenza"));
+            trainee.setEmail(request.getParameter("Email"));
+            trainee.setSurnameUser(request.getParameter("Cognome"));
+            trainee.setCellularNumber(request.getParameter("NumeroTelefonico"));
+            if(!request.getParameter("DataNascita").equals(""))
+                trainee.setDataOfBirth(parseGregorianCalendar(request.getParameter("DataNascita")));
+            trainee.setQualification(request.getParameter("TitoloStudio"));
             trainingManager.insert(trainee);
             request.setAttribute("message",
                     "Tirocinante inserito con successo");
@@ -68,8 +75,8 @@ public class InsertTraineeServlet extends HttpServlet {
 
         } catch (SQLException ex) {
             request.setAttribute("message",
-                    "Verfica i campi");
-            request.getServletContext().getRequestDispatcher("/insertTrainee.jsp").forward(request, response);
+                    "Tirocinante non inserito");
+            request.getServletContext().getRequestDispatcher("/trainees.jsp").forward(request, response);
 
         } catch (ParseException e) {
             Logger.getLogger(TrainingManagerServlet.class.getName()).log(Level.SEVERE, null, e);

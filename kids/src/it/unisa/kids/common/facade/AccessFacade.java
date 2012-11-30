@@ -64,7 +64,7 @@ public class AccessFacade implements IAccessFacade
 
     
     public Account insert(Account pAccount) {
-       RefinedAbstractManager refinedAbstractAccountManager = new RefinedAbstractManager();
+       RefinedAbstractManager refinedAbstractAccountManager = RefinedAbstractManager.getInstance();
         IAccountManager accountManager = (IAccountManager) refinedAbstractAccountManager.getManagerImplementor(DBNames.TABLE_ACCOUNT);
         try {
             accountManager.insert(pAccount);
@@ -76,7 +76,7 @@ public class AccessFacade implements IAccessFacade
 
     
     public Account update(Account pAccount) {
-         RefinedAbstractManager refinedAbstractAccountManager = new RefinedAbstractManager();
+         RefinedAbstractManager refinedAbstractAccountManager =  RefinedAbstractManager.getInstance();
         IAccountManager accountManager = (IAccountManager) refinedAbstractAccountManager.getManagerImplementor(DBNames.TABLE_ACCOUNT);
         try {
             accountManager.update(pAccount);
@@ -88,7 +88,7 @@ public class AccessFacade implements IAccessFacade
 
     
     public List<Account> search(Account pAccount) {
-         RefinedAbstractManager refinedAbstractAccountManager = new RefinedAbstractManager();
+         RefinedAbstractManager refinedAbstractAccountManager = RefinedAbstractManager.getInstance();
         IAccountManager accountManager = (IAccountManager) refinedAbstractAccountManager.getManagerImplementor(DBNames.TABLE_ACCOUNT);
         List<Account> listAccount=null;
         try {
@@ -101,7 +101,7 @@ public class AccessFacade implements IAccessFacade
 
    
     public Account delete(Account pAccount) {
-       RefinedAbstractManager refinedAbstractAccountManager = new RefinedAbstractManager();
+       RefinedAbstractManager refinedAbstractAccountManager = RefinedAbstractManager.getInstance();
         IAccountManager accountManager = (IAccountManager) refinedAbstractAccountManager.getManagerImplementor(DBNames.TABLE_ACCOUNT);
         try {
             accountManager.delete(pAccount);
@@ -113,7 +113,7 @@ public class AccessFacade implements IAccessFacade
 
 
     public Account getParentById(int pParentId) throws SQLException {
-        RefinedAbstractManager refinedAbstractAccountManager = new RefinedAbstractManager();
+        RefinedAbstractManager refinedAbstractAccountManager = RefinedAbstractManager.getInstance();
         IAccountManager accountManager = (IAccountManager) refinedAbstractAccountManager.getManagerImplementor(DBNames.TABLE_ACCOUNT);
         List<Account> listAccount;
         Account account= new Account();

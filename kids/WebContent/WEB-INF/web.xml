@@ -2,6 +2,14 @@
 <web-app id="WebApp_ID" version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <display-name>kids</display-name>
     <servlet>
+        <servlet-name>GetTraineesServletTable</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.GetTraineesServletTable</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InsertTraineeServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.InsertTraineeServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>addMeetingServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.reunion.addMeetingServlet</servlet-class>
     </servlet>
@@ -48,6 +56,14 @@
     <servlet-mapping>
         <servlet-name>deleteAccountServlet</servlet-name>
         <url-pattern>/deleteAccountServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetTraineesServletTable</servlet-name>
+        <url-pattern>/GetTraineesTable</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>InsertTraineeServlet</servlet-name>
+        <url-pattern>/InsertTrainee</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ModifyAccountServlet</servlet-name>
