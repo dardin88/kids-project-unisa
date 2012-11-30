@@ -38,18 +38,26 @@ public class Account {
 	private String faculty;
 	private GregorianCalendar registrationDate;
         private String typeParent;
-        private String matricola;
-      
+        private String register;
+        private String state;
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 
    
       
 
-    public String getMatricola() {
-        return matricola;
+    public String getRegister() {
+        return register;
     }
 
-    public void setMatricola(String matricola) {
-        this.matricola = matricola;
+    public void setRegister(String pRegister) {
+        this.register = pRegister;
     }
 
     public void setTypeParent(String typeParent) {
