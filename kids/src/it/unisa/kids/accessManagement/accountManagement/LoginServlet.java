@@ -4,7 +4,6 @@
  */
 package it.unisa.kids.accessManagement.accountManagement;
 
-import it.unisa.kids.accessManagement.accountManagement.*;
 import it.unisa.kids.common.DBNames;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -34,8 +33,9 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            String username = request.getParameter(DBNames.ATT_ACCOUNT_NICKNAME);
-            String password = request.getParameter(DBNames.ATT_ACCOUNT_PASSWORD);
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+            System.out.println(password);
             JDBCAccountManager mn = JDBCAccountManager.getInstance();
             Account user = mn.authenticate(username, password);
             if (user != null) {
