@@ -32,7 +32,7 @@ public class JDBCAccountManager implements IAccountManager {
         Account searchAccount = new Account();
         searchAccount.setNickName(pUserName);
         searchAccount.setPassword(pPass);
-        List<Account> accountList = search(searchAccount);
+        List<Account> accountList = login(searchAccount);
         if (accountList.size() > 0) {
             return accountList.get(0);
         } else {
@@ -306,6 +306,7 @@ public class JDBCAccountManager implements IAccountManager {
                 pstmt.setString(i, pAccount.getAccountType());
                 i++;
             }
+            
             System.out.println(query);
             rs = pstmt.executeQuery();
             con.commit();
@@ -535,7 +536,117 @@ public class JDBCAccountManager implements IAccountManager {
         } else {
             return "'" + d.get(Calendar.YEAR) + "-" + d.get(Calendar.MONTH) + "" + d.get(Calendar.DAY_OF_MONTH) + "'";
         }
+    }
+        
+        public synchronized List<Account> login(Account pAccount) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String query = null;
+        List<Account> account = null;
+        boolean andState = false;
+        System.out.println(pAccount.getId() + "," + pAccount.getNickName() + "," + pAccount.getPassword()+","+pAccount.getAccountType());
+
+        try {
+            con = DBConnectionPool.getConnection();
+
+            query = "SELECT * "
+                    + "FROM " + DBNames.TABLE_ACCOUNT
+                    + " WHERE ";
+
+            if (pAccount.getNickName() != null) {
+                query = query + DBNames.ATT_ACCOUNT_NICKNAME + " = ?";
+                andState = true;
+            }
+
+            if (pAccount.getPassword() != null) {
+                query += useAnd(andState) + DBNames.ATT_ACCOUNT_PASSWORD + " = ?";
+            }
+            pstmt = con.prepareStatement(query);
+
+            // setting pstmt's parameters
+            int i = 1;		// index of pstmt first argument
+            
+
+            if (pAccount.getNickName() != null) {
+                pstmt.setString(i, pAccount.getNickName());
+                i++;
+            }
+            
+            if (pAccount.getPassword() != null) {		
+                pstmt.setString(i, pAccount.getPassword());
+                i++;
+            }
+
+          
+            
+            System.out.println(query);
+            rs = pstmt.executeQuery();
+            con.commit();
+
+            // constructing payment list
+            account = new ArrayList<>();
+            while (rs.next()) {
+                Account p = new Account();
+                p.setId(rs.getInt(DBNames.ATT_PAYMENT_ID));
+                p.setAccountType(rs.getString(DBNames.ATT_ACCOUNT_TYPEACCOUNT));
+                p.setNickName(rs.getString(DBNames.ATT_ACCOUNT_NICKNAME));
+                p.setPassword(rs.getString(DBNames.ATT_ACCOUNT_PASSWORD));
+                p.setSurnameUser(rs.getString(DBNames.ATT_ACCOUNT_SURNAMEUSER));
+                p.setNameUser(rs.getString(DBNames.ATT_ACCOUNT_NAME));
+                p.setEmail(rs.getString(DBNames.ATT_ACCOUNT_EMAIL));
+                p.setTelephoneNumber(rs.getString(DBNames.ATT_ACCOUNT_TELEPHONENUMBER));
+                p.setCellularNumber(rs.getString(DBNames.ATT_ACCOUNT_CELLULARNUMBER));
+                p.setFax(rs.getString(DBNames.ATT_ACCOUNT_FAX));
+
+                //getting Date from ResultSet and converting it to GregorianCalendar
+                               /* GregorianCalendar dateBirth = new GregorianCalendar();
+                 dateBirth.setTime(rs.getDate(DBNames.ATT_ACCOUNT_DATEOFBIRTH));
+                 p.setDataOfBirth(dateBirth);
+                                
+                 GregorianCalendar expDate = new GregorianCalendar();
+                 expDate.setTime(rs.getDate(DBNames.ATT_ACCOUNT_CONTRACTEXPIRATIONDATE));
+                 p.setContractExpirationDate(dateBirth);
+                                
+                 GregorianCalendar regDate = new GregorianCalendar();
+                 regDate.setTime(rs.getDate(DBNames.ATT_ACCOUNT_REGISTRATIONDATE));
+                 p.setRegistrationDate(dateBirth);
+                 */
+                p.setPlaceofBirth(rs.getString(DBNames.ATT_ACCOUNT_PLACEOFBIRTH));
+                p.setTaxCode(rs.getString(DBNames.ATT_ACCOUNT_TAXCODE));
+                p.setCitizenship(rs.getString(DBNames.ATT_ACCOUNT_CITIZENSHIP));
+                p.setViaResidence(rs.getString(DBNames.ATT_ACCOUNT_ADDRESSRESIDENCE));
+                p.setMunicipalityResidence(rs.getString(DBNames.ATT_ACCOUNT_MUNICIPALITYRESIDENCE));
+                p.setProvinceResidence(rs.getString(DBNames.ATT_ACCOUNT_PROVINCERESIDENCE));
+                p.setCapResidence(rs.getString(DBNames.ATT_ACCOUNT_CAPRESIDENCE));
+                p.setAddressDomicile(rs.getString(DBNames.ATT_ACCOUNT_ADDRESSDOMICILE));
+                p.setMunicipalityDomicile(rs.getString(DBNames.ATT_ACCOUNT_MUNICIPALITYDOMICILIE));
+                p.setProvinceDomicile(rs.getString(DBNames.ATT_ACCOUNT_PROVINCEDOMICILE));
+                p.setProvinceResidence(rs.getString(DBNames.ATT_ACCOUNT_PROVINCERESIDENCE));
+                p.setQualification(rs.getString(DBNames.ATT_ACCOUNT_QUALIFICATION));
+                p.setFamilySituation(rs.getString(DBNames.ATT_ACCOUNT_FAMILYSITUATION));
+                p.setIncome(rs.getDouble(DBNames.ATT_ACCOUNT_INCOME));
+                p.setState(rs.getString(DBNames.ATT_ACCOUNT_STATE));
+                p.setRegister(rs.getString(DBNames.ATT_ACCOUNT_REGISTER));
+                System.out.println(p.getAccountType());
+                account.add(p);
+            }
+            con.commit();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
+            if (con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+        return account;
+    }
+
 
 
     }
-}
+
