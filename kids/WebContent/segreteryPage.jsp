@@ -33,10 +33,9 @@
         <script type="text/javascript" src="js/newsShowTable.js"></script>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-          <title>Gestione News - Kids Project</title>
+          <title> Segreteria- Kids Project</title>
         <script type="text/javascript">
             $(document).ready(function() {
-                activePage();
                 initializeLinksManager();
                 messageDialog();
             });
@@ -44,7 +43,7 @@
     </head>
     <c:if test="${requestScope.message!=null}">
         <div id="confirm" title="Message" style="display: inline">
-            <form id="confirmForm" class="cmxform" method="post" action="delegatePage.jsp">
+            <form id="confirmForm" class="cmxform" method="post" action="segreteryPage.jsp">
                 <fieldset>
                     <p class="formp">
                         <label class="requirementLabel">${requestScope.message}</label>
@@ -59,7 +58,7 @@
     </c:if>
     <body>
         <%@include file="header.jsp" %>
-        <div id="linksManagement">
+        <div id="description" style="padding-top:20px;padding-left:20px;">
             <h1 style="font-size: 35px;text-align: center;"> Benvenuto nella vostra sezione,nel menù a sinistra avete le vostre scelte! </h1>          
         </div>
         <%@include file="footer.jsp" %>

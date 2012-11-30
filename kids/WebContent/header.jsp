@@ -8,12 +8,13 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <div id="header">
-    <c:if test="${sessionScope.user.getTypeAccount()=='Delegato scienze della formazione'}">
-            <span id="title">Gestione Tirocini-Delegato Scienze della formazione</span>
-    </c:if>
     <input id="logo" type="image" src="img/logo.png" onclick="goToIndex()"/>
+
+    <c:if test="${sessionScope.user.getTypeAccount()=='Delegato scienze della formazione'}">
+        <span id="title">Gestione Tirocini-Delegato Scienze della formazione</span>
+    </c:if>
     <c:if test="${sessionScope.user.getTypeAccount()=='Segreteria'}">
-            <span id="title">Gestione News - Kids Project</span>
+        <span id="title">Segreteria - Kids Project</span>
 
     </c:if>
     <span id="userMenu">
@@ -22,37 +23,43 @@
     </span>
 </div>
 
-<c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
-    <div id="navigation">
-        <ul>
-            <div class="div">
-                <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
-            </div>
-        </ul>
-    </div>
-</c:if>
 
 <div id="navigation">
     <ul>
-        <c:if test="${sessionScope.user.getTypeAccount()=='Delegato scienze della formazione'}">
-            <li id="trainees"><a href="trainees.jsp">Gestione Tirocinanti</a></li>
-            <li id="notifications"><a href="formationScienceNotifications.jsp">Notifiche</a></li>
-            <li id="scheduler"><a href="schedulerActivity.jsp">Pianificazione attività</a></li>
-        </c:if>
-        <c:if test="${sessionScope.user.getAccountType()=='Genitore'}">  
+        <div class="div">
+        </div>
+    </ul>
+</div>
 
-            <div class="div">
+<div id="navigation">
+    <ul>
+        <div class="div">
+
+            <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
+                <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
+                <li id="managementTraineeActivity"><a href="">Gestione Attivit&agrave Tirocinanti</a></li>
+                <li id="traineeRequest"><a href="">Invia Richiesta di Tirocinanti</a></li>
+            </c:if>
+
+            <c:if test="${sessionScope.user.getTypeAccount()=='Delegato scienze della formazione'}">
+                <li id="trainees"><a href="trainees.jsp">Gestione Tirocinanti</a></li>
+                <li id="notifications"><a href="formationScienceNotifications.jsp">Notifiche</a></li>
+                <li id="scheduler"><a href="schedulerActivity.jsp">Pianificazione attivit&agrave</a></li>
+            </c:if>
+            <c:if test="${sessionScope.user.getAccountType()=='Genitore'}">  
+
                 <li id="meetingCalendarMenuEL"><a href="meetingCalendar.jsp">Gestione Riunioni</a></li>
                 <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
                 <li id="healthCommunicationTable"><a href="healthCommunicationTable.jsp">Gestione Bambini - Comunicazioni Salute</a></li>
                 <li id="needCommunicationTable"><a href="needCommunicationTable.jsp">Gestione Bambini - Comunicazioni Bisogni</a></li>
-            </div>
-        </c:if>
-        <c:if test="${sessionScope.user.getAccountType()=='Educatrice'}">  
-            <li id="healthCommunicationTable"><a href="healthCommunicationTable.jsp">Gestione Bambini - Comunicazioni Salute</a></li>
-            <li id="needCommunicationTable"><a href="needCommunicationTable.jsp">Gestione Bambini - Comunicazioni Bisogni</a></li>
-            
-        </c:if>
+            </c:if>
+            <c:if test="${sessionScope.user.getAccountType()=='Educatrice'}">  
+                <li id="healthCommunicationTable"><a href="healthCommunicationTable.jsp">Gestione Bambini - Comunicazioni Salute</a></li>
+                <li id="needCommunicationTable"><a href="needCommunicationTable.jsp">Gestione Bambini - Comunicazioni Bisogni</a></li>
+
+            </c:if>
+        </div>
+
 
     </ul>
 </div>
