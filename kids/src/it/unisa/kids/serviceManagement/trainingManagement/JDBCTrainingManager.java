@@ -351,8 +351,47 @@ public class JDBCTrainingManager implements ITrainingManager {
     
     @Override
     public List<TraineeConvocation> search(TraineeConvocation pTraineeConvocation) throws SQLException {
-        List<TraineeConvocation> list=null;
-        return list;
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        ArrayList<TraineeConvocation> convocationList = new ArrayList<TraineeConvocation>();
+        String query;
+        try {
+            con = DBConnectionPool.getConnection();
+            query="SELECT * FROM "+DBNames.TABLE_TRAINEECONVOCATION+" WHERE "+DBNames.ATT_TRAINEECONVOCATION_TRAINEE+"='"+pTraineeConvocation.getTraineeId()+"'";
+            stmt=con.createStatement();
+
+            rs = stmt.executeQuery(query);
+            con.commit();
+            while (rs.next()) {
+                int id = rs.getInt(DBNames.ATT_TRAINEECONVOCATION_ID);
+                int trainee = rs.getInt(DBNames.ATT_TRAINEECONVOCATION_TRAINEE);
+                int delegate = rs.getInt(DBNames.ATT_TRAINEECONVOCATION_DELEGATE);
+                Date date = rs.getDate(DBNames.ATT_TRAINEECONVOCATION_DATE);
+                String activity = rs.getString(DBNames.ATT_TRAINEECONVOCATION_ACTIVITYNAME);
+                Time startTime = rs.getTime(DBNames.ATT_TRAINEECONVOCATION_STARTTIME);
+                Time endTime = rs.getTime(DBNames.ATT_TRAINEECONVOCATION_ENDTIME);
+                int confirmed=rs.getInt(DBNames.ATT_TRAINEECONVOCATION_CONFIRMED);
+                GregorianCalendar dateCalendar = new GregorianCalendar();
+                dateCalendar.setTime(date);
+                TraineeConvocation traineeConvocation = new TraineeConvocation();
+                traineeConvocation.setId(id);
+                traineeConvocation.setTraineeId(trainee);
+                traineeConvocation.setDelegateId(delegate);
+                traineeConvocation.setDate(dateCalendar);
+                traineeConvocation.setActivityName(activity);
+                traineeConvocation.setStartTime(startTime);
+                traineeConvocation.setEndTime(endTime);
+                traineeConvocation.setConfirmed(confirmed);
+                convocationList.add(traineeConvocation);
+                
+            }
+            return convocationList;
+        } finally {
+            stmt.close();
+            DBConnectionPool.releaseConnection(con);
+
+        }
     }
 
     public List<TraineeRequest> getRequestsList() throws SQLException {

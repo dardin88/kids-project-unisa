@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -19,7 +20,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -27,7 +27,7 @@ import org.json.JSONObject;
  *
  * @author utente
  */
-public class GetConvocationServletTable extends HttpServlet {
+public class GetConvocationsServletTable extends HttpServlet {
 private ITrainingManager trainingManager;
 
     public void init(ServletConfig config) {
@@ -86,11 +86,7 @@ private ITrainingManager trainingManager;
 
                 listTraineeConvocation = trainingManager.search(t);
             } else {*/
-            TraineeConvocation traineeConv=new TraineeConvocation();
-            HttpSession session=request.getSession();
-            
-            traineeConv.setTraineeId((((Account)session.getAttribute("user")).getId()));
-                listTraineeConvocation = trainingManager.search(traineeConv);
+                listTraineeConvocation = trainingManager.getTraineeConvocationList();
 
             
 
@@ -107,23 +103,22 @@ private ITrainingManager trainingManager;
                     paginateTraineeConvocationSet = new TraineeConvocation[toShow];
                     System.arraycopy(listTraineeConvocation.toArray(), start, paginateTraineeConvocationSet, 0, toShow);
                 }
-                int i=1;
                 for (TraineeConvocation traineeConvocation : paginateTraineeConvocationSet) {
-                                       
+                    Account account=new Account();
+                    account.setId(traineeConvocation.getTraineeId());
+                    List<Account> list=trainingManager.search(account);                   
                     JSONArray ja = new JSONArray();
+                    ja.put(list.get(0).getRegister());
                     ja.put(traineeConvocation.getActivityName());
                     String date=traineeConvocation.getDate().get(Calendar.YEAR)+"/"+(traineeConvocation.getDate().get(Calendar.MONTH)+1)+"/"+traineeConvocation.getDate().get(Calendar.DAY_OF_MONTH);
                     ja.put(date);
-                    ja.put(traineeConvocation.getStartTime().getHours()+":"+traineeConvocation.getStartTime().getMinutes());
-                    ja.put(traineeConvocation.getEndTime().getHours()+":"+traineeConvocation.getEndTime().getMinutes());
-                   String operazioni = "<input type='checkbox' name='convocation' value='"+traineeConvocation+"'></input>";
-
                     String confirmed="";
                     if(traineeConvocation.getConfirmed()==0)
                         confirmed="Non confermato";
                     else
                         confirmed="Confermato";
-                   // ja.put(confirmed);
+                    ja.put(confirmed);
+                   String operazioni = "<input class='tableImage' type='image' src='img/trash.png' onclick='removeTraineeConvocation(\"" + traineeConvocation.getId() + "\")'/>";
                     ja.put(operazioni);
                     array.put(ja);
                 }

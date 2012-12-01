@@ -98,7 +98,7 @@ function buildResponseFromTraineesTable(){
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": "GetConvocationTable",
+        "sAjaxSource": "GetConvocationsTable",
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
