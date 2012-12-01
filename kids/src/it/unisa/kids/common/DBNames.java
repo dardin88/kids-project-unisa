@@ -170,7 +170,8 @@ public final class DBNames {
     public static final String ATT_REUNION_TITLE = "Titolo";
     public static final String ATT_REUNION_DESCRIPTION = "Descrizione";
     public static final String ATT_REUNION_DATA = "Data";
-    public static final String ATT_REUNION_TIME = "Ora";
+    public static final String ATT_REUNION_FIRST_TIME = "OraInizio";
+    public static final String ATT_REUNION_SECOND_TIME = "OraFine";
     public static final String ATT_REUNION_TYPE = "Tipo";
     //News attributes
     public static final String ATT_NEWS_ID = "Id";
