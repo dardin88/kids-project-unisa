@@ -17,6 +17,7 @@
         <span id="title">Segreteria - Kids Project</span>
 
     </c:if>
+        <span id="title">Gestione Riunioni</span>
     <span id="userMenu">
         <b class="userMenuEl"> Benvenuto ${sessionScope.user.getNameUser()}</b> 
         <u class="userMenuEl" id="logout" onclick="logout()" onmouseover="this.style.cursor='pointer';">Logout</u>
