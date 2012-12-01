@@ -70,8 +70,8 @@
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.InsertConvocationServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>GetConvocationServletTable</servlet-name>
-        <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.GetConvocationServletTable</servlet-class>
+        <servlet-name>GetConvocationsServletTable</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.GetConvocationsServletTable</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RemoveConvocationServlet</servlet-name>
@@ -88,6 +88,10 @@
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetConvocationServletTable</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.GetConvocationServletTable</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>addMeetingServlet</servlet-name>
@@ -158,8 +162,8 @@
         <url-pattern>/InsertConvocation</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>GetConvocationServletTable</servlet-name>
-        <url-pattern>/GetConvocationTable</url-pattern>
+        <servlet-name>GetConvocationsServletTable</servlet-name>
+        <url-pattern>/GetConvocationsTable</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RemoveConvocationServlet</servlet-name>
@@ -176,6 +180,10 @@
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetConvocationServletTable</servlet-name>
+        <url-pattern>/GetConvocationTable</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
