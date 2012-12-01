@@ -5,6 +5,8 @@
 package it.unisa.kids.serviceManagement.trainingManagement;
 
 import com.google.gson.Gson;
+import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -34,9 +36,9 @@ public class GetRequestCalendarServlet extends HttpServlet {
     private static Logger logger = Logger.getLogger("global");
     private ITrainingManager trainingManager;
 
-    public void init(ServletConfig config) {
-        RefinedAbstractTrainingManager refinedAbstractTrainingManager = new RefinedAbstractTrainingManager();
-        trainingManager = refinedAbstractTrainingManager.getManagerImplementor();
+   public void init(ServletConfig config) {
+        RefinedAbstractManager refinedAbstractTrainingManager = RefinedAbstractManager.getInstance();
+        trainingManager = (ITrainingManager) refinedAbstractTrainingManager.getManagerImplementor(DBNames.TABLE_TRAINEE);
     }
 
     /**
@@ -54,7 +56,7 @@ public class GetRequestCalendarServlet extends HttpServlet {
 
         try {
             PrintWriter out = response.getWriter();
-            ArrayList<TraineeRequest> listTraineeRequest;
+            List<TraineeRequest> listTraineeRequest;
             List<Map<String, Object>> events = new ArrayList<Map<String, Object>>();
             listTraineeRequest = trainingManager.getRequestsList();
             for (TraineeRequest traineeRequest : listTraineeRequest) {
@@ -67,6 +69,7 @@ public class GetRequestCalendarServlet extends HttpServlet {
                 int minutesStart=traineeRequest.getStartTime().getMinutes();
                 int hoursEnd=traineeRequest.getEndTime().getHours();
                 int minutesEnd=traineeRequest.getEndTime().getMinutes();
+                String date=year+"-"+(month+1)+"-"+day;
                // GregorianCalendar date1=new GregorianCalendar();
             //    date1.set(2012,11,21);
               //  date1.setTime(traineeRequest.getStartTime());
@@ -80,12 +83,16 @@ public class GetRequestCalendarServlet extends HttpServlet {
                 //date.setHours(traineeRequest.getStartTime().getHours());
                 map.put("id", traineeRequest.getId());
                 map.put("title", "richiesta di "+traineeRequest.getTraineeNumber()+" tirocinanti");
+                map.put("traineeNumber", traineeRequest.getTraineeNumber());
+                map.put("dateRequest",date);
+                map.put("startTime", hoursStart+":"+minutesStart);
+                map.put("endTime",hoursEnd+":"+minutesEnd);
+                map.put("acitivity",traineeRequest.getActivity());
                 map.put("start", start);
                 map.put("end", end);
                 map.put("allDay", false);
                 map.put("activity",traineeRequest.getActivity());
                 // map.put("")
-                map.put("url", "prova.jsp");
 
                 events.add(map);
 

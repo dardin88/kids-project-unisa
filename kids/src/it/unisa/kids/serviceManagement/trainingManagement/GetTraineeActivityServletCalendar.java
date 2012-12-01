@@ -5,6 +5,8 @@
 package it.unisa.kids.serviceManagement.trainingManagement;
 
 import com.google.gson.Gson;
+import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -31,8 +33,8 @@ public class GetTraineeActivityServletCalendar extends HttpServlet {
     private ITrainingManager trainingManager;
 
     public void init(ServletConfig config) {
-        RefinedAbstractTrainingManager refinedAbstractTrainingManager = new RefinedAbstractTrainingManager();
-        trainingManager = refinedAbstractTrainingManager.getManagerImplementor();
+        RefinedAbstractManager refinedAbstractTrainingManager = RefinedAbstractManager.getInstance();
+        trainingManager = (ITrainingManager) refinedAbstractTrainingManager.getManagerImplementor(DBNames.TABLE_TRAINEE);
     }
     /**
      * Processes requests for both HTTP
@@ -48,7 +50,7 @@ public class GetTraineeActivityServletCalendar extends HttpServlet {
             throws ServletException, IOException {
         try {
             PrintWriter out = response.getWriter();
-            ArrayList<TraineeActivity> listTraineeActivity;
+            List<TraineeActivity> listTraineeActivity;
             List<Map<String, Object>> events = new ArrayList<Map<String, Object>>();
             listTraineeActivity = trainingManager.getTraineeActivityList();
             for (TraineeActivity traineeActivity : listTraineeActivity) {

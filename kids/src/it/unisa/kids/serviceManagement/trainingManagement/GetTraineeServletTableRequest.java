@@ -4,16 +4,13 @@
  */
 package it.unisa.kids.serviceManagement.trainingManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -26,9 +23,9 @@ import org.json.JSONObject;
 
 /**
  *
- * @author Marco Moretti
+ * @author utente
  */
-public class GetTraineeRequestServletTable extends HttpServlet {
+public class GetTraineeServletTableRequest extends HttpServlet {
 
     private ITrainingManager trainingManager;
 
@@ -51,8 +48,8 @@ public class GetTraineeRequestServletTable extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        TraineeRequest[] paginateTraineeRequestSet;
-        List<TraineeRequest> listTraineeRequest;
+        Account[] paginateTraineeSet;
+        List<Account> listTrainee;
         try {
             out = response.getWriter();
             JSONObject result = new JSONObject();
@@ -74,42 +71,46 @@ public class GetTraineeRequestServletTable extends HttpServlet {
                     amount = 10;
                 }
             }
-           /* if (!request.getParameter("Data").equals("")) {
-                String date=request.getParameter("Data");
-                String[] dateArray=date.split("-");
-                TraineeRequest tr = new TraineeRequest();
-                tr.setDate(new GregorianCalendar(Integer.parseInt(dateArray[2]),Integer.parseInt(dateArray[1]),Integer.parseInt(dateArray[0])));
-                listTraineeRequest = trainingManager.search(tr);
-            } else {*/
-                TraineeRequest tr = new TraineeRequest();
-                listTraineeRequest = trainingManager.search(tr);
-            //}
+            Account t = new Account();
+            t.setState("Inserito");
+            if (!request.getParameter("Nome").equals("") && request.getParameter("Cognome").equals("")) {
+                t.setNameUser(request.getParameter("Nome"));
+            } else if (request.getParameter("Nome").equals("") && !request.getParameter("Cognome").equals("")) {
+                t.setSurnameUser(request.getParameter("Cognome"));
+            } else if (!request.getParameter("Nome").equals("") && !request.getParameter("Cognome").equals("")) {
+                t.setSurnameUser(request.getParameter("Cognome"));
+                t.setNameUser(request.getParameter("Nome"));
+
+            }
+            listTrainee = trainingManager.search(t);
 
 
-            int linksNumber = listTraineeRequest.size();
+            int linksNumber = listTrainee.size();
             if (linksNumber < amount) {
                 amount = linksNumber;
             }
             if (linksNumber != 0) {
                 int toShow = linksNumber - start;
                 if (toShow > 10) {
-                    paginateTraineeRequestSet = new TraineeRequest[amount];
-                    System.arraycopy(listTraineeRequest.toArray(), start, paginateTraineeRequestSet, 0, amount);
+                    paginateTraineeSet = new Account[amount];
+                    System.arraycopy(listTrainee.toArray(), start, paginateTraineeSet, 0, amount);
                 } else {
-                    paginateTraineeRequestSet = new TraineeRequest[toShow];
-                    System.arraycopy(listTraineeRequest.toArray(), start, paginateTraineeRequestSet, 0, toShow);
+                    paginateTraineeSet = new Account[toShow];
+                    System.arraycopy(listTrainee.toArray(), start, paginateTraineeSet, 0, toShow);
                 }
-                for (TraineeRequest traineeRequest : paginateTraineeRequestSet) {
+                for (Account trainee : paginateTraineeSet) {
+
                     JSONArray ja = new JSONArray();
-                    String date = traineeRequest.getDate().get(Calendar.DAY_OF_MONTH) + "/" + (traineeRequest.getDate().get(Calendar.MONTH) + 1) + "/" + traineeRequest.getDate().get(Calendar.YEAR);
-                    ja.put(date);
-                    ja.put(traineeRequest.getTraineeNumber());
-                    String operazioni = "<input class='tableImage' type='image' src='img/trash.png' onclick='removeRequest(\"" + traineeRequest.getId() + "\")'/><input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/zoo.png' onclick='loadInformationRequestPage(\""+traineeRequest.getId()+"\")'/>";
+                    String operazioni = "<input type='checkbox' name='trainees' value='"+trainee.getId()+"'>";
                     ja.put(operazioni);
+                    ja.put(trainee.getRegister());
+                    ja.put(trainee.getNameUser());
+                    ja.put(trainee.getSurnameUser());
+                    
                     array.put(ja);
                 }
             }
-           result.put("sEcho", sEcho);
+            result.put("sEcho", sEcho);
             result.put("iTotalRecords", linksNumber);
             result.put("iTotalDisplayRecords", linksNumber);
             result.put("aaData", array);
@@ -118,7 +119,6 @@ public class GetTraineeRequestServletTable extends HttpServlet {
                     "private, no-store, no-cache, must-revalidate");
             response.setHeader("Pragma", "no-cache");
             out.print(result);
-            System.out.println(result);
         } catch (SQLException ex) {
             Logger.getLogger(GetTraineesServletTable.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

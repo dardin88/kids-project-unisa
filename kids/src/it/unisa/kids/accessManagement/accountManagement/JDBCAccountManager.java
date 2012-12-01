@@ -270,6 +270,10 @@ public class JDBCAccountManager implements IAccountManager {
                 query += useAnd(andState) + DBNames.ATT_ACCOUNT_TAXCODE + " = ?";
                 andState = true;
             }
+            if(pAccount.getState()!=null){
+                query+=useAnd(andState)+DBNames.ATT_ACCOUNT_STATE+" =?";
+                andState=true;
+            }
 
 
             if (pAccount.getAccountType() != null) {
@@ -302,6 +306,10 @@ public class JDBCAccountManager implements IAccountManager {
 
             if (pAccount.getTaxCode() != null) {
                 pstmt.setString(i, pAccount.getTaxCode());
+                i++;
+            }
+            if(pAccount.getState()!=null){
+                pstmt.setString(i,pAccount.getState());
                 i++;
             }
             if (pAccount.getAccountType() != null) {

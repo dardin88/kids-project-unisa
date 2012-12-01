@@ -81,7 +81,7 @@ public class InsertTraineeServlet extends HttpServlet {
             request.getServletContext().getRequestDispatcher("/trainees.jsp").forward(request, response);
 
         } catch (ParseException e) {
-            Logger.getLogger(TrainingManagerServlet.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(InsertTraineeServlet.class.getName()).log(Level.SEVERE, null, e);
         } 
     }
 

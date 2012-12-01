@@ -224,6 +224,7 @@ public class JDBCTrainingManager implements ITrainingManager {
     public List<Account> search(Account pTrainee) throws SQLException {
         IAccessFacade accessFacade = new AccessFacade();
         List<Account> list = null;
+        pTrainee.setAccountType("Tirocinante");
         list = accessFacade.search(pTrainee);
         return list;
     }
