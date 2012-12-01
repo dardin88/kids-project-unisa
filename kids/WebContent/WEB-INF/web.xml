@@ -85,6 +85,10 @@
         <servlet-name>GetTraineeActivityServletCalendar</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.GetTraineeActivityServletCalendar</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.accountManagement.LogoutServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>addMeetingServlet</servlet-name>
         <url-pattern>/addMeeting</url-pattern>
@@ -168,6 +172,10 @@
     <servlet-mapping>
         <servlet-name>GetTraineeActivityServletCalendar</servlet-name>
         <url-pattern>/GetTraineeActivityCalendar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/Logout</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
