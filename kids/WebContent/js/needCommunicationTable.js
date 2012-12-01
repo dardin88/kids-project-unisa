@@ -9,7 +9,7 @@ function initializeLinksManager(){
         width: 600
     });
     $("#addLinkButton").button();    
-    $("#removeLinkWindow").dialog({
+    $("#removeCommunicationWindow").dialog({
         autoOpen: false,
         modal: true,
         resizable: false,
@@ -25,6 +25,23 @@ function initializeLinksManager(){
     });
     buildNeedCommunicationTable();
     addNeedCommunication();
+}
+function removeCommunication(id){
+    $("#removeCommunicationWindow").dialog("open");
+    $("#notRemoveCommunicationButton").button();
+    $("#notRemoveCommunicationButton").click(function(){
+        $("#removeCommunicationWindow").dialog("close");
+    });
+    $("#removeCommunicationButton").button();
+    $("#removeCommunicationButton").click(function(){
+        $.post("RemoveCommunication",{
+            idCommunication:""+id
+        });
+         $("#removeCommunicationWindow").dialog("close");
+        var oTable = $("#linkTable").dataTable();
+        //alert(responseText);
+        oTable.fnDraw();
+    }) 
 }
 function addNeedCommunication(){
     $("#addLinkButton").click(function() {
@@ -84,20 +101,7 @@ messages: {
             }
         });
     });
-}
-function removeNeedCommunication(tlId){
-    $("#removeLinkWindow").dialog("open"); 
-    $("#confirmRemoveLinkButton").button();
-    $("#confirmRemoveLinkButton").click(function(){
-        $("#removeLinkWindow").dialog("close"); 
-        var oTable = $("#needCommunicationTable").dataTable();
-        oTable.fnDraw();
-    });        
-    $("#notConfirmRemoveLinkButton").button();
-    $("#notConfirmRemoveLinkButton").click(function(){
-        $("#removeLinkWindow").dialog("close");
-    });
-}           
+}     
 function buildNeedCommunicationTable(){
     $('#NeedCommunicationTable').dataTable({
         "bJQueryUI": true,
