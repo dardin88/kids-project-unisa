@@ -35,8 +35,12 @@
          <form id="addLinkForm" class="cmxform" method="post" action="">
              <fieldset>
                  <p class="formp">
-                     <label class="artefactLabel" for="artefactType">Tipo *</label>
-                     <input id="artefactType"style=" display:block;" type="text" name="Type"></input>
+                    <label class="artefactLabel" for="artefactType">Tipo *</label>
+                      <select id="artefactType"style=" display:block;" name="Type" class="artefactSelect">
+                        <option value="0">Scegli tipo Comunicazione</option>
+                        <option value="1">Salute</option>
+                        <option value="1">Bisogno</option>
+                      </select>
                  </p>
                  <p class="formp">
                      <label class="artefactLabel" for="artefactIdEducator">Educatore *</label>
@@ -58,12 +62,17 @@
              </fieldset>
          </form>
     </div>
+    <div id="removeCommunicationWindow" title="Rimuovi Comunicazione" style="display: inline">
+            <h3> Vuoi rimuovere definitivamente questa comunicazione?</h3>
+            <input type="button" class="windowButton" id="removeCommunicationButton" value="Ok" />
+            <input type="button" class="windowButton" id="notRemoveCommunicationButton" value="Annulla" />
+        
+    </div>
   <body>
         <%@include file="header.jsp" %>
             <div id="linksManagement">
                 <h1 style="font-size: 35px;text-align: center;"> Lista Comunicazioni Salute </h1>
                 <c:if test="${sessionScope.user.getAccountType()=='Educatore'}" >
-                    <%--     <form name="insertNews" method="post" action="newsInsertNews.jsp" > --%>
                         <input type="button" id="addLinkButton" value="Inserisci Comunicazione Salute" />               
                 </c:if>
                 <table id="linkTable" style="width:95%;">

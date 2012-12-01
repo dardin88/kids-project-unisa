@@ -9,7 +9,7 @@ function initializeLinksManager(){
         width: 600
     });
     $("#addLinkButton").button();    
-    $("#removeLinkWindow").dialog({
+   $("#removeCommunicationWindow").dialog({
         autoOpen: false,
         modal: true,
         resizable: false,
@@ -25,6 +25,23 @@ function initializeLinksManager(){
     });
     buildHealthCommunicationTable();
     addHealthCommunication();
+}
+function removeCommunication(id){
+    $("#removeCommunicationWindow").dialog("open");
+    $("#notRemoveCommunicationButton").button();
+    $("#notRemoveCommunicationButton").click(function(){
+        $("#removeCommunicationWindow").dialog("close");
+    });
+    $("#removeCommunicationButton").button();
+    $("#removeCommunicationButton").click(function(){
+        $.post("RemoveCommunication",{
+            idCommunication:""+id
+        });
+         $("#removeCommunicationWindow").dialog("close");
+        var oTable = $("#linkTable").dataTable();
+        //alert(responseText);
+        oTable.fnDraw();
+    }) 
 }
 function addHealthCommunication(){
     $("#addLinkButton").click(function() {
@@ -45,7 +62,7 @@ function addHealthCommunication(){
                     required: true
                 }
             },
-messages: {
+            messages: {
                 idEducator: {
                     required: "Inserisci id Educatore."
                 },
@@ -76,20 +93,7 @@ messages: {
             }
         });
     });
-}
-function removeHealthCommunication(tlId){
-    $("#removeLinkWindow").dialog("open"); 
-    $("#confirmRemoveLinkButton").button();
-    $("#confirmRemoveLinkButton").click(function(){
-        $("#removeLinkWindow").dialog("close"); 
-        var oTable = $("#healthCommunicationTable").dataTable();
-        oTable.fnDraw();
-    });        
-    $("#notConfirmRemoveLinkButton").button();
-    $("#notConfirmRemoveLinkButton").click(function(){
-        $("#removeLinkWindow").dialog("close");
-    });
-}           
+}          
 function buildHealthCommunicationTable(){
     $('#HealthCommunicationTable').dataTable({
         "bJQueryUI": true,
