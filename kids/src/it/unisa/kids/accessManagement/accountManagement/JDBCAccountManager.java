@@ -58,6 +58,7 @@ public class JDBCAccountManager implements IAccountManager {
 
         if (birthDate != null) {
             data1 = makeSqlDateString(birthDate);
+            System.out.println(data1);
         }
         if (expDate != null) {
             data2 = makeSqlDateString(expDate);
@@ -299,7 +300,7 @@ public class JDBCAccountManager implements IAccountManager {
                 i++;
             }
 
-            if (pAccount.getNameUser() != null) {
+            if (pAccount.getTaxCode() != null) {
                 pstmt.setString(i, pAccount.getTaxCode());
                 i++;
             }
@@ -535,7 +536,7 @@ public class JDBCAccountManager implements IAccountManager {
         if (d == null) {
             return null;
         } else {
-            return "'" + d.get(Calendar.YEAR) + "-" + d.get(Calendar.MONTH) + "" + d.get(Calendar.DAY_OF_MONTH) + "'";
+            return "'" + d.get(Calendar.YEAR) + "-" + d.get(Calendar.MONTH) + "-" + d.get(Calendar.DAY_OF_MONTH) + "'";
         }
     }
         

@@ -4,6 +4,9 @@
  */
 package it.unisa.kids.serviceManagement.trainingManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -19,13 +22,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author utente
  */
-@WebServlet(name = "RemoveTraineeServlet", urlPatterns = {"/RemoveTrainee"})
 public class RemoveTraineeServlet extends HttpServlet {
 private ITrainingManager trainingManager;
 
     public void init(ServletConfig config) {
-        RefinedAbstractTrainingManager refinedAbstractTrainingManager = new RefinedAbstractTrainingManager();
-        trainingManager = refinedAbstractTrainingManager.getManagerImplementor();
+        RefinedAbstractManager refinedAbstractTrainingManager = RefinedAbstractManager.getInstance();
+        trainingManager = (ITrainingManager) refinedAbstractTrainingManager.getManagerImplementor(DBNames.TABLE_TRAINEE);
     }
     /**
      * Processes requests for both HTTP
@@ -40,18 +42,14 @@ private ITrainingManager trainingManager;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
         try {
-            Trainee trainee=new Trainee();
-            System.out.println(request.getParameter("traineeRegister"));
-            trainee.setRegister(request.getParameter("traineeRegister"));
+            Account trainee=new Account();
+            trainee.setId(Integer.parseInt(request.getParameter("traineeId")));
             trainingManager.delete(trainee);
             
         } catch (SQLException ex) {
             Logger.getLogger(RemoveTraineeServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {            
-            out.close();
-        }
+        } 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -114,7 +114,7 @@ public class GetTraineesServletTable extends HttpServlet {
                     ja.put(trainee.getNameUser());
                     ja.put(trainee.getSurnameUser());
                     ja.put(trainee.getState());
-                   String operazioni = "<input class='tableImage' type='image' src='img/trash.png' onclick='removeTrainee(\"" + trainee.getId() + "\")'/><input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/zoo.png' onclick='loadInformationTraineePage(\""+trainee.getId()+"\")'/>";
+                   String operazioni = "<input class='tableImage' type='image' src='img/trash.png' onclick='removeTrainee(\"" + trainee.getId() + "\")'/><input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/lente.gif' onclick='loadInformationTraineePage(\""+trainee.getId()+"\")'/>";
                     ja.put(operazioni);
                     array.put(ja);
                 }

@@ -50,11 +50,11 @@ public class InsertTraineeServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             Account trainee = new Account();
-            if(request.getParameter("Nome").equals("") || request.getParameter("Indirizzo").equals("") || request.getParameter("Matricola").equals("") || request.getParameter("CittaNascita").equals("") || request.getParameter("CAP").equals("") || request.getParameter("CittaResidenza").equals("") || request.getParameter("Email").equals("") || request.getParameter("Cognome").equals("") || request.getParameter("DataNascita").equals("")){
+            if (request.getParameter("Nome").equals("") || request.getParameter("Indirizzo").equals("") || request.getParameter("Matricola").equals("") || request.getParameter("CittaNascita").equals("") || request.getParameter("CAP").equals("") || request.getParameter("CittaResidenza").equals("") || request.getParameter("Email").equals("") || request.getParameter("Cognome").equals("") || request.getParameter("DataNascita").equals("")) {
                 trainee.setState("Bozza");
-            }
-            else
+            } else {
                 trainee.setState("Inserito");
+            }
             trainee.setAccountType("8");
             trainee.setNameUser(request.getParameter("Nome"));
             trainee.setViaResidence(request.getParameter("Indirizzo"));
@@ -65,8 +65,10 @@ public class InsertTraineeServlet extends HttpServlet {
             trainee.setEmail(request.getParameter("Email"));
             trainee.setSurnameUser(request.getParameter("Cognome"));
             trainee.setCellularNumber(request.getParameter("NumeroTelefonico"));
-            if(!request.getParameter("DataNascita").equals(""))
+            if (!request.getParameter("DataNascita").equals("")) {
                 trainee.setDataOfBirth(parseGregorianCalendar(request.getParameter("DataNascita")));
+
+            }
             trainee.setQualification(request.getParameter("TitoloStudio"));
             trainingManager.insert(trainee);
             request.setAttribute("message",
@@ -80,8 +82,7 @@ public class InsertTraineeServlet extends HttpServlet {
 
         } catch (ParseException e) {
             Logger.getLogger(TrainingManagerServlet.class.getName()).log(Level.SEVERE, null, e);
-        } finally {
-        }
+        } 
     }
 
     private GregorianCalendar parseGregorianCalendar(String pDate) throws ParseException {
