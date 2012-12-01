@@ -81,6 +81,17 @@ CREATE TABLE IF NOT EXISTS `attivita` (
 -- --------------------------------------------------------
 
 --
+-- Struttura della tabella `assegnazione`
+--
+
+CREATE TABLE IF NOT EXISTS `assegnazione` (
+  `Classe` int(11) NOT NULL,
+  `Educatore` int(11) NOT NULL,
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Struttura della tabella `attivita_giornaliera_per_sezione`
 --
 
@@ -194,8 +205,9 @@ CREATE TABLE IF NOT EXISTS `esito` (
 
 CREATE TABLE IF NOT EXISTS `graduatoria` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Nome` varchar(20),
   `Data` date NOT NULL,
-  `DataScadenza` date NOT NULL,
+  `Stato` enum('bozza','provvisoria','definitiva') DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -207,19 +219,18 @@ CREATE TABLE IF NOT EXISTS `graduatoria` (
 
 CREATE TABLE IF NOT EXISTS `iscrizionebambino` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Cognome` varchar(25) NOT NULL,
-  `Nome` varchar(25) NOT NULL,
-  `DataNascita` date NOT NULL,
-  `ComuneNascita` varchar(20) NOT NULL,
-  `CodiceFiscale` char(16) NOT NULL,
-  `Cittadinanza` varchar(20) NOT NULL,
-  `FasciaUtenza` enum('full time','part time pomeridiana','part time mattutina') NOT NULL,
+  `Cognome` varchar(25),
+  `Nome` varchar(25),
+  `DataNascita` date,
+  `ComuneNascita` varchar(20),
+  `CodiceFiscale` char(16),
+  `Cittadinanza` varchar(20),
+  `FasciaUtenza` enum('full time','part time pomeridiana','part time mattutina'),
   `DataIscrizione` date NOT NULL,
   `Malattia` text,
-  `FaseDellIscrizione` enum('registrata','confermata','accettata','eliminata','rinunciata','ricorso') NOT NULL DEFAULT 'registrata',
+  `FaseDellIscrizione` enum('bozza','sottomessa','confermata','accettata','eliminata','rinunciata','ricorso') NOT NULL DEFAULT 'registrata',
   `AccountGenitore` int(11) NOT NULL,
-  `Classe` int(11) NOT NULL,
-  `idRichiesta` int(11) NOT NULL,
+  `Classe` int(11),
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
