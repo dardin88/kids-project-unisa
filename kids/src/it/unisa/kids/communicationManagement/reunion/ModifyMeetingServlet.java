@@ -1,7 +1,12 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package it.unisa.kids.communicationManagement.reunion;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -13,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Pasquale
  */
-public class addMeetingServlet extends HttpServlet {
+public class ModifyMeetingServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -30,27 +35,32 @@ public class addMeetingServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            response.setContentType("text/html;charset=UTF-8");
             JDBCReunionManager am = JDBCReunionManager.getInstance();
-            Reunion a = new Reunion();
-            String aTitle = request.getParameter("titleMeeting");
-            String aDescription = request.getParameter("descriptionMeeting");
-            Date aData = request.getParameter("dataMeeting");
-            String aTime = request.getParameter("timeMeeting");
-            String aType = request.getParameter("typeMeeting");
-            a.setTitle(aTitle);
-            a.setDescription(aDescription);
-            a.setDate(aData);
-            a.setTime(aTime);
-            a.setType(aType);            
-            am.insert(a);
+            ArrayList<Reunion> list = am.getMeetingList();
+            Reunion meeting = new Reunion();
+
+            int id = Integer.parseInt(request.getParameter("modifyId"));
+
+            for (Reunion r : list) {
+                if (r.getId() == id) {
+                    meeting.setId(id);
+                    meeting.setTitle(request.getParameter("modifyTitolo"));
+                    meeting.setDescription(request.getParameter("modifyDescrizione"));
+                    meeting.setDate(request.getParameter("modifyData"));
+                    meeting.setFirstTime(request.getParameter("modifyOraInizio"));
+                    meeting.setSecondTime(request.getParameter("modifyOraFine"));
+                    meeting.setType(request.getParameter("modifyTipo"));
+                    System.out.print(meeting.toString());
+                    am.update(meeting);
+                }
+            }
+            request.getServletContext().getRequestDispatcher("/meetingCalendar.jsp").forward(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(AddTraceabilityLinkServlet.class.getName()).log(
+            Logger.getLogger(AddMeetingServlet.class.getName()).log(
                     Level.SEVERE, null, ex);
         }
-    }
+    } // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP
      * <code>GET</code> method.
