@@ -150,18 +150,7 @@ public final class DBNames {
     public static final String ATT_REFUND_DESCRIPTION = "Descrizione";
     public static final String ATT_REFUND_AMOUNT = "Importo";
     public static final String ATT_REFUND_PARENTID = "Genitore";
-    //Trainee' attributes
-    public static final String ATT_TRAINEE_REGISTER = "Matricola";
-    public static final String ATT_TRAINEE_NAME = "Nome";
-    public static final String ATT_TRAINEE_SURNAME = "Cognome";
-    public static final String ATT_TRAINEE_EMAIL = "Email";
-    public static final String ATT_TRAINEE_BIRTHDATE = "DataNascita";
-    public static final String ATT_TRAINEE_BIRTHCITY = "CittaNascita";
-    public static final String ATT_TRAINEE_CITYOFRESIDENCE = "CittaResidenza";
-    public static final String ATT_TRAINEE_ADDRESS = "Indirizzo";
-    public static final String ATT_TRAINEE_CAP = "CAP";
-    public static final String ATT_TRAINEE_TELEPHONENUMBER = "NumeroTelefonico";
-    public static final String ATT_TRAINEE_DELEGATEACCOUNT = "AccountDelegato";
+    
     
     //Trainee activity's attributes
     public static final String ATT_TRAINEEACTIVITY_DATE = "Data";
@@ -172,6 +161,7 @@ public final class DBNames {
     public static final String ATT_TRAINEEACTIVITY_DELEGATEACCOUNT = "Delegato";
     public static final String ATT_TRAINEEACTIVITY_TRAINEE = "Tirocinante";
     public static final String ATT_TRAINEEACTIVITY_ID = "Id";
+    public static final String ATT_TRAINEEACTIVITY_OPINION="Giudizio";
     // Reunion's attributes
     public static final String ATT_REUNION_ID = "Id";
     public static final String ATT_REUNION_TITLE = "Titolo";

@@ -5,6 +5,7 @@
 package it.unisa.kids.serviceManagement.trainingManagement;
 
 import com.google.gson.Gson;
+import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
@@ -13,7 +14,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,19 +24,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 /**
  *
  * @author utente
  */
-public class GetRequestCalendarServlet extends HttpServlet {
+public class GetTraineesActivityServletCalendar extends HttpServlet {
 
     private static Logger logger = Logger.getLogger("global");
     private ITrainingManager trainingManager;
 
-   public void init(ServletConfig config) {
+    public void init(ServletConfig config) {
         RefinedAbstractManager refinedAbstractTrainingManager = RefinedAbstractManager.getInstance();
         trainingManager = (ITrainingManager) refinedAbstractTrainingManager.getManagerImplementor(DBNames.TABLE_TRAINEE);
     }
@@ -53,46 +51,47 @@ public class GetRequestCalendarServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         try {
             PrintWriter out = response.getWriter();
-            List<TraineeRequest> listTraineeRequest;
+            List<TraineeActivity> listTraineeActivity;
             List<Map<String, Object>> events = new ArrayList<Map<String, Object>>();
-            listTraineeRequest = trainingManager.getRequestsList();
-            for (TraineeRequest traineeRequest : listTraineeRequest) {
+            listTraineeActivity = trainingManager.getTraineeActivityList();
+            for (TraineeActivity traineeActivity : listTraineeActivity) {
                 Map<String, Object> map = new HashMap<String, Object>();
-                
-               //String date = traineeRequest.getDate().get(Calendar.YEAR) + "-" + (traineeRequest.getDate().get(Calendar.MONTH) + 1) + "-" + traineeRequest.getDate().get(Calendar.DAY_OF_MONTH);
-                int year=traineeRequest.getDate().get(Calendar.YEAR);
-                int month=traineeRequest.getDate().get(Calendar.MONTH);
-                int day=traineeRequest.getDate().get(Calendar.DAY_OF_MONTH);
-                int hoursStart=traineeRequest.getStartTime().getHours();
-                int minutesStart=traineeRequest.getStartTime().getMinutes();
-                int hoursEnd=traineeRequest.getEndTime().getHours();
-                int minutesEnd=traineeRequest.getEndTime().getMinutes();
-                String date=year+"-"+(month+1)+"-"+day;
-               // GregorianCalendar date1=new GregorianCalendar();
-            //    date1.set(2012,11,21);
-              //  date1.setTime(traineeRequest.getStartTime());
-               
-               Date start=new Date(year-1900,month,day,hoursStart,minutesStart);
-               Date end=new Date(year-1900,month,day,hoursEnd,minutesEnd);
-               // Calendar date=new GregorianCalendar(year,month,day);
-               // date = new Date(traineeRequest.getDate().get(Calendar.YEAR),(traineeRequest.getDate().get(Calendar.MONTH) + 1), traineeRequest.getDate().get(Calendar.DAY_OF_MONTH));
-               //logger.info(""+traineeRequest.getStartTime().getMinutes());
+                Account account = new Account();
+                account.setId(traineeActivity.getTrainee());
+                List<Account> list = trainingManager.search(account);
+                String date = traineeActivity.getDate().get(Calendar.YEAR) + "-" + (traineeActivity.getDate().get(Calendar.MONTH) + 1) + "-" + traineeActivity.getDate().get(Calendar.DAY_OF_MONTH);
+                int year = traineeActivity.getDate().get(Calendar.YEAR);
+                int month = traineeActivity.getDate().get(Calendar.MONTH);
+                int day = traineeActivity.getDate().get(Calendar.DAY_OF_MONTH);
+                int hoursStart = traineeActivity.getStart().getHours();
+                int minutesStart = traineeActivity.getStart().getMinutes();
+                int hoursEnd = traineeActivity.getEnd().getHours();
+                int minutesEnd = traineeActivity.getEnd().getMinutes();
+                // GregorianCalendar date1=new GregorianCalendar();
+                //    date1.set(2012,11,21);
+                //  date1.setTime(traineeRequest.getStartTime());
+                Date start = new Date(year - 1900, month, day, hoursStart, minutesStart);
+                Date end = new Date(year - 1900, month, day, hoursEnd, minutesEnd);
+                // Calendar date=new GregorianCalendar(year,month,day);
+                // date = new Date(traineeRequest.getDate().get(Calendar.YEAR),(traineeRequest.getDate().get(Calendar.MONTH) + 1), traineeRequest.getDate().get(Calendar.DAY_OF_MONTH));
+                //logger.info(""+traineeRequest.getStartTime().getMinutes());
                 // date.setMinutes(traineeRequest.getStartTime().getMinutes());
                 //date.setHours(traineeRequest.getStartTime().getHours());
-                map.put("id", traineeRequest.getId());
-                map.put("title", "richiesta di "+traineeRequest.getTraineeNumber()+" tirocinanti");
-                map.put("traineeNumber", traineeRequest.getTraineeNumber());
-                map.put("dateRequest",date);
-                map.put("startTime", hoursStart+":"+minutesStart);
-                map.put("endTime",hoursEnd+":"+minutesEnd);
-                map.put("acitivity",traineeRequest.getActivity());
+                map.put("trainee", list.get(0).getRegister());
+                map.put("activity", traineeActivity.getName());
+                map.put("dateActivity",date);
+                map.put("description",traineeActivity.getDescription());
+                map.put("startTimeActivity",hoursStart+":"+minutesStart);
+                map.put("endTimeActivity",hoursEnd+":"+minutesEnd);
+                map.put("opinion", traineeActivity.getOpinion());
+                map.put("id", traineeActivity.getId());
+                map.put("title", traineeActivity.getName());
                 map.put("start", start);
                 map.put("end", end);
                 map.put("allDay", false);
-                map.put("activity",traineeRequest.getActivity());
+                //map.put("activity",traineeActivity.getActivity());
                 // map.put("")
 
                 events.add(map);

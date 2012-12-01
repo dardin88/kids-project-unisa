@@ -30,12 +30,14 @@ import javax.servlet.http.HttpSession;
  * @author utente
  */
 public class InsertConvocationServlet extends HttpServlet {
- private ITrainingManager trainingManager;
+
+    private ITrainingManager trainingManager;
 
     public void init(ServletConfig config) {
         RefinedAbstractManager refinedAbstractTrainingManager = RefinedAbstractManager.getInstance();
         trainingManager = (ITrainingManager) refinedAbstractTrainingManager.getManagerImplementor(DBNames.TABLE_TRAINEE);
     }
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -48,18 +50,24 @@ public class InsertConvocationServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         try {
-            String activity=request.getParameter("Attivita");
-            String date=request.getParameter("Data");
-            String startTime=request.getParameter("OraInizio");
-            String endTime=request.getParameter("OraFine");
-            HttpSession session=request.getSession();
-            Account delegate=(Account) session.getAttribute("user");
-            int delegateId=delegate.getId();
-            String[] trainees=request.getParameterValues("trainees");
-            for(int i=0;i<trainees.length;i++){
-                TraineeConvocation convocation=new TraineeConvocation();
+            String activity = request.getParameter("Attivita");
+            String date = request.getParameter("Data");
+            String startTime = request.getParameter("OraInizio");
+            String endTime = request.getParameter("OraFine");
+            HttpSession session = request.getSession();
+            Account delegate = (Account) session.getAttribute("user");
+            int delegateId = delegate.getId();
+            String[] trainees = request.getParameterValues("trainees");
+            if (trainees == null) {
+                request.setAttribute("message",
+                        "Non hai selezionato nessun tirocinante");
+                request.getServletContext().getRequestDispatcher("/formationScienceNotifications.jsp").forward(request, response);
+                return;
+            }
+            for (int i = 0; i < trainees.length; i++) {
+                TraineeConvocation convocation = new TraineeConvocation();
                 convocation.setActivityName(activity);
                 convocation.setDelegateId(delegateId);
                 convocation.setTraineeId(Integer.parseInt(trainees[i]));
@@ -67,32 +75,34 @@ public class InsertConvocationServlet extends HttpServlet {
                 convocation.setStartTime(parseTime(startTime));
                 convocation.setEndTime(parseTime(endTime));
                 trainingManager.insert(convocation);
-                
+
             }
             request.setAttribute("message",
                     "Convocazioni inviate con successo");
             request.getServletContext().getRequestDispatcher("/formationSciencePage.jsp").forward(request, response);
-            
-            
-            
-            
+
+
+
+
         } catch (SQLException ex) {
             Logger.getLogger(InsertConvocationServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
             Logger.getLogger(InsertConvocationServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
-     private GregorianCalendar parseGregorianCalendar(String pDate) throws ParseException {
+
+    private GregorianCalendar parseGregorianCalendar(String pDate) throws ParseException {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date parsed = df.parse(pDate);
         GregorianCalendar date = new GregorianCalendar();
         date.setTime(parsed);
         return date;
     }
-     private Time parseTime(String pTime) throws ParseException{
+
+    private Time parseTime(String pTime) throws ParseException {
         DateFormat df = new SimpleDateFormat("hh:mm");
-        Date parsed=df.parse(pTime);
-        Time time=new Time(parsed.getTime());
+        Date parsed = df.parse(pTime);
+        Time time = new Time(parsed.getTime());
         return time;
     }
 
