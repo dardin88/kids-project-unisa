@@ -43,6 +43,34 @@
             });
         </script>
     </head>
+    <div id="removeTraineeConvocationWindow" title="Rimuovi Convocazione Tirocinante" style="display: inline">
+        <form id="removeTraineeConvocationForm" class="cmxform" method="post" action="">
+            <fieldset>
+                <p class="formp">
+                    <label class="requirementLabel">Sei sicuro di voler eliminare questa Convocazione?</label>
+                </p>
+                <p class="formp">
+                    <input type="button" class="confirmRemoveButton" id="confirmRemoveTraineeConvocationButton" value="Si"/>
+                    <input type="button" class="notConfirmRemoveButton" id="notConfirmRemoveTraineeConvocationButton" value="No"/>
+                </p>
+            </fieldset>
+        </form>
+    </div>
+    <c:if test="${requestScope.message!=null}">
+        <div id="error" title="Message" style="display: inline">
+            <form id="confirmForm" class="cmxform" method="post" action="formationScienceNotifications.jsp">
+                <fieldset>
+                    <p class="formp">
+                        <label class="requirementLabel">${requestScope.message}</label>
+                    </p>
+                    <p class="formp">
+                        <input type="submit" class="confirmButton" id="confirmButton" value="ok"/>
+
+                    </p>
+                </fieldset>
+            </form>
+        </div>
+    </c:if>
     <div id="requestInformation" title="Richiesta">
         <form method="post" action="InsertConvocation">
             <table style="padding-bottom: 20px;">
@@ -97,11 +125,11 @@
                     <table id="responseTable" style="width:95%;">
                         <thead>
                             <tr>
-                                <th>Data</th>
                                 <th>Tirocinante</th>
+                                <th>Attivit&agrave</th>
+                                <th>Data</th>
                                 <th>Confermata</th>
                                 <th>Operazioni</th>
-
                             </tr>
                         </thead>
                         <tbody>

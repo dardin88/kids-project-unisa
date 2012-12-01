@@ -40,7 +40,7 @@
     </head>
     <c:if test="${requestScope.message!=null}">
         <div id="confirm" title="Message" style="display: inline">
-            <form id="confirmForm" class="cmxform" method="post" action="insertTrainee.jsp">
+            <form id="confirmForm" class="cmxform" method="post" action="trainees.jsp">
                 <fieldset>
                     <p class="formp">
                         <label class="requirementLabel">${requestScope.message}</label>
@@ -89,7 +89,7 @@
         <form id="information" class="cmxform" method="post" action="">
             <table>
                 <input type="hidden" name="Id" value="${id}">
-                <tr><td>Matricola*</td><td><input id="Matricola" type="text" name="Matricola" value="${matricola}"  readonly="true"></td></tr>
+                <tr><td>Matricola*</td><td><input id="Matricola" type="text" name="Matricola" value=""  readonly="true"></td></tr>
                 <tr><td> Nome*</td><td><input type="text" name="Nome" id="Nome" value="${nome}" readonly="true" ></td></tr>
                 <tr><td>Cognome*</td><td><input type="text" name="Cognome" id="Cognome" value="${cognome}"readonly="true" ></td></tr>
                 <tr><td>Data di nascita*</td><td><input type="text" name="DataNascita" id="DataNascita" value="${dataNascita}"readonly="true" ></td></tr>

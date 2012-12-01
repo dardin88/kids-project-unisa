@@ -14,6 +14,13 @@ function initializeLinksManager(){
         width:650
     });
     $("#sendConvocation").button();
+    $("#error").dialog();
+    $("#removeTraineeConvocationWindow").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 400
+    });
    
 }
 function searchRequests(){
@@ -91,7 +98,7 @@ function buildResponseFromTraineesTable(){
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": "",
+        "sAjaxSource": "GetConvocationTable",
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
@@ -131,11 +138,7 @@ function buildResponseFromTraineesTable(){
         },
 
 
-        "oTableTools":{
-            "aButtons":[
-            "Modifica","Visualizza","Contatta"
-            ]
-        },
+        
         "aoColumns": [
         {
             "sWidth": "30%"
@@ -145,6 +148,9 @@ function buildResponseFromTraineesTable(){
         },
         {
             "sWidth": "30%"
+        },
+        {
+            "sWidth": "10%"
         },
         {
             "sWidth": "10%"
@@ -203,4 +209,22 @@ function createCalendar(){
     })
     
                     
+}
+function removeTraineeConvocation(id){
+    $("#removeTraineeConvocationWindow").dialog({
+        autoOpen:true
+    }); 
+    $("#confirmRemoveTraineeConvocationButton").button();
+    $("#confirmRemoveTraineeConvocationButton").click(function(){
+        $.post("RemoveConvocation", {
+            traineeConvocationId:""+id
+        });
+        $("#removeTraineeConvocationWindow").dialog("close"); 
+        var oTable = $("#responseTable").dataTable();
+        oTable.fnDraw();
+    });
+    $("#notConfirmRemoveTraineeConvocationButton").button();
+    $("#notConfirmRemoveTraineeConvocationButton").click(function(){
+        $("#removeTraineeConvocationWindow").dialog("close");
+    });
 }

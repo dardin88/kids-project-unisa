@@ -40,7 +40,8 @@ public class JDBCTrainingManager implements ITrainingManager {
     @Override
     public void insert(Account pTrainee) throws SQLException {
         IAccessFacade accessFacade = new AccessFacade();
-        accessFacade.insert(pTrainee);
+        if(accessFacade.insert(pTrainee)==null)
+            throw new SQLException();
 
 
 
@@ -214,7 +215,20 @@ public class JDBCTrainingManager implements ITrainingManager {
 
     @Override
     public void delete(TraineeConvocation pTraineeConvocation) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Connection con = null;
+        PreparedStatement pStmt = null;
+        String query;
+        try {
+            con = DBConnectionPool.getConnection();
+            query = "DELETE FROM " + DBNames.TABLE_TRAINEECONVOCATION + " WHERE " + DBNames.ATT_TRAINEECONVOCATION_ID + "=? ";
+            pStmt = con.prepareStatement(query);
+            pStmt.setInt(1, pTraineeConvocation.getId());
+            pStmt.executeUpdate();
+            con.commit();
+        } finally {
+            pStmt.close();
+            DBConnectionPool.releaseConnection(con);
+        }
     }
     /* (non-Javadoc)
      * @see it.unisa.kids.serviceManagement.trainingManagement.ITrainingManager#getTrainees(it.unisa.kids.serviceManagement.trainingManagement.Trainee)
@@ -256,6 +270,7 @@ public class JDBCTrainingManager implements ITrainingManager {
                 int delegate = rs.getInt(DBNames.ATT_TRAINEEACTIVITY_DELEGATEACCOUNT);
                 Time startTime = rs.getTime(DBNames.ATT_TRAINEEACTIVITY_STARTTIME);
                 Time endTime = rs.getTime(DBNames.ATT_TRAINEEACTIVITY_ENDTIME);
+                String opinion=rs.getString(DBNames.ATT_TRAINEEACTIVITY_OPINION);
                 activity.setName(name);
                 activity.setDescription(description);
                 activity.setTrainee(trainee);
@@ -263,6 +278,7 @@ public class JDBCTrainingManager implements ITrainingManager {
                 activity.setDelegate(delegate);
                 activity.setStart(startTime);
                 activity.setEnd(endTime);
+                activity.setOpinion(opinion);
                 listActivity.add(activity);
             }
             return listActivity;
@@ -400,6 +416,7 @@ public class JDBCTrainingManager implements ITrainingManager {
                 int delegate = rs.getInt(DBNames.ATT_TRAINEEACTIVITY_DELEGATEACCOUNT);
                 int trainee = rs.getInt(DBNames.ATT_TRAINEEACTIVITY_TRAINEE);
                 int id = rs.getInt(DBNames.ATT_TRAINEEACTIVITY_ID);
+                String opinion=rs.getString(DBNames.ATT_TRAINEEACTIVITY_OPINION);
 
                 GregorianCalendar dateCalendar = new GregorianCalendar();
                 dateCalendar.setTime(date);
@@ -412,6 +429,7 @@ public class JDBCTrainingManager implements ITrainingManager {
                 traineeActivity.setStart(startTime);
                 traineeActivity.setTrainee(trainee);
                 traineeActivity.setId(id);
+                traineeActivity.setOpinion(opinion);
                 activityList.add(traineeActivity);
             }
         } finally {

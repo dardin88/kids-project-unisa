@@ -17,13 +17,20 @@ public class TraineeActivity {
 	private Time end;
 	private int delegate;
 	private int trainee;
+        private String opinion;
 	/**Empty constructor of the class
 	 *
 	 */
 	public TraineeActivity() {
 		
 	}
-	
+	public String getOpinion(){
+            return opinion;
+        }
+        
+        public void setOpinion(String pOpinion){
+            this.opinion=pOpinion;
+        }
 	/**the method returns the date 
 	 * @return Gregorian Calendar date
 	 */

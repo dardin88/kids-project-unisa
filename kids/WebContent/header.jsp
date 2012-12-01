@@ -33,6 +33,10 @@
                 <li id="managementTraineeActivity"><a href="">Gestione Attivit&agrave Tirocinanti</a></li>
                 <li id="traineeRequest"><a href="">Invia Richiesta di Tirocinanti</a></li>
             </c:if>
+                <c:if test="${sessionScope.user.getAccountType()=='Tirocinante'}">
+                <li id="traineeRegister"><a href="traineeRegister.jsp">Registro attivit&agrave</a></li>
+                <li id="traineeConvocation"><a href="traineeConvocation.jsp">Convocazioni</a></li>
+            </c:if>
 
             <c:if test="${sessionScope.user.getAccountType()=='Delegato scienze della formazione'}">
                 <li id="trainees"><a href="trainees.jsp">Gestione Tirocinanti</a></li>

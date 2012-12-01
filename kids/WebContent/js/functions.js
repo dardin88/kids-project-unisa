@@ -32,10 +32,18 @@ function activePage(){
             $("#insertTraineeActivity").css("background-color","#F82025");
             $("#insertTraineeActivity").css("color","#FFFFFF");
             break;
-         case 'newsInsertNews.jsp':
-        //   $("#newsShowTable").css("background-color","#F82025");
-        //    $("#newsShowTable").css("color","#FFFFFF");
+        case 'newsInsertNews.jsp':
+            //   $("#newsShowTable").css("background-color","#F82025");
+            //    $("#newsShowTable").css("color","#FFFFFF");
             //rendere bottone sinistra invisibile
+            break;
+        case 'traineeRegister.jsp':
+            $("#traineeRegister").css("background-color","#F82025");
+            $("#traineeRegister").css("color","#FFFFFF");
+            break;
+        case 'traineeConvocation.jsp':
+            $("#traineeConvocation").css("background-color","#F82025");
+            $("#traineeConvocation").css("color","#FFFFFF");
             break;
     }
 }

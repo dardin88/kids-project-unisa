@@ -69,7 +69,7 @@ public class AccessFacade implements IAccessFacade
         try {
             accountManager.insert(pAccount);
         } catch (SQLException ex) {
-            Logger.getLogger(AccessFacade.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
         return pAccount;
     }
