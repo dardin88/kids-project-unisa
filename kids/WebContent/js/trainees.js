@@ -127,7 +127,7 @@ function search(){
 }
 function loadInformationTraineePage(id){
         $("#informationTraineeWindow").dialog("open");
-        $.post("GeTrainees", {
+        $.post("GetTrainees", {
             traineeId:""+id
         });
 
@@ -155,7 +155,7 @@ function modify(){
     document.getElementById("Cognome").readOnly=false;
     document.getElementById("DataNascita").readOnly=false;
     document.getElementById("CittaNascita").readOnly=false;
-    documnet.getElementById("CittaResidenza").readOnly=false;
+    document.getElementById("CittaResidenza").readOnly=false;
     document.getElementById("Indirizzo").readOnly=false;
     document.getElementById("CAP").readOnly=false;
     document.getElementById("NumeroTelefonico").readOnly=false;

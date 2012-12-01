@@ -6,6 +6,10 @@
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.GetTraineesServletTable</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>GetTraineesServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.GetTraineesServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>InsertTraineeServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.InsertTraineeServlet</servlet-class>
     </servlet>
@@ -45,6 +49,10 @@
         <servlet-name>VerifyTypeNewsServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.newsManagement.VerifyTypeNewsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RemoveTraineeServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.RemoveTraineeServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>addMeetingServlet</servlet-name>
         <url-pattern>/addMeeting</url-pattern>
@@ -61,13 +69,17 @@
         <servlet-name>GetTraineesServletTable</servlet-name>
         <url-pattern>/GetTraineesTable</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>InsertTraineeServlet</servlet-name>
         <url-pattern>/InsertTrainee</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ModifyAccountServlet</servlet-name>
         <url-pattern>/ModifyAccountServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetTraineesServlet</servlet-name>
+        <url-pattern>/GetTrainees</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -88,6 +100,10 @@
     <servlet-mapping>
         <servlet-name>VerifyTypeNewsServlet</servlet-name>
         <url-pattern>/VerifyTypeNews</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveTraineeServlet</servlet-name>
+        <url-pattern>/RemoveTrainee</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
