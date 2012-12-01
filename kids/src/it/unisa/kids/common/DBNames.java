@@ -85,8 +85,8 @@ public final class DBNames {
     public static final String ATT_REGISTRATIONCHILD_ID = "Id";
     public static final String ATT_REGISTRATIONCHILD_SURNAME = "Cognome";
     public static final String ATT_REGISTRATIONCHILD_NAME = "Nome";
-    public static final String ATT_REGISTRATIONCHILD_BORNDATE = "DataNascita";
-    public static final String ATT_REGISTRATIONCHILD_COMMONBORN = "ComuneNascita";
+    public static final String ATT_REGISTRATIONCHILD_BIRTHDATE = "DataNascita";
+    public static final String ATT_REGISTRATIONCHILD_BIRTHPLACE = "ComuneNascita";
     public static final String ATT_REGISTRATIONCHILD_FISCALCODE = "CodiceFiscale";
     public static final String ATT_REGISTRATIONCHILD_CITIZENSHIP = "Cittadinanza";
     public static final String ATT_REGISTRATIONCHILD_USERSECTION = "FasciaUtenza";
@@ -95,6 +95,9 @@ public final class DBNames {
     public static final String ATT_REGISTRATIONCHILD_REGISTRATIONPHASE = "FaseDellIscrizione";
     public static final String ATT_REGISTRATIONCHILD_PARENTACCOUNTID = "AccountGenitore";
     public static final String ATT_REGISTRATIONCHILD_CLASSID = "Classe";
+    public static final String ATT_REGISTRATIONCHILD_ENUM_USERSECTION_FULLTIME = "full time";
+    public static final String ATT_REGISTRATIONCHILD_ENUM_USERSECTION_PARTTIMEPM = "part time pomeridiana";
+    public static final String ATT_REGISTRATIONCHILD_ENUM_USERSECTION_PARTTIMEAM = "part time mattutina";
     // Recourses's attributes
     public static final String ATT_RECOURSE_ID = "Id";
     public static final String ATT_RECOURSE_DATA = "Data";

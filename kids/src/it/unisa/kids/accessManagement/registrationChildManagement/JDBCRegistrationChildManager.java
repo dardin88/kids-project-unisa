@@ -8,64 +8,68 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
+/**
+ * Implementor of IRegistrationChildManager with JDBC to a Relational DataBase
+ * 
+ * @author Lauri Giuseppe Giovanni
+ */
 public class JDBCRegistrationChildManager implements IRegistrationChildManager {
-	
-	private static JDBCRegistrationChildManager manager;
+    private static JDBCRegistrationChildManager manager;
 
-	private JDBCRegistrationChildManager(){
-	}
+    private JDBCRegistrationChildManager(){
+    }
 
-	public static synchronized JDBCRegistrationChildManager getInstance()
-	  {
-	    if (manager == null)
-	    {
-	      manager = new JDBCRegistrationChildManager();
-	    }
-	    return manager;
-	  }
-	  
-	  public synchronized RegistrationChild create(RegistrationChild pChildReg) throws SQLException
-	  {
-		  Connection con = null;
-		  Statement stmt=null;
-		  
-		  String query="INSERT INTO '"+DBNames.TABLE_CHILD+"' (" +		//spero sia questa la tabella per l'scrizione
-				DBNames.ATT_CHILD_SURNAME+", "+
-		  		DBNames.ATT_CHILD_NAME+", "+
-				DBNames.ATT_CHILD_BORNDATE+", "+
-		  		DBNames.ATT_CHILD_COMMONBORN+", "+
-				DBNames.ATT_CHILD_FISCALCODE+", "+
-		  		DBNames.ATT_CHILD_CITIZENSHIP+", "+
-				DBNames.ATT_CHILD_USERSECTION+", "+
-		  		DBNames.ATT_CHILD_REGISTRATIONDATE+", "+
-				DBNames.ATT_CHILD_SICK+", "+
-		  		DBNames.ATT_CHILD_REGISTRATIONPHASE+") VALUES"+		//anche accountgenitore e classe? (nell'SDD non c'erano come campi il motivo è perchè sono chiavi esterne?)
-				  					"('"+pChildReg.getSurname()+"', '"+
-				  						 pChildReg.getName()+"', '"+
-				  						 pChildReg.getBornDate()+"', '"+
-				  						 pChildReg.getCommuneBorn()+"', '"+
-				  						 pChildReg.getFiscalCode()+"', '" +
-				  						 pChildReg.getCitizenship()+"', '"+
-				  						 pChildReg.getUserSection()+"', '"+
-				  						 pChildReg.getRegistrationDate()+"', '"+
-				  						 pChildReg.isSick()+"', '"+
-				  						 pChildReg.getRegistrationPhase()+"' );"; 			
-		 
-		  try
-		  {
-			  con=DBConnectionPool.getConnection();
-			  stmt = con.createStatement();
-			  stmt.executeUpdate(query);
-		  }
-		  finally{
-			  stmt.close();
-			  DBConnectionPool.releaseConnection(con);
-		  }	
-		  
-		  return pChildReg;
-	  }
+    public static synchronized JDBCRegistrationChildManager getInstance() {
+        if(manager == null) {
+          manager = new JDBCRegistrationChildManager();
+        }
+        return manager;
+    }
+
+    public synchronized RegistrationChild create(RegistrationChild pChildReg) throws SQLException {
+        Connection con = null;
+        Statement stmt = null;
+
+        String query = "INSERT INTO '"+DBNames.TABLE_REGISTRATIONCHILD + "' (" +
+                      DBNames.ATT_REGISTRATIONCHILD_SURNAME + ", " +
+                      DBNames.ATT_REGISTRATIONCHILD_NAME + ", " +
+                      DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE + ", " +
+                      DBNames.ATT_REGISTRATIONCHILD_BIRTHPLACE + ", " +
+                      DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + ", " +
+                      DBNames.ATT_REGISTRATIONCHILD_CITIZENSHIP + ", " +
+                      DBNames.ATT_REGISTRATIONCHILD_USERSECTION + ", " +
+                      DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONDATE + ", " +
+                      DBNames.ATT_REGISTRATIONCHILD_SICK + ", " +
+                      DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE + ") " +
+                      "VALUES" +
+                      "(" + makeString(pChildReg.getSurname()) + ", " +
+                      makeString(pChildReg.getName()) + ", "+
+                      makeSQLDateString(pChildReg.getBornDate()) + ", "+
+                      makeString(pChildReg.getCommuneBorn()) + ", "+
+                      pChildReg.getFiscalCode()+"', '" +
+                      pChildReg.getCitizenship()+"', '"+
+                      pChildReg.getUserSection()+"', '"+
+                      pChildReg.getRegistrationDate()+"', '"+
+                      pChildReg.isSick()+"', '"+
+                      pChildReg.getRegistrationPhase()+"' );"; 			
+
+            try
+            {
+                    con=DBConnectionPool.getConnection();
+                    stmt = con.createStatement();
+                    stmt.executeUpdate(query);
+            }
+            finally{
+                    stmt.close();
+                    DBConnectionPool.releaseConnection(con);
+            }	
+
+            return pChildReg;
+    }
 	  
 	  public synchronized RegistrationChild delete(RegistrationChild pChildReg) throws SQLException
 	  {
@@ -238,38 +242,51 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
 			 return pChildReg;
 		}
           
-             public int getNumberChildren(int parentId) throws SQLException 
-	{
+    public int getNumberChildren(String parentId) throws SQLException {
+        ResultSet rs = null;
+        Connection con = null;
+        Statement stmt = null;
+        String query = null;
+        int num=0;
+        
+        try {
+            con = DBConnectionPool.getConnection();
+            // constructing query string
+            query = "SELECT count(*) as NumberOfChild" +
+                            "FROM" + DBNames.TABLE_REGISTRATIONCHILD + ","+
+                            "WHERE" + DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID + "=" + parentId;
 
-		ResultSet rs=null;
-		Connection con = null;
-		Statement stmt = null;
-		String query = null;
-                int num=0;
-		try {
-			con = DBConnectionPool.getConnection();
+            stmt = con.createStatement();
+            stmt.executeUpdate(query);
+            rs = stmt.executeQuery(query);
+            while(rs.next()){
+                num=rs.getInt("NumberOfChild");
+            }
+            con.commit();
+        } finally {
+            if(stmt != null)
+                stmt.close();
+            if(con != null)
+                DBConnectionPool.releaseConnection(con);
+        }
+        return num;
+   }
+             
+             
+    private String makeString(String d) {
+        if (d == null) {
+            return null;
+        } else {
+            return "'" + d + "'";
+        }
+    }
 
-			// constructing query string
-			query = "select count * as PIPPO" +
-					"from" + DBNames.TABLE_REGISTRATION + ","+
-					"where" + DBNames.ATT_REGISTRATION_ACCOUNT_PARENT + "=" + parentId;
+    private String makeSqlDateString(GregorianCalendar d) {
+        if (d == null) {
+            return null;
+        } else {
+            return "'" + d.get(Calendar.YEAR) + "-" + d.get(Calendar.MONTH) + "-" + d.get(Calendar.DAY_OF_MONTH) + "'";
+        }
+    }
 
-			stmt = con.createStatement();
-			stmt.executeUpdate(query);
-			rs=stmt.executeQuery(query);
-                        while(rs.next()){
-                            num=rs.getInt("PIPPO");
-                        }
-			con.commit();
-                        return num;
-		} finally {
-			if (stmt != null)
-				stmt.close();
-			if (con != null)
-				DBConnectionPool.releaseConnection(con);
-		}
-
-		
-	}
 }
-

@@ -1,27 +1,33 @@
 package it.unisa.kids.accessManagement.registrationChildManagement;
 
+import it.unisa.kids.common.DBNames;
 import java.util.GregorianCalendar;
 
+/**
+ * Class of rappresentation of an Application of Registration for a Child
+ * 
+ * @author Lauri Giuseppe Giovanni
+ */
 public class RegistrationChild {
-
-	private int registrationId;
+	private int id;
 	private String surname;
 	private String name;
-	private String communeBorn;
+	private GregorianCalendar birthDate;
+	private String birthPlace;
 	private String fiscalCode;
 	private String citizenship;
-	private boolean sick;
-	private GregorianCalendar bornDate;
+	private String sick;
 	private GregorianCalendar registrationDate; 
 	private int idParent; 
 
-	private enum userSection 
-	{
-		FULL_TIME("FullTime"), PART_TIME_POMERIDIANA("PartTimePomeridiana"), PART_TIME_MATTUTINA("PartTimeMattutina");
+	private enum UserSection {
+		FULL_TIME(DBNames.ATT_REGISTRATIONCHILD_ENUM_USERSECTION_FULLTIME), 
+                PART_TIME_POMERIDIANA(DBNames.ATT_REGISTRATIONCHILD_ENUM_USERSECTION_PARTTIMEPM), 
+                PART_TIME_MATTUTINA(DBNames.ATT_REGISTRATIONCHILD_ENUM_USERSECTION_PARTTIMEAM);
 
 		private final String description; // attributo
 
-		userSection(String desc) { // costruttore
+		UserSection(String desc) { // costruttore
 			this.description = desc;
 		}
 		public String getDescription() { // metodo
@@ -29,13 +35,17 @@ public class RegistrationChild {
 		}
 	};		
 
-	private enum registrationPhase 
-	{
-		REGISTRATA("Registrata"), CONFERMATA("Confermata"), ACCETTATA("Accettata"), ELIMINATA("Eliminata"), RINUNCIATA("Rinunciata"), RICORSO("Ricorso");
+	private enum RegistrationPhase {
+		REGISTRATA("Registrata"),
+                CONFERMATA("Confermata"),
+                ACCETTATA("Accettata"),
+                ELIMINATA("Eliminata"),
+                RINUNCIATA("Rinunciata"),
+                RICORSO("Ricorso");
 
 		private final String description; // attributo
 
-		registrationPhase(String desc) { // costruttore
+		RegistrationPhase(String desc) { // costruttore
 			this.description = desc;
 		}
 		public String getDescription() { // metodo
@@ -43,16 +53,16 @@ public class RegistrationChild {
 		}
 	};
 
-	private userSection usSec;
-	private registrationPhase regPh;
+	private UserSection usSec;
+	private RegistrationPhase regPh;
 
 	public RegistrationChild() { }
 
 	public int getRegistrationId() {
-		return registrationId;
+		return id;
 	}
 	public void setRegistrationId(int registrationId) {
-		this.registrationId = registrationId;
+		this.id = registrationId;
 	}
 	public String getSurname() {
 		return surname;
@@ -67,10 +77,10 @@ public class RegistrationChild {
 		this.name = name;
 	}
 	public String getCommuneBorn() {
-		return communeBorn;
+		return birthPlace;
 	}
 	public void setCommuneBorn(String communeBorn) {
-		this.communeBorn = communeBorn;
+		this.birthPlace = communeBorn;
 	}
 	public String getFiscalCode() {
 		return fiscalCode;
@@ -93,10 +103,10 @@ public class RegistrationChild {
 	@SuppressWarnings("static-access")
 	public String getBornDate() {
 		String tmp="";
-		return tmp=tmp+bornDate.YEAR+"-"+bornDate.MONTH+"-"+bornDate.DATE;
+		return tmp=tmp+birthDate.YEAR+"-"+birthDate.MONTH+"-"+birthDate.DATE;
 	}
 	public void setBornDate(String bornDates) {
-		this.bornDate.set(Integer.parseInt(bornDates.substring(0, 3)), Integer.parseInt(bornDates.substring(5, 7)), Integer.parseInt(bornDates.substring(8, 10)));
+		this.birthDate.set(Integer.parseInt(bornDates.substring(0, 3)), Integer.parseInt(bornDates.substring(5, 7)), Integer.parseInt(bornDates.substring(8, 10)));
 	}
 	@SuppressWarnings("static-access")
 	public String getRegistrationDate() {
@@ -125,12 +135,12 @@ public class RegistrationChild {
 		return result;
 	}
 	public void setUserSection(String userSections) {
-		if(userSections.equals(userSection.FULL_TIME.getDescription()))
-			usSec=userSection.FULL_TIME;
-		if(userSections.equals(userSection.PART_TIME_POMERIDIANA.getDescription()))
-			usSec=userSection.PART_TIME_POMERIDIANA;
-		if(userSections.equals(userSection.PART_TIME_MATTUTINA.getDescription()))
-			usSec=userSection.PART_TIME_MATTUTINA;
+		if(userSections.equals(UserSection.FULL_TIME.getDescription()))
+			usSec=UserSection.FULL_TIME;
+		if(userSections.equals(UserSection.PART_TIME_POMERIDIANA.getDescription()))
+			usSec=UserSection.PART_TIME_POMERIDIANA;
+		if(userSections.equals(UserSection.PART_TIME_MATTUTINA.getDescription()))
+			usSec=UserSection.PART_TIME_MATTUTINA;
 	}
 	public String getRegistrationPhase() {
 		String result="";
@@ -138,39 +148,39 @@ public class RegistrationChild {
 		switch (regPh)
 		{
 		case ACCETTATA:
-			result=registrationPhase.ACCETTATA.getDescription();
+			result=RegistrationPhase.ACCETTATA.getDescription();
 			break;
 		case ELIMINATA:
-			result=registrationPhase.ELIMINATA.getDescription();
+			result=RegistrationPhase.ELIMINATA.getDescription();
 			break;
 		case REGISTRATA:
-			result=registrationPhase.REGISTRATA.getDescription();
+			result=RegistrationPhase.REGISTRATA.getDescription();
 			break;
 		case CONFERMATA:
-			result=registrationPhase.CONFERMATA.getDescription();
+			result=RegistrationPhase.CONFERMATA.getDescription();
 			break;
 		case RINUNCIATA:
-			result=registrationPhase.RINUNCIATA.getDescription();
+			result=RegistrationPhase.RINUNCIATA.getDescription();
 			break;
 		case RICORSO:
-			result=registrationPhase.RICORSO.getDescription();
+			result=RegistrationPhase.RICORSO.getDescription();
 			break;
 		}
 		return result;
 	}
 	public void setRegistrationPhase(String registrationPhases) {
-		if(registrationPhases.equals(registrationPhase.ACCETTATA.getDescription()))
-			regPh=registrationPhase.ACCETTATA;
-		if(registrationPhases.equals(registrationPhase.CONFERMATA.getDescription()))
-			regPh=registrationPhase.CONFERMATA;
-		if(registrationPhases.equals(registrationPhase.ELIMINATA.getDescription()))
-			regPh=registrationPhase.ELIMINATA;
-		if(registrationPhases.equals(registrationPhase.REGISTRATA.getDescription()))
-			regPh=registrationPhase.REGISTRATA;
-		if(registrationPhases.equals(registrationPhase.RICORSO.getDescription()))
-			regPh=registrationPhase.RICORSO;
-		if(registrationPhases.equals(registrationPhase.RINUNCIATA.getDescription()))
-			regPh=registrationPhase.RINUNCIATA;
+		if(registrationPhases.equals(RegistrationPhase.ACCETTATA.getDescription()))
+			regPh=RegistrationPhase.ACCETTATA;
+		if(registrationPhases.equals(RegistrationPhase.CONFERMATA.getDescription()))
+			regPh=RegistrationPhase.CONFERMATA;
+		if(registrationPhases.equals(RegistrationPhase.ELIMINATA.getDescription()))
+			regPh=RegistrationPhase.ELIMINATA;
+		if(registrationPhases.equals(RegistrationPhase.REGISTRATA.getDescription()))
+			regPh=RegistrationPhase.REGISTRATA;
+		if(registrationPhases.equals(RegistrationPhase.RICORSO.getDescription()))
+			regPh=RegistrationPhase.RICORSO;
+		if(registrationPhases.equals(RegistrationPhase.RINUNCIATA.getDescription()))
+			regPh=RegistrationPhase.RINUNCIATA;
 	}
 
 	public int getIdParent() {
