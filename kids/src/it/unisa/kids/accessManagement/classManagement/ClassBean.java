@@ -6,13 +6,15 @@ import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationCh
 import java.util.ArrayList;
 import java.util.List;
 
-public class Class {
+public class ClassBean {
 	private int idClasse;
 	private String className;
-	private List<Educator> educatori;				//bisogna creare la classe educatore <- gi� esistenti
-	private List<RegistrationChild> bambini;					//bisogna creare la classe bambini <- gi� esistenti: ChildRegistrationBean
+	private List<Educator> educatori;				
+	private List<RegistrationChild> bambini;					
 	
-	public Class(String name,ArrayList<Educator> educa,ArrayList<RegistrationChild> bamb)
+	public ClassBean()  {   }        
+        
+        public ClassBean(String name,ArrayList<Educator> educa,ArrayList<RegistrationChild> bamb)
 	{
 		className=name;
 		this.educatori=educa;
@@ -23,7 +25,7 @@ public class Class {
 		return idClasse;
 	}
 
-	public void setIdClasse(int idClasse) {				//credo che il set non debba esserci visto che è autoincrementale
+	public void setIdClasse(int idClasse) {			
 		this.idClasse = idClasse;
 	}
 
