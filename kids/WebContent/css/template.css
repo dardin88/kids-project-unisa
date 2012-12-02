@@ -431,3 +431,14 @@ div#navigation li{
     padding-top: 1%;
     width: 80%;
 }
+
+/*
+ * PaymentManager
+ */
+ 
+ #paymentsManagement {
+     float: left;
+     padding: 2%;
+     padding-top: 1%;
+     width: 80%;
+ }
