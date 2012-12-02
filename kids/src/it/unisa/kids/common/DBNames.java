@@ -19,7 +19,7 @@ public final class DBNames {
     public static final String TABLE_PAYMENT = "payment";
     public static final String TABLE_PARTICIPATION = "participation";
     public static final String TABLE_COMUNICATION = "comunication";
-    public static final String TABLE_REUNION = "reunion";
+    public static final String TABLE_REUNION = "riunione";
     public static final String TABLE_NEWS = "news";
     public static final String TABLE_ANNUAL_PROJ = "annual_proj";
     public static final String TABLE_SECTION_PROJ = "section_proj";

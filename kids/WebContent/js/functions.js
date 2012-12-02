@@ -45,6 +45,10 @@ function activePage(){
             $("#traineeConvocation").css("background-color","#F82025");
             $("#traineeConvocation").css("color","#FFFFFF");
             break;
+        case 'meetingCalendar.jsp':
+            $("#meetingCalendarMenuEL").css("background-color","#444");
+            $("#meetingCalendarMenuEL").css("color","#FFFFFF");
+            break;
     }
 }
 

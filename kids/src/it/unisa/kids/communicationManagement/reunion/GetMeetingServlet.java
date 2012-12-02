@@ -58,7 +58,7 @@ public class GetMeetingServlet extends HttpServlet {
                    // request.getServletContext().getRequestDispatcher("/meetingCalendar.jsp").forward(request, response);
          
         } catch (SQLException ex) {
-            Logger.getLogger(LoadingCalendarServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoadCalendarServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(GetMeetingServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

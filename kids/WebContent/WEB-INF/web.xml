@@ -14,8 +14,28 @@
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.InsertTraineeServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>addMeetingServlet</servlet-name>
-        <servlet-class>it.unisa.kids.communicationManagement.reunion.addMeetingServlet</servlet-class>
+        <servlet-name>AddMeetingServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.reunion.AddMeetingServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteMeetingServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.reunion.DeleteMeetingServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetMeetingServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.reunion.GetMeetingServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoadCalendarServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.reunion.LoadCalendarServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModifyDateServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.reunion.ModifyDateServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModifyMeetingServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.reunion.ModifyMeetingServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>addAccountServlet</servlet-name>
@@ -94,8 +114,24 @@
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.GetConvocationServletTable</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>addMeetingServlet</servlet-name>
-        <url-pattern>/addMeeting</url-pattern>
+        <servlet-name>AddMeetingServlet</servlet-name>
+        <url-pattern>/AddMeeting</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteMeetingServlet</servlet-name>
+        <url-pattern>/DeleteMeeting</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetMeetingServlet</servlet-name>
+        <url-pattern>/GetMeeting</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModifyMeetingServlet</servlet-name>
+        <url-pattern>/ModifyMeeting</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModifyDateServlet</servlet-name>
+        <url-pattern>/ModifyDate</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>addAccountServlet</servlet-name>
@@ -184,6 +220,10 @@
     <servlet-mapping>
         <servlet-name>GetConvocationServletTable</servlet-name>
         <url-pattern>/GetConvocationTable</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadCalendarServlet</servlet-name>
+        <url-pattern>/LoadCalendar</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
