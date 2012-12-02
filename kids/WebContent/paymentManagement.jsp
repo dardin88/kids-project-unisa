@@ -18,6 +18,7 @@
 
         <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
+        <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
@@ -27,8 +28,8 @@
 
         <script type="text/javascript">
             $(document).ready(function() {
+                initialize();
                 messageDialog();
-                activeTabs();
             });
         </script>
     </head>
@@ -49,11 +50,43 @@
                 </form>
             </div>
         </c:if>
-        <form>
-            <input type="button" onclick="test();" value="Lock/Unlock">
-        </form>
-        
+
         <div id="paymentsManagement">
+
+            <%-- blocco div di ricerca del genitore --%>
+            <div id="searchParent">
+
+                <h1>Ricerca genitore</h1>
+                <form style="padding-bottom: 20px" onkeyup="search();">
+                    <fieldset>
+                        <label for="parentName">Nome:&nbsp;</label>
+                        <input type="text" name="parentName" id="parentName">
+
+                        <label for="parentSurname">Cognome:&nbsp;</label>
+                        <input type="text" name="parentSurname" id="parentSurname">
+
+                        <label for="parentFiscalCode">Codice fiscale:&nbsp;</label>
+                        <input type="text" name="parentFiscalCode" id="parentFiscalCode">
+                    </fieldset>
+                </form>
+
+                <table id="parentsTable">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Cognome</th>
+                            <th>Codice fiscale</th>
+                            <th>Operazioni</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <%-- fine blocco div ricerca genitore --%>
+
+            <%-- blocco div delle varie funzioni della gestione pagamenti --%>
             <div id="paymentTabGroup">
                 <ul>
                     <li><a href="#showPayments"><span class="paymentsTab">Visualizza pagamenti</span></a></li>
@@ -63,17 +96,7 @@
                 </ul>
 
                 <div id="showPayments">
-                    <table id="parentsTable">
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Cognome</th>
-                                <th>Codice fiscale</th>
-                            </tr>
-                        </thead>
-                    </table>
-
-                    <table id="paymentsTable">
+                    <table id="showPaymentsTable">
                         <thead>
                             <tr>
                                 <th>Data di scadenza</th>
@@ -88,25 +111,12 @@
                 </div>
 
                 <div id="showRefunds">
-                    <table id="parentsTable2">
+                    <table id="showRefundsTable">
                         <thead>
                             <tr>
-                                <th>Nome</th>
-                                <th>Cognome</th>
-                                <th>Codice fiscale</th>
-                            </tr>
-                        </thead>
-                    </table>
-
-                    <table id="paymentsTable">
-                        <thead>
-                            <tr>
-                                <th>Data di scadenza</th>
                                 <th>Descrizione</th>
                                 <th>Importo</th>
-                                <th>Sconto</th>
-                                <th>Descrizione sconto</th>
-                                <th>Importo dovuto</th>
+                                <th>Stato</th>
                             </tr>
                         </thead>
                     </table>
@@ -120,7 +130,10 @@
 
                 </div>
             </div>
+            <%-- fine blocco div funzioni gestione pagamenti --%>
+
         </div>
+
         <%@include file="footer.jsp" %>
     </body>
 </html>

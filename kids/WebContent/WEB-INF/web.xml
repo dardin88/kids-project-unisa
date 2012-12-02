@@ -2,6 +2,10 @@
 <web-app id="WebApp_ID" version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <display-name>kids</display-name>
     <servlet>
+        <servlet-name>GetParentsTableServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.paymentManagement.servlet.GetParentsTableServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>GetTraineesServletTable</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.GetTraineesServletTable</servlet-class>
     </servlet>
@@ -113,6 +117,12 @@
         <servlet-name>GetConvocationServletTable</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.GetConvocationServletTable</servlet-class>
     </servlet>
+    
+    
+    <servlet-mapping>
+        <servlet-name>GetParentsTableServlet</servlet-name>
+        <url-pattern>/GetParentsTable</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddMeetingServlet</servlet-name>
         <url-pattern>/AddMeeting</url-pattern>
