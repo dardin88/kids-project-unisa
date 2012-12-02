@@ -15,51 +15,68 @@ import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationCh
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.storage.connectionPool.DBConnectionPool;
+import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class AccessFacade implements IAccessFacade
-{
+public class AccessFacade implements IAccessFacade {
 
-	// C'è bisogno che venga implementato il bridge per Classe
-	public int getParentId(int childId)
-	{
-		JDBCRegistrationChildManager c;
-		RegistrationChild child = new RegistrationChild();
-		child.setIdParent(childId);
-		
-		return child.getIdParent();
-	}
+    // C'è bisogno che venga implementato il bridge per Classe
+    public int getParentId(int childId) {
+        JDBCRegistrationChildManager registrationChildManager = JDBCRegistrationChildManager.getInstance();
+        RegistrationChild child = new RegistrationChild();
+        child.setParentId(childId);
+
+        try {
+            List<RegistrationChild> resultList = registrationChildManager.search(child);
+            if(resultList.size() == 1) {
+                child = resultList.get(0);
+            }  
+        } catch(SQLException ex) { }
+        return child.getParentId();
+    }
         
         // Questo metodo deve essere trasferito nel ClassManager non appena quest'ultimo è stato corretto
-	public int getNumberOfChildren(int parentId) throws SQLException 
-	{
-            int num=0;
-            Connection con = null;
-            Statement stmt = null;
-            ResultSet rs=null;
-            String query="Select count(*)  as 'NumChildren' from"+DBNames.TABLE_REGISTRATION+"where"+DBNames.ATT_REGISTRATION_ACCOUNT_PARENT+"='"+parentId;
-            try
-		  {
-			  con=DBConnectionPool.getConnection();
-			  stmt = con.createStatement();
-			  rs=stmt.executeQuery(query);
-                          while(rs.next())
-                          {
-                              num=rs.getInt("NumChildren");
-                          }  
-                          return num;
-		  }
-            finally{
-			  stmt.close();
-			  DBConnectionPool.releaseConnection(con);
-		  }	
+	public int getNumberOfChildren(int parentId) throws SQLException {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String query = null;
+        int num = 0;
+        
+        try {
+            con = DBConnectionPool.getConnection();
+            // constructing query string
+            query = "SELECT count(*) as NumberOfChild" +
+                            "FROM" + DBNames.TABLE_REGISTRATIONCHILD + ","+
+                            "WHERE" + DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID + "=?;";
+
+            stmt = con.prepareStatement(query);
+            stmt.setInt(1, parentId);
             
+            rs = stmt.executeQuery();
+            con.commit();
+            
+            while(rs.next()) {
+                num = rs.getInt("NumberOfChild");
+            }
+        } finally {
+            if(stmt != null)
+                stmt.close();
+            if(con != null)
+                DBConnectionPool.releaseConnection(con);
         }
+        return num;
+   }
         
 	public boolean isSick(RegistrationChild c) {
-		return c.isSick();
+            boolean toReturn;
+            if(c.getSickness() != null)
+                toReturn = true;
+            else
+                toReturn = false;
+            return toReturn;
 	}
 
     
@@ -126,10 +143,5 @@ public class AccessFacade implements IAccessFacade
             return null;
         }
     }
-
-    
-
-   
-
 
 }

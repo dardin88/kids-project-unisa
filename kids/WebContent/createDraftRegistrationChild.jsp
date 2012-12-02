@@ -3,6 +3,7 @@
     Created on : 23-nov-2012, 22.09.10
     Author     : Lauri Giuseppe Giovanni
 --%>
+<%@page import="it.unisa.kids.common.DBNames"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%-- Rimuovere il tag commento per effettuare il controllo sull'accesso effettuato
@@ -28,20 +29,20 @@
     <body>
         <%@include file="header.jsp" %>
         <h1>Crea una nuova bozza di domanda di iscrizione per un bambino</h1>
-        <form class="inputForm" method="post">
+        <form class="inputForm" method="post" action="ServletCreateDraftRegistrationChild">
             <fieldset>
-                <label for="surname">Cognome
-                    <input id="surname" type="text" ></label>
-                <label for="name">Nome
-                    <input id="name" type="text" ></label>
-                <label for="fiscalCode">Codice fiscale
-                    <input id="fiscalCode" type="text" ></label>
-                <label for="bornDate">Data di nascita
-                    <input id="bornDate" type="datetime" ></label>
-                <label for="birthPlace">Luogo di nascita
-                    <input id="birthPlace" type="text" ></label>
-                <label for="citizenship">Cittadinanza
-                    <input id="citizenship" type="text" ></label>
+                Cognome: <input id="<%= DBNames.ATT_REGISTRATIONCHILD_SURNAME %>" type="text" ><br>
+                Nome: <input id="<%= DBNames.ATT_REGISTRATIONCHILD_NAME %>" type="text" ><br>
+                Data di nascita: <input id="<%= DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE %>" type="datetime" ><br>
+                Luogo di nascita: <input id="<%= DBNames.ATT_REGISTRATIONCHILD_BIRTHPLACE %>" type="text" ><br>
+                Codice fiscale: <input id="<%= DBNames.ATT_REGISTRATIONCHILD_FISCALCODE %>" type="text" ><br>
+                Cittadinanza: <input id="<%= DBNames.ATT_REGISTRATIONCHILD_CITIZENSHIP %>" type="text" ><br>
+                Fascia di utenza:
+                <select id="<%= DBNames.ATT_REGISTRATIONCHILD_USERRANGE %>">
+                    <option value="<%= DBNames.ATT_REGISTRATIONCHILD_ENUM_USERRANGE_FULLTIME %>" selected="selected">Full Time</option>
+                    <option value="<%= DBNames.ATT_REGISTRATIONCHILD_ENUM_USERRANGE_PARTTIMEAM %>">Part Time Mattutino</option>
+                    <option value="<%= DBNames.ATT_REGISTRATIONCHILD_ENUM_USERRANGE_PARTTIMEPM %>">Part Time Pomeridiano</option>
+                </select>
                 <input id="createDraft" type="submit" value="Crea bozza di domanda di iscrizione" >
             </fieldset>
             </form>
