@@ -28,7 +28,7 @@ import javax.servlet.http.HttpSession;
  * 
  * @author Giuseppe Giovanni Lauri
  */
-public class ServletCreateDraftRegistrationChild extends HttpServlet {
+public class ServletEditRegistrationChild extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -58,35 +58,29 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
             String birthPlace = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_BIRTHPLACE);
             String fiscalCode = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_FISCALCODE);
             String citizenship = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_CITIZENSHIP);
-            // Le malattie vengono inserite nella fase di conferma
-            // String sickness = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_SICKNESS);
             String userRange = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_USERRANGE);
-            // L'id del padre viene preso dalla sessione
-            HttpSession session = request.getSession();
-            Account parentAccount = (Account) session.getAttribute("user");
-
-            // La data di creazione della bozza va presa dal server
-            // String registrationDate = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONDATE);
-            GregorianCalendar registrationDate = new GregorianCalendar();
-            registrationDate.setTime(new Date(System.currentTimeMillis()));
-
-            // La Sezione verrà inserita dopo l'accettazione della domanda di registrazione
             
-            // Creo la domanda di iscrizione bambino
-            RegistrationChild registrationChild = new RegistrationChild();
+            // Prelevo dalla Session la domanda di iscrizione bambino da aggiornare
+            // E' stata inserita nella session perchè è stato necessario prelevarla dal db
+            // per formare la pagina jsp
+            HttpSession session = request.getSession();
+            RegistrationChild registrationChild = (RegistrationChild) session.getAttribute("registrationchildtoedit");
+            
+            // Ricerca: non ci possono essere più domande di iscrizione con lo stesso ID
+            // Se si preleva dalla session non è necessario effettuare un ulteriore ricerca nel db
+            // registrationChild = registrationChildManager.search(registrationChild).get(0);
+            
+            // Aggiorno i campi
             registrationChild.setSurname(surname);
             registrationChild.setName(name);
             registrationChild.setBirthDate(birth);
             registrationChild.setBirthPlace(birthPlace);
             registrationChild.setFiscalCode(fiscalCode);
             registrationChild.setCitizenship(citizenship);
-            registrationChild.setRegistrationDate(registrationDate);
             registrationChild.setUserRange(userRange);
-            registrationChild.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DRAFT);
-            registrationChild.setParentId(parentAccount.getId());
-
-            // La inserisco nel db
-            registrationChildManager.create(registrationChild);
+            
+            // Aggiorno il db
+            registrationChildManager.update(registrationChild);
         } catch (SQLException ex) {
             request.setAttribute("message", "Verfica i campi");
             request.getServletContext().getRequestDispatcher("/createDraftRegistrationChild.jsp").forward(request, response);
@@ -118,9 +112,9 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(ServletCreateDraftRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletEditRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
-            Logger.getLogger(ServletCreateDraftRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletEditRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -139,9 +133,9 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(ServletCreateDraftRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletEditRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
-            Logger.getLogger(ServletCreateDraftRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletEditRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
