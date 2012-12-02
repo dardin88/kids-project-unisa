@@ -445,3 +445,12 @@ div#navigation li{
      padding-top: 1%;
      width: 80%;
  }
+ 
+ #paymentsManagement h1 {
+     font-size: 30px;
+     text-align: center;
+ }
+ 
+ #searchParent {
+     padding-bottom: 20px;
+ }
