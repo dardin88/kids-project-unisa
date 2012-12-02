@@ -6,7 +6,6 @@ package it.unisa.kids.communicationManagement.reunion;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -22,7 +21,7 @@ import org.json.JSONObject;
  *
  * @author Pasquale
  */
-public class LoadingCalendarServlet extends HttpServlet {
+public class LoadCalendarServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -37,8 +36,8 @@ public class LoadingCalendarServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
         PrintWriter out = null;
+        response.setContentType("text/html;charset=UTF-8");
         try {
-            response.setContentType("text/html;charset=UTF-8");
             out = response.getWriter();
             JDBCReunionManager am = JDBCReunionManager.getInstance();
             ArrayList<Reunion> list = am.getMeetingList();
@@ -51,19 +50,21 @@ public class LoadingCalendarServlet extends HttpServlet {
 
                 String[] data = r.getDate().split("-");
                 String[] first = r.getFirstTime().split(":");
-                json.put("start", data[0] + "-" + data[1] + "-" + data[2] + "T" + first[0] + ":" + first[1] + ":00.0100");
+                json.put("start", data[0] + "-" + data[1] + "-" + data[2] + "T" + first[0] + ":" + first[1]+":00-05:00");
                 String[] end = r.getDate().split("-");
                 String[] second = r.getSecondTime().split(":");
-                json.put("end", end[0] + "-" + end[1] + "-" + end[2] + "T" + second[0] + ":" + second[1] + ":00.0100");
+                json.put("end", end[0] + "-" + end[1] + "-" + end[2] + "T" + second[0] + ":" + second[1]+":00-05:00");
                 json.put("allDay", "false");
                 jsonArray.put(json);
-                
+
             }
+
+            System.out.println("ciaoo");
             out.write(jsonArray.toString());
         } catch (SQLException ex) {
-            Logger.getLogger(LoadingCalendarServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoadCalendarServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(LoadingCalendarServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoadCalendarServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
         }
@@ -105,8 +106,5 @@ public class LoadingCalendarServlet extends HttpServlet {
      *
      * @return a String containing servlet description
      */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    
 }

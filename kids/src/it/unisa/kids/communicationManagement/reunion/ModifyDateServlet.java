@@ -42,20 +42,52 @@ public class ModifyDateServlet extends HttpServlet {
 
             int id = Integer.parseInt(request.getParameter("modifyDateId"));
             int giorni = Integer.parseInt(request.getParameter("modifyDateDay"));
+            int minuti = Integer.parseInt(request.getParameter("modifyMinuteDay"));
+            int firstOra;
+            int firstMinuti;
+            int secondOra;
+            int secondMinuti;
 
             for (Reunion r : list) {
                 if (r.getId() == id) {
-                    String day = r.getDate();
-                    String[] result = day.split("-");
-                    int res = Integer.parseInt(result[2]);
-                    res = res + giorni;
-                    String newDay = Integer.toString(res);
+                    if (giorni != 0) {
+                        String day = r.getDate();
+                        String[] result = day.split("-");
+                        int res = Integer.parseInt(result[2]);
+                        res = res + giorni;
+                        String newDay = Integer.toString(res);
+                        meeting.setDate(result[0] + "-" + result[1] + "-" + newDay);
+                    }
+                    if (minuti != 0) {
+                        String firstMin = r.getFirstTime();
+                        String secondMin = r.getSecondTime();
+                        String[] first = firstMin.split(":");
+                        firstOra = Integer.parseInt(first[0]);
+                        firstMinuti = Integer.parseInt(first[1]);
+                        String[] second = firstMin.split(":");
+                        secondOra = Integer.parseInt(second[0]);
+                        secondMinuti = Integer.parseInt(second[1]);
+                        int Ora = Math.abs(minuti) / 60;
+                        int Min = Math.abs(minuti) % 60;
+
+                        if (minuti < 0) {
+                            firstOra -= Ora;
+                            firstMinuti -= Min;
+                            secondOra -= Ora;
+                            secondMinuti -= Min;
+                        } else {
+                            firstOra += Ora;
+                            firstMinuti += Min;
+                            secondOra += Ora;
+                            secondMinuti += Min;
+                        }
+                        meeting.setFirstTime(firstOra + ":" + firstMinuti + ":00");
+                        meeting.setSecondTime(secondOra + ":" + secondMinuti + ":00");
+                        System.out.println(firstOra + ":" + firstMinuti + ":00");
+                    }
                     meeting.setId(r.getId());
                     meeting.setTitle(r.getTitle());
                     meeting.setDescription(r.getDescription());
-                    meeting.setDate(result[0] + "-" + result[1] + "-" + newDay);
-                    meeting.setFirstTime(r.getFirstTime());
-                    meeting.setSecondTime(r.getSecondTime());
                     meeting.setType(r.getType());
                     am.update(meeting);
                 }

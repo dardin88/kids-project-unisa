@@ -243,13 +243,14 @@ function deleteMeetingManager(){
     });
 }
 
-function modifyDate(id, giorni){
+function modifyDate(id, giorni, minuti){
         $.post("ModifyDate", {
             modifyDateId: id,
-            modifyDateDay: giorni
+            modifyDateDay: giorni,
+            modifyMinuteDay: minuti
         });
         alert("invio servlet");
-        location.href = "./meetingCalendar.jsp";
+        //location.href = "./meetingCalendar.jsp";
    
 }
 
@@ -263,9 +264,9 @@ $(document).ready(function() {
         editable: true, 
        
         events: {
-            url:"LoadingCalendar"
+            url:"LoadCalendar"
         },
-        
+        timeFormat: 'H(:mm)',
         
         eventClick: function(event){
             $("#showMeetingWindow").dialog("open");
@@ -294,10 +295,9 @@ $(document).ready(function() {
                 $("#modifyTypeMeeting").val(result[6]);
             })
         },
-        eventDrop: function(event, dayDelta){
-            alert(dayDelta),
-            modifyDate(event.id, dayDelta)
-            
+        eventDrop: function(event, dayDelta, minuteDelta){
+            alert(dayDelta+"min="+minuteDelta),
+            modifyDate(event.id, dayDelta, minuteDelta)
         }
     }); 	
 });
