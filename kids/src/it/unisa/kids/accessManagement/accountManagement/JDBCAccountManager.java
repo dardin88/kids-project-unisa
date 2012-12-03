@@ -168,7 +168,7 @@ public class JDBCAccountManager implements IAccountManager {
         try {
             con = DBConnectionPool.getConnection();
             String query = "Update " + DBNames.TABLE_ACCOUNT
-                    + " SET " +DBNames.ATT_ACCOUNT_REGISTRATIONDATE + "=" + data3 + ","
+                    + " SET " + DBNames.ATT_ACCOUNT_REGISTRATIONDATE + "=" + data3 + ","
                     + DBNames.ATT_ACCOUNT_CAPDOMICILIE + "=" + makeString(pChangedAccount.getCapDomicile()) + ","
                     + DBNames.ATT_ACCOUNT_CAPRESIDENCE + "=" + makeString(pChangedAccount.getCapResidence()) + ","
                     + DBNames.ATT_ACCOUNT_CELLULARNUMBER + "=" + makeString(pChangedAccount.getCellularNumber()) + ","
@@ -275,9 +275,9 @@ public class JDBCAccountManager implements IAccountManager {
                 query += useAnd(andState) + DBNames.ATT_ACCOUNT_TAXCODE + " = ?";
                 andState = true;
             }
-            if(pAccount.getState()!=null){
-                query+=useAnd(andState)+DBNames.ATT_ACCOUNT_STATE+" =?";
-                andState=true;
+            if (pAccount.getState() != null) {
+                query += useAnd(andState) + DBNames.ATT_ACCOUNT_STATE + " =?";
+                andState = true;
             }
 
 
@@ -313,15 +313,15 @@ public class JDBCAccountManager implements IAccountManager {
                 pstmt.setString(i, pAccount.getTaxCode());
                 i++;
             }
-            if(pAccount.getState()!=null){
-                pstmt.setString(i,pAccount.getState());
+            if (pAccount.getState() != null) {
+                pstmt.setString(i, pAccount.getState());
                 i++;
             }
             if (pAccount.getAccountType() != null) {
                 pstmt.setString(i, pAccount.getAccountType());
                 i++;
             }
-            
+
             System.out.println(query);
             rs = pstmt.executeQuery();
             con.commit();
@@ -342,10 +342,10 @@ public class JDBCAccountManager implements IAccountManager {
                 p.setFax(rs.getString(DBNames.ATT_ACCOUNT_FAX));
 
                 //getting Date from ResultSet and converting it to GregorianCalendar
-                               /* GregorianCalendar dateBirth = new GregorianCalendar();
-                 dateBirth.setTime(rs.getDate(DBNames.ATT_ACCOUNT_DATEOFBIRTH));
-                 p.setDataOfBirth(dateBirth);
-                                
+                GregorianCalendar dateBirth = new GregorianCalendar();
+                dateBirth.setTime(rs.getDate(DBNames.ATT_ACCOUNT_DATEOFBIRTH));
+                p.setDataOfBirth(dateBirth);
+                /*               
                  GregorianCalendar expDate = new GregorianCalendar();
                  expDate.setTime(rs.getDate(DBNames.ATT_ACCOUNT_CONTRACTEXPIRATIONDATE));
                  p.setContractExpirationDate(dateBirth);
@@ -552,15 +552,15 @@ public class JDBCAccountManager implements IAccountManager {
             return "'" + d.get(Calendar.YEAR) + "-" + d.get(Calendar.MONTH) + "-" + d.get(Calendar.DAY_OF_MONTH) + "'";
         }
     }
-        
-        public synchronized List<Account> login(Account pAccount) throws SQLException {
+
+    public synchronized List<Account> login(Account pAccount) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         String query = null;
         List<Account> account = null;
         boolean andState = false;
-        System.out.println(pAccount.getId() + "," + pAccount.getNickName() + "," + pAccount.getPassword()+","+pAccount.getAccountType());
+        System.out.println(pAccount.getId() + "," + pAccount.getNickName() + "," + pAccount.getPassword() + "," + pAccount.getAccountType());
 
         try {
             con = DBConnectionPool.getConnection();
@@ -581,20 +581,20 @@ public class JDBCAccountManager implements IAccountManager {
 
             // setting pstmt's parameters
             int i = 1;		// index of pstmt first argument
-            
+
 
             if (pAccount.getNickName() != null) {
                 pstmt.setString(i, pAccount.getNickName());
                 i++;
             }
-            
-            if (pAccount.getPassword() != null) {		
+
+            if (pAccount.getPassword() != null) {
                 pstmt.setString(i, pAccount.getPassword());
                 i++;
             }
 
-          
-            
+
+
             System.out.println(query);
             rs = pstmt.executeQuery();
             con.commit();
@@ -660,8 +660,4 @@ public class JDBCAccountManager implements IAccountManager {
         }
         return account;
     }
-
-
-
-    }
-
+}

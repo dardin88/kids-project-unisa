@@ -13,23 +13,23 @@ function activePage(){
     currentPage=urlArray[urlArray.length-1];
     switch(currentPage){
         case 'insertTrainee.jsp':
-            $("#insertTrainee").css("background-color","#F82025");
+            $("#insertTrainee").css("background-color","#444");
             $("#insertTrainee").css("color","#FFFFFF");
             break;
         case 'trainees.jsp':
-            $("#trainees").css("background-color","#F82025");
+            $("#trainees").css("background-color","#444");
             $("#trainees").css("color","#FFFFFF");
             break;
         case 'formationScienceNotifications.jsp':
-            $("#notifications").css("background-color","#F82025");
+            $("#notifications").css("background-color","#444");
             $("#notifications").css("color","#FFFFFF");
             break;
         case 'schedulerActivity.jsp':
-            $("#scheduler").css("background-color","#F82025");
+            $("#scheduler").css("background-color","#444");
             $("#scheduler").css("color","#FFFFFF");
             break;
         case 'insertTraineeActivity.jsp':
-            $("#insertTraineeActivity").css("background-color","#F82025");
+            $("#insertTraineeActivity").css("background-color","#444");
             $("#insertTraineeActivity").css("color","#FFFFFF");
             break;
         case 'newsInsertNews.jsp':
@@ -38,11 +38,11 @@ function activePage(){
             //rendere bottone sinistra invisibile
             break;
         case 'traineeRegister.jsp':
-            $("#traineeRegister").css("background-color","#F82025");
+            $("#traineeRegister").css("background-color","#444");
             $("#traineeRegister").css("color","#FFFFFF");
             break;
         case 'traineeConvocation.jsp':
-            $("#traineeConvocation").css("background-color","#F82025");
+            $("#traineeConvocation").css("background-color","#444");
             $("#traineeConvocation").css("color","#FFFFFF");
             break;
         case 'meetingCalendar.jsp':

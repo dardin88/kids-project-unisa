@@ -6,6 +6,7 @@ package it.unisa.kids.serviceManagement.trainingManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.MailManager;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
