@@ -4,7 +4,9 @@
  */
 package it.unisa.kids.serviceManagement.trainingManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -23,16 +25,17 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author utente
+ * @author Marco Moretti
  */
-@WebServlet(name = "ModifyTraineeServlet", urlPatterns = {"/ModifyTrainee"})
 public class ModifyTraineeServlet extends HttpServlet {
-private ITrainingManager trainingManager;
+
+    private ITrainingManager trainingManager;
 
     public void init(ServletConfig config) {
-        RefinedAbstractTrainingManager refinedAbstractTrainingManager = new RefinedAbstractTrainingManager();
-        trainingManager = refinedAbstractTrainingManager.getManagerImplementor();
+        RefinedAbstractManager refinedAbstractTrainingManager = RefinedAbstractManager.getInstance();
+        trainingManager = (ITrainingManager) refinedAbstractTrainingManager.getManagerImplementor(DBNames.TABLE_TRAINEE);
     }
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -46,30 +49,39 @@ private ITrainingManager trainingManager;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            Trainee trainee = new Trainee();
+            Account trainee = new Account();
+            if (request.getParameter("NomeInf").equals("") || request.getParameter("IndirizzoInf").equals("") || request.getParameter("MatricolaInf").equals("") || request.getParameter("CittaNascitaInf").equals("") || request.getParameter("CAPInf").equals("") || request.getParameter("CittaResidenzaInf").equals("") || request.getParameter("EmailInf").equals("") || request.getParameter("CognomeInf").equals("") || request.getParameter("DataNascitaInf").equals("")) {
+                trainee.setState("Bozza");
+            } else {
+                trainee.setState("Inserito");
+            }
+            trainee.setNameUser(request.getParameter("NomeInf"));
+            trainee.setViaResidence(request.getParameter("IndirizzoInf"));
+            trainee.setRegister(request.getParameter("MatricolaInf"));
+            trainee.setPlaceofBirth(request.getParameter("CittaNascitaInf"));
+            trainee.setCapResidence(request.getParameter("CAPInf"));
+            trainee.setMunicipalityResidence(request.getParameter("CittaResidenzaInf"));
+            trainee.setEmail(request.getParameter("EmailInf"));
+            trainee.setSurnameUser(request.getParameter("CognomeInf"));
+            trainee.setCellularNumber(request.getParameter("NumeroTelefonicoInf"));
+            if (!request.getParameter("DataNascitaInf").equals("")) {
+                trainee.setDataOfBirth(parseGregorianCalendar(request.getParameter("DataNascitaInf")));
+            }
+            trainee.setQualification(request.getParameter("TitoloStudioInf"));
 
-            trainee.setName(request.getParameter(DBNames.ATT_TRAINEE_NAME));
-            trainee.setAddress(request.getParameter(DBNames.ATT_TRAINEE_ADDRESS));
-            trainee.setRegister(request.getParameter(DBNames.ATT_TRAINEE_REGISTER));
-            trainee.setBirthCity(request.getParameter(DBNames.ATT_TRAINEE_BIRTHCITY));
-            trainee.setCap(request.getParameter(DBNames.ATT_TRAINEE_CAP));
-            trainee.setCityOfResidence(request.getParameter(DBNames.ATT_TRAINEE_CITYOFRESIDENCE));
-            trainee.setEmail(request.getParameter(DBNames.ATT_TRAINEE_EMAIL));
-            trainee.setSurname(request.getParameter(DBNames.ATT_TRAINEE_SURNAME));
-            trainee.setTelephoneNumber(request.getParameter(DBNames.ATT_TRAINEE_TELEPHONENUMBER));
-            trainee.setBirthDate(parseGregorianCalendar(request.getParameter(DBNames.ATT_TRAINEE_BIRTHDATE)));
             trainingManager.update(trainee);
             request.setAttribute("message",
                     "Tirocinante modificato con successo");
             request.getServletContext().getRequestDispatcher("/formationSciencePage.jsp").forward(request, response);
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(ModifyTraineeServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
             Logger.getLogger(ModifyTraineeServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {            
+        } finally {
         }
     }
+
     private GregorianCalendar parseGregorianCalendar(String pDate) throws ParseException {
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         Date parsed = df.parse(pDate);

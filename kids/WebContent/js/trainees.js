@@ -7,7 +7,7 @@ function initializeLinksManager(){
     $.ajaxSetup({
         cache: false
     });
-        
+    $("#saveChanges").button();
     $("#removeTraineeWindow").dialog({
         autoOpen: false,
         modal: true,
@@ -162,8 +162,8 @@ function messageDialog(){
 };
 
 function modify(){
-    document.getElementById("modifyButton").value="Salva";
-    document.getElementById("modifyButton").onclick="ModifyTrainee";
+    document.getElementById("modifyButton").style.visibility="hidden";
+    document.getElementById("saveChanges").style.visibility="visible";
     document.getElementById("RegisterInf").disabled=false;
     document.getElementById("NameInf").disabled=false;
     document.getElementById("SurnameInf").disabled=false;

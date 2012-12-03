@@ -77,7 +77,7 @@
                 <tr><td>Città di residenza*</td><td><input type="text" name="CittaResidenza" id="CittaResidenza"></td></tr>
                 <tr><td>Indirizzo*</td><td><input type="text" name="Indirizzo" id="Indirizzo"></td></tr>
                 <tr><td>CAP*</td><td><input type="text" name="CAP" id="CAP"></td></tr>
-                <tr><td>Numero di telefono</td><td><input type="text" name="NumeroTelefonico" id="NumeroTelfonico"></td></tr>
+                <tr><td>Numero di telefono</td><td><input type="text" name="NumeroTelefonico" id="NumeroTelefonico"></td></tr>
                 <tr><td>Email*</td><td><input type="text" name="Email" id="Email"></td></tr>
                 <tr><td>Titolo Studio</td><td><input type="text" name="TitoloStudio" id=""></td><tr>
             </table>
@@ -86,24 +86,24 @@
         </form>
     </div>
     <div id="informationTraineeWindow" title="Informazioni Tirocinante" style="display: inline;">
-        <form id="information" class="cmxform" method="post" action="">
+        <form id="informationTrainee" class="cmxform" method="post" action="ModifyTrainee">
             <table>
-                <tr><td>Matricola*</td><td><input id="RegisterInf" type="text" name="Matricola" value=""  disabled="true"></td></tr>
-                <tr><td> Nome*</td><td><input type="text" name="Nome" id="NameInf" value="" disabled="true" ></td></tr>
-                <tr><td>Cognome*</td><td><input type="text" name="Cognome" id="SurnameInf" value=""disabled="true" ></td></tr>
-                <tr><td>Data di nascita*</td><td><input type="date" name="DataNascita" id="BirthDateInf" value=""disabled="true" ></td></tr>
-                <tr><td>Città di nascita*</td><td><input type="text" name="CittaNascita" id="CityOfBirthInf" value="" disabled="true" ></td></tr>
-                <tr><td>Città di residenza*</td><td><input type="text" name="CittaResidenza" id="CityOfResidenceInf" value="" disabled="true" ></td></tr>
-                <tr><td>Indirizzo*</td><td><input type="text" name="Indirizzo" id="AddressInf" value="" disabled="true" ></td></tr>
-                <tr><td>CAP*</td><td><input type="text" name="CAP" id="CAPInf" value="" disabled="true" ></td></tr>
-                <tr><td>Numero di telefono</td><td><input type="text" name="NumeroTelefonico" id="TelephoneNumberInf" value="" disabled="true" ></td></tr>
-                <tr><td>Email*</td><td><input type="text" name="Email" id="EmailInf" value="" disabled="true" ></td></tr>
-                <tr><td>Titolo Studio</td><td><input type="text" name="TitoloStudio" id="QualificationInf" value="" disabled="true"></td><tr>
+                <tr><td>Matricola*</td><td><input id="RegisterInf" type="text" name="MatricolaInf" value=""  disabled="true"></td></tr>
+                <tr><td> Nome*</td><td><input type="text" name="NomeInf" id="NameInf" value="" disabled="true" ></td></tr>
+                <tr><td>Cognome*</td><td><input type="text" name="CognomeInf" id="SurnameInf" value=""disabled="true" ></td></tr>
+                <tr><td>Data di nascita*</td><td><input type="date" name="DataNascitaInf" id="BirthDateInf" value=""disabled="true" ></td></tr>
+                <tr><td>Città di nascita*</td><td><input type="text" name="CittaNascitaInf" id="CityOfBirthInf" value="" disabled="true" ></td></tr>
+                <tr><td>Città di residenza*</td><td><input type="text" name="CittaResidenzaInf" id="CityOfResidenceInf" value="" disabled="true" ></td></tr>
+                <tr><td>Indirizzo*</td><td><input type="text" name="IndirizzoInf" id="AddressInf" value="" disabled="true" ></td></tr>
+                <tr><td>CAP*</td><td><input type="text" name="CAPInf" id="CAPInf" value="" disabled="true" ></td></tr>
+                <tr><td>Numero di telefono</td><td><input type="text" name="NumeroTelefonicoInf" id="TelephoneNumberInf" value="" disabled="true" ></td></tr>
+                <tr><td>Email*</td><td><input type="text" name="EmailInf" id="EmailInf" value="" disabled="true" ></td></tr>
+                <tr><td>Titolo Studio</td><td><input type="text" name="TitoloStudioInf" id="QualificationInf" value="" disabled="true"></td><tr>
 
 
             </table>
                 <input id="modifyButton" type="button" name="submit" value="Modifica" style="float:right;" onclick="modify()" >
-
+                <input id="saveChanges" type="submit" name="submit" value="salva" style="float:right;visibility: hidden" </input>
         </form>
     </div>
 
