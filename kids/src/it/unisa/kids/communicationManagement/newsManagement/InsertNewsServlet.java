@@ -26,7 +26,6 @@ import javax.servlet.http.HttpSession;
  */
 public class InsertNewsServlet extends HttpServlet {
     private PrintWriter out;
-    private static int count=0;
 
   
 
@@ -71,11 +70,10 @@ public class InsertNewsServlet extends HttpServlet {
             }
             String data=request.getParameter("artefactData");
             String[] temp=data.split("-");
-         //   Date d=new Date(Integer.parseInt(temp[0]),Integer.parseInt(temp[1]),Integer.parseInt(temp[2]));
             
             GregorianCalendar dataFinale=new GregorianCalendar(Integer.parseInt(temp[0]),Integer.parseInt(temp[1])-1,Integer.parseInt(temp[2]));
             n.setDate(dataFinale);
-          //  System.out.print(dataFinale.get(Calendar.YEAR)+" "+dataFinale.get(Calendar.MONTH)+" "+dataFinale.get(Calendar.DAY_OF_MONTH));
+          //  System.out.print(dataFinale.get(Calendar.YEAR)+" "+(dataFinale.get(Calendar.MONTH)+1)+" "+dataFinale.get(Calendar.DAY_OF_MONTH));
             
             HttpSession s = request.getSession();
             Account account =  (Account) s.getAttribute("user");
@@ -90,11 +88,8 @@ public class InsertNewsServlet extends HttpServlet {
                 Time t = new Time(0, 0, 0);
                 n.setTime(t);
             }
-            n.setId(++count);
             mn.insert(n);
-            out.print("News Inserita con successo!");
         } catch (SQLException ex) {
-            out.print("Problema Inserimento News!");
             Logger.getLogger(InsertNewsServlet.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
