@@ -133,8 +133,10 @@
         <servlet-name>GetConvocationServletTable</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.GetConvocationServletTable</servlet-class>
     </servlet>
-    
-    
+    <servlet>
+        <servlet-name>ModifyTraineeServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.ModifyTraineeServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
@@ -266,6 +268,10 @@
     <servlet-mapping>
         <servlet-name>LoadCalendarServlet</servlet-name>
         <url-pattern>/LoadCalendar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModifyTraineeServlet</servlet-name>
+        <url-pattern>/ModifyTrainee</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
