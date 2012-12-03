@@ -120,7 +120,7 @@ public class GetParentsTableServlet extends HttpServlet {
 
     private Account checkSearchParameters(HttpServletRequest pRequest) {
         Account acc = new Account();
-        acc.setAccountType("Genitore");
+        acc.setAccountType("Segreteria");
 
         if (pRequest.getParameter("parentName") != null && !pRequest.getParameter("parentName").equals("")) {
             acc.setNameUser(pRequest.getParameter("parentName"));
