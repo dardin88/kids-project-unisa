@@ -13,8 +13,8 @@ import java.util.List;
  * @author Gianmarco
  */
 public interface IClassManager extends IManager {
-    public Class insert(Class pClass) throws SQLException;
-    public List<Class> search(Class pClass) throws SQLException;
-    public Class delete(Class pClass) throws SQLException;
-    public Class update(Class pClass) throws SQLException;
+    public ClassBean insert(ClassBean pClass) throws SQLException;
+    public List<ClassBean> search(ClassBean pClass) throws SQLException;
+    public ClassBean delete(ClassBean pClass) throws SQLException;
+    public ClassBean update(ClassBean pClass) throws SQLException;
 }

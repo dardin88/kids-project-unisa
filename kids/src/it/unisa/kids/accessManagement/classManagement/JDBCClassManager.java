@@ -1,7 +1,12 @@
 package it.unisa.kids.accessManagement.classManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.accessManagement.accountManagement.Educator;
+import it.unisa.kids.accessManagement.accountManagement.JDBCAccountManager;
+import it.unisa.kids.accessManagement.registrationChildManagement.JDBCRegistrationChildManager;
+import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
+import it.unisa.kids.common.DBNames;
 import it.unisa.storage.connectionPool.DBConnectionPool;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,7 +14,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JDBCClassManager {
+public class JDBCClassManager implements IClassManager{
 
 	  private static JDBCClassManager manager;
 
@@ -21,17 +26,18 @@ public class JDBCClassManager {
 	  {
 	    if (manager == null)
 	    {
-	      manager = new JDBCClassManager();
+                manager = new JDBCClassManager();
 	    }
 
-	    return manager;
+                return manager;
 	  }
 	  
-	  public Class create(Class aClass) throws SQLException
+	  public synchronized ClassBean insert(ClassBean pClass) throws SQLException
 	  {
 		  Connection con = null;
 		  Statement stmt=null;
-		  String query="INSERT INTO 'classe' ('Nome', 'Id') VALUES ('"+aClass.getClassName()+"', '"+aClass.getIdClasse()+"');"; 			//come inserire educatori e bambini, l'id deve essere inserito manualmente?
+		  String query="INSERT INTO '"+DBNames.TABLE_CLASS+"' ('"+DBNames.ATT_CLASS_NAME+"') " +
+                  "VALUES ('"+pClass.getClassName()+"');"; 			//come inserire educatori e bambini
 		  
 		  try
 		  {
@@ -44,14 +50,15 @@ public class JDBCClassManager {
 			  DBConnectionPool.releaseConnection(con);
 		  }	
 		  
-		  return aClass;
+		  return pClass;
 	  }
 	  
-	  public Class delete(Class aClass) throws SQLException
+	  public synchronized ClassBean delete(ClassBean pClass) throws SQLException
 	  {
 		  Connection con = null;
 		  Statement stmt=null;
-		  String query="DELETE FROM 'classe' WHERE 'Id'='"+aClass.getIdClasse()+"'";	
+		  String query="DELETE FROM '"+DBNames.TABLE_CLASS+"' "
+                          + "WHERE '"+DBNames.ATT_CLASS_ID+"'='"+pClass.getIdClasse()+"';";	
 		  
 		  
 		  try
@@ -65,22 +72,29 @@ public class JDBCClassManager {
 			  DBConnectionPool.releaseConnection(con);
 		  }	
 		  
-		  return aClass;
+		  return pClass;
 	  }
 	  
 	  
-	  public List<Class> search(Class aClass) throws SQLException
+	  public synchronized List<ClassBean> search(ClassBean pClass) throws SQLException
 	  {
 		  Connection con = null;
 		  Statement stmt=null;
 		  ResultSet result=null;
-		  List<Class> listOfClass=new ArrayList<Class>();		//deve essere riempito con il risultato della query
-		  String query="SELECT * FROM 'classe' WHERE ";			
+                  boolean andState = false;
+                  ClassBean tmpClassBean=new ClassBean();
+		  List<ClassBean> listOfClassBean=new ArrayList<ClassBean>();		//deve essere riempito con il risultato della query
+		  String query="SELECT * FROM '"+DBNames.TABLE_CLASS+"' WHERE ";			
 		  
-		  if (aClass.getIdClasse()!=null)
-			  query=query+"'Id'='"+aClass.getIdClasse()+"'";
-		  if (aClass.getClassName()!=null)
-			  query=query+"'Nome'='"+aClass.getClassName()+"'";
+		  if (pClass.getIdClasse()>0)
+                  {
+                        query=query+"'"+DBNames.ATT_CLASS_ID+"'='"+pClass.getIdClasse()+"'";
+                        andState=true;
+                  }
+		  if (pClass.getClassName()!=null) 
+                  {
+                        query+=useAnd(andState)+"'"+DBNames.ATT_CLASS_NAME+"'='"+pClass.getClassName()+"'";
+                  }
 		  
 		  query=query+";";
 		  
@@ -90,26 +104,46 @@ public class JDBCClassManager {
 			  stmt = con.createStatement();
 			  result=stmt.executeQuery(query);
 			  
-			  //organizza il risultato
+			  while(result.next())
+			  {
+				JDBCRegistrationChildManager regMan=JDBCRegistrationChildManager.getInstance();			  
+                                RegistrationChild pRegChild=new RegistrationChild();
+                                regChild.set;
+                                List<RegistrationChild> tmpChild=regMan.search(pRegChild);
+                                tmpClassBean.setBambini(tmpChild);
+                                
+                                JDBCAccountManager accMan=JDBCAccountManager.getInstance();
+                                Account pAcc=new Account();
+                                pAcc.set;
+                                List<Account> tmpEducator=accMan.search(pAcc);
+                                tmpClassBean.setEducatori(tmpEducator);
+                                
+                                listOfClassBean.add(tmpClassBean);
+			  }
 		  }
-		  finally{
+		  finally
+                  {
 			  stmt.close();
 			  DBConnectionPool.releaseConnection(con);
 		  }
 		  
-		  return listOfClass;
+		  return listOfClassBean;
 	  }
+          
+          private String useAnd(boolean pEnableAnd) {
+			return pEnableAnd ? " AND " : " ";
+          }
 	  
-	  public Class modify(Class aClass) throws SQLException
+	  public synchronized ClassBean update(ClassBean pClass) throws SQLException
 	  {
 		  Connection con = null;
 		  Statement stmt=null;
-		  String query="UPDATE 'classe' " +
-					"SET 'Nome'="+aClass.getClassName()+	//l'id non deve essere toccato giusto?
-					"WHERE 'Id'="+aClass.getIdClasse(); 
+		  String query="UPDATE '"+DBNames.TABLE_CLASS+"' " +
+				"SET '"+DBNames.ATT_CLASS_NAME+"'='"+pClass.getClassName()+
+				"' WHERE '"+DBNames.ATT_CLASS_ID+"'='"+pClass.getIdClasse()+"';"; 
 			
 		  try
-		  {
+		  { 
 			  con=DBConnectionPool.getConnection();
 			  stmt = con.createStatement();
 			  stmt.executeUpdate(query);
@@ -119,6 +153,6 @@ public class JDBCClassManager {
 			  DBConnectionPool.releaseConnection(con);
 		  }
 		  
-		  return aClass;
+		  return pClass;
 	  }
 }
