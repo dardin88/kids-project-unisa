@@ -44,7 +44,7 @@
             <h1  id="title" align="center">Dati Genitore</h1>
             <form method="post" action="accountInformation2.jsp">
             <table>     
-                        <input type="text" id="id" name="id" value="${Id}" style="visibility: hidden">
+                        <input type="text" id="id" name="id" value="${id}" style="visibility: hidden">
                         Matricola*<input id="matricola" type="text" name="Matricola" value="${Matricola}" readonly="true">
                         Nome*<input type="text" name="Nome" id="Nome" value="${Nome}"readonly="true" >
                         Cognome*<input type="text" name="Cognome" id="Cognome" value="${Cognome}"readonly="true">

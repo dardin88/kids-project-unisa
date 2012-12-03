@@ -59,6 +59,8 @@ $(document).ready(function(){
                 provinciaResidenzaAccount:$("#provinceResidence").val(),
                 indirizzoResidenzaAccount:$("#viaResidence").val()
             })
+            location.href="./accountInsert2.jsp";
         }
+        
     });
 });
