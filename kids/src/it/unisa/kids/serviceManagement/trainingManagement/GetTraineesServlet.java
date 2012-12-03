@@ -27,12 +27,14 @@ import javax.servlet.http.HttpServletResponse;
  * @author utente
  */
 public class GetTraineesServlet extends HttpServlet {
- private ITrainingManager trainingManager;
+
+    private ITrainingManager trainingManager;
 
     public void init(ServletConfig config) {
         RefinedAbstractManager refinedAbstractTrainingManager = RefinedAbstractManager.getInstance();
         trainingManager = (ITrainingManager) refinedAbstractTrainingManager.getManagerImplementor(DBNames.TABLE_TRAINEE);
     }
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -45,25 +47,39 @@ public class GetTraineesServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        PrintWriter o = null;
         try {
-            int id=Integer.parseInt(request.getParameter("traineeId"));
-            Account trainee=new Account();
+            o = response.getWriter();
+            int id = Integer.parseInt(request.getParameter("traineeId"));
+            Account trainee = new Account();
             trainee.setId(id);
-            List<Account> list=trainingManager.search(trainee);
-            request.setAttribute("nome", list.get(0).getNameUser());
-            request.setAttribute("cognome", list.get(0).getSurnameUser());
-            request.setAttribute("matricola", list.get(0).getRegister());
-            GregorianCalendar birthDate=list.get(0).getDataOfBirth();
-            if(birthDate!=null)
-                 request.setAttribute("dataNascita", birthDate.get(Calendar.DAY_OF_MONTH)+"/"+(birthDate.get(Calendar.MONTH)+1)+"/"+birthDate.get(Calendar.YEAR));
-            request.setAttribute("cittaNascita", list.get(0).getPlaceOfBirth());
-            request.setAttribute("cittaResidenza", list.get(0).getMunicipalityResidence());
-            request.setAttribute("indirizzo", list.get(0).getViaResidence());
-            request.setAttribute("CAP", list.get(0).getCapResidence());
-            request.setAttribute("numeroTelefonico", list.get(0).getCellularNumber());
-            request.setAttribute("email", list.get(0).getEmail());
-            request.getServletContext().getRequestDispatcher("/trainees.jsp?prova=ciao").forward(request, response);
+            List<Account> list = trainingManager.search(trainee);
+            /*request.setAttribute("nome", list.get(0).getNameUser());
+             request.setAttribute("cognome", list.get(0).getSurnameUser());
+             request.setAttribute("matricola", list.get(0).getRegister());
+            
+             request.setAttribute("dataNascita", birthDate.get(Calendar.DAY_OF_MONTH)+"/"+(birthDate.get(Calendar.MONTH)+1)+"/"+birthDate.get(Calendar.YEAR));
+             request.setAttribute("cittaNascita", list.get(0).getPlaceOfBirth());
+             request.setAttribute("cittaResidenza", list.get(0).getMunicipalityResidence());
+             request.setAttribute("indirizzo", list.get(0).getViaResidence());
+             request.setAttribute("CAP", list.get(0).getCapResidence());
+             request.setAttribute("numeroTelefonico", list.get(0).getCellularNumber());
+             request.setAttribute("email", list.get(0).getEmail());
+             request.getServletContext().getRequestDispatcher("/trainees.jsp?prova=ciao").forward(request, response);
+             */
 
+            for (Account a : list) {
+                GregorianCalendar birthDate = a.getDataOfBirth();
+                System.out.println("Data:"+birthDate.get(Calendar.YEAR));
+                if (birthDate !=null) {
+                    String date=birthDate.get(Calendar.YEAR)+"-"+ (birthDate.get(Calendar.MONTH) + 1) +"-"+birthDate.get(Calendar.DAY_OF_MONTH)  ;
+                    System.out.println(date);
+                    o.println(a.getRegister() + "," + a.getNameUser() + "," + a.getSurnameUser() + "," +date + "," + a.getPlaceOfBirth() + "," + a.getMunicipalityResidence() + "," + a.getViaResidence() + "," + a.getCapResidence() + "," + a.getCellularNumber() + "," + a.getEmail() + "," + a.getQualification());
+                } else {
+                    o.println(a.getRegister() + "," + a.getNameUser() + "," + a.getSurnameUser() + "," +""+ a.getPlaceOfBirth() + "," + a.getMunicipalityResidence() + "," + a.getViaResidence() + "," + a.getCapResidence() + "," + a.getCellularNumber() + "," + a.getEmail() + "," + a.getQualification());
+                }
+
+            }
 
         } catch (SQLException ex) {
             Logger.getLogger(GetTraineesServlet.class.getName()).log(Level.SEVERE, null, ex);

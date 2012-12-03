@@ -129,7 +129,21 @@ function loadInformationTraineePage(id){
         $("#informationTraineeWindow").dialog("open");
         $.post("GetTrainees", {
             traineeId:""+id
-        });
+        },function(data){
+
+                var result = data.split(",");
+                $("#RegisterInf").val(result[0]);
+                $("#NameInf").val(result[1]);
+                $("#SurnameInf").val(result[2]);
+                $("#BirthDateInf").val(result[3]);
+                $("#CityOfBirthInf").val(result[4]);
+                $("#CityOfResidenceInf").val(result[5]);
+                $("#AddressInf").val(result[6]);
+                $("#CAPInf").val(result[7]);
+                $("#TelephoneNumberInf").val(result[8]);
+                $("#EmailInf").val(result[9]);
+                $("#QualificationInf").val(result[10]);
+            });
 
 }
 
@@ -150,17 +164,17 @@ function messageDialog(){
 function modify(){
     document.getElementById("modifyButton").value="Salva";
     document.getElementById("modifyButton").onclick="ModifyTrainee";
-    document.getElementById("Matricola").readOnly=false;
-    document.getElementById("Nome").readOnly=false;
-    document.getElementById("Cognome").readOnly=false;
-    document.getElementById("DataNascita").readOnly=false;
-    document.getElementById("CittaNascita").readOnly=false;
-    document.getElementById("CittaResidenza").readOnly=false;
-    document.getElementById("Indirizzo").readOnly=false;
-    document.getElementById("CAP").readOnly=false;
-    document.getElementById("NumeroTelefonico").readOnly=false;
-    document.getElementById("Email").readOnly=false;
-    document.getElementById("TitoloStudio").readOnly=false;
+    document.getElementById("RegisterInf").disabled=false;
+    document.getElementById("NameInf").disabled=false;
+    document.getElementById("SurnameInf").disabled=false;
+    document.getElementById("BirthDateInf").disabled=false;
+    document.getElementById("CityOfBirthInf").disabled=false;
+    document.getElementById("CityOfResidenceInf").disabled=false;
+    document.getElementById("AddressInf").disabled=false;
+    document.getElementById("CAPInf").disabled=false;
+    document.getElementById("TelephoneNumberInf").disabled=false;
+    document.getElementById("EmailInf").disabled=false;
+    document.getElementById("QualificationInf").disabled=false;
 }
 
 

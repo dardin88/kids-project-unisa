@@ -104,12 +104,20 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
             con.commit();
             super.setChanged();
             Mail mail=new Mail();
-            String body = "Giorno :" + pConvocation.getDate().get(Calendar.YEAR) + "/" + pConvocation.getDate().get(Calendar.MONTH) + "/" + pConvocation.getDate().get(Calendar.DAY_OF_MONTH)
-                    + "<br>Ora di inzio:" + pConvocation.getStartTime().getHours() + ":" + pConvocation.getStartTime().getMinutes()
-                    + "<br>Ora di fine:" + pConvocation.getEndTime().getHours() + ":" + pConvocation.getEndTime().getMinutes()
-                    + "<br>Attvità:" + pConvocation.getActivityName()
+            String body = "Giorno :" + pTraineeConvocation.getDate().get(Calendar.YEAR) + "/" + pTraineeConvocation.getDate().get(Calendar.MONTH) + "/" + pTraineeConvocation.getDate().get(Calendar.DAY_OF_MONTH)
+                    + "<br>Ora di inzio:" + pTraineeConvocation.getStartTime().getHours() + ":" + pTraineeConvocation.getStartTime().getMinutes()
+                    + "<br>Ora di fine:" + pTraineeConvocation.getEndTime().getHours() + ":" + pTraineeConvocation.getEndTime().getMinutes()
+                    + "<br>Attvità:" + pTraineeConvocation.getActivityName()
                     + "<br>Si prega di confermare la propria presenza sul sito";
-            super.notifyObservers(pTraineeConvocation);
+            mail.setBody(body);
+            mail.setSubject("Convocazione asilo");
+            Account account=new Account ();
+            account.setId(pTraineeConvocation.getTraineeId());
+            ArrayList<String> listTo=new ArrayList<String>();
+            listTo.add(search(account).get(0).getEmail());
+            mail.setTo(listTo);
+            
+            super.notifyObservers(mail);
             
         } finally {
             pStmt.close();

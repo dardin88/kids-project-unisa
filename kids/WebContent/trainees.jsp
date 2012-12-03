@@ -85,21 +85,20 @@
 
         </form>
     </div>
-    <div id="informationTraineeWindow" title="Inserisci Tirocinante" style="display: inline;">
+    <div id="informationTraineeWindow" title="Informazioni Tirocinante" style="display: inline;">
         <form id="information" class="cmxform" method="post" action="">
             <table>
-                <input type="hidden" name="Id" value="${id}">
-                <tr><td>Matricola*</td><td><input id="Matricola" type="text" name="Matricola" value=""  readonly="true"></td></tr>
-                <tr><td> Nome*</td><td><input type="text" name="Nome" id="Nome" value="${nome}" readonly="true" ></td></tr>
-                <tr><td>Cognome*</td><td><input type="text" name="Cognome" id="Cognome" value="${cognome}"readonly="true" ></td></tr>
-                <tr><td>Data di nascita*</td><td><input type="text" name="DataNascita" id="DataNascita" value="${dataNascita}"readonly="true" ></td></tr>
-                <tr><td>Città di nascita*</td><td><input type="text" name="CittaNascita" id="CittaNascita" value="${cittaNascita}" readonly="true" ></td></tr>
-                <tr><td>Città di residenza*</td><td><input type="text" name="CittaResidenza" id="CittaResidenza" value="${cittaResidenza}" readonly="true" ></td></tr>
-                <tr><td>Indirizzo*</td><td><input type="text" name="Indirizzo" id="Indirizzo" value="${indirizzo}"readonly="true" ></td></tr>
-                <tr><td>CAP*</td><td><input type="text" name="CAP" id="CAP" value="${CAP}"readonly="true" ></td></tr>
-                <tr><td>Numero di telefono</td><td><input type="text" name="NumeroTelefonico" id="NumeroTelfonico" value="${numeroTelefonico}" readonly="true" ></td></tr>
-                <tr><td>Email*</td><td><input type="text" name="Email" id="Email" value="${email}" readonly="true" ></td></tr>
-                <tr><td>Titolo Studio</td><td><input type="text" name="TitoloStudio" id="TitoloStudio" value="${titoloStudio}" readonly="true"></td><tr>
+                <tr><td>Matricola*</td><td><input id="RegisterInf" type="text" name="Matricola" value=""  disabled="true"></td></tr>
+                <tr><td> Nome*</td><td><input type="text" name="Nome" id="NameInf" value="" disabled="true" ></td></tr>
+                <tr><td>Cognome*</td><td><input type="text" name="Cognome" id="SurnameInf" value=""disabled="true" ></td></tr>
+                <tr><td>Data di nascita*</td><td><input type="date" name="DataNascita" id="BirthDateInf" value=""disabled="true" ></td></tr>
+                <tr><td>Città di nascita*</td><td><input type="text" name="CittaNascita" id="CityOfBirthInf" value="" disabled="true" ></td></tr>
+                <tr><td>Città di residenza*</td><td><input type="text" name="CittaResidenza" id="CityOfResidenceInf" value="" disabled="true" ></td></tr>
+                <tr><td>Indirizzo*</td><td><input type="text" name="Indirizzo" id="AddressInf" value="" disabled="true" ></td></tr>
+                <tr><td>CAP*</td><td><input type="text" name="CAP" id="CAPInf" value="" disabled="true" ></td></tr>
+                <tr><td>Numero di telefono</td><td><input type="text" name="NumeroTelefonico" id="TelephoneNumberInf" value="" disabled="true" ></td></tr>
+                <tr><td>Email*</td><td><input type="text" name="Email" id="EmailInf" value="" disabled="true" ></td></tr>
+                <tr><td>Titolo Studio</td><td><input type="text" name="TitoloStudio" id="QualificationInf" value="" disabled="true"></td><tr>
 
 
             </table>
