@@ -17,11 +17,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/traineeInformation.css" >
-        <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
+        <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.8.18.custom.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css">
-        <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
-        <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
+        <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
         <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
@@ -32,8 +32,8 @@
          
            <script type="text/javascript">
             $(document).ready(function() {
-                //initializeLinksManager();
-                initializeLinksManager2();
+               
+                initializeLinksManager();
             });
         </script>
     </head>
@@ -42,29 +42,26 @@
        <%@include file="header.jsp" %>
         <div  style="padding-top: 20px;padding-left: 240px;">
             <h1  id="title" align="center">Dati Genitore</h1>
-            <form method="post" action="accountInformation2.jsp">
-            <table>     
-                        <input type="text" id="id" name="id" value="${Id}" style="visibility: hidden">
-                        Matricola*<input id="matricola" type="text" name="Matricola" value="${Matricola}" readonly="true">
-                        Nome*<input type="text" name="Nome" id="Nome" value="${Nome}"readonly="true" >
-                        Cognome*<input type="text" name="Cognome" id="Cognome" value="${Cognome}"readonly="true">
-                        Codice Fiscale*<input type="text" name="CodiceFiscale" id="CodiceFiscale" value="${CodiceFiscale}"readonly="true">
-                        Data di nascita*<input type="text" name="DataNascita" id="DataNascita" value="${DataNascita}"readonly="true">
-                        Comune di nascita*<input type="text" name="CittaNascita" id="ComuneNascita" value="${ComuneNascita}"readonly="true">
-                        Comune di residenza*<input type="text" name="CittaResidenza" id="ComuneResidenza" value="${ComuneResidenza}"readonly="true">
-                        Provincia di Residenza*<input type="text" name="ProvinciaResidenza" id="capResidenza" value="${ProvinciaResidenza}"readonly="true">
-                        Indirizzo di Residenza*<input type="text" name="IndirizzoResidenza" id="IndirizzoResidenza" value="${ViaResidenza}"readonly="true">
-                        Cittadinanza</td><td><input type="text" name="Cittadinanza" id="Cittadinanza" value="${Cittadinanza}"readonly="true" >
-                        
-            </table>  
-                        <input type="submit" name="Avanti1" value="Avanti" id="avantiButton"></input>
-                        
-                        
+              
+                    <form id="information" method="post" action="accountInformation2.jsp"/>
+            <table>                       
+                       
+                    Cap Domicilio : <input id="capDomicilie" class="registrationField" type="text" name="CapDomicilio"value="${CapDomicilio}"readonly="true">
+                    Titolo di Studio : <input id="qualification" class="registrationField" type="text" name="TitoloStudio" value="${TitoloDiStudio}"readonly="true">
+                    Tipo di Account <input id="accountType" class="registrationField" type="text" name="TipoAccount" value="Genitore"value="${TipoAccount}"readonly="true">
+                    Situazione Familiaria : <input id="familySituation" class="registrationField" type="text" name="SituazioneFamiliare "value="${SituazioneFamiliare}"readonly="true">
+                    Reddito : <input id="income" class="registrationField" type="text" name="Reddito" value="${Reddito}"readonly="true">
+                    Scadenza Contratto : <input id="contractExpirationDate" class="registrationField" type="text" name="ScadenzaContratto"value="${ScadenzaContratto}"readonly="true">
+                    Facoltà <input id="faculty" class="registrationField" type="text" name="Facolta"value="${Facolta}">
+                    Data di Immatricolazione : <input id="registrationDate" class="registrationField" type="text" name="DataRegistrazione"value="${dataRegistrazione}" readonly="true">
+                    Tipologia Genitore : <input id="typeParent" class="registrationField" type="text" name="TipoGenitore" value="${TipoGenitore}" readonly="true"> 
+                    Matricola : <input type="text" id="register" name="Matricola"  class="registrationField" />
+                    
+                      
+            </table>                                
+                       
+                        <input type="submit" name="Indietro" value="Indietro"/>
                         </form>
-                    <form id="information2" method="post" action="accountModify.jsp" />
-                    <input type="button" name="Modifica" value="Modifica" id="modifyButton" onclick="modifyAccount()" ></input>
-                        </form>
-                        <input type="button" name="Elimina" value="Elimina" id="eliminaButton" onclick="removeAccount()"></input>
                     
                   
                   
@@ -81,7 +78,7 @@
          </c:if>        
      </c:if>--%>
                 <%--rimozione account --%>
-                <div id="removeAccount" title="Rimozione">
+                <div id="removeAccount" title="Titolo della finestra">
                       <P> <h3> Attenzione! </h3> <br> vuoi davvero eliminare questo Account?<BR>
                       N.B. una volta confermato la scelta non potrai più tornare indietro!</P>
                 </div>

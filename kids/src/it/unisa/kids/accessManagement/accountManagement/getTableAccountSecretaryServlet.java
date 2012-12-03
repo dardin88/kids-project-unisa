@@ -109,7 +109,7 @@ public class getTableAccountSecretaryServlet extends HttpServlet {
                     ja.put(acc.getSurnameUser());
                     ja.put(acc.getTaxCode());
                     ja.put(acc.getAccountType());
-                    String operazioni = "<input type='button' value='Visualizza' onclick='showAccount(\"" + account.getId() + "\")'/>";
+                    String operazioni = "<input type='button' value='Visualizza' onclick='showAccount(\"" + acc.getId() + "\")'/>";
                     ja.put(operazioni);
                     array.put(ja);
                     }

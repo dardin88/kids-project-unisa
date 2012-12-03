@@ -16,7 +16,7 @@
     <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
         <span id="title">Segreteria - Kids Project</span>
     </c:if>
-        
+
     <span id="userMenu">
         <b class="userMenuEl"> Benvenuto ${sessionScope.user.getNameUser()}</b> 
         <u class="userMenuEl" id="logout" onclick="logout()" onmouseover="this.style.cursor='pointer';">Logout</u>
@@ -47,8 +47,16 @@
             <li id="notifications"><a href="formationScienceNotifications.jsp">Notifiche</a></li>
             <li id="scheduler"><a href="schedulerActivity.jsp">Pianificazione attivit&agrave</a></li>
         </c:if>
-
-        <c:if test="${sessionScope.user.getAccountType()=='Genitore'}">  
+        <c:if test="${sessionScope.user.getAccountType()=='Genitore'}">
+            <li id="meetingCalendarMenuEL"><a href="meetingCalendar.jsp">Gestione Riunioni</a></li>
+            <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
+            <li id="healthCommunicationTable"><a href="healthCommunicationTable.jsp">Gestione Bambini - Comunicazioni Salute</a></li>
+            <li id="needCommunicationTable"><a href="needCommunicationTable.jsp">Gestione Bambini - Comunicazioni Bisogni</a></li>
+            <li id="accountParent"><a href="accountParent.jsp">Gestione Account</a></li>
+        </c:if>
+        <c:if test="${sessionScope.user.getAccountType()=='Educatrice'}">  
+            <li id="healthCommunicationTable"><a href="healthCommunicationTable.jsp">Gestione Bambini - Comunicazioni Salute</a></li>
+            <li id="needCommunicationTable"><a href="needCommunicationTable.jsp">Gestione Bambini - Comunicazioni Bisogni</a></li>
 
             <li id="meetingCalendarMenuEL"><a href="meetingCalendar.jsp">Gestione Riunioni</a></li>
             <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>

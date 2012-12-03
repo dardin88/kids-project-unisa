@@ -1,9 +1,13 @@
+package it.unisa.kids.accessManagement.accountManagement;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.unisa.kids.accessManagement.accountManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.accessManagement.accountManagement.JDBCAccountManager;
+import it.unisa.kids.accessManagement.accountManagement.ModifyAccountServlet;
 import it.unisa.kids.common.DBNames;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,16 +19,17 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 /**
  *
  * @author Gianmarco
  */
-public class ModifyAccountServlet extends HttpServlet {
+public class ModifyAccount2Servlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -37,72 +42,78 @@ public class ModifyAccountServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ParseException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        try {
+        Account account=new Account();
+           try {
            
            JDBCAccountManager man= JDBCAccountManager.getInstance();
-           Account account= new Account();
-           int id= Integer.parseInt(request.getParameter(DBNames.ATT_ACCOUNT_ID));
+           HttpSession rs= request.getSession();
+           String i= (String) rs.getAttribute("Id");
+           int id= Integer.parseInt(i);
+           
            account.setId(id);
-           request.getSession().setAttribute("id", id);
+           man.search(account);
            
-           String name = request.getParameter(DBNames.ATT_ACCOUNT_NAME);
-           String surname = request.getParameter(DBNames.ATT_ACCOUNT_SURNAMEUSER);
-           String birthdate = request.getParameter(DBNames.ATT_ACCOUNT_DATEOFBIRTH);
-           String birthplace = request.getParameter(DBNames.ATT_ACCOUNT_PLACEOFBIRTH);
-           String taxCode= request.getParameter(DBNames.ATT_ACCOUNT_TAXCODE);
-           String municipalityResidence = request.getParameter(DBNames.ATT_ACCOUNT_MUNICIPALITYRESIDENCE);
            String provinceResidence = request.getParameter(DBNames.ATT_ACCOUNT_PROVINCERESIDENCE);
+           
+           String fax = request.getParameter(DBNames.ATT_ACCOUNT_FAX);
+           String email = request.getParameter(DBNames.ATT_ACCOUNT_EMAIL);
+           String telephoneNumber = request.getParameter(DBNames.ATT_ACCOUNT_TELEPHONENUMBER);
+           String cellular = request.getParameter(DBNames.ATT_ACCOUNT_CELLULARNUMBER);
+           String capResidence = request.getParameter(DBNames.ATT_ACCOUNT_CAPRESIDENCE);
            String addressResidence = request.getParameter(DBNames.ATT_ACCOUNT_ADDRESSRESIDENCE);
-           String citizenship= request.getParameter(DBNames.ATT_ACCOUNT_CITIZENSHIP);
-           String register= request.getParameter(DBNames.ATT_ACCOUNT_REGISTER);
-      
-           GregorianCalendar birth= parseGregorianCalendar(birthdate);
+           String provinceDomicile = request.getParameter(DBNames.ATT_ACCOUNT_PROVINCEDOMICILE);
+           String municipalityDomicile = request.getParameter(DBNames.ATT_ACCOUNT_MUNICIPALITYDOMICILIE);
+           String addressDomicile= request.getParameter(DBNames.ATT_ACCOUNT_ADDRESSDOMICILE);
+
            
-           
+           String capDomicile = request.getParameter(DBNames.ATT_ACCOUNT_CAPDOMICILIE);
+                  
            account.setId(account.getId());
-           account.setRegister(register);
+           account.setState(account.getState());
+           account.setRegister(account.getRegister());
            account.setAccountType(account.getAccountType());
            account.setCapDomicile(account.getCapDomicile());
-           account.setCapResidence(account.getCapResidence());
-           account.setCellularNumber(account.getCellularNumber());
-           account.setCitizenship(citizenship);
+           account.setCapResidence(capResidence);
+           account.setCellularNumber(cellular);
+           account.setCitizenship(account.getCitizenship());
            account.setContractExpirationDate(account.getContractExpirationDate());
-           account.setDataOfBirth(birth);
-           account.setEmail(account.getEmail());
+           account.setDataOfBirth(account.getDataOfBirth());
+           account.setEmail(email);
            account.setFaculty(account.getFaculty());
            account.setFamilySituation(account.getFamilySituation());
-           account.setFax(account.getFax());
+           account.setFax(fax);
            account.setIncome(account.getIncome());
-           account.setMunicipalityDomicile(account.getMunicipalityDomicile());
-           account.setMunicipalityResidence(municipalityResidence);
-           account.setNameUser(name);
-           account.setPlaceofBirth(birthplace);
-           account.setProvinceDomicile(account.getProvinceDomicile());
-           account.setProvinceResidence(provinceResidence);
+           account.setMunicipalityDomicile(municipalityDomicile);
+           account.setMunicipalityResidence(account.getMunicipalityResidence());
+           account.setNameUser(account.getNameUser());
+           account.setPlaceofBirth(account.getPlaceOfBirth());
+           account.setProvinceDomicile(provinceDomicile);
+           account.setProvinceResidence(account.getProvinceResidence());
            account.setQualification(account.getQualification());
            account.setRegistrationDate(account.getRegistrationDate());
-           account.setSurnameUser(surname);
-           account.setTaxCode(taxCode);
-           account.setTelephoneNumber(account.getTelephoneNumber());
-           account.setCapDomicile(account.getCapDomicile());   
-           account.setMunicipalityDomicile(account.getMunicipalityDomicile());     
-           account.setProvinceDomicile(account.getProvinceDomicile());
-           account.setProvinceResidence(account.getProvinceResidence());
+           account.setSurnameUser(account.getSurnameUser());
+           account.setTaxCode(account.getTaxCode());
+           account.setTelephoneNumber(telephoneNumber);
+           account.setCapDomicile(capDomicile);   
+           account.setMunicipalityDomicile(municipalityDomicile);     
+           account.setProvinceDomicile(provinceDomicile);
+           account.setProvinceResidence(addressDomicile);
            account.setViaResidence(addressResidence);
-           account.setViaDomicile(account.getViaDomicile());
            account.setState(account.getState());
            account.setTypeParent(account.getTypeParent());
-           
-           request.getServletContext().getRequestDispatcher("/accountModify2.jsp").forward(request, response);
-           request.getSession().setAttribute("pagina","0");
+ 
            man.update(account);
-           
+           String app=(String)request.getSession().getAttribute("pagina");
+          if(app.equals("0")){
+           request.getServletContext().getRequestDispatcher("/accountModify3.jsp").forward(request, response);
+          }
+          else{
+              request.getServletContext().getRequestDispatcher("/accountInsert3.jsp").forward(request, response);
+          }
         } catch (SQLException ex) {
-            Logger.getLogger(ModifyAccountServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
             Logger.getLogger(ModifyAccountServlet.class.getName()).log(Level.SEVERE, null, ex);
         } 
         finally {            
@@ -116,7 +127,6 @@ public class ModifyAccountServlet extends HttpServlet {
         date.setTime(parsed);
         return date;
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP
@@ -130,11 +140,7 @@ public class ModifyAccountServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ParseException ex) {
-            Logger.getLogger(ModifyAccountServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -149,11 +155,7 @@ public class ModifyAccountServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ParseException ex) {
-            Logger.getLogger(ModifyAccountServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
