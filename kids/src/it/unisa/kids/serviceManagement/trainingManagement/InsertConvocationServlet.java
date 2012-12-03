@@ -16,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -31,11 +32,13 @@ import javax.servlet.http.HttpSession;
  */
 public class InsertConvocationServlet extends HttpServlet {
 
-    private ITrainingManager trainingManager;
+    private JDBCTrainingManager trainingManager;
 
     public void init(ServletConfig config) {
         RefinedAbstractManager refinedAbstractTrainingManager = RefinedAbstractManager.getInstance();
-        trainingManager = (ITrainingManager) refinedAbstractTrainingManager.getManagerImplementor(DBNames.TABLE_TRAINEE);
+        trainingManager = (JDBCTrainingManager) (ITrainingManager) refinedAbstractTrainingManager.getManagerImplementor(DBNames.TABLE_TRAINEE);
+        Observer o=new MailManager();
+        trainingManager.addObserver(o);
     }
 
     /**

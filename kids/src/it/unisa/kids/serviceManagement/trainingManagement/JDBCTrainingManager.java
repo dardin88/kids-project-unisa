@@ -2,6 +2,7 @@ package it.unisa.kids.serviceManagement.trainingManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.Mail;
 import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.kids.common.facade.AccessFacade;
 import it.unisa.kids.common.facade.IAccessFacade;
@@ -19,8 +20,8 @@ import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class JDBCTrainingManager implements ITrainingManager {
-
+public class JDBCTrainingManager extends Observable implements ITrainingManager {
+    
     private static ITrainingManager manager;
     private static Logger logger = Logger.getLogger("global");
 
@@ -101,6 +102,15 @@ public class JDBCTrainingManager implements ITrainingManager {
             
             pStmt.executeUpdate();
             con.commit();
+            super.setChanged();
+            Mail mail=new Mail();
+            String body = "Giorno :" + pConvocation.getDate().get(Calendar.YEAR) + "/" + pConvocation.getDate().get(Calendar.MONTH) + "/" + pConvocation.getDate().get(Calendar.DAY_OF_MONTH)
+                    + "<br>Ora di inzio:" + pConvocation.getStartTime().getHours() + ":" + pConvocation.getStartTime().getMinutes()
+                    + "<br>Ora di fine:" + pConvocation.getEndTime().getHours() + ":" + pConvocation.getEndTime().getMinutes()
+                    + "<br>Attvità:" + pConvocation.getActivityName()
+                    + "<br>Si prega di confermare la propria presenza sul sito";
+            super.notifyObservers(pTraineeConvocation);
+            
         } finally {
             pStmt.close();
             DBConnectionPool.releaseConnection(con);
@@ -539,6 +549,8 @@ public class JDBCTrainingManager implements ITrainingManager {
         }
         return convocationList;
     }
+    
+    
     
     
 }
