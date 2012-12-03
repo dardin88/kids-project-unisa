@@ -3,14 +3,14 @@
     Created on : 27-nov-2012, 16.08.07
     Author     : Gianmarco
 --%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%--<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:if test="${sessionScope.user==null}">
     <c:redirect url="index.jsp" />
 </c:if>
 <c:if test="${sessionScope.user.getTypeAccount()!='Genitore'}">
         <c:redirect url="index.jsp" />
 </c:if>
-
+--%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -37,9 +37,10 @@
             });
         </script>
     </head>
+    <%@include file="header.jsp" %>
     <body>
         
-       <%@include file="header.jsp" %>
+       
         <div  style="padding-top: 20px;padding-left: 240px;">
             <h1  id="title" align="center">Dati Genitore</h1>
                           

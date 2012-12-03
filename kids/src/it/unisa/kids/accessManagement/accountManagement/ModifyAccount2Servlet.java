@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -45,32 +46,32 @@ public class ModifyAccount2Servlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        Account account=new Account();
+        Account account2=new Account();
+        List<Account> list;
            try {
            
            JDBCAccountManager man= JDBCAccountManager.getInstance();
            HttpSession rs= request.getSession();
-           String i= (String) rs.getAttribute("Id");
-           int id= Integer.parseInt(i);
+           int id= (Integer) rs.getAttribute("id");
            
-           account.setId(id);
-           man.search(account);
-           
-           String provinceResidence = request.getParameter(DBNames.ATT_ACCOUNT_PROVINCERESIDENCE);
-           
-           String fax = request.getParameter(DBNames.ATT_ACCOUNT_FAX);
-           String email = request.getParameter(DBNames.ATT_ACCOUNT_EMAIL);
-           String telephoneNumber = request.getParameter(DBNames.ATT_ACCOUNT_TELEPHONENUMBER);
-           String cellular = request.getParameter(DBNames.ATT_ACCOUNT_CELLULARNUMBER);
-           String capResidence = request.getParameter(DBNames.ATT_ACCOUNT_CAPRESIDENCE);
-           String addressResidence = request.getParameter(DBNames.ATT_ACCOUNT_ADDRESSRESIDENCE);
-           String provinceDomicile = request.getParameter(DBNames.ATT_ACCOUNT_PROVINCEDOMICILE);
-           String municipalityDomicile = request.getParameter(DBNames.ATT_ACCOUNT_MUNICIPALITYDOMICILIE);
-           String addressDomicile= request.getParameter(DBNames.ATT_ACCOUNT_ADDRESSDOMICILE);
-
+            System.out.println("Questo è l'id : "+id);
+           account2.setId(id);
+           list=man.search(account2);
+                      
+           String fax = request.getParameter("fax");
+           String email = request.getParameter("email");
+           String telephoneNumber = request.getParameter("telefono");
+           String cellular = request.getParameter("cellulare");
+           String capResidence = request.getParameter("capResidenza");
+           String addressResidence = request.getParameter("viaResidenza");
+           String provinceDomicile = request.getParameter("provinciaDomicilio");
+           String municipalityDomicile = request.getParameter("comuneDomicilio");
+           String addressDomicile= request.getParameter("indirizzoDomicilio");
            
            String capDomicile = request.getParameter(DBNames.ATT_ACCOUNT_CAPDOMICILIE);
-                  
+           Account account=list.get(0);
+           System.out.println("Questo è il nome dell'account : "+account.getNameUser());
+           
            account.setId(account.getId());
            account.setState(account.getState());
            account.setRegister(account.getRegister());
@@ -106,13 +107,7 @@ public class ModifyAccount2Servlet extends HttpServlet {
            account.setTypeParent(account.getTypeParent());
  
            man.update(account);
-           String app=(String)request.getSession().getAttribute("pagina");
-          if(app.equals("0")){
-           request.getServletContext().getRequestDispatcher("/accountModify3.jsp").forward(request, response);
-          }
-          else{
-              request.getServletContext().getRequestDispatcher("/accountInsert3.jsp").forward(request, response);
-          }
+           
         } catch (SQLException ex) {
             Logger.getLogger(ModifyAccountServlet.class.getName()).log(Level.SEVERE, null, ex);
         } 

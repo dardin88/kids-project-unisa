@@ -73,10 +73,6 @@ public class AddAccountServlet extends HttpServlet {
             account = man.insert(account);
             
             request.getSession().setAttribute("id", account.getId());
-
-            // serve per capire da quale pagina provengo
-            request.getServletContext().getRequestDispatcher("/trainees.jsp").forward(request, response);
-            Logger.getLogger(AddAccountServlet.class.getName()).log(Level.INFO, "redirect to accountInsert2 eseguito???");
         } catch (SQLException ex) {
             Logger.getLogger(AddAccountServlet.class.getName()).log(Level.SEVERE, "SQL-Error: " + ex.getMessage(), ex);
         }

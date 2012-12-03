@@ -1,3 +1,4 @@
+package it.unisa.kids.accessManagement.accountManagement;
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -15,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -22,7 +24,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 /**
  *
  * @author Gianmarco
@@ -43,43 +44,46 @@ public class ModifyAccount3Servlet extends HttpServlet {
             throws ServletException, IOException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        Account account=new Account();
+        Account account2=new Account();
+          List<Account> list;
            try {
-           
+           System.out.println("Sono Qui");
            JDBCAccountManager man= JDBCAccountManager.getInstance();
-          HttpSession rs= request.getSession();
-           String i= (String) rs.getAttribute("Id");
-           int id= Integer.parseInt(i);
-           man.search(account);
-          
-        
-           
-           String provinceDomicile = request.getParameter(DBNames.ATT_ACCOUNT_PROVINCEDOMICILE);
-          
-          String capResidence = request.getParameter(DBNames.ATT_ACCOUNT_CAPRESIDENCE);
-          String familySituation= request.getParameter(DBNames.ATT_ACCOUNT_FAMILYSITUATION);
-          String addressDomicile= request.getParameter(DBNames.ATT_ACCOUNT_ADDRESSDOMICILE);
-          String qualification= request.getParameter(DBNames.ATT_ACCOUNT_QUALIFICATION);
-          String typeAccount= request.getParameter(DBNames.ATT_ACCOUNT_TYPEACCOUNT);
-          double income= Double.parseDouble(request.getParameter(DBNames.ATT_ACCOUNT_INCOME));
-          String expDate=request.getParameter(DBNames.ATT_ACCOUNT_CONTRACTEXPIRATIONDATE);
-          String regDate= request.getParameter(DBNames.ATT_ACCOUNT_REGISTRATIONDATE);
-          String typeParent= request.getParameter(DBNames.ATT_ACCOUNT_TYPEPARENT);
+         HttpSession rs= request.getSession();
+         int id= (Integer) rs.getAttribute("id");
+         System.out.println("Questo è l'id"+id);
+
+          account2.setId(id);
+          list=man.search(account2);
+                    
+          String capDomicilio = request.getParameter("capDomicilio");
+          String familySituation= request.getParameter("situazioneFamiliaria");
+          String faculty= request.getParameter("facolta");
+          String qualification= request.getParameter("titoloStudio");
+          String typeAccount= request.getParameter("tipoAccount");
+          double income= Double.parseDouble(request.getParameter("reddito"));
+          String expDate=request.getParameter("scadenzaContratto");
+          String regDate= request.getParameter("dataRegistrazione");
+          String typeParent= request.getParameter("tipoGenitore");
           
            GregorianCalendar exp= parseGregorianCalendar(expDate);
            GregorianCalendar reg= parseGregorianCalendar(regDate);
+           
           
+           
+          Account account=list.get(0);
+           System.out.println("Questo è il nome dell'account 2:"+account.getNameUser());
            account.setId(account.getId());
            account.setRegister(account.getRegister());
            account.setAccountType(typeAccount);
-           account.setCapDomicile(account.getCapDomicile());
-           account.setCapResidence(capResidence);
+           account.setCapDomicile(capDomicilio);
+           account.setCapResidence(account.getCapResidence());
            account.setCellularNumber(account.getCellularNumber());
            account.setCitizenship(account.getCitizenship());
            account.setContractExpirationDate(exp);
            account.setDataOfBirth(account.getDataOfBirth());
            account.setEmail(account.getEmail());
-           account.setFaculty(account.getFaculty());
+           account.setFaculty(faculty);
            account.setFamilySituation(familySituation);
            account.setFax(account.getFax());
            account.setIncome(income);
@@ -96,18 +100,15 @@ public class ModifyAccount3Servlet extends HttpServlet {
            account.setTelephoneNumber(account.getTelephoneNumber());
            account.setCapDomicile(account.getCapDomicile());   
            account.setMunicipalityDomicile(account.getMunicipalityDomicile());     
-           account.setProvinceDomicile(provinceDomicile);
            account.setProvinceResidence(account.getProvinceResidence());
            account.setViaResidence(account.getViaResidence());
-           account.setViaDomicile(addressDomicile);
+           account.setViaDomicile(account.getViaDomicile());
            account.setState(account.getState());
            account.setTypeParent(typeParent);
            
  
            man.update(account);
-           
-           request.getServletContext().getRequestDispatcher("/accountInformation.jsp").forward(request, response);
-           
+                      
         }  catch (SQLException ex) {
             Logger.getLogger(ModifyAccountServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
