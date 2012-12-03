@@ -228,7 +228,7 @@ CREATE TABLE IF NOT EXISTS `iscrizionebambino` (
   `FasciaUtenza` enum('full_time','part_time_pomeridiana','part_time_mattutina'),
   `DataIscrizione` date NOT NULL,
   `Malattia` text,
-  `FaseDellIscrizione` enum('bozza','sottomessa','confermata','accettata','eliminata','rinunciata','ricorso') NOT NULL DEFAULT 'registrata',
+  `FaseDellIscrizione` enum('bozza','sottomessa','confermata','rifiutata','accettata','eliminata','rinunciata','ricorso') NOT NULL DEFAULT 'sottomessa',
   `AccountGenitore` int(11) NOT NULL,
   `Classe` int(11),
   PRIMARY KEY (`Id`)
