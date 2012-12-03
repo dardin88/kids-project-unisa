@@ -4,14 +4,15 @@
  */
 package it.unisa.kids.serviceManagement.paymentManagement.servlet;
 
-import it.unisa.kids.serviceManagement.trainingManagement.*;
-import it.unisa.kids.accessManagement.accountManagement.Account;
-import it.unisa.kids.common.facade.AccessFacade;
-import it.unisa.kids.common.facade.IAccessFacade;
+import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
+import it.unisa.kids.serviceManagement.paymentManagement.IPaymentManager;
+import it.unisa.kids.serviceManagement.paymentManagement.PaymentBean;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -26,12 +27,12 @@ import org.json.JSONObject;
  *
  * @author utente
  */
-public class GetParentsTableServlet extends HttpServlet {
+public class GetPaymentsTableServlet extends HttpServlet {
 
-    private IAccessFacade accessFacade;
+    private IPaymentManager paymentManager;
 
     public void init(ServletConfig config) {
-        this.accessFacade = new AccessFacade();     // si dovrebbe implementare il singleton anche qui?
+        this.paymentManager = (IPaymentManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_PAYMENT);
     }
 
     /**
@@ -71,32 +72,37 @@ public class GetParentsTableServlet extends HttpServlet {
                 }
             }
 
-            Account searchAccount = checkSearchParameters(request);
-            List<Account> parentsList = accessFacade.search(searchAccount);
-            Account[] paginateParentSet;
+            PaymentBean searchPayment = checkSearchParameters(request);
+            List<PaymentBean> paymentsList = paymentManager.search(searchPayment);
+            PaymentBean[] paginatePaymentSet;
 
 
-            int linksNumber = parentsList.size();
+            int linksNumber = paymentsList.size();
             if (linksNumber < amount) {
                 amount = linksNumber;
             }
             if (linksNumber != 0) {
                 int toShow = linksNumber - start;
                 if (toShow > 10) {
-                    paginateParentSet = new Account[amount];
-                    System.arraycopy(parentsList.toArray(), start, paginateParentSet, 0, amount);
+                    paginatePaymentSet = new PaymentBean[amount];
+                    System.arraycopy(paymentsList.toArray(), start, paginatePaymentSet, 0, amount);
                 } else {
-                    paginateParentSet = new Account[toShow];
-                    System.arraycopy(parentsList.toArray(), start, paginateParentSet, 0, toShow);
+                    paginatePaymentSet = new PaymentBean[toShow];
+                    System.arraycopy(paymentsList.toArray(), start, paginatePaymentSet, 0, toShow);
                 }
-                for (Account parent : paginateParentSet) {
+                for (PaymentBean payment : paginatePaymentSet) {
                     JSONArray ja = new JSONArray();
-                    ja.put(parent.getNameUser());
-                    ja.put(parent.getSurnameUser());
-                    ja.put(parent.getTaxCode());
                     
-                    String selectOperation = "<input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/lente.gif' onclick='doParentSelection(\"" + parent.getId() + "\")' />";
-                    ja.put(selectOperation);
+                    ja.put(unparseGregorianCalendar(payment.getExpDate()));
+                    ja.put(payment.getPaymentDescription());
+                    
+                    double amountPayment = payment.getAmount();
+                    double discountPayment = payment.getDiscount();
+                    double amountDuePayment = amountPayment + (amountPayment * discountPayment / 100);
+                    ja.put(amountPayment);
+                    ja.put(discountPayment);
+                    ja.put(payment.getDiscountDescription());
+                    ja.put(amountDuePayment);
                     
                     array.put(ja);
                 }
@@ -110,31 +116,37 @@ public class GetParentsTableServlet extends HttpServlet {
                     "private, no-store, no-cache, must-revalidate");
             response.setHeader("Pragma", "no-cache");
             out.print(result);
-            Logger.getLogger(GetParentsTableServlet.class.getName()).log(Level.INFO, "Query result(JSONObject): " + result.toString());
+            Logger.getLogger(GetPaymentsTableServlet.class.getName()).log(Level.INFO, "Query result(JSONObject): " + result.toString());
         } catch (Exception ex) {
-            Logger.getLogger(GetParentsTableServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GetPaymentsTableServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
         }
     }
 
-    private Account checkSearchParameters(HttpServletRequest pRequest) {
-        Account acc = new Account();
-        acc.setAccountType("Genitore");
-
-        if (pRequest.getParameter("parentName") != null && !pRequest.getParameter("parentName").equals("")) {
-            acc.setNameUser(pRequest.getParameter("parentName"));
+    private PaymentBean checkSearchParameters(HttpServletRequest pRequest) {
+        PaymentBean payment = new PaymentBean();
+        
+        String parentIdParameter = pRequest.getParameter("parentId");
+        int parentId = 0;
+        try {
+            parentId = Integer.parseInt(parentIdParameter);
+        } catch (NumberFormatException e) {
+            Logger.getLogger(GetPaymentsTableServlet.class.getName()).log(Level.SEVERE, "Cannot parse this parentId: " + parentIdParameter, e);
         }
-
-        if (pRequest.getParameter("parentSurname") != null && !pRequest.getParameter("parentSurname").equals("")) {
-            acc.setSurnameUser(pRequest.getParameter("parentSurname"));
+        
+        payment.setParentId(parentId);
+        return payment;
+    }
+    
+    private String unparseGregorianCalendar(GregorianCalendar pDate) {
+        if (pDate != null) {
+            return pDate.get(GregorianCalendar.DAY_OF_MONTH) + "/"
+                    + (pDate.get(GregorianCalendar.MONTH) + 1) + "/"
+                    + pDate.get(GregorianCalendar.YEAR);
+        } else {
+            return null;
         }
-
-        if (pRequest.getParameter("parentFiscalCode") != null && !pRequest.getParameter("parentFiscalCode").equals("")) {
-            acc.setTaxCode(pRequest.getParameter("parentFiscalCode"));
-        }
-
-        return acc;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

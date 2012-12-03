@@ -4,13 +4,14 @@
  */
 package it.unisa.kids.serviceManagement.paymentManagement.servlet;
 
-import it.unisa.kids.serviceManagement.trainingManagement.*;
-import it.unisa.kids.accessManagement.accountManagement.Account;
-import it.unisa.kids.common.facade.AccessFacade;
-import it.unisa.kids.common.facade.IAccessFacade;
+import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
+import it.unisa.kids.serviceManagement.paymentManagement.IPaymentManager;
+import it.unisa.kids.serviceManagement.paymentManagement.PaymentBean;
+import it.unisa.kids.serviceManagement.paymentManagement.RefundBean;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,12 +27,12 @@ import org.json.JSONObject;
  *
  * @author utente
  */
-public class GetParentsTableServlet extends HttpServlet {
+public class GetRefundsTableServlet extends HttpServlet {
 
-    private IAccessFacade accessFacade;
+    private IPaymentManager paymentManager;
 
     public void init(ServletConfig config) {
-        this.accessFacade = new AccessFacade();     // si dovrebbe implementare il singleton anche qui?
+        this.paymentManager = (IPaymentManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_PAYMENT);
     }
 
     /**
@@ -71,32 +72,30 @@ public class GetParentsTableServlet extends HttpServlet {
                 }
             }
 
-            Account searchAccount = checkSearchParameters(request);
-            List<Account> parentsList = accessFacade.search(searchAccount);
-            Account[] paginateParentSet;
+            RefundBean searchRefund = checkSearchParameters(request);
+            List<RefundBean> refundsList = paymentManager.search(searchRefund);
+            RefundBean[] paginateRefundSet;
 
 
-            int linksNumber = parentsList.size();
+            int linksNumber = refundsList.size();
             if (linksNumber < amount) {
                 amount = linksNumber;
             }
             if (linksNumber != 0) {
                 int toShow = linksNumber - start;
                 if (toShow > 10) {
-                    paginateParentSet = new Account[amount];
-                    System.arraycopy(parentsList.toArray(), start, paginateParentSet, 0, amount);
+                    paginateRefundSet = new RefundBean[amount];
+                    System.arraycopy(refundsList.toArray(), start, paginateRefundSet, 0, amount);
                 } else {
-                    paginateParentSet = new Account[toShow];
-                    System.arraycopy(parentsList.toArray(), start, paginateParentSet, 0, toShow);
+                    paginateRefundSet = new RefundBean[toShow];
+                    System.arraycopy(refundsList.toArray(), start, paginateRefundSet, 0, toShow);
                 }
-                for (Account parent : paginateParentSet) {
+                for (RefundBean refund : paginateRefundSet) {
                     JSONArray ja = new JSONArray();
-                    ja.put(parent.getNameUser());
-                    ja.put(parent.getSurnameUser());
-                    ja.put(parent.getTaxCode());
                     
-                    String selectOperation = "<input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/lente.gif' onclick='doParentSelection(\"" + parent.getId() + "\")' />";
-                    ja.put(selectOperation);
+                    ja.put(refund.getDescription());
+                    ja.put(refund.getAmount());
+                    //ja.put(refund.getState());
                     
                     array.put(ja);
                 }
@@ -110,31 +109,27 @@ public class GetParentsTableServlet extends HttpServlet {
                     "private, no-store, no-cache, must-revalidate");
             response.setHeader("Pragma", "no-cache");
             out.print(result);
-            Logger.getLogger(GetParentsTableServlet.class.getName()).log(Level.INFO, "Query result(JSONObject): " + result.toString());
+            Logger.getLogger(GetRefundsTableServlet.class.getName()).log(Level.INFO, "Query result(JSONObject): " + result.toString());
         } catch (Exception ex) {
-            Logger.getLogger(GetParentsTableServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GetRefundsTableServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
         }
     }
 
-    private Account checkSearchParameters(HttpServletRequest pRequest) {
-        Account acc = new Account();
-        acc.setAccountType("Genitore");
-
-        if (pRequest.getParameter("parentName") != null && !pRequest.getParameter("parentName").equals("")) {
-            acc.setNameUser(pRequest.getParameter("parentName"));
+    private RefundBean checkSearchParameters(HttpServletRequest pRequest) {
+        RefundBean refund = new RefundBean();
+        
+        String parentIdParameter = pRequest.getParameter("parentId");
+        int parentId = 0;
+        try {
+            parentId = Integer.parseInt(parentIdParameter);
+        } catch (NumberFormatException e) {
+            Logger.getLogger(GetRefundsTableServlet.class.getName()).log(Level.SEVERE, "Cannot parse this parentId: " + parentIdParameter, e);
         }
-
-        if (pRequest.getParameter("parentSurname") != null && !pRequest.getParameter("parentSurname").equals("")) {
-            acc.setSurnameUser(pRequest.getParameter("parentSurname"));
-        }
-
-        if (pRequest.getParameter("parentFiscalCode") != null && !pRequest.getParameter("parentFiscalCode").equals("")) {
-            acc.setTaxCode(pRequest.getParameter("parentFiscalCode"));
-        }
-
-        return acc;
+        
+        refund.setParentId(parentId);
+        return refund;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
