@@ -101,6 +101,7 @@ public final class DBNames {
     public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DRAFT = "bozza";
     public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED = "sottomessa";
     public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_CONFIRMED = "confermata";
+    public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_UNACCEPTED = "rifiutata";
     public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_ACCEPTED = "accettata";
     public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DELETED = "cancellata";
     public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_RENOUNCED = "rinunciata";

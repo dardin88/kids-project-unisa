@@ -42,6 +42,7 @@ public class RegistrationChild {
         BOZZA(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DRAFT),
         SOTTOMESSA(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED),
         CONFERMATA(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_CONFIRMED),
+        RIFIUTATA(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_UNACCEPTED),
         ACCETTATA(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_ACCEPTED),
         ELIMINATA(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DELETED),
         RINUNCIATA(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_RENOUNCED),
@@ -153,6 +154,9 @@ public class RegistrationChild {
         case CONFERMATA:
                 result=RegistrationPhase.CONFERMATA.getDescription();
                 break;
+        case RIFIUTATA:
+                result=RegistrationPhase.RIFIUTATA.getDescription();
+                break;
         case ACCETTATA:
                 result=RegistrationPhase.ACCETTATA.getDescription();
                 break;
@@ -175,6 +179,8 @@ public class RegistrationChild {
                     registrationPhase=RegistrationPhase.SOTTOMESSA;
             if(registrationPhases.equals(RegistrationPhase.CONFERMATA.getDescription()))
                     registrationPhase=RegistrationPhase.CONFERMATA;
+            if(registrationPhases.equals(RegistrationPhase.RIFIUTATA.getDescription()))
+                    registrationPhase=RegistrationPhase.RIFIUTATA;
             if(registrationPhases.equals(RegistrationPhase.ACCETTATA.getDescription()))
                     registrationPhase=RegistrationPhase.ACCETTATA;
             if(registrationPhases.equals(RegistrationPhase.ELIMINATA.getDescription()))

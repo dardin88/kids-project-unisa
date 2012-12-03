@@ -21,9 +21,9 @@
     RegistrationChild rc = new RegistrationChild();
 %>
 <%
-    if(request.getParameter("RegistrationChildId") != null) {
+    if(request.getParameter(DBNames.ATT_REGISTRATIONCHILD_ID) != null) {
         JDBCRegistrationChildManager registrationChildManager = JDBCRegistrationChildManager.getInstance();
-        rc.setId(Integer.parseInt(request.getParameter("RegistrationChildId")));
+        rc.setId(Integer.parseInt(request.getParameter(DBNames.ATT_REGISTRATIONCHILD_ID)));
         rc = registrationChildManager.search(rc).get(0);
         session.setAttribute("registrationchildtoedit", rc);
     } else {

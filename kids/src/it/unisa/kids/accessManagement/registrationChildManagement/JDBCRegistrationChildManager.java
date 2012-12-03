@@ -319,7 +319,7 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
      */
     public int getNumberChildren(int parentId) throws SQLException {
         Connection con = null;
-        PreparedStatement stmt = null;
+        PreparedStatement pstmt = null;
         ResultSet rs = null;
         String query = null;
         int num = 0;
@@ -331,21 +331,76 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
                             "FROM" + DBNames.TABLE_REGISTRATIONCHILD + ","+
                             "WHERE" + DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID + "=?;";
 
-            stmt = con.prepareStatement(query);
-            stmt.setInt(1, parentId);
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, parentId);
             
-            rs = stmt.executeQuery();
+            rs = pstmt.executeQuery();
             con.commit();
             
             while(rs.next()) {
                 num = rs.getInt("NumberOfChild");
             }
         } finally {
-            if(stmt != null)
-                stmt.close();
+            if(pstmt != null)
+                pstmt.close();
             if(con != null)
                 DBConnectionPool.releaseConnection(con);
         }
         return num;
-   }
+    }
+    
+    private boolean changeRegistrationPhase(int registrationChildId, String phase) throws SQLException {
+        boolean toReturn;
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        String query = "UPDATE " + DBNames.TABLE_REGISTRATIONCHILD + " " + 
+                        "SET (" + phase + ") " +
+                        "VALUES (?) " +
+                        "WHERE " + DBNames.ATT_REGISTRATIONCHILD_ID + "=?;"; 
+			
+        try {
+            con = DBConnectionPool.getConnection();
+            pstmt = con.prepareStatement(query);
+
+            // parameters of values
+            pstmt.setString(1, DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_CONFIRMED);
+            pstmt.setInt(2, registrationChildId);
+            
+            if(pstmt.executeUpdate() >= 1) // executeUpdate ritorna il numero di righe modificate
+                toReturn = true;
+            else
+                toReturn = false;
+            con.commit();
+        } catch(SQLException se) {
+            toReturn = false;
+        } finally {
+            if(pstmt != null)
+                pstmt.close();
+            if(con != null)
+                DBConnectionPool.releaseConnection(con);
+        }
+        return toReturn;
+    }
+    
+    /**
+     * Set the registrationphase of the registrationchild to confirme
+     * 
+     * @param registrationChildId registrationchild's id to confirm
+     * @return true if confirmed correctly, false otherwise
+     * @throws SQLException 
+     */
+    public boolean confirmRegistrationChild(int registrationChildId) throws SQLException {
+        return changeRegistrationPhase(registrationChildId, DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_CONFIRMED);
+    }
+    
+    /**
+     * Set the registrationphase of the registrationchild to submitted
+     * 
+     * @param registrationChildId registrationchild's id to submit
+     * @return true if submitted correctly, false otherwise
+     * @throws SQLException 
+     */
+    public boolean submitRegistrationChild(int registrationChildId) throws SQLException {
+        return changeRegistrationPhase(registrationChildId, DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED);
+    }
 }
