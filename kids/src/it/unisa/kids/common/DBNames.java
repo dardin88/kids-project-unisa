@@ -15,8 +15,8 @@ public final class DBNames {
     public static final String TABLE_MEAL_REQUEST = "meal_request";
     public static final String TABLE_TIMESERV_REQUEST = "timeserv_request";
     public static final String TABLE_DIFFMENU = "menu_differenziato";
-    public static final String TABLE_REFUND = "refund";
-    public static final String TABLE_PAYMENT = "payment";
+    public static final String TABLE_REFUND = "rimborso";
+    public static final String TABLE_PAYMENT = "pagamento";
     public static final String TABLE_PARTICIPATION = "participation";
     public static final String TABLE_COMUNICATION = "comunication";
     public static final String TABLE_REUNION = "riunione";
