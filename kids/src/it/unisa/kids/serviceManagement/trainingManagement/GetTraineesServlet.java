@@ -73,7 +73,6 @@ public class GetTraineesServlet extends HttpServlet {
                 System.out.println("Data:"+birthDate.get(Calendar.YEAR));
                 if (birthDate !=null) {
                     String date=birthDate.get(Calendar.YEAR)+"-"+ (birthDate.get(Calendar.MONTH) + 1) +"-"+birthDate.get(Calendar.DAY_OF_MONTH)  ;
-                    System.out.println(date);
                     o.println(a.getRegister() + "," + a.getNameUser() + "," + a.getSurnameUser() + "," +date + "," + a.getPlaceOfBirth() + "," + a.getMunicipalityResidence() + "," + a.getViaResidence() + "," + a.getCapResidence() + "," + a.getCellularNumber() + "," + a.getEmail() + "," + a.getQualification());
                 } else {
                     o.println(a.getRegister() + "," + a.getNameUser() + "," + a.getSurnameUser() + "," +""+ a.getPlaceOfBirth() + "," + a.getMunicipalityResidence() + "," + a.getViaResidence() + "," + a.getCapResidence() + "," + a.getCellularNumber() + "," + a.getEmail() + "," + a.getQualification());

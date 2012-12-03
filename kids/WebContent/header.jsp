@@ -34,7 +34,7 @@
         <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
             <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
             <li id="paymentManagement"><a href="paymentManagement.jsp">Gestione pagamenti</a></li>
-            <li id="managementTraineeActivity"><a href="">Gestione Attivit&agrave Tirocinanti</a></li>
+            <li id="managementTraineeActivity"><a href="insertTraineeActivity.jsp">Gestione Attivit&agrave Tirocinanti</a></li>
             <li id="traineeRequest"><a href="">Invia Richiesta di Tirocinanti</a></li>
         </c:if>
         <c:if test="${sessionScope.user.getAccountType()=='Tirocinante'}">
