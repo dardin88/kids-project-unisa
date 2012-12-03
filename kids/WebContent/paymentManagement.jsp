@@ -89,11 +89,21 @@
             <%-- blocco div delle varie funzioni della gestione pagamenti --%>
             <div id="paymentTabGroup">
                 <ul>
+                    <li><a href="#insertPayment"><span class="paymentsTab">Inserisci pagamento</span></li>
+                    <li><a href="#insertRefund"><span class="paymentsTab">Inserisci rimborso</span></li>
                     <li><a href="#showPayments"><span class="paymentsTab">Visualizza pagamenti</span></a></li>
                     <li><a href="#showRefunds"><span class="paymentsTab">Visualizza rimborsi</span></a></li>
                     <li><a href="#addCharge"><span class="paymentsTab">Addebita pagamento</span></a></li>
                     <li><a href="#addDiscount"><span class="paymentsTab">Applica sconto</span></a></li>
                 </ul>
+                
+                <div id="insertPayment">
+                    
+                </div>
+                
+                <div id="insertRefund">
+                    
+                </div>
 
                 <div id="showPayments">
                     <table id="showPaymentsTable">
