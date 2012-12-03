@@ -17,12 +17,12 @@ public class prova {
     public static void main(String args[]) throws SQLException{
     Account account=new Account();
     List<Account> list;
-    account.setId(5);
     
     IAccountManager accountManager =(IAccountManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACCOUNT);
-    
-    if((account=accountManager.delete(account))!=null){
-    System.out.println("eliminato con successo");
+    account.setNameUser("Stefano");
+    account.setSurnameUser("Bubbo");
+    if((account=accountManager.insert(account))!=null){
+    System.out.println("ricerca riuscita");
     System.out.println(""+account.getPassword());
     }
     else{

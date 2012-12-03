@@ -4,7 +4,6 @@
  */
 package it.unisa.kids.accessManagement.accountManagement;
 
-import it.unisa.kids.common.DBNames;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -15,7 +14,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -42,72 +40,49 @@ public class AddAccountServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-           response.setContentType("text/html;charset=UTF-8");
-           JDBCAccountManager man= JDBCAccountManager.getInstance();
-           String name = request.getParameter(DBNames.ATT_ACCOUNT_NAME);
-           String surname = request.getParameter(DBNames.ATT_ACCOUNT_SURNAMEUSER);
-           String birthdate = request.getParameter(DBNames.ATT_ACCOUNT_DATEOFBIRTH);
-           String birthplace = request.getParameter(DBNames.ATT_ACCOUNT_PLACEOFBIRTH);
-           String taxCode = request.getParameter(DBNames.ATT_ACCOUNT_TAXCODE);
-           String citizenship = request.getParameter(DBNames.ATT_ACCOUNT_CITIZENSHIP);
-           String municipalityResidence = request.getParameter(DBNames.ATT_ACCOUNT_MUNICIPALITYRESIDENCE);
-           String provinceResidence = request.getParameter(DBNames.ATT_ACCOUNT_PROVINCERESIDENCE);
-           String telephoneNumber = request.getParameter(DBNames.ATT_ACCOUNT_TELEPHONENUMBER);
-           String cellular = request.getParameter(DBNames.ATT_ACCOUNT_CELLULARNUMBER);
-           String fax = request.getParameter(DBNames.ATT_ACCOUNT_FAX);
-           String email = request.getParameter(DBNames.ATT_ACCOUNT_EMAIL);
-           String provinceDomicile = request.getParameter(DBNames.ATT_ACCOUNT_PROVINCEDOMICILE);
-           String municipalityDomicile = request.getParameter(DBNames.ATT_ACCOUNT_MUNICIPALITYDOMICILIE);
-           String capResidence = request.getParameter(DBNames.ATT_ACCOUNT_CAPRESIDENCE);
-           String capDomicile = request.getParameter(DBNames.ATT_ACCOUNT_CAPDOMICILIE);
-           String qualification = request.getParameter(DBNames.ATT_ACCOUNT_QUALIFICATION);
-           String accountType = request.getParameter(DBNames.ATT_ACCOUNT_TYPEACCOUNT);
-           String familySituation = request.getParameter(DBNames.ATT_ACCOUNT_FAMILYSITUATION);
-           String faculty = request.getParameter(DBNames.ATT_ACCOUNT_FACULTY);
-           double income = Double.parseDouble(request.getParameter(DBNames.ATT_ACCOUNT_INCOME));
-           String contractExpirationDate = request.getParameter(DBNames.ATT_ACCOUNT_CONTRACTEXPIRATIONDATE);
-           String registrationDate = request.getParameter(DBNames.ATT_ACCOUNT_REGISTRATIONDATE);
-         
-           GregorianCalendar reg= parseGregorianCalendar(registrationDate);
-           GregorianCalendar exp= parseGregorianCalendar(contractExpirationDate);
-           GregorianCalendar birth= parseGregorianCalendar(birthdate);
-           
-           Account account= new Account();
-           account.setAccountType(accountType);
-           account.setCapDomicile(capDomicile);
-           account.setCapResidence(capResidence);
-           account.setCellularNumber(cellular);
-           account.setCitizenship(citizenship);
-           account.setContractExpirationDate(exp);
-           account.setDataOfBirth(birth);
-           account.setEmail(email);
-           account.setFaculty(faculty);
-           account.setFamilySituation(familySituation);
-           account.setFax(fax);
-           account.setIncome(income);
-           account.setMunicipalityDomicile(municipalityDomicile);
-           account.setMunicipalityResidence(municipalityResidence);
-           account.setNameUser(name);
-           account.setPlaceofBirth(birthplace);
-           account.setProvinceDomicile(provinceDomicile);
-           account.setProvinceResidence(provinceResidence);
-           account.setQualification(qualification);
-           account.setRegistrationDate(reg);
-           account.setSurnameUser(surname);
-           account.setTaxCode(taxCode);
-           account.setTelephoneNumber(telephoneNumber);
-           
-           man.insert(account);
 
-           
+            response.setContentType("text/html;charset=UTF-8");
+
+            JDBCAccountManager man = JDBCAccountManager.getInstance();
+            String matricola = request.getParameter("matricolaAccount");
+            String name = request.getParameter("nomeAccount");
+            String surname = request.getParameter("cognomeAccount");
+            String birthdate = request.getParameter("dataNascitaAccount");
+            String birthplace = request.getParameter("comuneNascitaAccount");
+            String taxCode = request.getParameter("codiceFiscaleAccount");
+            String citizenship = request.getParameter("cittadinanzaAccount");
+            String municipalityResidence = request.getParameter("comuneResidenzaAccount");
+            String provinceResidence = request.getParameter("provinciaResidenzaAccount");
+            String addressResidence = request.getParameter("indirizzoResidenzaAccount");
+
+            GregorianCalendar birth = parseGregorianCalendar(birthdate);
+
+            Account account = new Account();
+
+            account.setRegister(matricola);
+            account.setNameUser(name);
+            account.setSurnameUser(surname);
+            account.setDataOfBirth(birth);
+            account.setPlaceofBirth(birthplace);
+            account.setTaxCode(taxCode);
+            account.setCitizenship(citizenship);
+            account.setMunicipalityResidence(municipalityResidence);
+            account.setProvinceResidence(provinceResidence);
+            account.setViaResidence(addressResidence);
+
+            account = man.insert(account);
+            
+            request.getSession().setAttribute("id", account.getId());
+
+            // serve per capire da quale pagina provengo
+            request.getServletContext().getRequestDispatcher("/trainees.jsp").forward(request, response);
+            Logger.getLogger(AddAccountServlet.class.getName()).log(Level.INFO, "redirect to accountInsert2 eseguito???");
         } catch (SQLException ex) {
-            request.setAttribute("message",
-                    "Verfica i campi");
-            request.getServletContext().getRequestDispatcher("/account.jsp").forward(request, response);
+            Logger.getLogger(AddAccountServlet.class.getName()).log(Level.SEVERE, "SQL-Error: " + ex.getMessage(), ex);
         }
     }
 
-        private GregorianCalendar parseGregorianCalendar(String pDate) throws ParseException {
+    private GregorianCalendar parseGregorianCalendar(String pDate) throws ParseException {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date parsed = df.parse(pDate);
         GregorianCalendar date = new GregorianCalendar();
@@ -115,7 +90,6 @@ public class AddAccountServlet extends HttpServlet {
         return date;
     }
 
-    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP

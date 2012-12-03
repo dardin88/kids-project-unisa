@@ -1,3 +1,26 @@
+function initializeLinksManager2(){
+        
+    var id =document.getElementById('id');
+    $("#removeAccount").dialog({
+        
+        modal:true,
+        autoOpen : false,
+        buttons:{
+            "Annulla": function(){
+                $(this).dialog("close");
+            },
+            "Conferma": function(){
+                $.post("DeleteAccount", {
+                    id:""+id
+                }
+                );
+                $(this).dialog("close");
+
+            }
+        }
+    })
+   
+}
 /* 
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -17,24 +40,24 @@ function buildAccountTable(){
             {
                 "name" : "name", 
                 "value" : $('#name').val()
-                },
+            },
 
-                {
+            {
                 "name" : "surname", 
                 "value" : $('#surname').val()
-                },
-                 {
+            },
+            {
                 "name" : "taxCode", 
                 "value" : $('#taxCode').val()
-                },
-                 {
+            },
+            {
                 "name" : "type", 
                 "value" : $('#type').val()
-                },
-                 {
+            },
+            {
                 "name" : "nickname", 
                 "value" : $('#nickname').val()
-                }
+            }
             );
      
         },
@@ -83,23 +106,11 @@ function buildAccountTable(){
 }
 
    
-function removeAccount(id){
-    $("#removeAccount").dialog({
-        autoOpen:true,
-        modal:true,
-        buttons:{
-            "Annulla": function(){
-                $(this).dialog("close");
-            },
-            "Conferma": function(){
-                $.post("DeleteAccount", {
-            id:""+id
-        });
-        $(this).dialog("close");
-            }
-        }
-   })
+function removeAccount(){
+   
+    $("#removeAccount").dialog("open");
 }
+   
 
 function search(){
     var oTable = $("#accountsTable").dataTable();
@@ -109,4 +120,9 @@ function search(){
 
 function showAccount(id){
     window.open("accountInformation.jsp?id="+id);
+}
+
+function modifyAccount(){
+    var id= document.getElementById('id');
+    window.open("accountModify.jsp?id="+id);
 }

@@ -1,62 +1,64 @@
-function initializeLinksManager(){
+function initializeRegistrationFields(){
     $.ajaxSetup({
         cache: false
     });
-    $("#modifyButton").button();
-    $("#genericButton").button();
     
+    $("#registrationButton").button();
     
+    $.validator.setDefaults({
+        highlight: function(input){
+            $(input).addClass("ui-state-highlight");
+        },
+        unhighlight: function(input){
+            $(input).removeClass("ui-state-highlight");
+        }
+    });
 }
+
 $(document).ready(function(){
-    $("#information").validate({
+    $("#registrationForm").validate({
         rules:
         {
-            Matricola:"required",
-            Nome:"required",
+            
+            Nome:{
+                required:true
+            },
             Cognome:"required",
+            ComuneNascita:"required",
             DataNascita:{
                 required:true,
                 date:true
             },
-            ComuneNascita:"required",
+            CodiceFiscale:"required",
+            Cittadinanza:"required",
             ComuneResidenza:"required",
-            ComuneDomicilio:"required",
             ProvinciaResidenza:"required",
-            ProvinciaDomicilio:"required",
-            ViaDomicilio:"required",
-            ViaResidenza:"required",
-            NumeroCivicoResidenza:"required",
-            NumeroCivicoDomicilio:"required",
-            CAPDomicilio:"required",
-            CAPResidenza:"required",
-            Email:{
-                required:true,
-                email:true
-            },
-            Fax:"required"
+            IndirizzoResidenza:"required"
         },
         messages:{
-            Matricola:" Inserisci la matricola",
             Nome:" Inserisci il nome",
             Cognome:" Inserisci il cognome",
             ComuneNascita:" Inserisci la città di nascita",
             DataNascita:" Inserisci la data di nascita(gg/MM/AAAA)",
+            CodiceFiscale:" Inserisci il codice fiscale",
+            Cittadinanza:" Inserisci la cittadinanza",
             ComuneResidenza:" Inserisci il comune del residenza",
-            ComuneDomicilio:"Inserisci il comune del domicilio",
-            Indirizzo:" Inserisci l'indirizzo",
-            CAPDomicilio:" Inserisci il CAP del domicilio",
-            CAPResidenza:"Inserisci il CAP della residenza",
-            NumeroCivicoResidenza:"Inserisci il numero civico della residenza",
-            NumeroCivicoDomicilio:"Inserisci il numero civico del domicilio",
-            ProvinciaDomicilio:"Inserisci la provincia del domicilio",
             ProvinciaResidenza:"Inserisci la provincia della residenza",
-            ViaResidenza:"Inserisci la via della residenza",
-            Email:" Inserisci l'email",
-            ViaDomicilio:" Inserisci la via del domicilio",
-            Fax:"Inserisci il fax"
+            IndirizzoResidenza:"Inserisci la via della residenza"
         },
-        submitHandler:function(form){
-            form.submit();
+        submitHandler:function() {
+            $.post("AddAccount",{
+                matricolaAccount:$("#register").val(),
+                nomeAccount:$("#accountName").val(),
+                cognomeAccount:$("#accountSurname").val(),
+                comuneNascitaAccount:$("#placeOfBirth").val(),
+                dataNascitaAccount:$("#dateOfBirth").val(),
+                codiceFiscaleAccount:$("#taxCode").val(),
+                cittadinanzaAccount:$("#citizenship").val(),
+                comuneResidenzaAccount:$("#municipalityResidence").val(),
+                provinciaResidenzaAccount:$("#provinceResidence").val(),
+                indirizzoResidenzaAccount:$("#viaResidence").val()
+            })
         }
     });
 });

@@ -161,7 +161,10 @@ public class Account {
 		this.addressResidence = pViaResidence;
 	}
 
-	
+	public void setViaDomicile(String pViaDomicile) {
+		this.addressDomicile = pViaDomicile;
+	}
+
 
 	/**this method set the telephone number of all accounts
 	 * @param String pTelephoneNumber

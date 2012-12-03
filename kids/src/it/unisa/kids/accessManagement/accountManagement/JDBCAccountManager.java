@@ -44,13 +44,14 @@ public class JDBCAccountManager implements IAccountManager {
     public Account insert(Account pAccount) throws SQLException {
         Connection con = null;
         Statement stmt = null;
-        String nickname = null;
-        String query1 = null;
-        String query2 = null;
+        String nickname ;
+        String query1 ;
+        String query2 ;
         String data1 = null;
         String data2 = null;
         String data3 = null;
-        ResultSet rs = null;
+        ResultSet rs ;
+        List<Account> list;
 
         GregorianCalendar birthDate = pAccount.getDataOfBirth();
         GregorianCalendar expDate = pAccount.getContractExpirationDate();
@@ -71,15 +72,15 @@ public class JDBCAccountManager implements IAccountManager {
             con = DBConnectionPool.getConnection();
             /*generation of nickname */
             int i = 2;
+            nickname = pAccount.getNameUser() + pAccount.getSurnameUser();
             while (true) {
-                nickname = pAccount.getNameUser() + pAccount.getSurnameUser();
-                query1 = "Select " + DBNames.ATT_ACCOUNT_NICKNAME + " From " + DBNames.TABLE_ACCOUNT + " Where " + DBNames.ATT_ACCOUNT_NICKNAME + " = '" + pAccount.getNickName() + "'";
+                query1 = "Select " + DBNames.ATT_ACCOUNT_NICKNAME + " From " + DBNames.TABLE_ACCOUNT + " Where " + DBNames.ATT_ACCOUNT_NICKNAME + " = " + makeString(nickname) + "";
                 stmt = con.createStatement();
                 rs = stmt.executeQuery(query1);
                 con.commit();
 
-                if (rs.next()) {
-                    nickname = nickname + i;
+                if (rs.next()==true) {
+                    nickname+=i;
                 } else {
                     break;
                 }
@@ -130,7 +131,11 @@ public class JDBCAccountManager implements IAccountManager {
             stmt = con.createStatement();
             stmt.executeUpdate(query2);
             con.commit();
-            return pAccount;
+            list=search(pAccount);
+            if(list!=null)
+            return list.get(0);
+            else
+                return pAccount;
         } finally {
             if (stmt != null) {
                 stmt.close();
@@ -322,7 +327,7 @@ public class JDBCAccountManager implements IAccountManager {
             con.commit();
 
             // constructing payment list
-            account = new ArrayList<>();
+            account = new ArrayList<Account>();
             while (rs.next()) {
                 Account p = new Account();
                 p.setId(rs.getInt(DBNames.ATT_PAYMENT_ID));
@@ -595,7 +600,7 @@ public class JDBCAccountManager implements IAccountManager {
             con.commit();
 
             // constructing payment list
-            account = new ArrayList<>();
+            account = new ArrayList<Account>();
             while (rs.next()) {
                 Account p = new Account();
                 p.setId(rs.getInt(DBNames.ATT_PAYMENT_ID));
