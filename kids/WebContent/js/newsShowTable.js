@@ -3,18 +3,25 @@ function initializeLinksManager(){
         cache: false
     });
     $("#addLinkButton").button();   
+   
     
     $("#addLinkWindow").dialog({
         autoOpen: false,
         modal: true,
         resizable: false,
-        width: 600
+        width: 700
     });
     $("#removeNewsWindow").dialog({
         autoOpen: false,
         modal: true,
         resizable: false,
         width: 400
+    });
+    $("#updateNewsWindow").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 700
     });
     $.validator.setDefaults({
         highlight: function(input) {
@@ -38,12 +45,121 @@ function removeNews(id){
         $.post("RemoveNews",{
             idNews:""+id
         });
-         $("#removeNewsWindow").dialog("close");
+        $("#removeNewsWindow").dialog("close");
         var oTable = $("#linkTable").dataTable();
-        //alert(responseText);
         oTable.fnDraw();
     }) 
 }
+
+
+
+function updateNews(id,title,description,type,data,time){
+    $("#updateNewsWindow").dialog("open");
+    $("#selectFile").button();
+    $("#confirmUpdateNews").button();
+       
+    document.forms["updateNewsForm"].elements["nomeNews"].value=title;        
+    document.forms["updateNewsForm"].elements["descrizioneNews"].value=description;        
+  
+    $("#artefactTipo2 option").each(function() {
+        if($(this).text()==type){
+            $(this).attr("selected","selected");
+        }
+    });
+  
+  
+    document.forms["updateNewsForm"].elements["dataNews"].value=data;        
+    document.forms["updateNewsForm"].elements["oraNews"].value=time;        
+    //        document.forms["updateNewsForm"].elements["allegatoNews"].value=attached;   
+
+    $("#updateNewsForm").validate({
+        rules: {
+            nomeNews: {
+                required: true
+            },
+            descrizioneNews: {
+                required: true
+            },
+            selectNews:{
+                required:true,
+                //  equalTo:!"0"
+                remote:{
+                    url:"VerifyTypeNews",
+                    type: "post",
+                    data:{
+                        valore:function(){
+                            var valoreSelect=$("#selectNews").val();
+                            return valoreSelect;
+                        //  var valoreOra=$("#selectNews").val();
+                        //  return valoreOra;
+                        }
+                          
+                    }
+                            
+                }
+                   
+            },
+            dataNews:{
+                required:true
+            }/*,
+                oraNews:{
+                    remote:{
+                        url:"VerifyTime",
+                        type: "post",
+                        data:{
+                            valore:function(){
+                                var valoreSelect=$("#selectNews").val();
+                                return valoreSelect;
+                            }
+                        }
+                    }
+                }*/
+        },
+        messages: {
+            nomeNews: {
+                required: "Inserisci il titolo."
+            },
+            descrizioneNews: {
+                required: "Inserisci la descrizione."
+            },
+            selectNews:{
+                required: "Non puoi selezionare il primo item.",
+                remote: "Non puoi selezionare il primo item."
+            },
+            dataNews:{
+                required:"Selezionare la data"
+            }/*,
+                oraNews:{
+                    remote:"Ora obbligatoria"
+                }
+               */ 
+        },
+        submitHandler: function() {
+            $.post("UpdateNews", {
+                artefactTitolo: $("#artefactTitolo2").val(),
+                artefactDescrizione: $("#artefactDescrizione2").val(),
+                artefactTipo: $("#artefactTipo2").val(),
+                artefactData: $("#artefactData2").val(),
+                artefactOra: $("#artefactOra2").val(),
+              //  artefactAllegato: $("#artectAllegato2").val(),
+                idNews:""+id
+            });
+            $("#updateNewsWindow").dialog("close"); 
+            var oTable = $("#linksTable").dataTable();
+            oTable.fnDraw();
+            $("#artefactTitolo2").val("");
+            $("#artefactDescrizione2").val("");
+            $("#artefactTitolo2").val("");
+            $("#artefactData2").val("");
+            $("#artefactOra2").val("");
+        //    $("#artefactAllegato2").val("");
+        }
+    });
+    
+}
+
+
+
 function addNews(){
     $("#addLinkButton").click(function() {
         $("#addLinkWindow").dialog("open");
@@ -59,7 +175,7 @@ function addNews(){
                 },
                 selectNews:{
                     required:true,
-                  //  equalTo:!"0"
+                    //  equalTo:!"0"
                     remote:{
                         url:"VerifyTypeNews",
                         type: "post",
@@ -67,8 +183,8 @@ function addNews(){
                             valore:function(){
                                 var valoreSelect=$("#selectNews").val();
                                 return valoreSelect;
-                              //  var valoreOra=$("#selectNews").val();
-                              //  return valoreOra;
+                            //  var valoreOra=$("#selectNews").val();
+                            //  return valoreOra;
                             }
                           
                         }
@@ -112,7 +228,11 @@ function addNews(){
                */ 
             },
             submitHandler: function() {
-                 $.post("InsertNews", {
+            //    var theForm = document.getElementsById("addLinkForm");
+              //  theForm.setAttribute("enctype", "multipart/form-data");
+               // $.post("UploadFile");
+
+               $.post("InsertNews", {
                     artefactTitolo: $("#artefactTitolo").val(),
                     artefactDescrizione: $("#artefactDescrizione").val(),
                     artefactTipo: $("#artefactTipo").val(),
@@ -122,7 +242,6 @@ function addNews(){
 
                 });
                 $("#addLinkWindow").dialog("close"); 
-            //    alert(responseText);
                 var oTable = $("#linksTable").dataTable();
                 oTable.fnDraw();
                 $("#artefactTitolo").val("");
@@ -135,6 +254,9 @@ function addNews(){
         });
     });
 }
+
+
+
 
 function buildShowTable(){
     $('#linkTable').dataTable({
@@ -193,6 +315,6 @@ function buildShowTable(){
     });
     var oTable = $("#linkTable").dataTable();
     if (oTable.length > 0) {
-            $("#linkTable").css("width", "100%");
+        $("#linkTable").css("width", "100%");
     }
 }

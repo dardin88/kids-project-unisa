@@ -4,21 +4,25 @@
  */
 package it.unisa.kids.communicationManagement.newsManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author francesco
  */
-public class RemoveNewsServlet extends HttpServlet {
+public class UpdateNewsServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -33,18 +37,56 @@ public class RemoveNewsServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
         try {
-            INewsManager am = JDBCNewsManager.getInstance();
-          String temp=request.getParameter("idNews");
-          int id=Integer.parseInt(temp);
-          News n=new News();
-          n.setId(id);
-          am.delete(n);
+            PrintWriter out = response.getWriter();
+            INewsManager mn = JDBCNewsManager.getInstance();
+            News n = new News();
+            n.setTitle(request.getParameter("artefactTitolo"));
+            n.setDescription(request.getParameter("artefactDescrizione"));
+            n.setAttached(request.getParameter("artefactAllegato"));
+            int id = Integer.parseInt(request.getParameter("idNews"));
+
+            int scelta = Integer.parseInt(request.getParameter("artefactTipo"));
+            switch (scelta) {
+                case 1: {
+                    n.setType("Evento");
+                    break;
+                }
+                case 2: {
+                    n.setType("Notizia");
+                    break;
+                }
+                case 3: {
+                    n.setType("Apertura Mensa");
+                    break;
+                }
+                case 4: {
+                    n.setType("Chiusura Mensa");
+                    break;
+                }
+            }
+            n.setId(id);
+            String data = request.getParameter("artefactData");
+            String[] temp = data.split("-");
+            GregorianCalendar dataFinale = new GregorianCalendar(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]) - 1, Integer.parseInt(temp[2]));
+            n.setDate(dataFinale);
+            HttpSession s = request.getSession();
+            Account account = (Account) s.getAttribute("user");
+            int idDelegato = account.getId();
+            n.setDelegate(idDelegato);
+            String time = request.getParameter("artefactOra");
+            String[] a = time.split(":");
+            if (time.length() >= 4) {
+                Time t = new Time(Integer.parseInt(a[0]), Integer.parseInt(a[1]), 0);
+                n.setTime(t);
+            } else {
+                Time t = new Time(0, 0, 0);
+                n.setTime(t);
+            }
+            //   System.out.print(n.getTitle()+n.getDescription()+n.getType()+n.getAttached()+n.getTime()+n.getDate().getTime());
+            mn.update(n);
         } catch (SQLException ex) {
-            Logger.getLogger(RemoveNewsServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {            
-            out.close();
+            Logger.getLogger(InsertNewsServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

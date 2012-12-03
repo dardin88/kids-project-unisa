@@ -7,6 +7,7 @@ package it.unisa.kids.communicationManagement.newsManagement;
 import it.unisa.kids.accessManagement.accountManagement.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
@@ -126,15 +127,15 @@ public class GetNewsServlet extends HttpServlet {
                     JSONArray ja = new JSONArray();
                     ja.put(a.getTitle());
                     ja.put(a.getDescription());
-                    int day = a.getDate().get(Calendar.DAY_OF_MONTH);
-                    int month = a.getDate().get(Calendar.MONTH);
-                    int year = a.getDate().get(Calendar.YEAR);
-                    ja.put(year + "-" + month + "-" + day);
+                    String d=(a.getDate().get(Calendar.YEAR)+"-"+(a.getDate().get(Calendar.MONTH)+1)+"-"+a.getDate().get(Calendar.DAY_OF_MONTH));
+                    ja.put(d);
                     ja.put(a.getTime().toString());
                     ja.put(a.getType());
+                    
+                    String time=(a.getTime().toString().substring(0, 5));
                     if(nomeUtente.equals("Segreteria"))
                     {
-                     String operazioni = "<input id=\"removeNews\" onclick=\"removeNews("+a.getId() +")\" class='tableImage' type='image' src='img/trash.png' />"+"<input class='tableImage' height='20px' type='image' src='img/lente.gif' />";
+                     String operazioni = "<input id=\"removeNews\" onclick=\"removeNews("+a.getId() +")\" class='tableImage' type='image' src='img/trash.png' />"+"<input id=\"idUpdateNews\" class='tableImage' height='20px' type='image' src='img/lente.gif' onclick=\"updateNews("+a.getId()+",'"+a.getTitle()+"','"+a.getDescription()+"','"+a.getType()+"','"+d+"','"+time+"')\" />";
                      ja.put(operazioni);
                     }
                     else {
@@ -153,7 +154,7 @@ public class GetNewsServlet extends HttpServlet {
                     "private, no-store, no-cache, must-revalidate");
             response.setHeader("Pragma", "no-cache");
             out.println(result);
-           // request.getSession().setAttribute("numNews",linksNumber);
+          
         } catch (Exception ex) {
             Logger.getLogger(GetNewsServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 
@@ -109,9 +108,10 @@ public class JDBCNewsManager implements INewsManager
 				String description=rsNews.getString(DBNames.ATT_NEWS_DESCRIPTION);
 				String type=rsNews.getString(DBNames.ATT_NEWS_TYPE);
 				Date date=rsNews.getDate(DBNames.ATT_NEWS_DATE);
-				GregorianCalendar data=new GregorianCalendar();
+				
+                                GregorianCalendar data=new GregorianCalendar();
 				data.setTime(date);
-				data.set(Calendar.MONTH, (data.get(Calendar.MONTH))+1);
+				 //data.set(Calendar.MONTH, (data.get(Calendar.MONTH))+1);
 				Time time=rsNews.getTime(DBNames.ATT_NEWS_TIME);
 				//Date ora=new Date(time.getTime());
 				String attached=rsNews.getString(DBNames.ATT_NEWS_ATTACHED);
@@ -176,12 +176,12 @@ public class JDBCNewsManager implements INewsManager
 		try
 		{
 			connection=DBConnectionPool.getConnection();
-			query="update "+DBNames.TABLE_NEWS+" set "+DBNames.ATT_NEWS_DATE+"="+pNews.getDate()+" "+
-					DBNames.ATT_NEWS_ATTACHED+"="+pNews.getAttached()+" "+
-					DBNames.ATT_NEWS_DELEGATEACCOUNT+"="+pNews.getDelegate()+" "+
-					DBNames.ATT_NEWS_DESCRIPTION+"="+pNews.getDescription()+" "+
-					DBNames.ATT_NEWS_TIME+"="+pNews.getTime()+" "+DBNames.ATT_NEWS_TITLE+"="+pNews.getTitle()+" "+
-					DBNames.ATT_NEWS_TYPE+"="+pNews.getType()+" where "+DBNames.ATT_NEWS_ID+"="+pNews.getId();
+			query="update "+DBNames.TABLE_NEWS+" set "+DBNames.ATT_NEWS_DATE+"='"+new Date(pNews.getDate().getTimeInMillis())+"',"+
+					DBNames.ATT_NEWS_ATTACHED+"='"+pNews.getAttached()+"',"+
+					DBNames.ATT_NEWS_DELEGATEACCOUNT+"="+pNews.getDelegate()+","+
+					DBNames.ATT_NEWS_DESCRIPTION+"='"+pNews.getDescription()+"',"+
+					DBNames.ATT_NEWS_TIME+"='"+pNews.getTime()+"',"+DBNames.ATT_NEWS_TITLE+"='"+pNews.getTitle()+"',"+
+					DBNames.ATT_NEWS_TYPE+"='"+pNews.getType()+"' where "+DBNames.ATT_NEWS_ID+"="+pNews.getId();
 			stmt=connection.createStatement();
 			stmt.executeUpdate(query);
 			connection.commit();
@@ -225,9 +225,8 @@ public class JDBCNewsManager implements INewsManager
 				String type=rsNews.getString(DBNames.ATT_NEWS_TYPE);
 				Date date=rsNews.getDate(DBNames.ATT_NEWS_DATE);
 				GregorianCalendar data=new GregorianCalendar();
-				data.setTime(date);
-				data.set(Calendar.MONTH, (data.get(Calendar.MONTH))+1);
-				Time time=rsNews.getTime(DBNames.ATT_NEWS_TIME);
+				data.setTime(date);				 
+                                Time time=rsNews.getTime(DBNames.ATT_NEWS_TIME);
 				//Date ora=new Date(time.getTime());
 				String attached=rsNews.getString(DBNames.ATT_NEWS_ATTACHED);
 				int idDelegate=rsNews.getInt(DBNames.ATT_NEWS_DELEGATEACCOUNT);
