@@ -149,7 +149,7 @@
 
                                                     <div id="newMeetingWindow" title="Inserisci Riunione" style="display: inline">
 
-                                                        <form id="newMeetingForm" class="cmxform" method="post" action="">
+                                                        <form id="newMeetingForm" name="insertForm" class="cmxform" method="post" action="">
                                                             <fieldset>
                                                                 <div id="artefactsManagement">
                                                                     <p class="formp">
@@ -173,9 +173,9 @@
                                                                                                                     </p>
                                                                                                                     <p class="formp"> 
                                                                                                                         <legend> <h3> Tipologia: </h3></legend> <br>
-                                                                                                                            <ul>
+                                                                                                                            <ul >
                                                                                                                                 <input type="radio" id="typeMeetingComitato" name="Tipo" value="Comitato" checked > Riunione Comitato      
-                                                                                                                                    <input type="radio" id="typeMeetingGestione" name="Tipo" value="Gestione" > Riunione Consiglio Di Gestione  
+                                                                                                                                    <input type="radio" id="typeMeetingGestione" name="Tipo" value="Consiglio Gestione" > Riunione Consiglio Di Gestione  
                                                                                                                                         <input type="radio" id="typeMeetingScuola" name="Tipo" value="Scuola-Famiglia"> Riunione Scuola-Famiglia   
                                                                                                                                             </ul> <br>
                                                                                                                                                 </p>
@@ -192,7 +192,7 @@
 
                                                                                                                                                 <div id="modifyMeetingWindow" title="Modifica Riunione" style="display: inline">
 
-                                                                                                                                                    <form id="modifyMeetingForm" class="cmxform" method="post" action="addMeetingServlet">
+                                                                                                                                                    <form id="modifyMeetingForm" name="modifyForm" class="cmxform" method="post" action="addMeetingServlet">
                                                                                                                                                         <fieldset>
                                                                                                                                                             <div id="artefactsManagement">
                                                                                                                                                                 <p class="formp">
@@ -217,9 +217,9 @@
                                                                                                                                                                                                         <p class="formp"> 
                                                                                                                                                                                                         <legend> <h3> Tipologia: </h3></legend> <br>
                                                                                                                                                                                                         <ul>
-                                                                                                                                                                                                        <input type="radio" id="modifyTypeMeeting" name="Tipo" value="Comitato" checked> Riunione Comitato     
-                                                                                                                                                                                                        <input type="radio" id="modifyTypeMeeting" name="Tipo" value="Consiglio"> Riunione Consiglio Di Gestione  
-                                                                                                                                                                                                        <input type="radio" id="modifyTypeMeeting" name="Tipo" value="Scuola-Famiglia"> Riunione Scuola-Famiglia   
+                                                                                                                                                                                                        <input type="radio" id="modifyTypeMeetingComitato" name="Tipo" value="Comitato" > Riunione Comitato     
+                                                                                                                                                                                                        <input type="radio" id="modifyTypeMeetingGestione" name="Tipo" value="Consiglio Gestione"> Riunione Consiglio Di Gestione  
+                                                                                                                                                                                                        <input type="radio" id="modifyTypeMeetingScuola" name="Tipo" value="Scuola-Famiglia"> Riunione Scuola-Famiglia   
                                                                                                                                                                                                         </ul> <br>
                                                                                                                                                                                                         </p>
                                                                                                                                                                                                         <p>
