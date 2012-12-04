@@ -158,6 +158,15 @@ function updateNews(id,title,description,type,data,time){
     
 }
 
+function verifyOra(){
+    var valore=document.getElementById("artefactTipo").value;
+    if(valore!=2)
+        document.getElementById("errOra").style.visibility="visible";       
+}
+function hiddenMessage(){
+ if(document.getElementById("artefactOra")!=null)
+     document.getElementById("errOra").style.visibility="hidden";       
+}
 
 
 function addNews(){
@@ -241,6 +250,7 @@ function addNews(){
                     artefactAllegato: $("#artectAllegato").val()
 
                 });
+                document.getElementById("addLinkForm").action="UploadFile";
                 $("#addLinkWindow").dialog("close"); 
                 var oTable = $("#linksTable").dataTable();
                 oTable.fnDraw();
