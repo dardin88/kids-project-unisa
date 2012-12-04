@@ -15,10 +15,12 @@
         <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css">
+        <link rel="stylesheet" type="text/css" href="css/TableTools.css">
 
         <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
         <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="js/TableTools.min.js"></script>
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
@@ -28,8 +30,8 @@
 
         <script type="text/javascript">
             $(document).ready(function() {
-                initialize();
                 messageDialog();
+                initializePaymentsPage();
             });
         </script>
     </head>
@@ -76,7 +78,6 @@
                             <th>Nome</th>
                             <th>Cognome</th>
                             <th>Codice fiscale</th>
-                            <th>Operazioni</th>
                         </tr>
                     </thead>
 
@@ -87,57 +88,61 @@
             <%-- fine blocco div ricerca genitore --%>
 
             <%-- blocco div delle varie funzioni della gestione pagamenti --%>
-            <div id="paymentTabGroup">
-                <ul>
-                    <li><a href="#insertPayment"><span class="paymentsTab">Inserisci pagamento</span></a></li>
-                    <li><a href="#insertRefund"><span class="paymentsTab">Inserisci rimborso</span></a></li>
-                    <li><a href="#showPayments"><span class="paymentsTab">Visualizza pagamenti</span></a></li>
-                    <li><a href="#showRefunds"><span class="paymentsTab">Visualizza rimborsi</span></a></li>
-                    <li><a href="#addCharge"><span class="paymentsTab">Addebita pagamento</span></a></li>
-                    <li><a href="#addDiscount"><span class="paymentsTab">Applica sconto</span></a></li>
-                </ul>
-                
-                <div id="insertPayment">
-                    
-                </div>
-                
-                <div id="insertRefund">
-                    
-                </div>
+            <div id="generalPaymentSection">
+                <h1>Operazioni</h1>
+                <span>Genitore:&nbsp;<span id="selectedParent"></span></span>
+                <div id="paymentTabGroup">
+                    <ul>
+                        <li><a href="#insertPayment"><span class="paymentsTab">Inserisci pagamento</span></a></li>
+                        <li><a href="#insertRefund"><span class="paymentsTab">Inserisci rimborso</span></a></li>
+                        <li><a href="#showPayments"><span class="paymentsTab">Visualizza pagamenti</span></a></li>
+                        <li><a href="#showRefunds"><span class="paymentsTab">Visualizza rimborsi</span></a></li>
+                        <li><a href="#addCharge"><span class="paymentsTab">Addebita pagamento</span></a></li>
+                        <li><a href="#addDiscount"><span class="paymentsTab">Applica sconto</span></a></li>
+                    </ul>
 
-                <div id="showPayments">
-                    <table id="showPaymentsTable">
-                        <thead>
-                            <tr>
-                                <th>Data di scadenza</th>
-                                <th>Descrizione</th>
-                                <th>Importo</th>
-                                <th>Sconto</th>
-                                <th>Descrizione sconto</th>
-                                <th>Importo dovuto</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
+                    <div id="insertPayment">
 
-                <div id="showRefunds">
-                    <table id="showRefundsTable">
-                        <thead>
-                            <tr>
-                                <th>Descrizione</th>
-                                <th>Importo</th>
-                                <th>Stato</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
+                    </div>
 
-                <div id="addCharge">
+                    <div id="insertRefund">
 
-                </div>
+                    </div>
 
-                <div id="addDiscount">
+                    <div id="showPayments">
+                        <table id="showPaymentsTable">
+                            <thead>
+                                <tr>
+                                    <th>Data di scadenza</th>
+                                    <th>Descrizione</th>
+                                    <th>Importo</th>
+                                    <th>Sconto</th>
+                                    <th>Descrizione sconto</th>
+                                    <th>Importo dovuto</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
 
+                    <div id="showRefunds">
+                        <table id="showRefundsTable">
+                            <thead>
+                                <tr>
+                                    <th>Descrizione</th>
+                                    <th>Importo</th>
+                                    <th>Stato</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                    <div id="addCharge">
+
+                    </div>
+
+                    <div id="addDiscount">
+
+                    </div>
                 </div>
             </div>
             <%-- fine blocco div funzioni gestione pagamenti --%>

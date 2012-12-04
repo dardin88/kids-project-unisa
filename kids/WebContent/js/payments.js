@@ -3,9 +3,11 @@
  * and open the template in the editor.
  */
 
-function initialize() {
+function initializePaymentsPage() {
     $("#paymentTabGroup").tabs();
-    $("#paymentTabGroup").hide();
+    $("#generalPaymentSection").hide();
+    
+    TableTools.DEFAULTS.aButtons = [];
     buildParentsTable();
 }
 
@@ -54,6 +56,14 @@ function buildParentsTable(){
                 "sPrevious": "<",
                 "sNext":     ">",
                 "sLast":     ">>"
+            }
+        },
+        "sDom": '<"H"Tfr>t<"F"ip>',
+        "oTableTools": {
+            "sRowSelect": "single",
+            "fnRowSelected": function (nodes) {
+                doParentSelection(nodes[0].id);
+                $("#selectedParent").html(nodes[0]);
             }
         }
     });
@@ -150,5 +160,5 @@ function doParentSelection(parentId) {
     buildPaymentsTable(parentId);
     buildRefundsTable(parentId);
     $("#searchParent").hide();
-    $("#paymentTabGroup").show();
+    $("#generalPaymentSection").show();
 }

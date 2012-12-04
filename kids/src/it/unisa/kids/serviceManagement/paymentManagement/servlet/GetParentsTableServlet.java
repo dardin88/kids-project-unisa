@@ -90,15 +90,14 @@ public class GetParentsTableServlet extends HttpServlet {
                     System.arraycopy(parentsList.toArray(), start, paginateParentSet, 0, toShow);
                 }
                 for (Account parent : paginateParentSet) {
-                    JSONArray ja = new JSONArray();
-                    ja.put(parent.getNameUser());
-                    ja.put(parent.getSurnameUser());
-                    ja.put(parent.getTaxCode());
+                    JSONObject jObj = new JSONObject();
                     
-                    String selectOperation = "<input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/lente.gif' onclick='doParentSelection(\"" + parent.getId() + "\")' />";
-                    ja.put(selectOperation);
+                    checkAddToJSON(jObj, "0", parent.getNameUser());
+                    checkAddToJSON(jObj, "1", parent.getSurnameUser());
+                    checkAddToJSON(jObj, "2", parent.getTaxCode());
                     
-                    array.put(ja);
+                    jObj.put("DT_RowId", "" + parent.getId());
+                    array.put(jObj);
                 }
             }
             result.put("sEcho", sEcho);
@@ -135,6 +134,14 @@ public class GetParentsTableServlet extends HttpServlet {
         }
 
         return acc;
+    }
+    
+    private void checkAddToJSON(JSONObject jObj, String key, Object value) {
+        if (value != null) {
+            jObj.put(key, value);
+        } else {
+            jObj.put(key, JSONObject.NULL);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
