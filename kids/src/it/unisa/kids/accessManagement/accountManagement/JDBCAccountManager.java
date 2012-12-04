@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
@@ -247,7 +248,7 @@ public class JDBCAccountManager implements IAccountManager {
             query = "SELECT * "
                     + "FROM " + DBNames.TABLE_ACCOUNT
                     + " WHERE ";
-
+             //LIKE '+"getNameUser()+"%'"//
             if (pAccount.getId() > 0) {
                 query = query + DBNames.ATT_ACCOUNT_ID + " = ?";
                 andState = true;
@@ -343,22 +344,40 @@ public class JDBCAccountManager implements IAccountManager {
                 p.setTelephoneNumber(rs.getString(DBNames.ATT_ACCOUNT_TELEPHONENUMBER));
                 p.setCellularNumber(rs.getString(DBNames.ATT_ACCOUNT_CELLULARNUMBER));
                 p.setFax(rs.getString(DBNames.ATT_ACCOUNT_FAX));
-
+                Date date= new Date();
                 //getting Date from ResultSet and converting it to GregorianCalendar
                 GregorianCalendar dateBirth = new GregorianCalendar();
-                if(rs.getDate(DBNames.ATT_ACCOUNT_DATEOFBIRTH)!=null){
-                    dateBirth.setTime(rs.getDate(DBNames.ATT_ACCOUNT_DATEOFBIRTH));
-                    p.setDataOfBirth(dateBirth);
+                if((date=rs.getDate(DBNames.ATT_ACCOUNT_DATEOFBIRTH))!=null){
+                dateBirth.setTime(date);
+                p.setDataOfBirth(dateBirth);
                 }
-                /*               
-                 GregorianCalendar expDate = new GregorianCalendar();
-                 expDate.setTime(rs.getDate(DBNames.ATT_ACCOUNT_CONTRACTEXPIRATIONDATE));
-                 p.setContractExpirationDate(dateBirth);
-                                
+                else{
+                p.setDataOfBirth(null);
+                }
+                              
+                GregorianCalendar expDate = new GregorianCalendar();
+                if((date=rs.getDate(DBNames.ATT_ACCOUNT_CONTRACTEXPIRATIONDATE))!=null){
+                expDate.setTime(date);
+                p.setContractExpirationDate(expDate);
+                }
+                else{
+                p.setContractExpirationDate(null);
+                }
+                
                  GregorianCalendar regDate = new GregorianCalendar();
-                 regDate.setTime(rs.getDate(DBNames.ATT_ACCOUNT_REGISTRATIONDATE));
-                 p.setRegistrationDate(dateBirth);
-                 */
+                if((date=rs.getDate(DBNames.ATT_ACCOUNT_REGISTRATIONDATE))!=null){
+                regDate.setTime(date);
+                p.setRegistrationDate(regDate);
+                }
+                else{
+                p.setRegistrationDate(null);
+                }               
+                 
+                p.setTypeParent(rs.getString(DBNames.ATT_ACCOUNT_TYPEPARENT));
+                p.setState(rs.getString(DBNames.ATT_ACCOUNT_STATE));
+                p.setRegister(rs.getString(DBNames.ATT_ACCOUNT_REGISTER));
+                p.setCapDomicile(rs.getString(DBNames.ATT_ACCOUNT_CAPDOMICILIE));
+                p.setFaculty(rs.getString(DBNames.ATT_ACCOUNT_FACULTY));
                 p.setPlaceofBirth(rs.getString(DBNames.ATT_ACCOUNT_PLACEOFBIRTH));
                 p.setTaxCode(rs.getString(DBNames.ATT_ACCOUNT_TAXCODE));
                 p.setCitizenship(rs.getString(DBNames.ATT_ACCOUNT_CITIZENSHIP));
@@ -391,6 +410,187 @@ public class JDBCAccountManager implements IAccountManager {
         }
         return account;
     }
+    
+    
+    public synchronized List<Account> searchForTable(Account pAccount) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String query = null;
+        List<Account> account = null;
+        boolean andState = false;
+        System.out.println(pAccount.getId() + "," + pAccount.getNameUser() + "," + pAccount.getSurnameUser() + "," + pAccount.getNickName() + "," + pAccount.getAccountType());
+
+        try {
+            con = DBConnectionPool.getConnection();
+
+            query = "SELECT * "
+                    + "FROM " + DBNames.TABLE_ACCOUNT
+                    + " WHERE ";
+             //LIKE '+"getNameUser()+"%'"//
+            
+            if (pAccount.getNickName() != null) {
+                query = query + useAnd(andState) + DBNames.ATT_ACCOUNT_NICKNAME + " = ?";
+                andState = true;
+            }
+
+
+            if (pAccount.getSurnameUser() != null) {
+                query += useAnd(andState) + DBNames.ATT_ACCOUNT_SURNAMEUSER + " = ?";
+                andState = true;
+            }
+
+            if (pAccount.getNameUser() != null) {
+                query += useAnd(andState) + DBNames.ATT_ACCOUNT_NAME + " = ?";
+                andState = true;
+            }
+
+
+
+
+            if (pAccount.getTaxCode() != null) {
+                query += useAnd(andState) + DBNames.ATT_ACCOUNT_TAXCODE + " = ?";
+                andState = true;
+            }
+            if (pAccount.getState() != null) {
+                query += useAnd(andState) + DBNames.ATT_ACCOUNT_STATE + " =?";
+                andState = true;
+            }
+
+
+            if (pAccount.getAccountType() != null) {
+                query += useAnd(andState) + DBNames.ATT_ACCOUNT_TYPEACCOUNT + " = ?";
+            }
+            pstmt = con.prepareStatement(query);
+
+            // setting pstmt's parameters
+            int i = 1;		// index of pstmt first argument
+          
+            if (pAccount.getNickName() != null) {
+                pstmt.setString(i, pAccount.getNickName());
+                i++;
+            }
+
+
+            if (pAccount.getSurnameUser() != null) {
+                pstmt.setString(i, pAccount.getSurnameUser());
+                i++;
+            }
+
+            if (pAccount.getNameUser() != null) {
+                pstmt.setString(i, pAccount.getNameUser());
+                i++;
+            }
+
+            if (pAccount.getTaxCode() != null) {
+                pstmt.setString(i, pAccount.getTaxCode());
+                i++;
+            }
+            if (pAccount.getState() != null) {
+                pstmt.setString(i, pAccount.getState());
+                i++;
+            }
+            if (pAccount.getAccountType() != null) {
+                pstmt.setString(i, pAccount.getAccountType());
+                i++;
+            }
+
+            System.out.println(query);
+            rs = pstmt.executeQuery();
+            con.commit();
+
+            // constructing payment list
+            account = new ArrayList<Account>();
+            while (rs.next()) {
+                Account p = new Account();
+                p.setId(rs.getInt(DBNames.ATT_PAYMENT_ID));
+                p.setAccountType(rs.getString(DBNames.ATT_ACCOUNT_TYPEACCOUNT));
+                p.setNickName(rs.getString(DBNames.ATT_ACCOUNT_NICKNAME));
+                p.setPassword(rs.getString(DBNames.ATT_ACCOUNT_PASSWORD));
+                p.setSurnameUser(rs.getString(DBNames.ATT_ACCOUNT_SURNAMEUSER));
+                p.setNameUser(rs.getString(DBNames.ATT_ACCOUNT_NAME));
+                p.setEmail(rs.getString(DBNames.ATT_ACCOUNT_EMAIL));
+                p.setTelephoneNumber(rs.getString(DBNames.ATT_ACCOUNT_TELEPHONENUMBER));
+                p.setCellularNumber(rs.getString(DBNames.ATT_ACCOUNT_CELLULARNUMBER));
+                p.setFax(rs.getString(DBNames.ATT_ACCOUNT_FAX));
+                Date date= new Date();
+                //getting Date from ResultSet and converting it to GregorianCalendar
+                GregorianCalendar dateBirth = new GregorianCalendar();
+
+                if((date=rs.getDate(DBNames.ATT_ACCOUNT_DATEOFBIRTH))!=null){
+                dateBirth.setTime(date);
+                p.setDataOfBirth(dateBirth);
+
+                if(rs.getDate(DBNames.ATT_ACCOUNT_DATEOFBIRTH)!=null){
+                    dateBirth.setTime(rs.getDate(DBNames.ATT_ACCOUNT_DATEOFBIRTH));
+                    p.setDataOfBirth(dateBirth);
+                }
+
+                }
+                else{
+                p.setDataOfBirth(null);
+                }
+                              
+                GregorianCalendar expDate = new GregorianCalendar();
+                if((date=rs.getDate(DBNames.ATT_ACCOUNT_CONTRACTEXPIRATIONDATE))!=null){
+                expDate.setTime(date);
+                p.setContractExpirationDate(expDate);
+                }
+                else{
+                p.setContractExpirationDate(null);
+                }
+                
+                 GregorianCalendar regDate = new GregorianCalendar();
+                if((date=rs.getDate(DBNames.ATT_ACCOUNT_REGISTRATIONDATE))!=null){
+                regDate.setTime(date);
+                p.setRegistrationDate(regDate);
+                }
+                else{
+                p.setRegistrationDate(null);
+                }               
+                 
+                p.setTypeParent(rs.getString(DBNames.ATT_ACCOUNT_TYPEPARENT));
+                p.setState(rs.getString(DBNames.ATT_ACCOUNT_STATE));
+                p.setRegister(rs.getString(DBNames.ATT_ACCOUNT_REGISTER));
+                p.setCapDomicile(rs.getString(DBNames.ATT_ACCOUNT_CAPDOMICILIE));
+                p.setFaculty(rs.getString(DBNames.ATT_ACCOUNT_FACULTY));
+                p.setPlaceofBirth(rs.getString(DBNames.ATT_ACCOUNT_PLACEOFBIRTH));
+                p.setTaxCode(rs.getString(DBNames.ATT_ACCOUNT_TAXCODE));
+                p.setCitizenship(rs.getString(DBNames.ATT_ACCOUNT_CITIZENSHIP));
+                p.setViaResidence(rs.getString(DBNames.ATT_ACCOUNT_ADDRESSRESIDENCE));
+                p.setMunicipalityResidence(rs.getString(DBNames.ATT_ACCOUNT_MUNICIPALITYRESIDENCE));
+                p.setProvinceResidence(rs.getString(DBNames.ATT_ACCOUNT_PROVINCERESIDENCE));
+                p.setCapResidence(rs.getString(DBNames.ATT_ACCOUNT_CAPRESIDENCE));
+                p.setAddressDomicile(rs.getString(DBNames.ATT_ACCOUNT_ADDRESSDOMICILE));
+                p.setMunicipalityDomicile(rs.getString(DBNames.ATT_ACCOUNT_MUNICIPALITYDOMICILIE));
+                p.setProvinceDomicile(rs.getString(DBNames.ATT_ACCOUNT_PROVINCEDOMICILE));
+                p.setProvinceResidence(rs.getString(DBNames.ATT_ACCOUNT_PROVINCERESIDENCE));
+                p.setQualification(rs.getString(DBNames.ATT_ACCOUNT_QUALIFICATION));
+                p.setFamilySituation(rs.getString(DBNames.ATT_ACCOUNT_FAMILYSITUATION));
+                p.setIncome(rs.getDouble(DBNames.ATT_ACCOUNT_INCOME));
+                p.setState(rs.getString(DBNames.ATT_ACCOUNT_STATE));
+                p.setRegister(rs.getString(DBNames.ATT_ACCOUNT_REGISTER));
+                account.add(p);
+            }
+            con.commit();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
+            if (con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+        return account;
+    }
+    
+    
+    
+    
+    
 
     private String useAnd(boolean pEnableAnd) {
         return pEnableAnd ? " AND " : " ";
@@ -618,20 +818,42 @@ public class JDBCAccountManager implements IAccountManager {
                 p.setTelephoneNumber(rs.getString(DBNames.ATT_ACCOUNT_TELEPHONENUMBER));
                 p.setCellularNumber(rs.getString(DBNames.ATT_ACCOUNT_CELLULARNUMBER));
                 p.setFax(rs.getString(DBNames.ATT_ACCOUNT_FAX));
-
+                
+                Date date=new Date();
                 //getting Date from ResultSet and converting it to GregorianCalendar
-                               /* GregorianCalendar dateBirth = new GregorianCalendar();
-                 dateBirth.setTime(rs.getDate(DBNames.ATT_ACCOUNT_DATEOFBIRTH));
-                 p.setDataOfBirth(dateBirth);
-                                
-                 GregorianCalendar expDate = new GregorianCalendar();
-                 expDate.setTime(rs.getDate(DBNames.ATT_ACCOUNT_CONTRACTEXPIRATIONDATE));
-                 p.setContractExpirationDate(dateBirth);
-                                
+                GregorianCalendar dateBirth = new GregorianCalendar();
+                if((date=rs.getDate(DBNames.ATT_ACCOUNT_DATEOFBIRTH))!=null){
+                dateBirth.setTime(date);
+                p.setDataOfBirth(dateBirth);
+                }
+                else{
+                p.setDataOfBirth(null);
+                }
+                              
+                GregorianCalendar expDate = new GregorianCalendar();
+                if((date=rs.getDate(DBNames.ATT_ACCOUNT_CONTRACTEXPIRATIONDATE))!=null){
+                expDate.setTime(date);
+                p.setContractExpirationDate(expDate);
+                }
+                else{
+                p.setContractExpirationDate(null);
+                }
+                
                  GregorianCalendar regDate = new GregorianCalendar();
-                 regDate.setTime(rs.getDate(DBNames.ATT_ACCOUNT_REGISTRATIONDATE));
-                 p.setRegistrationDate(dateBirth);
-                 */
+                if((date=rs.getDate(DBNames.ATT_ACCOUNT_REGISTRATIONDATE))!=null){
+                regDate.setTime(date);
+                p.setRegistrationDate(regDate);
+                }
+                else{
+                p.setRegistrationDate(null);
+                }               
+                 
+                  
+                p.setTypeParent(rs.getString(DBNames.ATT_ACCOUNT_TYPEPARENT));
+                p.setState(rs.getString(DBNames.ATT_ACCOUNT_STATE));
+                p.setRegister(rs.getString(DBNames.ATT_ACCOUNT_REGISTER));
+                p.setCapDomicile(rs.getString(DBNames.ATT_ACCOUNT_CAPDOMICILIE));
+                p.setFaculty(rs.getString(DBNames.ATT_ACCOUNT_FACULTY));
                 p.setPlaceofBirth(rs.getString(DBNames.ATT_ACCOUNT_PLACEOFBIRTH));
                 p.setTaxCode(rs.getString(DBNames.ATT_ACCOUNT_TAXCODE));
                 p.setCitizenship(rs.getString(DBNames.ATT_ACCOUNT_CITIZENSHIP));
