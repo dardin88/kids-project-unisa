@@ -47,7 +47,7 @@
                 </p>
                 <p class="formp">
                     <label class="artefactLabel" for="artefactTipo">Tipo *</label>
-                    <select id="artefactTipo" name="selectNews" class="artefactSelect">
+                    <select id="artefactTipo" name="selectNews" onblur="verifyOra()" class="artefactSelect">
                         <option value="0">Scegli tipo News</option>
                         <option value="1">Evento</option>
                         <option value="2">Notizia</option>
@@ -61,7 +61,8 @@
                 </p>
                 <p class="formp">
                     <label class="artefactLabel" for="artefactOra">Ora</label>
-                    <input id="artefactOra"  type="time" name="oraNews"></input>
+                    <input id="artefactOra" onkeyup="hiddenMessage()" type="time" name="oraNews"></input>
+                    <span id="errOra" style="visibility: hidden;color:red;font-weight: bold"> Ora Obbligatoria per questo tipo di news </span> 
                 </p>
                 <p class="formp">
                     <label class="artefactLabel" for="artefactAllegato">Allegato(Può essere anche vuoto)</label>
@@ -92,7 +93,7 @@
             </p>
             <p class="formp">
                 <label class="artefactLabel" for="artefactTipo">Tipo *</label>
-                <select id="artefactTipo2" name="selectNews" class="artefactSelect">
+                <select id="artefactTipo2" onblur="verifyOra()" name="selectNews" class="artefactSelect">
                     <option value="0">Scegli tipo News</option>
                     <option value="1">Evento</option>
                     <option value="2">Notizia</option>
@@ -106,7 +107,8 @@
             </p>
             <p class="formp">
                 <label class="artefactLabel" for="artefactOra">Ora</label>
-                <input id="artefactOra2"  type="time" name="oraNews"></input>
+                <input id="artefactOra2" onkeyup="hiddenMessage()" type="time" name="oraNews"></input>
+                <span id="errOra" style="visibility: hidden;color:red;font-weight: bold"> Ora Obbligatoria per questo tipo di news </span> 
             </p>
             <p class="formp">
                 <label class="artefactLabel" for="artefactAllegato">Allegato(Può essere anche vuoto)</label>
