@@ -175,6 +175,7 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
 
     @Override
     public void update(Account pTrainee) throws SQLException {
+        pTrainee.setAccountType("Tirocinante");
         IAccessFacade accessFacade = new AccessFacade();
         accessFacade.update(pTrainee);
     }

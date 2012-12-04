@@ -106,7 +106,8 @@ private ITrainingManager trainingManager;
                 for (TraineeConvocation traineeConvocation : paginateTraineeConvocationSet) {
                     Account account=new Account();
                     account.setId(traineeConvocation.getTraineeId());
-                    List<Account> list=trainingManager.search(account);                   
+                    List<Account> list=trainingManager.search(account);
+                    
                     JSONArray ja = new JSONArray();
                     ja.put(list.get(0).getRegister());
                     ja.put(traineeConvocation.getActivityName());
