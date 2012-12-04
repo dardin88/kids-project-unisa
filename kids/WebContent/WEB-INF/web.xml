@@ -145,6 +145,18 @@
         <servlet-name>InsertTraineeActivityServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.InsertTraineeActivityServlet</servlet-class>
     </servlet>
+     <servlet>
+        <servlet-name>RemoveNewsServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.newsManagement.RemoveNewsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateNewsServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.newsManagement.UpdateNewsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadFileServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.newsManagement.UploadFileServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
@@ -276,6 +288,18 @@
     <servlet-mapping>
         <servlet-name>LoadCalendarServlet</servlet-name>
         <url-pattern>/LoadCalendar</url-pattern>
+    </servlet-mapping>
+       <servlet-mapping>
+        <servlet-name>RemoveNewsServlet</servlet-name>
+        <url-pattern>/RemoveNews</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateNewsServlet</servlet-name>
+        <url-pattern>/UpdateNews</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadFileServlet</servlet-name>
+        <url-pattern>/UploadFile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ModifyTraineeServlet</servlet-name>

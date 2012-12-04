@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `attivita` (
 
 CREATE TABLE IF NOT EXISTS `assegnazione` (
   `Classe` int(11) NOT NULL,
-  `Educatore` int(11) NOT NULL,
+  `Educatore` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
