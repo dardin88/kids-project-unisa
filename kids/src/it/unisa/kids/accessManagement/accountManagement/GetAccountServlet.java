@@ -30,8 +30,7 @@ public class GetAccountServlet extends HttpServlet {
       private IAccountManager accountManager;
 
      public void init(ServletConfig config) {
-        RefinedAbstractManager refinedAbstractAccountManager=null;
-        accountManager = (IAccountManager) refinedAbstractAccountManager.getManagerImplementor(DBNames.TABLE_ACCOUNT);
+        accountManager =(IAccountManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACCOUNT);
     }
 
 
@@ -50,25 +49,38 @@ public class GetAccountServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            System.out.println("null??:"+request.getParameter("id"));
             int id=Integer.parseInt(request.getParameter("id"));
+            System.out.println("Questo è l'id "+id);
             Account account=new Account();
             account.setId(id);
             List<Account> list=accountManager.search(account);
+            
+           
             request.setAttribute("Nome", list.get(0).getNameUser());
             request.setAttribute("Cognome", list.get(0).getSurnameUser());
-            request.setAttribute("Id", list.get(0).getId());
+            request.setAttribute("id", list.get(0).getId());
             GregorianCalendar birthDate=list.get(0).getDataOfBirth();
+            if(birthDate!=null){
             request.setAttribute("DataNascita", birthDate.get(Calendar.DAY_OF_MONTH)+"-"+(birthDate.get(Calendar.MONTH)+1)+"-"+birthDate.get(Calendar.YEAR));
+            }
+            else{
+                request.setAttribute("DataNascita", null);
+            }
+                
             request.setAttribute("ComuneNascita", list.get(0).getPlaceOfBirth());
+            request.setAttribute("TitoloStudio", list.get(0).getQualification());
+            request.setAttribute("Matricola",list.get(0).getRegister());
             request.setAttribute("TipoAccount", list.get(0).getAccountType());
+            request.setAttribute("TipoGenitore", list.get(0).getTypeParent());
             request.setAttribute("CapDomicilio", list.get(0).getCapDomicile());
+            System.out.println("Questo è il domicilio "+list.get(0).getCapDomicile());
             request.setAttribute("CapResidenza", list.get(0).getCapResidence());
             request.setAttribute("Telefono", list.get(0).getTelephoneNumber());
             request.setAttribute("Email", list.get(0).getEmail());
             request.setAttribute("Cellulare", list.get(0).getCellularNumber());
             request.setAttribute("Cittadinanza", list.get(0).getCitizenship());
-            request.setAttribute("ScadenzaContratto", list.get(0).getContractExpirationDate());
-            request.setAttribute("Facoltà", list.get(0).getFaculty());
+            request.setAttribute("Facolta", list.get(0).getFaculty());
             request.setAttribute("SituazioneFamiliare", list.get(0).getFamilySituation());
             request.setAttribute("Fax", list.get(0).getFax());
             request.setAttribute("Reddito", list.get(0).getIncome());
@@ -81,12 +93,23 @@ public class GetAccountServlet extends HttpServlet {
             request.setAttribute("ViaDomicilio", list.get(0).getViaDomicile());
             request.setAttribute("ViaResidenza", list.get(0).getViaResidence());
             GregorianCalendar dateContract=list.get(0).getContractExpirationDate();
+            if(dateContract!=null){
             request.setAttribute("ScadenzaContratto", dateContract.get(Calendar.DAY_OF_MONTH)+"-"+(dateContract.get(Calendar.MONTH)+1)+"-"+dateContract.get(Calendar.YEAR));
+            }
+            else{
+                request.setAttribute("ScadenzaContratto", null);
+            }
+            
             GregorianCalendar dateRegistration=list.get(0).getRegistrationDate();
-            request.setAttribute("DataIscrizione", dateRegistration.get(Calendar.DAY_OF_MONTH)+"-"+(dateRegistration.get(Calendar.MONTH)+1)+"-"+dateRegistration.get(Calendar.YEAR));
-            request.setAttribute("Matricola",list.get(0).getRegister());
-            request.setAttribute("State",list.get(0).getState());
-            request.setAttribute("TipoGenitore",list.get(0).getTypeParent());
+            if(dateRegistration!=null){
+            request.setAttribute("DataIscrizione", dateRegistration.get(Calendar.DAY_OF_MONTH)+"-"+(dateRegistration.get(Calendar.MONTH)+1)+"-"+dateRegistration.get(Calendar.YEAR));            }
+            else{
+                request.setAttribute("DataIscrizione", null);
+            }
+            
+           
+            request.setAttribute("Stato",list.get(0).getState());
+           
             
         } catch (SQLException ex) {
             Logger.getLogger(GetTraineesServlet.class.getName()).log(Level.SEVERE, null, ex);

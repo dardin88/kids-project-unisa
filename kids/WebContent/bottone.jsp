@@ -22,6 +22,6 @@
     </head>
     <body>
         <input type="text" id="element" value="49">
-        <input type="bottom" >
+        <input type="button" id="bottone" value="Cliccami" onClick="showAccount(document.getElementById('element').value)">
     </body>
 </html>

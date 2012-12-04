@@ -78,7 +78,7 @@
                     </p>
                     <p class="formp">
                         <label> <h3>Indirizzo Residenza: </h3> </label>
-                        <input id="viaResidence" class="registrationField" type="text" name="IndirizoResidenza">
+                        <input id="viaResidence" class="registrationField" type="text" name="IndirizzoResidenza">
                     </p>
                     <input type="submit" name="registrationButton" id="registrationButton" value="Avanti" />
                 </div>

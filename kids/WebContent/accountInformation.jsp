@@ -15,6 +15,9 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" type="text/css" href="css/template.css" />
+        <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/traineeInformation.css" >
         <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
@@ -28,41 +31,74 @@
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/accountInformation.js"></script>
         <script type="text/javascript" src="js/account.js"></script>
-        <%-- <jsp:include page="/GetAccount" /> --%>
+         <jsp:include page="/GetAccount" /> 
          
            <script type="text/javascript">
             $(document).ready(function() {
                 //initializeLinksManager();
                 initializeLinksManager2();
             });
-        </script>
+            </script>
     </head>
-    <body>
+    <%@include file="header.jsp" %>
+    <body id="bodyRegistration">
         
-       <%@include file="header.jsp" %>
-        <div  style="padding-top: 20px;padding-left: 240px;">
-            <h1  id="title" align="center">Dati Genitore</h1>
-            <form method="post" action="accountInformation2.jsp">
-            <table>     
-                        <input type="text" id="id" name="id" value="${id}" style="visibility: hidden">
+       
+       
+            <h1  id="title" align="center">Dati Genitore</h1>          
+                    <form id="registration" class="cmxform"  method="post" action="accountInformation2.jsp">
+                         <fieldset id="registrationFieldSet">
+                              <div  id="artefactsManagement">
+                                  
+                        <input type="text" id="id" name="id" value="${id}" >
+                        
+                        <p class="formp">
                         Matricola*<input id="matricola" type="text" name="Matricola" value="${Matricola}" readonly="true">
-                        Nome*<input type="text" name="Nome" id="Nome" value="${Nome}"readonly="true" >
+                        </p>
+                        
+                        <p class="formp">
+                        Nome*<input type="text" name="Nome" id="Nome" value="${Nome}" readonly="true" >
+                        </p>
+                        
+                        <p class="formp">
                         Cognome*<input type="text" name="Cognome" id="Cognome" value="${Cognome}"readonly="true">
-                        Codice Fiscale*<input type="text" name="CodiceFiscale" id="CodiceFiscale" value="${CodiceFiscale}"readonly="true">
-                        Data di nascita*<input type="text" name="DataNascita" id="DataNascita" value="${DataNascita}"readonly="true">
-                        Comune di nascita*<input type="text" name="CittaNascita" id="ComuneNascita" value="${ComuneNascita}"readonly="true">
-                        Comune di residenza*<input type="text" name="CittaResidenza" id="ComuneResidenza" value="${ComuneResidenza}"readonly="true">
+                        </p>
+                        
+                        <p class="formp">
+                        Codice Fiscale*<input type="text" name="CodiceFiscale" id="CodiceFiscale" value="${CodiceFiscale}" readonly="true">
+                        </p>
+                        
+                        <p class="formp">
+                        Data di nascita*<input type="text" name="DataNascita" id="DataNascita" value="${DataNascita}" readonly="true">
+                        </p>
+                        
+                        <p class="formp">
+                        Comune di nascita*<input type="text" name="CittaNascita" id="ComuneNascita" value="${ComuneNascita}" readonly="true">
+                        </p>
+                        
+                        <p class="formp">
+                        Comune di residenza*<input type="text" name="CittaResidenza" id="ComuneResidenza" value="${ComuneResidenza}" readonly="true">
+                        </p>
+                        
+                        <p class="formp">
                         Provincia di Residenza*<input type="text" name="ProvinciaResidenza" id="capResidenza" value="${ProvinciaResidenza}"readonly="true">
-                        Indirizzo di Residenza*<input type="text" name="IndirizzoResidenza" id="IndirizzoResidenza" value="${ViaResidenza}"readonly="true">
+                        </p>
+                        
+                        <p class="formp">
+                        Indirizzo di Residenza*<input type="text" name="IndirizzoResidenza" id="IndirizzoResidenza" value="${ViaResidenza}" readonly="true">
+                        </p>
+                        
+                        <p class="formp">
                         Cittadinanza</td><td><input type="text" name="Cittadinanza" id="Cittadinanza" value="${Cittadinanza}"readonly="true" >
+                        </p>
+                        </div>
+                        </fieldset>
+                            <input type="submit" name="Avanti1" value="Avanti" id="avantiButton" onclick="showPartTwoAccount(document.getElementById('id').value)"></input>
                         
-            </table>  
-                        <input type="submit" name="Avanti1" value="Avanti" id="avantiButton"></input>
                         
-                        
-                        </form>
-                    <form id="information2" method="post" action="accountModify.jsp" />
-                    <input type="button" name="Modifica" value="Modifica" id="modifyButton" onclick="modifyAccount()" ></input>
+                     </form>
+                    <form id="information2" method="post" action="" />
+                    <input type="button" name="Modifica" value="Modifica" id="modifyButton" onclick="modifyAccount(document.getElementById('id').value)" ></input>
                         </form>
                         <input type="button" name="Elimina" value="Elimina" id="eliminaButton" onclick="removeAccount()"></input>
                     

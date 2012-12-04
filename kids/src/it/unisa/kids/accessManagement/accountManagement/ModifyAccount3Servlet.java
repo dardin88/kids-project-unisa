@@ -56,7 +56,7 @@ public class ModifyAccount3Servlet extends HttpServlet {
           account2.setId(id);
           list=man.search(account2);
                     
-          String capDomicilio = request.getParameter("capDomicilio");
+          String capDomicile = request.getParameter("capDomicilio");
           String familySituation= request.getParameter("situazioneFamiliaria");
           String faculty= request.getParameter("facolta");
           String qualification= request.getParameter("titoloStudio");
@@ -76,7 +76,7 @@ public class ModifyAccount3Servlet extends HttpServlet {
            account.setId(account.getId());
            account.setRegister(account.getRegister());
            account.setAccountType(typeAccount);
-           account.setCapDomicile(capDomicilio);
+           account.setCapDomicile(capDomicile);
            account.setCapResidence(account.getCapResidence());
            account.setCellularNumber(account.getCellularNumber());
            account.setCitizenship(account.getCitizenship());
@@ -97,8 +97,7 @@ public class ModifyAccount3Servlet extends HttpServlet {
            account.setRegistrationDate(reg);
            account.setSurnameUser(account.getSurnameUser());
            account.setTaxCode(account.getTaxCode());
-           account.setTelephoneNumber(account.getTelephoneNumber());
-           account.setCapDomicile(account.getCapDomicile());   
+           account.setTelephoneNumber(account.getTelephoneNumber());  
            account.setMunicipalityDomicile(account.getMunicipalityDomicile());     
            account.setProvinceResidence(account.getProvinceResidence());
            account.setViaResidence(account.getViaResidence());

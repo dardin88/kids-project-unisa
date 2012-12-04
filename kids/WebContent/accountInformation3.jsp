@@ -16,51 +16,85 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/template.css" />
+        <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css" />
         <link rel="stylesheet" type="text/css" href="css/traineeInformation.css" >
-        <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.8.18.custom.css">
+        <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css">
-        <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-        <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
+        <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
         <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
-        <script type="text/javascript" src="js/accountInformation.js"></script>
+        <script type="text/javascript" src="js/accountInformation3.js"></script>
         <script type="text/javascript" src="js/account.js"></script>
-        <%-- <jsp:include page="/GetAccount" /> --%>
+        <jsp:include page="/GetAccount" />
          
            <script type="text/javascript">
             $(document).ready(function() {
                
-                initializeLinksManager();
+                initializeLinksManager2();
             });
         </script>
     </head>
-    <body>
+    <%@include file="header.jsp" %>
+    <body id="bodyRegistration">
         
-       <%@include file="header.jsp" %>
-        <div  style="padding-top: 20px;padding-left: 240px;">
+       
+        
             <h1  id="title" align="center">Dati Genitore</h1>
-              
-                    <form id="information" method="post" action="accountInformation2.jsp"/>
-            <table>                       
-                       
-                    Cap Domicilio : <input id="capDomicilie" class="registrationField" type="text" name="CapDomicilio"value="${CapDomicilio}"readonly="true">
-                    Titolo di Studio : <input id="qualification" class="registrationField" type="text" name="TitoloStudio" value="${TitoloDiStudio}"readonly="true">
-                    Tipo di Account <input id="accountType" class="registrationField" type="text" name="TipoAccount" value="Genitore"value="${TipoAccount}"readonly="true">
-                    Situazione Familiaria : <input id="familySituation" class="registrationField" type="text" name="SituazioneFamiliare "value="${SituazioneFamiliare}"readonly="true">
-                    Reddito : <input id="income" class="registrationField" type="text" name="Reddito" value="${Reddito}"readonly="true">
-                    Scadenza Contratto : <input id="contractExpirationDate" class="registrationField" type="text" name="ScadenzaContratto"value="${ScadenzaContratto}"readonly="true">
-                    Facoltà <input id="faculty" class="registrationField" type="text" name="Facolta"value="${Facolta}">
-                    Data di Immatricolazione : <input id="registrationDate" class="registrationField" type="text" name="DataRegistrazione"value="${dataRegistrazione}" readonly="true">
-                    Tipologia Genitore : <input id="typeParent" class="registrationField" type="text" name="TipoGenitore" value="${TipoGenitore}" readonly="true"> 
-                    Matricola : <input type="text" id="register" name="Matricola"  class="registrationField" />
+            
+          
+                    <form id="registration"   method="post" action="accountInformation2.jsp"/>
+                    <fieldset id="registrationFieldSet">
+                    <div  id="artefactsManagement">  
+                        
+                    <input type="text" style="visibility:hidden" id="id" name="id" value="${id}" readonly="true">
+                    
+                    <p class="formp">
+                        <label> Cap Domicilio : </label> <input id="capDomicile" class="registrationField" type="text" name="CapDomicilio" value="${CapDomicilio}" readonly="true"> 
+                    </p>
+                    
+                    <p class="formp">
+                        <label>Titolo di Studio :</label> <input id="qualification" class="registrationField" type="text" name="TitoloStudio" value="${TitoloStudio}" readonly="true">
+                    </p>
+                    
+                    <p class="formp">
+                        <label>Tipo di Account</label> <input id="accountType" class="registrationField" type="text" name="TipoAccount" value="Genitore" value="${TipoAccount}" readonly="true">
+                    </p>
+                    
+                    <p class="formp">
+                        <label>Situazione Familiaria :</label> <input id="familySituation" class="registrationField" type="text" name="SituazioneFamiliare" value="${SituazioneFamiliare}"readonly="true">
+                    </p>
+                    
+                    <p class="formp">
+                        <label>Reddito :</label> <input id="income" class="registrationField" type="text" name="Reddito" value="${Reddito}" readonly="true">
+                    </p>
+                    
+                    <p class="formp">
+                        <label>Scadenza Contratto : </label> <input id="contractExpirationDate" class="registrationField" type="text" name="ScadenzaContratto" value="${ScadenzaContratto}"readonly="true">
+                    </p>
+                    
+                    <p class="formp">
+                        <label> Facoltà :</label> <input id="faculty" class="registrationField" type="text" name="Facolta" value="${Facolta}">
+                    </p>
+                    
+                    <p class="formp">
+                        <label> Data di Immatricolazione : </label> <input id="registrationDate" class="registrationField" type="text" name="DataRegistrazione" value="${DataIscrizione}" readonly="true">
+                    </p>
+                    
+                    <p class="formp">
+                        <label> Tipologia Genitore : </label> <input id="typeParent" class="registrationField" type="text" name="TipoGenitore" value="${TipoGenitore}" readonly="true"> 
+                    </p>
                     
                       
-            </table>                                
-                       
-                        <input type="submit" name="Indietro" value="Indietro"/>
+                                          
+                    </div>  
+                    </fieldset>
+                    <input type="submit" name="Indietro" value="Indietro" onclick="showPartTwoAccount(document.getElementById('id').value)"/>
                         </form>
                     
                   
@@ -87,7 +121,7 @@
     
                 
 
-        </div>
+       
         <%@include file="footer.jsp" %>
 
     </body>

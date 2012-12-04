@@ -15,7 +15,7 @@ function initializeLinksManager2(){
                 }
                 );
                 $(this).dialog("close");
-
+                location.href="accountInsert.jsp";
             }
         }
     })
@@ -119,10 +119,23 @@ function search(){
 }
 
 function showAccount(id){
-    window.open("accountInformation.jsp?id="+id);
+    window.location.href="accountInformation.jsp?id="+id;
 }
 
-function modifyAccount(){
-    var id= document.getElementById('id');
+function modifyAccount(id){
+    alert(id);
+
     window.open("accountModify.jsp?id="+id);
+     
+     
 }
+function showPartTwoAccount(id){
+    $.post("GetAccount",{
+                id:id
+})}
+
+function back(id){
+    
+location.href="./accountInformation.jsp?id="+id;
+}
+

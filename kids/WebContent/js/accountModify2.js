@@ -49,8 +49,9 @@ $(document).ready(function(){
                 provinciaDomicilio:$("#provinceDomicile").val(),
                 indirizzoDomicilio:$("#viaDomicile").val()
                })
-               
-            location.href="./accountInsert3.jsp";
+            var id=document.getElementById('id').value;
+            alert(id);
+            location.href="./accountModify3.jsp?id="+id;
               
         }
         
