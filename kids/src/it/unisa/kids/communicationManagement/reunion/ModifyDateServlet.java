@@ -43,10 +43,12 @@ public class ModifyDateServlet extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("modifyDateId"));
             int giorni = Integer.parseInt(request.getParameter("modifyDateDay"));
             int minuti = Integer.parseInt(request.getParameter("modifyMinuteDay"));
-            int firstOra;
-            int firstMinuti;
-            int secondOra;
-            int secondMinuti;
+            int firstOra = 0;
+            int firstMinuti = 0;
+            int secondOra = 0;
+            int secondMinuti = 0;
+            int Ora = 0;
+            int Min = 0;
 
             for (Reunion r : list) {
                 if (r.getId() == id) {
@@ -57,6 +59,8 @@ public class ModifyDateServlet extends HttpServlet {
                         res = res + giorni;
                         String newDay = Integer.toString(res);
                         meeting.setDate(result[0] + "-" + result[1] + "-" + newDay);
+                    } else {
+                        meeting.setDate(r.getDate());
                     }
                     if (minuti != 0) {
                         String firstMin = r.getFirstTime();
@@ -64,32 +68,59 @@ public class ModifyDateServlet extends HttpServlet {
                         String[] first = firstMin.split(":");
                         firstOra = Integer.parseInt(first[0]);
                         firstMinuti = Integer.parseInt(first[1]);
-                        String[] second = firstMin.split(":");
+                        String[] second = secondMin.split(":");
                         secondOra = Integer.parseInt(second[0]);
                         secondMinuti = Integer.parseInt(second[1]);
-                        int Ora = Math.abs(minuti) / 60;
-                        int Min = Math.abs(minuti) % 60;
-
+                        Ora = (Math.abs(minuti)) / 60;
+                        Min = (Math.abs(minuti)) % 60;
+                        System.out.println("Minuti : " + minuti +" OAbs: " + Ora + " MAbs: " + Min);
+                        System.out.println("FMin: " + firstMinuti + " SMin: " + secondMinuti + "  ORA: " + Ora + " MIN: " + Min);
                         if (minuti < 0) {
+                            if (firstMinuti == 0) {
+                                firstMinuti = 60;
+                                firstOra--;
+                            }
+                            if (secondMinuti == 0) {
+                                secondMinuti = 60;
+                                secondOra--;
+                            }
+
                             firstOra -= Ora;
                             firstMinuti -= Min;
                             secondOra -= Ora;
                             secondMinuti -= Min;
+                            meeting.setFirstTime(firstOra + ":" + firstMinuti + ":00");
+                            meeting.setSecondTime(secondOra + ":" + secondMinuti + ":00");
                         } else {
                             firstOra += Ora;
                             firstMinuti += Min;
                             secondOra += Ora;
                             secondMinuti += Min;
+                            if (firstMinuti == 60) {
+                                firstMinuti = 0;
+                                firstOra++;
+                            }
+                            if (secondMinuti == 60) {
+                                secondMinuti = 0;
+                                secondOra++;
+                            }
+
+                            meeting.setFirstTime(firstOra + ":" + firstMinuti + ":00");
+                            meeting.setSecondTime(secondOra + ":" + secondMinuti + ":00");
                         }
-                        meeting.setFirstTime(firstOra + ":" + firstMinuti + ":00");
-                        meeting.setSecondTime(secondOra + ":" + secondMinuti + ":00");
+
                         System.out.println(firstOra + ":" + firstMinuti + ":00");
+                    } else {
+                        meeting.setFirstTime(r.getFirstTime());
+                        meeting.setSecondTime(r.getSecondTime());
                     }
+
                     meeting.setId(r.getId());
                     meeting.setTitle(r.getTitle());
                     meeting.setDescription(r.getDescription());
                     meeting.setType(r.getType());
                     am.update(meeting);
+                    break;
                 }
             }
             request.getServletContext().getRequestDispatcher("/meetingCalendar.jsp").forward(request, response);

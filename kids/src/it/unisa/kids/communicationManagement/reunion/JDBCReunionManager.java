@@ -130,17 +130,18 @@ public class JDBCReunionManager implements IReunionManager {
      */
     public void delete(Reunion deleteReunion) throws SQLException {
         Connection con = null;
-        Statement pStmt = null;
+        PreparedStatement pStmt = null;
         String query;
 
         try {
             con = DBConnectionPool.getConnection();
 
-            query = "DELETE FROM " + DBNames.TABLE_REUNION + " WHERE " + DBNames.ATT_REUNION_ID + "='"+deleteReunion.getId()+"'";
-
+            query = "DELETE FROM " + DBNames.TABLE_REUNION + " WHERE " + DBNames.ATT_REUNION_ID + "=?";
+            pStmt = con.prepareStatement(query);
+            pStmt.setInt(1, deleteReunion.getId());
             System.out.println(query);
-            
-            pStmt.executeQuery(query);
+
+            pStmt.executeUpdate();
             con.commit();
         } finally {
             pStmt.close();
