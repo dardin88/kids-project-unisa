@@ -17,7 +17,7 @@ $(document).ready(function() {
         timeFormat: 'H(:mm)',
         
         eventDrop: function(event, dayDelta, minuteDelta){
-         // alert(dayDelta+"min="+minuteDelta),
+            // alert(dayDelta+"min="+minuteDelta),
             modifyDate(event.id, dayDelta, minuteDelta)
         },
         
@@ -41,10 +41,8 @@ $(document).ready(function() {
                 $("#modifyTitleMeeting").val(result[1]);
                 $("#modifyDescriptionMeeting").html(result[2]);
                 $("#modifyDataMeeting").val(result[3]);
-                $("#modifyFirstHourMeeting").val(firstHour[0]);
-                $("#modifyFirstMinuteMeeting").val(firstHour[1]);
-                $("#modifySecondHourMeeting").val(secondHour[0]);
-                $("#modifySecondMinuteMeeting").val(secondHour[1]);
+                $("#modifyStartTime").val(firstHour[0]+":"+firstHour[1]);
+                $("#modifyEndTime").val(secondHour[0]+":"+secondHour[1]);
                 $("#modifyTypeMeeting").val(result[6]);
             })
         }
@@ -66,7 +64,7 @@ function initializeMeetingManager(){
     });
     
     jQuery.validator.addMethod("differentHours",function(a,b){
-         alert(a+b);
+        alert(a+b);
         var oraInizio = parseInt(b[0]);
         var oraFine = parseInt(b[1]);
        
@@ -151,10 +149,13 @@ function addMeetingManager(){
             meetingTitolo: $("#titleMeeting").val(),
             meetingDescrizione: $("#descriptionMeeting").val(),
             meetingData: $("#dataMeeting").val(),
-            meetingOraInizio: $("#firstHourMeeting").val()+":"+$("#firstMinuteMeeting").val()+":00",
-            meetingOraFine: $("#secondHourMeeting").val()+":"+$("#secondMinuteMeeting").val()+":00",
-            meetingTipo: $("#typeMeeting").val()
+            meetingOraInizio: $("#startTime").val()+":00",
+            meetingOraFine: $("#endTime").val()+":00",
+            meetingTipo: document.getElementsByName("Tipo").value
+            
+         
         });
+        alert(document.getElementsByName("Tipo").value)
         $("#addMeetingWindow").dialog("close");
         location.href = "./meetingCalendar.jsp";
     });
@@ -175,13 +176,10 @@ function addMeetingManager(){
                 Data:{
                     required:true
                 },
-                OraInizio:{
-                    required:true
-                },
                 OraFine:{
                     required:true
-//                    differentHours: [c ,array[$("#firstHourMeeting").val(), $("#secondHourMeeting").val()]]
                 }
+                
             },
             messages:{
                 Titolo:{
@@ -194,15 +192,10 @@ function addMeetingManager(){
                     maxlength:"Descrizione di massimo 500 caratteri"
                 },
                 Data:{
-                    required: "Data obbligatoria",
-                    differentHours:"Ora non valida"
-                },
-                OraInizio:{
-                    required:"Ora di inizio obbligatoria"
+                    required: "Data obbligatoria"
                 },
                 OraFine:{
-                    required:"Ora di fine obbligatoria",
-                    remote:"ora fine sbagliata"
+                    required: "Ora non valida"
                 }
             },
             submitHandler:function(){
@@ -229,8 +222,8 @@ function modifyMeetingManager(){
             modifyTitolo: $("#modifyTitleMeeting").val(),
             modifyDescrizione: $("#modifyDescriptionMeeting").val(),
             modifyData: $("#modifyDataMeeting").val(),
-            modifyOraInizio: $("#modifyFirstHourMeeting").val()+":"+$("#modifyFirstMinuteMeeting").val()+":00",
-            modifyOraFine: $("#modifySecondHourMeeting").val()+":"+$("#modifySecondMinuteMeeting").val()+":00",
+            modifyOraInizio: $("#modifyStartTime").val()+":00",
+            modifyOraFine: $("#modifyEndTime").val()+":00",
             modifyTipo: $("#modifyTypeMeeting").val()
         });
         $("#modifyMeetingWindow").dialog("close");
@@ -311,12 +304,109 @@ function modifyDate(id, giorni, minuti){
         modifyDateDay: giorni,
         modifyMinuteDay: minuti
     });
-   // alert("invio servlet");
-   // location.href = "./meetingCalendar.jsp";
+// alert("invio servlet");
+// location.href = "./meetingCalendar.jsp";
    
 }
 
+function tpStartOnHourShowCallback(hour) {
+    var tpEndHour = $('#endTime').timepicker('getHour');
+    if ($('#endTime').val() == '') {
+        return true;
+    }
+    if (hour <= tpEndHour) {
+        return true;
+    }
+    return false;
+}
+function tpStartOnMinuteShowCallback(hour, minute) {
+    var tpEndHour = $('#endTime').timepicker('getHour');
+    var tpEndMinute = $('#endTime').timepicker('getMinute');
+    if ($('#endTime').val() == '') {
+        return true;
+    }
+    if (hour < tpEndHour) {
+        return true;
+    }
+    if ( (hour == tpEndHour) && (minute < tpEndMinute) ) {
+        return true;
+    }
+    return false;
+}
+
+function tpEndOnHourShowCallback(hour) {
+    var tpStartHour = $('#startTime').timepicker('getHour');
+    if ($('#startTime').val() == '') {
+        return true;
+    }
+    if (hour >= tpStartHour) {
+        return true;
+    }
+    return false;
+}
+function tpEndOnMinuteShowCallback(hour, minute) {
+    var tpStartHour = $('#startTime').timepicker('getHour');
+    var tpStartMinute = $('#startTime').timepicker('getMinute');
+    if ($('#startTime').val() == '') {
+        return true;
+    }
+    if (hour > tpStartHour) {
+        return true;
+    }
+    if ( (hour == tpStartHour) && (minute > tpStartMinute) ) {
+        return true;
+    }
+    return false;
+}
 
 
+function modifyTpStartOnHourShowCallback(hour) {
+    var tpEndHour = $('#modifyEndTime').timepicker('getHour');
+    if ($('#modifyEndTime').val() == '') {
+        return true;
+    }
+    if (hour <= tpEndHour) {
+        return true;
+    }
+    return false;
+}
+function modifyTpStartOnMinuteShowCallback(hour, minute) {
+    var tpEndHour = $('#modifyEndTime').timepicker('getHour');
+    var tpEndMinute = $('#modifyEndTime').timepicker('getMinute');
+    if ($('#modifyEndTime').val() == '') {
+        return true;
+    }
+    if (hour < tpEndHour) {
+        return true;
+    }
+    if ( (hour == tpEndHour) && (minute < tpEndMinute) ) {
+        return true;
+    }
+    return false;
+}
 
+function modifyTpEndOnHourShowCallback(hour) {
+    var tpStartHour = $('#modifyStartTime').timepicker('getHour');
+    if ($('#modifyStartTime').val() == '') {
+        return true;
+    }
+    if (hour >= tpStartHour) {
+        return true;
+    }
+    return false;
+}
+function modifyTpEndOnMinuteShowCallback(hour, minute) {
+    var tpStartHour = $('#modifyStartTime').timepicker('getHour');
+    var tpStartMinute = $('#modifyStartTime').timepicker('getMinute');
+    if ($('#modifyStartTime').val() == '') {
+        return true;
+    }
+    if (hour > tpStartHour) {
+        return true;
+    }
+    if ( (hour == tpStartHour) && (minute > tpStartMinute) ) {
+        return true;
+    }
+    return false;
+}
 
