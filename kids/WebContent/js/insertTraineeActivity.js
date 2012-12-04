@@ -79,11 +79,11 @@ function search(){
 }
 
 function qualifyFields(){
-    document.getElementById("date").readOnly=false;
+    document.getElementById("date").disabled=false;
     document.getElementById("name").readOnly=false;
     document.getElementById("description").readOnly=false;
-    document.getElementById("startTime").readOnly=false;
-    document.getElementById("endTime").readOnly=false;
+    document.getElementById("startTime").disabled=false;
+    document.getElementById("endTime").disabled=false;
 
 
 }
@@ -115,4 +115,32 @@ $(document).ready(function(){
     });
 });
 
+function tpStartOnHourShowCallback(hour) {
+    var tpEndHour = $('#endTime').timepicker('getHour');
+    if ($('#endTime').val() == '') { return true; }
+    if (hour <= tpEndHour) { return true; }
+    return false;
+}
+function tpStartOnMinuteShowCallback(hour, minute) {
+    var tpEndHour = $('#endTime').timepicker('getHour');
+    var tpEndMinute = $('#endTime').timepicker('getMinute');
+    if ($('#endTime').val() == '') { return true; }
+    if (hour < tpEndHour) { return true; }
+    if ( (hour == tpEndHour) && (minute < tpEndMinute) ) { return true; }
+    return false;
+}
 
+function tpEndOnHourShowCallback(hour) {
+    var tpStartHour = $('#startTime').timepicker('getHour');
+    if ($('#startTime').val() == '') { return true; }
+    if (hour >= tpStartHour) { return true; }
+    return false;
+}
+function tpEndOnMinuteShowCallback(hour, minute) {
+    var tpStartHour = $('#startTime').timepicker('getHour');
+    var tpStartMinute = $('#startTime').timepicker('getMinute');
+    if ($('#startTime').val() == '') { return true; }
+    if (hour > tpStartHour) { return true; }
+    if ( (hour == tpStartHour) && (minute > tpStartMinute) ) { return true; }
+    return false;
+}

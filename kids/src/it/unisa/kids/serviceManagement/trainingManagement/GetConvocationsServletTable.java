@@ -71,9 +71,9 @@ private ITrainingManager trainingManager;
                     amount = 10;
                 }
             }
-           /* if (!request.getParameter("Nome").equals("") && request.getParameter("Cognome").equals("")) {
-                Account t = new Account();
-                t.setNameUser(request.getParameter("Nome"));
+           /*if (!request.getParameter("Data").equals("") ) {
+                TraineeConvocation t = new TraineeConvocation();
+                t.setNameU(request.getParameter("Nome"));
                 listTraineeConvocation = trainingManager.search(t);
             } else if (request.getParameter("Nome").equals("") && !request.getParameter("Cognome").equals("")) {
                 Account t = new Account();

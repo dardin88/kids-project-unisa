@@ -28,6 +28,10 @@
         <script type="text/javascript" src="js/insertTraineeActivity.js"></script>
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/template.css">
+        <link rel="stylesheet" type="text/css" href="css/jquery.ui.timepicker.css">
+        <script type="text/javascript" src="js/jquery.ui.timepicker.js"></script>
+
+
 
         <script type="text/javascript" src="js/functions.js"></script>
 
@@ -38,6 +42,41 @@
                 activePage();
                 createTable();
                 initializeLinksManager();
+                $("#date").datepicker({dateFormat:"yy-mm-dd"});
+                $('#startTime').timepicker({
+                    showLeadingZero: false,
+                    onHourShow: tpStartOnHourShowCallback,
+                    onMinuteShow: tpStartOnMinuteShowCallback,
+                    hours: {
+                        starts: 0,               
+                        ends: 23                  
+                    },
+                    minutes: {
+                        starts: 0,                
+                        ends: 59,                 
+                        interval: 1               
+                    },
+                    showCloseButton: true       
+
+
+                });
+                $('#endTime').timepicker({
+                    showLeadingZero: false,
+                    onHourShow: tpEndOnHourShowCallback,
+                    onMinuteShow: tpEndOnMinuteShowCallback,
+                    hours: {
+                        starts: 0,                
+                        ends: 23                  
+                    },
+                    minutes: {
+                        starts: 0,                
+                        ends: 59,                 
+                        interval: 1               
+                    },
+                    showCloseButton: true       
+
+                });
+                
             });
         </script>
         <title>Inserisci Attività</title>
@@ -65,11 +104,12 @@
                 </table>
                 <table style="padding-top: 20px;">
                     <input type="hidden" name="AccountDelegato" value="${sessionScope.user.getId()}">
-                    <tr><td>Data*</td><td><input type="date" name="Data" readonly="true" id="date"></td></tr>
+                    <tr><td>Data*</td><td><input type="text" name="Data" disabled id="date"></td></tr>
                     <tr><td>Nome attivit&agrave*</td><td><input type="text" name="Nome" readonly="true" id="name"></td></tr>
                     <tr><td>Descrizione</td><td><textarea name="Descrizione" rows="5" cols="30" readonly="true" id="description"></textarea></td></tr>
-                    <tr><td>Ora di inizio*</td><td><input type="time" name="OraInizio" readonly="true" id="startTime"></td></tr>
-                    <tr><td>Ora di fine*</td><td><input type="time" name="OraFine" readonly="true" id="endTime"></td></tr>
+                    <tr><td>Ora di inizio*</td><td><input type="text" name="OraInizio" id="startTime"disabled></td></tr>
+                    <tr><td>Ora di fine*</td><td><input type="text"  name="OraFine"  id="endTime" disabled></td></tr>
+
 
                 </table>
                 <p style="float:left;">I campi contrasseganati con * sono obbligatori</p>

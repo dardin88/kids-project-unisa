@@ -35,6 +35,8 @@
                 buildTraineeTable();
                 initializeLinksManager();
                 messageDialog();
+                $("#DataNascita").datepicker({dateFormat:'yy-mm-dd'});
+                $("#BirthDateInf").datepicker({dateFormat:'yy-mm-dd'});
             });
         </script>
     </head>
@@ -73,7 +75,7 @@
                 <tr><td>Matricola*</td><td><input id="Matricola" type="text" name="Matricola" ></td></tr>
                 <tr><td> Nome*</td><td><input type="text" name="Nome" id="Nome"></td></tr>
                 <tr><td>Cognome*</td><td><input type="text" name="Cognome" id="Cognome"></td></tr>
-                <tr><td>Data di nascita*</td><td><input type="date" name="DataNascita" id="DataNascita"></td></tr>
+                <tr><td>Data di nascita*</td><td><input type="text" name="DataNascita" id="DataNascita"></td></tr>
                 <tr><td>Città di nascita*</td><td><input type="text" name="CittaNascita" id="CittaNascita"></td></tr>
                 <tr><td>Città di residenza*</td><td><input type="text" name="CittaResidenza" id="CittaResidenza"></td></tr>
                 <tr><td>Indirizzo*</td><td><input type="text" name="Indirizzo" id="Indirizzo"></td></tr>
@@ -94,7 +96,7 @@
                 <tr><td>Matricola*</td><td><input id="RegisterInf" type="text" name="MatricolaInf" value=""  disabled="true"></td></tr>
                 <tr><td> Nome*</td><td><input type="text" name="NomeInf" id="NameInf" value="" disabled="true" ></td></tr>
                 <tr><td>Cognome*</td><td><input type="text" name="CognomeInf" id="SurnameInf" value=""disabled="true" ></td></tr>
-                <tr><td>Data di nascita*</td><td><input type="date" name="DataNascitaInf" id="BirthDateInf" value=""disabled="true" ></td></tr>
+                <tr><td>Data di nascita*</td><td><input type="text" name="DataNascitaInf" id="BirthDateInf" value=""disabled="true" ></td></tr>
                 <tr><td>Città di nascita*</td><td><input type="text" name="CittaNascitaInf" id="CityOfBirthInf" value="" disabled="true" ></td></tr>
                 <tr><td>Città di residenza*</td><td><input type="text" name="CittaResidenzaInf" id="CityOfResidenceInf" value="" disabled="true" ></td></tr>
                 <tr><td>Indirizzo*</td><td><input type="text" name="IndirizzoInf" id="AddressInf" value="" disabled="true" ></td></tr>
