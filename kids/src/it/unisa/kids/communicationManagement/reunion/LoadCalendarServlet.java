@@ -50,16 +50,15 @@ public class LoadCalendarServlet extends HttpServlet {
 
                 String[] data = r.getDate().split("-");
                 String[] first = r.getFirstTime().split(":");
-                json.put("start", data[0] + "-" + data[1] + "-" + data[2] + "T" + first[0] + ":" + first[1]+":00-05:00");
+                json.put("start", data[0] + "-" + data[1] + "-" + data[2] + "T" + first[0] + ":" + first[1]+":00+01:00");
+                System.out.println(data[0] + "-" + data[1] + "-" + data[2] + "T" + first[0] + ":" + first[1]+":00+01:00");
                 String[] end = r.getDate().split("-");
                 String[] second = r.getSecondTime().split(":");
-                json.put("end", end[0] + "-" + end[1] + "-" + end[2] + "T" + second[0] + ":" + second[1]+":00-05:00");
-                json.put("allDay", "false");
+                json.put("end", end[0] + "-" + end[1] + "-" + end[2] + "T" + second[0] + ":" + second[1]+":00+01:00");
+            
                 jsonArray.put(json);
 
             }
-
-            System.out.println("ciaoo");
             out.write(jsonArray.toString());
         } catch (SQLException ex) {
             Logger.getLogger(LoadCalendarServlet.class.getName()).log(Level.SEVERE, null, ex);

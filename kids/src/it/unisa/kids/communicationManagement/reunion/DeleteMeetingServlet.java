@@ -40,10 +40,13 @@ public class DeleteMeetingServlet extends HttpServlet {
             ArrayList<Reunion> list = am.getMeetingList();
             
             int id = Integer.parseInt(request.getParameter("deleteId"));
+            
             for (Reunion r : list) {
+                 System.out.println("ID="+r.getId()+"ddd "+id);
                 if (r.getId() == id) {
-                    
-                    am.update(r);
+                                        System.out.println("entrato delete");
+
+                    am.delete(r);
             
                 }
             }
