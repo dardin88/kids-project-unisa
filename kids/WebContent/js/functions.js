@@ -33,8 +33,8 @@ function activePage(){
             $("#insertTraineeActivity").css("color","#FFFFFF");
             break;
         case 'newsInsertNews.jsp':
-            //   $("#newsShowTable").css("background-color","#F82025");
-            //    $("#newsShowTable").css("color","#FFFFFF");
+               $("#newsShowTable").css("background-color","#444");
+                $("#newsShowTable").css("color","#FFFFFF");
             //rendere bottone sinistra invisibile
             break;
         case 'traineeRegister.jsp':
