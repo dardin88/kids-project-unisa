@@ -105,13 +105,8 @@ function buildResponseFromTraineesTable(){
         "fnServerParams": function ( aoData ) {
             aoData.push(
             {
-                "name" : "Nome", 
-                "value" : $('#Nome').val()
-            },
-
-            {
-                "name" : "Cognome", 
-                "value" : $('#Cognome').val()
+                "name" : "Data", 
+                "value" : $('#Data').val()
             }
             );
      
@@ -209,6 +204,28 @@ function createCalendar(){
     })
     
                     
+}
+function loadInformationConvocation(id){
+        $("#informationTraineeWindow").dialog("open");
+        $.post("Get", {
+            traineeId:""+id
+        },function(data){
+
+                var result = data.split(",");
+                $("#RegisterInf").val(result[0]);
+                $("#NameInf").val(result[1]);
+                $("#SurnameInf").val(result[2]);
+                $("#BirthDateInf").val(result[3]);
+                $("#CityOfBirthInf").val(result[4]);
+                $("#CityOfResidenceInf").val(result[5]);
+                $("#AddressInf").val(result[6]);
+                $("#CAPInf").val(result[7]);
+                $("#TelephoneNumberInf").val(result[8]);
+                $("#EmailInf").val(result[9]);
+                $("#QualificationInf").val(result[10]);
+                $("#IdInf").val(result[11]);
+            });
+
 }
 function removeTraineeConvocation(id){
     $("#removeTraineeConvocationWindow").dialog({

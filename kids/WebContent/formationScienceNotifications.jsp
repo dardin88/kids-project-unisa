@@ -118,10 +118,10 @@
                 </div>
                 <div id="tabs-2">
 
-                    <form id="nomeForm" method="post" name="nomeForm" style="padding-bottom: 20px;padding-top:20px;">
-                        Nome:<input type="text" name="Nome" id="Nome">
+                  <%--  <form id="nomeForm" method="post" name="nomeForm" style="padding-bottom: 20px;padding-top:20px;">
+                        Data:<input type="text" name="Data" id="Data">
 
-                    </form>
+                    </form>--%>
                     <table id="responseTable" style="width:95%;">
                         <thead>
                             <tr>
