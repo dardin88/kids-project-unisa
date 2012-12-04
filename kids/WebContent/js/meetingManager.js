@@ -1,4 +1,58 @@
 
+$(document).ready(function() {
+    $('#meetingCalendar').fullCalendar({ 
+        header: { 
+            left: 'prev,next today',
+            center: 'title', 	
+            right: 'month,agendaWeek,agendaDay'
+        },
+        editable: true, 
+        
+        allDayDefault: false,
+        allDaySlot:false,
+        
+        events: {
+            url:"LoadCalendar"
+        },
+        timeFormat: 'H(:mm)',
+        
+        eventDrop: function(event, dayDelta, minuteDelta){
+         // alert(dayDelta+"min="+minuteDelta),
+            modifyDate(event.id, dayDelta, minuteDelta)
+        },
+        
+        eventClick: function(event){
+            $("#showMeetingWindow").dialog("open");
+            $.post("GetMeeting",{
+                Id: event.id
+            },function(data){
+                var result = data.split(",")
+                $("#showIdMeeting").val(result[0]);
+                $("#showTitleMeeting").html(result[1]);
+                $("#showDescriptionMeeting").html(result[2]);
+                $("#showDataMeeting").html(result[3]);
+                $("#showFirstTimeMeeting").html(result[4]);
+                $("#showSecondTimeMeeting").html(result[5]);
+                $("#showTypeMeeting").html(result[6]);
+                
+                var firstHour = result[4].split(":");
+                var secondHour = result[5].split(":");
+                $("#modifyIdMeeting").val(event.id);
+                $("#modifyTitleMeeting").val(result[1]);
+                $("#modifyDescriptionMeeting").html(result[2]);
+                $("#modifyDataMeeting").val(result[3]);
+                $("#modifyFirstHourMeeting").val(firstHour[0]);
+                $("#modifyFirstMinuteMeeting").val(firstHour[1]);
+                $("#modifySecondHourMeeting").val(secondHour[0]);
+                $("#modifySecondMinuteMeeting").val(secondHour[1]);
+                $("#modifyTypeMeeting").val(result[6]);
+            })
+        }
+        
+    }); 	
+});
+
+
 function initializeMeetingManager(){
     $.ajaxSetup({
         cache: false
@@ -10,6 +64,21 @@ function initializeMeetingManager(){
         resizable: false,
         width: 800
     });
+    
+    jQuery.validator.addMethod("differentHours",function(a,b){
+         alert(a+b);
+        var oraInizio = parseInt(b[0]);
+        var oraFine = parseInt(b[1]);
+       
+        alert("Inizio: "+oraInizio+" Fine: "+ oraFine);
+        if (oraInizio>=oraFine){
+            alert("false");
+            return false;
+        }else{
+            alert("true");
+            return true;
+        }     
+    },jQuery.validator.format("Orario non valido"))
     
     $.validator.setDefaults({
         highlight: function(input){
@@ -111,15 +180,7 @@ function addMeetingManager(){
                 },
                 OraFine:{
                     required:true
-                //                    remote:function(){
-                //                        var valore1=$("#OraInizio").val();
-                //                        var valore2=$("#OraFine").val();
-                //                        if ((valore1+1)<=valore2)
-                //                            return true;
-                //                        else return false;
-                //                        //  var valoreOra=$("#selectNews").val();
-                //                        //  return valoreOra;
-                //                    }
+//                    differentHours: [c ,array[$("#firstHourMeeting").val(), $("#secondHourMeeting").val()]]
                 }
             },
             messages:{
@@ -133,14 +194,15 @@ function addMeetingManager(){
                     maxlength:"Descrizione di massimo 500 caratteri"
                 },
                 Data:{
-                    required: "Data obbligatoria"
+                    required: "Data obbligatoria",
+                    differentHours:"Ora non valida"
                 },
                 OraInizio:{
                     required:"Ora di inizio obbligatoria"
                 },
                 OraFine:{
-                    required:"Ora di fine obbligatoria"
-                   
+                    required:"Ora di fine obbligatoria",
+                    remote:"ora fine sbagliata"
                 }
             },
             submitHandler:function(){
@@ -244,63 +306,17 @@ function deleteMeetingManager(){
 }
 
 function modifyDate(id, giorni, minuti){
-        $.post("ModifyDate", {
-            modifyDateId: id,
-            modifyDateDay: giorni,
-            modifyMinuteDay: minuti
-        });
-        alert("invio servlet");
-        //location.href = "./meetingCalendar.jsp";
+    $.post("ModifyDate", {
+        modifyDateId: id,
+        modifyDateDay: giorni,
+        modifyMinuteDay: minuti
+    });
+   // alert("invio servlet");
+   // location.href = "./meetingCalendar.jsp";
    
 }
 
-$(document).ready(function() {
-    $('#meetingCalendar').fullCalendar({ 
-        header: { 
-            left: 'prev,next today',
-            center: 'title', 	
-            right: 'month,agendaWeek,agendaDay'
-        },
-        editable: true, 
-       
-        events: {
-            url:"LoadCalendar"
-        },
-        timeFormat: 'H(:mm)',
-        
-        eventClick: function(event){
-            $("#showMeetingWindow").dialog("open");
-            $.post("GetMeeting",{
-                Id: event.id
-            },function(data){
-                var result = data.split(",")
-                $("#showIdMeeting").val(result[0]);
-                $("#showTitleMeeting").html(result[1]);
-                $("#showDescriptionMeeting").html(result[2]);
-                $("#showDataMeeting").html(result[3]);
-                $("#showFirstTimeMeeting").html(result[4]);
-                $("#showSecondTimeMeeting").html(result[5]);
-                $("#showTypeMeeting").html(result[6]);
-                
-                var firstHour = result[4].split(":");
-                var secondHour = result[5].split(":");
-                $("#modifyIdMeeting").val(event.id);
-                $("#modifyTitleMeeting").val(result[1]);
-                $("#modifyDescriptionMeeting").html(result[2]);
-                $("#modifyDataMeeting").val(result[3]);
-                $("#modifyFirstHourMeeting").val(firstHour[0]);
-                $("#modifyFirstMinuteMeeting").val(firstHour[1]);
-                $("#modifySecondHourMeeting").val(secondHour[0]);
-                $("#modifySecondMinuteMeeting").val(secondHour[1]);
-                $("#modifyTypeMeeting").val(result[6]);
-            })
-        },
-        eventDrop: function(event, dayDelta, minuteDelta){
-            alert(dayDelta+"min="+minuteDelta),
-            modifyDate(event.id, dayDelta, minuteDelta)
-        }
-    }); 	
-});
+
 
 
 
