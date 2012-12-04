@@ -143,6 +143,7 @@ function loadInformationTraineePage(id){
                 $("#TelephoneNumberInf").val(result[8]);
                 $("#EmailInf").val(result[9]);
                 $("#QualificationInf").val(result[10]);
+                $("#IdInf").val(result[11]);
             });
 
 }

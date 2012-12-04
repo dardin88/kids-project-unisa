@@ -195,12 +195,12 @@ public class JDBCAccountManager implements IAccountManager {
                     + DBNames.ATT_ACCOUNT_QUALIFICATION + "=" + makeString(pChangedAccount.getQualification()) + ","
                     + DBNames.ATT_ACCOUNT_ADDRESSDOMICILE + "=" + makeString(pChangedAccount.getViaDomicile()) + ","
                     + DBNames.ATT_ACCOUNT_ADDRESSRESIDENCE + "=" + makeString(pChangedAccount.getViaResidence()) + ","
-                    + DBNames.ATT_ACCOUNT_STATE + "=" + makeString(pChangedAccount.getViaResidence()) + ","
+                    + DBNames.ATT_ACCOUNT_STATE + "=" + makeString(pChangedAccount.getState()) + ","
                     + DBNames.ATT_ACCOUNT_REGISTER + "=" + makeString(pChangedAccount.getRegister()) + ","
                     + DBNames.ATT_ACCOUNT_TYPEPARENT + "=" + makeString(pChangedAccount.getTypeParent())
                     + " WHERE " + DBNames.ATT_ACCOUNT_ID + "=" + pChangedAccount.getId();
 
-
+            System.out.println("Sto facendo l'update");
             stmt = con.createStatement();
             stmt.executeUpdate(query);
             con.commit();
@@ -236,6 +236,7 @@ public class JDBCAccountManager implements IAccountManager {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         String query = null;
+        
         List<Account> account = null;
         boolean andState = false;
         System.out.println(pAccount.getId() + "," + pAccount.getNameUser() + "," + pAccount.getSurnameUser() + "," + pAccount.getNickName() + "," + pAccount.getAccountType());
@@ -329,6 +330,8 @@ public class JDBCAccountManager implements IAccountManager {
             // constructing payment list
             account = new ArrayList<Account>();
             while (rs.next()) {
+                                    System.out.println("here");
+
                 Account p = new Account();
                 p.setId(rs.getInt(DBNames.ATT_PAYMENT_ID));
                 p.setAccountType(rs.getString(DBNames.ATT_ACCOUNT_TYPEACCOUNT));
@@ -343,8 +346,10 @@ public class JDBCAccountManager implements IAccountManager {
 
                 //getting Date from ResultSet and converting it to GregorianCalendar
                 GregorianCalendar dateBirth = new GregorianCalendar();
-                dateBirth.setTime(rs.getDate(DBNames.ATT_ACCOUNT_DATEOFBIRTH));
-                p.setDataOfBirth(dateBirth);
+                if(rs.getDate(DBNames.ATT_ACCOUNT_DATEOFBIRTH)!=null){
+                    dateBirth.setTime(rs.getDate(DBNames.ATT_ACCOUNT_DATEOFBIRTH));
+                    p.setDataOfBirth(dateBirth);
+                }
                 /*               
                  GregorianCalendar expDate = new GregorianCalendar();
                  expDate.setTime(rs.getDate(DBNames.ATT_ACCOUNT_CONTRACTEXPIRATIONDATE));

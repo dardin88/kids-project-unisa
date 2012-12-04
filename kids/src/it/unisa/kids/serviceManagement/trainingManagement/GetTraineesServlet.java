@@ -70,12 +70,11 @@ public class GetTraineesServlet extends HttpServlet {
 
             for (Account a : list) {
                 GregorianCalendar birthDate = a.getDataOfBirth();
-                System.out.println("Data:"+birthDate.get(Calendar.YEAR));
                 if (birthDate !=null) {
                     String date=birthDate.get(Calendar.YEAR)+"-"+ (birthDate.get(Calendar.MONTH) + 1) +"-"+birthDate.get(Calendar.DAY_OF_MONTH)  ;
-                    o.println(a.getRegister() + "," + a.getNameUser() + "," + a.getSurnameUser() + "," +date + "," + a.getPlaceOfBirth() + "," + a.getMunicipalityResidence() + "," + a.getViaResidence() + "," + a.getCapResidence() + "," + a.getCellularNumber() + "," + a.getEmail() + "," + a.getQualification());
+                    o.print(a.getRegister() + "," + a.getNameUser() + "," + a.getSurnameUser() + "," +date + "," + a.getPlaceOfBirth() + "," + a.getMunicipalityResidence() + "," + a.getViaResidence() + "," + a.getCapResidence() + "," + a.getCellularNumber() + "," + a.getEmail() + "," + a.getQualification()+","+a.getId());
                 } else {
-                    o.println(a.getRegister() + "," + a.getNameUser() + "," + a.getSurnameUser() + "," +""+ a.getPlaceOfBirth() + "," + a.getMunicipalityResidence() + "," + a.getViaResidence() + "," + a.getCapResidence() + "," + a.getCellularNumber() + "," + a.getEmail() + "," + a.getQualification());
+                    o.print(a.getRegister() + "," + a.getNameUser() + "," + a.getSurnameUser() + "," +""+","+ a.getPlaceOfBirth() + "," + a.getMunicipalityResidence() + "," + a.getViaResidence() + "," + a.getCapResidence() + "," + a.getCellularNumber() + "," + a.getEmail() + "," + a.getQualification()+","+a.getId());
                 }
 
             }

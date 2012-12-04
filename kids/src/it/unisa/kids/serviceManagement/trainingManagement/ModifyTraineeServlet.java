@@ -55,6 +55,7 @@ public class ModifyTraineeServlet extends HttpServlet {
             } else {
                 trainee.setState("Inserito");
             }
+            trainee.setId(Integer.parseInt(request.getParameter("IdInf")));
             trainee.setNameUser(request.getParameter("NomeInf"));
             trainee.setViaResidence(request.getParameter("IndirizzoInf"));
             trainee.setRegister(request.getParameter("MatricolaInf"));
@@ -83,7 +84,7 @@ public class ModifyTraineeServlet extends HttpServlet {
     }
 
     private GregorianCalendar parseGregorianCalendar(String pDate) throws ParseException {
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date parsed = df.parse(pDate);
         GregorianCalendar date = new GregorianCalendar();
         date.setTime(parsed);

@@ -10,7 +10,7 @@
     <c:redirect url="index.jsp" />
 </c:if>
 <c:if test="${sessionScope.user.getAccountType()!='Delegato scienze della formazione'}">
-        <c:redirect url="index.jsp" />
+    <c:redirect url="index.jsp" />
 </c:if>
 <!DOCTYPE html>
 <html>
@@ -68,6 +68,7 @@
     </div>
     <div id="insertTraineeWindow" title="Inserisci Tirocinante" style="display: inline;">
         <form id="information" class="cmxform" method="post" action="InsertTrainee">
+
             <table>
                 <tr><td>Matricola*</td><td><input id="Matricola" type="text" name="Matricola" ></td></tr>
                 <tr><td> Nome*</td><td><input type="text" name="Nome" id="Nome"></td></tr>
@@ -88,6 +89,8 @@
     <div id="informationTraineeWindow" title="Informazioni Tirocinante" style="display: inline;">
         <form id="informationTrainee" class="cmxform" method="post" action="ModifyTrainee">
             <table>
+                <input type="hidden" name="IdInf" id="IdInf"  value="">
+
                 <tr><td>Matricola*</td><td><input id="RegisterInf" type="text" name="MatricolaInf" value=""  disabled="true"></td></tr>
                 <tr><td> Nome*</td><td><input type="text" name="NomeInf" id="NameInf" value="" disabled="true" ></td></tr>
                 <tr><td>Cognome*</td><td><input type="text" name="CognomeInf" id="SurnameInf" value=""disabled="true" ></td></tr>
@@ -102,8 +105,8 @@
 
 
             </table>
-                <input id="modifyButton" type="button" name="submit" value="Modifica" style="float:right;" onclick="modify()" >
-                <input id="saveChanges" type="submit" name="submit" value="salva" style="float:right;visibility: hidden" </input>
+            <input id="modifyButton" type="button" name="submit" value="Modifica" style="float:right;" onclick="modify()" >
+            <input id="saveChanges" type="submit" name="submit" value="salva" style="float:right;visibility: hidden" </input>
         </form>
     </div>
 
