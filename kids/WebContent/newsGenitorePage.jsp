@@ -20,7 +20,7 @@
         <title>Visualizza News</title>
     </head>
     <body>
-        <%@include file="headerNews.jsp" %>
+        <%@include file="header.jsp" %>
         <div id="linksManagement">
             <h1 style="font-size: 35px;text-align: center;"> Benvenuto nella vostra sezione,nel menù a sinistra avete le vostre scelte! </h1>
             

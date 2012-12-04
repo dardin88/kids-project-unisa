@@ -26,6 +26,9 @@
     <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
         <c:redirect url="secretaryPage.jsp" />
     </c:if>
+     <c:if test="${sessionScope.user.getAccountType()=='Admin'}"> 
+        <c:redirect url="meetingCalendar.jsp" />
+    </c:if>
 
 </c:if>
 <!DOCTYPE html>
