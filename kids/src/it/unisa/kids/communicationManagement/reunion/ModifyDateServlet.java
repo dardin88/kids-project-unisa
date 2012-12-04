@@ -73,16 +73,28 @@ public class ModifyDateServlet extends HttpServlet {
                         secondMinuti = Integer.parseInt(second[1]);
                         Ora = (Math.abs(minuti)) / 60;
                         Min = (Math.abs(minuti)) % 60;
-                        System.out.println("Minuti : " + minuti +" OAbs: " + Ora + " MAbs: " + Min);
+                        System.out.println("Minuti : " + minuti + " OAbs: " + Ora + " MAbs: " + Min);
                         System.out.println("FMin: " + firstMinuti + " SMin: " + secondMinuti + "  ORA: " + Ora + " MIN: " + Min);
                         if (minuti < 0) {
-                            if (firstMinuti == 0) {
-                                firstMinuti = 60;
-                                firstOra--;
+                            if (Math.abs(minuti) == 30) {
+                                if (firstMinuti == 0) {
+                                    firstMinuti = 60;
+                                    firstOra--;
+                                }
+                                if (secondMinuti == 0) {
+                                    secondMinuti = 60;
+                                    secondOra--;
+                                }
                             }
-                            if (secondMinuti == 0) {
-                                secondMinuti = 60;
-                                secondOra--;
+                            if (Math.abs(minuti) == 15) {
+                                if (firstMinuti == 0) {
+                                    firstMinuti = 60;
+                                    firstOra--;
+                                }
+                                if (secondMinuti == 0) {
+                                    secondMinuti = 60;
+                                    secondOra--;
+                                }
                             }
 
                             firstOra -= Ora;
