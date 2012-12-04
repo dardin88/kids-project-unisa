@@ -43,7 +43,7 @@ $(document).ready(function() {
                 $("#modifyDataMeeting").val(result[3]);
                 $("#modifyStartTime").val(firstHour[0]+":"+firstHour[1]);
                 $("#modifyEndTime").val(secondHour[0]+":"+secondHour[1]);
-                $("#modifyTypeMeeting").val(result[6]);
+                setModifyValue(result[6]);
             })
         }
         
@@ -62,21 +62,6 @@ function initializeMeetingManager(){
         resizable: false,
         width: 800
     });
-    
-    jQuery.validator.addMethod("differentHours",function(a,b){
-        alert(a+b);
-        var oraInizio = parseInt(b[0]);
-        var oraFine = parseInt(b[1]);
-       
-        alert("Inizio: "+oraInizio+" Fine: "+ oraFine);
-        if (oraInizio>=oraFine){
-            alert("false");
-            return false;
-        }else{
-            alert("true");
-            return true;
-        }     
-    },jQuery.validator.format("Orario non valido"))
     
     $.validator.setDefaults({
         highlight: function(input){
@@ -98,7 +83,6 @@ function initializeMeetingManager(){
         resizable: false,
         width: 400
     });
-    
     
     $("#modifyMeetingWindow").dialog({
         autoOpen: false,
@@ -126,8 +110,6 @@ function initializeMeetingManager(){
         $("#showMeetingWindow").dialog("close");
     });
 
-    
-    
     addMeetingManager(); 
     modifyMeetingManager();
     deleteMeetingManager();
@@ -138,7 +120,6 @@ function addMeetingManager(){
     $("#notAddMeetingButton").click(function() {
         $("#newMeetingWindow").dialog("close");
     });
-    
     $("#addMeetingButtonNo").button();
     $("#addMeetingButtonNo").click(function(){
         $("#addMeetingWindow").dialog("close");
@@ -151,11 +132,8 @@ function addMeetingManager(){
             meetingData: $("#dataMeeting").val(),
             meetingOraInizio: $("#startTime").val()+":00",
             meetingOraFine: $("#endTime").val()+":00",
-            meetingTipo: document.getElementsByName("Tipo").value
-            
-         
+            meetingTipo: getTypeValue()
         });
-        alert(document.getElementsByName("Tipo").value)
         $("#addMeetingWindow").dialog("close");
         location.href = "./meetingCalendar.jsp";
     });
@@ -179,7 +157,6 @@ function addMeetingManager(){
                 OraFine:{
                     required:true
                 }
-                
             },
             messages:{
                 Titolo:{
@@ -210,7 +187,6 @@ function modifyMeetingManager(){
     $("#modifyMeetingButton").click(function(){
         $("#modifyMeetingWindow").dialog("open"); 
     });
-    
     $("#modifyMeetingButtonNo").button();
     $("#modifyMeetingButtonNo").click(function(){
         $("#acceptModifyMeetingWindow").dialog("close");
@@ -224,18 +200,15 @@ function modifyMeetingManager(){
             modifyData: $("#modifyDataMeeting").val(),
             modifyOraInizio: $("#modifyStartTime").val()+":00",
             modifyOraFine: $("#modifyEndTime").val()+":00",
-            modifyTipo: $("#modifyTypeMeeting").val()
+            modifyTipo: getModifyTypeValue()
         });
         $("#modifyMeetingWindow").dialog("close");
         location.href = "./meetingCalendar.jsp";
     });
-    
- 
     $("#notAcceptModifyMeetingButton").button();
     $("#notAcceptModifyMeetingButton").click(function(){
         $("#modifyMeetingWindow").dialog("close"); 
     });
-    
     $("#acceptModifyMeetingButton").button();
     $("#acceptModifyMeetingButton").click(function(){
         $("#modifyMeetingForm").validate({
@@ -251,9 +224,6 @@ function modifyMeetingManager(){
                     maxlength: 500
                 },
                 Data:{
-                    required:true
-                },
-                OraInizio:{
                     required:true
                 },
                 OraFine:{
@@ -273,11 +243,8 @@ function modifyMeetingManager(){
                 Data:{
                     required: "Data obbligatoria"
                 },
-                OraInizio:{
-                    required:"Ora di inizio obbligatoria"
-                },
                 OraFine:{
-                    required:"Ora di fine obbligatoria"
+                    required:"Ora non valida"
                 }
             },
             submitHandler:function(){
@@ -306,7 +273,6 @@ function modifyDate(id, giorni, minuti){
     });
 // alert("invio servlet");
 // location.href = "./meetingCalendar.jsp";
-   
 }
 
 function tpStartOnHourShowCallback(hour) {
@@ -410,3 +376,25 @@ function modifyTpEndOnMinuteShowCallback(hour, minute) {
     return false;
 }
 
+function getTypeValue() { 
+    var indice = 0; 
+    for (i = 0; i < document.forms["insertForm"].Tipo.length; i++) { 
+        if (document.forms["insertForm"].Tipo[i].checked) indice = i; 
+    } 
+    return document.forms["insertForm"].Tipo[indice].value; 
+} 
+function getModifyTypeValue() { 
+    var indice = 0; 
+    for (i = 0; i < document.forms["modifyForm"].Tipo.length; i++) { 
+        if (document.forms["modifyForm"].Tipo[i].checked) indice = i; 
+    } 
+    return document.forms["modifyForm"].Tipo[indice].value; 
+} 
+
+function setModifyValue(valore) { 
+    var indice=0; 
+    if (valore.substr(0, 8)=='Comitato') indice = 0;
+    if (valore.substr(0, 18)=='Consiglio Gestione') indice = 1;
+    if (valore.substr(0, 15)=='Scuola-Famiglia') indice = 2
+    document.forms["modifyForm"].Tipo[indice].checked=true; 
+} 
