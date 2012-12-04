@@ -39,10 +39,16 @@ a:visited, a:active, a:link, u:visited, u:active, u:link{
     color: #FFF;
 }
 
-a:hover, u:hover{
+a:hover {
     text-decoration: underline;
     color: #FFF;
     background-color: #444;
+}
+
+u:hover{
+    text-decoration: underline;
+    color: #FFF;
+    
 }
 
 u {
@@ -371,7 +377,7 @@ div#navigation li{
     width: 25%;
 }
 .hourLabel{
-    margin-left: 19%;
+    margin-left: 21%;
 }
 /*
 * account.jsp
