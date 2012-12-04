@@ -29,7 +29,7 @@ public class Account {
 	private String municipalityDomicilie;
 	private String provinceDomicilie; // elimina
 	private String capResidence;
-	private String capDomicilie;
+	private String capDomicile;
 	private String qualification;
 	private String accountType;
 	private String familySituation;
@@ -227,7 +227,7 @@ public class Account {
 	 * @param String pCapDomicile
 	 */
 	public void setCapDomicile(String pCapDomicile) {
-		this.capDomicilie = pCapDomicile;
+		this.capDomicile = pCapDomicile;
 	}
 
 	/**this method sets  the qualification of all accounts
@@ -425,7 +425,7 @@ public class Account {
 	 * @return String capDomicile
 	 */
 	public String getCapDomicile() {
-		return capDomicilie;
+		return capDomicile;
 	}
 
 	/**this method returns the qualification of all types of accounts

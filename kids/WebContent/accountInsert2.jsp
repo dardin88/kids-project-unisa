@@ -33,6 +33,7 @@
                 initializeRegistrationFields();
             });
         </script>
+       
     </head>
     <%@include file="header.jsp"%>
     <body id="bodyRegistration">

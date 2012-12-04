@@ -52,7 +52,7 @@
     <servlet>
         <servlet-name>AddAccountServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.AddAccountServlet</servlet-class>
-    </servlet>
+        </servlet>
     <servlet>
         <servlet-name>deleteAccountServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.DeleteAccountServlet</servlet-class>

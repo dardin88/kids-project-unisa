@@ -34,6 +34,7 @@ $(document).ready(function(){
         },
         submitHandler:function() {
             $.post("ModifyAccount3",{
+                id:$("#id").val(),
                 capDomicilio:$("#capDomicile").val(),
                 titoloStudio:$("#qualification").val(),
                 tipoAccount:$("#typeAccount").val(),

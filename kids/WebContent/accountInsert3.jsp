@@ -43,6 +43,7 @@
         <form id="registrationForm" class="cmxform" action="" method="post">
             <fieldset id="registrationFieldSet">
                 <div id="artefactsManagement">
+                    
                     <p class="formp">
                         <label><h3>Cap Domicilio :</h3>  </label>
                         <input id="capDomicile" class="registrationField" type="text" name="CapDomicilio">
@@ -50,7 +51,7 @@
                     
                     <p class="formp">
                         <label><h3> Titolo di Studio :</h3> </label>  
-                        <input id="qualification" class="registrationField" type="text" name="TitoloStudio">                    </p>
+                        <input id="qualification" class="registrationField" type="text" name="TitoloStudio">                  
                     </p>
                     
                     <p class="formp">

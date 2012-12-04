@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -43,27 +44,34 @@ public class ModifyAccountServlet extends HttpServlet {
         try {
            
            JDBCAccountManager man= JDBCAccountManager.getInstance();
-           Account account= new Account();
-           int id= Integer.parseInt(request.getParameter(DBNames.ATT_ACCOUNT_ID));
-           account.setId(id);
-           request.getSession().setAttribute("id", id);
+           List<Account> list;
+           Account account2= new Account();
            
-           String name = request.getParameter(DBNames.ATT_ACCOUNT_NAME);
-           String surname = request.getParameter(DBNames.ATT_ACCOUNT_SURNAMEUSER);
-           String birthdate = request.getParameter(DBNames.ATT_ACCOUNT_DATEOFBIRTH);
-           String birthplace = request.getParameter(DBNames.ATT_ACCOUNT_PLACEOFBIRTH);
-           String taxCode= request.getParameter(DBNames.ATT_ACCOUNT_TAXCODE);
-           String municipalityResidence = request.getParameter(DBNames.ATT_ACCOUNT_MUNICIPALITYRESIDENCE);
-           String provinceResidence = request.getParameter(DBNames.ATT_ACCOUNT_PROVINCERESIDENCE);
-           String addressResidence = request.getParameter(DBNames.ATT_ACCOUNT_ADDRESSRESIDENCE);
-           String citizenship= request.getParameter(DBNames.ATT_ACCOUNT_CITIZENSHIP);
-           String register= request.getParameter(DBNames.ATT_ACCOUNT_REGISTER);
+           int id= Integer.parseInt(request.getParameter("id"));
+         
+           System.out.println("QUESTO E' L'ID : "+id);
+           request.getSession().setAttribute("id", id);
+           account2.setId(id);
+           list=man.search(account2);
+           
+           
+            String matricola = request.getParameter("matricolaAccount");
+            String name = request.getParameter("nomeAccount");
+            String surname = request.getParameter("cognomeAccount");
+            String birthdate = request.getParameter("dataNascitaAccount");
+            String birthplace = request.getParameter("comuneNascitaAccount");
+            String taxCode = request.getParameter("codiceFiscaleAccount");
+            String citizenship = request.getParameter("cittadinanzaAccount");
+            String municipalityResidence = request.getParameter("comuneResidenzaAccount");
+            String provinceResidence = request.getParameter("provinciaResidenzaAccount");
+            String addressResidence = request.getParameter("indirizzoResidenzaAccount");
       
            GregorianCalendar birth= parseGregorianCalendar(birthdate);
            
+           Account account= list.get(0);
            
            account.setId(account.getId());
-           account.setRegister(register);
+           account.setRegister(matricola);
            account.setAccountType(account.getAccountType());
            account.setCapDomicile(account.getCapDomicile());
            account.setCapResidence(account.getCapResidence());
@@ -95,9 +103,7 @@ public class ModifyAccountServlet extends HttpServlet {
            account.setViaDomicile(account.getViaDomicile());
            account.setState(account.getState());
            account.setTypeParent(account.getTypeParent());
-           
-           request.getServletContext().getRequestDispatcher("/accountModify2.jsp").forward(request, response);
-           request.getSession().setAttribute("pagina","0");
+                             
            man.update(account);
            
         } catch (SQLException ex) {

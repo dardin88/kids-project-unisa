@@ -53,8 +53,7 @@ public class ModifyAccount2Servlet extends HttpServlet {
            JDBCAccountManager man= JDBCAccountManager.getInstance();
            HttpSession rs= request.getSession();
            int id= (Integer) rs.getAttribute("id");
-           
-            System.out.println("Questo è l'id : "+id);
+            System.out.println("Questo è l'id Modify2: "+id);
            account2.setId(id);
            list=man.search(account2);
                       
@@ -101,10 +100,11 @@ public class ModifyAccount2Servlet extends HttpServlet {
            account.setCapDomicile(capDomicile);   
            account.setMunicipalityDomicile(municipalityDomicile);     
            account.setProvinceDomicile(provinceDomicile);
-           account.setProvinceResidence(addressDomicile);
+           account.setProvinceResidence(account.getProvinceResidence());
            account.setViaResidence(addressResidence);
            account.setState(account.getState());
            account.setTypeParent(account.getTypeParent());
+           account.setViaDomicile(addressDomicile);
  
            man.update(account);
            

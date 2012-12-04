@@ -16,7 +16,7 @@ function initializeRegistrationFields(){
 }
 
 $(document).ready(function(){
-    $("#registrationForm").validate({
+    $("#registrationForm2").validate({
         rules:
         {
             
@@ -47,7 +47,8 @@ $(document).ready(function(){
             IndirizzoResidenza:"Inserisci la via della residenza"
         },
         submitHandler:function() {
-            $.post("AddAccount",{
+            $.post("ModifyAccount",{
+                id:$("#id").val(),
                 matricolaAccount:$("#register").val(),
                 nomeAccount:$("#accountName").val(),
                 cognomeAccount:$("#accountSurname").val(),
@@ -59,9 +60,11 @@ $(document).ready(function(){
                 provinciaResidenzaAccount:$("#provinceResidence").val(),
                 indirizzoResidenzaAccount:$("#viaResidence").val()
             })
-            location.href="./accountInsert2.jsp";
+          
+            var id=document.getElementById('id').value;
+            alert(id);
+            location.href="accountModify2.jsp?id="+id;
         }
         
     });
 });
-
