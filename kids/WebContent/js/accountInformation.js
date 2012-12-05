@@ -3,6 +3,7 @@ function initializeRegistrationFields(){
         cache: false
     });
     
+    
     $("#registrationButton").button();
     
     $.validator.setDefaults({

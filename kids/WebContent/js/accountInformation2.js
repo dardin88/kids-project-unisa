@@ -5,6 +5,8 @@ function initializeRegistrationFields(){
     
     $("#registrationButton").button();
     
+    
+    
     $.validator.setDefaults({
         highlight: function(input){
             $(input).addClass("ui-state-highlight");
