@@ -10,14 +10,14 @@
 <%@page import="it.unisa.kids.common.DBNames"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%-- Rimuovere il tag commento per effettuare il controllo sull'accesso effettuato
+<%-- Modificare il tag commento per effettuare/non effettuare il controllo sull'accesso effettuato --%>
 <c:if test="${sessionScope.user==null}">
     <c:redirect url="index.jsp" />
 </c:if>
-<c:if test="${sessionScope.user.getAccountType()!='Parent'} || ${sessionScope.user.getAccountType()!='Segretaria'}">
+<c:if test="${sessionScope.user.getAccountType()!='Genitore'} || ${sessionScope.user.getAccountType()!='Segretaria'}">
         <c:redirect url="index.jsp" />
 </c:if>
---%>
+<%----%>
 <%!
     List<RegistrationChild> rcList;
 %>
@@ -25,7 +25,7 @@
     Account user = (Account) session.getAttribute("user");
     JDBCRegistrationChildManager registrationChildManager = JDBCRegistrationChildManager.getInstance();
     RegistrationChild child = new RegistrationChild();
-    if(user.getAccountType().equals("Parent")) {
+    if(user.getAccountType().equals("Genitore")) {
         // Imposto i parametri di ricerca
         child.setParentId(user.getId());
         rcList = registrationChildManager.search(child);
@@ -48,12 +48,22 @@
         <script type="text/javascript" src="js/registrationChildManager.js"></script>
         <title>View list of registration form for a child</title>
     </head>
+    <%@include file="header.jsp" %>
     <body>
-        <%@include file="header.jsp" %>
         <h1>Crea una nuova bozza di domanda di iscrizione per un bambino</h1>
-        <form class="inputForm" method="post" action="ServletCreateDraftRegistrationChild">
+        <form method="post" action="ServletCreateDraftRegistrationChild">
             <fieldset>
-                <table>
+                <table id="registrationChildListTable">
+                    <thead>
+                        <tr>
+                            <th><%= DBNames.ATT_REGISTRATIONCHILD_FISCALCODE %></th>
+                            <th><%= DBNames.ATT_REGISTRATIONCHILD_SURNAME %></th>
+                            <th><%= DBNames.ATT_REGISTRATIONCHILD_NAME %></th>
+                            <th>Operazioni</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
                 </table>
                 <input id="createDraft" type="submit" value="Crea bozza di domanda di iscrizione" >
             </fieldset>

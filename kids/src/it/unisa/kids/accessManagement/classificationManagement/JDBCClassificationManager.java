@@ -1,5 +1,6 @@
 package it.unisa.kids.accessManagement.classificationManagement;
 
+import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.DBNames;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 import java.sql.*;
@@ -13,7 +14,6 @@ import java.util.ListIterator;
  * @author Michele Nappo, Lauri Giuseppe Giovanni
  *
  */
-
 public class JDBCClassificationManager implements IClassificationManager {
     private static JDBCClassificationManager manager;
 
@@ -92,10 +92,10 @@ public class JDBCClassificationManager implements IClassificationManager {
                     // constructing query string
                     query = "UPDATE " + DBNames.TABLE_CLASSIFICATION +
                                     " SET "
-                                    + DBNames.ATT_CLASSIFICATION_NAME + " = ?, "
-                                    + DBNames.ATT_CLASSIFICATION_DATA + " = ?, "
-                                    + DBNames.ATT_CLASSIFICATION_STATUS + " = ?, "
-                                    + "WHERE " + DBNames.ATT_CLASSIFICATION_ID + " = ?;";
+                                    + DBNames.ATT_CLASSIFICATION_NAME + "=?, "
+                                    + DBNames.ATT_CLASSIFICATION_DATA + "=?, "
+                                    + DBNames.ATT_CLASSIFICATION_STATUS + "=?, "
+                                    + "WHERE " + DBNames.ATT_CLASSIFICATION_ID + "=?;";
 
                     pstmt = con.prepareStatement(query);
 
@@ -116,8 +116,7 @@ public class JDBCClassificationManager implements IClassificationManager {
             while(iterList.hasNext()) {
                 tmp = iterList.next();
                 query = "UPDATE " + DBNames.TABLE_RESULT +
-                            " SET " +
-                            DBNames.ATT_RESULT_RESULT + " =? " + 
+                            " SET " + DBNames.ATT_RESULT_RESULT + "=? " + 
                             "WHERE " + DBNames.ATT_CLASSIFICATION_ID + " = ? AND "
                             + DBNames.ATT_CLASSIFICATION_DATA + " = ?, ";
                 pstmt = con.prepareStatement(query);
@@ -170,7 +169,7 @@ public class JDBCClassificationManager implements IClassificationManager {
                     stmt.executeUpdate();
                     con.commit();
                     
-                    // cancellazione dei risultati
+                    // cancellazione dei risultati per evitare incongruenze nel db
                     query = "DELETE FROM " + DBNames.TABLE_RESULT
                                     + "WHERE " + DBNames.ATT_RESULT_CLASSIFICATIONID + "=?;";
 
@@ -341,4 +340,183 @@ public class JDBCClassificationManager implements IClassificationManager {
         }
         return classification;
     }
+    
+    public synchronized void deleteResult(RegistrationChild toDelete) throws SQLException {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        String query = null;
+
+        try {
+            con = DBConnectionPool.getConnection();
+
+            // constructing query string for classification
+            query = "DELETE FROM " + DBNames.TABLE_RESULT
+                            + "WHERE " + DBNames.ATT_RESULT_REGISTRATIONCHILDID + "=?;";
+
+            stmt = con.prepareStatement(query);
+            stmt.setInt(1, toDelete.getId());
+            stmt.executeUpdate();
+            con.commit();
+        } finally {
+            if(stmt != null)
+                stmt.close();
+            if(con != null)
+                DBConnectionPool.releaseConnection(con);
+        }
+    }
+    
+    // metodo utilizzato dal registrationchildmanager in caso di eliminazione di una domanda di iscrizione
+    // observe patter
+    public synchronized void unapproveResult(RegistrationChild registrationChildId) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        String query = "UPDATE " + DBNames.TABLE_RESULT + " " +
+                        "SET " + DBNames.ATT_RESULT_RESULT + "=? " +
+                        "WHERE " + DBNames.ATT_RESULT_REGISTRATIONCHILDID + "=?;";
+        try {
+            con = DBConnectionPool.getConnection();
+            pstmt = con.prepareStatement(query);
+            pstmt.setBoolean(1, false);
+            pstmt.setInt(2, registrationChildId.getId());
+            pstmt.executeUpdate();
+            con.commit();
+        } finally {
+            if(pstmt != null)
+                pstmt.close();
+            if(con != null)
+                con.close();
+        }
+    }
+    public synchronized void insertCriterion(Criterion criterion) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        String query;
+
+        try {
+            con = DBConnectionPool.getConnection();
+
+            // constructing query string
+            query = "INSERT INTO " + DBNames.TABLE_CRITERIA + " ("
+                            + DBNames.ATT_CRITERIA_ID + ", "
+                            + DBNames.ATT_CRITERIA_DESCRIPTION + ", "
+                            + DBNames.ATT_CRITERIA_WEIGHT + ", "
+                            + ") VALUES(NULL, ?, ?)";
+
+
+            //setting pstmt's parameters
+            pstmt.setString(1, criterion.getDescription());
+            pstmt.setDouble(2, criterion.getWeight());
+            
+            pstmt.executeUpdate();
+            con.commit();
+        } finally {
+            if(pstmt != null)
+                pstmt.close();
+            if(con != null)
+                DBConnectionPool.releaseConnection(con);
+        }
+    }
+
+    public synchronized void modifyCriterion(Criterion criterion) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt=null;
+        String query;
+
+        try {
+            con = DBConnectionPool.getConnection();
+
+            // constructing query string
+            query = "UPDATE " + DBNames.TABLE_CRITERIA +
+                            " SET "
+                            + DBNames.ATT_CRITERIA_ID + "=?, "
+                            + DBNames.ATT_CRITERIA_WEIGHT + "=?, "
+                            + "WHERE " + DBNames.ATT_CRITERIA_ID + "=?;";
+
+            pstmt = con.prepareStatement(query);
+
+            // setting pstmt's parameters
+
+            pstmt.setString(1, criterion.getDescription());
+            pstmt.setDouble(2,criterion.getWeight());
+            pstmt.setInt(3, criterion.getId());
+
+            pstmt.executeUpdate();
+            con.commit();
+        } finally {
+            if (pstmt != null)
+                pstmt.close();
+            if (con != null)
+                DBConnectionPool.releaseConnection(con);
+        }
+    }
+
+    public synchronized void deleteCriterion(Criterion criterion) throws SQLException {
+            Connection con = null;
+            PreparedStatement stmt = null;
+            String query = null;
+
+            try {
+                con = DBConnectionPool.getConnection();
+
+                // constructing query string for classification
+                query = "DELETE FROM " + DBNames.TABLE_CRITERIA + " " +
+                                "WHERE " + DBNames.ATT_CRITERIA_ID + "=?;";
+
+                stmt = con.prepareStatement(query);
+                stmt.setInt(1, criterion.getId());
+                stmt.executeUpdate();
+                con.commit();
+            } finally {
+                    if(stmt != null)
+                        stmt.close();
+                    if(con != null)
+                        DBConnectionPool.releaseConnection(con);
+            }
+    }
+
+    public synchronized List<Criterion> getAllCriteria() throws SQLException {
+            Connection con = null;
+            Statement stmt = null;
+            ResultSet rs = null;
+            ResultSet rs1 = null;
+            String query = null;
+            List<Criterion> criteriaList = null;
+            List<Result> resultList = null;
+            
+            boolean andState = false;
+
+            try {
+                con = DBConnectionPool.getConnection();
+
+                // constructing search query string
+                query = "SELECT * " +
+                        "FROM " + DBNames.TABLE_CRITERIA + " " +
+                        "WHERE 1;";
+                stmt = con.createStatement();
+
+                // executing select query
+                rs = stmt.executeQuery(query);
+                con.commit();
+
+                // constructing payment list
+                criteriaList = new ArrayList<Criterion>();
+                while(rs.next()) {
+                    Criterion cTmp =  new Criterion();
+                    cTmp.setId(rs.getInt(DBNames.ATT_CRITERIA_ID));
+                    cTmp.setDescription(rs.getString(DBNames.ATT_CRITERIA_DESCRIPTION));
+                    cTmp.setWeight(rs.getDouble(DBNames.ATT_CRITERIA_WEIGHT));
+                    criteriaList.add(cTmp);
+                }
+            } finally {
+                if(rs != null)
+                    rs.close();
+                if(stmt != null)
+                    stmt.close();
+                if(con != null)
+                    DBConnectionPool.releaseConnection(con);
+            }
+
+            return criteriaList;
+    }
+
 }
