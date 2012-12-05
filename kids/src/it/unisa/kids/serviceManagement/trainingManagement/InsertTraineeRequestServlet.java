@@ -19,7 +19,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,13 +27,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author utente
  */
-@WebServlet(name = "InsertTraineeActivityServlet", urlPatterns = {"/InsertTraineeActivity"})
-public class InsertTraineeActivityServlet extends HttpServlet {
+public class InsertTraineeRequestServlet extends HttpServlet {
 
     private ITrainingManager trainingManager;
 
     public void init(ServletConfig config) {
-        RefinedAbstractManager refinedAbstractTrainingManager =  RefinedAbstractManager.getInstance();
+        RefinedAbstractManager refinedAbstractTrainingManager = RefinedAbstractManager.getInstance();
         trainingManager = (ITrainingManager) refinedAbstractTrainingManager.getManagerImplementor(DBNames.TABLE_TRAINEE);
     }
 
@@ -50,36 +48,35 @@ public class InsertTraineeActivityServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         try {
-            TraineeActivity traineeActivity = new TraineeActivity();
-            System.out.println(request.getParameter("Tirocinante"));
-            traineeActivity.setName(request.getParameter("Nome"));
-            traineeActivity.setDate(parseGregorianCalendar(request.getParameter("Data")));
-            traineeActivity.setDescription(request.getParameter("Descrizione"));
-            traineeActivity.setTrainee(Integer.parseInt(request.getParameter("Tirocinante")));
-            traineeActivity.setStart(parseTime(request.getParameter("OraInizio")));
-            traineeActivity.setEnd(parseTime(request.getParameter("OraFine")));
-            traineeActivity.setDelegate(Integer.parseInt(request.getParameter("AccountDelegato")));
-            traineeActivity.setOpinion(request.getParameter("Giudizio"));
-            trainingManager.insert(traineeActivity);
+            TraineeRequest traineeRequest=new TraineeRequest();
+            traineeRequest.setDelegate(Integer.parseInt(request.getParameter("AccountDelegato")));
+            traineeRequest.setActivity(request.getParameter("Attivita"));
+            traineeRequest.setTraineeNumber(Integer.parseInt(request.getParameter("NumeroTirocinanti")));
+            traineeRequest.setDate(parseGregorianCalendar(request.getParameter("Data")));
+            traineeRequest.setStartTime(parseTime(request.getParameter("OraInizio")));
+            traineeRequest.setEndTime(parseTime(request.getParameter("OraFine")));
+            trainingManager.insert(traineeRequest);
             request.setAttribute("message",
-                    "Attivit&agrave inserito con successo");
+                    "Richiesta inviata con successo");
             request.getServletContext().getRequestDispatcher("/secretaryPage.jsp").forward(request, response);
-
-        } catch (SQLException ex) {
+            
+        } catch (ParseException ex) { 
             request.setAttribute("message",
                     "Verfica i campi");
-            request.getServletContext().getRequestDispatcher("/insertTraineeActivity.jsp").forward(request, response);
-            Logger.getLogger(InsertTraineeActivityServlet.class.getName()).log(Level.SEVERE, null, ex);
-
-        } catch (ParseException e) {
+            request.getServletContext().getRequestDispatcher("/managerTraineeRequest.jsp").forward(request, response);
+            Logger.getLogger(InsertTraineeRequestServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch(SQLException e){
             request.setAttribute("message",
                     "Verfica i campi");
-            request.getServletContext().getRequestDispatcher("/insertTraineeActivity.jsp").forward(request, response);
-            Logger.getLogger(InsertTraineeActivityServlet.class.getName()).log(Level.SEVERE, null, e);
-        } 
+            request.getServletContext().getRequestDispatcher("/managerTraineeRequest.jsp").forward(request, response);
+                        Logger.getLogger(InsertTraineeRequestServlet.class.getName()).log(Level.SEVERE, null, e);
+
+        }
     }
-
+    
     private GregorianCalendar parseGregorianCalendar(String pDate) throws ParseException {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date parsed = df.parse(pDate);

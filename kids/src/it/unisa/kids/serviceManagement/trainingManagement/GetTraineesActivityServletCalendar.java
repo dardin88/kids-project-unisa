@@ -90,6 +90,7 @@ public class GetTraineesActivityServletCalendar extends HttpServlet {
                 map.put("title", traineeActivity.getName());
                 map.put("start", start);
                 map.put("end", end);
+                map.put("id", traineeActivity.getId());
                 map.put("allDay", false);
                 //map.put("activity",traineeActivity.getActivity());
                 // map.put("")

@@ -6,7 +6,56 @@ function initializeLinksManager(){
     $.ajaxSetup({
         cache: false
     });
+    $("#activityInformation").dialog({
+        autoOpen:false,
+        resizable:false,
+        width:350
+    });
     $("#send").button();
+    $("#date").datepicker({
+        dateFormat:"yy-mm-dd"
+    });
+    $('#startTime').timepicker({
+        showLeadingZero: false,
+        onHourShow: tpStartOnHourShowCallback,
+        onMinuteShow: tpStartOnMinuteShowCallback,
+        hours: {
+            starts: 0,               
+            ends: 23                  
+        },
+        minutes: {
+            starts: 0,                
+            ends: 59,                 
+            interval: 1               
+        },
+        showCloseButton: true       
+
+
+    });
+    $('#endTime').timepicker({
+        showLeadingZero: false,
+        onHourShow: tpEndOnHourShowCallback,
+        onMinuteShow: tpEndOnMinuteShowCallback,
+        hours: {
+            starts: 0,                
+            ends: 23                  
+        },
+        minutes: {
+            starts: 0,                
+            ends: 59,                 
+            interval: 1               
+        },
+        showCloseButton: true       
+
+    });
+    $("#insertTraineeActivity").dialog({
+        autoOpen:false,
+        modal:true,
+        resizable:false,
+        width:600
+    });
+    $("#insertTraineeActivityButton").button();
+    $("#removeActivity").button();
 }
 
 function createTable(){
@@ -57,16 +106,16 @@ function createTable(){
         
         "aoColumns": [
         {
-            "sWidth": "10%"
+            "sWidth": "1%"
         },
         {
-            "sWidth": "25%"
+            "sWidth": "5%"
         },
         {
-            "sWidth": "25%"
+            "sWidth": "5%"
         },
         {
-            "sWidth": "25%"
+            "sWidth": "5%"
         }
         ]
     });
@@ -84,6 +133,7 @@ function qualifyFields(){
     document.getElementById("description").readOnly=false;
     document.getElementById("startTime").disabled=false;
     document.getElementById("endTime").disabled=false;
+    document.getElementById("opinion").readOnly=false;
 
 
 }
@@ -117,30 +167,77 @@ $(document).ready(function(){
 
 function tpStartOnHourShowCallback(hour) {
     var tpEndHour = $('#endTime').timepicker('getHour');
-    if ($('#endTime').val() == '') { return true; }
-    if (hour <= tpEndHour) { return true; }
+    if ($('#endTime').val() == '') {
+        return true;
+    }
+    if (hour <= tpEndHour) {
+        return true;
+    }
     return false;
 }
 function tpStartOnMinuteShowCallback(hour, minute) {
     var tpEndHour = $('#endTime').timepicker('getHour');
     var tpEndMinute = $('#endTime').timepicker('getMinute');
-    if ($('#endTime').val() == '') { return true; }
-    if (hour < tpEndHour) { return true; }
-    if ( (hour == tpEndHour) && (minute < tpEndMinute) ) { return true; }
+    if ($('#endTime').val() == '') {
+        return true;
+    }
+    if (hour < tpEndHour) {
+        return true;
+    }
+    if ( (hour == tpEndHour) && (minute < tpEndMinute) ) {
+        return true;
+    }
     return false;
 }
 
 function tpEndOnHourShowCallback(hour) {
     var tpStartHour = $('#startTime').timepicker('getHour');
-    if ($('#startTime').val() == '') { return true; }
-    if (hour >= tpStartHour) { return true; }
+    if ($('#startTime').val() == '') {
+        return true;
+    }
+    if (hour >= tpStartHour) {
+        return true;
+    }
     return false;
 }
 function tpEndOnMinuteShowCallback(hour, minute) {
     var tpStartHour = $('#startTime').timepicker('getHour');
     var tpStartMinute = $('#startTime').timepicker('getMinute');
-    if ($('#startTime').val() == '') { return true; }
-    if (hour > tpStartHour) { return true; }
-    if ( (hour == tpStartHour) && (minute > tpStartMinute) ) { return true; }
+    if ($('#startTime').val() == '') {
+        return true;
+    }
+    if (hour > tpStartHour) {
+        return true;
+    }
+    if ( (hour == tpStartHour) && (minute > tpStartMinute) ) {
+        return true;
+    }
     return false;
+}
+
+function openDialogInsertTraineeActivity(){
+    $("#insertTraineeActivity").dialog("open");
+}
+function createCalendar(){
+    var layer;
+    $('#calendar').fullCalendar({
+        events:"GetTraineesActivityCalendar",
+        
+        header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			},
+         eventClick: function(calEvent, jsEvent, view) {
+            $("#activityInformation").dialog("open");
+            document.getElementById("TraineeRegister").value=calEvent.trainee;
+            document.getElementById("TraineeActivity").value=calEvent.activity;
+            document.getElementById("DateActivity").value=calEvent.dateActivity;
+            document.getElementById("Description").value=calEvent.description;
+            document.getElementById("StartTimeActivity").value=calEvent.startTimeActivity;
+            document.getElementById("EndTimeActivity").value=calEvent.endTimeActivity;
+            document.getElementById("Opinion").value=calEvent.opinion;
+            document.getElementById("id").value=calEvent.id;
+        }
+    })
 }

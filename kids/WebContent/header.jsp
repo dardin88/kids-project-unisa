@@ -40,10 +40,10 @@
                 <li id="paymentManagement"><a href="paymentManagement.jsp">Gestione pagamenti</a></li>
             </div>
             <div class="div">
-                <li id="managementTraineeActivity"><a href="insertTraineeActivity.jsp">Gestione Attivit&agrave Tirocinanti</a></li>
+                <li id="managementTraineeActivity"><a href="managerTraineeActivity.jsp">Gestione Attivit&agrave Tirocinanti</a></li>
             </div>
             <div class="div">
-                <li id="traineeRequest"><a href="">Invia Richiesta di Tirocinanti</a></li>
+                <li id="managementTraineeRequest"><a href="managerTraineeRequest.jsp">Gestione Richieste di Tirocinanti</a></li>
             </div>
             <div class="div">
                 <li id="meetingCalendarMenuEL"><a href="meetingCalendar.jsp">Gestione Riunioni</a></li>
