@@ -50,15 +50,15 @@
     <div id="addLinkWindow" title="Inserisci News" style="display: inline">
         <form id="addLinkForm" class="cmxform" method="post" action="" enctype="multipart/form-data" >
             <fieldset>
-                <p class="formp">
+                <p style="text-align: left;" class="formp">
                     <label class="artefactLabel" for="artefactTitolo">Titolo *</label>
                     <input id="artefactTitolo" type="text" name="nomeNews" ></input>                     
                 </p>
-                <p class="formp">
+                <p style="text-align: left;" class="formp">
                     <label class="artefactLabel" for="artefactDescrizione">Descrizione *</label>
                     <input id="artefactDescrizione"  type="text" name="descrizioneNews"></input>
                 </p>
-                <p class="formp">
+                <p style="text-align: left;" class="formp">
                     <label class="artefactLabel" for="artefactTipo">Tipo *</label>
                     <select id="artefactTipo" name="selectNews" onblur="verifyOra()" class="artefactSelect">
                         <option value="0">Scegli tipo News</option>
@@ -68,16 +68,16 @@
                         <option value="4">Chiusura Mensa</option>
                     </select>
                 </p>
-                <p class="formp">
+                <p style="text-align: left;" class="formp">
                     <label class="artefactLabel" for="artefactData">Data *</label>
                     <input id="artefactData"  type="text" name="dataNews"></input>
                 </p>
-                <p class="formp">
+                <p style="text-align: left;" class="formp">
                     <label class="artefactLabel" for="artefactOra">Ora</label>
                     <input id="artefactOra" onkeyup="hiddenMessage()" type="text" name="oraNews"></input>
                     <span id="errOra" style="visibility: hidden;color:red;font-weight: bold"> Ora Obbligatoria per questo tipo di news </span> 
                 </p>
-                <p class="formp">
+                <p style="text-align: left;" class="formp">
                     <label class="artefactLabel" for="artefactAllegato">Allegato(Può essere anche vuoto)</label>
                     <input type="file"  id="addLinkButton2" onchange="cambiaAction()" value="Scegli il file" name="scegliFile"></input>
 
@@ -96,15 +96,15 @@
 <div id="updateNewsWindow" title="Modifica News" style="display: inline">
     <form id="updateNewsForm" name="updateNewsForm" class="cmxform" method="post" action="">
         <fieldset>
-            <p class="formp">
+            <p style="text-align: left;" class="formp">
                 <label class="artefactLabel" for="artefactTitolo">Titolo *</label>
                 <input id="artefactTitolo2"  type="text" name="nomeNews" ></input>                     
             </p>
-            <p class="formp">
+            <p style="text-align: left;" class="formp">
                 <label class="artefactLabel" for="artefactDescrizione">Descrizione *</label>
                 <input id="artefactDescrizione2"  type="text" name="descrizioneNews"></input>
             </p>
-            <p class="formp">
+            <p style="text-align: left;" class="formp">
                 <label class="artefactLabel" for="artefactTipo">Tipo *</label>
                 <select id="artefactTipo2" onblur="verifyOra()" name="selectNews" class="artefactSelect">
                     <option value="0">Scegli tipo News</option>
@@ -114,16 +114,16 @@
                     <option value="4">Chiusura Mensa</option>
                 </select>
             </p>
-            <p class="formp">
+            <p style="text-align: left;" class="formp">
                 <label class="artefactLabel" for="artefactData">Data *</label>
                 <input id="artefactData2"  type="text" name="dataNews"></input>
             </p>
-            <p class="formp">
+            <p style="text-align: left;" class="formp">
                 <label class="artefactLabel" for="artefactOra">Ora</label>
-                <input id="artefactOra2" onkeypress="hiddenMessage()" type="time" name="oraNews"></input>
-                <span id="errOra" style="visibility: hidden;color:red;font-weight: bold"> Ora Obbligatoria per questo tipo di news </span> 
+                <input id="artefactOra2" onblur="hiddenMessage()" type="time" name="oraNews"></input>
+                <span id="errOra" style="visibility: hidden;color:red;font-weight: bold;margin-left: 1%;"> Ora Obbligatoria per questo tipo di news </span> 
             </p>
-            <p class="formp">
+            <p style="text-align: left;" class="formp">
                 <label class="artefactLabel" for="artefactAllegato">Allegato non pu&ograve; essere modificato</label>
             </p>                       
             <input type="submit" class="windowButton" id="confirmUpdateNews" value="Ok"/>                 

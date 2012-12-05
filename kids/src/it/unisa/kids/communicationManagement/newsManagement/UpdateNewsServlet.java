@@ -43,10 +43,7 @@ public class UpdateNewsServlet extends HttpServlet {
             News n = new News();
             n.setTitle(request.getParameter("artefactTitolo"));
             n.setDescription(request.getParameter("artefactDescrizione"));
-            //controllare
-            n.setAttached("");
             int id = Integer.parseInt(request.getParameter("idNews"));
-
             int scelta = Integer.parseInt(request.getParameter("artefactTipo"));
             switch (scelta) {
                 case 1: {
@@ -85,7 +82,7 @@ public class UpdateNewsServlet extends HttpServlet {
                 n.setTime(t);
             }
             //   System.out.print(n.getTitle()+n.getDescription()+n.getType()+n.getAttached()+n.getTime()+n.getDate().getTime());
-            mn.update(n);           
+            mn.update(n); 
         } catch (SQLException ex) {
             Logger.getLogger(InsertNewsServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

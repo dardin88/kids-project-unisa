@@ -1,3 +1,4 @@
+
 function initializeLinksManager(){
     $.ajaxSetup({
         cache: false
@@ -116,14 +117,14 @@ function updateNews(id,title,description,type,data,time){
                 required:"Selezionare la data"
             }
         },
-        submitHandler: function() {
+        submitHandler: function() {          
             $.post("UpdateNews", {
                 artefactTitolo: $("#artefactTitolo2").val(),
                 artefactDescrizione: $("#artefactDescrizione2").val(),
                 artefactTipo: $("#artefactTipo2").val(),
                 artefactData: $("#artefactData2").val(),
                 artefactOra: $("#artefactOra2").val(),
-                idNews:""+id
+                idNews:""+id               
             });
             $("#updateNewsWindow").dialog("close"); 
             var oTable = $("#linksTable").dataTable();
@@ -201,7 +202,7 @@ function addNews(){
             submitHandler: function() {
                 var attached=$("#addLinkButton2").val();
                 var str=attached.split("\\");
-                var s=str[str.length-1];
+                var s=str[str.length-1];               
                 $.post("InsertNews", {
                     artefactTitolo: $("#artefactTitolo").val(),
                     artefactDescrizione: $("#artefactDescrizione").val(),
