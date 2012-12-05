@@ -1,5 +1,9 @@
 package it.unisa.kids.communicationManagement.programEducationalManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+
 /**
  * the class model a project annual for section
  * is a underclass of ProjectAnnual
@@ -8,17 +12,21 @@ package it.unisa.kids.communicationManagement.programEducationalManagement;
  */
 public class AnnualProjectSection extends AnnualProject 
 {
+        private ArrayList<CommentoBean> commenti;
 	private int id;
 	private String name;
 	private String description;
-	private String section;
+	private int section;
 	private int idYear; //serve come chiave esterna per progetto annuale
 	
+        
 	/**
 	 * the costructor recall the costuctor of the father
 	 */
 	public AnnualProjectSection(){
-		super();
+            super();
+            commenti=new ArrayList<CommentoBean>();
+            
 	}
 
 	/**
@@ -64,7 +72,7 @@ public class AnnualProjectSection extends AnnualProject
 	 * this method return the section of the projectAnnualSection
 	 * @return String section
 	 */
-	public synchronized String getSection() {
+	public synchronized int getSection() {
 		return section;
 	}
 
@@ -73,7 +81,7 @@ public class AnnualProjectSection extends AnnualProject
 	 * this method set the section of the projectAnnualSection
 	 * @param section
 	 */
-	public synchronized void setSection(String section) {
+	public synchronized void setSection(int section) {
 		this.section = section;
 	}
 	/**
@@ -93,6 +101,24 @@ public class AnnualProjectSection extends AnnualProject
 		this.idYear = idYear;
 	}
 	
-	
+	public synchronized void addComment(Account author, String comment){
+            CommentoBean toAdd=new CommentoBean();
+            toAdd.setContenuto(comment);
+            toAdd.setDate(new GregorianCalendar());
+            toAdd.setIdAnnuale(this.getId());
+            toAdd.setIdAutore(author.getId());
+            toAdd.setIdSezione(this.getSection());
+            toAdd.setId(this.getId());
+            toAdd.setContenuto(this.getTopic());
+            
+            this.commenti.add(toAdd);
+           /* Mail toSend=new Mail();
+            toSend.setBody(comment);
+            toSend.setSubject(author);
+            ArrayList<String> destinatari=new ArrayList<String>();
+            destinatari.add(name)
+            toSend.setTo(null);*/
+            
+            }
 
 }

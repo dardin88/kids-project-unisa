@@ -32,6 +32,8 @@ public final class DBNames {
     public static final String TABLE_TRAINEECONVOCATION = "convocazione";
     public static final String TABLE_TRAINEEREQUEST = "richiesta_tirocinanti";
     public static final String TABLE_TRAINEEACTIVITY = "attivita_tirocinante";
+    public static final String TABLE_REGISTER = "registro_scolastico";
+    public static final String TABLE_ACTIVITYSECTIONDAILY="attivita_giornaliera_per_sezione";
     
     //Account's attributes
     public static final String ATT_ACCOUNT_REGISTER = "Matricola";
@@ -235,6 +237,7 @@ public final class DBNames {
     public static final String ATT_ACTIVITYSECTTIONDAILY_IDEDUCATORE = "IdEducatore";
     public static final String ATT_ACTIVITYSECTTIONDAILY_DATE = "Data";
     public static final String ATT_ACTIVITYSECTTIONDAILY_NOTES = "Note";
+    public static final String ATT_ACTIVITYSECTTIONDAILY_SECTIONID = "IdSezione";
     //Child Partecipant attributes
     public static final String ATT_CHILDPARTECIPANT_IDCHILD = "IdBambino";
     public static final String ATT_CHILDPARTECIPANT_IDACTIVITYDAILY = "IdAttivitaGiornaliera";
@@ -256,4 +259,8 @@ public final class DBNames {
     public static final String ATT_TRAINEECONVOCATION_CONFIRMED = "Confermato";
     public static final String ATT_TRAINEECONVOCATION_DELEGATE = "IdDelegato";
     public static final String ATT_TRAINEECONVOCATION_TRAINEE = "IdTirocinante";
+    //Register
+    public static final String ATT_REGISTER_CHILDID="idBambino";
+    public static final String ATT_REGISTER_DAILYACTIVITYID="idAttivitaGiornaliera";
+    public static final String ATT_REGISTER_PRESENCE="Stato";
 }
