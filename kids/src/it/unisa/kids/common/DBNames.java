@@ -152,7 +152,7 @@ public final class DBNames {
     public static final String ATT_DIFFMENU_CHILDINSCID = "Iscrizione";
     //PaymentTable's attributes
     public static final String ATT_PAYMENT_ID = "Id";
-    public static final String ATT_PAYMENT_EXPDATE = "DataScademza";
+    public static final String ATT_PAYMENT_EXPDATE = "DataScadenza";
     public static final String ATT_PAYMENT_AMOUNT = "Importo";
     public static final String ATT_PAYMENT_PAID = "Effettuato";
     public static final String ATT_PAYMENT_ORIGINACCOUNT = "Conto";

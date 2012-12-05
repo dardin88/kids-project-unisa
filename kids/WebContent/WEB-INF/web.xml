@@ -14,6 +14,15 @@
         <servlet-class>it.unisa.kids.serviceManagement.paymentManagement.servlet.GetRefundsTableServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>InsertPaymentServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.paymentManagement.servlet.InsertPaymentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdatePaymentServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.paymentManagement.servlet.UpdatePaymentServlet</servlet-class>
+    </servlet>
+    
+    <servlet>
         <servlet-name>GetTraineesServletTable</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.GetTraineesServletTable</servlet-class>
     </servlet>
@@ -181,6 +190,15 @@
         <servlet-name>GetRefundsTableServlet</servlet-name>
         <url-pattern>/GetRefundsTable</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertPaymentServlet</servlet-name>
+        <url-pattern>/InsertPayment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdatePaymentServlet</servlet-name>
+        <url-pattern>/UpdatePayment</url-pattern>
+    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>AddMeetingServlet</servlet-name>
         <url-pattern>/AddMeeting</url-pattern>
