@@ -174,8 +174,9 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_SECTIONID + "=?");
             andState = true;
         }
-        if(!andState)   // nel caso tutti i parametri sono null
+        if(!andState) {  // nel caso tutti i parametri sono null
             query.append("1");
+        }
         query.append(";");
         /* Test della query
         System.out.println(query);
@@ -241,14 +242,19 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             result = pstmt.executeQuery();
             con.commit();
             
-            RegistrationChild tmpRegChild = new RegistrationChild();		  
             while(result.next()) {
+                RegistrationChild tmpRegChild = new RegistrationChild();		  
                 tmpRegChild.setId(result.getInt(DBNames.ATT_REGISTRATIONCHILD_ID));
                 tmpRegChild.setSurname(result.getString(DBNames.ATT_REGISTRATIONCHILD_SURNAME));
                 tmpRegChild.setName(result.getString(DBNames.ATT_REGISTRATIONCHILD_NAME));
                 
-                GregorianCalendar tmpBDGC = new GregorianCalendar();
-                tmpBDGC.setTime(result.getDate(DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE));
+                GregorianCalendar tmpBDGC;
+                if(result.getDate(DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE) != null) {
+                    tmpBDGC = new GregorianCalendar();
+                    tmpBDGC.setTime(result.getDate(DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE));
+                } else {
+                    tmpBDGC = null;
+                }
                 tmpRegChild.setBirthDate(tmpBDGC);
                 
                 tmpRegChild.setBirthPlace(result.getString(DBNames.ATT_REGISTRATIONCHILD_BIRTHPLACE));

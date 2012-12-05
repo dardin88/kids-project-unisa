@@ -19,25 +19,27 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/template.css" />
         <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css" />
-        <link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css" />
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
-
+        <link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css" />
+        
         <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
-        <script type="text/javascript" src="js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/registrationChildManager.js"></script>
         <title>Registration's Child Management</title>
     </head>
     <script type="text/javascript">
-            $(document).ready(function() {
-                activePage();
-                initializeRegistrationFields();
-                createTableRegistrationChild();
-                $("#DataNascita").datepicker({dateFormat:'yy-mm-dd'});
-            });
-        </script>
+        $(document).ready(function() {
+            activePage();
+            initializeRegistrationFields();
+            createTableRegistrationChild();
+            $("#DataNascita").datepicker({dateFormat:'yy-mm-dd'});
+        });
+    </script>
+    
     <body>
         <%@include file="header.jsp" %>
         <div id="newRegistrationChildWindow" title="Inserisci Domanda di Iscrizione" style="display: inline">
@@ -80,7 +82,7 @@
                         </p>
                         <p>
                             <input type="submit" id="createNewDraftButton" value="Salva Bozza" >
-                            <input type="submit" id="submitNewDraftButton" value="Sottometti Domanda" >
+                            <%--<input type="submit" id="submitNewDraftButton" value="Sottometti Domanda" >--%>
                             <input type="button" id="notSubmitDraftButton" value="Annulla" >
                         </p>
                     </div>
@@ -88,18 +90,17 @@
             </form>
         </div>
                                
-        <div>
+        <div id="registrationChildContent">
             <h1 style="font-size: 35px;text-align: center;">Gestione Domande d'Iscrizione</h1>
             <c:if test="${sessionScope.user.getAccountType()=='Genitore'}">
             <div>
-                <input type="button" id="newRegistrationChildButton" style="position: absolute; left: 15%" value="Inserisci Domanda di Iscrizione"/>
+                <input type="button" id="newRegistrationChildButton" value="Inserisci Domanda di Iscrizione"/>
             </div>
             </c:if>
             <table id="registrationChildTable">
                 <thead>
-                    <th>Cognome:</th>
-                    <th>Nome:</th>
-                    <th>Codice fiscale</th>
+                    <th>Cognome</th>
+                    <th>Nome</th>
                     <th>Fase dell'iscrizione</th>
                     <th>Operazioni</th>
                 </thead>
@@ -107,5 +108,6 @@
                 </tbody>
             </table>            
         </div>
+    <%@include file="footer.jsp" %>
     </body>
 </html>

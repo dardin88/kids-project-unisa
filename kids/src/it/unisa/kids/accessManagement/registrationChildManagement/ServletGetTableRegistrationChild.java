@@ -95,6 +95,7 @@ public class ServletGetTableRegistrationChild extends HttpServlet {
                     paginateChildRequestSet = new RegistrationChild[toShow];
                     System.arraycopy(listChildRequest.toArray(), start, paginateChildRequestSet, 0, toShow);
                 }
+                System.out.println("La ricerca ha prodotto: " + listChildRequest.size() + " elementi");
                 for (RegistrationChild regChildRequest : paginateChildRequestSet) {
                     JSONArray ja = new JSONArray();
                     ja.put(regChildRequest.getSurname());
@@ -102,10 +103,10 @@ public class ServletGetTableRegistrationChild extends HttpServlet {
                     ja.put(regChildRequest.getRegistrationPhase());
                     String operazioni = "<input class='tableImage' type='image' src='img/trash.png' onclick='removeRegistrationChild(\"" + regChildRequest.getId() + "\")'/>"
                             + "<input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/edit.png' onclick='editRegistrationChild(\""+regChildRequest.getId()+"\")'/>"
-                            + "<input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/zoo.png' onclick='viewDetailsRegistrationChild(\""+regChildRequest.getId()+"\")'/>";
+                            + "<input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/lente.png' onclick='viewDetailsRegistrationChild(\""+regChildRequest.getId()+"\")'/>";
                     ja.put(operazioni);
                     array.put(ja);
-                                System.out.println(array.length());
+                    System.out.println(ja.toString());
 
                 }
             }
