@@ -56,17 +56,17 @@ public class JDBCProgramEducational implements IProgramEducational
                     + DBNames.ATT_COMMENT_IDSECTION + ", "
                     + DBNames.ATT_COMMENT_IDYEAR + ", "
                     + DBNames.ATT_COMMENT_TYPEMODIFY
-                    + ") VALUES(pProject, ?, ?, ?, ?, ?)";
+                    + ") VALUES(pProject, ?, ?, ?, ?, ?, ?)";
             
             PreparedStatement pstmt;
             pstmt = con.prepareStatement(query);
             pstmt.setDate(1, new Date(toAdd.getDate().getTimeInMillis()));
-            pstmt.setInt(2, toAdd.getIdAnnuale());
-            pstmt.setInt(3, toAdd.getIdAutore());
-            
-            pstmt.setDate(4, tempdata);
-            pstmt.setInt(5, pProject.getIdSection());
-            pstmt.setString(6, pProject.getNotes());
+            pstmt.setString(2, toAdd.getContenuto());
+            pstmt.setInt(3, toAdd.getId());
+            pstmt.setInt(4, toAdd.getIdAutore());
+            pstmt.setInt(5, toAdd.getIdSezione());
+            pstmt.setInt(6, toAdd.getIdAnnuale());
+            pstmt.setString(7, toAdd.getTipoModifica());
             pstmt.executeUpdate();
             con.commit();
     }
