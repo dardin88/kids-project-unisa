@@ -4,6 +4,7 @@
  */
 package it.unisa.kids.accessManagement.registrationChildManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
@@ -23,7 +24,7 @@ import org.json.JSONObject;
 
 /**
  *
- * @author PC
+ * @author Lauri Giuseppe Giovanni
  */
 @WebServlet(name = "ServletGetTableRegistartionChild", urlPatterns = {"/GetTableRegistrationChild"})
 public class ServletGetTableRegistrationChild extends HttpServlet {
@@ -47,8 +48,6 @@ public class ServletGetTableRegistrationChild extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
-        System.out.println("sono nella servlet di gettable");
         
         RegistrationChild[] paginateChildRequestSet;
         List<RegistrationChild> listChildRequest;
@@ -78,7 +77,16 @@ public class ServletGetTableRegistrationChild extends HttpServlet {
                 
                 listChildRequest = registrationChildManager.search(child);
             } else {*/
-                RegistrationChild child = new RegistrationChild();
+            // L'output è in base alla tipologia dell'account
+            Account account = (Account) request.getSession().getAttribute("user");
+            RegistrationChild child = new RegistrationChild();
+                if(account.getAccountType().equals("Genitore")) {
+                    // Il genitore può vedere solo le proprie domande di iscrizione
+                child.setParentId(account.getId());
+            } else if(account.getAccountType().equals("Segreteria")) {
+                // La segreteria potrà vedere solo le richieste sottomesse dai genitori, che dovrà andare a confermare
+                child.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED);
+            }
                 listChildRequest = registrationChildManager.search(child);
             //}
 
@@ -95,19 +103,29 @@ public class ServletGetTableRegistrationChild extends HttpServlet {
                     paginateChildRequestSet = new RegistrationChild[toShow];
                     System.arraycopy(listChildRequest.toArray(), start, paginateChildRequestSet, 0, toShow);
                 }
-                System.out.println("La ricerca ha prodotto: " + listChildRequest.size() + " elementi");
+                
                 for (RegistrationChild regChildRequest : paginateChildRequestSet) {
                     JSONArray ja = new JSONArray();
                     ja.put(regChildRequest.getSurname());
                     ja.put(regChildRequest.getName());
                     ja.put(regChildRequest.getRegistrationPhase());
-                    String operazioni = "<input class='tableImage' type='image' src='img/trash.png' onclick='removeRegistrationChild(\"" + regChildRequest.getId() + "\")'/>"
-                            + "<input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/edit.png' onclick='editRegistrationChild(\""+regChildRequest.getId()+"\")'/>"
-                            + "<input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/lente.png' onclick='viewDetailsRegistrationChild(\""+regChildRequest.getId()+"\")'/>";
-                    ja.put(operazioni);
+                    
+                    StringBuffer operazioni = new StringBuffer();
+                    // Sia genitore che segreteria possono vederne i dettagli
+                    operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/lente.gif' onclick='viewDetailsRegistrationChild(\""+regChildRequest.getId()+"\")'/>");
+                    
+                    if(account.getAccountType().equals("Genitore")) {
+                        // solo il genitore può eliminarla o modificarla
+                        operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/edit.gif' onclick='editRegistrationChild(\""+regChildRequest.getId()+"\")'/>");
+                        operazioni.append("<input class='tableImage' type='image' src='img/trash.png' onclick='removeRegistrationChild(\"" + regChildRequest.getId() + "\")'/>");
+                    }
+                    if(account.getAccountType().equals("Segreteria")) {
+                        // solo la segreteria può confermare
+                        operazioni.append("<input class='tableImage' type='image' src='img/accept.png' onclick='removeRegistrationChild(\"" + regChildRequest.getId() + "\")'/>");
+                    }
+                    ja.put(operazioni.toString());
                     array.put(ja);
-                    System.out.println(ja.toString());
-
+                    
                 }
             }
             result.put("sEcho", sEcho);

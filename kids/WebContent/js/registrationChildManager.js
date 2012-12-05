@@ -44,7 +44,7 @@ function initializeRegistrationFields(){
                     required: true
                 },
                 DataNascita:    {
-                    date: true
+//                    date: true
                 },
                 CodiceFiscale:  {
                     //codicefiscale: true
@@ -58,7 +58,7 @@ function initializeRegistrationFields(){
                     required: "Inserisci il nome"
                 },
                 DataNascita:    {
-                    date: "La data di nascita deve essere nel formato (AAAA/MM/GG)"
+//                    date: "La data di nascita deve essere nel formato (AAAA/MM/GG)"
                 },
                 CodiceFiscale:  {
                    // codicefiscale: "Inserire il codice fiscale in modo corretto"
@@ -92,8 +92,8 @@ function initializeRegistrationFields(){
                     required: true
                 },
                 DataNascita:    {
-                    required: true,
-                    date: true
+                    required: true//,
+//                    date: true
                 },
                 ComuneNascita:  {
                     required: true
@@ -117,8 +117,8 @@ function initializeRegistrationFields(){
                     required: "Inserisci il nome"
                 },
                 DataNascita:    {
-                    required: "Inserire la data di nascita (AAAA-MM-GG)",
-                    date: "Inserire la data di nascita (AAAA-MM-GG)"
+                    required: "Inserire la data di nascita (AAAA-MM-GG)"//,
+                    //date: "Inserire la data di nascita (AAAA-MM-GG)"
                 },
                 ComuneNascita:  {
                     required: "Inserire il comune di nascita"
