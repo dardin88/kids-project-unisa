@@ -7,6 +7,12 @@ function initializeClassFields() {
     $("#registrationButton").click(function() {
         $("#registrationButton").submit();
     });
+    $("#removeAccountWindow").dialog({
+       autoOpen: false,
+       modal: true,
+       resizable: false,
+       width: 400
+   });
 }
 
 function buildAccountTable(){
@@ -72,9 +78,6 @@ function buildAccountTable(){
 
    
 function removeAccount(id){
-     $("#removeAccountWindow").dialog({
-        autoOpen:true
-    }); 
     $("#confirmRemoveLinkButton").button();
     $("#confirmRemoveLinkButton").click(function(){
         $.post("DeleteAccount", {

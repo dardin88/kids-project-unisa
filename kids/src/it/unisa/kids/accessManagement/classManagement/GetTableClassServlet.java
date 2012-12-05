@@ -4,12 +4,16 @@
  */
 package it.unisa.kids.accessManagement.classManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.IAccountManager;
+import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +27,11 @@ import org.json.JSONObject;
  */
 public class GetTableClassServlet extends HttpServlet {
 
+       private IClassManager classManager;
+
+    public void init(ServletConfig config) {
+        classManager =(IClassManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACCOUNT);
+        }
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -39,7 +48,7 @@ public class GetTableClassServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         ClassBean[] pageClassBean=null;
         List<ClassBean> listClassBean=null;
-     
+     try{
             JSONArray array = new JSONArray();
             JSONObject result = new JSONObject();
             int start = 0;
@@ -66,6 +75,7 @@ public class GetTableClassServlet extends HttpServlet {
             ClassBean pClassBean=new ClassBean();
             pClassBean.setClassName(nome);
             pClassBean.setState(stato);
+            listClassBean= classManager.search(pClassBean);
             
             int linksNumber = listClassBean.size();
             if (linksNumber < amount) {
@@ -101,6 +111,11 @@ public class GetTableClassServlet extends HttpServlet {
                     "private, no-store, no-cache, must-revalidate");
             response.setHeader("Pragma", "no-cache");
             out.print(result);
+     }
+     catch(SQLException ex) {
+            Logger.getLogger(GetTableClassServlet.class.getName()).log(Level.SEVERE, null, ex);           
+          
+        }
             
             
 
