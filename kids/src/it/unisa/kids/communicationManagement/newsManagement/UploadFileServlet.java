@@ -46,7 +46,7 @@ public class UploadFileServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         // Create path components to save the file
-        final String path = getServletContext().getRealPath("/") + "attached";
+        final String path = "/home/francesco/attached";
         final Part filePart = request.getPart("scegliFile");
         final String fileName = getFileName(filePart);
     

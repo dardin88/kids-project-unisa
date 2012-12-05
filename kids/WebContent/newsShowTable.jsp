@@ -23,7 +23,9 @@
         <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css">
+        <link rel="stylesheet" type="text/css" href="css/jquery.ui.timepicker.css">
 
+        <script type="text/javascript" src="js/jquery.ui.timepicker.js"></script>
         <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
         <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
@@ -36,8 +38,10 @@
             $(document).ready(function() {
                 activePage();
                 initializeLinksManager();
-                $("#artefactData").datepicker({dateFormat:'yy-mm-dd'});
-                $("#artefactData2").datepicker({dateFormat:'yy-mm-dd'});         
+                $("#artefactData").datepicker({dateFormat:'yy-mm-dd' });
+                $("#artefactData2").datepicker({dateFormat:'yy-mm-dd'});    
+               // $("#artefactOra").timepicker();
+    
                 buildShowTable();
                 
             });
@@ -70,7 +74,7 @@
                 </p>
                 <p class="formp">
                     <label class="artefactLabel" for="artefactOra">Ora</label>
-                    <input id="artefactOra" onkeyup="hiddenMessage()" type="time" name="oraNews"></input>
+                    <input id="artefactOra" onkeyup="hiddenMessage()" type="text" name="oraNews"></input>
                     <span id="errOra" style="visibility: hidden;color:red;font-weight: bold"> Ora Obbligatoria per questo tipo di news </span> 
                 </p>
                 <p class="formp">

@@ -38,43 +38,6 @@ public class GetNewsServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        /*  PrintWriter out = response.getWriter();
-         JSONObject result = new JSONObject();
-         try {
-         JSONArray array = new JSONArray();
-         String sStart = request.getParameter("iDisplayStart");
-         String sAmount = request.getParameter("sAmount");
-         String sEcho = request.getParameter("sEcho");
-         INewsManager mn = JDBCNewsManager.getInstance();
-         ArrayList<News> listaNews = mn.showNews();
-         for (News n : listaNews) {
-
-         JSONArray json = new JSONArray();
-         json.put(n.getTitle());
-         json.put(n.getDescription());
-         json.put(n.getDate().get(Calendar.YEAR) + "/" + (n.getDate().get(Calendar.MONTH) + 1) + "/" + n.getDate().get(Calendar.DAY_OF_MONTH));
-         json.put(n.getTime().toString());
-         json.put(n.getAttached());
-         String operazioni = "<input class='tableImage' type='image' src='img/trash.png' />";
-         json.put(operazioni);
-         array.put(json);
-         }
-         result.put("sEcho", sEcho);
-         result.put("iTotalRecords", sAmount);
-         result.put("iTotalDisplayRecords", sStart);
-         result.put("aaData", array);
-         response.setContentType("application/json");
-         response.setHeader("Cache-Control",
-         "private, no-store, no-cache, must-revalidate");
-         response.setHeader("Pragma", "no-cache");
-         out.println(result);
-         } catch (Exception ex) {
-         Logger.getLogger(GetNewsServlet.class.getName()).log(
-         Level.SEVERE, null, ex);
-         } finally {
-         out.close();
-         }
-         */
         PrintWriter out = response.getWriter();
         News[] paginateNewsSet;
         ArrayList<News> listNews;
@@ -132,8 +95,7 @@ public class GetNewsServlet extends HttpServlet {
                     ja.put(a.getTime().toString());
                     ja.put(a.getType());
                     String time=(a.getTime().toString().substring(0, 5));
-//                    ja.put("<a style=\"color:black;background:none;\" href=\"DownloadFile\" value=\""+a.getAttached()+"\">"+a.getAttached()+"</a>");
-                      ja.put("<a style=\"color:black;background:none;\" href=\"DownloadFile?nameFile="+a.getAttached()+"\">"+a.getAttached()+"</a>");
+                    ja.put("<a style=\"color:black;background:none;\" href=\"DownloadFile?nameFile="+a.getAttached()+"\">"+a.getAttached()+"</a>");
                     if(nomeUtente.equals("Segreteria"))
                     {
                      String operazioni = "<input id=\"removeNews\" onclick=\"removeNews("+a.getId() +")\" class='tableImage' type='image' src='img/trash.png' />"+"<input id=\"idUpdateNews\" class='tableImage' height='20px' type='image' src='img/lente.gif' onclick=\"updateNews("+a.getId()+",'"+a.getTitle()+"','"+a.getDescription()+"','"+a.getType()+"','"+d+"','"+time+"')\" />";

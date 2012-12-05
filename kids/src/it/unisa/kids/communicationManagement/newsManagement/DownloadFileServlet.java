@@ -35,7 +35,7 @@ public class DownloadFileServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
        
-        String uri = getServletContext().getRealPath("/") + "attached/";
+        String uri = "/home/francesco/attached/";
         String fileName=request.getParameter("nameFile");
         uri+=fileName;
         
