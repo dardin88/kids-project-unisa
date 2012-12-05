@@ -20,7 +20,7 @@ public class CommentoBean {
     private int idAutore;
     
     public CommentoBean(){
-        
+        this.date=new GregorianCalendar();
     }
 
     public int getId() {
