@@ -51,24 +51,36 @@ public class JDBCProgramEducational implements IProgramEducational
             String query = "INSERT INTO " + DBNames.TABLE_COMMENT + " ("
                     + DBNames.ATT_COMMENT_DATE + ", "
                     + DBNames.ATT_COMMENT_DESCRIPTION + ", "
-                    + DBNames.ATT_COMMENT_ID + ", "
+                   // + DBNames.ATT_COMMENT_ID + ", "
                     + DBNames.ATT_COMMENT_IDAUTHOR + ", "
                     + DBNames.ATT_COMMENT_IDSECTION + ", "
                     + DBNames.ATT_COMMENT_IDYEAR + ", "
                     + DBNames.ATT_COMMENT_TYPEMODIFY
-                    + ") VALUES(pProject, ?, ?, ?, ?, ?, ?)";
+                    + ") VALUES(?, ?, ?, ?, ?, ?)";
             
             PreparedStatement pstmt;
             pstmt = con.prepareStatement(query);
             pstmt.setDate(1, new Date(toAdd.getDate().getTimeInMillis()));
             pstmt.setString(2, toAdd.getContenuto());
-            pstmt.setInt(3, toAdd.getId());
-            pstmt.setInt(4, toAdd.getIdAutore());
-            pstmt.setInt(5, toAdd.getIdSezione());
-            pstmt.setInt(6, toAdd.getIdAnnuale());
-            pstmt.setString(7, toAdd.getTipoModifica());
+            //pstmt.setInt(3, toAdd.getId());
+            pstmt.setInt(3, toAdd.getIdAutore());
+            pstmt.setInt(4, toAdd.getIdSezione());
+            pstmt.setInt(5, toAdd.getIdAnnuale());
+            pstmt.setString(6, toAdd.getTipoModifica());
             pstmt.executeUpdate();
             con.commit();
     }
 
+    public void getComments(AnnualProjectSection toView) throws SQLException{
+         String query = "SELECT * FROM " + DBNames.TABLE_COMMENT 
+                      + " WHERE " + DBNames.ATT_COMMENT_ID + " = "  + toView.getId();
+         PreparedStatement pstm;
+         Connection con;
+         con=DBConnectionPool.getConnection();
+         pstm=con.prepareStatement(query);
+         pstm.executeUpdate();
+         con.commit();
+        
+    }
+    
 }
