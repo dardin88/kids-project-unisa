@@ -166,15 +166,16 @@ function createTableRegistrationChild() {
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
-        "fnServerParams": function ( aoData ) {
-           aoData.push(// Parametri di ricerca aggiuntivi
-            {
-                "name" : "FaseDellIscrizione", 
-                "value" : $('#FaseDellIscrizione').val()
-            }
-            );
-     
-        },
+//        "fnServerParams": function ( aoData ) {
+//           aoData.push(// Parametri di ricerca aggiuntivi
+//            {
+//                "name" : "FaseDellIscrizione", 
+//                "value" : $('#FaseDellIscrizione').val()
+//            }
+//            );
+//     
+//        },
+
         "bSort": false,
         "bDestroy": true,
         "bInfo": true,
@@ -218,8 +219,12 @@ function createTableRegistrationChild() {
         {
             "sWidth": "10%"
         }
-        ]
+        ],
+         "fnServerData": function (sSource, aoData, fnCallback){ 
+            $.post(sSource,aoData,fnCallback,"json");
+        }
     });
+    
 }
 
 function search(){
