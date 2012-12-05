@@ -1,12 +1,17 @@
 <%-- 
     Document   : healthCommunicationTable
-    Created on : Nov 29, 2012, 1:23:31 PM
+    Created on : Nov 29, 2012, 1:22:36 PM
     Author     : Elena
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<c:if test="${sessionScope.user==null}">
+    <c:if test="${sessionScope.user.getAccountType()!='Educatore'}">
+    <c:if test="${sessionScope.user.getAccountType()!='Genitore'}">
+        <c:redirect url="index.jsp" />
+</c:if>
 <!DOCTYPE html>
 <html>
     <head>
@@ -31,30 +36,30 @@
             });
         </script>
     </head>
-    <div id="addLinkWindow" title="Inserisci Comunicazione" style="display: inline">
-         <form id="addLinkForm" class="cmxform" method="post" action="">
+    <div id="addCommunicationWindow" title="Inserisci Comunicazione" style="display: inline">
+         <form id="addCommunicationForm" class="cmxform" method="post" action="">
              <fieldset>
-                 <p class="formp">
-                    <label class="artefactLabel" for="artefactType">Tipo *</label>
+                 <p style="text-align: left;" class="formp">
+                     <label class="artefactLabel" for="artefactType">Tipo *</label>
                       <select id="artefactType"style=" display:block;" name="Type" class="artefactSelect">
                         <option value="0">Scegli tipo Comunicazione</option>
                         <option value="1">Salute</option>
                         <option value="1">Bisogno</option>
                       </select>
                  </p>
-                 <p class="formp">
+                 <p style="text-align: left;" class="formp">
                      <label class="artefactLabel" for="artefactIdEducator">Educatore *</label>
                      <input id="artefactIdEducator" style="display: block" type="text" name="idEducator" ></input>                     
                  </p>
-                 <p class="formp">
+                 <p style="text-align: left;" class="formp">
                      <label class="artefactLabel" for="artefactIdChild">Bambino *</label>
                      <input id="artefactIdChild" style="display:block;" type="text" name="idChild"></input>
                  </p>
-                 <p class="formp">
+                 <p style="text-align: left;" class="formp">
                      <label class="artefactLabel" for="artefactDescription">Descrizione *</label>
                      <input id="artefactDescription" style="display:block;" type="date" name="description"></input>
                  </p>
-                 <p class="formp">
+                <p style="text-align: left;" class="formp">
                      <label class="artefactLabel" for="artefactDate">Data *</label>
                      <input id="artefactDate" style="display:block;" type="date" name="date"></input>
                  </p>
@@ -68,10 +73,10 @@
             <input type="button" class="windowButton" id="notRemoveCommunicationButton" value="Annulla" />
         
     </div>
-  <div id="updateCommunicationWindow" title="Modifica Comunicazione" style="display: inline">
+    <div id="updateCommunicationWindow" title="Modifica Comunicazione" style="display: inline">
     <form id="updateCommunicationForm" name="updateCommunicationForm" class="cmxform" method="post" action="">
         <fieldset>
-            <p class="formp">
+            <p style="text-align: left;" class="formp">
                      <label class="artefactLabel" for="artefactType">Tipo *</label>
                       <select id="artefactType"style=" display:block;" name="Type" class="artefactSelect">
                         <option value="0">Scegli tipo Comunicazione</option>
@@ -79,19 +84,19 @@
                         <option value="1">Bisogno</option>
                       </select>
                  </p>
-                 <p class="formp">
+                 <p style="text-align: left;" class="formp">
                      <label class="artefactLabel" for="artefactIdEducator">Educatore *</label>
                      <input id="artefactIdEducator" style="display: block" type="text" name="idEducator" ></input>                     
                  </p>
-                 <p class="formp">
+                 <p style="text-align: left;" class="formp">
                      <label class="artefactLabel" for="artefactIdChild">Bambino *</label>
                      <input id="artefactIdChild" style="display:block;" type="text" name="idChild"></input>
                  </p>
-                 <p class="formp">
+                 <p style="text-align: left;" class="formp">
                      <label class="artefactLabel" for="artefactDescription">Descrizione *</label>
                      <input id="artefactDescription" style="display:block;" type="date" name="description"></input>
                  </p>
-                 <p class="formp">
+                 <p style="text-align: left;" class="formp">
                      <label class="artefactLabel" for="artefactDate">Data *</label>
                      <input id="artefactDate" style="display:block;" type="date" name="date"></input>
                  </p>
@@ -104,9 +109,9 @@
             <div id="linksManagement">
                 <h1 style="font-size: 35px;text-align: center;"> Lista Comunicazioni Salute </h1>
                 <c:if test="${sessionScope.user.getAccountType()=='Educatore'}" >
-                        <input type="button" id="addLinkButton" value="Inserisci Comunicazione Salute" />               
+                    <input type="button" id="addCommunicationButton" value="Inserisci Comunicazione Salute" />               
                 </c:if>
-                <table id="linkTable" style="width:95%;">
+                <table id="CommunicationTable" style="width:95%;">
                     <thead>
                         <tr>
                             <th>Tipo</th>
