@@ -1,7 +1,13 @@
 function initializeLinksManager2(){
         
+    $("#avantiButton").button();
+    $("#modifyButton").button();
+    $("#eliminaButton").button();
+        
     var id =document.getElementById('id');
     $("#removeAccount").dialog({
+        
+        
         
         modal:true,
         autoOpen : false,
@@ -137,11 +143,12 @@ function modifyAccount(id){
 }
 function showPartTwoAccount(id){
     $.post("GetAccount",{
-                id:id
-})}
+        id:id
+    })
+    }
 
 function back(id){
     
-location.href="./accountInformation.jsp?id="+id;
+    location.href="./accountInformation.jsp?id="+id;
 }
 
