@@ -31,76 +31,82 @@
                 $(document).ready(function() {
                     activePage();
                     initializeMeetingManager();
-                    $("#dataMeeting,#modifyDataMeeting").datepicker({dateFormat:'yy-mm-dd'});
+                <c:if test="${sessionScope.user.getAccountType()=='Adim'||sessionScope.user.getAccountType()=='Segreteria'}">                               
+                        CalendarEditable();
+                </c:if>
+                <c:if test="${sessionScope.user.getAccountType()!='Adim'&&sessionScope.user.getAccountType()!='Segreteria'}">                               
+                        CalendarNotEditable();
+                </c:if> 
+                        $("#dataMeeting,#modifyDataMeeting").datepicker({dateFormat:'yy-mm-dd'});
                  
-                    $('#modifyStartTime').timepicker({
-                        showLeadingZero: false,
-                        onHourShow: modifyTpStartOnHourShowCallback,
-                        onMinuteShow: modifyTpStartOnMinuteShowCallback,
-                        hours: {
-                            starts: 0,               
-                            ends: 23                  
-                        },
-                        minutes: {
-                            starts: 0,                
-                            ends: 59,                 
-                            interval: 15               
-                        },
-                        showCloseButton: true       
+                        $('#modifyStartTime').timepicker({
+                            showLeadingZero: false,
+                            onHourShow: modifyTpStartOnHourShowCallback,
+                            onMinuteShow: modifyTpStartOnMinuteShowCallback,
+                            hours: {
+                                starts: 0,               
+                                ends: 23                  
+                            },
+                            minutes: {
+                                starts: 0,                
+                                ends: 59,                 
+                                interval: 15               
+                            },
+                            showCloseButton: true       
 
 
-                    });
-                    $('#modifyEndTime').timepicker({
-                        showLeadingZero: false,
-                        onHourShow: modifyTpEndOnHourShowCallback,
-                        onMinuteShow: modifyTpEndOnMinuteShowCallback,
-                        hours: {
-                            starts: 0,                
-                            ends: 23                  
-                        },
-                        minutes: {
-                            starts: 0,                
-                            ends: 59,                 
-                            interval: 15               
-                        },
-                        showCloseButton: true       
+                        });
+                        $('#modifyEndTime').timepicker({
+                            showLeadingZero: false,
+                            onHourShow: modifyTpEndOnHourShowCallback,
+                            onMinuteShow: modifyTpEndOnMinuteShowCallback,
+                            hours: {
+                                starts: 0,                
+                                ends: 23                  
+                            },
+                            minutes: {
+                                starts: 0,                
+                                ends: 59,                 
+                                interval: 15               
+                            },
+                            showCloseButton: true       
 
-                    });
+                        });
                    
-                    $('#startTime').timepicker({
-                        showLeadingZero: false,
-                        onHourShow: tpStartOnHourShowCallback,
-                        onMinuteShow: tpStartOnMinuteShowCallback,
-                        hours: {
-                            starts: 0,               
-                            ends: 23                  
-                        },
-                        minutes: {
-                            starts: 0,                
-                            ends: 59,                 
-                            interval: 15               
-                        },
-                        showCloseButton: true       
+                        $('#startTime').timepicker({
+                            showLeadingZero: false,
+                            onHourShow: tpStartOnHourShowCallback,
+                            onMinuteShow: tpStartOnMinuteShowCallback,
+                            hours: {
+                                starts: 0,               
+                                ends: 23                  
+                            },
+                            minutes: {
+                                starts: 0,                
+                                ends: 59,                 
+                                interval: 15               
+                            },
+                            showCloseButton: true       
 
 
+                        });
+                        $('#endTime').timepicker({
+                            showLeadingZero: false,
+                            onHourShow: tpEndOnHourShowCallback,
+                            onMinuteShow: tpEndOnMinuteShowCallback,
+                            hours: {
+                                starts: 0,                
+                                ends: 23                  
+                            },
+                            minutes: {
+                                starts: 0,                
+                                ends: 59,                 
+                                interval: 15               
+                            },
+                            showCloseButton: true       
+
+                        });
                     });
-                    $('#endTime').timepicker({
-                        showLeadingZero: false,
-                        onHourShow: tpEndOnHourShowCallback,
-                        onMinuteShow: tpEndOnMinuteShowCallback,
-                        hours: {
-                            starts: 0,                
-                            ends: 23                  
-                        },
-                        minutes: {
-                            starts: 0,                
-                            ends: 59,                 
-                            interval: 15               
-                        },
-                        showCloseButton: true       
-
-                    });
-                });
             </script>
 
     </head>
@@ -134,8 +140,7 @@
                                             <label style="margin-left: 2%;" id="showTypeMeeting" name="showTypeMeeting"></label> <br> <br>
                                                     </p>
                                                     <p>
-                                                        <c:if test="${sessionScope.user.getAccountType()!='Adim'}">
-                                                            <input type="button" id="modifyMeetingButton" value="Modifica Riunione" />
+                                                        <c:if test="${sessionScope.user.getAccountType()=='Adim'||sessionScope.user.getAccountType()=='Segreteria'}">                                                            <input type="button" id="modifyMeetingButton" value="Modifica Riunione" />
                                                             <input type="button" id="deleteMeetingButton" value="Elimina Riunione" />
                                                         </c:if>
                                                         <input type="button" id="notMeetingButton" value="Annulla" />
@@ -265,7 +270,9 @@
 
                                                                                                                                                                                                         <body>
                                                                                                                                                                                                         <%@include file="header.jsp" %>
+                                                                                                                                                                                                        <c:if test="${sessionScope.user.getAccountType()=='Adim'||sessionScope.user.getAccountType()=='Segreteria'}">
                                                                                                                                                                                                         <input type="button"  id="newMeetingButton" style="position: absolute; left: 15%" value="Inserisci Riunione"/> 
+                                                                                                                                                                                                        </c:if>
                                                                                                                                                                                                         <div id='meetingCalendar' style="width: 60%"></div>
                                                                                                                                                                                                         <%@include file="footer.jsp" %>
                                                                                                                                                                                                         </body>
