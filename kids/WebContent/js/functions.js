@@ -48,6 +48,7 @@ function activePage(){
         case 'meetingCalendar.jsp':
             $("#meetingCalendarMenuEL").css("background-color","#444");
             $("#meetingCalendarMenuEL").css("color","#FFFFFF");
+            $("#title").html("Gestione calendario");
             break;
         case 'managerTraineeActivity.jsp':
             $("#managementTraineeActivity").css("background-color","#444");
