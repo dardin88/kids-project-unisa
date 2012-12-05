@@ -67,6 +67,10 @@
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.DeleteAccountServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>GetAccountServlet</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.accountManagement.GetAccountServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ModifyAccountServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.ModifyAccountServlet</servlet-class>
     </servlet>
@@ -238,6 +242,10 @@
     <servlet-mapping>
         <servlet-name>ModifyAccountServlet</servlet-name>
         <url-pattern>/ModifyAccount</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>GetAccountServlet</servlet-name>
+        <url-pattern>/GetAccount</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetTraineesServlet</servlet-name>
