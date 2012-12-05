@@ -4,29 +4,20 @@
  */
 package it.unisa.kids.accessManagement.registrationChildManagement;
 
-import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.DBNames;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
- * Servlet used to create a new draft of registrationchild
- * 
- * @author Giuseppe Giovanni Lauri
+ *
+ * @author PC
  */
 public class ServletConfirmRegistrationChild extends HttpServlet {
 
@@ -41,11 +32,11 @@ public class ServletConfirmRegistrationChild extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException, ParseException {
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            response.setContentType("text/html;charset=UTF-8");
             JDBCRegistrationChildManager registrationChildManager = JDBCRegistrationChildManager.getInstance();
 
             // Prelevo i dati necessari
@@ -57,8 +48,9 @@ public class ServletConfirmRegistrationChild extends HttpServlet {
             else
                 out.print("Conferma non riuscita");
         } catch (SQLException ex) {
-            request.setAttribute("message", "Verfica i campi");
-            request.getServletContext().getRequestDispatcher("/registrationChildViewAll.jsp").forward(request, response);
+            Logger.getLogger(ServletConfirmRegistrationChild.class.getName()).log(Level.SEVERE, "SQL-Error: " + ex.getMessage(), ex);
+        } finally {
+            out.close();
         }
     }
 
@@ -75,13 +67,7 @@ public class ServletConfirmRegistrationChild extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(ServletConfirmRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(ServletConfirmRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -96,13 +82,7 @@ public class ServletConfirmRegistrationChild extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(ServletConfirmRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(ServletConfirmRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
