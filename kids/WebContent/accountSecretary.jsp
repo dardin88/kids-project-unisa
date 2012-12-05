@@ -68,7 +68,7 @@
         <form id="removeAccountForm" class="cmxform" method="post" action="">
             <fieldset>
                 <p class="formp">
-                    <label class="requirementLabel">Sei sicuro di voler eliminare questo Tirocinante?</label>
+                    <label class="requirementLabel">Sei sicuro di voler eliminare questo Account?</label>
                 </p>
                 <p class="formp">
                     <input type="button" class="confirmRemoveButton" id="confirmRemoveLinkButton" value="Si"/>
