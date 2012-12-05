@@ -27,7 +27,7 @@
                 <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
             </div>  
             <div class="div">
-                <li id="paymentManagement"><a href="paymentManagement.jsp">Gestione pagamenti</a></li>
+                <li id="paymentManagementMenuEl"><a href="paymentManagement.jsp">Gestione pagamenti</a></li>
             </div>
             <div class="div">
                 <li id="managementTraineeActivity"><a href="managerTraineeActivity.jsp">Gestione Attivit&agrave Tirocinanti</a></li>

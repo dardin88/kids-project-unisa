@@ -67,6 +67,10 @@ function activePage(){
             $("#managementTraineeRequest").css("color","#FFFFFF");
             $("#title").html("Gestione Tirocinante");
             break;
+        case 'paymentManagement.jsp':
+            $("#paymentManagementMenuEl").css("background-color", "#444");
+            $("#paymentManagementMenuEl").css("color", "#FFFFFF");
+            $("#title").html("Gestione Pagamenti");
             
     }
 }

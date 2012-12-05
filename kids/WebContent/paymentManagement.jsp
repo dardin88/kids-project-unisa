@@ -30,6 +30,7 @@
 
         <script type="text/javascript">
             $(document).ready(function() {
+                activePage();
                 messageDialog();
                 initializePaymentsPage();
             });
