@@ -14,7 +14,7 @@ function buildAccountTable(){
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": "GetTableAccountSecretary", //cambiare qui con la mia servlet
+        "sAjaxSource": "GetTableClassServlet", 
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
@@ -61,10 +61,10 @@ function buildAccountTable(){
         },
         "aoColumns": [
         {
-            "sWidth": "15%"
+            "sWidth": "50%"
         },
         {
-            "sWidth": "15%"
+            "sWidth": "50%"
         }
         ]
     });
