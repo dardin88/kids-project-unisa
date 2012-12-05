@@ -85,17 +85,18 @@ public class ModifyDateServlet extends HttpServlet {
                                     secondMinuti = 60;
                                     secondOra--;
                                 }
-                            }
-                            if (Math.abs(minuti) == 15) {
-                                if (firstMinuti == 0) {
-                                    firstMinuti = 60;
+
+
+                                if (firstMinuti == 15) {
+                                    firstMinuti = 75;
                                     firstOra--;
                                 }
-                                if (secondMinuti == 0) {
-                                    secondMinuti = 60;
+                                if (secondMinuti == 15) {
+                                    secondMinuti = 75;
                                     secondOra--;
                                 }
                             }
+
 
                             firstOra -= Ora;
                             firstMinuti -= Min;
@@ -116,6 +117,15 @@ public class ModifyDateServlet extends HttpServlet {
                                 secondMinuti = 0;
                                 secondOra++;
                             }
+                            if (firstMinuti == 75) {
+                                firstMinuti = 45;
+                                firstOra++;
+                            }
+                            if (secondMinuti == 75) {
+                                secondMinuti = 45;
+                                secondOra++;
+                            }
+
 
                             meeting.setFirstTime(firstOra + ":" + firstMinuti + ":00");
                             meeting.setSecondTime(secondOra + ":" + secondMinuti + ":00");
