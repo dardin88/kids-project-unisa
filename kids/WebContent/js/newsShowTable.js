@@ -31,6 +31,7 @@ function initializeLinksManager(){
             $(input).removeClass("ui-state-highlight");
         }
     });
+
     addNews(); 
 }
 
@@ -70,8 +71,7 @@ function updateNews(id,title,description,type,data,time){
   
     document.forms["updateNewsForm"].elements["dataNews"].value=data;        
     document.forms["updateNewsForm"].elements["oraNews"].value=time;        
-    //        document.forms["updateNewsForm"].elements["allegatoNews"].value=attached;   
-
+  
     $("#updateNewsForm").validate({
         rules: {
             nomeNews: {
@@ -123,7 +123,6 @@ function updateNews(id,title,description,type,data,time){
                 artefactTipo: $("#artefactTipo2").val(),
                 artefactData: $("#artefactData2").val(),
                 artefactOra: $("#artefactOra2").val(),
-                //  artefactAllegato: $("#artectAllegato2").val(),
                 idNews:""+id
             });
             $("#updateNewsWindow").dialog("close"); 
@@ -134,7 +133,6 @@ function updateNews(id,title,description,type,data,time){
             $("#artefactTitolo2").val("");
             $("#artefactData2").val("");
             $("#artefactOra2").val("");
-        //    $("#artefactAllegato2").val("");
         }
     });
     
@@ -201,10 +199,10 @@ function addNews(){
                 
             },
             submitHandler: function() {
-               var attached=$("#addLinkButton2").val();
-               var str=attached.split("\\");
-               var s=str[str.length-1];
-               $.post("InsertNews", {
+                var attached=$("#addLinkButton2").val();
+                var str=attached.split("\\");
+                var s=str[str.length-1];
+                $.post("InsertNews", {
                     artefactTitolo: $("#artefactTitolo").val(),
                     artefactDescrizione: $("#artefactDescrizione").val(),
                     artefactTipo: $("#artefactTipo").val(),
