@@ -30,8 +30,9 @@
             });
         </script>
     </head>
+    <%@include file="header.jsp" %>
 <body>
-        <%@include file="headerNews.jsp" %>
+        
             <div id="linksManagement">
                 <h1 style="font-size: 35px;text-align: center;"> Account </h1>
                 
@@ -45,18 +46,18 @@
                 <table id="accountsTable" style="width:95%;">
                     <thead>
                         <tr>
-                            <th>Matricola</th>
+                            <th>NickName</th>
                             <th>Nome</th>
                             <th>Cognome</th>
                             <th>Codice Fiscale</th>
                             <th>Tipo Account</th>
-                            <th>Operazione</th>
+                            <th>Operazione </th>
                         </tr>
                     </thead>
                     <tbody>
                     </tbody>
                 </table>
-                <form name="insertAccount" method="post" action="account.jsp" >
+                <form name="insertAccount" method="post" action="accountInsert.jsp" >
                      <input type="submit" id="addLinkButton" value="Inserisci Account" />
                 </form>
                 

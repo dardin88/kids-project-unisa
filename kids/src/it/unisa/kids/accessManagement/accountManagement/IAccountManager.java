@@ -10,4 +10,6 @@ public interface IAccountManager extends IManager {
 	public List<Account> search(Account pAccount) throws SQLException;
 	public Account delete(Account pAccount) throws SQLException;
 	public Account update(Account pAccount) throws SQLException;
+        public List<Account> getAllAccount() throws SQLException;
+
 }
