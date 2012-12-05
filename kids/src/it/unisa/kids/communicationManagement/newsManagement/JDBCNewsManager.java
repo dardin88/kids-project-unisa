@@ -208,14 +208,15 @@ public class JDBCNewsManager implements INewsManager
 		ResultSet rsNews=null;
 		try
 		{
-			connection=DBConnectionPool.getConnection();
-			String query = "select * from "+DBNames.TABLE_NEWS+" WHERE " + 
-                   DBNames.ATT_NEWS_DESCRIPTION + " like '%" +word+ "%'"
-                   + " or "+DBNames.ATT_NEWS_DATE+" like '%"+word+"%'"
-                   + " or "+DBNames.ATT_NEWS_TITLE+" like '%"+word+"%'"
-                   + " or "+DBNames.ATT_NEWS_TYPE+" like '%"+word+"%'"
-                        + " or "+DBNames.ATT_NEWS_TIME+" like '%"+word+"%'";
-			stmt=connection.createStatement();
+	                   connection = DBConnectionPool.getConnection();
+                    String query = "select * from " + DBNames.TABLE_NEWS + " WHERE "
+                            + DBNames.ATT_NEWS_DESCRIPTION + " like '%" + word + "%'"
+                            + " or " + DBNames.ATT_NEWS_DATE + " like '%" + word + "%'"
+                            + " or " + DBNames.ATT_NEWS_TITLE + " like '%" + word + "%'"
+                            + " or " + DBNames.ATT_NEWS_TYPE + " like '%" + word + "%'"
+                            + " or " + DBNames.ATT_NEWS_TIME + " like '%" + word + "%'"
+                            + " or " + DBNames.ATT_NEWS_ATTACHED + " like '%" + word + "%'";
+                    stmt = connection.createStatement();
 			rsNews=stmt.executeQuery(query);
 			while(rsNews.next())
 			{

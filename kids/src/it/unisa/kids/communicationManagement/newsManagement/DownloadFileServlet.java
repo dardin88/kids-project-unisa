@@ -4,12 +4,13 @@
  */
 package it.unisa.kids.communicationManagement.newsManagement;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author francesco
  */
-public class RemoveNewsServlet extends HttpServlet {
+public class DownloadFileServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -33,19 +34,35 @@ public class RemoveNewsServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            INewsManager am = JDBCNewsManager.getInstance();
-            String temp = request.getParameter("idNews");
-            int id = Integer.parseInt(temp);
-            News n = new News();
-            n.setId(id);
-            am.delete(n);
-        } catch (SQLException ex) {
-            Logger.getLogger(RemoveNewsServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            out.close();
+       
+        String uri = getServletContext().getRealPath("/") + "attached/";
+        String fileName=request.getParameter("nameFile");
+        uri+=fileName;
+        
+        File file = new File(uri);
+        FileInputStream fileInput = new FileInputStream(file);
+        response.setContentLength((int) file.length());
+        response.setContentType(getMimeType(file));
+        response.setHeader("Content-Disposition", "attachment; filename=\""+file.getName() + "\"");
+        ServletOutputStream out = response.getOutputStream();
+        BufferedOutputStream bufferOut = new BufferedOutputStream(out);
+        int b = 0;
+        byte[] bufferData = new byte[8192];
+        while ((b = fileInput.read(bufferData)) != -1) {
+            bufferOut.write(bufferData, 0, b);
         }
+        bufferOut.flush();
+        bufferOut.close();
+        out.close();
+        fileInput.close();
+    }
+
+    private String getMimeType(File file) {
+
+        MimetypesFileTypeMap mime = new MimetypesFileTypeMap();
+
+        return mime.getContentType(file);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

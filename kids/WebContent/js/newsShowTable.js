@@ -82,7 +82,6 @@ function updateNews(id,title,description,type,data,time){
             },
             selectNews:{
                 required:true,
-                //  equalTo:!"0"
                 remote:{
                     url:"VerifyTypeNews",
                     type: "post",
@@ -90,8 +89,7 @@ function updateNews(id,title,description,type,data,time){
                         valore:function(){
                             var valoreSelect=$("#selectNews").val();
                             return valoreSelect;
-                        //  var valoreOra=$("#selectNews").val();
-                        //  return valoreOra;
+                     
                         }
                           
                     }
@@ -101,19 +99,7 @@ function updateNews(id,title,description,type,data,time){
             },
             dataNews:{
                 required:true
-            }/*,
-                oraNews:{
-                    remote:{
-                        url:"VerifyTime",
-                        type: "post",
-                        data:{
-                            valore:function(){
-                                var valoreSelect=$("#selectNews").val();
-                                return valoreSelect;
-                            }
-                        }
-                    }
-                }*/
+            }
         },
         messages: {
             nomeNews: {
@@ -128,11 +114,7 @@ function updateNews(id,title,description,type,data,time){
             },
             dataNews:{
                 required:"Selezionare la data"
-            }/*,
-                oraNews:{
-                    remote:"Ora obbligatoria"
-                }
-               */ 
+            }
         },
         submitHandler: function() {
             $.post("UpdateNews", {
@@ -141,7 +123,7 @@ function updateNews(id,title,description,type,data,time){
                 artefactTipo: $("#artefactTipo2").val(),
                 artefactData: $("#artefactData2").val(),
                 artefactOra: $("#artefactOra2").val(),
-              //  artefactAllegato: $("#artectAllegato2").val(),
+                //  artefactAllegato: $("#artectAllegato2").val(),
                 idNews:""+id
             });
             $("#updateNewsWindow").dialog("close"); 
@@ -164,8 +146,8 @@ function verifyOra(){
         document.getElementById("errOra").style.visibility="visible";       
 }
 function hiddenMessage(){
- if(document.getElementById("artefactOra")!=null)
-     document.getElementById("errOra").style.visibility="hidden";       
+    if(document.getElementById("artefactOra")!=null)
+        document.getElementById("errOra").style.visibility="hidden";       
 }
 
 
@@ -184,7 +166,6 @@ function addNews(){
                 },
                 selectNews:{
                     required:true,
-                    //  equalTo:!"0"
                     remote:{
                         url:"VerifyTypeNews",
                         type: "post",
@@ -192,8 +173,6 @@ function addNews(){
                             valore:function(){
                                 var valoreSelect=$("#selectNews").val();
                                 return valoreSelect;
-                            //  var valoreOra=$("#selectNews").val();
-                            //  return valoreOra;
                             }
                           
                         }
@@ -203,19 +182,7 @@ function addNews(){
                 },
                 dataNews:{
                     required:true
-                }/*,
-                oraNews:{
-                    remote:{
-                        url:"VerifyTime",
-                        type: "post",
-                        data:{
-                            valore:function(){
-                                var valoreSelect=$("#selectNews").val();
-                                return valoreSelect;
-                            }
-                        }
-                    }
-                }*/
+                }
             },
             messages: {
                 nomeNews: {
@@ -230,27 +197,22 @@ function addNews(){
                 },
                 dataNews:{
                     required:"Selezionare la data"
-                }/*,
-                oraNews:{
-                    remote:"Ora obbligatoria"
                 }
-               */ 
+                
             },
             submitHandler: function() {
-            //    var theForm = document.getElementsById("addLinkForm");
-              //  theForm.setAttribute("enctype", "multipart/form-data");
-               // $.post("UploadFile");
-
+               var attached=$("#addLinkButton2").val();
+               var str=attached.split("\\");
+               var s=str[str.length-1];
                $.post("InsertNews", {
                     artefactTitolo: $("#artefactTitolo").val(),
                     artefactDescrizione: $("#artefactDescrizione").val(),
                     artefactTipo: $("#artefactTipo").val(),
                     artefactData: $("#artefactData").val(),
                     artefactOra: $("#artefactOra").val(),
-                    artefactAllegato: $("#artectAllegato").val()
-
+                    attachedName:s
                 });
-                document.getElementById("addLinkForm").action="UploadFile";
+                
                 $("#addLinkWindow").dialog("close"); 
                 var oTable = $("#linksTable").dataTable();
                 oTable.fnDraw();
@@ -260,6 +222,8 @@ function addNews(){
                 $("#artefactData").val("");
                 $("#artefactOra").val("");
                 $("#artefactAllegato").val("");
+                document.getElementById("addLinkForm").action="";
+
             }
         });
     });
@@ -300,22 +264,25 @@ function buildShowTable(){
         },
         "aoColumns": [
         {
-            "sWidth": "20%"
+            "sWidth": "15%"
         },
         {
-            "sWidth": "35%"
+            "sWidth": "28%"
+        },
+        {
+            "sWidth": "8%"
+        },
+        {
+            "sWidth": "8%"
         },
         {
             "sWidth": "15%"
+        },
+        {
+            "sWidth": "15%"  
         },
         {
             "sWidth": "10%"
-        },
-        {
-            "sWidth": "25%"
-        },
-        {
-            "sWidth": "15%"
         }
         
         ],
@@ -327,4 +294,9 @@ function buildShowTable(){
     if (oTable.length > 0) {
         $("#linkTable").css("width", "100%");
     }
+}
+
+function cambiaAction(){
+    document.getElementById("addLinkForm").action="UploadFile";
+
 }

@@ -20,16 +20,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+
 /**
  *
  * @author francesco
  */
-@WebServlet(name = "UploadFileServlet", urlPatterns = {"/UploadFile"})
+//@WebServlet(name = "UploadFileServlet", urlPatterns = {"/UploadFile"})
 @MultipartConfig
 public class UploadFileServlet extends HttpServlet {
 
-    private static final Logger LOGGER =Logger.getLogger(UploadFileServlet.class.getCanonicalName());
-    
+    private static final Logger LOGGER = Logger.getLogger(UploadFileServlet.class.getCanonicalName());
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -43,49 +44,12 @@ public class UploadFileServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-//        PrintWriter pw = response.getWriter();
-//        
-//      //  System.out.print(getServletContext().getRealPath("/")+"attached");
-//      
-//        DiskFileUpload fileUpload = new DiskFileUpload();
-//        List list = null;
-//        try {
-//            list = fileUpload.parseRequest(request);
-//        } catch (FileUploadException ex) {
-//            throw new ServletException("Wrapped", ex);
-//        }
-//        Iterator iter = list.iterator();
-//
-//        while (iter.hasNext()) {
-//            FileItem item = (FileItem) iter.next();
-//            if (!item.isFormField()) {
-//                File itemFile = new File(item.getName());
-//                File destDir = new File(getServletContext().getRealPath("/")+"attached");
-//                if (!destDir.exists()) {
-//                    destDir.mkdirs();                    
-//                }
-//                File destFile = new File(getServletContext().getRealPath("/")
-//                        + "attached" + File.separator + itemFile.getName());
-//                pw.println(item);
-//                pw.println(destFile);
-//                System.out.println(destFile);
-//                try {
-//                    item.write(destFile);
-//                } catch (Exception ex) {
-//                    //throw new ServletException("Wrapped",ex);
-//                    pw.println(ex.getMessage());
-//                }
-//            }
-//        }
-//        pw.close();
-
+        
         // Create path components to save the file
-        final String path = getServletContext().getRealPath("/")+"attached";
-        System.out.print(path);
-        final Part filePart = request.getPart("file");
+        final String path = getServletContext().getRealPath("/") + "attached";
+        final Part filePart = request.getPart("scegliFile");
         final String fileName = getFileName(filePart);
-        System.out.print(path+fileName);
-
+    
         OutputStream out = null;
         InputStream filecontent = null;
         final PrintWriter writer = response.getWriter();
@@ -100,16 +64,22 @@ public class UploadFileServlet extends HttpServlet {
             while ((read = filecontent.read(bytes)) != -1) {
                 out.write(bytes, 0, read);
             }
-            writer.println("New file " + fileName + " created at " + path);
-            LOGGER.log(Level.INFO, "File{0}being uploaded to {1}", 
+           // writer.println("New file " + fileName + " created at " + path);
+            LOGGER.log(Level.INFO, "File{0}being uploaded to {1}",
                     new Object[]{fileName, path});
+           writer.println("<script language=\"javascript\" type=\"text/javascript\">");
+            writer.println("var fileName = " + fileName + ";");
+            
+            request.getSession().setAttribute("nameFile", fileName);
+           //request.getServletContext().getRequestDispatcher("/newsShowTable.jsp").forward(request, response);
+           response.sendRedirect("/kids/newsShowTable.jsp");
 
         } catch (FileNotFoundException fne) {
-            writer.println("You either did not specify a file to upload or are " +
-                   "trying to upload a file to a protected or nonexistent location.");
+            writer.println("You either did not specify a file to upload or are "
+                    + "trying to upload a file to a protected or nonexistent location.");
             writer.println("<br/> ERROR: " + fne.getMessage());
 
-            LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}", 
+            LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}",
                     new Object[]{fne.getMessage()});
         } finally {
             if (out != null) {
@@ -136,6 +106,7 @@ public class UploadFileServlet extends HttpServlet {
         return null;
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
     /**
      * Handles the HTTP
      * <code>GET</code> method.
