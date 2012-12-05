@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +25,7 @@ import org.json.JSONObject;
  *
  * @author PC
  */
+@WebServlet(name = "ServletGetTableRegistartionChild", urlPatterns = {"/GetTableRegistrationChild"})
 public class ServletGetTableRegistrationChild extends HttpServlet {
     private IRegistrationChildManager registrationChildManager;
 
@@ -103,6 +105,8 @@ public class ServletGetTableRegistrationChild extends HttpServlet {
                             + "<input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/zoo.png' onclick='viewDetailsRegistrationChild(\""+regChildRequest.getId()+"\")'/>";
                     ja.put(operazioni);
                     array.put(ja);
+                                System.out.println(array.length());
+
                 }
             }
             result.put("sEcho", sEcho);
@@ -114,7 +118,6 @@ public class ServletGetTableRegistrationChild extends HttpServlet {
                     "private, no-store, no-cache, must-revalidate");
             response.setHeader("Pragma", "no-cache");
             out.print(result);
-            System.out.println(result);
         } catch(SQLException ex) {
             Logger.getLogger(ServletGetTableRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
