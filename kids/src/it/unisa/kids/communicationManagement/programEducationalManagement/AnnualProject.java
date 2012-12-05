@@ -19,7 +19,7 @@ public class AnnualProject
 	private String applicationYear;
 
 	private int id;
-        private MailManager email;
+       // private MailManager email;
         
         
 	public AnnualProject()
