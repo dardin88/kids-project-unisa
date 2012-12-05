@@ -177,7 +177,6 @@ public class JDBCNewsManager implements INewsManager
 		{
 			connection=DBConnectionPool.getConnection();
 			query="update "+DBNames.TABLE_NEWS+" set "+DBNames.ATT_NEWS_DATE+"='"+new Date(pNews.getDate().getTimeInMillis())+"',"+
-					DBNames.ATT_NEWS_ATTACHED+"='"+pNews.getAttached()+"',"+
 					DBNames.ATT_NEWS_DELEGATEACCOUNT+"="+pNews.getDelegate()+","+
 					DBNames.ATT_NEWS_DESCRIPTION+"='"+pNews.getDescription()+"',"+
 					DBNames.ATT_NEWS_TIME+"='"+pNews.getTime()+"',"+DBNames.ATT_NEWS_TITLE+"='"+pNews.getTitle()+"',"+

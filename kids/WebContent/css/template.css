@@ -31,6 +31,7 @@ p {
     text-align: center;
 }
 
+
 a {
     text-decoration: none;
 }
@@ -73,6 +74,7 @@ form.cmxform label.error {
     color: red;
     font-weight: bold;
     text-align: center;
+    margin-left: 1%;
 }
 
 div.error {
@@ -289,7 +291,7 @@ div#navigation li{
 * linksTable.jsp
 */
 .artefactSelect {
-    width: 70%;
+    width: 35%;
     padding: 2px;
     margin-left: 5%;
 }
