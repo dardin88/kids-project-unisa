@@ -4,7 +4,6 @@
  */
 package it.unisa.kids.accessManagement.classManagement;
 
-import it.unisa.kids.accessManagement.accountManagement.IAccountManager;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
