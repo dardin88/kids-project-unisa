@@ -75,6 +75,9 @@ public final class DBNames {
     //ClassTable's attributes
     public static final String ATT_CLASS_ID = "Id";
     public static final String ATT_CLASS_NAME = "Nome";
+    public static final String ATT_CLASS_STATE = "Stato";
+    public static final String ATT_CLASS_ENUM_STATE_DRAFT = "bozza";
+    public static final String ATT_CLASS_ENUM_STATE_SUBMITTED = "sottomessa";
     //ClassificationTable's attributes
     public static final String ATT_CLASSIFICATION_ID = "Id";
     public static final String ATT_CLASSIFICATION_NAME = "Nome";

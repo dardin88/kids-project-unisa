@@ -10,8 +10,9 @@ public class ClassBean {
 	private int idClasse;
 	private String className;
 	private List<Educator> educatori;				
-	private List<RegistrationChild> bambini;					
-	
+	private List<RegistrationChild> bambini;
+        private String state;
+
 	public ClassBean()  {   }        
         
         public ClassBean(String name,ArrayList<Educator> educa,ArrayList<RegistrationChild> bamb)
@@ -52,4 +53,12 @@ public class ClassBean {
 	public void setBambini(List<RegistrationChild> bambini) {
 		this.bambini = bambini;
 	}
+        
+        public void setState(String state) {
+            this.state = state;
+        }
+
+        public String getState() {
+            return state;
+        }
 }
