@@ -100,6 +100,10 @@ public class JDBCClassManager implements IClassManager{
                   {
                         query+=useAnd(andState)+"'"+DBNames.ATT_CLASS_STATE+"'='"+pClass.getState()+"'";
                   }
+                  if (andState==false)
+                  {
+                      query+=("1");
+                  }
 		  
 		  query=query+";";
 		  
