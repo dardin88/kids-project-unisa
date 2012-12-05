@@ -23,6 +23,22 @@ function initializeLinksManager(){
     });
     $("#saveButton").button();
     $("#informationTraineeWindow").dialog({
+        close: function( event, ui ) {
+            document.getElementById("modifyButton").style.visibility="visible";
+            document.getElementById("saveChanges").style.visibility="hidden";
+            document.getElementById("RegisterInf").disabled=true;
+            document.getElementById("NameInf").disabled=true;
+            document.getElementById("SurnameInf").disabled=true;
+            document.getElementById("BirthDateInf").disabled=true;
+            document.getElementById("CityOfBirthInf").disabled=true;
+            document.getElementById("CityOfResidenceInf").disabled=true;
+            document.getElementById("AddressInf").disabled=true;
+            document.getElementById("CAPInf").disabled=true;
+            document.getElementById("TelephoneNumberInf").disabled=true;
+            document.getElementById("EmailInf").disabled=true;
+            document.getElementById("QualificationInf").disabled=true;
+        },
+
         autoOpen:false,
         modal:true,
         resizable:false,
@@ -126,25 +142,25 @@ function search(){
         
 }
 function loadInformationTraineePage(id){
-        $("#informationTraineeWindow").dialog("open");
-        $.post("GetTrainees", {
-            traineeId:""+id
-        },function(data){
+    $("#informationTraineeWindow").dialog("open");
+    $.post("GetTrainees", {
+        traineeId:""+id
+    },function(data){
 
-                var result = data.split(",");
-                $("#RegisterInf").val(result[0]);
-                $("#NameInf").val(result[1]);
-                $("#SurnameInf").val(result[2]);
-                $("#BirthDateInf").val(result[3]);
-                $("#CityOfBirthInf").val(result[4]);
-                $("#CityOfResidenceInf").val(result[5]);
-                $("#AddressInf").val(result[6]);
-                $("#CAPInf").val(result[7]);
-                $("#TelephoneNumberInf").val(result[8]);
-                $("#EmailInf").val(result[9]);
-                $("#QualificationInf").val(result[10]);
-                $("#IdInf").val(result[11]);
-            });
+        var result = data.split(",");
+        $("#RegisterInf").val(result[0]);
+        $("#NameInf").val(result[1]);
+        $("#SurnameInf").val(result[2]);
+        $("#BirthDateInf").val(result[3]);
+        $("#CityOfBirthInf").val(result[4]);
+        $("#CityOfResidenceInf").val(result[5]);
+        $("#AddressInf").val(result[6]);
+        $("#CAPInf").val(result[7]);
+        $("#TelephoneNumberInf").val(result[8]);
+        $("#EmailInf").val(result[9]);
+        $("#QualificationInf").val(result[10]);
+        $("#IdInf").val(result[11]);
+    });
 
 }
 

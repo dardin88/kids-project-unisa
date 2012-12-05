@@ -69,3 +69,19 @@ function buildTraineeConvocationTable(){
         ]
     });
 }
+
+function updateParticipation(id,check){
+    if(check.checked){
+        $.post("ModifyTraineeConvocation",{
+            id:id,
+            checked:true
+        })
+    }
+    else{
+        $.post("ModifyTraineeConvocation",{
+            id:id,
+            checked:false
+        })
+    }
+    
+}

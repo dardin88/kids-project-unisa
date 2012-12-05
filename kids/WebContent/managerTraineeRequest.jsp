@@ -42,9 +42,9 @@
         <title>Inserisci richiesta di tirocinanti</title>
     </head>
     <div id="requestInformation" title="Attivit&agrave">
-        <form action="RemoveTraineeActivity" method="post">
+        <form id="modifyInformation"action="RemoveTraineeRequest" method="post">
             <table style="padding-bottom: 20px;">
-                <input type="hidden" name="id" id="id">
+                <input type="hidden" name="id" id="idRequest">
                 <tr><td>Numero di tirocinanti*</td><td><input type="text" name="NumeroTirocinanti" id="TraineeNumber"disabled></td></tr>
                 <tr><td>Data*</td><td><input type="text" name="Data" id="DateRequest"disabled></td></tr>
                 <tr><td>Attivit&agrave*</td><td><input type="text" name="Attivita" id="Activity"disabled></td></tr>
@@ -52,7 +52,7 @@
                 <tr><td>Ora di fine*</td><td><input type="text" name="OraFine" id="EndTimeRequest"disabled></td></tr>
 
             </table>
-            <input type="submit" name="removeRequest" id="removeRequest" value="Rimuovi"style="float:right">
+            <input type="submit" value="Salva" id="saveButton" style="visibility: hidden"><input type="button" value="Modifica" onclick="modifyDialog()" id="modifyButton"><input type="submit" name="removeRequest" id="removeRequest" value="Rimuovi"style="float:right">
         </form>
     </div>
     <div id="insertTraineeRequest" title="Richiesta di tirocinanti" style="display:inline">

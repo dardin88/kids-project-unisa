@@ -116,13 +116,12 @@ private ITrainingManager trainingManager;
                     ja.put(date);
                     ja.put(traineeConvocation.getStartTime().getHours()+":"+traineeConvocation.getStartTime().getMinutes());
                     ja.put(traineeConvocation.getEndTime().getHours()+":"+traineeConvocation.getEndTime().getMinutes());
-                   String operazioni = "<input type='checkbox' name='convocation' value='"+traineeConvocation+"'></input>";
+                   String operazioni = "Partecipa?<input id=\""+traineeConvocation.getId()+"\"type='checkbox' onclick=\"updateParticipation('"+traineeConvocation.getId()+"',this)\"";
 
-                    String confirmed="";
                     if(traineeConvocation.getConfirmed()==0)
-                        confirmed="Non confermato";
+                        operazioni+="></input>";
                     else
-                        confirmed="Confermato";
+                        operazioni+="checked></input>";
                    // ja.put(confirmed);
                     ja.put(operazioni);
                     array.put(ja);
