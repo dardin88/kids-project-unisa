@@ -2,18 +2,24 @@ function initializeLinksManager(){
     $.ajaxSetup({
         cache: false
     });
-    $("#addLinkWindow").dialog({
+    $("#addCommunicationButton").button(); 
+    $("#addCommunicationWindow").dialog({
         autoOpen: false,
         modal: true,
         resizable: false,
         width: 600
     });
-    $("#addLinkButton").button();    
     $("#removeCommunicationWindow").dialog({
         autoOpen: false,
         modal: true,
         resizable: false,
         width: 400
+    });
+    $("#updateCommunicationWindow").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 700
     });
     $.validator.setDefaults({
         highlight: function(input) {
@@ -23,31 +29,13 @@ function initializeLinksManager(){
             $(input).removeClass("ui-state-highlight");
         }
     });
-    buildNeedCommunicationTable();
-    addNeedCommunication();
-}
-function removeCommunication(id){
-    $("#removeCommunicationWindow").dialog("open");
-    $("#notRemoveCommunicationButton").button();
-    $("#notRemoveCommunicationButton").click(function(){
-        $("#removeCommunicationWindow").dialog("close");
-    });
-    $("#removeCommunicationButton").button();
-    $("#removeCommunicationButton").click(function(){
-        $.post("RemoveCommunication",{
-            idCommunication:""+id
-        });
-         $("#removeCommunicationWindow").dialog("close");
-        var oTable = $("#linkTable").dataTable();
-        //alert(responseText);
-        oTable.fnDraw();
-    }) 
+    addNeedCommunication(); 
 }
 function addNeedCommunication(){
-    $("#addLinkButton").click(function() {
-        $("#addLinkWindow").dialog("open");
-        $("#addLinkButton2").button();
-        $("#addLinkForm").validate({
+    $("#addCommunicationButton").click(function() {
+        $("#addCommunicationWindow").dialog("open");
+        $("#addCommunicationButton2").button();
+        $("#addCommunicationForm").validate({
             rules: {
                 idEducator: {
                     required: true
@@ -65,7 +53,7 @@ function addNeedCommunication(){
                     required: true
                 }
             },
-messages: {
+            messages: {
                 idEducator: {
                     required: "Inserisci id Educatore."
                 },
@@ -82,7 +70,7 @@ messages: {
                     required: "Risolvi"
                 }
             },
-         submitHandler: function() {
+            submitHandler: function() {
              $.post("InsertNeedCommunication",{
                  idEducator: $("idEducator").val(),
                  idChild: $("idChild").val(),
@@ -90,8 +78,8 @@ messages: {
                  date: $("date").val(),
                  solved: $("solved").val()
                 });
-                $("#addLinkWindow").dialog("close"); 
-                var oTable = $("#linksTable").dataTable();
+                $("#addCommunicationWindow").dialog("close"); 
+                var oTable = $("#CommunicationTable").dataTable();
                 oTable.fnDraw();
                 $("idEducator").val("");
                 $("idChild").val("");
@@ -101,13 +89,95 @@ messages: {
             }
         });
     });
-}     
+}
+function removeCommunication(id){
+    $("#removeCommunicationWindow").dialog("open");
+    $("#notRemoveCommunicationButton").button();
+    $("#notRemoveCommunicationButton").click(function(){
+        $("#removeCommunicationWindow").dialog("close");
+    });
+    $("#removeCommunicationButton").button();
+    $("#removeCommunicationButton").click(function(){
+        $.post("RemoveCommunication",{
+            idCommunication:""+id
+        });
+         $("#removeCommunicationWindow").dialog("close");
+        var oTable = $("#CommunicationTable").dataTable();
+        oTable.fnDraw();
+    }) 
+}
+function updateCommunication(id,type,idEducator,idChild,description,data,solved){
+    $("#updateCommunicationWindow").dialog("open");
+    $("#selectFile").button();
+    $("#confirmUpdateCommunication").button();
+       
+    document.forms["updateCommunicationForm"].elements["idEducator"].value=idEducator;        
+    document.forms["updateCommunicationForm"].elements["idChild"].value=idChild;        
+    document.forms["updateCommunicationForm"].elements["description"].value=description;        
+    document.forms["updateCommunicationForm"].elements["date"].value=date;
+    document.forms["updateCommunicationForm"].elements["solved"].value=solved;
+  
+    $("#updateCommunicationForm").validate({
+        rules: {
+                idEducator: {
+                    required: true
+                },
+                idChild: {
+                    required: true
+                },
+                description: {
+                    required: true
+                },
+                date: {
+                    required: true
+                },
+                solved: {
+                    required: true
+                }
+            },
+            messages: {
+                idEducator: {
+                    required: "Inserisci id Educatore."
+                },
+                idChild: {
+                    required: "Inserisci id Bambino."
+                },
+                description: {
+                    required: "Inserisci descrizione"
+                },
+                date: {
+                    required: "Inserisci data"
+                },
+                solved: {
+                    required: "Risolvi"
+                }
+            },
+            submitHandler: function() {
+                $.post("UpdateCommunication", {
+                idEducator: $("idEducator").val(),
+                idChild: $("idChild").val(),
+                description: $("description").val(),
+                date: $("date").val(),
+                solved: $("solved").val(),
+                idNews:""+id               
+            });
+            $("#updateCommunicationWindow").dialog("close"); 
+            var oTable = $("#CommunicationTable").dataTable();
+            oTable.fnDraw();
+            $("idEducator").val("");
+            $("idChild").val("");
+            $("description").val("");
+            $("date").val("");
+            $("solved").val("");
+        }
+    });
+}
 function buildNeedCommunicationTable(){
-    $('#NeedCommunicationTable').dataTable({
+    $('#CommunicationTable').dataTable({
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": "GetNews",
+        "sAjaxSource": "GetCommunication",
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": true,
@@ -157,8 +227,8 @@ function buildNeedCommunicationTable(){
             $.post(sSource,aoData,fnCallback,"json");
         }
     });
-    var oTable = $("#NeedCommunicationTable").dataTable();
+    var oTable = $("#CommunicationTable").dataTable();
     if (oTable.length > 0) {
-            $("#NeedCommunicationTable").css("width", "100%");
+            $("#CommunicationTable").css("width", "100%");
     }
 }

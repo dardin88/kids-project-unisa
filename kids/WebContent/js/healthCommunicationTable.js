@@ -2,18 +2,24 @@ function initializeLinksManager(){
     $.ajaxSetup({
         cache: false
     });
-    $("#addLinkWindow").dialog({
+    $("#addCommunicationButton").button(); 
+    $("#addCommunicationWindow").dialog({
         autoOpen: false,
         modal: true,
         resizable: false,
         width: 600
     });
-    $("#addLinkButton").button();    
-   $("#removeCommunicationWindow").dialog({
+    $("#removeCommunicationWindow").dialog({
         autoOpen: false,
         modal: true,
         resizable: false,
         width: 400
+    });
+    $("#updateCommunicationWindow").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 700
     });
     $.validator.setDefaults({
         highlight: function(input) {
@@ -23,31 +29,13 @@ function initializeLinksManager(){
             $(input).removeClass("ui-state-highlight");
         }
     });
-    buildHealthCommunicationTable();
-    addHealthCommunication();
-}
-function removeCommunication(id){
-    $("#removeCommunicationWindow").dialog("open");
-    $("#notRemoveCommunicationButton").button();
-    $("#notRemoveCommunicationButton").click(function(){
-        $("#removeCommunicationWindow").dialog("close");
-    });
-    $("#removeCommunicationButton").button();
-    $("#removeCommunicationButton").click(function(){
-        $.post("RemoveCommunication",{
-            idCommunication:""+id
-        });
-         $("#removeCommunicationWindow").dialog("close");
-        var oTable = $("#linkTable").dataTable();
-        //alert(responseText);
-        oTable.fnDraw();
-    }) 
+    addHealthCommunication(); 
 }
 function addHealthCommunication(){
-    $("#addLinkButton").click(function() {
-        $("#addLinkWindow").dialog("open");
-        $("#addLinkButton2").button();
-        $("#addLinkForm").validate({
+    $("#addCommunicationButton").click(function() {
+        $("#addCommunicationWindow").dialog("open");
+        $("#addCommunicationButton2").button();
+        $("#addCommunicationForm").validate({
             rules: {
                 idEducator: {
                     required: true
@@ -76,15 +64,15 @@ function addHealthCommunication(){
                     required: "Inserisci data"
                 }
             },
-         submitHandler: function() {
+            submitHandler: function() {
              $.post("InsertHealthCommunication",{
                  idEducator: $("idEducator").val(),
                  idChild: $("idChild").val(),
                  description: $("description").val(),
                  date: $("date").val()
                 });
-                $("#addLinkWindow").dialog("close"); 
-                var oTable = $("#linksTable").dataTable();
+                $("#addCommunicationWindow").dialog("close"); 
+                var oTable = $("#CommunicationTable").dataTable();
                 oTable.fnDraw();
                 $("idEducator").val("");
                 $("idChild").val("");
@@ -93,13 +81,86 @@ function addHealthCommunication(){
             }
         });
     });
-}          
-function buildHealthCommunicationTable(){
-    $('#HealthCommunicationTable').dataTable({
+}
+function removeCommunication(id){
+    $("#removeCommunicationWindow").dialog("open");
+    $("#notRemoveCommunicationButton").button();
+    $("#notRemoveCommunicationButton").click(function(){
+        $("#removeCommunicationWindow").dialog("close");
+    });
+    $("#removeCommunicationButton").button();
+    $("#removeCommunicationButton").click(function(){
+        $.post("RemoveCommunication",{
+            idCommunication:""+id
+        });
+         $("#removeCommunicationWindow").dialog("close");
+        var oTable = $("#CommunicationTable").dataTable();
+        oTable.fnDraw();
+    }) 
+}
+function updateCommunication(id,type,idEducator,idChild,description,data){
+    $("#updateCommunicationWindow").dialog("open");
+    $("#selectFile").button();
+    $("#confirmUpdateCommunication").button();
+       
+    document.forms["updateCommunicationForm"].elements["idEducator"].value=idEducator;        
+    document.forms["updateCommunicationForm"].elements["idChild"].value=idChild;        
+    document.forms["updateCommunicationForm"].elements["description"].value=description;        
+    document.forms["updateCommunicationForm"].elements["date"].value=date;
+  
+    $("#updateCommunicationForm").validate({
+        rules: {
+                idEducator: {
+                    required: true
+                },
+                idChild: {
+                    required: true
+                },
+                description: {
+                    required: true
+                },
+                date: {
+                    required: true
+                }
+            },
+            messages: {
+                idEducator: {
+                    required: "Inserisci id Educatore."
+                },
+                idChild: {
+                    required: "Inserisci id Bambino."
+                },
+                description: {
+                    required: "Inserisci descrizione"
+                },
+                date: {
+                    required: "Inserisci data"
+                }
+            },
+            submitHandler: function() {
+                $.post("UpdateCommunication", {
+                idEducator: $("idEducator").val(),
+                idChild: $("idChild").val(),
+                description: $("description").val(),
+                date: $("date").val(),
+                idNews:""+id               
+            });
+            $("#updateCommunicationWindow").dialog("close"); 
+            var oTable = $("#CommunicationTable").dataTable();
+            oTable.fnDraw();
+            $("idEducator").val("");
+            $("idChild").val("");
+            $("description").val("");
+            $("date").val("");
+        }
+    });
+}
+function buildNeedCommunicationTable(){
+    $('#CommunicationTable').dataTable({
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": "GetNews",
+        "sAjaxSource": "GetCommunication",
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": true,
@@ -149,8 +210,8 @@ function buildHealthCommunicationTable(){
             $.post(sSource,aoData,fnCallback,"json");
         }
     });
-    var oTable = $("#HealthCommunicationTable").dataTable();
+    var oTable = $("#CommunicationTable").dataTable();
     if (oTable.length > 0) {
-            $("#HealthCommunicationTable").css("width", "100%");
+            $("#CommunicationTable").css("width", "100%");
     }
 }
