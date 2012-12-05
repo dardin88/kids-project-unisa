@@ -88,7 +88,6 @@ public class GetRequestCalendarServlet extends HttpServlet {
                 map.put("dateRequest",date);
                 map.put("startTime", hoursStart+":"+minutesStart);
                 map.put("endTime",hoursEnd+":"+minutesEnd);
-                map.put("acitivity",traineeRequest.getActivity());
                 map.put("start", start);
                 map.put("end", end);
                 map.put("allDay", false);

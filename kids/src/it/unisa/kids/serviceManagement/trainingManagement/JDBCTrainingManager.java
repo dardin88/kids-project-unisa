@@ -197,11 +197,47 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
     
      @Override
     public void update(TraineeRequest pTraineeRequest) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet.");
+         Connection con = null;
+        PreparedStatement pStmt = null;
+        String query;
+        try {
+            
+            con = DBConnectionPool.getConnection();
+            query = "UPDATE " + DBNames.TABLE_TRAINEEREQUEST + " SET " +DBNames.ATT_TRAINEEREQUEST_DATE+"=?,"+ DBNames.ATT_TRAINEEREQUEST_STARTTIME+"=?,"+DBNames.ATT_TRAINEEREQUEST_ENDTIME+"=? WHERE "+DBNames.ATT_TRAINEEREQUEST_ID+"=?" ;
+            pStmt = con.prepareStatement(query);
+            pStmt.setDate(1, new Date(pTraineeRequest.getDate().getTimeInMillis()));
+            pStmt.setTime(2, pTraineeRequest.getStartTime());
+            pStmt.setTime(3, pTraineeRequest.getEndTime());
+            pStmt.setInt(4, pTraineeRequest.getId());
+            
+            pStmt.executeUpdate();
+            con.commit();
+        } finally {
+            pStmt.close();
+            DBConnectionPool.releaseConnection(con);
+        }
     }
 
     @Override
     public void update(TraineeConvocation pTraineeConvocation) throws SQLException {
+        Connection con = null;
+        PreparedStatement pStmt = null;
+        String query;
+        try {
+            con = DBConnectionPool.getConnection();
+            query = "UPDATE " + DBNames.TABLE_TRAINEECONVOCATION + " SET " +DBNames.ATT_TRAINEECONVOCATION_CONFIRMED+"=? WHERE "+DBNames.ATT_TRAINEECONVOCATION_ID+"=?" ;
+            pStmt = con.prepareStatement(query);
+            pStmt.setInt(1, pTraineeConvocation.getConfirmed());
+            
+            pStmt.setInt(2, pTraineeConvocation.getId());
+            System.out.println("ciao");
+            
+            pStmt.executeUpdate();
+            con.commit();
+        } finally {
+            pStmt.close();
+            DBConnectionPool.releaseConnection(con);
+        }
     }
     /* (non-Javadoc)
      * @see it.unisa.kids.serviceManagement.trainingManagement.ITrainingManager#deleteTrainee(it.unisa.kids.serviceManagement.trainingManagement.Trainee)
@@ -238,7 +274,20 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
     
     @Override
     public void delete(TraineeRequest pTraineeRequest) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Connection con = null;
+        PreparedStatement pStmt = null;
+        String query;
+        try {
+            con = DBConnectionPool.getConnection();
+            query = "DELETE FROM " + DBNames.TABLE_TRAINEEREQUEST + " WHERE " + DBNames.ATT_TRAINEEREQUEST_ID + "=? ";
+            pStmt = con.prepareStatement(query);
+            pStmt.setInt(1, pTraineeRequest.getId());
+            pStmt.executeUpdate();
+            con.commit();
+        } finally {
+            pStmt.close();
+            DBConnectionPool.releaseConnection(con);
+        }
     }
 
     @Override
