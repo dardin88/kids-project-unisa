@@ -37,51 +37,50 @@
     <%@include file="header.jsp"%>
     <body id="bodyRegistration">
 
-
-        <h1  id="titleReg" align="center">Form di Registrazione</h1>
-
         <form id="registrationForm" class="cmxform"  action="" method="post">
             <fieldset id="registrationFieldSet">
                 <div id="artefactsManagement">
-                    <input type="text" id="register" name="Matricola" class="registrationField" style="visibility: hidden">
-                    <p class="formp">
-                        <label> <h3>Nome: </h3> </label>
-                        <input id="accountName" class="registrationField" type="text" name="Nome" size="50%">
-                    </p>
-                    <p class="formp">
-                        <label> <h3>Cognome:  </h3> </label>
-                        <input id="accountSurname" class="registrationField"type="text" name="Cognome">
-                    </p>
-                    <p class="formp">
-                        <label> <h3>Data di nascita:  </h3> </label>
-                        <input id="dateOfBirth" class="registrationField" type="text" name="DataNascita">
-                    </p>
-                    <p class="formp">
-                        <label> <h3>Comune di nascita:  </h3> </label>
-                        <input id="placeOfBirth" class="registrationField" type="text" name="ComuneNascita">
-                    </p>
-                    <p class="formp">
-                        <label> <h3>Codice Fiscale:  </h3> </label>
-                        <input id="taxCode" class="registrationField" type="text" name="CodiceFiscale">
-                    </p>
-                    <p class="formp">
-                        <label> <h3>Cittadinanza:  </h3> </label>
-                        <input id="citizenship" class="registrationField" type="text" name="Cittadinanza">
-                    </p>
-                    <p class="formp">
-                        <label> <h3>Comune di residenza:  </h3> </label>
-                        <input id="municipalityResidence" class="registrationField" type="text" name="ComuneResidenza">
-                    </p>
-                    <p class="formp">
-                        <label> <h3>Provincia Residenza:  </h3> </label>
-                        <input id="provinceResidence" class="registrationField" type="text" name="ProvinciaResidenza">
-                    </p>
-                    <p class="formp">
-                        <label> <h3>Indirizzo Residenza: </h3> </label>
-                        <input id="viaResidence" class="registrationField" type="text" name="IndirizzoResidenza">
-                    </p>
-                    <input type="submit" name="registrationButton" id="registrationButton" value="Avanti" />
+                    <h1  style="font-weight: bold; font-size: 30pt"id="titleReg" align="center">Form di Registrazione</h1><br>
+                    <input type="hidden" id="register" name="Matricola" class="registrationField" >
+                    <table style="margin-left: 5%; font-weight: bold; font-size: 10pt; float: left">
+                        <tr><td> Nome:
+                            <td> <p class="formp">
+                                    <input style="margin-left: 2%; width: 250px" id="accountName" class="registrationField" type="text" name="Nome" size="50%">
+                                </p> 
+                        <tr><td> Cognome: <td>       
+                                <p class="formp">
+                                    <input  style="margin-left: 2%; width: 250px" id="accountSurname" class="registrationField"type="text" name="Cognome">                                </p>
+                        <tr><td>  Data di nascita:<td>       
+                                <p class="formp">
+                                    <input style="margin-left: 2%; width: 250px" id="dateOfBirth" class="registrationField" type="text" name="DataNascita">
+                                </p>
+                        <tr><td> Comune di nascita: <td>       
+                                <p class="formp">
+                                    <input style="margin-left: 2%; width: 250px" id="placeOfBirth" class="registrationField" type="text" name="ComuneNascita">
+                                </p>
+                        <tr><td> CodiceFiscale: <td>       
+                                <p class="formp">
+                                    <input style="margin-left: 2%; width: 250px" id="taxCode" class="registrationField" type="text" name="CodiceFiscale">
+                                </p>
+                        <tr><td> Cittadinanza: <td>       
+                                <p class="formp">
+                                    <input style="margin-left: 2%; width: 250px" id="citizenship" class="registrationField" type="text" name="Cittadinanza">
+                                </p>
+                        <tr><td> Comune di residenza: <td>       
+                                <p class="formp">
+                                    <input style="margin-left: 2%; width: 250px" id="municipalityResidence" class="registrationField" type="text" name="ComuneResidenza">
+                                </p>
+                        <tr><td> Provincia Residenza: <td>       
+                                <p class="formp">
+                                    <input style="margin-left: 2%; width: 250px" id="provinceResidence" class="registrationField" type="text" name="ProvinciaResidenza">
+                                </p>
+                        <tr><td> Indirizzo Residenza:  <td>       
+                                <p class="formp">
+                                    <input style="margin-left: 2%; width: 250px" id="viaResidence" class="registrationField" type="text" name="IndirizzoResidenza">
+                                </p>
+                    </table>
                 </div>
+                <input style="width: 300px; margin-left: 7%" type="submit" name="registrationButton" id="registrationButton" value="Avanti" />
             </fieldset>
         </form>
         <%@include file="footer.jsp" %>
