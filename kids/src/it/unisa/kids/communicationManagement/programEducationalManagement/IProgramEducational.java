@@ -15,4 +15,6 @@ public interface IProgramEducational extends IManager
 	abstract void approvedChangesProposed() throws SQLException;
 	abstract void rejectChangedProposed() throws SQLException;
 
+    abstract void insertComment(CommentoBean toAdd) throws SQLException;
+
 }

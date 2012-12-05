@@ -16,8 +16,11 @@ import java.util.logging.Logger;
 public class Test {
     
     public static void main(String args[]){
-        JDBCProgramEducational manager=new JDBCProgramEducational();
+        IProgramEducational manager=JDBCProgramEducational.getInstance();
         CommentoBean toAdd=new CommentoBean();
+        toAdd.setTipoModifica("Lieve");
+        toAdd.setIdSezione(25);
+        toAdd.setIdAnnuale(43);
         toAdd.setIdAutore(23);
         toAdd.setContenuto("Succhiami la banana");
         try {
