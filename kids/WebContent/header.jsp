@@ -65,7 +65,7 @@
         </c:if>
 
         <c:if test="${sessionScope.user.getAccountType()=='Genitore'}">
-            
+
             <div class="div">
                 <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
             </div>
@@ -106,7 +106,7 @@
                 <li id="registrationChild"><a href="registrationChild.jsp">Gestione Domanda d'Iscrizione</a></li>
             </div>
         </c:if>
-        
+
         <c:if test="${sessionScope.user.getAccountType()=='Admin'}">  
             <div class="div">
                 <li id="meetingCalendarMenuEL"><a href="meetingCalendar.jsp">Gestione Riunioni</a></li>
