@@ -182,9 +182,17 @@
         <servlet-name>InsertTraineeRequestServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.InsertTraineeRequestServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DownloadFileServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.newsManagement.RemoveNewsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DownloadFileServlet</servlet-name>
+        <url-pattern>DownloadFile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetPaymentsTableServlet</servlet-name>
