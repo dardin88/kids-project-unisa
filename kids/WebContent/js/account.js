@@ -90,13 +90,19 @@ function buildAccountTable(){
         },
         "aoColumns": [
         {
-            "sWidth": "25%"
+            "sWidth": "15%"
         },
         {
-            "sWidth": "25%"
+            "sWidth": "15%"
         },
         {
-            "sWidth": "25%"
+            "sWidth": "15%"
+        },
+        {
+            "sWidth": "10%"
+        },
+        {
+            "sWidth": "10%"
         },
         {
             "sWidth": "10%"

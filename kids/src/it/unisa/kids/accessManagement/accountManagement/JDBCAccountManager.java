@@ -254,18 +254,18 @@ public class JDBCAccountManager implements IAccountManager {
                 andState = true;
             }
 
-            if (pAccount.getNickName() != null) {
+            if (pAccount.getNickName() != null && !pAccount.getNickName().equals("")) {
                 query = query + useAnd(andState) + DBNames.ATT_ACCOUNT_NICKNAME + " = ?";
                 andState = true;
             }
 
 
-            if (pAccount.getSurnameUser() != null) {
+            if (pAccount.getSurnameUser() != null && !pAccount.getSurnameUser().equals("")) {
                 query += useAnd(andState) + DBNames.ATT_ACCOUNT_SURNAMEUSER + " = ?";
                 andState = true;
             }
 
-            if (pAccount.getNameUser() != null) {
+            if (pAccount.getNameUser() != null && !pAccount.getNameUser().equals("")) {
                 query += useAnd(andState) + DBNames.ATT_ACCOUNT_NAME + " = ?";
                 andState = true;
             }
@@ -273,7 +273,7 @@ public class JDBCAccountManager implements IAccountManager {
 
 
 
-            if (pAccount.getTaxCode() != null) {
+            if (pAccount.getTaxCode() != null && !pAccount.getTaxCode().equals("")) {
                 query += useAnd(andState) + DBNames.ATT_ACCOUNT_TAXCODE + " = ?";
                 andState = true;
             }
@@ -283,7 +283,7 @@ public class JDBCAccountManager implements IAccountManager {
             }
 
 
-            if (pAccount.getAccountType() != null) {
+            if (pAccount.getAccountType() != null && !pAccount.getAccountType().equals("")) {
                 query += useAnd(andState) + DBNames.ATT_ACCOUNT_TYPEACCOUNT + " = ?";
             }
             pstmt = con.prepareStatement(query);
@@ -295,31 +295,31 @@ public class JDBCAccountManager implements IAccountManager {
                 i++;
             }
 
-            if (pAccount.getNickName() != null) {
+            if (pAccount.getNickName() != null && !pAccount.getNickName().equals("")) {
                 pstmt.setString(i, pAccount.getNickName());
                 i++;
             }
 
 
-            if (pAccount.getSurnameUser() != null) {
+            if (pAccount.getSurnameUser() != null && !pAccount.getSurnameUser().equals("")) {
                 pstmt.setString(i, pAccount.getSurnameUser());
                 i++;
             }
 
-            if (pAccount.getNameUser() != null) {
+            if (pAccount.getNameUser() != null && !pAccount.getNameUser().equals("")) {
                 pstmt.setString(i, pAccount.getNameUser());
                 i++;
             }
 
-            if (pAccount.getTaxCode() != null) {
+            if (pAccount.getTaxCode() != null && pAccount.getTaxCode().equals("")) {
                 pstmt.setString(i, pAccount.getTaxCode());
                 i++;
             }
-            if (pAccount.getState() != null) {
+            if (pAccount.getState() != null ) {
                 pstmt.setString(i, pAccount.getState());
                 i++;
             }
-            if (pAccount.getAccountType() != null) {
+            if (pAccount.getAccountType() != null && pAccount.getAccountType().equals("")) {
                 pstmt.setString(i, pAccount.getAccountType());
                 i++;
             }
@@ -331,7 +331,7 @@ public class JDBCAccountManager implements IAccountManager {
             // constructing payment list
             account = new ArrayList<Account>();
             while (rs.next()) {
-                                    System.out.println("here");
+                                    System.out.println("I'm here");
 
                 Account p = new Account();
                 p.setId(rs.getInt(DBNames.ATT_PAYMENT_ID));
@@ -412,97 +412,21 @@ public class JDBCAccountManager implements IAccountManager {
     }
     
     
-    public synchronized List<Account> searchForTable(Account pAccount) throws SQLException {
+    @Override
+   public List<Account> getAllAccount() throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        String query = null;
-        List<Account> account = null;
-        boolean andState = false;
-        System.out.println(pAccount.getId() + "," + pAccount.getNameUser() + "," + pAccount.getSurnameUser() + "," + pAccount.getNickName() + "," + pAccount.getAccountType());
-
+        List<Account> account = new ArrayList<Account>();
+        String query;
         try {
             con = DBConnectionPool.getConnection();
-
-            query = "SELECT * "
-                    + "FROM " + DBNames.TABLE_ACCOUNT
-                    + " WHERE ";
-             //LIKE '+"getNameUser()+"%'"//
-            
-            if (pAccount.getNickName() != null) {
-                query = query + useAnd(andState) + DBNames.ATT_ACCOUNT_NICKNAME + " = ?";
-                andState = true;
-            }
-
-
-            if (pAccount.getSurnameUser() != null) {
-                query += useAnd(andState) + DBNames.ATT_ACCOUNT_SURNAMEUSER + " = ?";
-                andState = true;
-            }
-
-            if (pAccount.getNameUser() != null) {
-                query += useAnd(andState) + DBNames.ATT_ACCOUNT_NAME + " = ?";
-                andState = true;
-            }
-
-
-
-
-            if (pAccount.getTaxCode() != null) {
-                query += useAnd(andState) + DBNames.ATT_ACCOUNT_TAXCODE + " = ?";
-                andState = true;
-            }
-            if (pAccount.getState() != null) {
-                query += useAnd(andState) + DBNames.ATT_ACCOUNT_STATE + " =?";
-                andState = true;
-            }
-
-
-            if (pAccount.getAccountType() != null) {
-                query += useAnd(andState) + DBNames.ATT_ACCOUNT_TYPEACCOUNT + " = ?";
-            }
+            query = "SELECT * FROM " + DBNames.TABLE_ACCOUNT;
             pstmt = con.prepareStatement(query);
-
-            // setting pstmt's parameters
-            int i = 1;		// index of pstmt first argument
-          
-            if (pAccount.getNickName() != null) {
-                pstmt.setString(i, pAccount.getNickName());
-                i++;
-            }
-
-
-            if (pAccount.getSurnameUser() != null) {
-                pstmt.setString(i, pAccount.getSurnameUser());
-                i++;
-            }
-
-            if (pAccount.getNameUser() != null) {
-                pstmt.setString(i, pAccount.getNameUser());
-                i++;
-            }
-
-            if (pAccount.getTaxCode() != null) {
-                pstmt.setString(i, pAccount.getTaxCode());
-                i++;
-            }
-            if (pAccount.getState() != null) {
-                pstmt.setString(i, pAccount.getState());
-                i++;
-            }
-            if (pAccount.getAccountType() != null) {
-                pstmt.setString(i, pAccount.getAccountType());
-                i++;
-            }
-
-            System.out.println(query);
-            rs = pstmt.executeQuery();
+            rs = pstmt.executeQuery(query);
             con.commit();
-
-            // constructing payment list
-            account = new ArrayList<Account>();
             while (rs.next()) {
-                Account p = new Account();
+            Account p = new Account();
                 p.setId(rs.getInt(DBNames.ATT_PAYMENT_ID));
                 p.setAccountType(rs.getString(DBNames.ATT_ACCOUNT_TYPEACCOUNT));
                 p.setNickName(rs.getString(DBNames.ATT_ACCOUNT_NICKNAME));
@@ -516,16 +440,9 @@ public class JDBCAccountManager implements IAccountManager {
                 Date date= new Date();
                 //getting Date from ResultSet and converting it to GregorianCalendar
                 GregorianCalendar dateBirth = new GregorianCalendar();
-
                 if((date=rs.getDate(DBNames.ATT_ACCOUNT_DATEOFBIRTH))!=null){
                 dateBirth.setTime(date);
                 p.setDataOfBirth(dateBirth);
-
-                if(rs.getDate(DBNames.ATT_ACCOUNT_DATEOFBIRTH)!=null){
-                    dateBirth.setTime(rs.getDate(DBNames.ATT_ACCOUNT_DATEOFBIRTH));
-                    p.setDataOfBirth(dateBirth);
-                }
-
                 }
                 else{
                 p.setDataOfBirth(null);
@@ -586,10 +503,6 @@ public class JDBCAccountManager implements IAccountManager {
         }
         return account;
     }
-    
-    
-    
-    
     
 
     private String useAnd(boolean pEnableAnd) {
@@ -887,4 +800,6 @@ public class JDBCAccountManager implements IAccountManager {
         }
         return account;
     }
+
+   
 }

@@ -62,6 +62,10 @@
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.AddAccountServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>GetTableAccountSecretaryServlet</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.accountManagement.GetTableAccountSecretaryServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>deleteAccountServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.DeleteAccountServlet</servlet-class>
     </servlet>
@@ -228,6 +232,10 @@
     <servlet-mapping>
         <servlet-name>AddAccountServlet</servlet-name>
         <url-pattern>/AddAccount</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>GetTableAccountSecretaryServlet</servlet-name>
+        <url-pattern>/GetTableAccountSecretary</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>deleteAccountServlet</servlet-name>
