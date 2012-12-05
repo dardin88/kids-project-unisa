@@ -9,17 +9,7 @@
 
 <div id="header">
     <input id="logo" type="image" src="img/logo.png" onclick="goToIndex()"/>
-
-    <c:if test="${sessionScope.user.getAccountType()=='Delegato scienze della formazione'}">
-        <span id="title">Delegato Scienze della formazione - Kids Project</span>
-    </c:if>
-    <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
-        <span id="title">Segreteria - Kids Project</span>
-    </c:if>
-    <c:if test="${sessionScope.user.getAccountType()=='Admin'}">
-        <span id="title">Amministratore - Kids Project</span>
-    </c:if>
-
+    <span id="title"></span>
     <span id="userMenu">
         <b class="userMenuEl"> Benvenuto ${sessionScope.user.getNameUser()}</b> 
         <u class="userMenuEl" id="logout" onclick="logout()" onmouseover="this.style.cursor='pointer';">Logout</u>
