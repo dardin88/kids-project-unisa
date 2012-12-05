@@ -30,11 +30,7 @@
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/template.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.ui.timepicker.css">
-
         <script type="text/javascript" src="js/jquery.ui.timepicker.js"></script>
-
-
-
         <script type="text/javascript" src="js/functions.js"></script>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

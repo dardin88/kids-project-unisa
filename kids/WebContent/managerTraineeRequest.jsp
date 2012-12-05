@@ -25,6 +25,8 @@
         <script type="text/javascript" src="js/managerTraineeRequest.js"></script>
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/jquery.ui.timepicker.css">
+        <script type="text/javascript" src="js/fullcalendar.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/fullcalendar.css">
 
         <script type="text/javascript" src="js/jquery.ui.timepicker.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -33,16 +35,31 @@
 
                 activePage();
                 initializeLinksManager();
+                createCalendar();
                 
             });
         </script>
         <title>Inserisci richiesta di tirocinanti</title>
     </head>
+    <div id="requestInformation" title="Attivit&agrave">
+        <form action="RemoveTraineeActivity" method="post">
+            <table style="padding-bottom: 20px;">
+                <input type="hidden" name="id" id="id">
+                <tr><td>Numero di tirocinanti*</td><td><input type="text" name="NumeroTirocinanti" id="TraineeNumber"disabled></td></tr>
+                <tr><td>Data*</td><td><input type="text" name="Data" id="DateRequest"disabled></td></tr>
+                <tr><td>Attivit&agrave*</td><td><input type="text" name="Attivita" id="Activity"disabled></td></tr>
+                <tr><td>Ora di inizio*</td><td><input type="text" name="OraInizio" id="StartTimeRequest"disabled></td></tr>
+                <tr><td>Ora di fine*</td><td><input type="text" name="OraFine" id="EndTimeRequest"disabled></td></tr>
+
+            </table>
+            <input type="submit" name="removeRequest" id="removeRequest" value="Rimuovi"style="float:right">
+        </form>
+    </div>
     <div id="insertTraineeRequest" title="Richiesta di tirocinanti" style="display:inline">
         <form id="information"action="InsertTraineeRequest" method="post">
             <table>
                 <input type="hidden" name="AccountDelegato" value="${sessionScope.user.getId()}">
-                <tr><td>Numero di tirocinanti*</td><td><input type="number" name="NumeroTirocinanti" id="traineeNumber"></td></tr>
+                <tr><td>Numero di tirocinanti*</td><td><input type="text" name="NumeroTirocinanti" id="traineeNumber"></td></tr>
                 <tr><td>Data*</td><td><input type="text" name="Data" id="date"></td></tr>
                 <tr><td>Attivit&agrave*</td><td><input type="text" name="Attivita" id="activity"></td></tr>
                 <tr><td>Ora di inizio*</td><td><input type="text" name="OraInizio" id="startTime"></td></tr>
@@ -54,8 +71,10 @@
     </div>
     <body>
         <%@include file="header.jsp" %>
-        <div id="managementTraineeRequest" >
+        <div id="traineeRequestManagement" >
             <input type="button" value="Inserisci richiesta di tirocinanti" id="InsertTraineeRequest" onClick="openInsertTraineeRequestDialog()">
+            <div id="calendar" style="height:500px ;width: 600px;padding-top: 20px;">
+            </div>
         </div>
         <%@include file="footer.jsp" %>
     </body>
