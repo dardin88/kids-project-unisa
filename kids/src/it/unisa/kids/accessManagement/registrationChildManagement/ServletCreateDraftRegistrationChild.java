@@ -55,7 +55,7 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
 
             String birthDate = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE);
             GregorianCalendar birth;
-            if(birthDate != null) {
+            if(!birthDate.equals("")) {
                 birth = parseGregorianCalendar(birthDate);
             } else {
                 birth = null;

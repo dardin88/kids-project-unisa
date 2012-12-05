@@ -64,6 +64,10 @@ public class TestRegistrationChildManager {
             System.out.println("La ricerca di tutti ha restituito " + list1.size() + " elementi");
             List<RegistrationChild> listId = test.search(selectById);
             System.out.println("La ricerca dell'id ha restituito " + listId.size() + " elementi");
+            // Stampo tutti gli elementi
+            for(RegistrationChild tmp : list1) {
+                System.out.println(tmp.getName() + " " + tmp.getSurname());
+            }
         } catch (SQLException ex) {
             System.out.println("Errore: " + ex.getMessage());
         }

@@ -75,7 +75,8 @@ function initializeRegistrationFields(){
                     FasciaUtenza: $("#FasciaUtenza").val()
                 });
                 $("#newRegistrationChildWindow").dialog("close");
-                alert("La bozza è stata salvata");
+                //alert("La bozza è stata salvata");
+                location.href = "./registrationChild.jsp";
             }
         });
     });
@@ -142,9 +143,6 @@ function initializeRegistrationFields(){
                     CodiceFiscale: $("#CodiceFiscale").val(),
                     Cittadinanza: $("#Cittadinanza").val(),
                     FasciaUtenza: $("#FasciaUtenza").val()
-                });
-                $.post("SubmitRegistrationChild?", {
-                    Id: $("#Id").val()
                 });
             }
         });
@@ -215,9 +213,6 @@ function createTableRegistrationChild() {
         },
         {
             "sWidth":"10%"
-        },
-        {
-            "sWidth": "10%"
         }
         ],
          "fnServerData": function (sSource, aoData, fnCallback){ 
