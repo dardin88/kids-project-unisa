@@ -1,6 +1,6 @@
 function initializeLinksManager2(){
     $("#avantiButton").button();
-    $("modifyButton").button();
+    $("#modifyButton").button();
     $("#eliminaButton").button();
 
     
@@ -117,6 +117,21 @@ function removeAccount(id){
         var oTable = $("#accountsTable").dataTable();
         oTable.fnDraw();
         location.href="./accountSecretary.jsp";
+    });
+    $("#notConfirmRemoveLinkButton").button();
+    $("#notConfirmRemoveLinkButton").click(function(){
+        $("#removeAccountWindow").dialog("close");
+    });
+}
+    function removeAccountParent(id){
+     $("#removeAccountWindow").dialog("open"); 
+    $("#confirmRemoveLinkButton").button();
+    $("#confirmRemoveLinkButton").click(function(){
+        $.post("DeleteAccount", {
+            id:""+id
+        });
+        $("#removeAccountWindow").dialog("close"); 
+        location.href="./index.jsp";
     });
     $("#notConfirmRemoveLinkButton").button();
     $("#notConfirmRemoveLinkButton").click(function(){

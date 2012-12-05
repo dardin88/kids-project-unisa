@@ -48,7 +48,7 @@
             <fieldset id="registrationFieldSet">
                 <div  id="artefactsManagement" >
                     <h1  style="text-align: center; font-size: 30pt; margin-bottom: 5%" >Dati Genitore</h1>  
-                    <input type="hidden" id="id" name="id" value="${id}" >
+                    <input type="text" id="id" name="id" value="${id}" >
                     <table style="margin-left: 5%; font-weight: bold; font-size: 10pt; float: left">
                         <tr><td> Matricola* 
                             <td> <p class="formp">
@@ -104,7 +104,7 @@
         <form id="information2" method="post" action="" >
             <input style="float: left; width: 150px; margin-right: 2%" type="button" name="Modifica" value="Modifica" id="modifyButton" onclick="modifyAccount(document.getElementById('id').value)" > </input>
     </form>
-    <input style="width: 150px" type="button" name="Elimina" value="Elimina" id="eliminaButton" onclick="removeAccount()"></input>
+                <input style="width: 150px" type="button" name="Elimina" value="Elimina" id="eliminaButton" onclick="removeAccountParent(document.getElementById('id').value)"></input>
 
 
 
@@ -121,9 +121,18 @@
             </c:if>        
         </c:if>--%>
     <%--rimozione account --%>
-    <div id="removeAccount" title="Rimozione">
-        <P> <h3> Attenzione! </h3> <br> vuoi davvero eliminare questo Account?<BR>
-        N.B. una volta confermato la scelta non potrai più tornare indietro!</P>
+  <div id="removeAccountWindow" title="Rimuovi Account" style="display: inline">
+        <form id="removeAccountForm" class="cmxform" method="post" action="">
+            <fieldset>
+                <p class="formp">
+                    <label class="requirementLabel">Sei sicuro di voler eliminare questo Account?</label>
+                </p>
+                <p class="formp">
+                    <input type="button" class="confirmRemoveButton" id="confirmRemoveLinkButton" value="Si"/>
+                    <input type="button" class="notConfirmRemoveButton" id="notConfirmRemoveLinkButton" value="No"/>
+                </p>
+            </fieldset>
+        </form>
     </div>
 
 
