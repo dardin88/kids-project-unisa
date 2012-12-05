@@ -34,6 +34,8 @@ public final class DBNames {
     public static final String TABLE_TRAINEEACTIVITY = "attivita_tirocinante";
     public static final String TABLE_REGISTER = "registro_scolastico";
     public static final String TABLE_ACTIVITYSECTIONDAILY="attivita_giornaliera_per_sezione";
+    public static final String TABLE_SURVEY = "questionario";
+    public static final String TABLE_SURVEYCOMPILED = "questionariocompilato";
     
     //Account's attributes
     public static final String ATT_ACCOUNT_REGISTER = "Matricola";
