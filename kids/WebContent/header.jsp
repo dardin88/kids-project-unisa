@@ -38,6 +38,12 @@
             <div class="div">
                 <li id="meetingCalendarMenuEL"><a href="meetingCalendar.jsp">Gestione Riunioni</a></li>
             </div>
+            <div class="div">
+                <li id="classification"><a href="classification.jsp">Gestione Graduatorie</a></li>
+            </div>
+            <div class="div">
+                <li id="registrationChild"><a href="registrationChild.jsp">Gestione Domanda d'Iscrizione</a></li>
+            </div>
         </c:if>
 
         <c:if test="${sessionScope.user.getAccountType()=='Tirocinante'}">
@@ -84,6 +90,9 @@
             <div class="div">
                 <li id="registrationChild"><a href="registrationChild.jsp">Gestione Domanda d'Iscrizione</a></li>
             </div>
+            <div class="div">
+                <li id="classification"><a href="classification.jsp">Gestione Graduatorie</a></li>
+            </div>
         </c:if>
 
         <c:if test="${sessionScope.user.getAccountType()=='Educatore'}">  
@@ -101,9 +110,6 @@
             </div>
             <div class="div">
                 <li id="accountParent"><a href="accountParent.jsp">Gestione Account</a></li>
-            </div>
-            <div class="div">
-                <li id="registrationChild"><a href="registrationChild.jsp">Gestione Domanda d'Iscrizione</a></li>
             </div>
         </c:if>
 

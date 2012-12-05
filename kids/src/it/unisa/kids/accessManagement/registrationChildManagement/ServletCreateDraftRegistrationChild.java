@@ -45,15 +45,21 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            System.out.println("ci sono");
             JDBCRegistrationChildManager registrationChildManager = JDBCRegistrationChildManager.getInstance();
 
             // Prelevo i dati necessari
             String surname = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_SURNAME);
+            System.out.println(request.getParameter(DBNames.ATT_REGISTRATIONCHILD_SURNAME));
             String name = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_NAME);
 
             String birthDate = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE);
-            GregorianCalendar birth = parseGregorianCalendar(birthDate);
-
+            GregorianCalendar birth;
+            if(birthDate != null) {
+                birth = parseGregorianCalendar(birthDate);
+            } else {
+                birth = null;
+            }
             String birthPlace = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_BIRTHPLACE);
             String fiscalCode = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_FISCALCODE);
             String citizenship = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_CITIZENSHIP);
@@ -92,7 +98,7 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
     }
 
         private GregorianCalendar parseGregorianCalendar(String pDate) throws ParseException {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat df = new SimpleDateFormat("yy-MM-dd");
         Date parsed = df.parse(pDate);
         GregorianCalendar date = new GregorianCalendar();
         date.setTime(parsed);
