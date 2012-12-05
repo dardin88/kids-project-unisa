@@ -183,7 +183,7 @@
     </servlet>
     <servlet>
         <servlet-name>DownloadFileServlet</servlet-name>
-        <servlet-class>it.unisa.kids.communicationManagement.newsManagement.DownloadNewsServlet</servlet-class>
+        <servlet-class>it.unisa.kids.communicationManagement.newsManagement.DownloadFileServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
