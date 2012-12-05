@@ -6,6 +6,9 @@ import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import it.unisa.kids.communicationManagement.programEducationalManagement.IDailyActivitySection;
+import java.sql.SQLException;
+import java.util.HashMap;
 
 /**
  * this class extends ProjectAnnualSection model an activity daily for section
@@ -15,73 +18,43 @@ import java.util.Set;
  */
 public class DailyActivitySection extends AnnualProjectSection 
 {
-	
+              
+            
+        
+    
+    
 	private int id;
 	private int idActivity;
 	private int idEducator;
 	private GregorianCalendar data;
 	private String notes;
-        private ChildrenList lista;
+        private int idSection;
+        Map<String,Value> childrenList;
+        private JDBCDailyActivity db;
         
-        public class ChildrenList{
-            public class ChildrenField<String, Boolean> implements Entry<String,Boolean>{
-            String name;
-            Boolean presence;
-            
-            public ChildrenField(){
-                
-            }
-                
-         /**
-	 * this method return the Name of the baby
-         * @return String Author
-	 */
-            public String getKey() {
-                return this.name;
-            }
-         /**
-	 * this method return true if the child was present false otherwise. 
-         * @return Boolean present?
-	 */
-            public Boolean getValue() {
-                return this.presence;
-            }
 
-	 /**
-	 * this method set the value of presence
-	 * @param present?
-         * @return boolean new value
-	 */
-            public Boolean setValue(Boolean value) {
-                this.presence=value;
-                return this.presence;
-            }
-            
-            }
-            
-            private ArrayList<ChildrenField> container;
-            
-            public ChildrenList(){
-                container=new ArrayList<ChildrenField>();
-                
-            }
-            
-            public int size(){
-                return container.size();
-            }
-            
-            public boolean insertList(int sectionId){
-                
-                /* metodo che prende in input l'Id della sezione e inserisce tutti i bambini della sezione nel registro
-                 * 
-                 */
-            }
-            public void setPresence(String name){
-                
-            }
+        
+	public DailyActivitySection(GregorianCalendar data, int idSection) throws SQLException{
+           db=new JDBCDailyActivity();
+           DailyActivitySection temp=db.showDailyActivitySection(data, idSection);
+           if(temp!=null){
+               this.id=temp.getId();
+               this.idActivity=temp.getIdActivity();
+               this.idEducator=temp.getIdEducator();
+               this.notes=temp.getNotes();
+           }
+           this.idSection=idSection;
+           this.data=data;
+           
+           
+           
             
         }
-	
+        
+        
+         public int getIdSection() {
+            return idSection;
+        }
 	/**
 	 * this method return the idActivity of the activity section daily
 	 * @return int idActivity
@@ -97,6 +70,13 @@ public class DailyActivitySection extends AnnualProjectSection
 	public synchronized void setIdActivity(int idActivity) {
 		this.idActivity = idActivity;
 	}
+        
+        public synchronized void setChildrenList() throws SQLException{
+            this.childrenList=db.showRegister(this.data, this.idSection);
+        }
+        public synchronized Map getChildrenList(){
+            return this.childrenList;
+        }
 	
 
     /**
@@ -161,4 +141,11 @@ public class DailyActivitySection extends AnnualProjectSection
     public synchronized int getId() {
         return id;
     }
-}
+
+    void setId(int aInt) {
+        this.id=aInt;
+    }
+    
+    
+    
+        }

@@ -1,12 +1,17 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package it.unisa.kids.communicationManagement.programEducationalManagement;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
+import it.unisa.kids.common.IManager;
 
-public interface IProjectAnnual extends IProgramEducational
-{
-	abstract void insertProjectAnnual(AnnualProject pAnnualProject) throws SQLException;
-	abstract ArrayList<AnnualProject> showProjectAnnual();
-	
-
+/**
+ *
+ * @author hp
+ */
+interface IProjectAnnual extends IManager {
+    
+    abstract 
+    
 }
