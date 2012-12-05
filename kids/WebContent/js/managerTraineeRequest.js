@@ -15,6 +15,12 @@ function initializeLinksManager(){
         resizable:false,
         width:400
     });
+    $("#requestInformation").dialog({
+        autoOpen:false,
+        modal:true,
+        resizable:false,
+        width:400
+    });
     $("#InsertTraineeRequest").button();
     $("#date").datepicker({
         dateFormat:"yy-mm-dd"
@@ -53,12 +59,17 @@ function initializeLinksManager(){
         showCloseButton: true       
 
     });
+    $("#removeRequest").button();
 }
 $(document).ready(function(){
     $("#information").validate({
         rules:
         {
-            NumeroTirocinanti:"required",
+            NumeroTirocinanti:{
+                required:true,
+                number:true
+                    
+            },
             Data:{
                 required:true,
                 date:true
@@ -132,4 +143,40 @@ function tpEndOnMinuteShowCallback(hour, minute) {
         return true;
     }
     return false;
+}
+function createCalendar(){
+    var layer;
+    $('#calendar').fullCalendar({
+        events:"GetRequestCalendar",
+
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+        },
+        eventClick: function(calEvent, jsEvent, view) {
+            $("#requestInformation").dialog("open");
+            document.getElementById("TraineeNumber").value=calEvent.traineeNumber;
+            document.getElementById("DateRequest").value=calEvent.dateRequest;
+            document.getElementById("Activity").value=calEvent.activity;
+            document.getElementById("StartTimeRequest").value=calEvent.startTime;
+            document.getElementById("EndTimeRequest").value=calEvent.endTime;
+        }
+    /* eventMouseover: function( event, jsEvent, view ) 
+        {
+            layer="<div name=\"dialog\" id=\"dialog\" style=\"width:400px;height:100px;background-color:grey;\"> Titolo:"+event.title+"<br>Data Inizio:"+event.start+"<br>Data Fine:"+event.end+"<br>Attivit&agrave:"+event.activity+"</div>";
+
+            $(this).append(layer);
+                        
+        },
+        eventMouseout: function(event,jsEvent,view){
+            var box = document.getElementById("dialog");
+                        
+
+            box.parentNode.removeChild(box);
+        }
+        */
+    })
+    
+                    
 }
