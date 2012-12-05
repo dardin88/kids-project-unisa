@@ -443,7 +443,7 @@ div#navigation li{
 }
 
 /*
- * PaymentManager
+ * PaymentManagement
  */
  
  #paymentsManagement {
@@ -458,9 +458,24 @@ div#navigation li{
      text-align: center;
  }
  
+ #paymentsManagement h2 {
+     font-size: 22px;
+     padding-top: 20px;
+     text-align: center;
+ }
+ 
  #searchParent {
      padding-bottom: 20px;
  }
+ 
+ .selectedParent {
+     font-size: 18px;
+ }
+ 
+ .selectedParent > span {
+     font-weight: bold;
+ }
+ 
  /*
  managerTraineeActivity
  */

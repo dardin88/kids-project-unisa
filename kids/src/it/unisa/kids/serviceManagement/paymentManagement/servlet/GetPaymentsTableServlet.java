@@ -73,10 +73,14 @@ public class GetPaymentsTableServlet extends HttpServlet {
             }
 
             PaymentBean searchPayment = checkSearchParameters(request);
+            searchPayment.setId(-1);                // setto a -1 cosi la search non considera l'id
+            searchPayment.setAmount(-1);            // idem
+            searchPayment.setDiscount(-1);          // idem
+            searchPayment.setChargeUsable(false);   // idem
+            searchPayment.setPaidUsable(false);     // idem
             List<PaymentBean> paymentsList = paymentManager.search(searchPayment);
+
             PaymentBean[] paginatePaymentSet;
-
-
             int linksNumber = paymentsList.size();
             if (linksNumber < amount) {
                 amount = linksNumber;
@@ -91,20 +95,24 @@ public class GetPaymentsTableServlet extends HttpServlet {
                     System.arraycopy(paymentsList.toArray(), start, paginatePaymentSet, 0, toShow);
                 }
                 for (PaymentBean payment : paginatePaymentSet) {
-                    JSONArray ja = new JSONArray();
-                    
-                    ja.put(unparseGregorianCalendar(payment.getExpDate()));
-                    ja.put(payment.getPaymentDescription());
+                    JSONObject jObj = new JSONObject();
                     
                     double amountPayment = payment.getAmount();
                     double discountPayment = payment.getDiscount();
-                    double amountDuePayment = amountPayment + (amountPayment * discountPayment / 100);
-                    ja.put(amountPayment);
-                    ja.put(discountPayment);
-                    ja.put(payment.getDiscountDescription());
-                    ja.put(amountDuePayment);
+                    double amountDuePayment = amountPayment - (amountPayment * discountPayment / 100);
                     
-                    array.put(ja);
+                    jObj.put("0", unparseGregorianCalendar(payment.getExpDate()));
+                    checkAddToJSON(jObj, "1", payment.getPaymentDescription());
+                    jObj.put("2", amountPayment);
+                    jObj.put("3", discountPayment);
+                    checkAddToJSON(jObj, "4", payment.getDiscountDescription());
+                    jObj.put("5", amountDuePayment);
+                    jObj.put("6", payment.isCharge());
+                    jObj.put("7", payment.isPaid());
+                    
+                    jObj.put("DT_RowId", "" + payment.getId());
+                    
+                    array.put(jObj);
                 }
             }
             result.put("sEcho", sEcho);
@@ -141,11 +149,19 @@ public class GetPaymentsTableServlet extends HttpServlet {
     
     private String unparseGregorianCalendar(GregorianCalendar pDate) {
         if (pDate != null) {
-            return pDate.get(GregorianCalendar.DAY_OF_MONTH) + "/"
-                    + (pDate.get(GregorianCalendar.MONTH) + 1) + "/"
-                    + pDate.get(GregorianCalendar.YEAR);
+            return pDate.get(GregorianCalendar.YEAR) + "-"
+                    + (pDate.get(GregorianCalendar.MONTH) + 1) + "-"
+                    + pDate.get(GregorianCalendar.DAY_OF_MONTH);
         } else {
             return null;
+        }
+    }
+    
+    private void checkAddToJSON(JSONObject jObj, String key, Object value) {
+        if (value != null) {
+            jObj.put(key, value);
+        } else {
+            jObj.put(key, JSONObject.NULL);
         }
     }
 

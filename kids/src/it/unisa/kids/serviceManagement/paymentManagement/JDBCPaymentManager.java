@@ -53,7 +53,7 @@ public class JDBCPaymentManager implements IPaymentManager {
                     + DBNames.ATT_PAYMENT_DESCRIPTION + ", "
                     + DBNames.ATT_PAYMENT_DISCOUNT + ", "
                     + DBNames.ATT_PAYMENT_DISCDESCRIPTION
-                    + ") VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    + ") VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             pstmt = con.prepareStatement(query);
 
@@ -87,38 +87,122 @@ public class JDBCPaymentManager implements IPaymentManager {
         PreparedStatement pstmt = null;
         String query = null;
 
+        boolean commaState = false;
+
         try {
             con = DBConnectionPool.getConnection();
 
-            // constructing query string
-            query = "UPDATE " + DBNames.TABLE_PAYMENT + " SET "
-                    + DBNames.ATT_PAYMENT_EXPDATE + " = ?, "
-                    + DBNames.ATT_PAYMENT_CHARGE + " = ?, "
-                    + DBNames.ATT_PAYMENT_DESCRIPTION + " = ?, "
-                    + DBNames.ATT_PAYMENT_AMOUNT + " = ?, "
-                    + DBNames.ATT_PAYMENT_PAID + " = ?, "
-                    + DBNames.ATT_PAYMENT_DISCOUNT + " = ?, "
-                    + DBNames.ATT_PAYMENT_DISCDESCRIPTION + " = ?, "
-                    + DBNames.ATT_PAYMENT_ORIGINACCOUNT + " = ?, "
-                    + DBNames.ATT_PAYMENT_PAYEE + " = ?, "
-                    + DBNames.ATT_PAYMENT_PARENTID + " = ? "
-                    + "WHERE " + DBNames.ATT_PAYMENT_ID + " = ?";
+            // constructing update query string
+            query = "UPDATE " + DBNames.TABLE_PAYMENT + " SET ";
+            if (pPayment.getExpDate() != null) {
+                query += DBNames.ATT_PAYMENT_EXPDATE + " = ?";
+                commaState = true;
+            }
 
+            if (pPayment.isChargeUsable()) {
+                query += useComma(commaState) + DBNames.ATT_PAYMENT_CHARGE + " = ?";
+                commaState = true;
+            }
+
+            if (pPayment.getPaymentDescription() != null) {
+                query += useComma(commaState) + DBNames.ATT_PAYMENT_DESCRIPTION + " = ?";
+                commaState = true;
+            }
+
+            if (pPayment.getAmount() >= 0) {
+                query += useComma(commaState) + DBNames.ATT_PAYMENT_AMOUNT + " = ?";
+                commaState = true;
+            }
+
+            if (pPayment.isPaidUsable()) {
+                query += useComma(commaState) + DBNames.ATT_PAYMENT_PAID + " = ?";
+                commaState = true;
+            }
+
+            if (pPayment.getDiscount() >= 0) {
+                query += useComma(commaState) + DBNames.ATT_PAYMENT_DISCOUNT + " = ?";
+                commaState = true;
+            }
+
+            if (pPayment.getDiscountDescription() != null) {
+                query += useComma(commaState) + DBNames.ATT_PAYMENT_DISCDESCRIPTION + " = ?";
+                commaState = true;
+            }
+
+            if (pPayment.getOriginAccount() != null) {
+                query += useComma(commaState) + DBNames.ATT_PAYMENT_ORIGINACCOUNT + " = ?";
+                commaState = true;
+            }
+
+            if (pPayment.getPayee() != null) {
+                query += useComma(commaState) + DBNames.ATT_PAYMENT_PAYEE + " = ?";
+                commaState = true;
+            }
+
+            if (pPayment.getParentId() > 0) {		// or >= 0 ???
+                query += useComma(commaState) + DBNames.ATT_PAYMENT_PARENTID + " = ?";
+                commaState = true;
+            }
+
+            query += " WHERE " + DBNames.ATT_PAYMENT_ID + " = ?";
             pstmt = con.prepareStatement(query);
 
             // setting pstmt's parameters
-            pstmt.setDate(1, new java.sql.Date(pPayment.getExpDate().getTimeInMillis()));
-            pstmt.setBoolean(2, pPayment.isCharge());
-            pstmt.setString(3, pPayment.getPaymentDescription());
-            pstmt.setDouble(4, pPayment.getAmount());
-            pstmt.setBoolean(5, pPayment.isPaid());
-            pstmt.setDouble(6, pPayment.getDiscount());
-            pstmt.setString(7, pPayment.getDiscountDescription());
-            pstmt.setString(8, pPayment.getOriginAccount());
-            pstmt.setString(9, pPayment.getPayee());
-            pstmt.setInt(10, pPayment.getParentId());
-            pstmt.setInt(11, pPayment.getId());
+            int i = 1;		// index of pstmt first argument
 
+            if (pPayment.getExpDate() != null) {
+                pstmt.setDate(i, new java.sql.Date(pPayment.getExpDate().getTimeInMillis()));
+                i++;
+            }
+
+            if (pPayment.isChargeUsable()) {
+                pstmt.setBoolean(i, pPayment.isCharge());
+                i++;
+            }
+
+            if (pPayment.getPaymentDescription() != null) {
+                pstmt.setString(i, pPayment.getPaymentDescription());
+                i++;
+            }
+
+            if (pPayment.getAmount() >= 0) {
+                pstmt.setDouble(i, pPayment.getAmount());
+                i++;
+            }
+
+            if (pPayment.isPaidUsable()) {
+                pstmt.setBoolean(i, pPayment.isPaid());
+                i++;
+            }
+
+            if (pPayment.getDiscount() >= 0) {
+                pstmt.setDouble(i, pPayment.getDiscount());
+                i++;
+            }
+
+            if (pPayment.getDiscountDescription() != null) {
+                pstmt.setString(i, pPayment.getDiscountDescription());
+                i++;
+            }
+
+            if (pPayment.getOriginAccount() != null) {
+                pstmt.setString(i, pPayment.getOriginAccount());
+                i++;
+            }
+
+            if (pPayment.getPayee() != null) {
+                pstmt.setString(i, pPayment.getPayee());
+                i++;
+            }
+
+            if (pPayment.getParentId() > 0) {		// or >= 0 ???
+                pstmt.setInt(i, pPayment.getParentId());
+                i++;
+            }
+
+            pstmt.setInt(i, pPayment.getId());
+
+            // executing update query
             pstmt.executeUpdate();
             con.commit();
         } finally {
@@ -129,6 +213,10 @@ public class JDBCPaymentManager implements IPaymentManager {
                 DBConnectionPool.releaseConnection(con);
             }
         }
+    }
+
+    private String useComma(boolean pEnableComma) {
+        return pEnableComma ? ", " : "";
     }
 
     public synchronized void delete(PaymentBean pPayment) throws SQLException {
@@ -180,8 +268,10 @@ public class JDBCPaymentManager implements IPaymentManager {
                 andState = true;
             }
 
-            query += useAnd(andState) + DBNames.ATT_PAYMENT_CHARGE + " = ?";
-            andState = true;
+            if (pPayment.isChargeUsable()) {
+                query += useAnd(andState) + DBNames.ATT_PAYMENT_CHARGE + " = ?";
+                andState = true;
+            }
 
             if (pPayment.getPaymentDescription() != null) {
                 query += useAnd(andState) + DBNames.ATT_PAYMENT_DESCRIPTION + " = ?";
@@ -193,11 +283,15 @@ public class JDBCPaymentManager implements IPaymentManager {
                 andState = true;
             }
 
-            query += useAnd(andState) + DBNames.ATT_PAYMENT_PAID + " = ?";
-            andState = true;
+            if (pPayment.isPaidUsable()) {
+                query += useAnd(andState) + DBNames.ATT_PAYMENT_PAID + " = ?";
+                andState = true;
+            }
 
-            query += useAnd(andState) + DBNames.ATT_PAYMENT_DISCOUNT + " = ?";
-            andState = true;
+            if (pPayment.getDiscount() >= 0) {
+                query += useAnd(andState) + DBNames.ATT_PAYMENT_DISCOUNT + " = ?";
+                andState = true;
+            }
 
             if (pPayment.getDiscountDescription() != null) {
                 query += useAnd(andState) + DBNames.ATT_PAYMENT_DISCDESCRIPTION + " = ?";
@@ -233,8 +327,10 @@ public class JDBCPaymentManager implements IPaymentManager {
                 i++;
             }
 
-            pstmt.setBoolean(i, pPayment.isCharge());
-            i++;
+            if (pPayment.isChargeUsable()) {
+                pstmt.setBoolean(i, pPayment.isCharge());
+                i++;
+            }
 
             if (pPayment.getPaymentDescription() != null) {
                 pstmt.setString(i, pPayment.getPaymentDescription());
@@ -246,11 +342,15 @@ public class JDBCPaymentManager implements IPaymentManager {
                 i++;
             }
 
-            pstmt.setBoolean(i, pPayment.isPaid());
-            i++;
+            if (pPayment.isPaidUsable()) {
+                pstmt.setBoolean(i, pPayment.isPaid());
+                i++;
+            }
 
-            pstmt.setDouble(i, pPayment.getDiscount());
-            i++;
+            if (pPayment.getDiscount() >= 0) {
+                pstmt.setDouble(i, pPayment.getDiscount());
+                i++;
+            }
 
             if (pPayment.getDiscountDescription() != null) {
                 pstmt.setString(i, pPayment.getDiscountDescription());
@@ -284,7 +384,7 @@ public class JDBCPaymentManager implements IPaymentManager {
 
                 //getting Date from ResultSet and converting it to GregorianCalendar
                 GregorianCalendar expDate = new GregorianCalendar();
-                expDate.setTime(rs.getDate(DBNames.ATT_PAYMENT_EXPDATE));
+                expDate.setTime(rs.getDate(DBNames.ATT_PAYMENT_EXPDATE));   // check di valori nulli non eseguito perche' expDate è NOT NULL nel DB
                 p.setExpDate(expDate);
 
                 p.setCharge(rs.getBoolean(DBNames.ATT_PAYMENT_CHARGE));
@@ -370,9 +470,9 @@ public class JDBCPaymentManager implements IPaymentManager {
 
     public synchronized void addCharge(PaymentBean pPayment) throws SQLException {
         IAccessFacade accessFacade = new AccessFacade();
-        
+
         Account parentAccount = accessFacade.getParentById(pPayment.getParentId());
-        
+
         String email = parentAccount.getEmail();
         String name = parentAccount.getNameUser();
         String surname = parentAccount.getSurnameUser();
