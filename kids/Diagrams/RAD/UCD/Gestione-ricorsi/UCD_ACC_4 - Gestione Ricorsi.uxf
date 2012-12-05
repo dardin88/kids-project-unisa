@@ -9,7 +9,7 @@
       <w>120</w>
       <h>120</h>
     </coordinates>
-    <panel_attributes>Delegato d'ufficio</panel_attributes>
+    <panel_attributes>Segreteria</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -43,7 +43,7 @@ fg=black</panel_attributes>
       <w>120</w>
       <h>40</h>
     </coordinates>
-    <panel_attributes>Inserisci un ricorso
+    <panel_attributes>Invia ricorso
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -55,7 +55,7 @@ fg=black</panel_attributes>
       <w>120</w>
       <h>40</h>
     </coordinates>
-    <panel_attributes>Ritira un ricorso</panel_attributes>
+    <panel_attributes>Ritira ricorso</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -88,7 +88,7 @@ fg=black</panel_attributes>
       <w>120</w>
       <h>40</h>
     </coordinates>
-    <panel_attributes>Ricerca un ricorso
+    <panel_attributes>Ricerca ricorso
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -111,7 +111,7 @@ fg=black</panel_attributes>
       <w>120</w>
       <h>40</h>
     </coordinates>
-    <panel_attributes>Accetta un ricorso</panel_attributes>
+    <panel_attributes>Accetta ricorso</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -133,7 +133,7 @@ fg=black</panel_attributes>
       <w>120</w>
       <h>40</h>
     </coordinates>
-    <panel_attributes>Rifiuta un ricorso</panel_attributes>
+    <panel_attributes>Rifiuta ricorso</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -155,7 +155,7 @@ fg=black</panel_attributes>
       <w>120</w>
       <h>40</h>
     </coordinates>
-    <panel_attributes>Visualizza un ricorso
+    <panel_attributes>Visualizza ricorso
 </panel_attributes>
     <additional_attributes/>
   </element>

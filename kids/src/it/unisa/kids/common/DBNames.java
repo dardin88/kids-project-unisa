@@ -7,6 +7,7 @@ public final class DBNames {
     public static final String TABLE_ACCOUNT = "account";
     public static final String TABLE_REGISTRATIONCHILD = "iscrizionebambino";
     public static final String TABLE_CLASSIFICATION = "graduatoria";
+    public static final String TABLE_CRITERIA = "criteripesati";    // conterrà i pesi in base al quale viene creata la graduatoria
     public static final String TABLE_RESULT = "esito";  // associazione tra graduatoria ed iscrizionebambino
     public static final String TABLE_RECOURSE = "ricorso";
     public static final String TABLE_RINUNCIA = "rinunce";
@@ -77,6 +78,10 @@ public final class DBNames {
     public static final String ATT_CLASSIFICATION_NAME = "Nome";
     public static final String ATT_CLASSIFICATION_DATA = "Data";
     public static final String ATT_CLASSIFICATION_STATUS = "Stato";
+    // CriteriaTable's attributes
+    public static final String ATT_CRITERIA_ID = "Id";
+    public static final String ATT_CRITERIA_DESCRIPTION = "Descrizione";
+    public static final String ATT_CRITERIA_WEIGHT = "Peso";
     //ResultTable's attributes
     public static final String ATT_RESULT_REGISTRATIONCHILDID = "Iscrizione";
     public static final String ATT_RESULT_CLASSIFICATIONID = "Graduatoria";
@@ -103,7 +108,8 @@ public final class DBNames {
     public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_CONFIRMED = "confermata";
     public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_UNACCEPTED = "rifiutata";
     public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_ACCEPTED = "accettata";
-    public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DELETED = "cancellata";
+    public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_COMPLETED = "completata";
+    public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DELETED = "eliminata";
     public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_RENOUNCED = "rinunciata";
     public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_RECOURSE = "ricorso";
     // Recourses's attributes

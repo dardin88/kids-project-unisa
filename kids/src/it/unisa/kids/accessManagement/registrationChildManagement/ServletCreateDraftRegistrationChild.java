@@ -45,7 +45,6 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            response.setContentType("text/html;charset=UTF-8");
             JDBCRegistrationChildManager registrationChildManager = JDBCRegistrationChildManager.getInstance();
 
             // Prelevo i dati necessari
@@ -86,10 +85,9 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
             registrationChild.setParentId(parentAccount.getId());
 
             // La inserisco nel db
-            registrationChildManager.create(registrationChild);
+            registrationChildManager.insert(registrationChild);
         } catch (SQLException ex) {
-            request.setAttribute("message", "Verfica i campi");
-            request.getServletContext().getRequestDispatcher("/createDraftRegistrationChild.jsp").forward(request, response);
+            Logger.getLogger(ServletCreateDraftRegistrationChild.class.getName()).log(Level.SEVERE, "SQL-Error: " + ex.getMessage(), ex);
         }
     }
 

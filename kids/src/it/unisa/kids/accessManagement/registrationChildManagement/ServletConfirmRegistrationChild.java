@@ -50,13 +50,15 @@ public class ServletConfirmRegistrationChild extends HttpServlet {
 
             // Prelevo i dati necessari
             String id = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_ID);
-            if(registrationChildManager.confirmRegistrationChild(Integer.parseInt(id)))
+            RegistrationChild tmpChild = new RegistrationChild();
+            tmpChild.setId(Integer.parseInt(id));
+            if(registrationChildManager.confirmRegistrationChild(tmpChild))
                 out.print("Conferma avvenuta correttamente");
             else
                 out.print("Conferma non riuscita");
         } catch (SQLException ex) {
             request.setAttribute("message", "Verfica i campi");
-            request.getServletContext().getRequestDispatcher("/viewRegistrationChild.jsp").forward(request, response);
+            request.getServletContext().getRequestDispatcher("/registrationChildViewAll.jsp").forward(request, response);
         }
     }
 

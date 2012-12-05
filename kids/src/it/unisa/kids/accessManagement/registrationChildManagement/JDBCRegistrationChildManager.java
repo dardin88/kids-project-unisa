@@ -1,16 +1,14 @@
 package it.unisa.kids.accessManagement.registrationChildManagement;
 
+import it.unisa.kids.accessManagement.classificationManagement.JDBCClassificationManager;
 import it.unisa.kids.common.DBNames;
 import it.unisa.storage.connectionPool.DBConnectionPool;
-
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -32,11 +30,12 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
         return manager;
     }
 
-    public synchronized RegistrationChild create(RegistrationChild child) throws SQLException {
+    public synchronized RegistrationChild insert(RegistrationChild child) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
 
-        String query = "INSERT INTO '"+DBNames.TABLE_REGISTRATIONCHILD + "' (" +
+        String query = "INSERT INTO " + DBNames.TABLE_REGISTRATIONCHILD + " (" +
+                      DBNames.ATT_REGISTRATIONCHILD_ID + ", " +
                       DBNames.ATT_REGISTRATIONCHILD_SURNAME + ", " +
                       DBNames.ATT_REGISTRATIONCHILD_NAME + ", " +
                       DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE + ", " +
@@ -49,19 +48,30 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
                       DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE + ", " +
                       DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID + ", " +
                       DBNames.ATT_REGISTRATIONCHILD_SECTIONID + ") " +
-                      "VALUES(?,?,?,?,?,?,?,?,?,?,?);"; // escludendo l'id i campi da inserire sono 12		
+                      "VALUES(NULL,?,?,?,?,?,?,?,?,?,?,?,?);"; // escludendo l'id i campi da inserire sono 12		
 
         try {
             con = DBConnectionPool.getConnection();
             pstmt = con.prepareStatement(query);
             pstmt.setString(1, child.getSurname());
             pstmt.setString(2, child.getName());
-            pstmt.setDate(3, new Date(child.getBirthDate().getTimeInMillis()));
+            Date tmp;
+            if(child.getBirthDate() != null)
+                tmp = new Date(child.getBirthDate().getTimeInMillis());
+            else
+                tmp = null;
+            
+            pstmt.setDate(3, tmp);
             pstmt.setString(4, child.getBirthPlace());
             pstmt.setString(5, child.getFiscalCode());
             pstmt.setString(6, child.getCitizenship());
             pstmt.setString(7, child.getUserRange());
-            pstmt.setDate(8, new Date(child.getRegistrationDate().getTimeInMillis()));
+            if(child.getRegistrationDate() != null)
+                tmp = new Date(child.getRegistrationDate().getTimeInMillis());
+            else
+                tmp = null;
+            
+            pstmt.setDate(8, tmp);
             pstmt.setString(9, child.getSickness());
             pstmt.setString(10, child.getRegistrationPhase());
             pstmt.setInt(11, child.getParentId());
@@ -79,15 +89,20 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
     public synchronized RegistrationChild delete(RegistrationChild child) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
-        String query = "DELETE FROM " + DBNames.TABLE_REGISTRATIONCHILD +
+        String query = "DELETE FROM " + DBNames.TABLE_REGISTRATIONCHILD + " " +
                             "WHERE " + DBNames.ATT_REGISTRATIONCHILD_ID + "=?;";
         try {
             con = DBConnectionPool.getConnection();
             pstmt = con.prepareStatement(query);
             pstmt.setInt(1, child.getId());
-            
+            /* Test della query
+            System.out.println(query);
+            //*/
             pstmt.executeUpdate();
             con.commit();
+            
+            // fase di notify (Observe Pattern) alla graduatoria
+            JDBCClassificationManager.getInstance().deleteResult(child);
         } finally {
             pstmt.close();
             DBConnectionPool.releaseConnection(con);
@@ -96,14 +111,13 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
         return child;
     }
 	  
-	  
     public synchronized List<RegistrationChild> search(RegistrationChild child) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet result = null;
-        List<RegistrationChild> listOfChildReg=new ArrayList<RegistrationChild>();		
+        List<RegistrationChild> listOfChildReg = new ArrayList<RegistrationChild>();		
         StringBuffer query = new StringBuffer("SELECT * " +
-                        "FROM " + DBNames.TABLE_REGISTRATIONCHILD+" " + 
+                        "FROM " + DBNames.TABLE_REGISTRATIONCHILD + " " + 
                         "WHERE ");				
         boolean andState = false;   // Necessario per controllare se all'interno della query va inserito AND
         
@@ -150,17 +164,22 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
         }
         if(child.getRegistrationPhase() != null) {
             query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE + "=?");
-            andState=true;
+            andState = true;
         }
         if(child.getParentId() > 0) {
             query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID + "=?");
-            andState=true;
+            andState = true;
         }
         if(child.getSectionId() > 0) {
             query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_SECTIONID + "=?");
+            andState = true;
         }
+        if(!andState)   // nel caso tutti i parametri sono null
+            query.append("1");
         query.append(";");
-
+        /* Test della query
+        System.out.println(query);
+        //*/
         try {
             con = DBConnectionPool.getConnection();
             pstmt = con.prepareStatement(query.toString());
@@ -259,24 +278,23 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
     private String useAnd(boolean pEnableAnd) {
         return pEnableAnd ? " AND " : " ";
     }
-	  
+
     public synchronized RegistrationChild update(RegistrationChild child) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
         String query = "UPDATE " + DBNames.TABLE_REGISTRATIONCHILD + " " + 
-                        "SET (" + DBNames.ATT_REGISTRATIONCHILD_SURNAME + ", " +
-                                DBNames.ATT_REGISTRATIONCHILD_NAME + ", " +
-                                DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE + ", " +
-                                DBNames.ATT_REGISTRATIONCHILD_BIRTHPLACE + ", " +
-                                DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + ", " +
-                                DBNames.ATT_REGISTRATIONCHILD_CITIZENSHIP + ", " +
-                                DBNames.ATT_REGISTRATIONCHILD_SICKNESS + ", " +
-                                DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONDATE + ", " +
-                                DBNames.ATT_REGISTRATIONCHILD_USERRANGE + ", " +
-                                DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE + ", " +
-                                DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID + ", " +
-                                DBNames.ATT_REGISTRATIONCHILD_SECTIONID + ") " +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
+                        "SET " + DBNames.ATT_REGISTRATIONCHILD_SURNAME + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_NAME + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_BIRTHPLACE + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_CITIZENSHIP + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_SICKNESS + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONDATE + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_USERRANGE + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_SECTIONID + "=? " +
                         "WHERE " + DBNames.ATT_REGISTRATIONCHILD_ID + "=?;"; 
 			
         try {
@@ -286,12 +304,21 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             // parameters of values
             pstmt.setString(1, child.getSurname());
             pstmt.setString(2, child.getName());
-            pstmt.setDate(3, new Date(child.getBirthDate().getTimeInMillis()));
+            Date tmp;
+            if(child.getBirthDate() != null)
+                tmp = new Date(child.getBirthDate().getTimeInMillis());
+            else
+                tmp = null;
+            pstmt.setDate(3, tmp);
             pstmt.setString(4, child.getBirthPlace());
             pstmt.setString(5, child.getFiscalCode());
             pstmt.setString(6, child.getCitizenship());
             pstmt.setString(7, child.getSickness());
-            pstmt.setDate(8, new Date(child.getRegistrationDate().getTimeInMillis()));
+            if(child.getRegistrationDate() != null)
+                tmp = new Date(child.getRegistrationDate().getTimeInMillis());
+            else
+                tmp = null;
+            pstmt.setDate(8, tmp);
             pstmt.setString(9, child.getUserRange());
             pstmt.setString(10, child.getRegistrationPhase());
             pstmt.setInt(11, child.getParentId());
@@ -299,7 +326,10 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
 
             // parameters of where
             pstmt.setInt(13, child.getId());
-
+            
+            /* Test della query
+            System.out.println(query);
+            //*/
             pstmt.executeUpdate();
             con.commit();
         } finally {
@@ -327,9 +357,9 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
         try {
             con = DBConnectionPool.getConnection();
             // constructing query string
-            query = "SELECT count(*) as NumberOfChild" +
-                            "FROM" + DBNames.TABLE_REGISTRATIONCHILD + ","+
-                            "WHERE" + DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID + "=?;";
+            query = "SELECT count(*) as NumberOfChild " +
+                            "FROM " + DBNames.TABLE_REGISTRATIONCHILD + " " +
+                            "WHERE " + DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID + "=?;";
 
             pstmt = con.prepareStatement(query);
             pstmt.setInt(1, parentId);
@@ -349,13 +379,12 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
         return num;
     }
     
-    private boolean changeRegistrationPhase(int registrationChildId, String phase) throws SQLException {
+    private boolean changeRegistrationPhase(RegistrationChild child, String phase) throws SQLException {
         boolean toReturn;
         Connection con = null;
         PreparedStatement pstmt = null;
         String query = "UPDATE " + DBNames.TABLE_REGISTRATIONCHILD + " " + 
-                        "SET (" + phase + ") " +
-                        "VALUES (?) " +
+                        "SET " + DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE + "=? " +
                         "WHERE " + DBNames.ATT_REGISTRATIONCHILD_ID + "=?;"; 
 			
         try {
@@ -363,8 +392,8 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             pstmt = con.prepareStatement(query);
 
             // parameters of values
-            pstmt.setString(1, DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_CONFIRMED);
-            pstmt.setInt(2, registrationChildId);
+            pstmt.setString(1, phase);
+            pstmt.setInt(2, child.getId());
             
             if(pstmt.executeUpdate() >= 1) // executeUpdate ritorna il numero di righe modificate
                 toReturn = true;
@@ -389,8 +418,8 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
      * @return true if confirmed correctly, false otherwise
      * @throws SQLException 
      */
-    public boolean confirmRegistrationChild(int registrationChildId) throws SQLException {
-        return changeRegistrationPhase(registrationChildId, DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_CONFIRMED);
+    public boolean confirmRegistrationChild(RegistrationChild child) throws SQLException {
+        return changeRegistrationPhase(child, DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_CONFIRMED);
     }
     
     /**
@@ -400,7 +429,13 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
      * @return true if submitted correctly, false otherwise
      * @throws SQLException 
      */
-    public boolean submitRegistrationChild(int registrationChildId) throws SQLException {
-        return changeRegistrationPhase(registrationChildId, DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED);
+    public boolean submitRegistrationChild(RegistrationChild child) throws SQLException {
+        return changeRegistrationPhase(child, DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED);
+    }
+    
+    public boolean removeRegistrationChild(RegistrationChild child) throws SQLException {
+        // fase di notify (Observe Pattern) alla graduatoria
+        JDBCClassificationManager.getInstance().unapproveResult(child);
+        return changeRegistrationPhase(child, DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DELETED);
     }
 }
