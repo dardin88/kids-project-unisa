@@ -26,6 +26,7 @@
         <script type="text/javascript">
             $(document).ready(function() {
                 activePage();
+                initializeLinksManager2();
                 buildAccountTable();
             });
         </script>
@@ -36,12 +37,12 @@
             <div id="linksManagement">
                 <h1 style="font-size: 35px;text-align: center;"> Account </h1>
                 
-                <input type="text" id="nickname" name="id"  />
+                <input type="text" id="nickname"  name="id"  />
                 <input type="text" id="name"  name="name"/>
                 <input type="text" id="surname" name="surname" />
                 <input type="text" id="taxCode" name="taxCode" />
                 <input type="text" id="type" name="type"/>
-                <input type="button" name="ricarica" id="ricarica" onclick="search()"/>
+                <input type="button" name="ricarica" id="ricarica" value="ricerca" onclick="search()"/>
                 
                 <table id="accountsTable" style="width:95%;">
                     <thead>
@@ -63,7 +64,20 @@
                 
                 
             </div>
-      
+      <div id="removeAccountWindow" title="Rimuovi Account" style="display: inline">
+        <form id="removeAccountForm" class="cmxform" method="post" action="">
+            <fieldset>
+                <p class="formp">
+                    <label class="requirementLabel">Sei sicuro di voler eliminare questo Tirocinante?</label>
+                </p>
+                <p class="formp">
+                    <input type="button" class="confirmRemoveButton" id="confirmRemoveLinkButton" value="Si"/>
+                    <input type="button" class="notConfirmRemoveButton" id="notConfirmRemoveLinkButton" value="No"/>
+                </p>
+            </fieldset>
+        </form>
+    </div>
+                
         <%@include file="footer.jsp" %>
     </body>
 </html>
