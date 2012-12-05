@@ -201,8 +201,13 @@ function addNews(){
             },
             submitHandler: function() {
                 var attached=$("#addLinkButton2").val();
+                alert(attached);
                 var str=attached.split("\\");
-                var s=str[str.length-1];               
+                var s=str[str.length-1];      
+                if(attached!="")
+                        document.getElementById("addLinkForm").action="UploadFile";
+                else
+                    document.getElementById("addLinkForm").action="";
                 $.post("InsertNews", {
                     artefactTitolo: $("#artefactTitolo").val(),
                     artefactDescrizione: $("#artefactDescrizione").val(),
@@ -221,8 +226,7 @@ function addNews(){
                 $("#artefactData").val("");
                 $("#artefactOra").val("");
                 $("#artefactAllegato").val("");
-                document.getElementById("addLinkForm").action="";
-
+       
             }
         });
     });
@@ -295,7 +299,3 @@ function buildShowTable(){
     }
 }
 
-function cambiaAction(){
-    document.getElementById("addLinkForm").action="UploadFile";
-
-}

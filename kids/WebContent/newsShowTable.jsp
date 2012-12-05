@@ -79,7 +79,7 @@
                 </p>
                 <p style="text-align: left;" class="formp">
                     <label class="artefactLabel" for="artefactAllegato">Allegato(Può essere anche vuoto)</label>
-                    <input type="file"  id="addLinkButton2" onchange="cambiaAction()" value="Scegli il file" name="scegliFile"></input>
+                    <input type="file"  id="addLinkButton2"  value="Scegli il file" name="scegliFile"></input>
 
                 </p>                      
                 <input type="submit" class="windowButton" id="addLinkButton3" value="Ok"/>                 
