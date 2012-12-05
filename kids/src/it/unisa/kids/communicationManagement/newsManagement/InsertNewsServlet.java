@@ -47,7 +47,7 @@ public class InsertNewsServlet extends HttpServlet {
             News n=new News();
             n.setTitle(request.getParameter("artefactTitolo"));
             n.setDescription(request.getParameter("artefactDescrizione"));
-            n.setAttached(request.getParameter("artefactAllegato"));
+            n.setAttached(request.getParameter("attachedName"));
             String valore=request.getParameter("artefactTipo");
             int scelta=Integer.parseInt(valore);
             switch (scelta) {

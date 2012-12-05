@@ -1,12 +1,20 @@
 <%-- 
     Document   : showTable
     Created on : 23-nov-2012, 17.38.35
-    Author     : francesco
+    Author     : francesco di lorenzo
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<c:if test="${sessionScope.user==null}">
+        <c:redirect url="index.jsp" />
+</c:if>
+<c:if test="${sessionScope.user.getAccountType()!='Segreteria'}">
+    <c:if test="${sessionScope.user.getAccountType()!='Genitore'}">
+         <c:redirect url="index.jsp" />
+    </c:if>
+</c:if>
 <!DOCTYPE html>
 <html>
     <head>
@@ -31,6 +39,7 @@
                 $("#artefactData").datepicker({dateFormat:'yy-mm-dd'});
                 $("#artefactData2").datepicker({dateFormat:'yy-mm-dd'});         
                 buildShowTable();
+                
             });
         </script>
     </head>
@@ -66,7 +75,7 @@
                 </p>
                 <p class="formp">
                     <label class="artefactLabel" for="artefactAllegato">Allegato(Può essere anche vuoto)</label>
-                    <input type="file"  id="addLinkButton2" value="Scegli il file" name="scegliFile"></input>
+                    <input type="file"  id="addLinkButton2" onchange="cambiaAction()" value="Scegli il file" name="scegliFile"></input>
 
                 </p>                      
                 <input type="submit" class="windowButton" id="addLinkButton3" value="Ok"/>                 
@@ -107,13 +116,11 @@
             </p>
             <p class="formp">
                 <label class="artefactLabel" for="artefactOra">Ora</label>
-                <input id="artefactOra2" onkeyup="hiddenMessage()" type="time" name="oraNews"></input>
+                <input id="artefactOra2" onkeypress="hiddenMessage()" type="time" name="oraNews"></input>
                 <span id="errOra" style="visibility: hidden;color:red;font-weight: bold"> Ora Obbligatoria per questo tipo di news </span> 
             </p>
             <p class="formp">
-                <label class="artefactLabel" for="artefactAllegato">Allegato(Può essere anche vuoto)</label>
-                <input type="file"  id="selectFile" value="Scegli il file" name="scegliFile"></input>
-
+                <label class="artefactLabel" for="artefactAllegato">Allegato non pu&ograve; essere modificato</label>
             </p>                       
             <input type="submit" class="windowButton" id="confirmUpdateNews" value="Ok"/>                 
         </fieldset>
@@ -134,6 +141,7 @@
                     <th>Data</th>
                     <th>Ora</th>
                     <th>Tipo</th>
+                    <th>Allegato</th>
                     <th>Operazione</th>
                 </tr>
             </thead>
