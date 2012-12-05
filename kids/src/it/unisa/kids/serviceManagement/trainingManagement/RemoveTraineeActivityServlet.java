@@ -9,7 +9,6 @@ import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -21,13 +20,16 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author utente
  */
-public class RemoveConvocationServlet extends HttpServlet {
- private ITrainingManager trainingManager;
+public class RemoveTraineeActivityServlet extends HttpServlet {
+
+    private static Logger logger = Logger.getLogger("global");
+    private ITrainingManager trainingManager;
 
     public void init(ServletConfig config) {
         RefinedAbstractManager refinedAbstractTrainingManager = RefinedAbstractManager.getInstance();
         trainingManager = (ITrainingManager) refinedAbstractTrainingManager.getManagerImplementor(DBNames.TABLE_TRAINEE);
     }
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -42,13 +44,19 @@ public class RemoveConvocationServlet extends HttpServlet {
             throws ServletException, IOException {
         
         try {
-            int id=Integer.parseInt(request.getParameter("traineeConvocationId"));
-            TraineeConvocation traineeConvocation=new TraineeConvocation();
-            traineeConvocation.setId(id);
-            trainingManager.delete(traineeConvocation);
-        } catch (SQLException ex) {
-            Logger.getLogger(RemoveConvocationServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+            int id=Integer.parseInt(request.getParameter("id"));
+            System.out.println("Id"+id);
+            TraineeActivity traineeActivity=new TraineeActivity();
+            traineeActivity.setId(id);
+            trainingManager.delete(traineeActivity);
+
+            request.setAttribute("message",
+                    "Attivit&agrave eliminata con successo");
+            request.getServletContext().getRequestDispatcher("/secretaryPage.jsp").forward(request, response);
+            
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

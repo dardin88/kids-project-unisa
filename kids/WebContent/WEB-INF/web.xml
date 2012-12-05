@@ -52,7 +52,7 @@
     <servlet>
         <servlet-name>AddAccountServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.AddAccountServlet</servlet-class>
-        </servlet>
+    </servlet>
     <servlet>
         <servlet-name>deleteAccountServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.DeleteAccountServlet</servlet-class>
@@ -145,7 +145,7 @@
         <servlet-name>InsertTraineeActivityServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.InsertTraineeActivityServlet</servlet-class>
     </servlet>
-     <servlet>
+    <servlet>
         <servlet-name>RemoveNewsServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.newsManagement.RemoveNewsServlet</servlet-class>
     </servlet>
@@ -156,6 +156,18 @@
     <servlet>
         <servlet-name>UploadFileServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.newsManagement.UploadFileServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RemoveTraineeActivityServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.RemoveTraineeActivityServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InserTraineeRequestServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.InserTraineeRequestServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InsertTraineeRequestServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.InsertTraineeRequestServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
@@ -289,7 +301,7 @@
         <servlet-name>LoadCalendarServlet</servlet-name>
         <url-pattern>/LoadCalendar</url-pattern>
     </servlet-mapping>
-       <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>RemoveNewsServlet</servlet-name>
         <url-pattern>/RemoveNews</url-pattern>
     </servlet-mapping>
@@ -312,6 +324,18 @@
     <servlet-mapping>
         <servlet-name>InsertTraineeActivityServlet</servlet-name>
         <url-pattern>/InsertTraineeActivity</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveTraineeActivityServlet</servlet-name>
+        <url-pattern>/RemoveTraineeActivity</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InserTraineeRequestServlet</servlet-name>
+        <url-pattern>/InserTraineeRequest</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertTraineeRequestServlet</servlet-name>
+        <url-pattern>/InsertTraineeRequest</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

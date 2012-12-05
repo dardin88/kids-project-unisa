@@ -142,13 +142,19 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
                     + DBNames.ATT_TRAINEEACTIVITY_STARTTIME + ","
                     + DBNames.ATT_TRAINEEACTIVITY_ENDTIME + ","
                     + DBNames.ATT_TRAINEEACTIVITY_DELEGATEACCOUNT + ","
-                    + DBNames.ATT_TRAINEEACTIVITY_TRAINEE;
+                    + DBNames.ATT_TRAINEEACTIVITY_TRAINEE+","
+                    +DBNames.ATT_TRAINEEACTIVITY_DESCRIPTION;
+                    
 
 
-            query2 = "VALUES (?,?,?,?,?,?";
-            if (pTraineeActivity.getDescription() != null) {
+            query2 = "VALUES (?,?,?,?,?,?,?";
+           /* if (pTraineeActivity.getDescription() != null) {
                 query1 += "," + DBNames.ATT_TRAINEEACTIVITY_DESCRIPTION;
                 query2 += ",?";
+            }*/
+            if(pTraineeActivity.getOpinion()!=null){
+                query1+=","+DBNames.ATT_TRAINEEACTIVITY_OPINION;
+                query2+=",?";
             }
             query1 += ")";
             query2 += ")";
@@ -159,8 +165,12 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
             pStmt.setTime(4, pTraineeActivity.getEnd());
             pStmt.setInt(5, pTraineeActivity.getDelegate());
             pStmt.setInt(6, pTraineeActivity.getTrainee());
-            if (pTraineeActivity.getDescription() != null) {
+            
+          // if (pTraineeActivity.getDescription() != null) {
                 pStmt.setString(7, pTraineeActivity.getDescription());
+          //  }
+            if(pTraineeActivity.getOpinion()!=null){
+                pStmt.setString(8, pTraineeActivity.getOpinion());
             }
             pStmt.executeUpdate();
             con.commit();
@@ -215,10 +225,9 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
         String query;
         try {
             con = DBConnectionPool.getConnection();
-            query = "DELETE FROM " + DBNames.TABLE_TRAINEEACTIVITY + " WHERE " + DBNames.ATT_TRAINEEACTIVITY_DATE + "=? AND " + DBNames.ATT_TRAINEEACTIVITY_NAME + "=?";
+            query = "DELETE FROM " + DBNames.TABLE_TRAINEEACTIVITY + " WHERE " + DBNames.ATT_TRAINEEACTIVITY_ID+"=?";
             pStmt = con.prepareStatement(query);
-            pStmt.setDate(1, new Date(pTraineeActivity.getDate().getTimeInMillis()));
-            pStmt.setString(2, pTraineeActivity.getName());
+            pStmt.setInt(1, pTraineeActivity.getId());
             pStmt.executeUpdate();
             con.commit();
         } finally {
