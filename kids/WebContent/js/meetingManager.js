@@ -1,13 +1,14 @@
 
-$(document).ready(function() {
+function CalendarNotEditable() {
     $('#meetingCalendar').fullCalendar({ 
         header: { 
             left: 'prev,next today',
             center: 'title', 	
             right: 'month,agendaWeek,agendaDay'
         },
-        editable: true, 
         
+        editable: false, 
+       
         allDayDefault: false,
         allDaySlot:false,
         
@@ -52,7 +53,64 @@ $(document).ready(function() {
         }
         
     }); 	
-});
+};
+
+
+function CalendarEditable() {
+    $('#meetingCalendar').fullCalendar({ 
+        header: { 
+            left: 'prev,next today',
+            center: 'title', 	
+            right: 'month,agendaWeek,agendaDay'
+        },
+        
+        editable: true, 
+       
+        allDayDefault: false,
+        allDaySlot:false,
+        
+//        <c:if test="${sessionScope.user.getAccountType()=='Adim'||sessionScope.user.getAccountType()=='Segreteria'}">
+//        droppable: false,
+//    </c:if>,
+        
+        events: {
+            url:"LoadCalendar"
+        },
+        timeFormat: 'H(:mm)',
+        
+        eventDrop: function(event, dayDelta, minuteDelta){
+            // alert(dayDelta+"min="+minuteDelta),
+            modifyDate(event.id, dayDelta, minuteDelta)
+        },
+        
+        eventClick: function(event){
+            $("#showMeetingWindow").dialog("open");
+            $.post("GetMeeting",{
+                Id: event.id
+            },function(data){
+                var result = data.split(",")
+                $("#showIdMeeting").val(result[0]);
+                $("#showTitleMeeting").html(result[1]);
+                $("#showDescriptionMeeting").html(result[2]);
+                $("#showDataMeeting").html(result[3]);
+                $("#showFirstTimeMeeting").html(result[4]);
+                $("#showSecondTimeMeeting").html(result[5]);
+                $("#showTypeMeeting").html(result[6]);
+                
+                var firstHour = result[4].split(":");
+                var secondHour = result[5].split(":");
+                $("#modifyIdMeeting").val(event.id);
+                $("#modifyTitleMeeting").val(result[1]);
+                $("#modifyDescriptionMeeting").html(result[2]);
+                $("#modifyDataMeeting").val(result[3]);
+                $("#modifyStartTime").val(firstHour[0]+":"+firstHour[1]);
+                $("#modifyEndTime").val(secondHour[0]+":"+secondHour[1]);
+                setModifyValue(result[6]);
+            })
+        }
+        
+    }); 	
+};
 
 
 function initializeMeetingManager(){

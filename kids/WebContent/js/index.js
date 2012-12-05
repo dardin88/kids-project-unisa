@@ -5,6 +5,7 @@ var checked = false;
 function initIndex(){
     paginaAttiva();
     costruisciTabella();
+     
     $(".search_init").each(function(i) {
         $(this).keyup(function() {
             oTable.fnFilter($(this).val(), i);

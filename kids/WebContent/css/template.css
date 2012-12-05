@@ -111,6 +111,7 @@ input.error {
     font-size: 28px;
     position: relative;
     bottom: 8%;
+    color: #FFF;
 }
 
 #userMenu {
@@ -219,6 +220,11 @@ div#navigation li{
 }
 
 #loginButton {
+    margin-top: 3%;
+    width: 95%;
+}
+
+#registerButton {
     margin-top: 3%;
     width: 95%;
 }
@@ -352,6 +358,7 @@ div#navigation li{
     margin: 3%;
     margin-top: 7%;
 }
+
 #buttonInsert{
     position: absolute;
     left: 5cm;
@@ -385,16 +392,10 @@ div#navigation li{
 * account.jsp
 */
 #bodyRegistration {
-    background: #424242;
+    background: #FFF;
 }
 
-#registrationForm {
-    width: 500px;
-    height: 300px;
-    margin-top: 5%;
-    margin-left: 20%;
-    margin-right: auto;
-}
+
 
 #registrationFieldSet {
     margin-top: 5px;

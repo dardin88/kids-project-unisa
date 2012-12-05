@@ -67,6 +67,7 @@
                     <input id="falsePassword" class="loginField" type="text" name="fpassword" onfocus="enableTypingPassword()">
                     <input id="password" class="loginField" type="password" name="password" onblur="initializePassword()">
                     <input type="button" id="loginButton" value="Login" />
+                    <input type="button" id="registerButton" value="Registrati" />
                 </div>
             </fieldset>
         </form>

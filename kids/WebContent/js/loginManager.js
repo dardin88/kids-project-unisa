@@ -7,6 +7,10 @@ function initializeLoginFields() {
     username.val("Nome utente");
     falsePassword.val("Password")
     password.hide();
+    $("#registerButton").button();
+    $("#registerButton").click(function() {
+        location.href="./accountInsert.jsp";
+    });
     $("#loginButton").button();
     $("#loginButton").click(function() {
         $("#loginForm").submit();
