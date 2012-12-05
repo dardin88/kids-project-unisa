@@ -36,8 +36,9 @@ public class JDBCClassManager implements IClassManager{
 	  {
 		  Connection con = null;
 		  Statement stmt=null;
-		  String query="INSERT INTO '"+DBNames.TABLE_CLASS+"' ('"+DBNames.ATT_CLASS_NAME+"') " +
-                  "VALUES ('"+pClass.getClassName()+"');"; 			//come inserire educatori e bambini
+		  String query="INSERT INTO '"+DBNames.TABLE_CLASS+"' ('"+DBNames.ATT_CLASS_NAME+"', '"+DBNames.ATT_CLASS_STATE+"') " +
+                  "VALUES ('"+pClass.getClassName()+"', "
+                         +"'"+pClass.getState()+"');"; 			//come inserire educatori e bambini
 		  
 		  try
 		  {
@@ -95,6 +96,10 @@ public class JDBCClassManager implements IClassManager{
                   {
                         query+=useAnd(andState)+"'"+DBNames.ATT_CLASS_NAME+"'='"+pClass.getClassName()+"'";
                   }
+                  if (pClass.getState()!=null) 
+                  {
+                        query+=useAnd(andState)+"'"+DBNames.ATT_CLASS_STATE+"'='"+pClass.getState()+"'";
+                  }
 		  
 		  query=query+";";
 		  
@@ -106,7 +111,8 @@ public class JDBCClassManager implements IClassManager{
 			  
 			  while(result.next())
 			  {
-				JDBCRegistrationChildManager regMan=JDBCRegistrationChildManager.getInstance();			  
+				/*  ho provato a riempire gli array list bambini e educatori
+                                JDBCRegistrationChildManager regMan=JDBCRegistrationChildManager.getInstance();			  
                                 RegistrationChild pRegChild=new RegistrationChild();
                                 regChild.set;
                                 List<RegistrationChild> tmpChild=regMan.search(pRegChild);
@@ -116,8 +122,12 @@ public class JDBCClassManager implements IClassManager{
                                 Account pAcc=new Account();
                                 pAcc.set;
                                 List<Account> tmpEducator=accMan.search(pAcc);
-                                tmpClassBean.setEducatori(tmpEducator);
-                                
+                                tmpClassBean.setEducatori(tmpEducator);*/
+                              
+                                tmpClassBean.setIdClasse(result.getInt(DBNames.ATT_CLASS_ID));
+                                tmpClassBean.setClassName(result.getString(DBNames.ATT_CLASS_NAME));
+                                tmpClassBean.setState(result.getString(DBNames.ATT_CLASS_STATE));
+                              
                                 listOfClassBean.add(tmpClassBean);
 			  }
 		  }
@@ -140,6 +150,7 @@ public class JDBCClassManager implements IClassManager{
 		  Statement stmt=null;
 		  String query="UPDATE '"+DBNames.TABLE_CLASS+"' " +
 				"SET '"+DBNames.ATT_CLASS_NAME+"'='"+pClass.getClassName()+
+                                   ",'"+DBNames.ATT_CLASS_STATE+"'='"+pClass.getState()+
 				"' WHERE '"+DBNames.ATT_CLASS_ID+"'='"+pClass.getIdClasse()+"';"; 
 			
 		  try

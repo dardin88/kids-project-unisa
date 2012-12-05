@@ -18,11 +18,11 @@
         <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
-        <script type="text/javascript" src="js/registrationManager.js"></script>
+        <script type="text/javascript" src="js/classe.js"></script>
         <title>Classe - Kids Project</title>
         <script type="text/javascript">
             $(document).ready(function() {
-                initializeRegistrationFields();
+                initializeClassFields();
             });
         </script>
     </head>
@@ -30,16 +30,46 @@
         <%@include file="header.jsp"%>
         <body id="bodyRegistration">
         
-        <h1  id="titleReg" align="center">Classe</h1>
+        <h1  id="titleReg" align="center">Classi</h1>
         
-        <form id="registrationForm" action="AddClassBeanServlet" method="post">
-            <fieldset id="registrationFieldSet">
-                <div>
-                    Nome: <input id="className" class="registrationField" type="text" name="name">
-                    <input type="button" id="registrationButton" value="Crea" />
-                </div>
+        <div id="linksManagement">
+                <h1 style="font-size: 35px;text-align: center;"> Classi </h1>
+                
+                <input type="text" id="state"  name="state"  />
+                <input type="text" id="name"  name="name"/>
+                <input type="button" name="ricarica" id="ricarica" value="ricerca" onclick="search()"/>
+                
+                <table id="accountsTable" style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Stato</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <form name="insertAccount" method="post" action="accountInsert.jsp" >
+                     <input type="submit" id="addLinkButton" value="Inserisci Classe" />
+                </form>
+                
+                
+            </div>
+      <div id="removeAccountWindow" title="Rimuovi Classe" style="display: inline">
+        <form id="removeAccountForm" class="cmxform" method="post" action="">
+            <fieldset>
+                <p class="formp">
+                    <label class="requirementLabel">Sei sicuro di voler eliminare questa classe?</label>
+                </p>
+                <p class="formp">
+                    <input type="button" class="confirmRemoveButton" id="confirmRemoveLinkButton" value="Si"/>
+                    <input type="button" class="notConfirmRemoveButton" id="notConfirmRemoveLinkButton" value="No"/>
+                </p>
             </fieldset>
         </form>
+    </div>
+        
+        
         <%@include file="footer.jsp" %>
     </body>
 </html>
