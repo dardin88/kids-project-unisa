@@ -4,11 +4,14 @@
  */
 package it.unisa.kids.accessManagement.accountManagement;
 
+import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +23,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DeleteAccountServlet extends HttpServlet {
 
+     private IAccountManager accountManager;
+
+    public void init(ServletConfig config) {
+     accountManager =(IAccountManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACCOUNT);
+    }
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -34,12 +42,15 @@ public class DeleteAccountServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        int id;
         try {
-            JDBCAccountManager man = JDBCAccountManager.getInstance();
-            Account account= new Account();
-            account.setId(Integer.parseInt(request.getParameter("id")));
-            man.delete(account);
+            id=Integer.parseInt(request.getParameter("id"));
+            System.out.println("CANCELLAZIONE");
             
+            Account account= new Account();
+            account.setId(id);
+            accountManager.delete(account);
+            System.out.println(account.getNameUser());
             
         }  catch (SQLException ex) {
             Logger.getLogger(DeleteAccountServlet.class.getName()).log(Level.SEVERE, null, ex);

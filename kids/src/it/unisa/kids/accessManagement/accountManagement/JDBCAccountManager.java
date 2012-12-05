@@ -220,7 +220,9 @@ public class JDBCAccountManager implements IAccountManager {
         try {
             con = DBConnectionPool.getConnection();
             String query = "Delete From " + DBNames.TABLE_ACCOUNT + " Where " + DBNames.ATT_ACCOUNT_ID + "=" + pDeletedAccount.getId() + "";
+            System.out.println("cancellazione effettuata!");
             stmt = con.createStatement();
+            System.out.println(""+query);
             stmt.executeUpdate(query);
             con.commit();
 
@@ -311,7 +313,7 @@ public class JDBCAccountManager implements IAccountManager {
                 i++;
             }
 
-            if (pAccount.getTaxCode() != null && pAccount.getTaxCode().equals("")) {
+            if (pAccount.getTaxCode() != null && !pAccount.getTaxCode().equals("")) {
                 pstmt.setString(i, pAccount.getTaxCode());
                 i++;
             }
@@ -319,7 +321,7 @@ public class JDBCAccountManager implements IAccountManager {
                 pstmt.setString(i, pAccount.getState());
                 i++;
             }
-            if (pAccount.getAccountType() != null && pAccount.getAccountType().equals("")) {
+            if (pAccount.getAccountType() != null && !pAccount.getAccountType().equals("")) {
                 pstmt.setString(i, pAccount.getAccountType());
                 i++;
             }

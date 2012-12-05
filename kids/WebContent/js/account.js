@@ -1,30 +1,16 @@
 function initializeLinksManager2(){
-        
     $("#avantiButton").button();
-    $("#modifyButton").button();
+    $("modifyButton").button();
     $("#eliminaButton").button();
-        
-    var id =document.getElementById('id');
-    $("#removeAccount").dialog({
-        
-        
-        
-        modal:true,
-        autoOpen : false,
-        buttons:{
-            "Annulla": function(){
-                $(this).dialog("close");
-            },
-            "Conferma": function(){
-                $.post("DeleteAccount", {
-                    id:""+id
-                }
-                );
-                $(this).dialog("close");
-                location.href="accountInsert.jsp";
-            }
-        }
-    })
+
+    
+     $("#removeAccountWindow").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 400
+    });
+   
    
 }
 /* 
@@ -118,9 +104,25 @@ function buildAccountTable(){
 }
 
    
-function removeAccount(){
-   
-    $("#removeAccount").dialog("open");
+function removeAccount(id){
+     $("#removeAccountWindow").dialog({
+        autoOpen:true
+    }); 
+    $("#confirmRemoveLinkButton").button();
+    $("#confirmRemoveLinkButton").click(function(){
+        $.post("DeleteAccount", {
+            id:""+id
+        });
+        $("#removeAccountWindow").dialog("close"); 
+        var oTable = $("#accountsTable").dataTable();
+        oTable.fnDraw();
+        location.href="./accountSecretary.jsp";
+    });
+    $("#notConfirmRemoveLinkButton").button();
+    $("#notConfirmRemoveLinkButton").click(function(){
+        $("#removeAccountWindow").dialog("close");
+    });
+    
 }
    
 
