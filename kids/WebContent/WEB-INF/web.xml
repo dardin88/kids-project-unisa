@@ -213,6 +213,19 @@
         <servlet-name>ServletSubmitRegistrationChild</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletSubmitRegistrationChild</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddClassBeanServlet</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.classManagement.AddClassBeanServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateClassBeanServlet</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.classManagement.UpdateClassBeanServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteClassBeanServlet</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.classManagement.DeleteClassBeanServlet</servlet-class>
+    </servlet>
+    
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
@@ -425,6 +438,19 @@
         <servlet-name>ServletSubmitRegistrationChild</servlet-name>
         <url-pattern>/SubmitRegistrationChild</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddClassBeanServlet</servlet-name>
+        <url-pattern>/AddClassBean</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateClassBeanServlet</servlet-name>
+        <url-pattern>/UpdateClassBean</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteClassBeanServlet</servlet-name>
+        <url-pattern>/DeleteClassBean</url-pattern>
+    </servlet-mapping>
+    
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
