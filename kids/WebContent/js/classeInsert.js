@@ -39,7 +39,7 @@ $(document).ready(function(){
                 matricolaAccount:$("#Name").val(),
                 nomeAccount:$("#State").val()
             })
-            location.href="AddClassBean";
+            location.href="AddClassBeanServlet"; //e nemmeno qui, la servlet nn va bene
         }
         
     });
