@@ -49,7 +49,7 @@
                     <tbody>
                     </tbody>
                 </table>
-                <form name="insertAccount" method="post" action="accountInsert.jsp" >
+                <form name="insertAccount" method="post" action="classInsert.jsp" >
                      <input type="submit" id="addLinkButton" value="Inserisci Classe" />
                 </form>
                 
