@@ -82,7 +82,7 @@ div.error {
 }
 
 input.error {
-    border: 1px red;
+    /* border: 1px red;*/
 }
 
 /*
@@ -401,10 +401,26 @@ div#navigation li{
     margin-top: 5px;
 }
 
+#accountLabel{
+    margin-left: 5%;
+    font-weight: bold;
+    font-size: 10pt;
+    float: left;
+    width: 140px;
+}
+
+.accountInput {
+    width: 250px;
+    height: 25%;
+    padding: 0.5%;
+    margin-bottom: 2%;
+    margin-left: 2%;
+}
+
 .registrationField {
     width: 92%;
     height: 25%;
-    padding: 1.2%;
+    padding: 0.5%;
     margin-bottom: 2%;
     margin-left: auto;
     margin-right: auto;
@@ -447,42 +463,42 @@ div#navigation li{
 
 /*
  * PaymentManagement
- */
- 
- #paymentsManagement {
-     float: left;
-     padding: 2%;
-     padding-top: 1%;
-     width: 80%;
- }
- 
- #paymentsManagement h1 {
-     font-size: 30px;
-     text-align: center;
- }
- 
- #paymentsManagement h2 {
-     font-size: 22px;
-     padding-top: 20px;
-     text-align: center;
- }
- 
- #searchParent {
-     padding-bottom: 20px;
- }
- 
- .selectedParent {
-     font-size: 18px;
- }
- 
- .selectedParent > span {
-     font-weight: bold;
- }
- 
- /*
- managerTraineeActivity
- */
- #traineesManagement{
+*/
+
+#paymentsManagement {
+    float: left;
+    padding: 2%;
+    padding-top: 1%;
+    width: 80%;
+}
+
+#paymentsManagement h1 {
+    font-size: 30px;
+    text-align: center;
+}
+
+#paymentsManagement h2 {
+    font-size: 22px;
+    padding-top: 20px;
+    text-align: center;
+}
+
+#searchParent {
+    padding-bottom: 20px;
+}
+
+.selectedParent {
+    font-size: 18px;
+}
+
+.selectedParent > span {
+    font-weight: bold;
+}
+
+/*
+managerTraineeActivity
+*/
+#traineesManagement{
     float: left;
     padding: 2%;
     padding-top: 1%;
