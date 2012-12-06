@@ -22,6 +22,10 @@
         <servlet-class>it.unisa.kids.serviceManagement.paymentManagement.servlet.UpdatePaymentServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>InsertRefundServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.paymentManagement.servlet.InsertRefundServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>GetTraineesServletTable</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.GetTraineesServletTable</servlet-class>
     </servlet>
@@ -77,6 +81,12 @@
         <servlet-name>ModifyAccountServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.ModifyAccountServlet</servlet-class>
     </servlet>
+    
+    <servlet>
+        <servlet-name>InsertTableRenunciation</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.renunciationManagement.InsertTableRenunciationServlet</servlet-class>
+    </servlet>
+    
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.LoginServlet</servlet-class>
@@ -216,6 +226,10 @@
     <servlet>
         <servlet-name>UpdateClassBeanServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.classManagement.UpdateClassBeanServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetTableClassServlet</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.classManagement.GetTableClassServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteClassBeanServlet</servlet-name>
@@ -450,6 +464,11 @@
         <url-pattern>/DeleteClassBean</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>GetTableClassServlet</servlet-name>
+        <url-pattern>/GetTableClassServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
         <servlet-name>DropTraineeRequestServlet</servlet-name>
         <url-pattern>/DropTraineeRequest</url-pattern>
     </servlet-mapping>
@@ -457,6 +476,13 @@
         <servlet-name>ModifyTraineeActivityServlet</servlet-name>
         <url-pattern>/ModifyTraineeActivity</url-pattern>
     </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>InsertTableRenunciation</servlet-name>
+        <url-pattern>/InsertTableRenunciationServlet</url-pattern>
+    </servlet-mapping>
+    
+    
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
