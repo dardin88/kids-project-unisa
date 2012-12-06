@@ -71,7 +71,12 @@ function activePage(){
             $("#paymentManagementMenuEl").css("background-color", "#444");
             $("#paymentManagementMenuEl").css("color", "#FFFFFF");
             $("#title").html("Gestione Pagamenti");
-            
+            break;
+        case  'Timeservice.jsp' :
+            $("#TimeServiceMenuEL").css("background-color", "#444");
+            $("#TimeServiceMenuEL").css("color", "#FFFFFF");
+            $("#title").html("Gestione orario di servizio");
+            break;
     }
 }
 
