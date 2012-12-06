@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `attivita_giornaliera_per_sezione` (
   `IdAttivita` int(11) NOT NULL,
   `IdEducatore` int(11) NOT NULL,
   `Note` varchar(1500) DEFAULT NULL,
-  'IdSezione' int(10) NOT NULL,
+  `IdSezione` int(11) NOT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 

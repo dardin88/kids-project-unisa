@@ -1,6 +1,7 @@
 package it.unisa.kids.communicationManagement.programEducationalManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
@@ -10,7 +11,7 @@ import java.util.GregorianCalendar;
  * @author Francesco Di Lorenzo
  *
  */
-public class AnnualProjectSection extends AnnualProject 
+public class AnnualProjectSection extends AnnualProject implements Serializable  
 {
         private ArrayList<CommentoBean> commenti;
 	private int id;

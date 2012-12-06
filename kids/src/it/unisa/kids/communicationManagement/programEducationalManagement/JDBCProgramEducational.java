@@ -25,17 +25,8 @@ public class JDBCProgramEducational implements IProgramEducational {
         }
     }
 
-    //soppresso
-    public void modifySubstantialProject(AnnualProject pProject) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 
-    //soppresso
-    public void modifyLittleProject(AnnualProject pProject) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
+    
     public String approveProject(AnnualProject pProject) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -124,22 +115,90 @@ public class JDBCProgramEducational implements IProgramEducational {
     public AnnualProjectSection getProgramEducational(int SectionId) throws SQLException {
         AnnualProjectSection toReturn=new AnnualProjectSection();
         toReturn.setCommenti(this.getComments(toReturn));
-        /*private int id;
-	private String name;
-	private String description;
-	private int section;
-	private int idYear; //serve come chiave esterna per progetto annuale
-	private String attached;*/
+        ResultSet rs;
         GregorianCalendar data=new GregorianCalendar();
         
-        String query = "SELECT * FROM " + DBNames.TABLE_ACTIVITYSECTIONDAILY
-                + " WHERE " + DBNames.ATT_ACTIVITYSECTTIONDAILY_SECTIONID + " = " + SectionId + " AND "
-                + DBNames.ATT_ACTIVITYSECTTIONDAILY_DATE + " LIKE ____%" + data.get(GregorianCalendar.YEAR);
+        String query = "SELECT * FROM " + DBNames.TABLE_SECTION_PROJ
+                + " WHERE " + DBNames.ATT_PROJECTANNUALSECTION_SECTION + " = " + SectionId + " AND "
+                + DBNames.ATT_PROJECTANNUALSECTION_IDYEAR + " LIKE ____%" + data.get(GregorianCalendar.YEAR);
         PreparedStatement pstm;
         Connection con;
         con = DBConnectionPool.getConnection();
         pstm = con.prepareStatement(query);
         rs = pstm.executeQuery();
         
+        while(rs.next()){
+            toReturn.setId(rs.getInt(DBNames.ATT_PROJECTANNUALSECTION_ID));
+            toReturn.setDescription(rs.getString(DBNames.ATT_PROJECTANNUALSECTION_DESCRIPTION));
+            toReturn.setSection(rs.getInt(SectionId));
+            toReturn.setAttached(rs.getString(DBNames.ATT_PROJECTANNUALSECTION_ATTACHED));
+            toReturn.setName(rs.getString(DBNames.ATT_PROJECTANNUALSECTION_NAME));
+        }
+        DBConnectionPool.releaseConnection(con);
+        return toReturn;
+        
+    }
+
+    public void insertProgramEducational(AnnualProjectSection pAnnualProject) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        try {
+            con = DBConnectionPool.getConnection();
+            String query = "INSERT INTO " + DBNames.TABLE_ACTIVITYSECTIONDAILY + " ("
+                    //+ DBNames.ATT_PROJECTANNUALSECTION_ID + ", "
+                    + DBNames.ATT_PROJECTANNUALSECTION_SECTION + ", "
+                    + DBNames.ATT_PROJECTANNUALSECTION_IDYEAR + ", "
+                    + DBNames.ATT_PROJECTANNUALSECTION_NAME + ", "
+                    + DBNames.ATT_PROJECTANNUALSECTION_DESCRIPTION + ", "
+                    + ") VALUES(?,?,?,?)";
+
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, pAnnualProject.getSection());
+            pstmt.setInt(2, pAnnualProject.getIdYear());
+            pstmt.setString(3, pAnnualProject.getName());
+            pstmt.setString(4, pAnnualProject.getDescription() );
+            pstmt.executeUpdate();
+            con.commit();
+        } finally {
+            if (pstmt != null) {
+                pstmt.close();
+            }
+            if (con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+    
+    }
+
+    @Override
+    public void updateProgramEducational(AnnualProjectSection toUpdate) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        con = DBConnectionPool.getConnection();
+        String query;
+
+        // constructing query string
+        query = "UPDATE " + DBNames.TABLE_SECTION_PROJ + " SET "
+                + DBNames.ATT_PROJECTANNUALSECTION_ATTACHED + " = ?, "
+                + DBNames.ATT_PROJECTANNUALSECTION_DESCRIPTION + " = ?, "
+                + DBNames.ATT_PROJECTANNUALSECTION_IDYEAR + " = ? "
+                + DBNames.ATT_PROJECTANNUALSECTION_NAME + " = ? "
+                + DBNames.ATT_PROJECTANNUALSECTION_SECTION + " = ? "
+                + "WHERE " + DBNames.ATT_PROJECTANNUALSECTION_ID + " = ?";
+
+        pstmt = con.prepareStatement(query);
+        // setting pstmt's parameters
+
+        pstmt.setString(1, toUpdate.getAttached());
+        pstmt.setString(2, toUpdate.getDescription());
+        pstmt.setInt(3, toUpdate.getIdYear());
+        pstmt.setString(4, toUpdate.getName());
+        pstmt.setInt(5, toUpdate.getSection());
+        pstmt.setInt(6, toUpdate.getId());
+        pstmt.executeUpdate();
+        con.commit();
+        DBConnectionPool.releaseConnection(con);
+
+
     }
 }

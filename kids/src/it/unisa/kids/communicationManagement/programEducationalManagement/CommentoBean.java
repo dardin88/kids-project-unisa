@@ -10,7 +10,7 @@ import java.util.GregorianCalendar;
  *
  * @author Giuseppe Alfieri
  */
-public class CommentoBean {
+public class CommentoBean implements java.io.Serializable {
     private int id;
     private GregorianCalendar date;
     private String tipoModifica;
