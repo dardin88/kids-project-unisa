@@ -8,6 +8,14 @@ function initializeLinksManager(){
     $.ajaxSetup({
         cache: false
     });
+    $("#confirm").dialog({
+        autoOpen: true,
+        modal: true,
+        resizable: false,
+        width: 400
+    });
+    $("#confirmButton").button();
+
     $("#send").button();
     $("#insertTraineeRequest").dialog({
         autoOpen:false,
@@ -106,7 +114,8 @@ $(document).ready(function(){
         {
             NumeroTirocinanti:{
                 required:true,
-                number:true
+                number:true,
+                min:1
                     
             },
             Data:{
@@ -286,7 +295,8 @@ $(document).ready(function(){
         {
             NumeroTirocinanti:{
                 required:true,
-                number:true
+                number:true,
+                min:1
                     
             },
             Data:{

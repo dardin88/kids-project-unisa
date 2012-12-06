@@ -41,7 +41,22 @@
         </script>
         <title>Inserisci richiesta di tirocinanti</title>
     </head>
-    <div id="requestInformation" title="Attivit&agrave">
+    <c:if test="${requestScope.message!=null}">
+        <div id="confirm" title="Message" style="display: inline">
+            <form id="confirmForm" class="cmxform" method="post" action="managerTraineeRequest.jsp">
+                <fieldset>
+                    <p class="formp">
+                        <label class="requirementLabel">${requestScope.message}</label>
+                    </p>
+                    <p class="formp">
+                        <input type="submit" class="confirmButton" id="confirmButton" value="ok"/>
+
+                    </p>
+                </fieldset>
+            </form>
+        </div>
+    </c:if>
+    <div id="requestInformation" title="Richiesta">
         <form id="modifyInformation"action="RemoveTraineeRequest" method="post">
             <table style="padding-bottom: 20px;">
                 <input type="hidden" name="id" id="idRequest">

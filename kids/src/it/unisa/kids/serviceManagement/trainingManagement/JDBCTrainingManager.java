@@ -21,7 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class JDBCTrainingManager extends Observable implements ITrainingManager {
-    
+
     private static ITrainingManager manager;
     private static Logger logger = Logger.getLogger("global");
 
@@ -41,13 +41,14 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
     @Override
     public void insert(Account pTrainee) throws SQLException {
         IAccessFacade accessFacade = new AccessFacade();
-        if(accessFacade.insert(pTrainee)==null)
+        if (accessFacade.insert(pTrainee) == null) {
             throw new SQLException();
+        }
 
 
 
     }
-    
+
     @Override
     public void insert(TraineeRequest pTraineeRequest) throws SQLException {
         Connection con = null;
@@ -90,7 +91,7 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
                     + DBNames.ATT_TRAINEECONVOCATION_STARTTIME + ","
                     + DBNames.ATT_TRAINEECONVOCATION_ENDTIME + ","
                     + DBNames.ATT_TRAINEECONVOCATION_DELEGATE + ","
-                    + DBNames.ATT_TRAINEECONVOCATION_TRAINEE+") VALUES (?,?,?,?,?,?)" ;
+                    + DBNames.ATT_TRAINEECONVOCATION_TRAINEE + ") VALUES (?,?,?,?,?,?)";
 
             pStmt = con.prepareStatement(query);
             pStmt.setDate(1, new Date(pTraineeConvocation.getDate().getTimeInMillis()));
@@ -99,11 +100,11 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
             pStmt.setTime(4, pTraineeConvocation.getEndTime());
             pStmt.setInt(5, pTraineeConvocation.getDelegateId());
             pStmt.setInt(6, pTraineeConvocation.getTraineeId());
-            
+
             pStmt.executeUpdate();
             con.commit();
             super.setChanged();
-            Mail mail=new Mail();
+            Mail mail = new Mail();
             String body = "Giorno :" + pTraineeConvocation.getDate().get(Calendar.YEAR) + "/" + pTraineeConvocation.getDate().get(Calendar.MONTH) + "/" + pTraineeConvocation.getDate().get(Calendar.DAY_OF_MONTH)
                     + "<br>Ora di inzio:" + pTraineeConvocation.getStartTime().getHours() + ":" + pTraineeConvocation.getStartTime().getMinutes()
                     + "<br>Ora di fine:" + pTraineeConvocation.getEndTime().getHours() + ":" + pTraineeConvocation.getEndTime().getMinutes()
@@ -111,20 +112,20 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
                     + "<br>Si prega di confermare la propria presenza sul sito";
             mail.setBody(body);
             mail.setSubject("Convocazione asilo");
-            Account account=new Account ();
+            Account account = new Account();
             account.setId(pTraineeConvocation.getTraineeId());
-            ArrayList<String> listTo=new ArrayList<String>();
+            ArrayList<String> listTo = new ArrayList<String>();
             listTo.add(search(account).get(0).getEmail());
             mail.setTo(listTo);
-            
+
             super.notifyObservers(mail);
-            
+
         } finally {
             pStmt.close();
             DBConnectionPool.releaseConnection(con);
         }
     }
-    
+
     /* (non-Javadoc)
      * @see it.unisa.kids.serviceManagement.trainingManagement.ITrainingManager#insertActivity(it.unisa.kids.serviceManagement.trainingManagement.TraineeActivity)
      */
@@ -142,19 +143,19 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
                     + DBNames.ATT_TRAINEEACTIVITY_STARTTIME + ","
                     + DBNames.ATT_TRAINEEACTIVITY_ENDTIME + ","
                     + DBNames.ATT_TRAINEEACTIVITY_DELEGATEACCOUNT + ","
-                    + DBNames.ATT_TRAINEEACTIVITY_TRAINEE+","
-                    +DBNames.ATT_TRAINEEACTIVITY_DESCRIPTION;
-                    
+                    + DBNames.ATT_TRAINEEACTIVITY_TRAINEE + ","
+                    + DBNames.ATT_TRAINEEACTIVITY_DESCRIPTION;
+
 
 
             query2 = "VALUES (?,?,?,?,?,?,?";
-           /* if (pTraineeActivity.getDescription() != null) {
-                query1 += "," + DBNames.ATT_TRAINEEACTIVITY_DESCRIPTION;
+            /* if (pTraineeActivity.getDescription() != null) {
+             query1 += "," + DBNames.ATT_TRAINEEACTIVITY_DESCRIPTION;
+             query2 += ",?";
+             }*/
+            if (pTraineeActivity.getOpinion() != null) {
+                query1 += "," + DBNames.ATT_TRAINEEACTIVITY_OPINION;
                 query2 += ",?";
-            }*/
-            if(pTraineeActivity.getOpinion()!=null){
-                query1+=","+DBNames.ATT_TRAINEEACTIVITY_OPINION;
-                query2+=",?";
             }
             query1 += ")";
             query2 += ")";
@@ -165,11 +166,11 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
             pStmt.setTime(4, pTraineeActivity.getEnd());
             pStmt.setInt(5, pTraineeActivity.getDelegate());
             pStmt.setInt(6, pTraineeActivity.getTrainee());
-            
-          // if (pTraineeActivity.getDescription() != null) {
-                pStmt.setString(7, pTraineeActivity.getDescription());
-          //  }
-            if(pTraineeActivity.getOpinion()!=null){
+
+            // if (pTraineeActivity.getDescription() != null) {
+            pStmt.setString(7, pTraineeActivity.getDescription());
+            //  }
+            if (pTraineeActivity.getOpinion() != null) {
                 pStmt.setString(8, pTraineeActivity.getOpinion());
             }
             pStmt.executeUpdate();
@@ -189,27 +190,217 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
         IAccessFacade accessFacade = new AccessFacade();
         accessFacade.update(pTrainee);
     }
-    
+
     @Override
     public void update(TraineeActivity pTrainee) throws SQLException {
-        
-    }
-    
-     @Override
-    public void update(TraineeRequest pTraineeRequest) throws SQLException {
-         Connection con = null;
+        Connection con = null;
         PreparedStatement pStmt = null;
-        String query;
+        String query = "";
         try {
-            
             con = DBConnectionPool.getConnection();
-            query = "UPDATE " + DBNames.TABLE_TRAINEEREQUEST + " SET " +DBNames.ATT_TRAINEEREQUEST_DATE+"=?,"+ DBNames.ATT_TRAINEEREQUEST_STARTTIME+"=?,"+DBNames.ATT_TRAINEEREQUEST_ENDTIME+"=? WHERE "+DBNames.ATT_TRAINEEREQUEST_ID+"=?" ;
-            pStmt = con.prepareStatement(query);
-            pStmt.setDate(1, new Date(pTraineeRequest.getDate().getTimeInMillis()));
-            pStmt.setTime(2, pTraineeRequest.getStartTime());
-            pStmt.setTime(3, pTraineeRequest.getEndTime());
-            pStmt.setInt(4, pTraineeRequest.getId());
+
+            query = "UPDATE " + DBNames.TABLE_TRAINEEACTIVITY + " SET ";
+            int i = 0;
+            if (pTrainee.getName() != null) {
+
+                query += DBNames.ATT_TRAINEEACTIVITY_NAME + "=?";
+                i++;
+            }
+            if (pTrainee.getDate() != null) {
+                if (i == 0) {
+                    query += DBNames.ATT_TRAINEEACTIVITY_DATE + "=?";
+                } else {
+                    query += "," + DBNames.ATT_TRAINEEACTIVITY_DATE + "=?";
+                }
+                i++;
+            }
+            if (pTrainee.getEnd() != null) {
+                if (i == 0) {
+                    query += DBNames.ATT_TRAINEEACTIVITY_ENDTIME + "=?";
+                } else {
+                    query += "," + DBNames.ATT_TRAINEEACTIVITY_ENDTIME + "=?";
+                }
+                i++;
+            }
+            if (pTrainee.getStart() != null) {
+                if (i == 0) {
+                    query += DBNames.ATT_TRAINEEACTIVITY_STARTTIME + "=?";
+                } else {
+                    query += "," + DBNames.ATT_TRAINEEACTIVITY_STARTTIME + "=?";
+                }
+                i++;
+            }
+            if (pTrainee.getDescription() !=null) {
+                if (i == 0) {
+                    query += DBNames.ATT_TRAINEEACTIVITY_DESCRIPTION + "=?";
+                } else {
+                    query += "," + DBNames.ATT_TRAINEEACTIVITY_DESCRIPTION + "=?";
+                }
+                i++;
+            }
+            if (pTrainee.getOpinion() !=null) {
+                if (i == 0) {
+                    query += DBNames.ATT_TRAINEEACTIVITY_OPINION + "=?";
+                } else {
+                    query += "," + DBNames.ATT_TRAINEEACTIVITY_OPINION+ "=?";
+                }
+                i++;
+            }
+            if (pTrainee.getTrainee() >0) {
+                if (i == 0) {
+                    query += DBNames.ATT_TRAINEEACTIVITY_TRAINEE + "=?";
+                } else {
+                    query += "," + DBNames.ATT_TRAINEEACTIVITY_TRAINEE + "=?";
+                }
+                i++;
+            }
             
+            query += " WHERE " + DBNames.ATT_TRAINEEACTIVITY_ID + "=?";
+            i = 0;
+            pStmt = con.prepareStatement(query);
+            if (pTrainee.getName() != null) {
+
+                
+                i++;
+                pStmt.setString(i,pTrainee.getName());
+            }
+            if (pTrainee.getDate() != null) {
+                
+                i++;
+                pStmt.setDate(i,new Date(pTrainee.getDate().getTimeInMillis()));
+            }
+            if (pTrainee.getEnd() != null) {
+                
+                i++;
+                pStmt.setTime(i,pTrainee.getEnd());
+            }
+            if (pTrainee.getStart() != null) {
+                
+                i++;
+                pStmt.setTime(i,pTrainee.getStart());
+                
+            }
+            if (pTrainee.getDescription() !=null) {
+                
+                i++;
+                pStmt.setString(i, pTrainee.getDescription());
+            }
+            if (pTrainee.getOpinion() !=null) {
+                
+                i++;
+                pStmt.setString(i, pTrainee.getOpinion());
+                
+            }
+            if (pTrainee.getTrainee() >0) {
+                
+                i++;
+                pStmt.setInt(i,pTrainee.getTrainee());
+            }
+            
+
+            i++;
+           
+            pStmt.setInt(i, pTrainee.getId());
+
+            /* query = "UPDATE " + DBNames.TABLE_TRAINEEREQUEST + " SET " + DBNames.ATT_TRAINEEREQUEST_DATE + "=?," + DBNames.ATT_TRAINEEREQUEST_STARTTIME + "=?," + DBNames.ATT_TRAINEEREQUEST_ENDTIME + "=? WHERE " + DBNames.ATT_TRAINEEREQUEST_ID + "=?";
+             pStmt = con.prepareStatement(query);
+             pStmt.setDate(1, new Date(pTraineeRequest.getDate().getTimeInMillis()));
+             pStmt.setTime(2, pTraineeRequest.getStartTime());
+             pStmt.setTime(3, pTraineeRequest.getEndTime());
+             pStmt.setInt(4, pTraineeRequest.getId());
+             */
+            pStmt.executeUpdate();
+            con.commit();
+        } finally {
+            pStmt.close();
+            DBConnectionPool.releaseConnection(con);
+        }
+    }
+
+    @Override
+    public void update(TraineeRequest pTraineeRequest) throws SQLException {
+        Connection con = null;
+        PreparedStatement pStmt = null;
+        String query = "";
+        try {
+            con = DBConnectionPool.getConnection();
+
+            query = "UPDATE " + DBNames.TABLE_TRAINEEREQUEST + " SET ";
+            int i = 0;
+            if (pTraineeRequest.getActivity() != null) {
+
+                query += DBNames.ATT_TRAINEEREQUEST_ACTIVITY + "=?";
+                i++;
+            }
+            if (pTraineeRequest.getDate() != null) {
+                if (i == 0) {
+                    query += DBNames.ATT_TRAINEEREQUEST_DATE + "=?";
+                } else {
+                    query += "," + DBNames.ATT_TRAINEEREQUEST_DATE + "=?";
+                }
+                i++;
+            }
+            if (pTraineeRequest.getEndTime() != null) {
+                if (i == 0) {
+                    query += DBNames.ATT_TRAINEEREQUEST_ENDTIME + "=?";
+                } else {
+                    query += "," + DBNames.ATT_TRAINEEREQUEST_ENDTIME + "=?";
+                }
+                i++;
+            }
+            if (pTraineeRequest.getStartTime() != null) {
+                if (i == 0) {
+                    query += DBNames.ATT_TRAINEEREQUEST_STARTTIME + "=?";
+                } else {
+                    query += "," + DBNames.ATT_TRAINEEREQUEST_STARTTIME + "=?";
+                }
+                i++;
+            }
+            if (pTraineeRequest.getTraineeNumber() > 0) {
+                if (i == 0) {
+                    query += DBNames.ATT_TRAINEEREQUEST_TRAINEENUMBER + "=?";
+                } else {
+                    query += "," + DBNames.ATT_TRAINEEREQUEST_TRAINEENUMBER + "=?";
+                }
+                i++;
+            }
+            query += " WHERE " + DBNames.ATT_TRAINEEREQUEST_ID + "=?";
+            i = 0;
+            pStmt = con.prepareStatement(query);
+
+            if (pTraineeRequest.getActivity() != null) {
+                i++;
+                pStmt.setString(i, pTraineeRequest.getActivity());
+                
+            }
+            if (pTraineeRequest.getDate() != null) {
+                i++;
+                pStmt.setDate(i, new Date(pTraineeRequest.getDate().getTimeInMillis()));
+            }
+            if (pTraineeRequest.getEndTime() != null) {
+                i++;
+                pStmt.setTime(i, pTraineeRequest.getEndTime());
+            }
+            if (pTraineeRequest.getStartTime() != null) {
+                i++;
+                pStmt.setTime(i,pTraineeRequest.getStartTime());
+            }
+            if (pTraineeRequest.getTraineeNumber() > 0) {
+                i++;
+                pStmt.setInt(i, pTraineeRequest.getTraineeNumber());
+            }
+
+            i++;
+           
+            pStmt.setInt(i, pTraineeRequest.getId());
+
+            /* query = "UPDATE " + DBNames.TABLE_TRAINEEREQUEST + " SET " + DBNames.ATT_TRAINEEREQUEST_DATE + "=?," + DBNames.ATT_TRAINEEREQUEST_STARTTIME + "=?," + DBNames.ATT_TRAINEEREQUEST_ENDTIME + "=? WHERE " + DBNames.ATT_TRAINEEREQUEST_ID + "=?";
+             pStmt = con.prepareStatement(query);
+             pStmt.setDate(1, new Date(pTraineeRequest.getDate().getTimeInMillis()));
+             pStmt.setTime(2, pTraineeRequest.getStartTime());
+             pStmt.setTime(3, pTraineeRequest.getEndTime());
+             pStmt.setInt(4, pTraineeRequest.getId());
+             */
             pStmt.executeUpdate();
             con.commit();
         } finally {
@@ -225,13 +416,13 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
         String query;
         try {
             con = DBConnectionPool.getConnection();
-            query = "UPDATE " + DBNames.TABLE_TRAINEECONVOCATION + " SET " +DBNames.ATT_TRAINEECONVOCATION_CONFIRMED+"=? WHERE "+DBNames.ATT_TRAINEECONVOCATION_ID+"=?" ;
+            query = "UPDATE " + DBNames.TABLE_TRAINEECONVOCATION + " SET " + DBNames.ATT_TRAINEECONVOCATION_CONFIRMED + "=? WHERE " + DBNames.ATT_TRAINEECONVOCATION_ID + "=?";
             pStmt = con.prepareStatement(query);
             pStmt.setInt(1, pTraineeConvocation.getConfirmed());
-            
+
             pStmt.setInt(2, pTraineeConvocation.getId());
             System.out.println("ciao");
-            
+
             pStmt.executeUpdate();
             con.commit();
         } finally {
@@ -249,11 +440,10 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
         accessFacade.delete(pTrainee);
 
     }
-    
+
     /* (non-Javadoc)
      * @see it.unisa.kids.serviceManagement.trainingManagement.ITrainingManager#deleteActivity(it.unisa.kids.serviceManagement.trainingManagement.TraineeActivity)
      */
-
     @Override
     public void delete(TraineeActivity pTraineeActivity) throws SQLException {
         Connection con = null;
@@ -261,7 +451,7 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
         String query;
         try {
             con = DBConnectionPool.getConnection();
-            query = "DELETE FROM " + DBNames.TABLE_TRAINEEACTIVITY + " WHERE " + DBNames.ATT_TRAINEEACTIVITY_ID+"=?";
+            query = "DELETE FROM " + DBNames.TABLE_TRAINEEACTIVITY + " WHERE " + DBNames.ATT_TRAINEEACTIVITY_ID + "=?";
             pStmt = con.prepareStatement(query);
             pStmt.setInt(1, pTraineeActivity.getId());
             pStmt.executeUpdate();
@@ -271,7 +461,7 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
             DBConnectionPool.releaseConnection(con);
         }
     }
-    
+
     @Override
     public void delete(TraineeRequest pTraineeRequest) throws SQLException {
         Connection con = null;
@@ -320,9 +510,6 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
         return list;
     }
 
-    
-    
-
     @Override
     public List<TraineeActivity> search(TraineeActivity pTraineeActivity) throws SQLException {
         Connection con = null;
@@ -347,7 +534,7 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
                 int delegate = rs.getInt(DBNames.ATT_TRAINEEACTIVITY_DELEGATEACCOUNT);
                 Time startTime = rs.getTime(DBNames.ATT_TRAINEEACTIVITY_STARTTIME);
                 Time endTime = rs.getTime(DBNames.ATT_TRAINEEACTIVITY_ENDTIME);
-                String opinion=rs.getString(DBNames.ATT_TRAINEEACTIVITY_OPINION);
+                String opinion = rs.getString(DBNames.ATT_TRAINEEACTIVITY_OPINION);
                 activity.setName(name);
                 activity.setDescription(description);
                 activity.setTrainee(trainee);
@@ -368,8 +555,6 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
 
 
     }
-
-    
 
     public ArrayList<TraineeRequest> search(TraineeRequest pTraineeRequest) throws SQLException {
         Connection con = null;
@@ -425,7 +610,7 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
         }
         return requestList;
     }
-    
+
     @Override
     public List<TraineeConvocation> search(TraineeConvocation pTraineeConvocation) throws SQLException {
         Connection con = null;
@@ -435,8 +620,8 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
         String query;
         try {
             con = DBConnectionPool.getConnection();
-            query="SELECT * FROM "+DBNames.TABLE_TRAINEECONVOCATION+" WHERE "+DBNames.ATT_TRAINEECONVOCATION_TRAINEE+"='"+pTraineeConvocation.getTraineeId()+"'";
-            stmt=con.createStatement();
+            query = "SELECT * FROM " + DBNames.TABLE_TRAINEECONVOCATION + " WHERE " + DBNames.ATT_TRAINEECONVOCATION_TRAINEE + "='" + pTraineeConvocation.getTraineeId() + "'";
+            stmt = con.createStatement();
 
             rs = stmt.executeQuery(query);
             con.commit();
@@ -448,7 +633,7 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
                 String activity = rs.getString(DBNames.ATT_TRAINEECONVOCATION_ACTIVITYNAME);
                 Time startTime = rs.getTime(DBNames.ATT_TRAINEECONVOCATION_STARTTIME);
                 Time endTime = rs.getTime(DBNames.ATT_TRAINEECONVOCATION_ENDTIME);
-                int confirmed=rs.getInt(DBNames.ATT_TRAINEECONVOCATION_CONFIRMED);
+                int confirmed = rs.getInt(DBNames.ATT_TRAINEECONVOCATION_CONFIRMED);
                 GregorianCalendar dateCalendar = new GregorianCalendar();
                 dateCalendar.setTime(date);
                 TraineeConvocation traineeConvocation = new TraineeConvocation();
@@ -461,7 +646,7 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
                 traineeConvocation.setEndTime(endTime);
                 traineeConvocation.setConfirmed(confirmed);
                 convocationList.add(traineeConvocation);
-                
+
             }
             return convocationList;
         } finally {
@@ -532,7 +717,7 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
                 int delegate = rs.getInt(DBNames.ATT_TRAINEEACTIVITY_DELEGATEACCOUNT);
                 int trainee = rs.getInt(DBNames.ATT_TRAINEEACTIVITY_TRAINEE);
                 int id = rs.getInt(DBNames.ATT_TRAINEEACTIVITY_ID);
-                String opinion=rs.getString(DBNames.ATT_TRAINEEACTIVITY_OPINION);
+                String opinion = rs.getString(DBNames.ATT_TRAINEEACTIVITY_OPINION);
 
                 GregorianCalendar dateCalendar = new GregorianCalendar();
                 dateCalendar.setTime(date);
@@ -555,14 +740,6 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
         }
         return activityList;
     }
-
-    
-
-   
-
-    
-
-    
 
     @Override
     public List<Account> getTraineeList() throws SQLException {
@@ -595,7 +772,7 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
                 String activity = rs.getString(DBNames.ATT_TRAINEECONVOCATION_ACTIVITYNAME);
                 Time startTime = rs.getTime(DBNames.ATT_TRAINEECONVOCATION_STARTTIME);
                 Time endTime = rs.getTime(DBNames.ATT_TRAINEECONVOCATION_ENDTIME);
-                int confirmed=rs.getInt(DBNames.ATT_TRAINEECONVOCATION_CONFIRMED);
+                int confirmed = rs.getInt(DBNames.ATT_TRAINEECONVOCATION_CONFIRMED);
                 GregorianCalendar dateCalendar = new GregorianCalendar();
                 dateCalendar.setTime(date);
                 TraineeConvocation traineeConvocation = new TraineeConvocation();
@@ -616,8 +793,4 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
         }
         return convocationList;
     }
-    
-    
-    
-    
 }

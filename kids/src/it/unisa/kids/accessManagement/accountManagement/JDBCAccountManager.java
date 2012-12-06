@@ -287,6 +287,10 @@ public class JDBCAccountManager implements IAccountManager {
 
             if (pAccount.getAccountType() != null && !pAccount.getAccountType().equals("")) {
                 query += useAnd(andState) + DBNames.ATT_ACCOUNT_TYPEACCOUNT + " = ?";
+                andState=true;
+            }
+            if (pAccount.getRegister() != null ) {
+                query += useAnd(andState) + DBNames.ATT_ACCOUNT_REGISTER + " = ?";
             }
             pstmt = con.prepareStatement(query);
 
@@ -325,7 +329,10 @@ public class JDBCAccountManager implements IAccountManager {
                 pstmt.setString(i, pAccount.getAccountType());
                 i++;
             }
-
+            if (pAccount.getRegister() != null ) {
+                pstmt.setString(i, pAccount.getRegister());
+                i++;
+            }
             System.out.println(query);
             rs = pstmt.executeQuery();
             con.commit();
@@ -333,7 +340,6 @@ public class JDBCAccountManager implements IAccountManager {
             // constructing payment list
             account = new ArrayList<Account>();
             while (rs.next()) {
-                                    System.out.println("I'm here");
 
                 Account p = new Account();
                 p.setId(rs.getInt(DBNames.ATT_PAYMENT_ID));

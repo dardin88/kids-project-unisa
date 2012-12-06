@@ -45,20 +45,35 @@
         </script>
         <title>Inserisci Attività</title>
     </head>
+    <c:if test="${requestScope.message!=null}">
+        <div id="confirm" title="Message" style="display: inline">
+            <form id="confirmForm" class="cmxform" method="post" action="managerTraineeActivity.jsp">
+                <fieldset>
+                    <p class="formp">
+                        <label class="requirementLabel">${requestScope.message}</label>
+                    </p>
+                    <p class="formp">
+                        <input type="submit" class="confirmButton" id="confirmButton" value="ok"/>
+
+                    </p>
+                </fieldset>
+            </form>
+        </div>
+    </c:if>
     <div id="activityInformation" title="Attivit&agrave">
-        <form action="RemoveTraineeActivity" method="post">
+        <form id="modifyInformation"action="RemoveTraineeActivity" method="post">
             <table style="padding-bottom: 20px;">
                 <input type="hidden" name="id" id="id">
-                <tr><td>Tirocinante</td><td><input type="text" id="TraineeRegister" name="MatricolaTirocinante" value="" readonly size="30"></td></tr>
-                <tr><td>Attivit&agrave</td><td><input type="text" id="TraineeActivity" name="Attivita" value="" readonly size="30"></td></tr>
-                <tr><td>Data</td><td><input type="text" id="DateActivity"name="Data" value="" readonly size="30"></td></tr>
-                <tr><td>Descrizione</td><td><textarea  id="Description"name="Descrizione" value="" readonly resizable="false" cols="29" rows="6" style="resize: none"></textarea></td></tr>
-                <tr><td>Ora di inzio</td><td><input type="text" id="StartTimeActivity"name="OraInizio" value="" readonly size="30"></td></tr>
-                <tr><td>Ora di fine</td><td><input type="text" id="EndTimeActivity"name="OraFine" value="" readonly size="30"></td></tr> 
-                <tr><td>Giudizio</td><td><textarea id="Opinion" name="Giudizio" value="" readonly cols="29" rows="6" style="resize: none"></textarea></td></tr>
+                <tr><td>Tirocinante</td><td><input type="text" id="TraineeRegister" name="MatricolaTirocinante" value="" disabled size="30"></td></tr>
+                <tr><td>Attivit&agrave</td><td><input type="text" id="TraineeActivity" name="Attivita" value="" disabled size="30"></td></tr>
+                <tr><td>Data</td><td><input type="text" id="DateActivity"name="Data" value="" disabled size="30"></td></tr>
+                <tr><td>Descrizione</td><td><textarea  id="Description"name="Descrizione" value="" disabled resizable="false" cols="29" rows="6" style="resize: none"></textarea></td></tr>
+                <tr><td>Ora di inzio</td><td><input type="text" id="StartTimeActivity"name="OraInizio" value="" disabled size="30"></td></tr>
+                <tr><td>Ora di fine</td><td><input type="text" id="EndTimeActivity"name="OraFine" value="" disabled size="30"></td></tr> 
+                <tr><td>Giudizio</td><td><textarea id="Opinion" name="Giudizio" value="" disabled cols="29" rows="6" style="resize: none"></textarea></td></tr>
 
             </table>
-            <input type="submit" name="removeActivity" id="removeActivity" value="Rimuovi"style="float:right">
+            <input type="submit" value="Salva" id="saveButton" style="visibility: hidden"><input type="button" value="Modifica" onclick="modifyDialog()" id="modifyButton"><input type="submit" name="removeActivity" id="removeActivity" value="Rimuovi"style="float:right">
         </form>
     </div>
     <div id="insertTraineeActivity" style="display: inline;" title="Inserisci Attivit&agrave">
