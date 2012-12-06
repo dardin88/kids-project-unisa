@@ -425,7 +425,6 @@
         <url-pattern>/DownloadFile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ServletCreateDraftRegistrationChild</servlet-name>
         <url-pattern>/CreateDraftRegistrationChild</url-pattern>
     </servlet-mapping>
