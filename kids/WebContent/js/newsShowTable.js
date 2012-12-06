@@ -127,8 +127,9 @@ function updateNews(id,title,description,type,data,time){
                 idNews:""+id               
             });
             $("#updateNewsWindow").dialog("close"); 
-            var oTable = $("#linksTable").dataTable();
-            oTable.fnDraw();
+         //   var oTable = $("#linksTable").dataTable();
+         //   oTable.fnDraw();
+            document.location.reload(true);
             $("#artefactTitolo2").val("");
             $("#artefactDescrizione2").val("");
             $("#artefactTitolo2").val("");
@@ -201,7 +202,6 @@ function addNews(){
             },
             submitHandler: function() {
                 var attached=$("#addLinkButton2").val();
-                alert(attached);
                 var str=attached.split("\\");
                 var s=str[str.length-1];      
                 if(attached!="")

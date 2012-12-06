@@ -40,7 +40,7 @@
                 initializeLinksManager();
                 $("#artefactData").datepicker({dateFormat:'yy-mm-dd' });
                 $("#artefactData2").datepicker({dateFormat:'yy-mm-dd'});    
-               // $("#artefactOra").timepicker();
+                //$("#artefactOra").timepicker();
     
                 buildShowTable();
                 

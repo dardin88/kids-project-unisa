@@ -43,6 +43,7 @@ public class GetNewsServlet extends HttpServlet {
         ArrayList<News> listNews;
         try {
             response.setContentType("text/html;charset=UTF-8");
+           // Thread.sleep(5000);
             out = response.getWriter();
             INewsManager am = JDBCNewsManager.getInstance();
             JSONObject result = new JSONObject();
