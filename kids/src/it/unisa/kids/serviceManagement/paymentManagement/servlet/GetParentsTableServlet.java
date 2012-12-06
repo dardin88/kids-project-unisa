@@ -4,13 +4,11 @@
  */
 package it.unisa.kids.serviceManagement.paymentManagement.servlet;
 
-import it.unisa.kids.serviceManagement.trainingManagement.*;
 import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.facade.AccessFacade;
 import it.unisa.kids.common.facade.IAccessFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -121,15 +119,15 @@ public class GetParentsTableServlet extends HttpServlet {
         Account acc = new Account();
         acc.setAccountType("Genitore");
 
-        if (pRequest.getParameter("parentName") != null && !pRequest.getParameter("parentName").equals("")) {
+        if (pRequest.getParameter("parentName") != null && !pRequest.getParameter("parentName").trim().equals("")) {
             acc.setNameUser(pRequest.getParameter("parentName"));
         }
 
-        if (pRequest.getParameter("parentSurname") != null && !pRequest.getParameter("parentSurname").equals("")) {
+        if (pRequest.getParameter("parentSurname") != null && !pRequest.getParameter("parentSurname").trim().equals("")) {
             acc.setSurnameUser(pRequest.getParameter("parentSurname"));
         }
 
-        if (pRequest.getParameter("parentFiscalCode") != null && !pRequest.getParameter("parentFiscalCode").equals("")) {
+        if (pRequest.getParameter("parentFiscalCode") != null && !pRequest.getParameter("parentFiscalCode").trim().equals("")) {
             acc.setTaxCode(pRequest.getParameter("parentFiscalCode"));
         }
 
@@ -140,7 +138,7 @@ public class GetParentsTableServlet extends HttpServlet {
         if (value != null) {
             jObj.put(key, value);
         } else {
-            jObj.put(key, JSONObject.NULL);
+            jObj.put(key, "");
         }
     }
 

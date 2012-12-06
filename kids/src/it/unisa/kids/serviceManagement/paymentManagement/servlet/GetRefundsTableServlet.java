@@ -7,11 +7,9 @@ package it.unisa.kids.serviceManagement.paymentManagement.servlet;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.kids.serviceManagement.paymentManagement.IPaymentManager;
-import it.unisa.kids.serviceManagement.paymentManagement.PaymentBean;
 import it.unisa.kids.serviceManagement.paymentManagement.RefundBean;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -73,6 +71,9 @@ public class GetRefundsTableServlet extends HttpServlet {
             }
 
             RefundBean searchRefund = checkSearchParameters(request);
+            searchRefund.setId(-1);
+            searchRefund.setAmount(-1);
+            searchRefund.setPerformedUsable(false);
             List<RefundBean> refundsList = paymentManager.search(searchRefund);
             RefundBean[] paginateRefundSet;
 
@@ -91,13 +92,13 @@ public class GetRefundsTableServlet extends HttpServlet {
                     System.arraycopy(refundsList.toArray(), start, paginateRefundSet, 0, toShow);
                 }
                 for (RefundBean refund : paginateRefundSet) {
-                    JSONArray ja = new JSONArray();
+                    JSONObject jObj = new JSONObject();
                     
-                    ja.put(refund.getDescription());
-                    ja.put(refund.getAmount());
-                    //ja.put(refund.getState());
+                    checkAddToJSON(jObj, "0", refund.getDescription());
+                    jObj.put("1", refund.getAmount());
+                    jObj.put("2", refund.isPerformed() ? "Effettuato" : "Non effettuato");
                     
-                    array.put(ja);
+                    array.put(jObj);
                 }
             }
             result.put("sEcho", sEcho);
@@ -130,6 +131,14 @@ public class GetRefundsTableServlet extends HttpServlet {
         
         refund.setParentId(parentId);
         return refund;
+    }
+    
+    private void checkAddToJSON(JSONObject jObj, String key, Object value) {
+        if (value != null) {
+            jObj.put(key, value);
+        } else {
+            jObj.put(key, "");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

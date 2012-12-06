@@ -10,7 +10,6 @@ import it.unisa.kids.serviceManagement.paymentManagement.IPaymentManager;
 import it.unisa.kids.serviceManagement.paymentManagement.PaymentBean;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 public class UpdatePaymentServlet extends HttpServlet {
 
     private static final int DESCRIPTION_MAXLENGTH = 200;
+    private static final int ORIGACCOUNT_MAXLENGTH = 30;
     private static final String CHARGE_TRUE = "chargeTrue";
     private IPaymentManager paymentManager;
 
@@ -97,7 +97,7 @@ public class UpdatePaymentServlet extends HttpServlet {
 
         payment.setPayee(request.getParameter("modifyPayee").trim());
 
-        double discount = Double.parseDouble(request.getParameter("modifyDiscount"));
+        double discount = Double.parseDouble(request.getParameter("modifyDiscount").trim());
         if (discount < 0 || discount > 100) {
             sendMessageRedirect(request, response, "Errore: valore sconto non consentito.");
             return;
@@ -127,7 +127,6 @@ public class UpdatePaymentServlet extends HttpServlet {
         payment.setExpDate(parseGregorianCalendar(expDate));
 
         payment.setPaid(false);
-        payment.setOriginAccount("TestContoOrigine");
         paymentManager.update(payment);
         sendMessageRedirect(request, response, "Pagamento modificato con successo.");
     }
@@ -142,7 +141,14 @@ public class UpdatePaymentServlet extends HttpServlet {
         }
         payment.setId(paymentId);
 
-        String receiptCode = request.getParameter("validateConfirmCode");
+        String originAccount = request.getParameter("validateOriginAccount").trim();
+        if (originAccount.length() > ORIGACCOUNT_MAXLENGTH) {
+            sendMessageRedirect(request, response, "Errore: conto origine errato");
+            return;
+        }
+        payment.setOriginAccount(originAccount);
+
+        String receiptCode = request.getParameter("validateConfirmCode").trim();
         if (receiptCode != null && !receiptCode.trim().equals("")) {
             //payment.setReceiptCode(request.getParameter("validateConfirmCode"));       // bisogna aggiungere l'attributo nel db
         } else {

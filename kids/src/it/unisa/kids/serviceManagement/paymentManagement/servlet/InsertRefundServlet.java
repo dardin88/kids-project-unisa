@@ -7,14 +7,9 @@ package it.unisa.kids.serviceManagement.paymentManagement.servlet;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.kids.serviceManagement.paymentManagement.IPaymentManager;
-import it.unisa.kids.serviceManagement.paymentManagement.PaymentBean;
+import it.unisa.kids.serviceManagement.paymentManagement.RefundBean;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -27,10 +22,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author utente
  */
-public class InsertPaymentServlet extends HttpServlet {
+public class InsertRefundServlet extends HttpServlet {
     
     private static final int DESCRIPTION_MAXLENGTH = 200;
-    private static final String CHARGE_TRUE = "chargeTrue";
 
     private IPaymentManager paymentManager;
 
@@ -51,85 +45,42 @@ public class InsertPaymentServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            PaymentBean payment = new PaymentBean();
+            RefundBean refund = new RefundBean();
             
-            int parentId = Integer.parseInt(request.getParameter("hiddenParentIdInsPayment"));
+            int parentId = Integer.parseInt(request.getParameter("hiddenParentIdInsRefund"));
             if (parentId <= 0) {
                 sendMessageRedirect(request, response, "Errore: genitore selezionato non corretto - " + parentId);
                 return;
             }
-            payment.setParentId(parentId);
+            refund.setParentId(parentId);
             
-            String paymentDescription = request.getParameter("paymentDescription").trim();
-            if (paymentDescription.length() > DESCRIPTION_MAXLENGTH) {
-                sendMessageRedirect(request, response, "Errore: descrizione pagamento troppo lunga.");
+            String refundDescription = request.getParameter("refundDescription").trim();
+            if (refundDescription.length() > DESCRIPTION_MAXLENGTH) {
+                sendMessageRedirect(request, response, "Errore: descrizione rimborso troppo lunga.");
                 return;
             }
-            payment.setPaymentDescription(paymentDescription);
+            refund.setDescription(refundDescription);
             
-            double amount = Double.parseDouble(request.getParameter("amount").trim());
+            double amount = Double.parseDouble(request.getParameter("refundAmount").trim());
             if (amount < 0) {
                 sendMessageRedirect(request, response, "Errore: importo negativo non consentito.");
                 return;
             }
-            payment.setAmount(amount);
+            refund.setAmount(amount);
             
-            payment.setPayee(request.getParameter("payee").trim());
+            paymentManager.insert(refund);
             
-            double discount = Double.parseDouble(request.getParameter("discount").trim());
-            if (discount < 0 || discount > 100) {
-                sendMessageRedirect(request, response, "Errore: valore sconto non consentito.");
-                return;
-            }
-            payment.setDiscount(discount);
-            
-            String discountDescription = request.getParameter("discountDescription").trim();
-            if (discountDescription.length() > DESCRIPTION_MAXLENGTH) {
-                sendMessageRedirect(request, response, "Errore: descrizione sconto troppo lunga.");
-                return;
-            }
-            payment.setDiscountDescription(discountDescription);
-            
-            String charge = request.getParameter("charge");
-            if (charge != null && charge.equals(CHARGE_TRUE)) {
-                payment.setCharge(true);
-            } else {
-                payment.setCharge(false);
-            }
-            
-            String expDate = request.getParameter("expDate");
-            if (expDate == null) {
-                sendMessageRedirect(request, response, "Errore: data di scadenza non specificata.");
-                return;
-            }
-            payment.setExpDate(parseGregorianCalendar(expDate));
-            
-            payment.setPaid(false);
-            
-            paymentManager.insert(payment);
-            
-            sendMessageRedirect(request, response, "Pagamento inserito con successo.");
+            sendMessageRedirect(request, response, "Rimborso inserito con successo.");
 
         } catch (SQLException e) {
             sendMessageRedirect(request, response, "Verfica i campi");
-            Logger.getLogger(InsertPaymentServlet.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(InsertRefundServlet.class.getName()).log(Level.SEVERE, null, e);
         
         } catch (NumberFormatException e) {
             sendMessageRedirect(request, response, "Verfica i campi");
-            Logger.getLogger(InsertPaymentServlet.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(InsertRefundServlet.class.getName()).log(Level.SEVERE, null, e);
         
-        } catch (ParseException e) {
-            sendMessageRedirect(request, response, "Errore: data non corretta.");
-            Logger.getLogger(InsertPaymentServlet.class.getName()).log(Level.SEVERE, null, e);
-        } 
-    }
-
-    private GregorianCalendar parseGregorianCalendar(String pDate) throws ParseException {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        Date parsed = df.parse(pDate);
-        GregorianCalendar date = new GregorianCalendar();
-        date.setTime(parsed);
-        return date;
+        }
     }
     
     private void sendMessageRedirect(HttpServletRequest request, HttpServletResponse response, String msg)

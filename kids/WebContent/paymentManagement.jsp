@@ -144,7 +144,24 @@
                     </div>
 
                     <div id="insertRefund">
-
+                        <form id="insertRefundForm" class="cmxform" method="post" action="InsertRefund">
+                            <table>
+                                <tr>
+                                    <td><label for="refundDescription">Descrizione rimborso:&nbsp;</label></td>
+                                    <td><input type="text" name="refundDescription" id="refundDescription"></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="refundAmount">Importo:&nbsp;</label></td>
+                                    <td><input type="text" name="refundAmount" id="refundAmount"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" name="hiddenParentIdInsRefund" id="hiddenParentIdInsRefund" value="-1">
+                                        <input type="submit" name="insertRefundButton" id="insertRefundButton" value="Inserisci rimborso">
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
                     </div>
 
                     <div id="showPayments">
@@ -275,6 +292,10 @@
                                 <tr>
                                     <td><label for="validateExpDate">Data di scadenza:&nbsp;</label></td>
                                     <td><input type="text" name="validateExpDate" id="validateExpDate" disabled></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="validateOriginAccount">Conto d'origine:&nbsp;</label></td>
+                                    <td><input type="text" name="validateOriginAccount" id="validateOriginAccount"></td>
                                 </tr>
                                 <tr>
                                     <td><label for="validateConfirmCode">Codice ricevuta pagamento:&nbsp;</label></td>

@@ -503,8 +503,9 @@ public class JDBCPaymentManager implements IPaymentManager {
                     + DBNames.ATT_REFUND_ID + ", "
                     + DBNames.ATT_REFUND_DESCRIPTION + ", "
                     + DBNames.ATT_REFUND_AMOUNT + ", "
-                    + DBNames.ATT_REFUND_PARENTID
-                    + ") VALUES(?, ?, ?, ?)";
+                    + DBNames.ATT_REFUND_PARENTID + ", "
+                    + DBNames.ATT_REFUND_PERFORMED
+                    + ") VALUES(?, ?, ?, ?, ?)";
 
             pstmt = con.prepareStatement(query);
 
@@ -513,6 +514,7 @@ public class JDBCPaymentManager implements IPaymentManager {
             pstmt.setString(2, pRefund.getDescription());
             pstmt.setDouble(3, pRefund.getAmount());
             pstmt.setInt(4, pRefund.getParentId());
+            pstmt.setBoolean(5, pRefund.isPerformed());
 
             pstmt.executeUpdate();
             con.commit();
@@ -530,25 +532,63 @@ public class JDBCPaymentManager implements IPaymentManager {
         Connection con = null;
         PreparedStatement pstmt = null;
         String query = null;
+        
+        boolean commaState = false;
 
         try {
             con = DBConnectionPool.getConnection();
 
-            // constructing query string
-            query = "UPDATE " + DBNames.TABLE_REFUND + " SET "
-                    + DBNames.ATT_REFUND_DESCRIPTION + " = ?, "
-                    + DBNames.ATT_REFUND_AMOUNT + " = ?, "
-                    + DBNames.ATT_REFUND_PARENTID + " = ? "
-                    + "WHERE " + DBNames.ATT_REFUND_ID + " = ?";
+            // constructing update query string
+            query = "UPDATE " + DBNames.TABLE_REFUND + " SET ";
+            if (pRefund.getDescription() != null) {
+                query += DBNames.ATT_REFUND_DESCRIPTION + " = ?";
+                commaState = true;
+            }
 
+            if (pRefund.getAmount() >= 0) {
+                query += useComma(commaState) + DBNames.ATT_REFUND_AMOUNT + " = ?";
+                commaState = true;
+            }
+
+            if (pRefund.getParentId() > 0) {
+                query += useComma(commaState) + DBNames.ATT_REFUND_PARENTID + " = ?";
+                commaState = true;
+            }
+            
+            if (pRefund.isPerformedUsable()) {
+                query += useComma(commaState) + DBNames.ATT_REFUND_PERFORMED + " = ?";
+                commaState = true;
+            }
+
+            query += " WHERE " + DBNames.ATT_REFUND_ID + " = ?";
             pstmt = con.prepareStatement(query);
 
             // setting pstmt's parameters
-            pstmt.setString(1, pRefund.getDescription());
-            pstmt.setDouble(2, pRefund.getAmount());
-            pstmt.setInt(3, pRefund.getParentId());
-            pstmt.setInt(4, pRefund.getId());
+            int i = 1;		// index of pstmt first argument
 
+            if (pRefund.getDescription() != null) {
+                pstmt.setString(i, pRefund.getDescription());
+                i++;
+            }
+            
+            if (pRefund.getAmount() >= 0) {
+                pstmt.setDouble(i, pRefund.getAmount());
+                i++;
+            }
+            
+            if (pRefund.getParentId() > 0) {
+                pstmt.setInt(i, pRefund.getParentId());
+                i++;
+            }
+            
+            if (pRefund.isPerformedUsable()) {
+                pstmt.setBoolean(i, pRefund.isPerformed());
+                i++;
+            }
+
+            pstmt.setInt(i, pRefund.getId());
+
+            // executing update query
             pstmt.executeUpdate();
             con.commit();
         } finally {
@@ -619,6 +659,11 @@ public class JDBCPaymentManager implements IPaymentManager {
                 query += useAnd(andState) + DBNames.ATT_REFUND_PARENTID + " = ?";
                 andState = true;
             }
+            
+            if (pRefund.isPerformedUsable()) {
+                query += useAnd(andState) + DBNames.ATT_REFUND_PERFORMED + " = ?";
+                andState = true;
+            }
 
             pstmt = con.prepareStatement(query);
 
@@ -643,6 +688,11 @@ public class JDBCPaymentManager implements IPaymentManager {
                 pstmt.setInt(i, pRefund.getParentId());
                 i++;
             }
+            
+            if (pRefund.isPerformedUsable()) {
+                pstmt.setBoolean(i, pRefund.isPerformed());
+                i++;
+            }
 
             // executing select query
             rs = pstmt.executeQuery();
@@ -656,6 +706,7 @@ public class JDBCPaymentManager implements IPaymentManager {
                 rp.setDescription(rs.getString(DBNames.ATT_REFUND_DESCRIPTION));
                 rp.setAmount(rs.getDouble(DBNames.ATT_REFUND_AMOUNT));
                 rp.setParentId(rs.getInt(DBNames.ATT_REFUND_PARENTID));
+                rp.setPerformed(rs.getBoolean(DBNames.ATT_REFUND_PERFORMED));
 
                 refunds.add(rp);
             }
@@ -695,6 +746,7 @@ public class JDBCPaymentManager implements IPaymentManager {
                 rp.setDescription(rs.getString(DBNames.ATT_REFUND_DESCRIPTION));
                 rp.setAmount(rs.getDouble(DBNames.ATT_REFUND_AMOUNT));
                 rp.setParentId(rs.getInt(DBNames.ATT_REFUND_PARENTID));
+                rp.setPerformed(rs.getBoolean(DBNames.ATT_REFUND_PERFORMED));
 
                 refunds.add(rp);
             }
