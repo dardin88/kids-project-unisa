@@ -6,6 +6,10 @@
         <servlet-class>it.unisa.kids.serviceManagement.paymentManagement.servlet.GetParentsTableServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>InserTraineeRequestServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.InserTraineeRequestServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>GetPaymentsTableServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.paymentManagement.servlet.GetPaymentsTableServlet</servlet-class>
     </servlet>
@@ -280,7 +284,7 @@
         <servlet-name>AddAccountServlet</servlet-name>
         <url-pattern>/AddAccount</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetTableAccountSecretaryServlet</servlet-name>
         <url-pattern>/GetTableAccountSecretary</url-pattern>
     </servlet-mapping>
@@ -455,6 +459,11 @@
     <servlet-mapping>
         <servlet-name>GetTableClassServlet</servlet-name>
         <url-pattern>/GetTableClassServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>InsertRenunciationServlet</servlet-name>
+        <url-pattern>/InsertRenunciation</url-pattern>
     </servlet-mapping>
     
     
