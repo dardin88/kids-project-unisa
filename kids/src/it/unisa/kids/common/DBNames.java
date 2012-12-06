@@ -208,13 +208,13 @@ public final class DBNames {
     public static final String ATT_NEWS_ATTACHED = "Allegato";
     public static final String ATT_NEWS_DELEGATEACCOUNT = "IdAutore";
     //Communication's attributes
-    public static final String ATT_COMMUNICATION_ID = "id";
-    public static final String ATT_COMMUNICATION_TYPE = "tipo";
-    public static final String ATT_COMMUNICATION_IDEDUCATOR = "idEducatore";
+    public static final String ATT_COMMUNICATION_ID = "Id";
+    public static final String ATT_COMMUNICATION_TYPE = "Tipo";
+    public static final String ATT_COMMUNICATION_IDEDUCATOR = "IdEducatore";
     public static final String ATT_COMMUNICATION_IDCHILD = "idBambino";
-    public static final String ATT_COMMUNICATION_DESCRIPTION = "descrizione";
-    public static final String ATT_COMMUNICATION_DATE = "data";
-    public static final String ATT_COMMUNICATION_SOLVED = "risolto";
+    public static final String ATT_COMMUNICATION_DESCRIPTION = "Descrizione";
+    public static final String ATT_COMMUNICATION_DATE = "Data";
+    public static final String ATT_COMMUNICATION_SOLVED = "Risolto";
     //Project Annual attributes
     public static final String ATT_PROJECTANNUAL_ID = "Id";
     public static final String ATT_PROJECTANNUAL_NAME = "Nome";
