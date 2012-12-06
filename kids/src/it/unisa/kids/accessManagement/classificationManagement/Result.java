@@ -15,6 +15,7 @@ public class Result {
     private boolean result;
 
     public Result() {
+        this.score = -1;    // valore null dello score, in quanto il punteggio può essere solo positivo o al minimo 0
     }
     
     public void setRegistrationChildId(int registrationChildId) {

@@ -73,6 +73,7 @@ INSERT INTO `account` (`Id`, `Nickname`, `Password`, `Cognome`, `Nome`, `Email`,
 (1, 'segreteria', 'segreteria', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Segreteria', NULL, NULL),
 (2, 'admin', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Admin', NULL, NULL),
 (4, 'genitore', 'genitore', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Genitore', NULL, NULL);
+(5, 'gen2', 'gen2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Genitore', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -245,16 +246,18 @@ CREATE TABLE IF NOT EXISTS `graduatoria` (
 
 CREATE TABLE IF NOT EXISTS `iscrizionebambino` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Cognome` varchar(25) DEFAULT NULL,
-  `Nome` varchar(25) DEFAULT NULL,
+  `Cognome` varchar(25),
+  `Nome` varchar(25),
   `DataNascita` date DEFAULT NULL,
-  `ComuneNascita` varchar(20) DEFAULT NULL,
-  `CodiceFiscale` char(16) DEFAULT NULL,
-  `Cittadinanza` varchar(20) DEFAULT NULL,
+  `ComuneNascita` varchar(20),
+  `CodiceFiscale` char(16),
+  `Cittadinanza` varchar(20),
   `FasciaUtenza` enum('full_time','part_time_pomeridiana','part_time_mattutina') DEFAULT NULL,
   `DataIscrizione` date NOT NULL,
-  `Malattia` text,
   `FaseDellIscrizione` enum('bozza','sottomessa','confermata','rifiutata','accettata','completata','eliminata','rinunciata','ricorso') NOT NULL DEFAULT 'bozza',
+  `Malattie` text,
+  `Vaccinazioni` text,
+  `DichiarazioneDellaPrivacy` text,
   `AccountGenitore` int(11) NOT NULL,
   `Classe` int(11) DEFAULT NULL,
   PRIMARY KEY (`Id`)
@@ -264,18 +267,18 @@ CREATE TABLE IF NOT EXISTS `iscrizionebambino` (
 -- Dump dei dati per la tabella `iscrizionebambino`
 --
 
-INSERT INTO `iscrizionebambino` (`Id`, `Cognome`, `Nome`, `DataNascita`, `ComuneNascita`, `CodiceFiscale`, `Cittadinanza`, `FasciaUtenza`, `DataIscrizione`, `Malattia`, `FaseDellIscrizione`, `AccountGenitore`, `Classe`) VALUES
-(1, 'Ciccio', 'Paolo', NULL, '', '', '', 'full_time', '2012-12-05', NULL, 'sottomessa', 4, 0),
-(2, 'pop', 'nola', NULL, '', '', '', 'full_time', '2012-12-05', NULL, 'bozza', 4, 0),
-(3, 'provo', 'pao', NULL, '', '', '', 'full_time', '2012-12-05', NULL, 'bozza', 4, 0),
-(4, 'baaaaaaaa', 'lol', NULL, '', '', '', 'full_time', '2012-12-05', NULL, 'accettata', 4, 0),
-(5, 'bahl', 'hla', NULL, '', '', '', 'full_time', '2012-12-05', NULL, 'bozza', 4, 0),
-(6, 'data', 'data', '2012-12-10', '', '', '', 'full_time', '2012-12-05', NULL, 'bozza', 4, 0),
-(7, 'dopoedit', 'dopoedit', NULL, '', '', '', 'full_time', '2012-12-06', NULL, 'bozza', 4, 0),
-(8, 'aaa', 'aaa', NULL, '', '', '', 'full_time', '2012-12-06', NULL, 'bozza', 4, 0),
-(9, 'nona', 'nona', NULL, '', '', 'boh', 'full_time', '2012-12-06', NULL, 'bozza', 4, 0),
-(10, 'decima', 'lol', NULL, '', '', '', 'full_time', '2012-12-06', NULL, 'bozza', 4, 0),
-(11, 'undicesima', 'lalla', NULL, '', '', '', 'full_time', '2012-12-06', NULL, 'bozza', 4, 0);
+INSERT INTO `iscrizionebambino` (`Id`, `Cognome`, `Nome`, `DataNascita`, `ComuneNascita`, `CodiceFiscale`, `Cittadinanza`, `FasciaUtenza`, `DataIscrizione`, `FaseDellIscrizione`, `Malattie`, `Vaccinazioni`, `DichiarazioneDellaPrivacy`, `AccountGenitore`, `Classe`) VALUES
+(1, 'Ciccio', 'Paolo', NULL, '', '', '', 'full_time', '2012-12-05', 'sottomessa', NULL, NULL, NULL, 4, 0),
+(2, 'pop', 'nola', NULL, '', '', '', 'full_time', '2012-12-05', 'bozza', NULL, NULL, NULL, 4, 0),
+(3, 'provo', 'pao', NULL, '', '', '', 'full_time', '2012-12-05', 'bozza', NULL, NULL, NULL, 4, 0),
+(4, 'baaaaaaaa', 'lol', NULL, '', '', '', 'full_time', '2012-12-05', 'accettata', NULL, NULL, NULL, 4, 0),
+(5, 'bahl', 'hla', NULL, '', '', '', 'full_time', '2012-12-05', 'bozza', NULL, NULL, NULL, 4, 0),
+(6, 'data', 'data', '2012-12-10', '', '', '', 'full_time', '2012-12-05', 'bozza', NULL, NULL, NULL, 4, 0),
+(7, 'dopoedit', 'dopoedit', NULL, '', '', '', 'full_time', '2012-12-06', 'bozza', NULL, NULL, NULL, 4, 0),
+(8, 'aaa', 'aaa', NULL, '', '', '', 'full_time', '2012-12-06', 'bozza', NULL, NULL, NULL, 4, 0),
+(9, 'nona', 'nona', NULL, '', '', 'boh', 'full_time', '2012-12-06', 'bozza', NULL, NULL, NULL, 4, 0),
+(10, 'decima', 'lol', NULL, '', '', '', 'full_time', '2012-12-06', 'bozza', NULL, NULL, NULL, 5, 0),
+(11, 'undicesima', 'lalla', NULL, '', '', '', 'full_time', '2012-12-06', 'bozza', NULL, NULL, NULL, 4, 0);
 
 -- --------------------------------------------------------
 
