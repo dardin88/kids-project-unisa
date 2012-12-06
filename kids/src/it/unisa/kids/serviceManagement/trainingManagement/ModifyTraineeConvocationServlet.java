@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author utente
  */
+    @WebServlet(name = "ModifyTraineeConvocationServlet", urlPatterns = {"/ModifyTraineeConvocation"})
+
 public class ModifyTraineeConvocationServlet extends HttpServlet {
 
     private static Logger logger = Logger.getLogger("global");
@@ -43,6 +46,7 @@ public class ModifyTraineeConvocationServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {

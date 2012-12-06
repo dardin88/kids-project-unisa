@@ -45,7 +45,6 @@ public class RemoveTraineeActivityServlet extends HttpServlet {
         
         try {
             int id=Integer.parseInt(request.getParameter("id"));
-            System.out.println("Id"+id);
             TraineeActivity traineeActivity=new TraineeActivity();
             traineeActivity.setId(id);
             trainingManager.delete(traineeActivity);

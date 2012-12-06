@@ -46,6 +46,12 @@ private ITrainingManager trainingManager;
             Account trainee=new Account();
             trainee.setId(Integer.parseInt(request.getParameter("traineeId")));
             trainingManager.delete(trainee);
+            TraineeActivity traineeActivity=new TraineeActivity();
+            traineeActivity.setTrainee(trainee.getId());
+            TraineeConvocation traineeConvocation=new TraineeConvocation();
+            traineeConvocation.setTraineeId(trainee.getId());
+            trainingManager.delete(traineeActivity);
+            trainingManager.delete(traineeConvocation);
             
         } catch (SQLException ex) {
             Logger.getLogger(RemoveTraineeServlet.class.getName()).log(Level.SEVERE, null, ex);
