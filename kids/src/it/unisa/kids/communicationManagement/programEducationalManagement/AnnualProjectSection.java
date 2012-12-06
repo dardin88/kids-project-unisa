@@ -18,7 +18,23 @@ public class AnnualProjectSection extends AnnualProject
 	private String description;
 	private int section;
 	private int idYear; //serve come chiave esterna per progetto annuale
-	
+	private String attached;
+
+    public void setCommenti(ArrayList<CommentoBean> commenti) {
+        this.commenti = commenti;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setAttached(String attached) {
+        this.attached = attached;
+    }
+
+    public String getAttached() {
+        return attached;
+    }
         
 	/**
 	 * the costructor recall the costuctor of the father

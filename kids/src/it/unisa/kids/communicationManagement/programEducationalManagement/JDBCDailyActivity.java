@@ -24,12 +24,22 @@ import java.util.logging.Logger;
  */
 /**
  *
- * @author hp
+ * @author Giuseppe Alfieri
  */
 public class JDBCDailyActivity implements IDailyActivitySection {
 
     private Connection con;
     private PreparedStatement pstmt;
+    
+    private static IDailyActivitySection manager;
+
+    public static IDailyActivitySection getInstance() {
+        if (manager == null) {
+            return (manager = new JDBCDailyActivity());
+        } else {
+            return manager;
+        }
+    }
 
     JDBCDailyActivity() {
     }
