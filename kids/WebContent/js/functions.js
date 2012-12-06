@@ -77,6 +77,12 @@ function activePage(){
             $("#TimeServiceMenuEL").css("color", "#FFFFFF");
             $("#title").html("Gestione orario di servizio");
             break;
+        case 'canteenManagement.jsp':
+            $("#canteenManagementMenuEl").css("background-color", "#444");
+            $("#canteenManagementMenuEl").css("color", "#FFFFFF");
+            $("#title").html("Gestione mensa");
+            break;
+            
     }
 }
 
