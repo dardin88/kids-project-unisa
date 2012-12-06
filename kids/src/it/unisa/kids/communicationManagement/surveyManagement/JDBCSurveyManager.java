@@ -13,7 +13,8 @@ import java.sql.Statement;
 import java.sql.Time;
 import java.util.List;
 
-/**
+
+ /**
  *
  * @author felice
  */
@@ -173,8 +174,8 @@ public class JDBCSurveyManager implements ISurveyManager{
             pStmt = connection.prepareStatement(query);
             
             pStmt.setInt(1, pAvailableSurvey.getId());
-            pStmt.setString(2, pParent.getId()); //perchè cazzo non scompare, porcaccia! capisco che è (int, int) ma perchè il primo l'ha preso?
-            pStmt.setString(3, pAvailableSurvey.getCompiled());
+            pStmt.setInt(2, pParent.getId()); 
+            pStmt.setBoolean(3, pAvailableSurvey.getCompiled());
             
             
             pStmt.executeUpdate();
@@ -188,10 +189,9 @@ public class JDBCSurveyManager implements ISurveyManager{
                   DBConnectionPool.releaseConnection(connection); 
               }
         }              
-    } 
     }
 
- /*  
+     
     public void update(Survey pAvailableSurvey, Account pParent) throws SQLException {
     
     }
@@ -204,6 +204,6 @@ public class JDBCSurveyManager implements ISurveyManager{
     
     public List<Survey> search(Account pParent) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet.");
-    } */
+    } 
     
 }
