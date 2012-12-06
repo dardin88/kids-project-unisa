@@ -5,6 +5,10 @@
         <servlet-name>GetParentsTableServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.paymentManagement.servlet.GetParentsTableServlet</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>InsertRenunciationServlet</servlet-name>
+        <url-pattern>/InsertRenunciation</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>InsertRenunciationServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.renunciationManagement.InsertRenunciationServlet</servlet-class>
@@ -233,9 +237,10 @@
         <servlet-name>GetTableClassServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.classManagement.GetTableClassServlet</servlet-class>
     </servlet>
-    
-    
-    
+    <servlet>
+        <servlet-name>InsertTableRenunciation</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.renunciationManagement.InsertTableRenunciationServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
@@ -460,13 +465,11 @@
         <servlet-name>GetTableClassServlet</servlet-name>
         <url-pattern>/GetTableClassServlet</url-pattern>
     </servlet-mapping>
-    
+   
     <servlet-mapping>
-        <servlet-name>InsertRenunciationServlet</servlet-name>
-        <url-pattern>/InsertRenunciation</url-pattern>
+        <servlet-name>InsertTableRenunciation</servlet-name>
+        <url-pattern>/InsertTableRenunciationServlet</url-pattern>
     </servlet-mapping>
-    
-    
     
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
