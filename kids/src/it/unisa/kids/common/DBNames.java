@@ -174,6 +174,7 @@ public final class DBNames {
     public static final String ATT_REFUND_DESCRIPTION = "Descrizione";
     public static final String ATT_REFUND_AMOUNT = "Importo";
     public static final String ATT_REFUND_PARENTID = "Genitore";
+    public static final String ATT_REFUND_PERFORMED = "Effettuato";
     
     
     //Trainee activity's attributes
