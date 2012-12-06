@@ -10,7 +10,7 @@ public final class DBNames {
     public static final String TABLE_CRITERIA = "criteripesati";    // conterrà i pesi in base al quale viene creata la graduatoria
     public static final String TABLE_RESULT = "esito";  // associazione tra graduatoria ed iscrizionebambino
     public static final String TABLE_RECOURSE = "ricorso";
-    public static final String TABLE_RINUNCIA = "rinunce";
+    public static final String TABLE_RENUNCIATION = "rinunce";
     public static final String TABLE_CLASS = "classe";
     public static final String TABLE_ASSIGNATION = "assignazione";  // associazione tra classe e tirocinante
     public static final String TABLE_MEAL_REQUEST = "meal_request";
@@ -125,11 +125,12 @@ public final class DBNames {
     public static final String ATT_RECOURSE_REASON = "Motivo";
     public static final String ATT_RECOURSE_VALUTATION = "Valutazione";
     public static final String ATT_RECOURSE_REGISTRATIONCHILDID = "Iscrizione";
+    
     //RinunciaTable's attributes
-    public static final String ATT_RINUNCIA_ID = "Id";
-    public static final String ATT_RINUNCIA_DATE = "Data";
-    public static final String ATT_RINUNCIA_CONFIRM = "Conferma";
-    public static final String ATT_RINUNCIA_REGISTRATIONCHILDID = "Iscrizione";
+    public static final String ATT_RENUNCIATION_ID = "Id";
+    public static final String ATT_RENUNCIATION_MOTIVATION = "Motivazione";
+    public static final String ATT_RENUNCIATION_CONFIRM = "Conferma";
+    public static final String ATT_RENUNCIATION_ID_CHILD = "IdBambino";
     
     //RequestTable's attributes
     public static final String ATT_REQUEST_ID = "id";

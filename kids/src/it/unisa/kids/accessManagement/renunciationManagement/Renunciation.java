@@ -3,38 +3,44 @@ package it.unisa.kids.accessManagement.renunciationManagement;
 import java.util.GregorianCalendar;
 
 public class Renunciation {
-	
-	private String id; 
-	private GregorianCalendar date; 	//DATA 
-	private boolean confirmation; 		//CONFERMA	
-	//devo inserire anche il campo iscrizione? si
-	
-	public Renunciation() {
-		
-	}
-	
-	public Renunciation(GregorianCalendar date, boolean confirmation) {																			//e poi altra cosa che avevo pensato potrebbe essere inserita solo la data tanto se uno richiama questa funzione è ovvio che vuole rifuitare giusto?
-		this.date = date;
-		this.confirmation = confirmation;
-	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	@SuppressWarnings("static-access")
-	public String getDate() {
-		String tmp="";
-		return tmp=tmp+date.YEAR+"-"+date.MONTH+"-"+date.DATE;
-	}
-	public void setDate(String date) {
-		this.date.set(Integer.parseInt(date.substring(0, 3)), Integer.parseInt(date.substring(5, 7)), Integer.parseInt(date.substring(8, 10)));
-	}
-	public boolean isConfirmation() {
-		return confirmation;
-	}
-	public void setConfirmation(boolean confirmation) {
-		this.confirmation = confirmation;
-	}
+
+    private int id;
+    private String motivazione;
+    private int idBambino;
+    private boolean conferma;
+
+    public Renunciation() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getIdBambino() {
+        return idBambino;
+    }
+
+    public void setIdBambino(int idBambino) {
+        this.idBambino = idBambino;
+    }
+
+    public String getMotivazione() {
+        return motivazione;
+    }
+
+    public void setMotivazione(String motivazione) {
+        this.motivazione = motivazione;
+    }
+
+    public boolean isConferma() {
+        return conferma;
+    }
+
+    public void setConferma(boolean conferma) {
+        this.conferma = conferma;
+    }
 }
