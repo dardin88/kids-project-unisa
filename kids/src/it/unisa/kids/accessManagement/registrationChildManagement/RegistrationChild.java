@@ -16,12 +16,15 @@ public class RegistrationChild {
     private String birthPlace;
     private String fiscalCode;
     private String citizenship;
-    private String sickness;
     private GregorianCalendar registrationDate; 
     private String userRange;
     private String registrationPhase;
     private int parentId;
     private int sectionId;
+    
+    private String sickness;
+    private String vaccinations;
+    private String privacyStatement;
     
     public RegistrationChild() {
     }
@@ -68,12 +71,6 @@ public class RegistrationChild {
     public void setCitizenship(String citizenship) {
         this.citizenship = citizenship;
     }
-    public String getSickness() {
-        return sickness;
-    }
-    public void setSickness(String sickness) {
-        this.sickness = sickness;
-    }
     public GregorianCalendar getRegistrationDate() {
         return registrationDate;
     }
@@ -104,4 +101,28 @@ public class RegistrationChild {
     public void setSectionId(int sectionId) {
         this.sectionId = sectionId;
     }
+    
+    public String getSickness() {
+        return sickness;
+    }
+    public void setSickness(String sickness) {
+        this.sickness = sickness;
+    }
+
+    public String getVaccinations() {
+        return vaccinations;
+    }
+
+    public void setVaccinations(String vaccinations) {
+        this.vaccinations = vaccinations;
+    }
+
+    public String getPrivacyStatement() {
+        return privacyStatement;
+    }
+
+    public void setPrivacyStatement(String privacyStatement) {
+        this.privacyStatement = privacyStatement;
+    }
+    
 }

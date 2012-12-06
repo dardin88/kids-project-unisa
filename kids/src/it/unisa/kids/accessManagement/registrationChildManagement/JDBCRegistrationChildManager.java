@@ -1,7 +1,10 @@
 package it.unisa.kids.accessManagement.registrationChildManagement;
 
+import it.unisa.kids.accessManagement.classificationManagement.IClassificationManager;
 import it.unisa.kids.accessManagement.classificationManagement.JDBCClassificationManager;
+import it.unisa.kids.accessManagement.classificationManagement.Result;
 import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 import java.sql.Connection;
 import java.sql.Date;
@@ -23,6 +26,10 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
     private JDBCRegistrationChildManager(){
     }
 
+    /**
+     * Implementor of Singleton Data Pattern
+     * @return an istance of this manager
+     */
     public static synchronized JDBCRegistrationChildManager getInstance() {
         if(manager == null) {
             manager = new JDBCRegistrationChildManager();
@@ -30,10 +37,10 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
         return manager;
     }
 
-    public synchronized RegistrationChild insert(RegistrationChild child) throws SQLException {
+    public synchronized boolean insert(RegistrationChild child) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
-
+        boolean toReturn = false;
         String query = "INSERT INTO " + DBNames.TABLE_REGISTRATIONCHILD + " (" +
                       DBNames.ATT_REGISTRATIONCHILD_ID + ", " +
                       DBNames.ATT_REGISTRATIONCHILD_SURNAME + ", " +
@@ -48,49 +55,129 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
                       DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE + ", " +
                       DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID + ", " +
                       DBNames.ATT_REGISTRATIONCHILD_SECTIONID + ") " +
-                      "VALUES(NULL,?,?,?,?,?,?,?,?,?,?,?,?);"; // escludendo l'id i campi da inserire sono 12		
+                      "VALUES(NULL,?,?,?,?,?,?,?,?,?,?,?,?);";
 
         try {
             con = DBConnectionPool.getConnection();
             pstmt = con.prepareStatement(query);
             pstmt.setString(1, child.getSurname());
             pstmt.setString(2, child.getName());
-            Date tmp;
-            if(child.getBirthDate() != null)
-                tmp = new Date(child.getBirthDate().getTimeInMillis());
-            else
-                tmp = null;
+            Date dateToSet;
+            if(child.getBirthDate() != null) {
+                dateToSet = new Date(child.getBirthDate().getTimeInMillis());
+            } else {
+                dateToSet = null;
+            }
             
-            pstmt.setDate(3, tmp);
+            pstmt.setDate(3, dateToSet);
             pstmt.setString(4, child.getBirthPlace());
             pstmt.setString(5, child.getFiscalCode());
             pstmt.setString(6, child.getCitizenship());
             pstmt.setString(7, child.getUserRange());
-            if(child.getRegistrationDate() != null)
-                tmp = new Date(child.getRegistrationDate().getTimeInMillis());
-            else
-                tmp = null;
-            
-            pstmt.setDate(8, tmp);
+            if(child.getRegistrationDate() != null) {
+                dateToSet = new Date(child.getRegistrationDate().getTimeInMillis());
+            } else {
+                dateToSet = null;
+            }
+            pstmt.setDate(8, dateToSet);
             pstmt.setString(9, child.getSickness());
             pstmt.setString(10, child.getRegistrationPhase());
             pstmt.setInt(11, child.getParentId());
             pstmt.setInt(12, child.getSectionId());
             
-            pstmt.executeUpdate();
+            if(pstmt.executeUpdate() > 0) { // executeUpdate restituisce il numero delle righe modificato
+                toReturn = true;
+            }
             con.commit();
         } finally {
-            pstmt.close();
-            DBConnectionPool.releaseConnection(con);
+            if(pstmt != null) {
+                pstmt.close();
+            }
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
         }	
-        return child;
+        return toReturn;
     }
-	  
-    public synchronized RegistrationChild delete(RegistrationChild child) throws SQLException {
+
+    public synchronized boolean update(RegistrationChild child) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
-        String query = "DELETE FROM " + DBNames.TABLE_REGISTRATIONCHILD + " " +
-                            "WHERE " + DBNames.ATT_REGISTRATIONCHILD_ID + "=?;";
+        boolean toReturn = false;
+        String query = "UPDATE " + DBNames.TABLE_REGISTRATIONCHILD + " " + 
+                        "SET " + DBNames.ATT_REGISTRATIONCHILD_SURNAME + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_NAME + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_BIRTHPLACE + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_CITIZENSHIP + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_SICKNESS + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONDATE + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_USERRANGE + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_SECTIONID + "=? " +
+                        "WHERE " + DBNames.ATT_REGISTRATIONCHILD_ID + "=?;"; 
+			
+        try {
+            con = DBConnectionPool.getConnection();
+            pstmt = con.prepareStatement(query);
+
+            // parameters of values
+            pstmt.setString(1, child.getSurname());
+            pstmt.setString(2, child.getName());
+            Date tmp;
+            if(child.getBirthDate() != null) {
+                tmp = new Date(child.getBirthDate().getTimeInMillis());
+            } else {
+                tmp = null;
+            }
+            pstmt.setDate(3, tmp);
+            pstmt.setString(4, child.getBirthPlace());
+            pstmt.setString(5, child.getFiscalCode());
+            pstmt.setString(6, child.getCitizenship());
+            pstmt.setString(7, child.getSickness());
+            if(child.getRegistrationDate() != null) {
+                tmp = new Date(child.getRegistrationDate().getTimeInMillis());
+            } else {
+                tmp = null;
+            }
+            pstmt.setDate(8, tmp);
+            pstmt.setString(9, child.getUserRange());
+            pstmt.setString(10, child.getRegistrationPhase());
+            pstmt.setInt(11, child.getParentId());
+            pstmt.setInt(12, child.getSectionId());
+
+            // parameters of where
+            pstmt.setInt(13, child.getId());
+            
+            /* Test della query
+            System.out.println(query);
+            //*/
+            if(pstmt.executeUpdate() > 0) {
+                toReturn = true;
+            }
+            con.commit();
+        } finally {
+            if(pstmt != null) {
+                pstmt.close();
+            }
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }	
+        return toReturn;
+    }
+
+    public synchronized boolean delete(RegistrationChild child) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        String query = "DELETE " +
+                        "FROM " + DBNames.TABLE_REGISTRATIONCHILD + " " +
+                        "WHERE " + DBNames.ATT_REGISTRATIONCHILD_ID + "=?;";
+        boolean toReturn = false;
+        int numEditedRow;
+        
         try {
             con = DBConnectionPool.getConnection();
             pstmt = con.prepareStatement(query);
@@ -98,17 +185,26 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             /* Test della query
             System.out.println(query);
             //*/
-            pstmt.executeUpdate();
+            numEditedRow = pstmt.executeUpdate();
             con.commit();
             
+            if(numEditedRow > 0) {
+                toReturn = true;
+            }
             // fase di notify (Observe Pattern) alla graduatoria
-            JDBCClassificationManager.getInstance().deleteResult(child);
+            RefinedAbstractManager abstractManager = RefinedAbstractManager.getInstance();
+            IClassificationManager classificationManager = (IClassificationManager) abstractManager.getManagerImplementor(DBNames.TABLE_CLASSIFICATION);
+            classificationManager.deleteAllResult(child);
+            
         } finally {
-            pstmt.close();
-            DBConnectionPool.releaseConnection(con);
+            if(pstmt != null) {
+                pstmt.close();
+            }
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
         }	
-
-        return child;
+        return toReturn;
     }
 	  
     public synchronized List<RegistrationChild> search(RegistrationChild child) throws SQLException {
@@ -177,7 +273,8 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
         if(!andState) {  // nel caso tutti i parametri sono null
             query.append("1");
         }
-        query.append(";");
+        query.append(" ORDER BY " + DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE + ", " +
+                    DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + ";");
         /* Test della query
         System.out.println(query);
         //*/
@@ -275,84 +372,19 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
                 listOfChildReg.add(tmpRegChild);
             }
         } finally {
-            pstmt.close();
-            DBConnectionPool.releaseConnection(con);
+            if(result != null) {
+                result.close();
+            }
+            if(pstmt != null) {
+                pstmt.close();
+            }
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
         }
         return listOfChildReg;
     }
 
-    private String useAnd(boolean pEnableAnd) {
-        return pEnableAnd ? " AND " : " ";
-    }
-
-    public synchronized RegistrationChild update(RegistrationChild child) throws SQLException {
-        Connection con = null;
-        PreparedStatement pstmt = null;
-        String query = "UPDATE " + DBNames.TABLE_REGISTRATIONCHILD + " " + 
-                        "SET " + DBNames.ATT_REGISTRATIONCHILD_SURNAME + "=?, " +
-                                DBNames.ATT_REGISTRATIONCHILD_NAME + "=?, " +
-                                DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE + "=?, " +
-                                DBNames.ATT_REGISTRATIONCHILD_BIRTHPLACE + "=?, " +
-                                DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + "=?, " +
-                                DBNames.ATT_REGISTRATIONCHILD_CITIZENSHIP + "=?, " +
-                                DBNames.ATT_REGISTRATIONCHILD_SICKNESS + "=?, " +
-                                DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONDATE + "=?, " +
-                                DBNames.ATT_REGISTRATIONCHILD_USERRANGE + "=?, " +
-                                DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE + "=?, " +
-                                DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID + "=?, " +
-                                DBNames.ATT_REGISTRATIONCHILD_SECTIONID + "=? " +
-                        "WHERE " + DBNames.ATT_REGISTRATIONCHILD_ID + "=?;"; 
-			
-        try {
-            con = DBConnectionPool.getConnection();
-            pstmt = con.prepareStatement(query);
-
-            // parameters of values
-            pstmt.setString(1, child.getSurname());
-            pstmt.setString(2, child.getName());
-            Date tmp;
-            if(child.getBirthDate() != null)
-                tmp = new Date(child.getBirthDate().getTimeInMillis());
-            else
-                tmp = null;
-            pstmt.setDate(3, tmp);
-            pstmt.setString(4, child.getBirthPlace());
-            pstmt.setString(5, child.getFiscalCode());
-            pstmt.setString(6, child.getCitizenship());
-            pstmt.setString(7, child.getSickness());
-            if(child.getRegistrationDate() != null)
-                tmp = new Date(child.getRegistrationDate().getTimeInMillis());
-            else
-                tmp = null;
-            pstmt.setDate(8, tmp);
-            pstmt.setString(9, child.getUserRange());
-            pstmt.setString(10, child.getRegistrationPhase());
-            pstmt.setInt(11, child.getParentId());
-            pstmt.setInt(12, child.getSectionId());
-
-            // parameters of where
-            pstmt.setInt(13, child.getId());
-            
-            /* Test della query
-            System.out.println(query);
-            //*/
-            pstmt.executeUpdate();
-            con.commit();
-        } finally {
-            pstmt.close();
-            DBConnectionPool.releaseConnection(con);
-        }	
-
-        return child;
-    }
-          
-    /**
-     * Get the number of child that have registered the Parent
-     * 
-     * @param parentId - id of Parent
-     * @return number of child
-     * @throws SQLException 
-     */
     public int getNumberChildren(int parentId) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -377,44 +409,17 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
                 num = rs.getInt("NumberOfChild");
             }
         } finally {
-            if(pstmt != null)
+            if(rs != null) {
+                rs.close();
+            }
+            if(pstmt != null) {
                 pstmt.close();
-            if(con != null)
+            }
+            if(con != null) {
                 DBConnectionPool.releaseConnection(con);
+            }
         }
         return num;
-    }
-    
-    private boolean changeRegistrationPhase(RegistrationChild child, String phase) throws SQLException {
-        boolean toReturn;
-        Connection con = null;
-        PreparedStatement pstmt = null;
-        String query = "UPDATE " + DBNames.TABLE_REGISTRATIONCHILD + " " + 
-                        "SET " + DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE + "=? " +
-                        "WHERE " + DBNames.ATT_REGISTRATIONCHILD_ID + "=?;"; 
-			
-        try {
-            con = DBConnectionPool.getConnection();
-            pstmt = con.prepareStatement(query);
-
-            // parameters of values
-            pstmt.setString(1, phase);
-            pstmt.setInt(2, child.getId());
-            
-            if(pstmt.executeUpdate() >= 1) // executeUpdate ritorna il numero di righe modificate
-                toReturn = true;
-            else
-                toReturn = false;
-            con.commit();
-        } catch(SQLException se) {
-            toReturn = false;
-        } finally {
-            if(pstmt != null)
-                pstmt.close();
-            if(con != null)
-                DBConnectionPool.releaseConnection(con);
-        }
-        return toReturn;
     }
     
     /**
@@ -443,5 +448,129 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
         // fase di notify (Observe Pattern) alla graduatoria
         JDBCClassificationManager.getInstance().unapproveResult(child);
         return changeRegistrationPhase(child, DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DELETED);
+    }
+    
+    public boolean acceptRegistrationChild(RegistrationChild child) throws SQLException {
+        return changeRegistrationPhase(child, DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_ACCEPTED);
+    }
+    
+    public boolean renounceRegistrationChild(RegistrationChild child) throws SQLException {
+        return changeRegistrationPhase(child, DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_RENOUNCED);
+    }
+    
+    public synchronized boolean completeRegistrationChild(RegistrationChild child) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        boolean toReturn = false;
+        String query;
+        int numEditedRow;
+        
+        try {
+            con = DBConnectionPool.getConnection();
+            query = "UPDATE " + DBNames.TABLE_REGISTRATIONCHILD + " " + 
+                        "SET " + 
+                            DBNames.ATT_REGISTRATIONCHILD_SICKNESS + "=? " +
+                            DBNames.ATT_REGISTRATIONCHILD_VACCINATIONS + "=? " +
+                            DBNames.ATT_REGISTRATIONCHILD_PRIVACYSTATEMENT + "=? " +
+                        "WHERE " + DBNames.ATT_REGISTRATIONCHILD_ID + "=?;";
+            pstmt = con.prepareStatement(query);
+
+            // parameters of values
+            pstmt.setString(1, child.getSickness());
+            pstmt.setString(2, child.getVaccinations());
+            pstmt.setString(3, child.getPrivacyStatement());
+            pstmt.setInt(4, child.getId());
+            
+            /* Test della query
+            System.out.println(query);
+            //*/
+            numEditedRow = pstmt.executeUpdate();
+            con.commit();
+            if(numEditedRow > 0) {
+                toReturn = true;
+            }
+        } finally {
+            if(pstmt != null) {
+                pstmt.close();
+            }
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }	
+        return toReturn;
+    }
+    
+    public boolean setSectionRegistrationChild(RegistrationChild child, int sectionId) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        boolean toReturn = false;
+        String query = "UPDATE " + DBNames.TABLE_REGISTRATIONCHILD + " " + 
+                        "SET " + DBNames.ATT_REGISTRATIONCHILD_SECTIONID + "=? " +
+                        "WHERE " + DBNames.ATT_REGISTRATIONCHILD_ID + "=?;"; 
+        int numEditedRow;
+        try {
+            con = DBConnectionPool.getConnection();
+            pstmt = con.prepareStatement(query);
+
+            // parameters of values
+            pstmt.setInt(1, sectionId);
+            pstmt.setInt(2, child.getId());
+            
+            /* Test della query
+            System.out.println(query);
+            //*/
+            numEditedRow = pstmt.executeUpdate();
+            con.commit();
+            if(numEditedRow > 0) {
+                toReturn = true;
+            }
+        } finally {
+            if(pstmt != null) {
+                pstmt.close();
+            }
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }	
+        return toReturn;
+    }
+    
+    private synchronized boolean changeRegistrationPhase(RegistrationChild child, String phase) throws SQLException {
+        boolean toReturn;
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        String query = "UPDATE " + DBNames.TABLE_REGISTRATIONCHILD + " " + 
+                        "SET " + DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE + "=? " +
+                        "WHERE " + DBNames.ATT_REGISTRATIONCHILD_ID + "=?;"; 
+			
+        try {
+            con = DBConnectionPool.getConnection();
+            pstmt = con.prepareStatement(query);
+
+            // parameters of values
+            pstmt.setString(1, phase);
+            pstmt.setInt(2, child.getId());
+            
+            if(pstmt.executeUpdate() >= 1) { // executeUpdate ritorna il numero di righe modificate
+                toReturn = true;
+            } else {
+                toReturn = false;
+            }
+            con.commit();
+        } catch(SQLException se) {
+            toReturn = false;
+        } finally {
+            if(pstmt != null) {
+                pstmt.close();
+            } 
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+        return toReturn;
+    }
+    
+    private String useAnd(boolean pEnableAnd) {
+        return pEnableAnd ? " AND " : " ";
     }
 }

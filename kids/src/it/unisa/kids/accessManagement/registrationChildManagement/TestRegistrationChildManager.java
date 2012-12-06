@@ -55,7 +55,7 @@ public class TestRegistrationChildManager {
             System.out.println("Errore: " + ex.getMessage());
         }
         //*/
-        /* Test Ricerca
+        //* Test Ricerca
         RegistrationChild selectAll = new RegistrationChild();
         RegistrationChild selectById = new RegistrationChild();
         selectById.setId(1);

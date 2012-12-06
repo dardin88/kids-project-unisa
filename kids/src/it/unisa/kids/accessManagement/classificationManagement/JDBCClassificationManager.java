@@ -7,7 +7,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.ListIterator;
 
 /**
  * 
@@ -21,331 +20,490 @@ public class JDBCClassificationManager implements IClassificationManager {
     private JDBCClassificationManager() {
     }
 
-    public static synchronized JDBCClassificationManager getInstance(){
-        if(manager!=null)
+    public static synchronized JDBCClassificationManager getInstance() {
+        if(manager != null)
             return manager;
         else
-            return manager=new JDBCClassificationManager();
+            return manager = new JDBCClassificationManager();
     }
     // end of Singleton Design Pattern's implementation
 
-    public synchronized void insert(Classification pClassification) throws SQLException {
+    public synchronized boolean insert(Classification classification) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
         String query;
-
+        int numEditedRow;
+        boolean toReturn = false;
+        
         try {
             con = DBConnectionPool.getConnection();
 
             // constructing query string
             query = "INSERT INTO " + DBNames.TABLE_CLASSIFICATION + " ("
+                            + DBNames.ATT_CLASSIFICATION_ID + ", "
                             + DBNames.ATT_CLASSIFICATION_NAME + ", "
                             + DBNames.ATT_CLASSIFICATION_DATA+ ", "
                             + DBNames.ATT_CLASSIFICATION_STATUS + ", "
-                            + ") VALUES(?, ?, ?)";
-
+                            + ") VALUES(NULL, ?, ?, ?);";
+            
+            pstmt = con.prepareStatement(query);
 
             //setting pstmt's parameters
-            pstmt.setString(1, pClassification.getName());
-            pstmt.setDate(2, new java.sql.Date(pClassification.getDate().getTimeInMillis()));
-            pstmt.setString(3, pClassification.getStatus());
+            pstmt.setString(1, classification.getName());
+            Date dateToSet;
+            if(classification.getDate() != null) {
+                dateToSet = new Date(classification.getDate().getTimeInMillis());
+            } else {
+                dateToSet = null;
+            }
+            pstmt.setDate(2, dateToSet);
+            pstmt.setString(3, classification.getStatus());
 
-            pstmt.executeUpdate();
+            numEditedRow = pstmt.executeUpdate();
             con.commit();
-
-            // inserimento dei risultati
-            List<Result> resultList = pClassification.getResults();
-            ListIterator<Result> iterList = resultList.listIterator();
-            Result tmp;
-            while(iterList.hasNext()) {
-                tmp = iterList.next();
-                query = "INSERT INTO " + DBNames.TABLE_RESULT + " ("
-                            + DBNames.ATT_RESULT_REGISTRATIONCHILDID + ", "
-                            + DBNames.ATT_RESULT_CLASSIFICATIONID+ ", "
-                            + DBNames.ATT_RESULT_RESULT + ", "
-                            + ") VALUES(?, ?, ?)";
-                pstmt = con.prepareStatement(query);
-                pstmt.setInt(1, tmp.getRegistrationChildId());
-                pstmt.setInt(2, tmp.getClassificationId());
-                pstmt.setBoolean(3, tmp.getResult());
-
-                pstmt.executeUpdate();
-                con.commit();
-
-            }
-        } finally {
-            if(pstmt != null)
-                pstmt.close();
-            if(con != null)
-                DBConnectionPool.releaseConnection(con);
-        }
-    }
-
-    public synchronized void modify(Classification pClassification) throws SQLException {
-            Connection con = null;
-            PreparedStatement pstmt=null;
-            String query;
-
-            try {
-                    con = DBConnectionPool.getConnection();
-
-                    // constructing query string
-                    query = "UPDATE " + DBNames.TABLE_CLASSIFICATION +
-                                    " SET "
-                                    + DBNames.ATT_CLASSIFICATION_NAME + "=?, "
-                                    + DBNames.ATT_CLASSIFICATION_DATA + "=?, "
-                                    + DBNames.ATT_CLASSIFICATION_STATUS + "=?, "
-                                    + "WHERE " + DBNames.ATT_CLASSIFICATION_ID + "=?;";
-
-                    pstmt = con.prepareStatement(query);
-
-                    // setting pstmt's parameters
-
-                    pstmt.setString(1, pClassification.getName());
-                    pstmt.setDate (2,new Date(pClassification.getDate().getTimeInMillis()));
-                    pstmt.setString(3, pClassification.getStatus());
-                    pstmt.setInt(4, pClassification.getId());
-                    
-                    pstmt.executeUpdate();
-                    con.commit();
-
-            // aggiornamento dei risultati
-            List<Result> resultList = pClassification.getResults();
-            ListIterator<Result> iterList = resultList.listIterator();
-            Result tmp;
-            while(iterList.hasNext()) {
-                tmp = iterList.next();
-                query = "UPDATE " + DBNames.TABLE_RESULT +
-                            " SET " + DBNames.ATT_RESULT_RESULT + "=? " + 
-                            "WHERE " + DBNames.ATT_CLASSIFICATION_ID + " = ? AND "
-                            + DBNames.ATT_CLASSIFICATION_DATA + " = ?, ";
-                pstmt = con.prepareStatement(query);
-                pstmt.setBoolean(1, tmp.getResult());
-                pstmt.setInt(2, tmp.getRegistrationChildId());
-                pstmt.setInt(3, tmp.getClassificationId());
-                
-                int numAggiornati = pstmt.executeUpdate();
-                con.commit();
-                
-                if(numAggiornati == 0) {
-                    // Significa che questo elemento non era presente nel db, quindi va inserito
-                    query = "INSERT INTO " + DBNames.TABLE_RESULT + " ("
-                            + DBNames.ATT_RESULT_REGISTRATIONCHILDID + ", "
-                            + DBNames.ATT_RESULT_CLASSIFICATIONID+ ", "
-                            + DBNames.ATT_RESULT_RESULT + ", "
-                            + ") VALUES(?, ?, ?)";
-                    pstmt = con.prepareStatement(query);
-                    pstmt.setInt(1, tmp.getRegistrationChildId());
-                    pstmt.setInt(2, tmp.getClassificationId());
-                    pstmt.setBoolean(3, tmp.getResult());
-
-                    pstmt.executeUpdate();
-                    con.commit();
-                }
-
-            }
-        } finally {
-            if (pstmt != null)
-                pstmt.close();
-            if (con != null)
-                DBConnectionPool.releaseConnection(con);
-        }
-    }
-
-    public synchronized void delete(Classification pClassification) throws SQLException {
-            Connection con = null;
-            PreparedStatement stmt = null;
-            String query = null;
-
-            try {
-                    con = DBConnectionPool.getConnection();
-
-                    // constructing query string for classification
-                    query = "DELETE FROM " + DBNames.TABLE_CLASSIFICATION
-                                    + "WHERE " + DBNames.ATT_CLASSIFICATION_ID + "=?;";
-
-                    stmt = con.prepareStatement(query);
-                    stmt.setInt(1, pClassification.getId());
-                    stmt.executeUpdate();
-                    con.commit();
-                    
-                    // cancellazione dei risultati per evitare incongruenze nel db
-                    query = "DELETE FROM " + DBNames.TABLE_RESULT
-                                    + "WHERE " + DBNames.ATT_RESULT_CLASSIFICATIONID + "=?;";
-
-                    stmt = con.prepareStatement(query);
-                    stmt.setInt(1, pClassification.getId());
-                    stmt.executeUpdate();
-                    con.commit();
-            } finally {
-                    if (stmt != null)
-                            stmt.close();
-                    if (con != null)
-                            DBConnectionPool.releaseConnection(con);
-            }
-    }
-
-    public synchronized List<Classification> search(Classification pClassification) throws SQLException {
-            Connection con = null;
-            PreparedStatement pstmt = null;
-            ResultSet rs = null;
-            ResultSet rs1 = null;
-            String query = null;
-            List<Classification> classificationList = null;
-            List<Result> resultList = null;
             
-            boolean andState = false;
-
-            try {
-                con = DBConnectionPool.getConnection();
-
-                // constructing search query string
-                query = "SELECT * "
-                        + "FROM " + DBNames.TABLE_CLASSIFICATION + 
-                        " WHERE";
-                if (pClassification.getId() > 0) {		
-                        query += " " + DBNames.ATT_CLASSIFICATION_ID + " = ?";
-                        andState = true;
-                }
-
-                if (pClassification.getName() != null) {
-                        query += useAnd(andState) + DBNames.ATT_CLASSIFICATION_NAME + " = ?";
-                        andState = true;
-                }
-
-                if (pClassification.getDate() != null) {
-                        query += useAnd(andState) + DBNames.ATT_CLASSIFICATION_DATA + " = ?";
-                        andState = true;
-                }
-
-                if (pClassification.getStatus() != null) {
-                    query += useAnd(andState) + DBNames.ATT_CLASSIFICATION_STATUS + " = ?";
-                    andState = true;
-                }
-
-                pstmt = con.prepareStatement(query);
-
-                // setting pstmt's parameters
-                int i = 1;		// index of pstmt first argument
-                if(pClassification.getId() > 0) {		// >= 0 ??
-                        pstmt.setInt(i, pClassification.getId());
-                        i++;
-                }
-                if(pClassification.getName() != null) {
-                        pstmt.setString(i, pClassification.getName());
-                        i++;
-                }
-                if(pClassification.getDate() != null) {
-                        pstmt.setDate(i, new java.sql.Date(pClassification.getDate().getTimeInMillis()));
-                        i++;
-                }
-                if(pClassification.getStatus() != null) {
-                        pstmt.setString(i, pClassification.getStatus());
-                        i++;
-                }
-
-                // executing select query
-                rs = pstmt.executeQuery();
-                con.commit();
-
-                // constructing payment list
-                classificationList = new ArrayList<Classification>();
-                while(rs.next()) {
-                    Classification cTmp =  new Classification();
-                    cTmp.setId(rs.getInt(DBNames.ATT_CLASSIFICATION_ID));
-
-                    cTmp.setName(rs.getString(DBNames.ATT_CLASSIFICATION_NAME));
-
-                    //getting Date from ResultSet and converting it to GregorianCalendar
-                    GregorianCalendar date = new GregorianCalendar();
-                    date.setTime(rs.getDate(DBNames.ATT_CLASSIFICATION_DATA));
-                    cTmp.setDate(date);
-
-                    cTmp.setStatus(rs.getString(DBNames.ATT_CLASSIFICATION_STATUS));
-
-                    // ricerca dei risultati associati a questa graduatoria
-                    query = "SELECT * " +
-                            "FROM " + DBNames.TABLE_RESULT + 
-                            " WHERE " + DBNames.ATT_RESULT_CLASSIFICATIONID + "=?;";
-                    if(pstmt != null) // chiusura dello stmt precedente
-                        pstmt.close();
-                    pstmt = con.prepareStatement(query);
-                    pstmt.setInt(1, cTmp.getId());
-                    rs1 = pstmt.executeQuery();
-
-                    resultList = new ArrayList<Result>();
-                    while(rs.next()) {
-                        Result rTmp = new Result();
-                        rTmp.setClassificationId(rs.getInt(DBNames.ATT_RESULT_CLASSIFICATIONID));
-                        rTmp.setRegistrationChildId(rs.getInt(DBNames.ATT_RESULT_REGISTRATIONCHILDID));
-                        rTmp.setResult(rs.getBoolean(DBNames.ATT_RESULT_RESULT));
-                        resultList.add(rTmp);
-                    }
-                    cTmp.setResults(resultList);
-                    classificationList.add(cTmp);
-                }
-            } finally {
-                if(rs != null)
-                    rs.close();
-                if(pstmt != null)
-                    pstmt.close();
-                if(con != null)
-                    DBConnectionPool.releaseConnection(con);
+            if(numEditedRow > 0) {
+                toReturn = true;
             }
+            /* Come è stato progettato il sistema, una nuova graduatoria non può avere già risultati
+             * In caso di modifiche, decommentare
+            // inserimento dei risultati
+            List<Result> listResult = classification.getResults();
 
-            return classificationList;
+            for(Result tmpResult : listResult) {
+                if(!insertResult(tmpResult)) {
+                    // se non è stato possibile inserirla, significa che è già presente
+                    // quindi bisogna aggiornare la tupla presente nel db
+                    toReturn &= updateResult(tmpResult);
+                }
+            }
+            //*/
+            
+        } finally {
+            if(pstmt != null) {
+                pstmt.close();
+            }
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+        return toReturn;
     }
 
-    private String useAnd(boolean pEnableAnd) {
-            return pEnableAnd ? " AND " : " ";
-    }
-
-    public synchronized List<Classification> getClassificationList() throws SQLException {
+    public synchronized boolean update(Classification classification) throws SQLException {
         Connection con = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-        String query = null;
-        List<Classification> classification = null;
+        PreparedStatement pstmt = null;
+        String query;
+        int numEditedRow;
+        boolean toReturn = false;
+        
+        try {
+            con = DBConnectionPool.getConnection();
+
+            // constructing query string
+            query = "UPDATE " + DBNames.TABLE_CLASSIFICATION + " " +
+                    "SET " +
+                        DBNames.ATT_CLASSIFICATION_NAME + "=?, " +
+                        DBNames.ATT_CLASSIFICATION_DATA + "=?, " +
+                        DBNames.ATT_CLASSIFICATION_STATUS + "=?, " +
+                    "WHERE " + DBNames.ATT_CLASSIFICATION_ID + "=?;";
+
+            pstmt = con.prepareStatement(query);
+
+            // setting pstmt's parameters
+
+            pstmt.setString(1, classification.getName());
+            Date dateToSet;
+            if(classification.getDate() != null) {
+                dateToSet = new Date(classification.getDate().getTimeInMillis());
+            } else {
+                dateToSet = null;
+            }
+            pstmt.setDate(2, dateToSet);
+            
+            pstmt.setString(3, classification.getStatus());
+            pstmt.setInt(4, classification.getId());
+
+            numEditedRow = pstmt.executeUpdate();
+            con.commit();
+            
+            if(numEditedRow > 0) {
+                toReturn = true;
+            }
+            // aggiornamento dei risultati
+            List<Result> listResult = classification.getResults();
+            for(Result tmpResult : listResult) {
+                if(!updateResult(tmpResult)) {
+                    toReturn &= insertResult(tmpResult);
+                }
+            }
+        } finally {
+            if(pstmt != null) {
+                pstmt.close();
+            }
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+        return toReturn;
+    }
+
+    public synchronized boolean delete(Classification classification) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        String query;
+        int numEditedRow;
+        boolean toReturn = false;
+        
+        try {
+            con = DBConnectionPool.getConnection();
+
+            // constructing query string for classification
+            query = "DELETE " +
+                    "FROM " + DBNames.TABLE_CLASSIFICATION + " " +
+                    "WHERE " + DBNames.ATT_CLASSIFICATION_ID + "=?;";
+
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, classification.getId());
+
+            numEditedRow = pstmt.executeUpdate();
+            con.commit();
+            
+            if(numEditedRow > 0) {
+                toReturn = true;
+            }
+            // cancellazione dei risultati per evitare incongruenze nel db
+            deleteAllResult(classification);
+        } finally {
+            if(pstmt != null) {
+                pstmt.close();
+            } if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+        return toReturn;
+    }
+
+    public synchronized List<Classification> search(Classification classification) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+        StringBuffer query = new StringBuffer();
+        List<Classification> classificationList = null;
+        boolean andState = false;
 
         try {
             con = DBConnectionPool.getConnection();
 
-            query = "SELECT * " +
-                    "FROM " + DBNames.TABLE_CLASSIFICATION;
-            stmt = con.createStatement();
-            rs = stmt.executeQuery(query);
+            // constructing search query string
+            query.append("SELECT * " +
+                            "FROM " + DBNames.TABLE_CLASSIFICATION + " " +
+                            "WHERE ");
+            if(classification.getId() > 0) {		
+                query.append(DBNames.ATT_CLASSIFICATION_ID + "=?");
+                andState = true;
+            }
+            if(classification.getName() != null) {
+                query.append(useAnd(andState) + DBNames.ATT_CLASSIFICATION_NAME + "=?");
+                andState = true;
+            }
+            if(classification.getDate() != null) {
+                query.append(useAnd(andState) + DBNames.ATT_CLASSIFICATION_DATA + "=?");
+                andState = true;
+            }
+            if(classification.getStatus() != null) {
+                query.append(useAnd(andState) + DBNames.ATT_CLASSIFICATION_STATUS + "=?");
+                andState = true;
+            }
+
+            if(andState == false) {
+                query.append("1");
+            }
+            // chiusura della query, le graduatorie vanno messe prima in ordine di stato bozza > provvisoria > definitiva
+            query.append(" ORDER BY (" + DBNames.ATT_CLASSIFICATION_STATUS + ", " + DBNames.ATT_CLASSIFICATION_ID + ");");
+            
+            pstmt = con.prepareStatement(query.toString());
+
+            // setting pstmt's parameters
+            int i = 1;		// index of pstmt first argument
+            if(classification.getId() > 0) {
+                    pstmt.setInt(i, classification.getId());
+                    i++;
+            }
+            if(classification.getName() != null) {
+                    pstmt.setString(i, classification.getName());
+                    i++;
+            }
+            if(classification.getDate() != null) {
+                    pstmt.setDate(i, new Date(classification.getDate().getTimeInMillis()));
+                    i++;
+            }
+            if(classification.getStatus() != null) {
+                    pstmt.setString(i, classification.getStatus());
+                    i++;
+            }
+
+            // executing select query
+            resultSet = pstmt.executeQuery();
+            con.commit();
 
             // constructing payment list
-            classification = new ArrayList<Classification>();
-            while(rs.next()) {
-                Classification p = new Classification();
-                p.setId(rs.getInt(DBNames.ATT_CLASSIFICATION_ID));
+            classificationList = new ArrayList<Classification>();
+            while(resultSet.next()) {
+                Classification tmpClassification =  new Classification();
+                tmpClassification.setId(resultSet.getInt(DBNames.ATT_CLASSIFICATION_ID));
+                tmpClassification.setName(resultSet.getString(DBNames.ATT_CLASSIFICATION_NAME));
 
-                p.setName(rs.getString(DBNames.ATT_CLASSIFICATION_NAME));
                 //getting Date from ResultSet and converting it to GregorianCalendar
-                GregorianCalendar date = new GregorianCalendar();
-                date.setTime(rs.getDate(DBNames.ATT_CLASSIFICATION_DATA));
-                p.setDate(date);
-
-                p.setStatus(rs.getString(DBNames.ATT_CLASSIFICATION_STATUS));
-                classification.add(p);
+                GregorianCalendar dateToSet;
+                if(resultSet.getDate(DBNames.ATT_CLASSIFICATION_DATA) != null) {
+                    dateToSet = new GregorianCalendar();
+                    dateToSet.setTime(resultSet.getDate(DBNames.ATT_CLASSIFICATION_DATA));
+                } else {
+                    dateToSet = null;
+                }
+                tmpClassification.setDate(dateToSet);
+                tmpClassification.setStatus(resultSet.getString(DBNames.ATT_CLASSIFICATION_STATUS));
+                
+                // ricerca dei risultati associati a questa graduatoria
+                Result tmpResult = new Result();
+                tmpResult.setClassificationId(tmpClassification.getId());
+                tmpClassification.setResults(searchResult(tmpResult));
             }
         } finally {
-            if(rs != null)
-                rs.close();
-            if(stmt != null)
-                stmt.close();
-            if(con != null)
+            if(resultSet != null) {
+                resultSet.close();
+            }
+            if(pstmt != null) {
+                pstmt.close();
+            }
+            if(con != null) {
                 DBConnectionPool.releaseConnection(con);
+            }
         }
-        return classification;
+        return classificationList;
+    }
+
+    public synchronized boolean insertResult(Result result) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        String query;
+        boolean toReturn = false;
+        int numEditedRow;
+        
+        try {
+            con = DBConnectionPool.getConnection();
+            query = "INSERT INTO " + DBNames.TABLE_RESULT + " (" +
+                        DBNames.ATT_RESULT_REGISTRATIONCHILDID + ", " +
+                        DBNames.ATT_RESULT_CLASSIFICATIONID + ", " +
+                        DBNames.ATT_RESULT_SCORE + ", " +
+                        DBNames.ATT_RESULT_RESULT + ", " +
+                    ") VALUES(?, ?, ?, ?);";
+                
+            pstmt = con.prepareStatement(query);
+                
+            pstmt.setInt(1, result.getRegistrationChildId());
+            pstmt.setInt(2, result.getClassificationId());
+            pstmt.setDouble(3, result.getScore());
+            pstmt.setBoolean(4, result.getResult());
+
+            numEditedRow = pstmt.executeUpdate();
+            con.commit();
+            pstmt.close();
+            if(numEditedRow > 0) {
+                toReturn = true;
+            }
+        } finally {
+            if(pstmt != null) {
+                pstmt.close();
+            }
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+        return toReturn;
     }
     
-    public synchronized void deleteResult(RegistrationChild toDelete) throws SQLException {
+    public synchronized boolean updateResult(Result result) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        String query;
+        boolean toReturn = false;
+        int numEditedRow;
+        
+        try {
+            con = DBConnectionPool.getConnection();
+            query = "UPDATE" + DBNames.TABLE_RESULT + " " +
+                    "SET " +
+                        DBNames.ATT_RESULT_SCORE + "=?, " +
+                        DBNames.ATT_RESULT_RESULT + "=?, " +
+                    "WHERE " + DBNames.ATT_RESULT_REGISTRATIONCHILDID + "=? AND " +
+                    DBNames.ATT_RESULT_CLASSIFICATIONID + "=?;";
+            pstmt = con.prepareStatement(query);
+
+            pstmt.setDouble(1, result.getScore());
+            pstmt.setBoolean(2, result.getResult());
+            pstmt.setInt(3, result.getRegistrationChildId());
+            pstmt.setInt(4, result.getClassificationId());
+
+            numEditedRow = pstmt.executeUpdate();
+            if(numEditedRow > 0) {
+                toReturn = true;
+            }
+        } finally {
+            if(pstmt != null) {
+                pstmt.close();
+            }
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+        return toReturn;
+    }
+    
+    public synchronized boolean deleteResult(Result result) throws SQLException {
         Connection con = null;
         PreparedStatement stmt = null;
-        String query = null;
+        String query;
+        boolean toReturn = false;
+        
+        try {
+            con = DBConnectionPool.getConnection();
 
+            // constructing query string for classification
+            query = "DELETE " +
+                    "FROM " + DBNames.TABLE_RESULT + " " +
+                    "WHERE " + DBNames.ATT_RESULT_CLASSIFICATIONID + "=?; AND " +
+                        DBNames.ATT_RESULT_REGISTRATIONCHILDID + "=?;";
+
+            stmt = con.prepareStatement(query);
+            stmt.setInt(1, result.getClassificationId());
+            stmt.setInt(2, result.getRegistrationChildId());
+            stmt.executeUpdate();
+            con.commit();
+        } finally {
+            if(stmt != null) {
+                stmt.close();
+            }
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+        return toReturn;
+    }
+    
+    public synchronized List<Result> searchResult(Result result) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+        StringBuffer query = new StringBuffer();
+        List<Result> resultList = null;
+        boolean andState = false;
+
+        try {
+            con = DBConnectionPool.getConnection();
+            query.append("SELECT * " +
+                        "FROM " + DBNames.TABLE_RESULT + " " +
+                        "WHERE ");
+            if(result.getClassificationId() > 0) {
+                query.append(DBNames.ATT_RESULT_CLASSIFICATIONID + "=?");
+                andState = true;
+            }
+            if(result.getRegistrationChildId() > 0) {
+                query.append(useAnd(andState) + DBNames.ATT_RESULT_REGISTRATIONCHILDID + "=?");
+                andState = true;
+            }
+            if(result.getScore() >= 0) {
+                query.append(useAnd(andState) + DBNames.ATT_RESULT_SCORE + "=?");
+                andState = true;
+            }
+            if(andState != true) {
+                query.append("1");
+            }
+            // ordinamento
+            query.append(" ORDER BY (" + DBNames.ATT_RESULT_SCORE + ", " + 
+                        DBNames.ATT_RESULT_CLASSIFICATIONID + ", " + 
+                        DBNames.ATT_RESULT_REGISTRATIONCHILDID + ") DESC;");
+            
+            pstmt = con.prepareStatement(query.toString());
+            int i = 1;
+            if(result.getClassificationId() > 0) {
+                pstmt.setInt(i, result.getClassificationId());
+                i++;
+            }
+            if(result.getRegistrationChildId() > 0) {
+                pstmt.setInt(i, result.getRegistrationChildId());
+                i++;
+            }
+            if(result.getScore() >= 0) {
+                pstmt.setDouble(i, result.getScore());
+                i++;
+            }
+            
+            resultSet = pstmt.executeQuery();
+
+            resultList = new ArrayList<Result>();
+            while(resultSet.next()) {
+                Result rTmp = new Result();
+                rTmp.setClassificationId(resultSet.getInt(DBNames.ATT_RESULT_CLASSIFICATIONID));
+                rTmp.setRegistrationChildId(resultSet.getInt(DBNames.ATT_RESULT_REGISTRATIONCHILDID));
+                rTmp.setScore(resultSet.getDouble(DBNames.ATT_RESULT_SCORE));
+                rTmp.setResult(resultSet.getBoolean(DBNames.ATT_RESULT_RESULT));
+                resultList.add(rTmp);
+            }
+        } finally {
+            if(resultSet != null) {
+                resultSet.close();
+            }
+            if(pstmt != null) {
+                pstmt.close();
+            }
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+        return resultList;
+    }
+    
+    public synchronized boolean deleteAllResult(Classification classification) throws SQLException {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        String query;
+        boolean toReturn = false;
+        int numEditedRow;
+        
+        try {
+            con = DBConnectionPool.getConnection();
+
+            // constructing query string for classification
+            query = "DELETE FROM " + DBNames.TABLE_RESULT
+                            + "WHERE " + DBNames.ATT_RESULT_CLASSIFICATIONID + "=?;";
+
+            stmt = con.prepareStatement(query);
+            stmt.setInt(1, classification.getId());
+            numEditedRow = stmt.executeUpdate();
+            con.commit();
+            if(numEditedRow > 0) {
+                toReturn = true;
+            }
+        } finally {
+            if(stmt != null) {
+                stmt.close();
+            }
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+        return toReturn;
+    }
+    
+    public synchronized boolean deleteAllResult(RegistrationChild child) throws SQLException {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        String query;
+        boolean toReturn = false;
+        int numEditedRow;
+        
         try {
             con = DBConnectionPool.getConnection();
 
@@ -354,44 +512,68 @@ public class JDBCClassificationManager implements IClassificationManager {
                             + "WHERE " + DBNames.ATT_RESULT_REGISTRATIONCHILDID + "=?;";
 
             stmt = con.prepareStatement(query);
-            stmt.setInt(1, toDelete.getId());
-            stmt.executeUpdate();
+            stmt.setInt(1, child.getId());
+            
+            numEditedRow = stmt.executeUpdate();
             con.commit();
+            if(numEditedRow > 0) {
+                toReturn = true;
+            }
         } finally {
-            if(stmt != null)
+            if(stmt != null) {
                 stmt.close();
-            if(con != null)
+            }
+            if(con != null) {
                 DBConnectionPool.releaseConnection(con);
+            }
         }
+        return toReturn;
     }
     
     // metodo utilizzato dal registrationchildmanager in caso di eliminazione di una domanda di iscrizione
     // observe patter
-    public synchronized void unapproveResult(RegistrationChild registrationChildId) throws SQLException {
-        Connection con = null;
-        PreparedStatement pstmt = null;
-        String query = "UPDATE " + DBNames.TABLE_RESULT + " " +
-                        "SET " + DBNames.ATT_RESULT_RESULT + "=? " +
-                        "WHERE " + DBNames.ATT_RESULT_REGISTRATIONCHILDID + "=?;";
-        try {
-            con = DBConnectionPool.getConnection();
-            pstmt = con.prepareStatement(query);
-            pstmt.setBoolean(1, false);
-            pstmt.setInt(2, registrationChildId.getId());
-            pstmt.executeUpdate();
-            con.commit();
-        } finally {
-            if(pstmt != null)
-                pstmt.close();
-            if(con != null)
-                con.close();
-        }
-    }
-    public synchronized void insertCriterion(Criterion criterion) throws SQLException {
+    public synchronized boolean unapproveResult(RegistrationChild registrationChildId) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
         String query;
-
+        boolean toReturn = false;
+        int numEditedRow;
+        
+        try {
+            con = DBConnectionPool.getConnection();
+            
+            query = "UPDATE " + DBNames.TABLE_RESULT + " " +
+                        "SET " + DBNames.ATT_RESULT_RESULT + "=? " +
+                        "WHERE " + DBNames.ATT_RESULT_REGISTRATIONCHILDID + "=?;";
+            
+            pstmt = con.prepareStatement(query);
+            pstmt.setBoolean(1, false);
+            pstmt.setInt(2, registrationChildId.getId());
+            
+            numEditedRow = pstmt.executeUpdate();
+            con.commit();
+            
+            if(numEditedRow > 0) {
+                toReturn = true;
+            }
+        } finally {
+            if(pstmt != null) {
+                pstmt.close();
+            }
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+        return toReturn;
+    }
+    
+    public synchronized boolean insertCriterion(Criterion criterion) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        String query;
+        int numEditedRow;
+        boolean toReturn = false;
+        
         try {
             con = DBConnectionPool.getConnection();
 
@@ -401,36 +583,46 @@ public class JDBCClassificationManager implements IClassificationManager {
                             + DBNames.ATT_CRITERIA_DESCRIPTION + ", "
                             + DBNames.ATT_CRITERIA_WEIGHT + ", "
                             + ") VALUES(NULL, ?, ?)";
-
+            
+            pstmt = con.prepareStatement(query);
 
             //setting pstmt's parameters
             pstmt.setString(1, criterion.getDescription());
             pstmt.setDouble(2, criterion.getWeight());
             
-            pstmt.executeUpdate();
+            numEditedRow = pstmt.executeUpdate();
             con.commit();
+            
+            if(numEditedRow > 0) {
+                toReturn = true;
+            }
         } finally {
-            if(pstmt != null)
+            if(pstmt != null) {
                 pstmt.close();
-            if(con != null)
+            }
+            if(con != null) {
                 DBConnectionPool.releaseConnection(con);
+            }
         }
+        return toReturn;
     }
 
-    public synchronized void modifyCriterion(Criterion criterion) throws SQLException {
+    public synchronized boolean modifyCriterion(Criterion criterion) throws SQLException {
         Connection con = null;
-        PreparedStatement pstmt=null;
+        PreparedStatement pstmt = null;
         String query;
-
+        boolean toReturn = false;
+        int numEditedRow;
+        
         try {
             con = DBConnectionPool.getConnection();
 
             // constructing query string
-            query = "UPDATE " + DBNames.TABLE_CRITERIA +
-                            " SET "
-                            + DBNames.ATT_CRITERIA_ID + "=?, "
-                            + DBNames.ATT_CRITERIA_WEIGHT + "=?, "
-                            + "WHERE " + DBNames.ATT_CRITERIA_ID + "=?;";
+            query = "UPDATE " + DBNames.TABLE_CRITERIA + " " +
+                    "SET " +
+                    DBNames.ATT_CRITERIA_ID + "=?, " +
+                    DBNames.ATT_CRITERIA_WEIGHT + "=?, " +
+                    "WHERE " + DBNames.ATT_CRITERIA_ID + "=?;";
 
             pstmt = con.prepareStatement(query);
 
@@ -440,51 +632,125 @@ public class JDBCClassificationManager implements IClassificationManager {
             pstmt.setDouble(2,criterion.getWeight());
             pstmt.setInt(3, criterion.getId());
 
-            pstmt.executeUpdate();
+            numEditedRow = pstmt.executeUpdate();
             con.commit();
-        } finally {
-            if (pstmt != null)
-                pstmt.close();
-            if (con != null)
-                DBConnectionPool.releaseConnection(con);
-        }
-    }
-
-    public synchronized void deleteCriterion(Criterion criterion) throws SQLException {
-            Connection con = null;
-            PreparedStatement stmt = null;
-            String query = null;
-
-            try {
-                con = DBConnectionPool.getConnection();
-
-                // constructing query string for classification
-                query = "DELETE FROM " + DBNames.TABLE_CRITERIA + " " +
-                                "WHERE " + DBNames.ATT_CRITERIA_ID + "=?;";
-
-                stmt = con.prepareStatement(query);
-                stmt.setInt(1, criterion.getId());
-                stmt.executeUpdate();
-                con.commit();
-            } finally {
-                    if(stmt != null)
-                        stmt.close();
-                    if(con != null)
-                        DBConnectionPool.releaseConnection(con);
+            if(numEditedRow > 0) {
+                toReturn = true;
             }
+        } finally {
+            if(pstmt != null) {
+                pstmt.close();
+            }
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+        return toReturn;
     }
 
+    public synchronized boolean deleteCriterion(Criterion criterion) throws SQLException {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        String query;
+        boolean toReturn = false;
+        int numEditedRow;
+        
+        try {
+            con = DBConnectionPool.getConnection();
+
+            // constructing query string for classification
+            query = "DELETE " + 
+                    "FROM " + DBNames.TABLE_CRITERIA + " " +
+                    "WHERE " + DBNames.ATT_CRITERIA_ID + "=?;";
+
+            stmt = con.prepareStatement(query);
+            stmt.setInt(1, criterion.getId());
+            numEditedRow = stmt.executeUpdate();
+            con.commit();
+            if(numEditedRow > 0) {
+                toReturn = true;
+            }
+                
+        } finally {
+            if(stmt != null) {
+                stmt.close();
+            }
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+        return toReturn;
+    }
+
+    public synchronized List<Criterion> searchCriterion(Criterion criterion) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+        StringBuffer query = new StringBuffer();
+        List<Criterion> criteriaList = null;
+        boolean andState = false;
+
+        try {
+            con = DBConnectionPool.getConnection();
+            query.append("SELECT * " +
+                        "FROM " + DBNames.TABLE_CRITERIA + " " +
+                        "WHERE ");
+            if(criterion.getId() > 0) {
+                query.append(DBNames.ATT_CRITERIA_ID + "=?");
+                andState = true;
+            }
+            if(criterion.getDescription() != null) {
+                query.append(useAnd(andState) + DBNames.ATT_CRITERIA_DESCRIPTION + "=?");
+                andState = true;
+            }
+            if(andState != true) {
+                query.append("1");
+            }
+            // ordinamento
+            query.append(" ORDER BY (" + DBNames.ATT_CRITERIA_DESCRIPTION + ");");
+            
+            pstmt = con.prepareStatement(query.toString());
+            int i = 1;
+            if(criterion.getId() > 0) {
+                pstmt.setInt(i, criterion.getId());
+                i++;
+            }
+            if(criterion.getDescription() != null) {
+                pstmt.setString(i, criterion.getDescription());
+                i++;
+            }
+            
+            resultSet = pstmt.executeQuery();
+
+            criteriaList = new ArrayList<Criterion>();
+            while(resultSet.next()) {
+                Criterion cTmp = new Criterion();
+                cTmp.setId(resultSet.getInt(DBNames.ATT_CRITERIA_ID));
+                cTmp.setDescription(resultSet.getString(DBNames.ATT_CRITERIA_DESCRIPTION));
+                cTmp.setWeight(resultSet.getDouble(DBNames.ATT_CRITERIA_WEIGHT));
+                criteriaList.add(cTmp);
+            }
+        } finally {
+            if(resultSet != null) {
+                resultSet.close();
+            }
+            if(pstmt != null) {
+                pstmt.close();
+            }
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+        return criteriaList;
+    }
+    
     public synchronized List<Criterion> getAllCriteria() throws SQLException {
             Connection con = null;
             Statement stmt = null;
             ResultSet rs = null;
-            ResultSet rs1 = null;
-            String query = null;
+            String query;
             List<Criterion> criteriaList = null;
-            List<Result> resultList = null;
             
-            boolean andState = false;
-
             try {
                 con = DBConnectionPool.getConnection();
 
@@ -508,15 +774,26 @@ public class JDBCClassificationManager implements IClassificationManager {
                     criteriaList.add(cTmp);
                 }
             } finally {
-                if(rs != null)
+                if(rs != null) {
                     rs.close();
-                if(stmt != null)
+                }
+                if(stmt != null) {
                     stmt.close();
-                if(con != null)
+                }
+                if(con != null) {
                     DBConnectionPool.releaseConnection(con);
+                }
             }
-
             return criteriaList;
+    }
+
+    public synchronized List<Classification> getAllClassification() throws SQLException {
+        Classification classification = new Classification();
+        return search(classification);
+    }
+    
+    private String useAnd(boolean pEnableAnd) {
+            return pEnableAnd ? " AND " : " ";
     }
 
 }
