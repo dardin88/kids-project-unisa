@@ -11,12 +11,12 @@
     <c:if test="${sessionScope.user.getAccountType()=='Genitore'}"> 
         <c:redirect url="newsGenitorePage.jsp" />
     </c:if>
-    
+
     <%-- Da rimuovere dato che ora si chiama 'Segreteria' ??? --%>
     <c:if test="${sessionScope.user.getAccountType()=='Delegato Ufficio'}">
         <c:redirect url="newsDelegatoPage.jsp" />
     </c:if>
-    
+
     <c:if test="${sessionScope.user.getAccountType()=='Tirocinante'}">
         <c:redirect url="traineePage.jsp" />
     </c:if>
@@ -26,7 +26,7 @@
     <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
         <c:redirect url="secretaryPage.jsp" />
     </c:if>
-     <c:if test="${sessionScope.user.getAccountType()=='Admin'}"> 
+    <c:if test="${sessionScope.user.getAccountType()=='Admin'}"> 
         <c:redirect url="meetingCalendar.jsp" />
     </c:if>
 
@@ -35,17 +35,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
+
         <link rel="stylesheet" type="text/css" href="css/template.css">
         <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
-        
+
         <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/loginManager.js"></script>
-        
+
         <title>Kids</title>
-        
+
         <script type="text/javascript">
             $(document).ready(function() {
                 initializeLoginFields();
