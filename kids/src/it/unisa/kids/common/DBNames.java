@@ -169,6 +169,7 @@ public final class DBNames {
     public static final String ATT_PAYMENT_DESCRIPTION = "Descrizione";
     public static final String ATT_PAYMENT_DISCOUNT = "Sconto";
     public static final String ATT_PAYMENT_DISCDESCRIPTION = "DescrizioneSconto";
+    public static final String ATT_PAYMENT_RECEIPTCODE = "CodiceRicevuta";
     //RefundTable's attributes
     public static final String ATT_REFUND_ID = "Id";
     public static final String ATT_REFUND_DESCRIPTION = "Descrizione";
