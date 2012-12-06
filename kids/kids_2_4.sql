@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `account` (
 INSERT INTO `account` (`Id`, `Nickname`, `Password`, `Cognome`, `Nome`, `Email`, `Telefono`, `Cellulare`, `Fax`, `DataNascita`, `ComuneNascita`, `CodiceFiscale`, `Cittadinanza`, `ResidenzaIndirizzo`, `ResidenzaComune`, `ResidenzaProvincia`, `ResidenzaCap`, `DomicilioIndirizzo`, `DomicilioComune`, `DomicilioProvincia`, `DomicilioCap`, `TitoloStudio`, `SituazioneFamiliare`, `Reddito`, `TipologiaGenitore`, `DataScadenzaContratto`, `Facolta`, `DataRegistrazione`, `NumeroStradaResidenza`, `NumeroStradaDomicilio`, `TipologiaAccount`, `Matricola`, `Stato`) VALUES
 (1, 'segreteria', 'segreteria', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Segreteria', NULL, NULL),
 (2, 'admin', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Admin', NULL, NULL),
-(3, 'genitore', 'genitore', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Genitore', NULL, NULL);
+(4, 'genitore', 'genitore', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Genitore', NULL, NULL);
 
 -- --------------------------------------------------------
 
