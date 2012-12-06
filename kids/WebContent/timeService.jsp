@@ -1,5 +1,5 @@
 <%-- 
-    Document   : TimeService
+    Document   : timeService
     Created on : 6-dic-2012, 10.13.44
     Author     : stefanoferrante
 --%>
@@ -27,7 +27,7 @@
             $(document).ready(function() {
                 activePage();
                 messageDialog();
-                initializeTimeServicePage();
+                initializetimeServicePage();
             });
         </script>
     </head>
@@ -52,6 +52,7 @@
             <div id="timeserviceTab">      <%--div tab jQuery--%>
                 <ul>
                     <li><a href="#InsertTime"><span class="TimeTab">Inserisci Orari di servizio</span></a></li>
+                    <li><a href="#modifyTime"><span class="TimeTab">Modifica Orari di servizio</span></a></li>
                 </ul>
                 <div id="InsertTime">
                     <form id="InsertTimeForm" class="cmxform" method="post" action="InsertTime">
@@ -64,7 +65,8 @@
           
                         </textarea>
                     </form>
-                </div>    
+                </div>
+             
             </div> 
         </div> 
 
