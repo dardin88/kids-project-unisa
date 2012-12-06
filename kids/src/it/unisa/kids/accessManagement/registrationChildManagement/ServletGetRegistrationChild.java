@@ -6,6 +6,7 @@ package it.unisa.kids.accessManagement.registrationChildManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -28,12 +29,17 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
- * Servlet used to create a new draft of registrationchild
+ * Servlet used to get the value of a registrationchild
  * 
  * @author Giuseppe Giovanni Lauri
  */
 public class ServletGetRegistrationChild extends HttpServlet {
+    private IRegistrationChildManager registrationChildManager;
 
+    public void init(ServletConfig config) {
+        RefinedAbstractManager refinedAbstractRegistrationChildManager = RefinedAbstractManager.getInstance();
+        registrationChildManager = (IRegistrationChildManager) refinedAbstractRegistrationChildManager.getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
+    }
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -48,41 +54,52 @@ public class ServletGetRegistrationChild extends HttpServlet {
             throws ServletException, IOException, SQLException, ParseException {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
-        JSONArray jsonArray = new JSONArray();
         try {
-            JDBCRegistrationChildManager registrationChildManager = JDBCRegistrationChildManager.getInstance();
-
             HttpSession session = request.getSession();
             Account account = (Account) session.getAttribute("user");
-            
             RegistrationChild tmpChild = new RegistrationChild();
-            List<RegistrationChild> listResult = new ArrayList<RegistrationChild>();
-            if(account.getAccountType().equals("Segreteria")) {
-                tmpChild.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED);
-                listResult.addAll(registrationChildManager.search(tmpChild));
-                tmpChild.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_COMPLETED);
-                listResult.addAll(registrationChildManager.search(tmpChild));
-            } else if(account.getAccountType().equals("Genitore")) {
-                tmpChild.setParentId(account.getId());
-                listResult.addAll(registrationChildManager.search(tmpChild));
+            
+            // campi necessari per prelevare le informazioni
+            if(!request.getParameter(DBNames.ATT_REGISTRATIONCHILD_ID).equals("")) {
+                int id = Integer.parseInt(request.getParameter(DBNames.ATT_REGISTRATIONCHILD_ID));
+                tmpChild.setId(id);
+                System.out.println("Sono nella servlet con l'id: " + id);
+                // ricerco
+                List<RegistrationChild> listResult = registrationChildManager.search(tmpChild);
+                if(listResult.size() > 0) {
+                    
+                    // prelevo il risultato (dovrebbe essere unico
+                    tmpChild = listResult.get(0);
+
+                    // costruisco l'output
+                    JSONObject json = new JSONObject();
+                    /*JSONArray jarray = new JSONArray();
+                    JSONObject jobject = new JSONObject();*/
+                    
+                    json.put(DBNames.ATT_REGISTRATIONCHILD_ID, tmpChild.getId());
+                    json.put(DBNames.ATT_REGISTRATIONCHILD_SURNAME, tmpChild.getSurname());
+                    json.put(DBNames.ATT_REGISTRATIONCHILD_NAME, tmpChild.getName());
+                    json.put(DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE, tmpChild.getBirthDate());
+                    json.put(DBNames.ATT_REGISTRATIONCHILD_BIRTHPLACE, tmpChild.getBirthPlace());
+                    json.put(DBNames.ATT_REGISTRATIONCHILD_FISCALCODE, tmpChild.getFiscalCode());
+                    json.put(DBNames.ATT_REGISTRATIONCHILD_CITIZENSHIP, tmpChild.getCitizenship());
+                    json.put(DBNames.ATT_REGISTRATIONCHILD_SICKNESS, tmpChild.getSickness());
+                    json.put(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONDATE, tmpChild.getRegistrationDate());
+                    json.put(DBNames.ATT_REGISTRATIONCHILD_USERRANGE, tmpChild.getUserRange());
+                    json.put(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE, tmpChild.getRegistrationPhase());
+                    json.put(DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID, tmpChild.getParentId());
+                    
+                    //jarray.put(jobject);
+                    //json.put("RegistrationChild", jarray);
+                    System.out.println(json.toString());
+                    out.write(json.toString());
+                } else {
+                    System.out.println("Errore nella prelevazione dell'ID: " + id);
+                }
+            } else {
+                System.out.println("Errore nella passaggio dei parametri");
             }
-            for(RegistrationChild tmp : listResult) {
-                JSONObject json = new JSONObject();
-                json.put(DBNames.ATT_REGISTRATIONCHILD_ID, tmp.getId());
-                json.put(DBNames.ATT_REGISTRATIONCHILD_SURNAME, tmp.getSurname());
-                json.put(DBNames.ATT_REGISTRATIONCHILD_NAME, tmp.getName());
-                json.put(DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE, tmp.getBirthDate());
-                json.put(DBNames.ATT_REGISTRATIONCHILD_BIRTHPLACE, tmp.getBirthPlace());
-                json.put(DBNames.ATT_REGISTRATIONCHILD_FISCALCODE, tmp.getFiscalCode());
-                json.put(DBNames.ATT_REGISTRATIONCHILD_CITIZENSHIP, tmp.getCitizenship());
-                json.put(DBNames.ATT_REGISTRATIONCHILD_SICKNESS, tmp.getSickness());
-                json.put(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONDATE, tmp.getRegistrationDate());
-                json.put(DBNames.ATT_REGISTRATIONCHILD_USERRANGE, tmp.getUserRange());
-                json.put(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE, tmp.getRegistrationPhase());
-                json.put(DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID, tmp.getParentId());
-                jsonArray.put(json);
-            }
-            out.println(jsonArray.toString());
+            
         } catch (SQLException ex) {
             Logger.getLogger(ServletGetRegistrationChild.class.getName()).log(
                     Level.SEVERE, null, ex);
