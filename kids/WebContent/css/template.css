@@ -526,3 +526,13 @@ managerTraineeRequest
     padding-top: 1%;
     width: 80%;
 }
+
+/* 
+     TimeServiceManagment
+*/
+#timeserviceManagement {
+    float: left;
+    padding: 2%;
+    padding-top: 1%;
+    width: 80%;
+}
