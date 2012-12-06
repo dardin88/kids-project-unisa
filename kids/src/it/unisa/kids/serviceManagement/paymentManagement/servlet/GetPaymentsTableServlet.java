@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -107,8 +106,8 @@ public class GetPaymentsTableServlet extends HttpServlet {
                     jObj.put("3", discountPayment);
                     checkAddToJSON(jObj, "4", payment.getDiscountDescription());
                     jObj.put("5", amountDuePayment);
-                    jObj.put("6", payment.isCharge());
-                    jObj.put("7", payment.isPaid());
+                    jObj.put("6", payment.isCharge() ? "Si" : "No");
+                    jObj.put("7", payment.isPaid() ? "Si" : "No");
                     
                     jObj.put("DT_RowId", "" + payment.getId());
                     
@@ -161,7 +160,7 @@ public class GetPaymentsTableServlet extends HttpServlet {
         if (value != null) {
             jObj.put(key, value);
         } else {
-            jObj.put(key, JSONObject.NULL);
+            jObj.put(key, "");
         }
     }
 

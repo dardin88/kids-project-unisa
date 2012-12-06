@@ -8,6 +8,8 @@ public class RefundBean implements Serializable {
 	private String description;
 	private double amount;
 	private int parentId;
+        private boolean performed;
+        private boolean performedUsable;        // used to determine if it's ok to use performed in querys
 
 	public RefundBean() {
 
@@ -44,4 +46,20 @@ public class RefundBean implements Serializable {
 	public void setParentId(int pParentId) {
 		this.parentId = pParentId;
 	}
+        
+        public boolean isPerformed() {
+            return this.performed;
+        }
+        
+        public void setPerformed(boolean pPerformed) {
+            this.performed = performed;
+        }
+        
+        public boolean isPerformedUsable() {
+            return this.performedUsable;
+        }
+        
+        public void setPerformedUsable(boolean pPerformedUsable) {
+            this.performedUsable = pPerformedUsable;
+        }
 }

@@ -19,6 +19,8 @@ function initializePaymentsPage() {
     });
     $("#insertPaymentButton").button();
     
+    $("#insertRefundButton").button();
+    
     $("#modifyPaymentsDialog").dialog({
         autoOpen: false,
         modal: true,
@@ -48,8 +50,9 @@ function search() {
 }
 
 function doParentSelection(parentData) {
-    $("#selectedParentData").html(parentData);
+    $("#selectedParentData").html(parentData.cells[0].innerHTML + ' ' + parentData.cells[1].innerHTML + ' ' + parentData.cells[2].innerHTML);
     $("#hiddenParentIdInsPayment").val(parentData.id);
+    $("#hiddenParentIdInsRefund").val(parentData.id);
     
     buildPaymentsTable(parentData.id);
     buildRefundsTable(parentData.id);
