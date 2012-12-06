@@ -139,11 +139,11 @@
                                             <label> <h3 style="float: left"> Tipologia: </h3></label>
                                             <label style="margin-left: 2%;" id="showTypeMeeting" name="showTypeMeeting"></label> <br> <br>
                                                     </p>
-                                                    <p>
+                                                    <p style="width: 480px">
                                                         <c:if test="${sessionScope.user.getAccountType()=='Adim'||sessionScope.user.getAccountType()=='Segreteria'||sessionScope.user.getAccountType()=='Responsabile Asilo'}">                                                            <input type="button" id="modifyMeetingButton" value="Modifica Riunione" />
                                                             <input type="button" id="deleteMeetingButton" value="Elimina Riunione" />
                                                         </c:if>
-                                                        <input type="button" id="notMeetingButton" value="Annulla" />
+                                                            <input style="width: 140px" type="button" id="notMeetingButton" value="Annulla" />
                                                     </p>
                                                     </div>
                                                     </fieldset>
@@ -227,9 +227,9 @@
                                                                                                                                                                                                         <input type="radio" id="modifyTypeMeetingScuola" name="Tipo" value="Scuola-Famiglia"> Riunione Scuola-Famiglia   
                                                                                                                                                                                                         </ul> <br>
                                                                                                                                                                                                         </p>
-                                                                                                                                                                                                        <p>
+                                                                                                                                                                                                        <p style="width: 650px">
                                                                                                                                                                                                         <input type="submit" id="acceptModifyMeetingButton" value="Modifica Riunione" />
-                                                                                                                                                                                                        <input type="button" id="notAcceptModifyMeetingButton" value="Annulla" />
+                                                                                                                                                                                                        <input style="width: 140px" type="button" id="notAcceptModifyMeetingButton" value="Annulla" />
                                                                                                                                                                                                         </p>
                                                                                                                                                                                                         </div>
                                                                                                                                                                                                         </fieldset>
