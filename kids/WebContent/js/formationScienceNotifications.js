@@ -89,6 +89,7 @@ function buildTraineeTable(){
             "sWidth": "5%"
         }
         
+        
         ]
     });
 }
@@ -136,16 +137,23 @@ function buildResponseFromTraineesTable(){
         
         "aoColumns": [
         {
-            "sWidth": "30%"
+            "sWidth": "15%"
         },
         {
-            "sWidth": "30%"
+            "sWidth": "15%"
         },
         {
-            "sWidth": "30%"
+            "sWidth": "15%"
+        },
+        {
+            "sWidth":"10%"
         },
         {
             "sWidth": "10%"
+        },
+        
+        {
+            "sWidth":"15%"
         },
         {
             "sWidth": "10%"
@@ -244,4 +252,24 @@ function removeTraineeConvocation(id){
     $("#notConfirmRemoveTraineeConvocationButton").click(function(){
         $("#removeTraineeConvocationWindow").dialog("close");
     });
+}
+
+function loadInformationTraineeConvocation(id){
+    function loadInformationTraineePage(id){
+    $("#informationTraineeConvocationWindow").dialog("open");
+    $.post("GetTrainees", {
+        traineeId:""+id
+    },function(data){
+
+        var result = data.split(",");
+        $("#RegisterTrainee").val(result[0]);
+        $("#ActivityInf").val(result[1]);
+        $("#DateInf").val(result[2]);
+        $("#StartTimeInf").val(result[3]);
+        $("#EndTimeInf").val(result[4]);
+        
+        $("#IdInf").val(result[5]);
+    });
+
+}
 }
