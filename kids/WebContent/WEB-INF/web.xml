@@ -243,6 +243,27 @@
         <servlet-name>ModifyTraineeActivityServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.ModifyTraineeActivityServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddCommunicationServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.childrenManagement.AddCommunicationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetCommunicationServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.childrenManagement.GetCommunicationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetDetailCommunicationServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.childrenManagement.GetDetailCommunicationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RemoveCommunicationServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.childrenManagement.RemoveCommunicationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCommunicationServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.childrenManagement.UpdateCommunicationServlet</servlet-class>
+    </servlet>
+    
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
@@ -482,7 +503,27 @@
         <url-pattern>/InsertTableRenunciationServlet</url-pattern>
     </servlet-mapping>
     
-    
+    <servlet-mapping>
+        <servlet-name>AddCommunicationServlet</servlet-name>
+        <url-pattern>/AddCommunication</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetCommunicationServlet</servlet-name>
+        <url-pattern>/GetCommunication</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetDetailCommunicationServlet</servlet-name>
+        <url-pattern>/GetDetailCommunication</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveCommunicationServlet</servlet-name>
+        <url-pattern>/RemoveCommunication</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCommunicationServlet</servlet-name>
+        <url-pattern>/UpdateCommunication</url-pattern>
+    </servlet-mapping>
+        
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
