@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface IRenunciationManager {
-	public Renunciation create(Renunciation pWaiver) throws SQLException;
-	public Renunciation update(Renunciation pWaiver) throws SQLException;
-	public Renunciation delete(Renunciation pWaiver) throws SQLException;
-	List<Renunciation> search(Renunciation pWaiver) throws SQLException;
+	public void insert (Renunciation pRenunciation) throws SQLException;
+	public void update(Renunciation pRenunciation) throws SQLException;
+	public void delete(Renunciation pRenunciation) throws SQLException;
+	List<Renunciation> search(Renunciation pRenunciation) throws SQLException;
 }
