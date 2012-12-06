@@ -114,7 +114,7 @@ function initializeMeetingManager(){
         autoOpen: false,
         modal: true,
         resizable: false,
-        width: 800
+        width: 700
     });
     
     $.validator.setDefaults({
@@ -143,7 +143,7 @@ function initializeMeetingManager(){
         autoOpen: false,
         modal: true,
         resizable: false,
-        width: 800
+        width: 700
     });
     
     $("#acceptModifyMeetingWindow").dialog({
