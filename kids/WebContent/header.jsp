@@ -34,9 +34,6 @@
                 <li id="TimeServiceMenuEL"><a href="timeService.jsp">Gestione orario di servizio</a></li>
             </div>  
             <div class="div">
-                <li id="canteenManagementMenuEl"><a href="canteenManagement.jsp">Gestione mensa</a></li>
-            </div>
-            <div class="div">
                 <li id="managementTraineeActivity"><a href="managerTraineeActivity.jsp">Gestione Attivit&agrave Tirocinanti</a></li>
             </div>
             <div class="div">
@@ -67,7 +64,13 @@
                 <li id="traineeConvocation"><a href="traineeConvocation.jsp">Convocazioni</a></li>
             </div>
         </c:if>
-
+        
+        <c:if test="${sessioneScope.user.getAccountType()=='Responsabile Mensa'}">
+            <div class="div">
+                <li id="canteenManagementMenuEl"><a href="canteenManagement.jsp">Gestione mensa</a></li>
+            </div>
+        </c:if>
+        
         <c:if test="${sessionScope.user.getAccountType()=='Delegato scienze della formazione'}">
             <div class="div">
                 <li id="trainees"><a href="trainees.jsp">Gestione Tirocinanti</a></li>
