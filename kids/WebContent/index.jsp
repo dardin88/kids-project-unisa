@@ -23,6 +23,9 @@
     <c:if test="${sessionScope.user.getAccountType()=='Delegato scienze della formazione'}">
         <c:redirect url="formationSciencePage.jsp" />
     </c:if>
+    <c:if test="${sessionScope.user.getAccountType()=='Responsabile Mensa'}">
+        <c:redirect url="canteenManagement.jsp" />
+    </c:if>
     <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
         <c:redirect url="secretaryPage.jsp" />
     </c:if>
