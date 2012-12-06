@@ -1,5 +1,6 @@
 package it.unisa.kids.communicationManagement.surveyManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.DBNames;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 
@@ -97,14 +98,112 @@ public class JDBCSurveyManager implements ISurveyManager{
         
     }
 
+    /**
+     *Shows a list of surveys.
+     * @param 
+     */
+    public List<Survey> search() throws SQLException {
+      Connection connection = null;
+      Statement pStmt = null;
+      ResultSet rsSurvey = null;
+      String query;
+      List<Survey> listSurvey = null;
+      
+      try {
+         connection = DBConnectionPool.getConnection();
+         query = "SELECT * FROM" + DBNames.TABLE_SURVEY;
+         pStmt = connection.createStatement();
+         rsSurvey = pStmt.executeQuery(query);
+         connection.commit();
+         
+         while(rsSurvey.next()){
+             int id = rsSurvey.getInt(DBNames.ATT_SURVEY_SURVEYID);
+             String link = rsSurvey.getString(DBNames.ATT_SURVEY_SURVEYLINK);
+             
+             Survey survey = new Survey();
+             survey.setId(id);
+             survey.setLink(link);
+             listSurvey.add(survey);
+         }
+         
+         return listSurvey;
+      } 
+      finally {
+          pStmt.close();
+          DBConnectionPool.releaseConnection(connection);
+      }
+        
+    }
     
-    public List<Survey> search(Survey pSurvey) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet.");
+    /**
+     *Delete a survey from the database.
+     * @param pSurvey
+     */
+    public void delete(Survey pSurvey) throws SQLException {
+        Connection connection = null;
+        PreparedStatement pStmt = null;
+        String query;
+        
+        try {
+            connection = DBConnectionPool.getConnection();
+            query = "DELETE FROM" + DBNames.TABLE_SURVEY +
+                    "WHERE" + DBNames.ATT_SURVEY_SURVEYID + "= '" + pSurvey.getId() + "'";
+            pStmt = connection.prepareStatement(query);
+            pStmt.executeUpdate();
+            connection.commit();
+        } 
+        finally {
+            pStmt.close();
+            DBConnectionPool.releaseConnection(connection);
+        }
     }
 
-    @Override
-    public void delete(Survey pSurvey) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet.");
+    
+    public void insert(Survey pAvailableSurvey, Account pParent) throws SQLException {
+       Connection connection = null;
+       PreparedStatement pStmt = null;
+       String query;
+        try {
+            connection = DBConnectionPool.getConnection();
+            query = "INSERT INTO" + DBNames.TABLE_SURVEYCOMPILED + "(" +
+                    DBNames.ATT_SURVEYCOMPILED_SURVEYID + "," +
+                    DBNames.ATT_SURVEYCOMPILED_ACCOUNTID + "," +
+                    DBNames.ATT_SURVEYCOMPILED_COMPILED + ")" + "VALUES(?,?,?)";
+        
+            pStmt = connection.prepareStatement(query);
+            
+            pStmt.setInt(1, pAvailableSurvey.getId());
+            pStmt.setString(2, pParent.getId()); //perchè cazzo non scompare, porcaccia! capisco che è (int, int) ma perchè il primo l'ha preso?
+            pStmt.setString(3, pAvailableSurvey.getCompiled());
+            
+            
+            pStmt.executeUpdate();
+            connection.commit(); 
+        }
+        finally {
+            if(pStmt != null) {
+                connection.close();        
+            } 
+              if (connection != null) {
+                  DBConnectionPool.releaseConnection(connection); 
+              }
+        }              
+    } 
     }
+
+ /*  
+    public void update(Survey pAvailableSurvey, Account pParent) throws SQLException {
+    
+    }
+
+    
+    public void delete(Survey pAvailableSurvey, Account pParent) throws SQLException {
+    
+    }
+
+    
+    public List<Survey> search(Account pParent) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    } */
     
 }
