@@ -10,7 +10,7 @@ function initializeLinksManager(){
         autoOpen: false,
         modal: true,
         resizable: false,
-        width: 700
+        width: 600
     });
     $("#removeNewsWindow").dialog({
         autoOpen: false,
@@ -22,7 +22,7 @@ function initializeLinksManager(){
         autoOpen: false,
         modal: true,
         resizable: false,
-        width: 700
+        width: 600
     });
     $.validator.setDefaults({
         highlight: function(input) {
@@ -146,8 +146,8 @@ function verifyOra(){
         document.getElementById("errOra").style.visibility="visible";       
 }
 function hiddenMessage(){
-    if(document.getElementById("artefactOra")!=null)
-        document.getElementById("errOra").style.visibility="hidden";       
+    if((document.getElementById("artefactOra").text!="") ||(document.getElementById("artefactOra2").text!=""))
+             document.getElementById("errOra").style.visibility="hidden";       
 }
 
 
