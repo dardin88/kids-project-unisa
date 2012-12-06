@@ -301,6 +301,9 @@ function initializeRegistrationFields(){
         resizable: false,
         width: 600
     });
+    // VISUALE DI CONFERMA ELIMINA/CONVALIDA BUTTON CONFERMA
+    $("#confirmOperationRCButton").button();
+     $("#confirmOperationRCButton").click(function(){});
     //  VISUALE DI CONFERMA - BOTTONE ANNULLA
     $("#undoOperationRCButton").button();
     $("#undoOperationRCButton").click(function(){
@@ -309,6 +312,7 @@ function initializeRegistrationFields(){
     });
     // FINE VISUALE DI CONFERMA ELIMINA/CONVALIDA BUTTON
     
+    // FINE INIZIALIZZAZIONE PAGINA
 }
 
 function createTableRegistrationChild() {
@@ -397,7 +401,34 @@ function editDraftRegistrationChild(id) {
 function viewDetailsRegistrationChild(id) {
     $("#viewDetailsIdDraft").val(id);
     //alert("L'id: " + $("#viewDetailsIdDraft").val())
-    
+    //* Primo tentativo
+    $.ajax({   // prima ajax
+                        url: "GetRegistrationChild",
+                        dataType: 'json',
+                        type: 'POST',
+                        data: {
+                            Id: id
+                        },
+                        success: function() {
+                            alert("Successo");
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            alert("c'è stato un errore: " + textStatus + " errorThrown: " + errorThrown);
+                        },
+                        complete: function(json) { // codice eseguito indipendentemente dal riuscita o meno
+                            /*alert("La richiesta è stata fatta");
+                            alert("L'id è: " + json.Id);*/
+                        }
+                      });
+    //alert(datavisualizza.Cognome);
+    //*/
+    /* Secondo
+    $.post("GetRegistrationChild",{
+                Id: id
+            },function(data){
+                var result = data.split(",")
+                alert("CI sono: " + result[0]);
+            })//*/
     /*
      * MANCA LA PARTE DI COMPLETAMENTO DELLA FORM PRENDENDO I DATI DAL DATABASE
      */
@@ -405,14 +436,14 @@ function viewDetailsRegistrationChild(id) {
     $("#viewDetailsRegistrationChildWindow").dialog("open");
 }
 
+// DI SEGUITO TUTTE LE OPERAZIONI CHE NECESSITANO DI CONFERMA
 function removeRegistrationChild(id) {
     // Inizializzo la finestra di conferma
     $("#confirmOperationRCTitle").html("Sei sicuro di voler eliminare la Domanda?");
     $("#confirmOperationRCIdDraft").val(id);
     
     // Assegno la funzione al bottone
-    $("#confirmOperationRCIdDraft").button();
-    $("#confirmOperationRCIdDraft").click(function(){
+    $("#confirmOperationRCButton").click(function(){
         $("#confirmOperationRCForm").validate({
             submitHandler: function() {
                 $.post("EditPhaseRegistrationChild", {
@@ -420,7 +451,6 @@ function removeRegistrationChild(id) {
                     FaseDellIscrizione: "eliminata"
                 });
                 $("#confirmOperationRCWindow").dialog("close");
-                location.href = "./registrationChild.jsp";
             }
         });
     });
@@ -435,7 +465,6 @@ function confirmRegistrationChild(id) {
     $("#confirmOperationRCIdDraft").val(id);
     
     // Assegno la funzione al bottone
-    $("#confirmOperationRCIdDraft").button();
     $("#confirmOperationRCIdDraft").click(function(){
         $("#confirmOperationRCForm").validate({
             submitHandler: function() {
@@ -444,7 +473,6 @@ function confirmRegistrationChild(id) {
                     FaseDellIscrizione: "confermata"
                 });
                 $("#confirmOperationRCWindow").dialog("close");
-                location.href = "./registrationChild.jsp";
             }
         });
     });

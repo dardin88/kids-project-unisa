@@ -37,6 +37,7 @@
             initializeRegistrationFields();
             createTableRegistrationChild();
             $("#NewDataNascita").datepicker({dateFormat:'yy-mm-dd'});
+            $("#EditDataNascita").datepicker({dateFormat:'yy-mm-dd'});
         });
     </script>
     

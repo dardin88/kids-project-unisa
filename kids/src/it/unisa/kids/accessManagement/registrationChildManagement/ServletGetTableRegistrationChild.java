@@ -111,17 +111,26 @@ public class ServletGetTableRegistrationChild extends HttpServlet {
                     ja.put(regChildRequest.getRegistrationPhase());
                     
                     StringBuffer operazioni = new StringBuffer();
-                    // Sia genitore che segreteria possono vederne i dettagli
-                    operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/lente.gif' onclick='viewDetailsRegistrationChild(\""+regChildRequest.getId()+"\")'/>");
+                    // Sia genitore che segreteria possono vederne i dettagli, la visualizza dettagli deve esser possibile su tutte le domanda
+                    operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Visualizza Dettagli\" alt=\"Dettagli\" src='img/lente.gif' onclick='viewDetailsRegistrationChild(\""+regChildRequest.getId()+"\")'/>");
                     
                     if(account.getAccountType().equals("Genitore")) {
                         // solo il genitore può eliminarla o modificarla
-                        operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/edit.gif' onclick='editDraftRegistrationChild(\""+regChildRequest.getId()+"\")'/>");
-                        operazioni.append("<input class='tableImage' type='image' src='img/trash.png' onclick='removeRegistrationChild(\"" + regChildRequest.getId() + "\")'/>");
+                        if(regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DRAFT)) {
+                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Modifica\" alt=\"Modifica\" src='img/edit.gif' onclick='editDraftRegistrationChild(\""+regChildRequest.getId()+"\")'/>");
+                        }
+                        if(!regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_ACCEPTED)) {
+                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Elimina\" alt=\"Elimina\" src='img/trash.png' onclick='removeRegistrationChild(\"" + regChildRequest.getId() + "\")'/>");
+                        }
+                        if(regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_ACCEPTED)) {
+                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Completa\" alt=\"Completa\" src='img/tocomplete.png' onclick='completeRegistrationChild(\"" + regChildRequest.getId() + "\")'/>");
+                        }
                     }
                     if(account.getAccountType().equals("Segreteria")) {
                         // solo la segreteria può confermare
-                        operazioni.append("<input class='tableImage' type='image' src='img/accept.png' onclick='confirmRegistrationChild(\"" + regChildRequest.getId() + "\")'/>");
+                        if(!regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED)) {
+                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" alt=\"Conferma\" alt=\"Conferma\" src='img/accept.png' onclick='confirmRegistrationChild(\"" + regChildRequest.getId() + "\")'/>");
+                        }
                     }
                     ja.put(operazioni.toString());
                     array.put(ja);
