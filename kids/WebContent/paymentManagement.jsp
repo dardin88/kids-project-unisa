@@ -165,7 +165,7 @@
                     </div>
 
                     <div id="showPayments">
-                        <table id="showPaymentsTable" style="width:1100px">
+                        <table id="showPaymentsTable" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>Data di scadenza</th>
@@ -228,7 +228,7 @@
                     <%-- fine div della Dialog per la modifica dei pagamenti --%>
 
                     <div id="showRefunds">
-                        <table id="showRefundsTable" style="width:1100px">
+                        <table id="showRefundsTable" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>Descrizione</th>
@@ -242,7 +242,7 @@
                     </div>
 
                     <div id="validatePayment">
-                        <table id="showPaymentsConvTable" style="width:1100px">
+                        <table id="showPaymentsConvTable" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>Data di scadenza</th>
