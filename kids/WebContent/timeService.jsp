@@ -16,7 +16,6 @@
 
         <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
-
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/timeService.js"></script>
@@ -53,6 +52,7 @@
                 <ul>
                     <li><a href="#InsertTime"><span class="TimeTab">Inserisci Orari di servizio</span></a></li>
                     <li><a href="#modifyTime"><span class="TimeTab">Modifica Orari di servizio</span></a></li>
+                    <li><a href="#notifyTimeService"><span class="TimeTab">Notifiche</span></a></li>
                 </ul>
                 <div id="InsertTime">
                     <form id="InsertTimeForm" class="cmxform" method="post" action="InsertTime">
@@ -66,7 +66,21 @@
                         </textarea>
                     </form>
                 </div>
-             
+                <div id="modifyTime">
+                    <form id="modifyTimeForm" class="cmxform" method="post" action="modifyTime">
+                        <h1>Modifica Orario di apertura</h1>
+                        <textarea name="testo" rows="10" cols="100">
+          
+                        </textarea>
+                        <h1>Modifica Orario di chiusura</h1>  
+                        <textarea name="testo" rows="10" cols="100">
+          
+                        </textarea>
+                    </form>
+                </div>
+                <div id="notifyTimeService">
+                   
+                </div>
             </div> 
         </div> 
 
