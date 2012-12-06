@@ -82,6 +82,7 @@ public class GetCommunicationServlet extends HttpServlet {
                     paginateCommunicationSet = new Communication[toShow];
                     System.arraycopy(listCommunication.toArray(), start, paginateCommunicationSet, 0, toShow);
 	          }
+                int i=0;
                 for (Communication a : paginateCommunicationSet) {
                     JSONArray ja = new JSONArray();
                     ja.put(a.getType());
@@ -95,13 +96,14 @@ public class GetCommunicationServlet extends HttpServlet {
                     ja.put(a.getSolved());
                     if(nomeUtente.equals("Educatore"))
                     {
-                     String operazioni = "<input class='tableImage' type='image' src='img/trash.png' />"+"<input class='tableImage' height='20px' type='image' src='img/lente.gif' />";
+                     String operazioni = "<div style=\"text-align:center;\" ><input id=\"removeCommunication\" onclick=\"removeCommunication("+a.getId() +")\" class='tableImage' type='image' src='img/trash.png' />"+"<input id=\"idUpdateCommunication\" class='tableImage' height='20px' type='image' src='img/change.png' onclick=\"updateCommunication("+a.getId()+",'"+a.getType()+"','"+a.getIdEducator()+"','"+a.getIdChild()+"','"+a.getDescription()+"','"+day+"','"+month+"','"+year+"','"+a.getSolved()+"')\" /> </div>";
                      ja.put(operazioni);
                     }
                     else {
                         ja.put("");
                     }
                     array.put(ja);
+                    i++;
                 }
             }
             result.put("sEcho", sEcho);
