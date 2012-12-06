@@ -190,12 +190,12 @@
         <servlet-class>it.unisa.kids.communicationManagement.newsManagement.DownloadFileServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletConfirmRegistrationChild</servlet-name>
-        <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletConfirmRegistrationChild</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ServletCreateDraftRegistrationChild</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletCreateDraftRegistrationChild</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletEditPhaseRegistrationChild</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletEditPhaseRegistrationChild</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ServletEditRegistrationChild</servlet-name>
@@ -210,8 +210,16 @@
         <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletGetTableRegistrationChild</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletSubmitRegistrationChild</servlet-name>
-        <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletSubmitRegistrationChild</servlet-class>
+        <servlet-name>AddClassBeanServlet</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.classManagement.AddClassBeanServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateClassBeanServlet</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.classManagement.UpdateClassBeanServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteClassBeanServlet</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.classManagement.DeleteClassBeanServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DropTraineeRequestServlet</servlet-name>
@@ -410,12 +418,12 @@
         <url-pattern>/DownloadFile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletConfirmRegistrationChild</servlet-name>
-        <url-pattern>/ConfirmRegistrationChild</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ServletCreateDraftRegistrationChild</servlet-name>
         <url-pattern>/CreateDraftRegistrationChild</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletEditPhaseRegistrationChild</servlet-name>
+        <url-pattern>/EditPhaseRegistrationChild</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServletEditRegistrationChild</servlet-name>
@@ -430,8 +438,16 @@
         <url-pattern>/GetTableRegistrationChild</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletSubmitRegistrationChild</servlet-name>
-        <url-pattern>/SubmitRegistrationChild</url-pattern>
+        <servlet-name>AddClassBeanServlet</servlet-name>
+        <url-pattern>/AddClassBean</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateClassBeanServlet</servlet-name>
+        <url-pattern>/UpdateClassBean</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteClassBeanServlet</servlet-name>
+        <url-pattern>/DeleteClassBean</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DropTraineeRequestServlet</servlet-name>
