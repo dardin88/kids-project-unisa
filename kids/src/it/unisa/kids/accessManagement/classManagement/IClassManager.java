@@ -17,4 +17,5 @@ public interface IClassManager extends IManager {
     public List<ClassBean> search(ClassBean pClass) throws SQLException;
     public ClassBean delete(ClassBean pClass) throws SQLException;
     public ClassBean update(ClassBean pClass) throws SQLException;
+    public List<ClassBean> getAll() throws SQLException;
 }
