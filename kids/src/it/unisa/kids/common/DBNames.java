@@ -92,6 +92,7 @@ public final class DBNames {
     //ResultTable's attributes
     public static final String ATT_RESULT_REGISTRATIONCHILDID = "Iscrizione";
     public static final String ATT_RESULT_CLASSIFICATIONID = "Graduatoria";
+    public static final String ATT_RESULT_SCORE = "Punteggio";
     public static final String ATT_RESULT_RESULT = "Esito";
     //RegistrationChildTable's attributes
     public static final String ATT_REGISTRATIONCHILD_ID = "Id";

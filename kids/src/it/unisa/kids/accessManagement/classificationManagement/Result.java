@@ -11,6 +11,7 @@ package it.unisa.kids.accessManagement.classificationManagement;
 public class Result {
     private int registrationChildId;
     private int classificationId;
+    private double score;
     private boolean result;
 
     public Result() {
@@ -24,6 +25,10 @@ public class Result {
         this.classificationId = classificationId;
     }
 
+    public void setScore(double score) {
+        this.score = score;
+    }
+
     public void setResult(boolean result) {
         this.result = result;
     }
@@ -34,6 +39,10 @@ public class Result {
 
     public int getClassificationId() {
         return classificationId;
+    }
+
+    public double getScore() {
+        return score;
     }
 
     public boolean getResult() {
