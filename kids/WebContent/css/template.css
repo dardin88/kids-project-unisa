@@ -249,6 +249,18 @@ div#navigation li{
     margin: 5px;
     margin-bottom: 0px;
 }
+.buttonRemove{
+    height: 30px;
+    margin: 5px;
+    margin-bottom: 0px;
+    left: 30%;
+}
+.removeNews{
+    height: 105px;
+    text-align: center;
+    display: inline;
+    
+}
 
 .tableImage {
     padding: 5px;

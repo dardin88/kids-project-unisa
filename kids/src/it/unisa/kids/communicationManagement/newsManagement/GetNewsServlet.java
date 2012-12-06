@@ -99,7 +99,7 @@ public class GetNewsServlet extends HttpServlet {
                     ja.put("<a style=\"color:black;background:none;\" href=\"DownloadFile?nameFile="+a.getAttached()+"\">"+a.getAttached()+"</a>");
                     if(nomeUtente.equals("Segreteria"))
                     {
-                     String operazioni = "<input id=\"removeNews\" onclick=\"removeNews("+a.getId() +")\" class='tableImage' type='image' src='img/trash.png' />"+"<input id=\"idUpdateNews\" class='tableImage' height='20px' type='image' src='img/lente.gif' onclick=\"updateNews("+a.getId()+",'"+a.getTitle()+"','"+a.getDescription()+"','"+a.getType()+"','"+d+"','"+time+"')\" />";
+                     String operazioni = "<div style=\"text-align:center;\" ><input id=\"removeNews\" onclick=\"removeNews("+a.getId() +")\" class='tableImage' type='image' src='img/trash.png' />"+"<input id=\"idUpdateNews\" class='tableImage' height='20px' type='image' src='img/change.png' onclick=\"updateNews("+a.getId()+",'"+a.getTitle()+"','"+a.getDescription()+"','"+a.getType()+"','"+d+"','"+time+"')\" /> </div>";
                      ja.put(operazioni);
                     }
                     else {
