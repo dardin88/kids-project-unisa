@@ -113,6 +113,8 @@ private ITrainingManager trainingManager;
                     ja.put(traineeConvocation.getActivityName());
                     String date=traineeConvocation.getDate().get(Calendar.YEAR)+"/"+(traineeConvocation.getDate().get(Calendar.MONTH)+1)+"/"+traineeConvocation.getDate().get(Calendar.DAY_OF_MONTH);
                     ja.put(date);
+                    ja.put(traineeConvocation.getStartTime().getHours()+":"+traineeConvocation.getStartTime().getMinutes());
+                    ja.put(traineeConvocation.getEndTime().getHours()+":"+traineeConvocation.getEndTime().getMinutes());
                     String confirmed="";
                     if(traineeConvocation.getConfirmed()==0)
                         confirmed="Non confermato";

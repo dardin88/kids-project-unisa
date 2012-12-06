@@ -43,6 +43,8 @@
             });
         </script>
     </head>
+
+
     <div id="removeTraineeConvocationWindow" title="Rimuovi Convocazione Tirocinante" style="display: inline">
         <form id="removeTraineeConvocationForm" class="cmxform" method="post" action="">
             <fieldset>
@@ -81,20 +83,20 @@
                 <tr><td>Ora di fine</td><td><input type="text" id="EndTimeRequest"name="OraFine" value="" readonly size="30"></td></tr> 
             </table>
             <h2 align="center"style="color:red;">Scegli tirocinanti</h2>
-                    Nome:<input type="text" name="Nome" id="Nome" onkeyup="search()">
-                    Cognome:<input type="text" name="Cognome" id="Cognome" onkeyup="search()">
-                <table id="traineesTable" style="width:600px">
-                    <thead>
-                        <tr>
-                            <th>Scegli</th>
-                            <th>Matricola</th>
-                            <th>Nome</th>
-                            <th>Cognome</th>                         
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>  
+            Nome:<input type="text" name="Nome" id="Nome" onkeyup="search()">
+            Cognome:<input type="text" name="Cognome" id="Cognome" onkeyup="search()">
+            <table id="traineesTable" style="width:600px">
+                <thead>
+                    <tr>
+                        <th>Scegli</th>
+                        <th>Matricola</th>
+                        <th>Nome</th>
+                        <th>Cognome</th>                         
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>  
             <input type="submit" name="Invia" value="Invia convocazione" id="sendConvocation" style="float:right;">
 
 
@@ -118,8 +120,8 @@
                 </div>
                 <div id="tabs-2">
 
-                  <%--  <form id="nomeForm" method="post" name="nomeForm" style="padding-bottom: 20px;padding-top:20px;">
-                        Data:<input type="text" name="Data" id="Data">
+                    <%--  <form id="nomeForm" method="post" name="nomeForm" style="padding-bottom: 20px;padding-top:20px;">
+                          Data:<input type="text" name="Data" id="Data">
 
                     </form>--%>
                     <table id="responseTable" style="width:95%;">
@@ -128,6 +130,8 @@
                                 <th>Tirocinante</th>
                                 <th>Attivit&agrave</th>
                                 <th>Data</th>
+                                <th>Ora di Inizio</th>
+                                <th>Ora di Fine</th>
                                 <th>Confermata</th>
                                 <th>Operazioni</th>
                             </tr>
