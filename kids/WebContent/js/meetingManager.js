@@ -125,6 +125,7 @@ function initializeMeetingManager(){
             $(input).removeClass("ui-state-highlight");
         }
     });
+    
     $("#newMeetingButton").button();
     $("#newMeetingButton").click(function() {
         $("#newMeetingWindow").dialog("open");
