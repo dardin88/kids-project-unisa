@@ -19,6 +19,7 @@ public class PaymentBean extends Observable implements Serializable {
     private String originAccount;
     private String payee;
     private int parentId;
+    private String receiptCode;
 
     public PaymentBean() {
     }
@@ -126,5 +127,13 @@ public class PaymentBean extends Observable implements Serializable {
 
     public void setParentId(int pParentId) {
         this.parentId = pParentId;
+    }
+    
+    public String getReceiptCode() {
+        return this.receiptCode;
+    }
+    
+    public void setReceiptCode(String pReceiptCode) {
+        this.receiptCode = pReceiptCode;
     }
 }

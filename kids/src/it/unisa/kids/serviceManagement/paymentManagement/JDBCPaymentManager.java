@@ -52,8 +52,9 @@ public class JDBCPaymentManager implements IPaymentManager {
                     + DBNames.ATT_PAYMENT_CHARGE + ", "
                     + DBNames.ATT_PAYMENT_DESCRIPTION + ", "
                     + DBNames.ATT_PAYMENT_DISCOUNT + ", "
-                    + DBNames.ATT_PAYMENT_DISCDESCRIPTION
-                    + ") VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    + DBNames.ATT_PAYMENT_DISCDESCRIPTION + ", "
+                    + DBNames.ATT_PAYMENT_RECEIPTCODE
+                    + ") VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             pstmt = con.prepareStatement(query);
 
@@ -69,6 +70,7 @@ public class JDBCPaymentManager implements IPaymentManager {
             pstmt.setString(9, pPayment.getPaymentDescription());
             pstmt.setDouble(10, pPayment.getDiscount());
             pstmt.setString(11, pPayment.getDiscountDescription());
+            pstmt.setString(12, pPayment.getReceiptCode());
 
             pstmt.executeUpdate();
             con.commit();
@@ -143,6 +145,11 @@ public class JDBCPaymentManager implements IPaymentManager {
                 query += useComma(commaState) + DBNames.ATT_PAYMENT_PARENTID + " = ?";
                 commaState = true;
             }
+            
+            if (pPayment.getReceiptCode() != null) {
+                query += useComma(commaState) + DBNames.ATT_PAYMENT_RECEIPTCODE + " = ?";
+                commaState = true;
+            }
 
             query += " WHERE " + DBNames.ATT_PAYMENT_ID + " = ?";
             pstmt = con.prepareStatement(query);
@@ -197,6 +204,11 @@ public class JDBCPaymentManager implements IPaymentManager {
 
             if (pPayment.getParentId() > 0) {		// or >= 0 ???
                 pstmt.setInt(i, pPayment.getParentId());
+                i++;
+            }
+            
+            if (pPayment.getReceiptCode() != null) {
+                pstmt.setString(i, pPayment.getReceiptCode());
                 i++;
             }
 
@@ -312,6 +324,11 @@ public class JDBCPaymentManager implements IPaymentManager {
                 query += useAnd(andState) + DBNames.ATT_PAYMENT_PARENTID + " = ?";
                 andState = true;
             }
+            
+            if (pPayment.getReceiptCode() != null) {
+                query += useAnd(andState) + DBNames.ATT_PAYMENT_RECEIPTCODE + " = ?";
+                andState = true;
+            }
 
             pstmt = con.prepareStatement(query);
 
@@ -371,6 +388,11 @@ public class JDBCPaymentManager implements IPaymentManager {
                 pstmt.setInt(i, pPayment.getParentId());
                 i++;
             }
+            
+            if (pPayment.getReceiptCode() != null) {
+                pstmt.setString(i, pPayment.getReceiptCode());
+                i++;
+            }
 
             // executing select query
             rs = pstmt.executeQuery();
@@ -396,6 +418,7 @@ public class JDBCPaymentManager implements IPaymentManager {
                 p.setOriginAccount(rs.getString(DBNames.ATT_PAYMENT_ORIGINACCOUNT));
                 p.setPayee(rs.getString(DBNames.ATT_PAYMENT_PAYEE));
                 p.setParentId(rs.getInt(DBNames.ATT_PAYMENT_PARENTID));
+                p.setReceiptCode(rs.getString(DBNames.ATT_PAYMENT_RECEIPTCODE));
 
                 payments.add(p);
             }
@@ -451,6 +474,7 @@ public class JDBCPaymentManager implements IPaymentManager {
                 p.setOriginAccount(rs.getString(DBNames.ATT_PAYMENT_ORIGINACCOUNT));
                 p.setPayee(rs.getString(DBNames.ATT_PAYMENT_PAYEE));
                 p.setParentId(rs.getInt(DBNames.ATT_PAYMENT_PARENTID));
+                p.setReceiptCode(rs.getString(DBNames.ATT_PAYMENT_RECEIPTCODE));
 
                 payments.add(p);
             }
