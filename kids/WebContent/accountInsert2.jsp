@@ -33,66 +33,65 @@
                 initializeRegistrationFields();
             });
         </script>
-       
+
     </head>
     <%@include file="header.jsp"%>
     <body id="bodyRegistration">
 
 
-        <h1  id="titleReg" align="center">Form di Registrazione</h1>
-
         <form id="registrationForm" class="cmxform" action="" method="post">
             <fieldset id="registrationFieldSet">
                 <div id="artefactsManagement">
-                    <p class="formp">
-                        
-                        <input type="text" name="page" id="page" value="1" style="visibility: hidden">
-                        <label> <h3> Indirizzo Residenza: </h3> </label> 
-                        <input id="viaResidence" class="registrationField" type="text" name="ViaResidenza">
-                    </p>
-                    <p class="formp">
+                    <h1  style="font-weight: bold; font-size: 30pt"id="titleReg" align="center">Form di Registrazione</h1><br> <br>
+                    <input type="hidden" name="page" id="page" value="1">
+                    <div>
+                        <span id="accountLabel">  Indirizzo Residenza: </span>
+                        <input id="viaResidence" class="accountInput" type="text" name="ViaResidenza">
+                    </div>
 
-                        <label><h3> C.A.P. Residenza : </h3> </label>
-                        <input id="capResidence" class="registrationField" type="text" name="CapResidenza">
-                    </p>
-                    <p class="formp">
+                    <div>
+                        <label id="accountLabel"> C.A.P. Residenza: </label>
+                        <input id="capResidence" class="accountInput" type="text" name="CapResidenza">
+                    </div>
 
-                        <label><h3>Numero di telefono: </h3></label>
-                        <input id="telephoneNumber" class="registrationField" type="text" name="Telefono">
-                    </p>
-                    <p class="formp">
+                    <div>
+                        <span id="accountLabel">  Numero di telefono: </span>
+                        <input id="telephoneNumber" class="accountInput" type="text" name="Telefono">
+                    </div>
 
-                        <label><h3>Numero di cellulare:</h3></label>
-                        <input id="cellularNumber" class="registrationField" type="text" name="Cellulare">
-                    </p>
-                    <p class="formp">
+                    <div>
+                        <label id="accountLabel">Numero di cellulare: </label>
+                        <input id="cellularNumber" class="accountInput" type="text" name="Cellulare">
+                    </div>
 
-                        <label><h3> Indirizzo Fax: </h3></label> 
-                        <input id="fax" class="registrationField" type="text" name="Fax">
-                    </p>
-                    <p class="formp">
+                    <div>
+                        <span id="accountLabel">  Indirizzo Fax: </span>
+                        <input id="fax" class="accountInput" type="text" name="Fax">
+                    </div>
 
-                        <label><h3> Indirizzo email:</h3> </label>
-                        <input id="email" class="registrationField" type="text" name="Email">
-                    </p>
-                    <p class="formp">
+                    <div>
+                        <label id="accountLabel">Indirizzo email:</label>
+                        <input id="email" class="accountInput" type="text" name="Email">
+                    </div>
 
-                        <label><h3>Comune di Domicilio:</h3></label>
-                        <input id="municipalityDomicile" class="registrationField" type="text" name="ComuneDomicilio">
-                    </p>
-                    <p class="formp">
+                    <div>
+                        <span id="accountLabel">  Comune di Domicilio: </span>
+                        <input id="municipalityDomicile" class="accountInput" type="text" name="ComuneDomicilio">
+                    </div>
 
-                        <label><h3> Provincia di Domicilio: </h3></label>
-                        <input id="provinceDomicile" class="registrationField" type="text" name="ProvinciaDomicilio">
-                    </p>
-                    <p class="formp">
+                    <div>
+                        <label id="accountLabel">Provincia di Domicilio:</label>
+                        <input id="provinceDomicile" class="accountInput" type="text" name="ProvinciaDomicilio">
+                    </div>
 
-                        <label><h3> Indirizzo Domicilio: </h3></label>
-                        <input id="viaDomicile" class="registrationField" type="text" name="ViaDomicilio">
-                    </p>
-
-                    <input type="submit" id="registrationButton" value="Avanti" />
+                    <div>
+                        <span id="accountLabel">  Indirizzo Domicilio: </span>
+                        <input id="viaDomicile" class="accountInput" type="text" name="ViaDomicilio">
+                    </div>
                 </div>
+                <%--<input type="submit" id="registrationButton" value="Avanti" />--%>
+
+                <input style="width: 300px; margin-left: 7%" type="submit" id="registrationButton" value="Avanti" />
             </fieldset>
         </form>
         <%@include file="footer.jsp" %>
