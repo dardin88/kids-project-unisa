@@ -194,10 +194,6 @@
         <servlet-class>it.unisa.kids.communicationManagement.newsManagement.DownloadFileServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletConfirmRegistrationChild</servlet-name>
-        <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletConfirmRegistrationChild</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ServletCreateDraftRegistrationChild</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletCreateDraftRegistrationChild</servlet-class>
     </servlet>
@@ -214,8 +210,8 @@
         <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletGetTableRegistrationChild</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletSubmitRegistrationChild</servlet-name>
-        <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletSubmitRegistrationChild</servlet-class>
+        <servlet-name>ServletEditPhaseRegistrationChild</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletEditPhaseRegistrationChild</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddClassBeanServlet</servlet-name>
@@ -429,9 +425,6 @@
         <url-pattern>/DownloadFile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletConfirmRegistrationChild</servlet-name>
-        <url-pattern>/ConfirmRegistrationChild</url-pattern>
-    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServletCreateDraftRegistrationChild</servlet-name>
         <url-pattern>/CreateDraftRegistrationChild</url-pattern>
@@ -447,10 +440,6 @@
     <servlet-mapping>
         <servlet-name>ServletGetTableRegistrationChild</servlet-name>
         <url-pattern>/GetTableRegistrationChild</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletSubmitRegistrationChild</servlet-name>
-        <url-pattern>/SubmitRegistrationChild</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddClassBeanServlet</servlet-name>
