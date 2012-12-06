@@ -29,7 +29,7 @@ public class GetTableClassServlet extends HttpServlet {
        private IClassManager classManager;
 
     public void init(ServletConfig config) {
-        classManager =(IClassManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACCOUNT);
+        classManager =(IClassManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_CLASS);
         }
     /**
      * Processes requests for both HTTP
@@ -74,7 +74,14 @@ public class GetTableClassServlet extends HttpServlet {
             ClassBean pClassBean=new ClassBean();
             pClassBean.setClassName(nome);
             pClassBean.setState(stato);
-            listClassBean= classManager.search(pClassBean);
+            
+            if(!pClassBean.getClassName().equals("")&&!pClassBean.getState().equals(""))
+            {
+                listClassBean= classManager.search(pClassBean);
+            }
+            else{
+                listClassBean=classManager.getAll();
+            }
             
             int linksNumber = listClassBean.size();
             if (linksNumber < amount) {
@@ -96,7 +103,7 @@ public class GetTableClassServlet extends HttpServlet {
                     
                     ja.put(clas.getClassName());
                     ja.put(clas.getState());
-                    String operazioni ="<input class='tableImage' type='image' src='img/trash.png' onclick='removeAccount(\"" + clas.getIdClasse()+ "\")'/> <input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/lente.gif' onclick='showAccount(\""+clas.getIdClasse()+"\")'/>";
+                    String operazioni ="<input class='tableImage' type='image' src='img/trash.png' onclick='DeleteClassBean(\"" + clas.getIdClasse()+ "\")'/> <input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/lente.gif' onclick='showAccount(\""+clas.getIdClasse()+"\")'/>";
                     ja.put(operazioni);
                     array.put(ja);
                     }
