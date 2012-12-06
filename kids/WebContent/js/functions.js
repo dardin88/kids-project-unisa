@@ -72,7 +72,7 @@ function activePage(){
             $("#paymentManagementMenuEl").css("color", "#FFFFFF");
             $("#title").html("Gestione Pagamenti");
             break;
-        case 'TimeService.jsp':
+        case 'timeService.jsp':
             $("#TimeServiceMenuEL").css("background-color", "#444");
             $("#TimeServiceMenuEL").css("color", "#FFFFFF");
             $("#title").html("Gestione orario di servizio");
@@ -81,8 +81,7 @@ function activePage(){
             $("#canteenManagementMenuEl").css("background-color", "#444");
             $("#canteenManagementMenuEl").css("color", "#FFFFFF");
             $("#title").html("Gestione mensa");
-            break;
-            
+            break; 
     }
 }
 

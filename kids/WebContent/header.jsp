@@ -31,7 +31,7 @@
             </div>
             
             <div class="div">
-                <li id="TimeServiceMenuEL"><a href="TimeService.jsp">Gestione orario di servizio</a></li>
+                <li id="TimeServiceMenuEL"><a href="timeService.jsp">Gestione orario di servizio</a></li>
             </div>  
             <div class="div">
                 <li id="canteenManagementMenuEl"><a href="canteenManagement.jsp">Gestione mensa</a></li>
