@@ -116,12 +116,12 @@ public class ServletGetTableRegistrationChild extends HttpServlet {
                     
                     if(account.getAccountType().equals("Genitore")) {
                         // solo il genitore può eliminarla o modificarla
-                        operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/edit.gif' onclick='editRegistrationChild(\""+regChildRequest.getId()+"\")'/>");
+                        operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/edit.gif' onclick='editDraftRegistrationChild(\""+regChildRequest.getId()+"\")'/>");
                         operazioni.append("<input class='tableImage' type='image' src='img/trash.png' onclick='removeRegistrationChild(\"" + regChildRequest.getId() + "\")'/>");
                     }
                     if(account.getAccountType().equals("Segreteria")) {
                         // solo la segreteria può confermare
-                        operazioni.append("<input class='tableImage' type='image' src='img/accept.png' onclick='removeRegistrationChild(\"" + regChildRequest.getId() + "\")'/>");
+                        operazioni.append("<input class='tableImage' type='image' src='img/accept.png' onclick='confirmRegistrationChild(\"" + regChildRequest.getId() + "\")'/>");
                     }
                     ja.put(operazioni.toString());
                     array.put(ja);

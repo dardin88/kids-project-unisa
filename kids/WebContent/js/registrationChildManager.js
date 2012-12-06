@@ -3,16 +3,6 @@ function initializeRegistrationFields(){
         cache: false
     });
     
-    /*
-     * Impostare le finestre di dialogo invisibili all'apertura della pagina
-     */
-    $("#newRegistrationChildWindow").dialog({
-        autoOpen: false,
-        modal: true,
-        resizable: false,
-        width: 600
-    });
-    
     $.validator.setDefaults({
         highlight: function(input){
             $(input).addClass("ui-state-highlight");
@@ -22,57 +12,59 @@ function initializeRegistrationFields(){
         }
     });
     
-    /*
-     * Impostare le azioni di apertura delle finestre di dialogo
-     */
+    //  NUOVA BOZZA - FINESTRA
+    $("#newRegistrationChildWindow").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 600
+    });
+    //  NUOVA BOZZA - BOTTONE DI APERTURA
     $("#newRegistrationChildButton").button();
     $("#newRegistrationChildButton").click(function() {
         $("#newRegistrationChildWindow").dialog("open");
     });
-    
-    /*
-     * Si associano ai button le relative funzioni e servlet
-     */
+    //  NUOVA BOZZA - BOTTONE INSERIMENTO
     $("#createNewDraftButton").button();
     $("#createNewDraftButton").click(function() {
         $("#newRegistrationChildForm").validate({
             rules: {
-                Cognome: {
+                NewCognome: {
                     required: true
                 },
-                Nome: {
+                NewNome: {
                     required: true
                 },
-                DataNascita:    {
+                NewDataNascita:    {
 //                    date: true
                 },
-                CodiceFiscale:  {
+                NewCodiceFiscale:  {
                     //codicefiscale: true
                 }
             },
             messages: {
-                Cognome: {
+                NewCognome: {
                     required: "Inserisci il cognome"
                 },
-                Nome:   {
+                NewNome:   {
                     required: "Inserisci il nome"
                 },
-                DataNascita:    {
+                NewDataNascita:    {
 //                    date: "La data di nascita deve essere nel formato (AAAA/MM/GG)"
                 },
-                CodiceFiscale:  {
+                NewCodiceFiscale:  {
                    // codicefiscale: "Inserire il codice fiscale in modo corretto"
                 }
             },
             submitHandler: function() {
                 $.post("CreateDraftRegistrationChild", {
-                    Cognome: $("#Cognome").val(),
-                    Nome: $("#Nome").val(),
-                    DataNascita: $("#DataNascita").val(),
-                    ComuneNascita: $("#ComuneNascita").val(),
-                    CodiceFiscale: $("#CodiceFiscale").val(),
-                    Cittadinanza: $("#Cittadinanza").val(),
-                    FasciaUtenza: $("#FasciaUtenza").val()
+                    Cognome: $("#NewCognome").val(),
+                    Nome: $("#NewNome").val(),
+                    DataNascita: $("#NewDataNascita").val(),
+                    ComuneNascita: $("#NewComuneNascita").val(),
+                    CodiceFiscale: $("#NewCodiceFiscale").val(),
+                    Cittadinanza: $("#NewCittadinanza").val(),
+                    FasciaUtenza: $("#NewFasciaUtenza").val()
                 });
                 $("#newRegistrationChildWindow").dialog("close");
                 //alert("La bozza è stata salvata");
@@ -80,78 +72,242 @@ function initializeRegistrationFields(){
             }
         });
     });
+    //  NUOVA BOZZA - BOTTONE ANNULLA
+    $("#undoNewDraftButton").button();
+    $("#undoNewDraftButton").click(function(){
+        $("#newRegistrationChildWindow").dialog("close");
+        location.href = "./registrationChild.jsp";
+    });
+    //  FINE NUOVA BOZZA
     
-    $("#submitNewDraftButton").button();
-    $("#submitNewDraftButton").click(function(){
-        $("#newRegistrationChildForm").validate({
+    //  MODIFICA BOZZA - FINESTRA
+    $("#editRegistrationChildWindow").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 600
+    });
+    //  MODIFICA BOZZA - BOTTONE SALVA MODIFICHE
+    $("#saveEditDraftButton").button();
+    $("#saveEditDraftButton").click(function() {
+        $("#editRegistrationChildForm").validate({
             rules: {
-                Cognome: {
+                EditCognome: {
                     required: true
                 },
-                Nome: {
+                EditNome: {
                     required: true
                 },
-                DataNascita:    {
+                EditDataNascita:    {
+//                    date: true
+                },
+                EditCodiceFiscale:  {
+                    //codicefiscale: true
+                }
+            },
+            messages: {
+                EditCognome: {
+                    required: "Inserisci il cognome"
+                },
+                EditNome:   {
+                    required: "Inserisci il nome"
+                },
+                EditDataNascita:    {
+//                    date: "La data di nascita deve essere nel formato (AAAA/MM/GG)"
+                },
+                EditCodiceFiscale:  {
+                   // codicefiscale: "Inserire il codice fiscale in modo corretto"
+                }
+            },
+            submitHandler: function() {
+                $.post("EditRegistrationChild", {
+                    Id: $("#EditIdDraft").val(),
+                    Cognome: $("#EditCognome").val(),
+                    Nome: $("#EditNome").val(),
+                    DataNascita: $("#EditDataNascita").val(),
+                    ComuneNascita: $("#EditComuneNascita").val(),
+                    CodiceFiscale: $("#EditCodiceFiscale").val(),
+                    Cittadinanza: $("#EditCittadinanza").val(),
+                    FasciaUtenza: $("#EditFasciaUtenza").val()
+                });
+                $("#editRegistrationChildWindow").dialog("close");
+                //alert("La bozza è stata modificata");
+                location.href = "./registrationChild.jsp";
+            }
+        });
+    });
+    //  MODIFICA BOZZA - BOTTONE SOTTOMISSIONE
+    $("#submitEditDraftButton").button();
+    $("#submitEditDraftButton").click(function(){
+        $("#editRegistrationChildForm").validate({
+            rules: {
+                EditCognome: {
+                    required: true
+                },
+                EditNome: {
+                    required: true
+                },
+                EditDataNascita:    {
                     required: true//,
 //                    date: true
                 },
-                ComuneNascita:  {
+                EditComuneNascita:  {
                     required: true
                 },
-                CodiceFiscale:  {
-                    required: true,
-                    codicefiscale: true
+                EditCodiceFiscale:  {
+                    required: true//,
+//                    codicefiscale: true
                 },
-                Cittadinanza:   {
-                    required: true
-                },
-                FasciaUtenza:   {
+                EditCittadinanza:   {
                     required: true
                 }
             },
             messages: {
-                Cognome: {
-                    required: "Inserisci il cognome."
+                EditCognome: {
+                    required: "Inserisci il cognome"
                 },
-                Nome:   {
+                EditNome:   {
                     required: "Inserisci il nome"
                 },
-                DataNascita:    {
+                EditDataNascita:    {
                     required: "Inserire la data di nascita (AAAA-MM-GG)"//,
                     //date: "Inserire la data di nascita (AAAA-MM-GG)"
                 },
-                ComuneNascita:  {
+                EditComuneNascita:  {
                     required: "Inserire il comune di nascita"
                 },
-                CodiceFiscale:  {
-                    required: "Inserire il codice fiscale",
-                    codicefiscale: "Inserire il codice fiscale in modo corretto"
+                EditCodiceFiscale:  {
+                    required: "Inserire il codice fiscale"//,
+//                    codicefiscale: "Inserire il codice fiscale in modo corretto"
                 },
-                Cittadinanza:   {
+                EditCittadinanza:   {
                     required: "Inserire la cittadinanza"
-                },
-                FasciaUtenza:   {
-                    required: "Selezionare la fascia d'utenza"
                 }
             },
             submitHandler: function() {
-                $.post("SubmitDraftRegistrationChild?", {
-                    Cognome: $("#Cognome").val(),
-                    Nome: $("#Nome").val(),
-                    DataNascita: $("#DataNascita").val(),
-                    ComuneNascita: $("#ComuneNascita").val(),
-                    CodiceFiscale: $("#CodiceFiscale").val(),
-                    Cittadinanza: $("#Cittadinanza").val(),
-                    FasciaUtenza: $("#FasciaUtenza").val()
+                // Vengono salvate le modifica
+                $.post("EditRegistrationChild", {
+                    Id: $("#EditIdDraft").val(),
+                    Cognome: $("#EditCognome").val(),
+                    Nome: $("#EditNome").val(),
+                    DataNascita: $("#EditDataNascita").val(),
+                    ComuneNascita: $("#EditComuneNascita").val(),
+                    CodiceFiscale: $("#EditCodiceFiscale").val(),
+                    Cittadinanza: $("#EditCittadinanza").val(),
+                    FasciaUtenza: $("#EditFasciaUtenza").val()
+                });
+                // La domanda viene sottomessa
+                $.post("EditPhaseRegistrationChild", {
+                    Id: $("#EditIdDraft").val(),
+                    FaseDellIscrizione: "sottomessa"
                 });
             }
         });
     });
-    
-    $("#notSubmitDraftButton").button();
-    $("#notSubmitDraftButton").click(function(){
-        $("#newRegistrationChildWindow").dialog("close"); 
+    //  MODIFICA BOZZA - BOTTONE ANNULLA
+    $("#undoEditDraftButton").button();
+    $("#undoEditDraftButton").click(function(){
+        $("#editRegistrationChildWindow").dialog("close");
+        location.href = "./registrationChild.jsp";
     });
+    // FINE MODIFICA BOZZA
+    
+    //  VISUALIZZA DETTAGLI DOMANDA - FINESTRA
+    $("#viewDetailsRegistrationChildWindow").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 600
+    });
+    //  VISUALIZZA DETTAGLI DOMANDA - SOTTOMETTI DOMANDA
+    $("#submitViewDetailsDraftButton").button();
+    $("#submitViewDetailsDraftButton").click(function() {
+        $("#viewDetailsRegistrationChildForm").validate({
+            rules: {
+                viewDetailsCognome: {
+                    required: true
+                },
+                viewDetailsNome: {
+                    required: true
+                },
+                viewDetailsDataNascita:  {
+                    required: true
+                },
+                viewDetailsComuneNascita: {
+                    required: true
+                },
+                viewDetailsCodiceFiscale: {
+                    required: true
+                },
+                viewDetailsCittadinanza: {
+                    required: true
+                }
+            },
+            messages: {
+                viewDetailsCognome: {
+                    required: "Modificare la bozza ed inserire il cognome"
+                },
+                viewDetailsNome: {
+                    required: "Modificare la bozza ed inserire il nome"
+                },
+                viewDetailsDataNascita:  {
+                    required: "Modificare la bozza ed inserire la data di nascita"
+                },
+                viewDetailsComuneNascita: {
+                    required: "Modificare la bozza ed inserire il comune di nascita"
+                },
+                viewDetailsCodiceFiscale: {
+                    required: "Modificare la bozza ed inserire il codice fiscale"
+                },
+                viewDetailsCittadinanza: {
+                    required: "Modificare la bozza ed inserire la cittadinanza"
+                }
+            },
+            submitHandler: function() {
+                $.post("EditPhaseRegistrationChild", {
+                    Id: $("#viewDetailsIdDraft").val(),
+                    FaseDellIscrizione: "sottomessa"
+                });
+                $("#viewDetailsRegistrationChildWindow").dialog("close");
+                //alert("La bozza è stata modificata");
+                location.href = "./registrationChild.jsp";
+            }
+        });
+    });
+    //  VISUALIZZA DETTAGLI DOMANDA - BOTTONE CONFERMA
+    $("#confirmViewDetailsDraftButton").button();
+    $("#confirmViewDetailsDraftButton").click(function(){
+        $("#viewDetailsRegistrationChildForm").validate({   // il submit della segreteria non dovrebbe validare in quanto è già completa
+            submitHandler: function() {
+                $.post("EditPhaseRegistrationChild", {
+                    Id: $("#EditIdDraft").val(),
+                    FaseDellIscrizione: "confermata"
+                });
+            }
+        });
+    });
+    //  VISUALIZZA DETTAGLI DOMANDA - BOTTONE ANNULLA
+    $("#undoViewDetailsDraftButton").button();
+    $("#undoViewDetailsDraftButton").click(function(){
+        $("#viewDetailsRegistrationChildWindow").dialog("close");
+        location.href = "./registrationChild.jsp";
+    });
+    // FINE VISUALIZZA DETTAGLI DOMANDA
+    
+    // VISUALE DI CONFERMA ELIMINA/CONVALIDA BUTTON
+    $("#confirmOperationRCWindow").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 600
+    });
+    //  VISUALE DI CONFERMA - BOTTONE ANNULLA
+    $("#undoOperationRCButton").button();
+    $("#undoOperationRCButton").click(function(){
+        $("#confirmOperationRCWindow").dialog("close");
+        location.href = "./registrationChild.jsp";
+    });
+    // FINE VISUALE DI CONFERMA ELIMINA/CONVALIDA BUTTON
     
 }
 
@@ -226,4 +382,73 @@ function search(){
    /* var oTable = $("#traineesTable").dataTable();
     oTable.fnDraw();
        */ 
+}
+
+function editDraftRegistrationChild(id) {
+    $("#EditIdDraft").val(id);
+    
+    /*
+     * MANCA LA PARTE DI COMPLETAMENTO DELLA FORM PRENDENDO I DATI DAL DATABASE
+     */
+    
+    $("#editRegistrationChildWindow").dialog("open");
+}
+
+function viewDetailsRegistrationChild(id) {
+    $("#viewDetailsIdDraft").val(id);
+    //alert("L'id: " + $("#viewDetailsIdDraft").val())
+    
+    /*
+     * MANCA LA PARTE DI COMPLETAMENTO DELLA FORM PRENDENDO I DATI DAL DATABASE
+     */
+    
+    $("#viewDetailsRegistrationChildWindow").dialog("open");
+}
+
+function removeRegistrationChild(id) {
+    // Inizializzo la finestra di conferma
+    $("#confirmOperationRCTitle").html("Sei sicuro di voler eliminare la Domanda?");
+    $("#confirmOperationRCIdDraft").val(id);
+    
+    // Assegno la funzione al bottone
+    $("#confirmOperationRCIdDraft").button();
+    $("#confirmOperationRCIdDraft").click(function(){
+        $("#confirmOperationRCForm").validate({
+            submitHandler: function() {
+                $.post("EditPhaseRegistrationChild", {
+                    Id: $("#confirmOperationRCIdDraft").val(),
+                    FaseDellIscrizione: "eliminata"
+                });
+                $("#confirmOperationRCWindow").dialog("close");
+                location.href = "./registrationChild.jsp";
+            }
+        });
+    });
+    
+    // la rendo visibile
+    $("#confirmOperationRCWindow").dialog("open");
+}
+
+function confirmRegistrationChild(id) {
+    // Inizializzo la finestra di conferma
+    $("#confirmOperationRCTitle").html("Sei sicuro di voler confermare la Domanda?");
+    $("#confirmOperationRCIdDraft").val(id);
+    
+    // Assegno la funzione al bottone
+    $("#confirmOperationRCIdDraft").button();
+    $("#confirmOperationRCIdDraft").click(function(){
+        $("#confirmOperationRCForm").validate({
+            submitHandler: function() {
+                $.post("EditPhaseRegistrationChild", {
+                    Id: $("#confirmOperationRCIdDraft").val(),
+                    FaseDellIscrizione: "confermata"
+                });
+                $("#confirmOperationRCWindow").dialog("close");
+                location.href = "./registrationChild.jsp";
+            }
+        });
+    });
+    
+    // la rendo visibile
+    $("#confirmOperationRCWindow").dialog("open");
 }
