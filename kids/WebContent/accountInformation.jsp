@@ -48,7 +48,7 @@
             <fieldset id="registrationFieldSet">
                 <div  id="artefactsManagement" >
                     <h1  style="text-align: center; font-size: 30pt; margin-bottom: 5%" >Dati Genitore</h1>  
-                    <input type="text" id="id" name="id" value="${id}" >
+                    <input type="hidden" id="id" name="id" value="${id}" >
                     <table style="margin-left: 5%; font-weight: bold; font-size: 10pt; float: left">
                         <tr><td> Matricola* 
                             <td> <p class="formp">
@@ -91,10 +91,10 @@
                                     <input style="margin-left: 2%; width: 250px" type="text" name="Cittadinanza" id="Cittadinanza" value="${Cittadinanza}"readonly="true" >
                                 </p>
                     </table>
-                   <%-- <p>
-                        <img id="logoAccount" src="img/logo.png" style="float: left"> <br>
-                        <label style="font-weight: bold; font-size: 30pt"> Kids Project </label>
-                    </p>--%>
+                    <%-- <p>
+                         <img id="logoAccount" src="img/logo.png" style="float: left"> <br>
+                         <label style="font-weight: bold; font-size: 30pt"> Kids Project </label>
+                     </p>--%>
                 </div>
             </fieldset>
             <input style="float: left; width: 150px; margin-right: 2%; margin-left: 2%" type="submit" name="Avanti1" value="Avanti" id="avantiButton" onclick="showPartTwoAccount(document.getElementById('id').value)"></input>
@@ -103,44 +103,70 @@
         </form>
         <form id="information2" method="post" action="" >
             <input style="float: left; width: 150px; margin-right: 2%" type="button" name="Modifica" value="Modifica" id="modifyButton" onclick="modifyAccount(document.getElementById('id').value)" > </input>
-    </form>
-                <input style="width: 150px" type="button" name="Elimina" value="Elimina" id="eliminaButton" onclick="removeAccountParent(document.getElementById('id').value)"></input>
-
-
-
-    <%--   <c:if test="${sessionScope.user!=null}">
-           <c:if test="${sessionScope.user.getTypeAccount()=='Genitore'}"> 
-                   <form method="post" action="index.jsp">
-                       <input type="submit" name="Indietro" value="Indietro" id="genericButton"></input>
-                   </form>
-           </c:if>
-           <c:if test="${sessionScope.user.getTypeAccount()=='Admin'}">        
-                   <form method="post" action="tableAccount.jsp">
-                       <input type="submit" name="Indietro" value="Indietro" id="genericButton"></input>
-                   </form>
-            </c:if>        
-        </c:if>--%>
-    <%--rimozione account --%>
-  <div id="removeAccountWindow" title="Rimuovi Account" style="display: inline">
-        <form id="removeAccountForm" class="cmxform" method="post" action="">
-            <fieldset>
-                <p class="formp">
-                    <label class="requirementLabel">Sei sicuro di voler eliminare questo Account?</label>
-                </p>
-                <p class="formp">
-                    <input type="button" class="confirmRemoveButton" id="confirmRemoveLinkButton" value="Si"/>
-                    <input type="button" class="notConfirmRemoveButton" id="notConfirmRemoveLinkButton" value="No"/>
-                </p>
-            </fieldset>
         </form>
+        <input style="width: 150px; margin-right: 2%" type="button" name="Elimina" value="Elimina" id="eliminaButton" onclick="removeAccountParent(document.getElementById('id').value)"></input>
+        <input style="width: 150px" type="button" name="modifyPassword" value="Modifica Password" id="modifyPassword" onclick="modifyPassword(document.getElementById('id').value)"></input>
+
+
+        <%--   <c:if test="${sessionScope.user!=null}">
+               <c:if test="${sessionScope.user.getTypeAccount()=='Genitore'}"> 
+                       <form method="post" action="index.jsp">
+                           <input type="submit" name="Indietro" value="Indietro" id="genericButton"></input>
+                       </form>
+               </c:if>
+               <c:if test="${sessionScope.user.getTypeAccount()=='Admin'}">        
+                       <form method="post" action="tableAccount.jsp">
+                           <input type="submit" name="Indietro" value="Indietro" id="genericButton"></input>
+                       </form>
+                </c:if>        
+            </c:if>--%>
+        <%--rimozione account --%>
+        <div id="removeAccountWindow" title="Rimuovi Account" style="display: inline">
+            <form id="removeAccountForm" class="cmxform" method="post" action="">
+                <fieldset>
+                    <p class="formp">
+                        <label class="requirementLabel">Sei sicuro di voler eliminare questo Account?</label>
+                    </p>
+                    <p class="formp">
+                        <input type="button" class="confirmRemoveButton" id="confirmRemoveLinkButton" value="Si"/>
+                        <input type="button" class="notConfirmRemoveButton" id="notConfirmRemoveLinkButton" value="No"/>
+                    </p>
+                </fieldset>
+            </form>
+        </div>
+
+
+        <div id="modifyPasswordWindow" title="Modifica Password" style="display: inline">
+            <form id="modifyPasswordForm" class="cmxform" method="post" action="">
+                <fieldset>
+
+                    <p class="formp">
+                        <label style="font-weight: bold; font-size: 10pt" class="requirementLabel">Inserisci vecchia password:</label>
+                        <input type="text" id="oldPass"/>
+                    </p><br>
+
+                    <p class="formp">
+                        <label style="font-weight: bold; font-size: 10pt class; margin-right: 3%" class="requirementLabel">Inserisci nuova password: </label>
+                        <input type="text" id="newPass"/>
+                    </p>
+                    <p class="formp">
+                        <label style="font-weight: bold; font-size: 10pt" class="requirementLabel">Conferma nuova password:</label>
+                        <input type="text" id="confNewPass"/>
+                    </p><br>
+
+                    <p class="formp">
+                        <input type="button" id="confirmModifyButton" value="Modifica"/>
+                        <input type="button" id="notConfirmModifyButton" value="Annulla"/>
+                    </p>
+                </fieldset>
+            </form>
+        </div>
+
+
+
+
     </div>
-
-
-
-
-
-</div>
-<%@include file="footer.jsp" %>
+    <%@include file="footer.jsp" %>
 
 </body>
 </html>
