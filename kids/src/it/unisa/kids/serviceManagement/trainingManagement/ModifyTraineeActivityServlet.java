@@ -4,12 +4,19 @@
  */
 package it.unisa.kids.serviceManagement.trainingManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -22,17 +29,14 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author utente
  */
-public class ModifyTraineeConvocationServlet extends HttpServlet {
-
-    private static Logger logger = Logger.getLogger("global");
+public class ModifyTraineeActivityServlet extends HttpServlet {
+ private static Logger logger = Logger.getLogger("global");
     private ITrainingManager trainingManager;
 
     public void init(ServletConfig config) {
-        
         RefinedAbstractManager refinedAbstractTrainingManager = RefinedAbstractManager.getInstance();
         trainingManager = (ITrainingManager) refinedAbstractTrainingManager.getManagerImplementor(DBNames.TABLE_TRAINEE);
     }
-
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -45,21 +49,53 @@ public class ModifyTraineeConvocationServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         try {
-            int id = Integer.parseInt(request.getParameter("id"));
-            String checked = request.getParameter("checked");
-            TraineeConvocation traineeConvocation = new TraineeConvocation();
-            traineeConvocation.setId(id);
-            if (checked.equals("true")) {
-                traineeConvocation.setConfirmed(1);
+             TraineeActivity traineeActivity=new TraineeActivity();
+             Account account=new Account();
+             account.setRegister(request.getParameter("MatricolaTirocinante"));
+             List<Account> list=trainingManager.search(account);
+             if(list==null){
+                                  throw new SQLException();
 
-            } else {
-                traineeConvocation.setConfirmed(0);
-            }
-            trainingManager.update(traineeConvocation);
+             }
+             else
+                traineeActivity.setTrainee(list.get(0).getId());
+            traineeActivity.setId(Integer.parseInt(request.getParameter("id")));
+            traineeActivity.setName(request.getParameter("Attivita"));
+            traineeActivity.setDescription(request.getParameter("Descrizione"));
+            traineeActivity.setDate(parseGregorianCalendar(request.getParameter("Data")));
+            traineeActivity.setStart(parseTime(request.getParameter("OraInizio")));
+            traineeActivity.setEnd(parseTime(request.getParameter("OraFine")));
+            traineeActivity.setOpinion(request.getParameter("Giudizio"));
+            
+            trainingManager.update(traineeActivity);
+            request.setAttribute("message",
+                    "Richiesta modificata con successo");
+            request.getServletContext().getRequestDispatcher("/managerTraineeActivity.jsp").forward(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(ModifyTraineeActivityServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(ModifyTraineeConvocationServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+            request.setAttribute("message",
+                    "Tirocinante non trovato");
+            request.getServletContext().getRequestDispatcher("/managerTraineeActivity.jsp").forward(request, response);
+        } finally {            
+            out.close();
+        }
+    }
+     private GregorianCalendar parseGregorianCalendar(String pDate) throws ParseException {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date parsed = df.parse(pDate);
+        GregorianCalendar date = new GregorianCalendar();
+        date.setTime(parsed);
+        return date;
+    }
+    private Time parseTime(String pTime) throws ParseException{
+        DateFormat df = new SimpleDateFormat("hh:mm");
+        Date parsed=df.parse(pTime);
+        Time time=new Time(parsed.getTime());
+        return time;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

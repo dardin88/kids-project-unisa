@@ -6,6 +6,17 @@ function initializeLinksManager(){
     $.ajaxSetup({
         cache: false
     });
+     $("#DateActivity").datepicker({
+        dateFormat:"yy-mm-dd"
+
+    });
+    $("#confirm").dialog({
+        autoOpen: true,
+        modal: true,
+        resizable: false,
+        width: 400
+    });
+    $("#confirmButton").button();
     $("#activityInformation").dialog({
         autoOpen:false,
         resizable:false,
@@ -56,6 +67,8 @@ function initializeLinksManager(){
     });
     $("#insertTraineeActivityButton").button();
     $("#removeActivity").button();
+     $("#saveButton").button();
+    $("#modifyButton").button();
 }
 
 function createTable(){
@@ -240,4 +253,17 @@ function createCalendar(){
             document.getElementById("id").value=calEvent.id;
         }
     })
+}
+function modifyDialog(){
+    document.getElementById("saveButton").style.visibility="visible";
+    document.getElementById("modifyButton").style.visibility="hidden";
+    document.getElementById("removeActivity").style.visibility="hidden";
+    document.getElementById("TraineeRegister").disabled=false;
+    document.getElementById("DateActivity").disabled=false;
+    document.getElementById("TraineeActivity").disabled=false;
+    document.getElementById("StartTimeActivity").disabled=false;
+    document.getElementById("EndTimeActivity").disabled=false;
+    document.getElementById("Description").disabled=false;
+    document.getElementById("Opinion").disabled=false;
+    document.getElementById("modifyInformation").action="ModifyTraineeActivity"
 }
