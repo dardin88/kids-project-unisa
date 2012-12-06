@@ -1,5 +1,6 @@
 package it.unisa.kids.accessManagement.renunciationManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -22,11 +24,12 @@ import org.json.JSONObject;
  */
 public class InsertTableRenunciationServlet extends HttpServlet {
 
-       private IRenunciationManager renunciationManager;
+    private IRenunciationManager renunciationManager;
 
     public void init(ServletConfig config) {
-        renunciationManager =(IRenunciationManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_RENUNCIATION);
-        }
+        renunciationManager = (IRenunciationManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_RENUNCIATION);
+    }
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -41,9 +44,9 @@ public class InsertTableRenunciationServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        Renunciation[] pageRenunciation=null;
-        List<Renunciation> listRenunciation=null;
-     try{
+        Renunciation[] pageRenunciation = null;
+        List<Renunciation> listRenunciation = null;
+        try {
             JSONArray array = new JSONArray();
             JSONObject result = new JSONObject();
             int start = 0;
@@ -63,40 +66,43 @@ public class InsertTableRenunciationServlet extends HttpServlet {
                     amount = 10;
                 }
             }
-                   
-            String nome= request.getParameter("idGenitore");
             
+            HttpSession session = request.getSession();
+            Account user  = (Account) session.getAttribute("user");
+            int idGenitore = user.getId();
             
-            Renunciation pRenunciation=new Renunciation();
+            //String nome = request.getParameter("idGenitore");
+
+
+            Renunciation pRenunciation = new Renunciation();
             pRenunciation.setIdBambino(Integer.parseInt(nome));
-            
-            listRenunciation= renunciationManager.search(pRenunciation);
-                      
-          
-            
+
+            listRenunciation = renunciationManager.search(pRenunciation);
+
+
+
             int linksNumber = listRenunciation.size();
             if (linksNumber < amount) {
                 amount = linksNumber;
             }
             if (linksNumber != 0) {
                 int toShow = linksNumber - start;
-                 if (toShow > 10) {
-                    pageRenunciation= new Renunciation[amount];
-            System.arraycopy(listRenunciation.toArray(), start, pageRenunciation, 0, amount);
-                 }
-                 else{         
-            pageRenunciation= new Renunciation[toShow];
-            System.arraycopy(listRenunciation.toArray(), start, pageRenunciation, 0, toShow);
-                 }            
-            for (Renunciation clas : pageRenunciation) {
-                    
+                if (toShow > 10) {
+                    pageRenunciation = new Renunciation[amount];
+                    System.arraycopy(listRenunciation.toArray(), start, pageRenunciation, 0, amount);
+                } else {
+                    pageRenunciation = new Renunciation[toShow];
+                    System.arraycopy(listRenunciation.toArray(), start, pageRenunciation, 0, toShow);
+                }
+                for (Renunciation clas : pageRenunciation) {
+
                     JSONArray ja = new JSONArray();
-                    
+
                     ja.put(clas.getIdBambino());
-                    String operazioni ="<input class='tableImage' type='image' src='img/trash.png' onclick='DeleteClassBean(\"" + clas.getId()+ "\")'/> <input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/lente.gif' onclick='showAccount(\""+clas.getId()+"\")'/>";
+                    String operazioni = "<input class='tableImage' type='image' src='img/trash.png' onclick='DeleteClassBean(\"" + clas.getId() + "\")'/> <input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/lente.gif' onclick='showAccount(\"" + clas.getId() + "\")'/>";
                     ja.put(operazioni);
                     array.put(ja);
-                    }
+                }
             }
             result.put("sEcho", sEcho);
             result.put("iTotalRecords", listRenunciation.size());
@@ -107,13 +113,12 @@ public class InsertTableRenunciationServlet extends HttpServlet {
                     "private, no-store, no-cache, must-revalidate");
             response.setHeader("Pragma", "no-cache");
             out.print(result);
-     }
-     catch(SQLException ex) {
-            Logger.getLogger(InsertTableRenunciationServlet.class.getName()).log(Level.SEVERE, null, ex);           
-          
+        } catch (SQLException ex) {
+            Logger.getLogger(InsertTableRenunciationServlet.class.getName()).log(Level.SEVERE, null, ex);
+
         }
-            
-            
+
+
 
     }
 
