@@ -5,12 +5,14 @@
 package it.unisa.kids.accessManagement.registrationChildManagement;
 
 import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,8 +23,13 @@ import javax.servlet.http.HttpServletResponse;
  * 
  * @author Giuseppe Giovanni Lauri
  */
-public class ServletSubmitRegistrationChild extends HttpServlet {
+public class ServletEditPhaseRegistrationChild extends HttpServlet {
+    private IRegistrationChildManager registrationChildManager;
 
+    public void init(ServletConfig config) {
+        RefinedAbstractManager refinedAbstractRegistrationChildManager = RefinedAbstractManager.getInstance();
+        registrationChildManager = (IRegistrationChildManager) refinedAbstractRegistrationChildManager.getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
+    }
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -38,20 +45,30 @@ public class ServletSubmitRegistrationChild extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            response.setContentType("text/html;charset=UTF-8");
-            JDBCRegistrationChildManager registrationChildManager = JDBCRegistrationChildManager.getInstance();
-
+            
             // Prelevo i dati necessari
             String id = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_ID);
+            String registrationPhase = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE);
+            
             RegistrationChild tmpChild = new RegistrationChild();
             tmpChild.setId(Integer.parseInt(id));
-            if(registrationChildManager.confirmRegistrationChild(tmpChild))
-                out.print("Conferma avvenuta correttamente");
-            else
-                out.print("Conferma non riuscita");
+            switch(registrationPhase) {
+            case    DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED :
+                registrationChildManager.submitRegistrationChild(tmpChild);
+                break;
+            case    DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_CONFIRMED :
+                registrationChildManager.confirmRegistrationChild(tmpChild);
+                break;
+            case    DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DELETED :
+                registrationChildManager.removeRegistrationChild(tmpChild);
+                break;
+            default :
+                out.println("Errore: parametro phase errato!");
+            }
         } catch (SQLException ex) {
-            request.setAttribute("message", "Verfica i campi");
-            request.getServletContext().getRequestDispatcher("/registrationChildViewAll.jsp").forward(request, response);
+            Logger.getLogger(ServletEditPhaseRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            out.close();
         }
     }
 
@@ -71,9 +88,9 @@ public class ServletSubmitRegistrationChild extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(ServletSubmitRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletEditPhaseRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
-            Logger.getLogger(ServletSubmitRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletEditPhaseRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -92,9 +109,9 @@ public class ServletSubmitRegistrationChild extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(ServletSubmitRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletEditPhaseRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
-            Logger.getLogger(ServletSubmitRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletEditPhaseRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
