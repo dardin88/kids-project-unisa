@@ -31,10 +31,10 @@
                 $(document).ready(function() {
                     activePage();
                     initializeMeetingManager();
-                <c:if test="${sessionScope.user.getAccountType()=='Adim'||sessionScope.user.getAccountType()=='Segreteria'}">                               
+                <c:if test="${sessionScope.user.getAccountType()=='Adim'||sessionScope.user.getAccountType()=='Segreteria'||sessionScope.user.getAccountType()=='Responsabile Asilo'}">                               
                         CalendarEditable();
                 </c:if>
-                <c:if test="${sessionScope.user.getAccountType()!='Adim'&&sessionScope.user.getAccountType()!='Segreteria'}">                               
+                <c:if test="${sessionScope.user.getAccountType()!='Adim'&&sessionScope.user.getAccountType()!='Segreteria'&&sessionScope.user.getAccountType()=='Responsabile Asilo'}">                               
                         CalendarNotEditable();
                 </c:if> 
                         $("#dataMeeting,#modifyDataMeeting").datepicker({dateFormat:'yy-mm-dd'});
@@ -140,7 +140,7 @@
                                             <label style="margin-left: 2%;" id="showTypeMeeting" name="showTypeMeeting"></label> <br> <br>
                                                     </p>
                                                     <p>
-                                                        <c:if test="${sessionScope.user.getAccountType()=='Adim'||sessionScope.user.getAccountType()=='Segreteria'}">                                                            <input type="button" id="modifyMeetingButton" value="Modifica Riunione" />
+                                                        <c:if test="${sessionScope.user.getAccountType()=='Adim'||sessionScope.user.getAccountType()=='Segreteria'||sessionScope.user.getAccountType()=='Responsabile Asilo'}">                                                            <input type="button" id="modifyMeetingButton" value="Modifica Riunione" />
                                                             <input type="button" id="deleteMeetingButton" value="Elimina Riunione" />
                                                         </c:if>
                                                         <input type="button" id="notMeetingButton" value="Annulla" />

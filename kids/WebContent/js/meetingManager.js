@@ -11,11 +11,7 @@ function CalendarNotEditable() {
        
         allDayDefault: false,
         allDaySlot:false,
-        
-//        <c:if test="${sessionScope.user.getAccountType()=='Adim'||sessionScope.user.getAccountType()=='Segreteria'}">
-//        droppable: false,
-//    </c:if>,
-        
+
         events: {
             url:"LoadCalendar"
         },
@@ -68,11 +64,7 @@ function CalendarEditable() {
        
         allDayDefault: false,
         allDaySlot:false,
-        
-//        <c:if test="${sessionScope.user.getAccountType()=='Adim'||sessionScope.user.getAccountType()=='Segreteria'}">
-//        droppable: false,
-//    </c:if>,
-        
+               
         events: {
             url:"LoadCalendar"
         },
