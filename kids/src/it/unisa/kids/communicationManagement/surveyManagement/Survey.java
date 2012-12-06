@@ -41,6 +41,16 @@ public class Survey {
         return this.link;
     }
     
+    
+    public void setCompiled() {
+       this.compiled = true; 
+    }
+    
+    public boolean getCompiled() {
+        return (this.compiled);
+    }
+    
     private int id;
     private String link;
+    private boolean compiled;
 }
