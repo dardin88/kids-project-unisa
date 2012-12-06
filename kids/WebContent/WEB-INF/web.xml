@@ -214,10 +214,6 @@
         <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletGetRegistrationChild</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletGetTableRegistrationChild</servlet-name>
-        <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletGetTableRegistrationChild</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ServletEditPhaseRegistrationChild</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletEditPhaseRegistrationChild</servlet-class>
     </servlet>
@@ -240,6 +236,10 @@
     <servlet>
         <servlet-name>InsertTableRenunciation</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.renunciationManagement.InsertTableRenunciationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletGetTableRegistrationChild</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletGetTableRegistrationChild</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
@@ -446,10 +446,6 @@
         <url-pattern>/GetRegistrationChild</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletGetTableRegistrationChild</servlet-name>
-        <url-pattern>/GetTableRegistrationChild</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AddClassBeanServlet</servlet-name>
         <url-pattern>/AddClassBean</url-pattern>
     </servlet-mapping>
@@ -465,12 +461,14 @@
         <servlet-name>GetTableClassServlet</servlet-name>
         <url-pattern>/GetTableClassServlet</url-pattern>
     </servlet-mapping>
-   
     <servlet-mapping>
         <servlet-name>InsertTableRenunciation</servlet-name>
         <url-pattern>/InsertTableRenunciationServlet</url-pattern>
     </servlet-mapping>
-    
+    <servlet-mapping>
+        <servlet-name>ServletGetTableRegistrationChild</servlet-name>
+        <url-pattern>/GetTableRegistrationChild</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
