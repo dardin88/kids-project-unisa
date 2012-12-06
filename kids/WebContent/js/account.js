@@ -1,16 +1,43 @@
 function initializeLinksManager2(){
+    
     $("#avantiButton").button();
     $("#modifyButton").button();
     $("#eliminaButton").button();
 
+
     
-     $("#removeAccountWindow").dialog({
+    $("#removeAccountWindow").dialog({
         autoOpen: false,
         modal: true,
         resizable: false,
         width: 400
     });
+    
+    $("#modifyPasswordWindow").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 400
+    });
+    
+    $("#modifyPassword").button();
+    $("#modifyPassword").click(function(){
+        $("#modifyPasswordWindow").dialog("open"); 
+    });
    
+    $("#confirmModifyButton").button();
+    $("#confirmModifyButton").click(function(){
+        alert("modicare password");
+    });
+   
+    $("#notConfirmModifyButton").button();
+    $("#notConfirmModifyButton").click(function(){
+        $("#modifyPasswordWindow").dialog("close"); 
+    });
+    
+    
+    
+    
    
 }
 /* 
@@ -105,7 +132,7 @@ function buildAccountTable(){
 
    
 function removeAccount(id){
-     $("#removeAccountWindow").dialog({
+    $("#removeAccountWindow").dialog({
         autoOpen:true
     }); 
     $("#confirmRemoveLinkButton").button();
@@ -123,8 +150,8 @@ function removeAccount(id){
         $("#removeAccountWindow").dialog("close");
     });
 }
-    function removeAccountParent(id){
-     $("#removeAccountWindow").dialog("open"); 
+function removeAccountParent(id){
+    $("#removeAccountWindow").dialog("open"); 
     $("#confirmRemoveLinkButton").button();
     $("#confirmRemoveLinkButton").click(function(){
         $.post("DeleteAccount", {
@@ -162,7 +189,7 @@ function showPartTwoAccount(id){
     $.post("GetAccount",{
         id:id
     })
-    }
+}
 
 function back(id){
     
