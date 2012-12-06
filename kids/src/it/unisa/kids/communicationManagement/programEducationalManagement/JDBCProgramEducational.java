@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 public class JDBCProgramEducational implements IProgramEducational {
 
@@ -24,12 +25,12 @@ public class JDBCProgramEducational implements IProgramEducational {
         }
     }
 
-    @Override
+    //soppresso
     public void modifySubstantialProject(AnnualProject pProject) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override
+    //soppresso
     public void modifyLittleProject(AnnualProject pProject) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -49,12 +50,12 @@ public class JDBCProgramEducational implements IProgramEducational {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override
+    //soppresso
     public void approvedChangesProposed() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override
+    //soppresso
     public void rejectChangedProposed() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -117,5 +118,28 @@ public class JDBCProgramEducational implements IProgramEducational {
         }
         con.commit();
         return toReturn;
+    }
+
+    @Override
+    public AnnualProjectSection getProgramEducational(int SectionId) throws SQLException {
+        AnnualProjectSection toReturn=new AnnualProjectSection();
+        toReturn.setCommenti(this.getComments(toReturn));
+        /*private int id;
+	private String name;
+	private String description;
+	private int section;
+	private int idYear; //serve come chiave esterna per progetto annuale
+	private String attached;*/
+        GregorianCalendar data=new GregorianCalendar();
+        
+        String query = "SELECT * FROM " + DBNames.TABLE_ACTIVITYSECTIONDAILY
+                + " WHERE " + DBNames.ATT_ACTIVITYSECTTIONDAILY_SECTIONID + " = " + SectionId + " AND "
+                + DBNames.ATT_ACTIVITYSECTTIONDAILY_DATE + " LIKE ____%" + data.get(GregorianCalendar.YEAR);
+        PreparedStatement pstm;
+        Connection con;
+        con = DBConnectionPool.getConnection();
+        pstm = con.prepareStatement(query);
+        rs = pstm.executeQuery();
+        
     }
 }
