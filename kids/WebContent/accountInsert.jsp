@@ -31,6 +31,7 @@
         <script type="text/javascript">
             $(document).ready(function() {
                 initializeRegistrationFields();
+                $("#dateOfBirth").datepicker({dateFormat:'yy-mm-dd'});
             });
         </script>
     </head>
@@ -40,45 +41,53 @@
         <form id="registrationForm" class="cmxform"  action="" method="post">
             <fieldset id="registrationFieldSet">
                 <div id="artefactsManagement">
-                    <h1  style="font-weight: bold; font-size: 30pt"id="titleReg" align="center">Form di Registrazione</h1><br>
+                    <h1  style="font-weight: bold; font-size: 30pt"id="titleReg" align="center">Form di Registrazione</h1><br> <br>
                     <input type="hidden" id="register" name="Matricola" class="registrationField" >
-                    <table style="margin-left: 5%; font-weight: bold; font-size: 10pt; float: left">
-                        <tr><td> Nome:
-                            <td> <p class="formp">
-                                    <input style="margin-left: 2%; width: 250px" id="accountName" class="registrationField" type="text" name="Nome" size="50%">
-                                </p> 
-                        <tr><td> Cognome: <td>       
-                                <p class="formp">
-                                    <input  style="margin-left: 2%; width: 250px" id="accountSurname" class="registrationField"type="text" name="Cognome">                                </p>
-                        <tr><td>  Data di nascita:<td>       
-                                <p class="formp">
-                                    <input style="margin-left: 2%; width: 250px" id="dateOfBirth" class="registrationField" type="text" name="DataNascita">
-                                </p>
-                        <tr><td> Comune di nascita: <td>       
-                                <p class="formp">
-                                    <input style="margin-left: 2%; width: 250px" id="placeOfBirth" class="registrationField" type="text" name="ComuneNascita">
-                                </p>
-                        <tr><td> CodiceFiscale: <td>       
-                                <p class="formp">
-                                    <input style="margin-left: 2%; width: 250px" id="taxCode" class="registrationField" type="text" name="CodiceFiscale">
-                                </p>
-                        <tr><td> Cittadinanza: <td>       
-                                <p class="formp">
-                                    <input style="margin-left: 2%; width: 250px" id="citizenship" class="registrationField" type="text" name="Cittadinanza">
-                                </p>
-                        <tr><td> Comune di residenza: <td>       
-                                <p class="formp">
-                                    <input style="margin-left: 2%; width: 250px" id="municipalityResidence" class="registrationField" type="text" name="ComuneResidenza">
-                                </p>
-                        <tr><td> Provincia Residenza: <td>       
-                                <p class="formp">
-                                    <input style="margin-left: 2%; width: 250px" id="provinceResidence" class="registrationField" type="text" name="ProvinciaResidenza">
-                                </p>
-                        <tr><td> Indirizzo Residenza:  <td>       
-                                <p class="formp">
-                                    <input style="margin-left: 2%; width: 250px" id="viaResidence" class="registrationField" type="text" name="IndirizzoResidenza">
-                                </p>
-                    </table>
+
+                    <div >
+                        <span id="accountLabel">  Nome: </span>
+                        <input id="accountName" class="accountInput" type="text" name="Nome" size="50%">
+                    </div>
+
+                    <div>
+                        <label id="accountLabel"> Cognome: </label>
+                        <input id="accountSurname" class="accountInput"type="text" name="Cognome">                    
+                    </div>
+
+                    <div>
+                        <label id="accountLabel"> Data di nascita: </label>
+                        <input id="dateOfBirth" class="accountInput" type="text" name="DataNascita">
+                    </div>
+
+                    <div>
+                        <label id="accountLabel"> Comune di nascita: </label>
+                        <input id="placeOfBirth" class="accountInput" type="text" name="ComuneNascita">
+                    </div>
+
+                    <div>
+                        <label id="accountLabel"> CodiceFiscale: </label>
+                        <input  id="taxCode" class="accountInput" type="text" name="CodiceFiscale">
+                    </div>
+
+                    <div>
+                        <label id="accountLabel"> Cittadinanza: </label>
+                        <input  id="citizenship" class="accountInput" type="text" name="Cittadinanza">
+                    </div>
+
+                    <div>
+                        <label id="accountLabel"> Comune di residenza: </label>
+                        <input  id="municipalityResidence" class="accountInput" type="text" name="ComuneResidenza">
+                    </div>
+
+                    <div>
+                        <label id="accountLabel"> Provincia Residenza: </label>
+                        <input  id="provinceResidence" class="accountInput" type="text" name="ProvinciaResidenza">
+                    </div>
+
+                    <div>
+                        <label id="accountLabel"> Indirizzo Residenza: </label>
+                        <input  id="viaResidence" class="accountInput" type="text" name="IndirizzoResidenza">
+                    </div>
                 </div>
                 <input style="width: 300px; margin-left: 7%" type="submit" name="registrationButton" id="registrationButton" value="Avanti" />
             </fieldset>

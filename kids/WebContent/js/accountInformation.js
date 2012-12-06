@@ -40,7 +40,7 @@ $(document).ready(function(){
             Nome:" Inserisci il nome",
             Cognome:" Inserisci il cognome",
             ComuneNascita:" Inserisci la città di nascita",
-            DataNascita:" Inserisci la data di nascita(gg/MM/AAAA)",
+            DataNascita:" Inserisci la data di nascita",
             CodiceFiscale:" Inserisci il codice fiscale",
             Cittadinanza:" Inserisci la cittadinanza",
             ComuneResidenza:" Inserisci il comune del residenza",
