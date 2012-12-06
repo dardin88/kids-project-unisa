@@ -37,8 +37,8 @@ public class AddClassBeanServlet extends HttpServlet {
             
             ClassBean clas=new ClassBean();
             clas.setClassName(request.getParameter(DBNames.ATT_CLASS_NAME));
-            clas.setState(request.getParameter(DBNames.ATT_CLASS_STATE));
-            
+            //clas.setState(request.getParameter(DBNames.ATT_CLASS_STATE));
+            System.out.println("ecco il nome"+clas.getClassName());
             clasMan.insert(clas);
         }
         catch (SQLException exeption)
