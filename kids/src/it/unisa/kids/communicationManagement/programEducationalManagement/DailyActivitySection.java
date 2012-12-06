@@ -142,7 +142,7 @@ public class DailyActivitySection extends AnnualProjectSection
         return id;
     }
 
-    void setId(int aInt) {
+    public void setId(int aInt) {
         this.id=aInt;
     }
     
