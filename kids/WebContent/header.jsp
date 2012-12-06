@@ -29,6 +29,10 @@
             <div class="div">
                 <li id="paymentManagementMenuEl"><a href="paymentManagement.jsp">Gestione pagamenti</a></li>
             </div>
+            
+            <div class="div">
+                <li id="newsShowTable"><a href="TimeService.jsp">Gestione orario di servizio</a></li>
+            </div>  
             <div class="div">
                 <li id="managementTraineeActivity"><a href="managerTraineeActivity.jsp">Gestione Attivit&agrave Tirocinanti</a></li>
             </div>
