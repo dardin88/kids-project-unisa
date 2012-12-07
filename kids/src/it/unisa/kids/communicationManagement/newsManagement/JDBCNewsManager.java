@@ -2,7 +2,6 @@ package it.unisa.kids.communicationManagement.newsManagement;
 
 import it.unisa.kids.common.DBNames;
 import it.unisa.storage.connectionPool.DBConnectionPool;
-
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -42,6 +41,7 @@ public class JDBCNewsManager implements INewsManager {
      * @param News pNews
      *
      */
+    @Override
     public void insert(News pNews) throws SQLException {
         Connection connection = null;
         PreparedStatement stmt = null;
@@ -84,6 +84,7 @@ public class JDBCNewsManager implements INewsManager {
      *
      * @return ArrayListNews<News> listNews
      */
+    @Override
     public ArrayList<News> show() throws SQLException {
         Connection connection = null;
         Statement stmt = null;
@@ -132,6 +133,7 @@ public class JDBCNewsManager implements INewsManager {
      *
      * @param News pNews
      */
+    @Override
     public void delete(News pNews) throws SQLException {
         Connection connection = null;
         Statement stmt = null;
@@ -155,6 +157,7 @@ public class JDBCNewsManager implements INewsManager {
      *
      * @param News pNews
      */
+    @Override
     public void update(News pNews, boolean flag) throws SQLException {
         Connection connection = null;
         Statement stmt = null;
@@ -192,6 +195,7 @@ public class JDBCNewsManager implements INewsManager {
      * @param String word
      * @return ArrayList<News> listSearchNews
      */
+    @Override
     public ArrayList<News> search(String word) throws SQLException {
         ArrayList<News> listNews = new ArrayList<News>();
         Connection connection = null;
@@ -237,4 +241,4 @@ public class JDBCNewsManager implements INewsManager {
         }
         return listNews;
     }
-}
+            }
