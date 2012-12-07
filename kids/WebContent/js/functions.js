@@ -81,7 +81,17 @@ function activePage(){
             $("#canteenManagementMenuEl").css("background-color", "#444");
             $("#canteenManagementMenuEl").css("color", "#FFFFFF");
             $("#title").html("Gestione mensa");
-            break; 
+            break;
+        case 'healthCommunicationTable.jsp':
+            $("#healthCommunicationTable").css("background-color", "#444");
+            $("#healthCommunicationTable").css("color", "#FFFFFF");
+            $("#title").html("Gestione bambini - Comunicazioni salute");
+            break;
+        case 'needCommunicationTable.jsp':
+            $("#needCommunicationTable").css("background-color", "#444");
+            $("#needCommunicationTable").css("color", "#FFFFFF");
+            $("#title").html("Gestione bambini - Comunicazioni bisogni");
+            break;
     }
 }
 
