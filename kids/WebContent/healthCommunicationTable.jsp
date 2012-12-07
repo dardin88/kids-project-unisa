@@ -8,10 +8,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:if test="${sessionScope.user==null}">
-    <c:redirect url="index.jsp" />    
-</c:if>
-<c:if test="${sessionScope.user.getAccountType()!='Educatore'} && ${sessionScope.user.getAccountType()!='Genitore'}">
-    <c:redirect url="index.jsp" />    
+    <c:redirect url="index.jsp" />
 </c:if>
 <!DOCTYPE html>
 <html>
@@ -22,7 +19,7 @@
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.ui.timepicker.css">
-        
+
         <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
         <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
@@ -31,102 +28,104 @@
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/healthCommunicationTable.js"></script>
         <script type="text/javascript" src="js/jquery.ui.timepicker.js"></script>
-        
+
         <title>Gestione Bambini "Visualizza Cominucazioni Salute"- Kids Project</title>
         <script type="text/javascript">
             $(document).ready(function() {
                 activePage();
                 initializeLinksManager();
                 $("#artefactData").datepicker({dateFormat:'yy-mm-dd' });
-                buildHealthCommunicationTable();
+                buildShowTable();
             });
         </script>
     </head>
-    <div id="addCommunicationWindow" title="Inserisci Comunicazione" style="display: inline">
-         <form id="addCommunicationForm" class="cmxform" method="post" action="" enctype="multipart/form-data" >
-             <fieldset>
-                 <p style="text-align: left;" class="formp">
-                     <label class="artefactLabel" for="artefactType">Tipo *</label>
-                      <select id="artefactType"style=" display:block;" name="Type" class="artefactSelect">
-                        <option value="0">Scegli tipo Comunicazione</option>
-                        <option value="1">Salute</option>
-                    </select>
-                </p>
-                <p style="text-align: left;" class="formp">
-                    <label class="artefactLabel" for="artefactIdEducator">Educatore *</label>
-                    <input id="artefactIdEducator" style="display: block" type="text" name="idEducator" ></input>                     
-                </p>
-                <p style="text-align: left;" class="formp">
-                    <label class="artefactLabel" for="artefactIdChild">Bambino *</label>
-                    <input id="artefactIdChild" style="display:block;" type="text" name="idChild"></input>
-                </p>
-                <p style="text-align: left;" class="formp">
-                     <label class="artefactLabel" for="artefactData">Data *</label>
-                     <input id="artefactData"  type="text" name="date"></input>
-                 </p>
-                 <input type="submit" class="windowButton" id="addLinkButton3" value="Ok"/>                 
-             </fieldset>
-         </form>
-    </div>
-    <div class="removeCommunication" id="removeCommunicationWindow" title="Rimuovi Comunicazione" >
-        <p class="formp">    
-        <h3> Vuoi rimuovere definitivamente questa comunicazione?</h3>
-        <input type="button" class="buttonRemove" id="removeCommunicationButton" value="Ok" />
-        <input type="button" class="buttonRemove" id="notRemoveCommunicationButton" value="Annulla" />
-    </p>
-</div>
-    <div id="updateCommunicationWindow" title="Modifica Comunicazione" style="display: inline">
-        <form id="updateCommunicationForm" name="updateCommunicationForm" class="cmxform" method="post" action="">
+    <div id="addLinkWindow" title="Inserisci Comunicazione Salute" style="display: inline">
+        <form id="addLinkForm" class="cmxform" method="post" action="" enctype="multipart/form-data" >
             <fieldset>
-                <p style="text-align: left;" class="formp">
-                    <label class="artefactLabel" for="artefactType">Tipo *</label>
-                    <select id="artefactType"style=" display:block;" name="Type" class="artefactSelect">
-                        <option value="0">Scegli tipo Comunicazione</option>
-                        <option value="1">Salute</option>
-                      </select>
-                 </p>
-                 <p style="text-align: left;" class="formp">
-                     <label class="artefactLabel" for="artefactIdEducator">Educatore *</label>
-                     <input id="artefactIdEducator" style="display: block" type="text" name="idEducator" ></input>                     
-                 </p>
-                 <p style="text-align: left;" class="formp">
-                     <label class="artefactLabel" for="artefactIdChild">Bambino *</label>
-                     <input id="artefactIdChild" style="display:block;" type="text" name="idChild"></input>
-                 </p>
-                 <p style="text-align: left;" class="formp">
-                     <label class="artefactLabel" for="artefactDescription">Descrizione *</label>
-                     <input id="artefactDescription" style="display:block;" type="date" name="description"></input>
-                 </p>
-                 <p style="text-align: left;" class="formp">
-                     <label class="artefactLabel" for="artefactData">Data *</label>
-                     <input id="artefactData"  type="text" name="date"></input>
-                 </p>
-                  <input type="submit" class="windowButton" id="confirmUpdateCommunication" value="Ok"/>                 
-        </fieldset>
-    </form>
-</div>  
-    <body>
-        <%@include file="header.jsp" %>
-        <div id="linksManagement">
-            <h1 style="font-size: 35px;text-align: center;"> Lista Comunicazioni Salute </h1>
-            <c:if test="${sessionScope.user.getAccountType()=='Educatore'}" >
-                <input type="button" id="addCommunicationButton" value="Inserisci Comunicazione Salute" />               
-            </c:if>
-            <table id="CommunicationTable" style="width:95%;">
-                <thead>
+                <table>
                     <tr>
-                        <th>Tipo</th>
-                        <th>IdEducatore</th>
-                        <th>IdBambino</th>
-                        <th>Descrizione</th>
-                        <th>Data</th>
+                    <p style="text-align: left;" class="formp">
+                    <td>
+                        <label class="artefactLabel" for="type">Tipo *</label>
+                    </td>
+                    <td>
+                        <select id="artefactType" name="type" class="artefactSelect">
+                            <option value="0">Scegli tipo Comunicazione</option>
+                            <option value="1">Salute</option>
+                        </select>
+                    </td>
+                    </p>
                     </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
+                    <tr>
+                    <p style="text-align: left;" class="formp">
+                    <td>
+                        <label class="artefactLabel" for="idEducator">Id Educatore *</label>
+                    </td>
+                    <td>
+                        <input id="artefactIdEducator" type="text" name="idEducator" ></input>                                         
+                    </td>
+                    </p>
+                    </tr>
+                    <tr>
+                    <p style="text-align: left;" class="formp">
+                    <td>
+                        <label class="artefactLabel" for="idChild">Id Bambino *</label>
+                    </td>
+                    <td>
+                        <input id="artefactIdChild" type="text" name="idChild" ></input>                                         
+                    </td>
+                    </p>
+                    </tr>
+                    <tr>
+                    <p style="text-align: left;" class="formp">
+                    <td>
+                        <label class="artefactLabel" for="Description">Descrizione *</label>
+                    </td>
+                    <td>  
+                        <textarea id="artefactDescription"rows="5" cols="25" name="Description"></textarea>
+                    </td>
+                    </p>
+                    </tr>
+                    <tr>        
+                    <p style="text-align: left;" class="formp">
+                    <td>
+                        <label class="artefactLabel" for="artefactData">Data *</label>
+                    </td>
+                    <td>
+                        <input id="artefactData"  type="text" name="date"></input>
+                    </td>
+                    </p>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" class="windowButton" id="addLinkButton3" value="Ok"/>                 
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </form>
+    </div> 
+<body>
+    <%@include file="header.jsp" %>
+    <div id="linksManagement">
+        <h1 style="font-size: 35px;text-align: center;"> Lista Comunicazioni Salute </h1>
+        <c:if test="${sessionScope.user.getAccountType()=='Educatore'}" >
+            <input type="button" id="addLinkButton" value="Inserisci Comunicazione Salute" />               
+        </c:if>
+        <table id="linkTable" style="width:95%;">
+            <thead>
+                <tr>
+                    <th>IdEducatore</th>
+                    <th>IdBambino</th>
+                    <th>Descrizione</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
 
-        <%@include file="footer.jsp" %>
-    </body>
+    <%@include file="footer.jsp" %>
+</body>
 </html>
