@@ -15,13 +15,8 @@
         <u class="userMenuEl" id="logout" onclick="logout()" onmouseover="this.style.cursor='pointer';">Logout</u>
     </span>
 </div>
-
-
 <div id="navigation">
-
     <ul>
-
-
         <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
             <div class="div">
                 <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
@@ -55,7 +50,6 @@
             </div>
 
         </c:if>
-
         <c:if test="${sessionScope.user.getAccountType()=='Tirocinante'}">
             <div class="div">
                 <li id="traineeRegister"><a href="traineeRegister.jsp">Registro attivit&agrave</a></li>
