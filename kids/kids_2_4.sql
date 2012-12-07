@@ -255,10 +255,13 @@ CREATE TABLE IF NOT EXISTS `iscrizionebambino` (
   `FasciaUtenza` enum('full_time','part_time_pomeridiana','part_time_mattutina') DEFAULT NULL,
   `DataIscrizione` date NOT NULL,
   `FaseDellIscrizione` enum('bozza','sottomessa','confermata','rifiutata','accettata','completata','eliminata','rinunciata','ricorso') NOT NULL DEFAULT 'bozza',
-  `Malattie` text,
-  `Vaccinazioni` text,
-  `DichiarazioneDellaPrivacy` text,
   `AccountGenitore` int(11) NOT NULL,
+  `Malattie` text,
+  `IsSetMalattie` enum('si', 'no', 'forse') DEFAULT 'no',
+  `Vaccinazioni` text,
+  `IsSetVaccinazioni` enum('si', 'no', 'forse') DEFAULT 'no',
+  `DichiarazioneDellaPrivacy` text,
+  `IsSetDichiarazioneDellaPrivacy` enum('si', 'no', 'forse') DEFAULT 'no',
   `Classe` int(11) DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
