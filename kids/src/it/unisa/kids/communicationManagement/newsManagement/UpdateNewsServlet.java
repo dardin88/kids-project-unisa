@@ -40,21 +40,21 @@ public class UpdateNewsServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            boolean flag=false;
+            boolean flag = false;
             PrintWriter out = response.getWriter();
             String vecchioAllegato = "";
-            String path = (String) getServletContext().getAttribute("attachedFIleFolder");
-            File f = new File (path+"/"+vecchioAllegato);
-            f.delete();
             INewsManager mn = JDBCNewsManager.getInstance();
             News n = new News();
             n.setTitle(request.getParameter("artefactTitolo"));
             n.setDescription(request.getParameter("artefactDescrizione"));
-            String allegato=request.getParameter("artefactAllegato");
-            if(!allegato.equals("")){
+            String allegato = request.getParameter("artefactAllegato");
+            if (!allegato.equals("")) {
+                String path = (String) getServletContext().getInitParameter("attachedFIleFolder");
+                File f = new File(path + "/" + vecchioAllegato);
+                f.delete();
                 n.setAttached(allegato);
-                flag=true;
-            }            
+                flag = true;
+            }
             int id = Integer.parseInt(request.getParameter("idNews"));
             int scelta = Integer.parseInt(request.getParameter("artefactTipo"));
             switch (scelta) {
@@ -93,7 +93,7 @@ public class UpdateNewsServlet extends HttpServlet {
                 Time t = new Time(0, 0, 0);
                 n.setTime(t);
             }
-            mn.update(n,flag);
+            mn.update(n, flag);
         } catch (SQLException ex) {
             Logger.getLogger(InsertNewsServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
