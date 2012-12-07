@@ -45,7 +45,12 @@ $(document).ready(function(){
                 tipoGenitore:$("#typeParent").val(),
                 facolta:$("#faculty").val()
                })
-            location.href="./accountInsert.jsp";
+               var string=" nick: ";
+               var string2="   pass: "
+               var pass=document.getElementById('password').value;
+               var nick=document.getElementById('nickname').value;
+               alert(string+nick+string2+pass);
+            location.href="./index.jsp";
         }
         
     });

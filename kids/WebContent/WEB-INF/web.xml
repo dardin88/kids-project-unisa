@@ -66,6 +66,10 @@
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.AddAccountServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ModifyPasswordServlet</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.accountManagement.ModifyPasswordServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>GetTableAccountSecretaryServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.GetTableAccountSecretaryServlet</servlet-class>
     </servlet>
@@ -522,6 +526,10 @@
     <servlet-mapping>
         <servlet-name>UpdateCommunicationServlet</servlet-name>
         <url-pattern>/UpdateCommunication</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModifyPasswordServlet</servlet-name>
+        <url-pattern>/ModifyPassword</url-pattern>
     </servlet-mapping>
         
     <welcome-file-list>

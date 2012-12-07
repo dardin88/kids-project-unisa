@@ -28,6 +28,7 @@
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/accountInformation3.js"></script>
         <title>Registrazione Account - Kids Project</title>
+         <jsp:include page="/NicknamePassword" />
         <script type="text/javascript">
             $(document).ready(function() {
                 initializeRegistrationFields();
@@ -88,9 +89,12 @@
                         <label id="accountLabel"> Tipologia Genitore: </label>
                         <input id="typeParent" class="accountInput" type="text" name="TipoAccount" /> 
                     </div>
+                    
+                    <input id="password" class="registrationField" type="text" name="Password" value="${Password}" style="visibility: hidden"> 
+                    <input id="nickname" class="registrationField" type="text" name="Nickname" value="${Nickname}" style="visibility: hidden"> 
                 </div>
                 <%--<input type="submit" id="registrationButton" value="Completa Registrazione" />--%>
-
+                
                 <input style="width: 300px; margin-left: 7%" type="submit" id="registrationButton" value="Completa Registrazione" />
 
             </fieldset>

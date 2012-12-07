@@ -3,6 +3,7 @@ function initializeLinksManager2(){
     $("#avantiButton").button();
     $("#modifyButton").button();
     $("#eliminaButton").button();
+    $("#modifyPassword").button();
 
 
     
@@ -13,33 +14,45 @@ function initializeLinksManager2(){
         width: 400
     });
     
+   
     $("#modifyPasswordWindow").dialog({
         autoOpen: false,
         modal: true,
         resizable: false,
         width: 400
     });
+}
+    function modifyPassword(id){
+     $("#modifyPasswordWindow").dialog("open"); 
     
-    $("#modifyPassword").button();
-    $("#modifyPassword").click(function(){
-        $("#modifyPasswordWindow").dialog("open"); 
-    });
-   
     $("#confirmModifyButton").button();
     $("#confirmModifyButton").click(function(){
-        alert("modicare password");
-    });
-   
-    $("#notConfirmModifyButton").button();
-    $("#notConfirmModifyButton").click(function(){
+     var old=document.getElementById("oldPass").value;
+     var newPass=document.getElementById("newPass").value;
+     var newPass2=document.getElementById("confNewPass").value;
+        $.post("ModifyPassword", {
+            id:""+id,
+            old:""+old,
+            newPass:""+newPass,
+            newPass2:""+newPass2
+        },
+    function(jsonData, status) {
+                if (jsonData.message == "OK")
+                        alert('ok password uguali');
+                else
+                        alert('password non uguali');
+        });
+        var string="Password inviata alla servlet"
+        alert(string);
         $("#modifyPasswordWindow").dialog("close"); 
     });
+    $("#notConfirmModifyButton").button();
+    $("#notConfirmModifyButton").click(function(){
+        $("#modifyPasswordWindow").dialog("close");
+    });
     
-    
-    
-    
-   
-}
+    }
+
 /* 
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -196,3 +209,7 @@ function back(id){
     location.href="./accountInformation.jsp?id="+id;
 }
 
+function close(){
+    $("#confirm").dialog("close");
+    
+}

@@ -55,8 +55,8 @@ public class GetAccountServlet extends HttpServlet {
             Account account=new Account();
             account.setId(id);
             List<Account> list=accountManager.search(account);
-            
-           
+            request.setAttribute("Password",list.get(0).getPassword());
+            request.setAttribute("Nickname",list.get(0).getNickName());
             request.setAttribute("Nome", list.get(0).getNameUser());
             request.setAttribute("Cognome", list.get(0).getSurnameUser());
             request.setAttribute("id", list.get(0).getId());
@@ -67,7 +67,7 @@ public class GetAccountServlet extends HttpServlet {
             else{
                 request.setAttribute("DataNascita", null);
             }
-                
+            request.setAttribute("app","0");
             request.setAttribute("ComuneNascita", list.get(0).getPlaceOfBirth());
             request.setAttribute("TitoloStudio", list.get(0).getQualification());
             request.setAttribute("Matricola",list.get(0).getRegister());
