@@ -70,22 +70,25 @@ public class ServletGetRegistrationChild extends HttpServlet {
                     // costruisco l'output
                     
                     json.put(DBNames.ATT_REGISTRATIONCHILD_ID, tmpChild.getId());
+                    
                     json.put(DBNames.ATT_REGISTRATIONCHILD_SURNAME, tmpChild.getSurname());
                     json.put(DBNames.ATT_REGISTRATIONCHILD_NAME, tmpChild.getName());
                     json.put(DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE, CommonMethod.parseString(tmpChild.getBirthDate()));
                     json.put(DBNames.ATT_REGISTRATIONCHILD_BIRTHPLACE, tmpChild.getBirthPlace());
                     json.put(DBNames.ATT_REGISTRATIONCHILD_FISCALCODE, tmpChild.getFiscalCode());
                     json.put(DBNames.ATT_REGISTRATIONCHILD_CITIZENSHIP, tmpChild.getCitizenship());
-                    json.put(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONDATE, CommonMethod.parseString(tmpChild.getRegistrationDate()));
                     json.put(DBNames.ATT_REGISTRATIONCHILD_USERRANGE, tmpChild.getUserRange());
-                    json.put(DBNames.ATT_REGISTRATIONCHILD_SICKNESS, tmpChild.getSickness());
-                    json.put(DBNames.ATT_REGISTRATIONCHILD_VACCINATIONS, tmpChild.getVaccinations());
-                    json.put(DBNames.ATT_REGISTRATIONCHILD_PRIVACYSTATEMENT, tmpChild.getPrivacyStatement());
+                    
+                    json.put(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONDATE, CommonMethod.parseString(tmpChild.getRegistrationDate()));
                     json.put(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE, tmpChild.getRegistrationPhase());
                     json.put(DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID, tmpChild.getParentId());
                     
-                    //jarray.put(jobject);
-                    //json.put("RegistrationChild", jarray);
+                    json.put(DBNames.ATT_REGISTRATIONCHILD_SICKNESS, tmpChild.getSickness());
+                    json.put(DBNames.ATT_REGISTRATIONCHILD_VACCINATIONS, tmpChild.getVaccinations());
+                    json.put(DBNames.ATT_REGISTRATIONCHILD_PRIVACYSTATEMENT, tmpChild.getPrivacyStatement());
+                    
+                    json.put(DBNames.ATT_REGISTRATIONCHILD_SECTIONID, tmpChild.getSectionId());
+                    
                     System.out.println(json.toString());
                     out.write(json.toString());
                 } else {

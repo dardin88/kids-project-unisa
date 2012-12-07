@@ -102,14 +102,14 @@ public final class DBNames {
     public static final String ATT_REGISTRATIONCHILD_BIRTHPLACE = "ComuneNascita";
     public static final String ATT_REGISTRATIONCHILD_FISCALCODE = "CodiceFiscale";
     public static final String ATT_REGISTRATIONCHILD_CITIZENSHIP = "Cittadinanza";
-    public static final String ATT_REGISTRATIONCHILD_REGISTRATIONDATE = "DataIscrizione";
     public static final String ATT_REGISTRATIONCHILD_USERRANGE = "FasciaUtenza";
+    public static final String ATT_REGISTRATIONCHILD_REGISTRATIONDATE = "DataIscrizione";
     public static final String ATT_REGISTRATIONCHILD_REGISTRATIONPHASE = "FaseDellIscrizione";
     public static final String ATT_REGISTRATIONCHILD_PARENTACCOUNTID = "AccountGenitore";
-    public static final String ATT_REGISTRATIONCHILD_SECTIONID = "Classe";
     public static final String ATT_REGISTRATIONCHILD_SICKNESS = "Malattie";
     public static final String ATT_REGISTRATIONCHILD_VACCINATIONS = "Vaccinazioni";
     public static final String ATT_REGISTRATIONCHILD_PRIVACYSTATEMENT = "DichiarazioneDellaPrivacy";
+    public static final String ATT_REGISTRATIONCHILD_SECTIONID = "Classe";
     public static final String ATT_REGISTRATIONCHILD_ENUM_USERRANGE_FULLTIME = "full_time";
     public static final String ATT_REGISTRATIONCHILD_ENUM_USERRANGE_PARTTIMEAM = "part_time_mattutina";
     public static final String ATT_REGISTRATIONCHILD_ENUM_USERRANGE_PARTTIMEPM = "part_time_pomeridiana";

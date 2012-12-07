@@ -145,42 +145,55 @@
                     <div>
                         <p class="formp">
                             <label><h3>Cognome:</h3></label>
-                            <input id="viewDetailsCognome" name="viewDetailsCognome" type="text" readonly="readonly" size="40%" style="margin-right: 2%">
+                            <span class="details" id="viewDetailsCognome" name="viewDetailsCognome"></span>
                         </p>
                         <p class="formp">
                             <label><h3>Nome:</h3></label>
-                            <input id="viewDetailsNome" name="viewDetailsNome" type="text" readonly="readonly" size="40%" style="margin-right: 2%">
+                            <span class="details" id="viewDetailsNome" name="viewDetailsNome"></span>
                         </p>
                         <p class="formp">
                             <label><h3>Data di nascita:</h3></label>
-                            <input id="viewDetailsDataNascita" name="viewDetailsDataNascita" type="text" readonly="readonly" size="40%" style="margin-right: 2%"> 
+                            <span class="details" id="viewDetailsDataNascita" name="viewDetailsDataNascita"></span>
                         </p>
                         <p class="formp">
                             <label><h3>Comune di nascita:</h3></label>
-                            <input id="viewDetailsComuneNascita" name="viewDetailsComuneNascita" type="text" readonly="readonly" size="40%" style="margin-right: 2%"> 
+                            <span class="details" id="viewDetailsComuneNascita" name="viewDetailsComuneNascita"></span>
                         </p>
                         <p class="formp">
                             <label><h3>Codice fiscale:</h3></label>
-                            <input id="viewDetailsCodiceFiscale" name="viewDetailsCodiceFiscale" type="text" readonly="readonly" size="40%" style="margin-right: 2%"> 
+                            <span class="details" id="viewDetailsCodiceFiscale" name="viewDetailsCodiceFiscale"></span>
                         </p>
                         <p class="formp">
                             <label><h3>Cittadinanza:</h3></label>
-                            <input id="viewDetailsCittadinanza" name="viewDetailsCittadinanza" type="text" readonly="readonly" size="40%" style="margin-right: 2%"> 
+                            <span class="details" id="viewDetailsCittadinanza" name="viewDetailsCittadinanza"></span>
                         </p>
                         <p class="formp"> 
                             <legend><h3>Fascia di utenza:</h3></legend>
-                            <ul>
-                                <input type="radio" id="viewDetailsFasciaUtenza" name="viewDetailsFasciaUtenza" value="<%= DBNames.ATT_REGISTRATIONCHILD_ENUM_USERRANGE_FULLTIME %>" readonly="readonly" />Full Time
-                                <input type="radio" id="viewDetailsFasciaUtenza" name="viewDetailsFasciaUtenza" value="<%= DBNames.ATT_REGISTRATIONCHILD_ENUM_USERRANGE_PARTTIMEAM %>" readonly="readonly" />Part Time Mattutino
-                                <input type="radio" id="viewDetailsFasciaUtenza" name="viewDetailsFasciaUtenza" value="<%= DBNames.ATT_REGISTRATIONCHILD_ENUM_USERRANGE_PARTTIMEPM %>" readonly="readonly" />Part Time Pomeridiano
-                            </ul>
-                            <br><br>
+                            <span class="details" id="viewDetailsFasciaUtenza" name="viewDetailsFasciaUtenza"></span>
+                        </p>
+                        <p class="formp"> 
+                            <legend><h3>Data di iscrizione:</h3></legend>
+                            <span class="details" id="viewDetailsDataIscrizione" name="viewDetailsDataIscrizione"></span>
+                        </p>
+                        <p class="formp"> 
+                            <legend><h3>Fase della domanda di iscrizione:</h3></legend>
+                            <span class="details" id="viewDetailsFaseIscrizione" name="viewDetailsFaseIscrizione"></span>
+                        </p>
+                        <p class="formp"> 
+                            <legend><h3>Malattie:</h3></legend>
+                            <span class="details" id="viewDetailsMalattie" name="viewDetailsMalattie"></span>
+                        </p>
+                        <p class="formp"> 
+                            <legend><h3>Vaccinazioni:</h3></legend>
+                            <span class="details" id="viewDetailsVaccinazioni" name="viewDetailsVaccinazioni"></span>
+                        </p>
+                        <p class="formp"> 
+                            <legend><h3>Dichiarazione della privacy:</h3></legend>
+                            <span class="details" id="viewDetailsDichiarazionePrivacy" name="viewDetailsDichiarazionePrivacy"></span>
                         </p>
                         <p>
+                            <br><br>
                             <input type="hidden" id="viewDetailsIdDraft" />
-                            <c:if test="${sessionScope.user.getAccountType()=='Genitore'}">
-                            <input type="submit" id="submitViewDetailsDraftButton" value="Sottometti Domanda" />
-                            </c:if>
                             <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
                             <input type="submit" id="confirmViewDetailsDraftButton" value="Conferma Domanda" />
                             </c:if>

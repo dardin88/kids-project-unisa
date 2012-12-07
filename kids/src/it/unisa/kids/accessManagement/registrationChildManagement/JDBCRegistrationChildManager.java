@@ -469,6 +469,7 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
                             DBNames.ATT_REGISTRATIONCHILD_SICKNESS + "=? " +
                             DBNames.ATT_REGISTRATIONCHILD_VACCINATIONS + "=? " +
                             DBNames.ATT_REGISTRATIONCHILD_PRIVACYSTATEMENT + "=? " +
+                            DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE + "=?" +
                         "WHERE " + DBNames.ATT_REGISTRATIONCHILD_ID + "=?;";
             pstmt = con.prepareStatement(query);
 
@@ -476,7 +477,8 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             pstmt.setString(1, child.getSickness());
             pstmt.setString(2, child.getVaccinations());
             pstmt.setString(3, child.getPrivacyStatement());
-            pstmt.setInt(4, child.getId());
+            pstmt.setString(4, DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_COMPLETED);
+            pstmt.setInt(5, child.getId());
             
             /* Test della query
             System.out.println(query);
