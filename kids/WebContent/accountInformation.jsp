@@ -35,6 +35,7 @@
             $(document).ready(function() {
                 //initializeLinksManager();
                 initializeLinksManager2();
+             
             });
         </script>
     </head>
@@ -90,6 +91,8 @@
                                 <p class="formp">
                                     <input style="margin-left: 2%; width: 250px" type="text" name="Cittadinanza" id="Cittadinanza" value="${Cittadinanza}"readonly="true" >
                                 </p>
+                                     <input style="margin-left: 2%; width: 250px" type="text" name="app" id="app" value="${app}">
+                               
                     </table>
                     <%-- <p>
                          <img id="logoAccount" src="img/logo.png" style="float: left"> <br>
@@ -162,10 +165,21 @@
             </form>
         </div>
 
-
-
-
-    </div>
+<c:if test="${requestScope.message != null}">
+            <div id="confirm" title="Message" style="display: inline">
+                <form id="confirmForm" class="cmxform" method="post" action="">
+                    <fieldset>
+                        <p class="formp">
+                            <label class="requirementLabel">${requestScope.message}</label>
+                        </p>
+                        <p class="formp">
+                            <input type="button" class="confirmButton" id="confirmButton" value="OK" onclick="close()">
+                        </p>
+                    </fieldset>
+                </form>
+            </div>
+        </c:if>
+   
     <%@include file="footer.jsp" %>
 
 </body>
