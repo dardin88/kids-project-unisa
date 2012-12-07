@@ -63,8 +63,20 @@
                         
                     </ul>
                     <div id="visualTime">
-                     <h1>Inserisci Orario di apertura</h1>
-                     <h1>Inserisci Orario di apertura</h1>
+                      <div id="notifyTimeService">
+                            <table id="notifyTable">
+                                <thead>
+                                    <tr>
+                                        <th>Orarii di Apertura</th>
+                                        <th>Orari di chiusura</th>
+                                       
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     
                     <div id="requestTime">
@@ -107,9 +119,9 @@
                             <table id="notifyTable">
                                 <thead>
                                     <tr>
-                                        <th>Nome</th>
-                                        <th>Cognome</th>
-                                        <th>Codice fiscale</th>
+                                        <th>N.</th>
+                                        <th>Notifiche</th>
+                                        <th>Operazioni</th>
                                     </tr>
                                 </thead>
 

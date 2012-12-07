@@ -4,31 +4,88 @@
  */
 function initializetimeServicePage() {
     $("#timeserviceTab").tabs();
+    buildnotifyTable();
+    buildVisualTimeTable()
 }
 
 function buildnotifyTable(){
     $('#notifyTable').dataTable({
+    "bJQueryUI": true,
+        "bServerSide": true,
         "bProcessing": true,
-        "oLanguage": {
-            "sLengthMenu": "Mostra _MENU_ oggetti",
-            "sSearch": "Cerca:",
-            "sInfo": "Da _START_ a _END_ di _TOTAL_ oggetti",
-            "sZeroRecords": "Nessun oggetto trovato",
-            "sEmptyTable": "Nessun oggetto trovato",
-            "oPaginate": {
-                "sFirst": "Prima",
-                "sLast": "Ultima",
-                "sNext": "Successiva",
-                "sPrevious": "Precedente"
-            }
-        },
-        "bJQueryUI": true,
+        "sAjaxSource": "GetRefundsTable",
         "bPaginate": true,
-        "bLengthChange": true,
-        "bFilter": true,
-        "bSort": true,
+        "bLengthChange": false,
+        "bFilter": false,
+        "fnServerParams": function ( aoData ) {
+            aoData.push(
+            {
+                "name" : "parentId", 
+                "value" : parentId
+            }
+            );
+     
+        },
+        "bSort": false,
+        "bDestroy": true,
         "bInfo": true,
-        "bAutoWidth": false,
-        "sPaginationType": "full_numbers"
+        "bAutoWidth": true,
+        "sPaginationType": "full_numbers",
+        "oLanguage": {
+            "sProcessing":   "Caricamento...",
+            "sLengthMenu":   "Visualizza _MENU_ link",
+            "sZeroRecords":  "Nessun rimborso disponibile.",
+            "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Rimborsi",
+            "sInfoEmpty":    "Vista da 0 a 0 di 0 Rimborsi",
+            "sInfoFiltered": "(filtrati da _MAX_ link totali)",
+            "sInfoPostFix":  "",
+            "oPaginate": {
+                "sFirst":    "<<",
+                "sPrevious": "<",
+                "sNext":     ">",
+                "sLast":     ">>"
+            }
+        }
+    });
+}
+
+function buildVisualTimeTable(){
+    $('#visualTimeTable').dataTable({
+    "bJQueryUI": true,
+        "bServerSide": true,
+        "bProcessing": true,
+        "sAjaxSource": "GetRefundsTable",
+        "bPaginate": true,
+        "bLengthChange": false,
+        "bFilter": false,
+        "fnServerParams": function ( aoData ) {
+            aoData.push(
+            {
+                "name" : "parentId", 
+                "value" : parentId
+            }
+            );
+     
+        },
+        "bSort": false,
+        "bDestroy": true,
+        "bInfo": true,
+        "bAutoWidth": true,
+        "sPaginationType": "full_numbers",
+        "oLanguage": {
+            "sProcessing":   "Caricamento...",
+            "sLengthMenu":   "Visualizza _MENU_ link",
+            "sZeroRecords":  "Nessun rimborso disponibile.",
+            "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Rimborsi",
+            "sInfoEmpty":    "Vista da 0 a 0 di 0 Rimborsi",
+            "sInfoFiltered": "(filtrati da _MAX_ link totali)",
+            "sInfoPostFix":  "",
+            "oPaginate": {
+                "sFirst":    "<<",
+                "sPrevious": "<",
+                "sNext":     ">",
+                "sLast":     ">>"
+            }
+        }
     });
 }
