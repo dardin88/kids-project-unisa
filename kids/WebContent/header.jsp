@@ -65,7 +65,7 @@
             </div>
         </c:if>
         
-        <c:if test="${sessioneScope.user.getAccountType()=='Responsabile Mensa'}">
+        <c:if test="${sessionScope.user.getAccountType()=='Responsabile Mensa'}">
             <div class="div">
                 <li id="canteenManagementMenuEl"><a href="canteenManagement.jsp">Gestione mensa</a></li>
             </div>
