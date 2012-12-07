@@ -57,15 +57,24 @@
             <div class="div">
                 <li id="traineeConvocation"><a href="traineeConvocation.jsp">Convocazioni</a></li>
             </div>
+            <div class="div">
+                <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
+            </div>  
         </c:if>
         
         <c:if test="${sessionScope.user.getAccountType()=='Responsabile Mensa'}">
             <div class="div">
                 <li id="canteenManagementMenuEl"><a href="canteenManagement.jsp">Gestione mensa</a></li>
             </div>
+            <div class="div">
+                <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
+            </div>  
         </c:if>
         
         <c:if test="${sessionScope.user.getAccountType()=='Delegato scienze della formazione'}">
+            <div class="div">
+                <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
+            </div>  
             <div class="div">
                 <li id="trainees"><a href="trainees.jsp">Gestione Tirocinanti</a></li>
             </div>
@@ -112,6 +121,9 @@
         </c:if>
 
         <c:if test="${sessionScope.user.getAccountType()=='Educatore'}">  
+           <div class="div">
+                <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
+            </div>  
             <div class="div">
                 <li id="healthCommunicationTable"><a href="healthCommunicationTable.jsp">Gestione Bambini - Comunicazioni Salute</a></li>
             </div>
@@ -133,6 +145,9 @@
             <div class="div">
                 <li id="meetingCalendarMenuEL"><a href="meetingCalendar.jsp">Gestione Riunioni</a></li>
             </div>
+            <div class="div">
+                <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
+            </div>  
         </c:if>
 </div>
 

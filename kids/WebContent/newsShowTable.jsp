@@ -10,11 +10,11 @@
 <c:if test="${sessionScope.user==null}">
     <c:redirect url="index.jsp" />
 </c:if>
-<c:if test="${sessionScope.user.getAccountType()!='Segreteria'}">
+<%--<c:if test="${sessionScope.user.getAccountType()!='Segreteria'}">
     <c:if test="${sessionScope.user.getAccountType()!='Genitore'}">
         <c:redirect url="index.jsp" />
     </c:if>
-</c:if>
+</c:if>--%>
 <!DOCTYPE html>
 <html>
     <head>
