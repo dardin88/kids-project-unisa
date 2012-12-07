@@ -21,7 +21,7 @@ public interface ISurveyManager extends IManager {
      public abstract void insert(Survey pAvailableSurvey, Account pParent) throws SQLException;
      public abstract void update(Survey pAvailableSurvey, Account pParent) throws SQLException;
      public abstract void delete(Survey pAvailableSurvey, Account pParent) throws SQLException;
-     public abstract List<Survey> search(Account pParent) throws SQLException;
+     public abstract List<Survey> search(Account pParent) throws SQLException; ok
      * 
      */
      
