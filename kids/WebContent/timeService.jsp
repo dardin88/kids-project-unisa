@@ -12,14 +12,20 @@
 
         <link rel="stylesheet" type="text/css" href="css/template.css">
         <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
-
+        <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
+        <link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css">
+        <link rel="stylesheet" type="text/css" href="css/TableTools.css">
 
         <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
+        <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="js/TableTools.min.js"></script>
         <script type="text/javascript" src="js/timeService.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
+
+
         <title>Orario di servizio</title>
 
         <script type="text/javascript">
@@ -47,43 +53,74 @@
             </div>
         </c:if>
         <h1>Orario di Servizio</h1>
-        <div id="timeserviceManagement">    <%--/generale--%>
-            <div id="timeserviceTab">      <%--div tab jQuery--%>
-                <ul>
-                    <li><a href="#InsertTime"><span class="TimeTab">Inserisci Orari di servizio</span></a></li>
-                    <li><a href="#modifyTime"><span class="TimeTab">Modifica Orari di servizio</span></a></li>
-                    <li><a href="#notifyTimeService"><span class="TimeTab">Notifiche</span></a></li>
-                </ul>
-                <div id="InsertTime">
-                    <form id="InsertTimeForm" class="cmxform" method="post" action="InsertTime">
-                        <h1>Inserisci Orario di apertura</h1>
-                        <textarea name="testo" rows="10" cols="100">
-          
-                        </textarea>
-                        <h1>Inserisci Orario di chiusura</h1>  
-                        <textarea name="testo" rows="10" cols="100">
-          
-                        </textarea>
-                    </form>
-                </div>
-                <div id="modifyTime">
-                    <form id="modifyTimeForm" class="cmxform" method="post" action="modifyTime">
-                        <h1>Modifica Orario di apertura</h1>
-                        <textarea name="testo" rows="10" cols="100">
-          
-                        </textarea>
-                        <h1>Modifica Orario di chiusura</h1>  
-                        <textarea name="testo" rows="10" cols="100">
-          
-                        </textarea>
-                    </form>
-                </div>
-                <div id="notifyTimeService">
-                   
-                </div>
-            </div> 
-        </div> 
 
-        <%@include file="footer.jsp" %>
+        <div id="timeserviceManagement">    <%--/generale--%>
+            <c:if test="${sessionScope.user.getAccountType()=='Genitore'}">
+                <div id="timeserviceTab">      <%--div tab jQuery--%>
+                    <ul>
+                        <li><a href="#visualTime"><span class="TimeTab">Visualizza Orari di servizio</span></a></li>
+                        <li><a href="#RequestTime"><span class="TimeTab">Richiesta Orari di servizio</span></a></li>
+                        
+                    </ul>
+                    <div id="visualTime">
+                     <h1>Inserisci Orario di apertura</h1>
+                     <h1>Inserisci Orario di apertura</h1>
+                    </div>
+                    
+                    <div id="requestTime">
+                        <form id="requestTimeForm" class="cmxform" method="post" action="requestTime">
+                    </div>
+                </div> <%--chiusura div per jquery Genitore --%>   
+                </c:if>   
+                <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}"> 
+                    <div id="timeserviceTab">      <%--div tab jQuery--%>
+                        <ul>
+                            <li><a href="#InsertTime"><span class="TimeTab">Inserisci Orari di servizio</span></a></li>
+                            <li><a href="#modifyTime"><span class="TimeTab">Modifica Orari di servizio</span></a></li>
+                            <li><a href="#notifyTimeService"><span class="TimeTab">Notifiche</span></a></li>
+                        </ul>
+                        <div id="InsertTime">
+                            <form id="InsertTimeForm" class="cmxform" method="post" action="InsertTime">
+                                <h1>Inserisci Orario di apertura</h1>
+                                <textarea name="testo" rows="10" cols="100">
+          
+                                </textarea>
+                                <h1>Inserisci Orario di chiusura</h1>  
+                                <textarea name="testo" rows="10" cols="100">
+          
+                                </textarea>
+                            </form>
+                        </div>
+                        <div id="modifyTime">
+                            <form id="modifyTimeForm" class="cmxform" method="post" action="modifyTime">
+                                <h1>Modifica Orario di apertura</h1>
+                                <textarea name="testo" rows="10" cols="100">
+          
+                                </textarea>
+                                <h1>Modifica Orario di chiusura</h1>  
+                                <textarea name="testo" rows="10" cols="100">
+          
+                                </textarea>
+                            </form>
+                        </div>
+                        <div id="notifyTimeService">
+                            <table id="notifyTable">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Cognome</th>
+                                        <th>Codice fiscale</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> 
+                </c:if>
+            </div> 
+
+            <%@include file="footer.jsp" %>
     </body>
 </html>
