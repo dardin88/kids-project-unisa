@@ -8,6 +8,8 @@ public class Survey {
     
     private int id;
     private String link;
+    private int officerId;
+    private int parentId;
     
     /**
      *Constructor is empty.
@@ -44,5 +46,22 @@ public class Survey {
     public String getLink() {
         return this.link;
     }
+    
+    public void setParent(int parentId) { 
+        this.parentId = parentId; 
+    }
+    
+    public int getParent() { 
+        return this.parentId; 
+    }
+    
+    public void setOfficer(int officerId) {
+        this.officerId = officerId;
+    }
+    
+    public int getOfficer() {
+        return this.officerId;
+    }
+    
     
 }
