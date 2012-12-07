@@ -2,25 +2,21 @@ function initializeLinksManager(){
     $.ajaxSetup({
         cache: false
     });
-    $("#addCommunicationButton").button(); 
-    $("#addCommunicationWindow").dialog({
+    $("#addLinkButton").button();   
+   
+    $("#addLinkWindow").dialog({
         autoOpen: false,
         modal: true,
         resizable: false,
         width: 600
     });
-    $("#removeCommunicationWindow").dialog({
+    $("#solveCommunicationWindow").dialog({
         autoOpen: false,
         modal: true,
         resizable: false,
-        width: 400
+        width: 600
     });
-    $("#updateCommunicationWindow").dialog({
-        autoOpen: false,
-        modal: true,
-        resizable: false,
-        width: 700
-    });
+    
     $.validator.setDefaults({
         highlight: function(input) {
             $(input).addClass("ui-state-highlight");
@@ -29,14 +25,18 @@ function initializeLinksManager(){
             $(input).removeClass("ui-state-highlight");
         }
     });
-    addNeedCommunication(); 
+    addCommunication(); 
 }
-function addNeedCommunication(){
-    $("#addCommunicationButton").click(function() {
-        $("#addCommunicationWindow").dialog("open");
-        $("#addCommunicationButton2").button();
-        $("#addCommunicationForm").validate({
+
+function addCommunication(){
+    $("#addLinkButton").click(function() {
+        $("#addLinkWindow").dialog("open");
+        $("#addLinkButton3").button();
+        $("#addLinkForm").validate({
             rules: {
+                type: {
+                    required: true
+                },
                 idEducator: {
                     required: true
                 },
@@ -48,12 +48,12 @@ function addNeedCommunication(){
                 },
                 date: {
                     required: true
-                },
-                solved: {
-                    required: true
                 }
             },
             messages: {
+                type: {
+                    required: "Inserisci tipo."
+                },
                 idEducator: {
                     required: "Inserisci id Educatore."
                 },
@@ -65,115 +65,60 @@ function addNeedCommunication(){
                 },
                 date: {
                     required: "Inserisci data"
-                },
-                solved: {
-                    required: "Risolvi"
                 }
             },
             submitHandler: function() {
-             $.post("InsertNeedCommunication",{
-                 idEducator: $("idEducator").val(),
-                 idChild: $("idChild").val(),
-                 description: $("description").val(),
-                 date: $("date").val(),
-                 solved: $("solved").val()
+                $.post("InsertCommunication", {
+                    artefactType: $("artefactType").val(),
+                    artefactIdEducator: $("artefactIdEducator").val(),
+                    artefactIdChild: $("artefactIdChild").val(),
+                    artefactDescription: $("artefactDescription").val(),
+                    artefactDate: $("artefactDate").val()
                 });
-                $("#addCommunicationWindow").dialog("close"); 
-                var oTable = $("#CommunicationTable").dataTable();
+                
+                $("#addLinkWindow").dialog("close"); 
+                var oTable = $("#linksTable").dataTable();
                 oTable.fnDraw();
-                $("idEducator").val("");
-                $("idChild").val("");
-                $("description").val("");
-                $("date").val("");
-                $("solved").val("");
+                $("#artefactType").val("");
+                $("#artefactIdEducator").val("");
+                $("#artefactIdChild").val("");
+                $("#artefactDescription").val("");
+                $("#artefactDate").val("");
             }
         });
     });
 }
-function removeCommunication(id){
-    $("#removeCommunicationWindow").dialog("open");
-    $("#notRemoveCommunicationButton").button();
-    $("#notRemoveCommunicationButton").click(function(){
-        $("#removeCommunicationWindow").dialog("close");
-    });
-    $("#removeCommunicationButton").button();
-    $("#removeCommunicationButton").click(function(){
-        $.post("RemoveCommunication",{
-            idCommunication:""+id
-        });
-         $("#removeCommunicationWindow").dialog("close");
-        var oTable = $("#CommunicationTable").dataTable();
-        oTable.fnDraw();
-    }) 
-}
-function updateCommunication(id,type,idEducator,idChild,description,data,solved){
-    $("#updateCommunicationWindow").dialog("open");
-    $("#selectFile").button();
-    $("#confirmUpdateCommunication").button();
+
+function solveCommunication(solved){
+    $("#solveCommunicationWindow").dialog("open");
+    $("#confirmSolveCommunication").button();
+    $("#solveCommunication").button();
        
-    document.forms["updateCommunicationForm"].elements["idEducator"].value=idEducator;        
-    document.forms["updateCommunicationForm"].elements["idChild"].value=idChild;        
-    document.forms["updateCommunicationForm"].elements["description"].value=description;        
-    document.forms["updateCommunicationForm"].elements["date"].value=date;
-    document.forms["updateCommunicationForm"].elements["solved"].value=solved;
-  
-    $("#updateCommunicationForm").validate({
+    document.forms["solveCommunicationForm"].elements["solved"].value=solved;        
+    
+    $("#solveCommunicationForm").validate({
         rules: {
-                idEducator: {
-                    required: true
-                },
-                idChild: {
-                    required: true
-                },
-                description: {
-                    required: true
-                },
-                date: {
-                    required: true
-                },
-                solved: {
-                    required: true
-                }
+            solved: {
+                required: true
             },
-            messages: {
-                idEducator: {
-                    required: "Inserisci id Educatore."
-                },
-                idChild: {
-                    required: "Inserisci id Bambino."
-                },
-                description: {
-                    required: "Inserisci descrizione"
-                },
-                date: {
-                    required: "Inserisci data"
-                },
-                solved: {
-                    required: "Risolvi"
-                }
-            },
-            submitHandler: function() {
-                $.post("UpdateCommunication", {
-                idEducator: $("idEducator").val(),
-                idChild: $("idChild").val(),
-                description: $("description").val(),
-                date: $("date").val(),
-                solved: $("solved").val(),
-                idNews:""+id               
+        messages: {
+            solved:{
+                required:"Risolvi"
+            }
+        },
+        submitHandler: function() { 
+            $.post("solveCommunication", {
+                artefactSolved: $("#artefactSolved").val()             
             });
-            $("#updateCommunicationWindow").dialog("close"); 
-            var oTable = $("#CommunicationTable").dataTable();
-            oTable.fnDraw();
-            $("idEducator").val("");
-            $("idChild").val("");
-            $("description").val("");
-            $("date").val("");
-            $("solved").val("");
+            $("#solveCommunicationWindow").dialog("close"); 
+            document.location.reload(true);
+            $("#artefactSolved").val("");
         }
-    });
+    }
+});
 }
-function buildNeedCommunicationTable(){
-    $('#CommunicationTable').dataTable({
+function buildShowTable(){
+    $('#linkTable').dataTable({
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
@@ -191,10 +136,10 @@ function buildNeedCommunicationTable(){
             "sLengthMenu":   "Visualizza _MENU_ link",
             "sZeroRecords":  "<b>La ricerca non ha portato alcun risultato.</b>",
             "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ COMMUNICATION",
-            "sInfoEmpty":    "<b>Vista da 0 a 0 di 0 di Comunicazione</b>",
+            "sInfoEmpty":    "<b>Vista da 0 a 0 di 0 di Communication</b>",
             "sInfoFiltered": "(filtrati da _MAX_ link totali)",
             "sInfoPostFix":  "",
-            "sSearch":       "Contenuto Comunicazione:",
+            "sSearch":       "Contenuto Communication:",
             "oPaginate": {
                 "sFirst":    "<<",
                 "sPrevious": "<",
@@ -204,22 +149,22 @@ function buildNeedCommunicationTable(){
         },
         "aoColumns": [
         {
-            "sWidth": "20%"
+            "sWidth": "15%"
         },
         {
-            "sWidth": "35%"
+            "sWidth": "8%"
+        },
+        {
+            "sWidth": "8%"
         },
         {
             "sWidth": "15%"
+        },
+        {
+            "sWidth": "15%"  
         },
         {
             "sWidth": "10%"
-        },
-        {
-            "sWidth": "25%"
-        },
-        {
-            "sWidth": "15%"
         }
         
         ],
@@ -227,8 +172,8 @@ function buildNeedCommunicationTable(){
             $.post(sSource,aoData,fnCallback,"json");
         }
     });
-    var oTable = $("#CommunicationTable").dataTable();
+    var oTable = $("#linkTable").dataTable();
     if (oTable.length > 0) {
-            $("#CommunicationTable").css("width", "100%");
+        $("#linkTable").css("width", "100%");
     }
 }
