@@ -24,7 +24,7 @@
             <div class="div">
                 <li id="paymentManagementMenuEl"><a href="paymentManagement.jsp">Gestione pagamenti</a></li>
             </div>
-            
+
             <div class="div">
                 <li id="TimeServiceMenuEL"><a href="timeService.jsp">Gestione orario di servizio</a></li>
             </div>  
@@ -61,7 +61,7 @@
                 <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
             </div>  
         </c:if>
-        
+
         <c:if test="${sessionScope.user.getAccountType()=='Responsabile Mensa'}">
             <div class="div">
                 <li id="canteenManagementMenuEl"><a href="canteenManagement.jsp">Gestione mensa</a></li>
@@ -70,7 +70,7 @@
                 <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
             </div>  
         </c:if>
-        
+
         <c:if test="${sessionScope.user.getAccountType()=='Delegato scienze della formazione'}">
             <div class="div">
                 <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
@@ -109,7 +109,7 @@
             <div class="div">
                 <li id="registrationChild"><a href="registrationChild.jsp">Gestione Domanda d'Iscrizione</a></li>
             </div>
-            
+
             <div class="div">
                 <li id="renunciationManager"><a href="renunciation.jsp">Gestione Rinunce</a></li>
             </div>
@@ -117,7 +117,9 @@
             <div class="div">
                 <li id="classification"><a href="classification.jsp">Gestione Graduatorie</a></li>
             </div>
-
+            <div class="div">
+                <li id="TimeServiceMenuEL"><a href="timeService.jsp">Gestione orario di servizio</a></li>
+            </div>  
         </c:if>
 
         <c:if test="${sessionScope.user.getAccountType()=='Educatore'}">  
