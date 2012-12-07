@@ -86,27 +86,27 @@ public class GetNewsServlet extends HttpServlet {
 
 
                 }
-                int i=0;
                 for (News a : paginateNewsSet) {
                     JSONArray ja = new JSONArray();
                     ja.put(a.getTitle());
-                    ja.put(a.getDescription());
+                   // ja.put(a.getDescription());
                     String d=(a.getDate().get(Calendar.YEAR)+"-"+(a.getDate().get(Calendar.MONTH)+1)+"-"+a.getDate().get(Calendar.DAY_OF_MONTH));
                     ja.put(d);
                     ja.put(a.getTime().toString());
                     ja.put(a.getType());
                     String time=(a.getTime().toString().substring(0, 5));
                     ja.put("<a style=\"color:black;background:none;\" href=\"DownloadFile?nameFile="+a.getAttached()+"\">"+a.getAttached()+"</a>");
+                    String operazioni="<div style=\"text-align:center;\" ><input id=\"idUpdateNews\" class='tableImage' height='20px' type='image' src='img/change.png' onclick=\"updateNews("+a.getId()+",'"+a.getTitle()+"','"+a.getDescription()+"','"+a.getType()+"','"+d+"','"+time+"','"+a.getAttached()+"')\" />";
                     if(nomeUtente.equals("Segreteria"))
                     {
-                     String operazioni = "<div style=\"text-align:center;\" ><input id=\"removeNews\" onclick=\"removeNews("+a.getId() +")\" class='tableImage' type='image' src='img/trash.png' />"+"<input id=\"idUpdateNews\" class='tableImage' height='20px' type='image' src='img/change.png' onclick=\"updateNews("+a.getId()+",'"+a.getTitle()+"','"+a.getDescription()+"','"+a.getType()+"','"+d+"','"+time+"')\" /> </div>";
+                     operazioni += "<input id=\"removeNews\" onclick=\"removeNews("+a.getId() +")\" class='tableImage' type='image' src='img/trash.png' /></div>";
                      ja.put(operazioni);
                     }
                     else {
-                        ja.put("");
+                        operazioni+="</div>";
+                        ja.put(operazioni);
                     }
                     array.put(ja);
-                    i++;
                 }
             }
             result.put("sEcho", sEcho);

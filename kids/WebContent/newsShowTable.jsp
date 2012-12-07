@@ -68,7 +68,7 @@
                         <label class="artefactLabel" for="artefactDescrizione">Descrizione *</label>
                     </td>
                     <td>  
-                        <input id="artefactDescrizione"  type="text" name="descrizioneNews"></input>
+                        <textarea id="artefactDescrizione"rows="5" cols="25" name="descrizioneNews"></textarea>
                     </td>
                     </p>
                     </tr>
@@ -136,8 +136,8 @@
         <input type="button" class="buttonRemove" id="notRemoveNewsButton" value="Annulla" />
     </p>
 </div>
-<div id="updateNewsWindow" title="Modifica News" style="display: inline">
-    <form id="updateNewsForm" name="updateNewsForm" class="cmxform" method="post" action="">
+<div id="updateNewsWindow" title="Visualizza News" style="display: inline">
+    <form id="updateNewsForm"  name="updateNewsForm" class="cmxform" method="post" action="">
         <fieldset>
             <table style="width:100%;">
                 <tr>
@@ -146,7 +146,7 @@
                     <label class="artefactLabel" for="artefactTitolo">Titolo *</label>
                 </td>
                 <td>
-                    <input id="artefactTitolo2"  type="text" name="nomeNews" ></input>                     
+                    <input id="artefactTitolo2" disabled type="text" name="nomeNews" ></input>                     
                 </td>
                 </p>
                 </tr>
@@ -156,7 +156,7 @@
                     <label class="artefactLabel" for="artefactDescrizione">Descrizione *</label>
                 </td>
                 <td>  
-                    <input id="artefactDescrizione2"  type="text" name="descrizioneNews"></input>
+                    <textarea id="artefactDescrizione2"rows="5" disabled cols="25" name="descrizioneNews"></textarea>
                 </td>
                 </p>
                 </tr>
@@ -166,7 +166,7 @@
                     <label class="artefactLabel" for="artefactTipo">Tipo *</label>
                 </td>
                 <td>
-                    <select id="artefactTipo2" onblur="verifyOra()" name="selectNews" class="artefactSelect">
+                    <select id="artefactTipo2" disabled onblur="verifyOra()" name="selectNews" class="artefactSelect">
                         <option value="0">Scegli tipo News</option>
                         <option value="1">Evento</option>
                         <option value="2">Notizia</option>
@@ -182,7 +182,7 @@
                     <label class="artefactLabel" for="artefactData">Data *</label>
                 </td>
                 <td>
-                    <input id="artefactData2"  type="text" name="dataNews"></input>
+                    <input id="artefactData2" disabled type="text" name="dataNews"></input>
                 </td>
                 </p>
                 </tr>
@@ -192,7 +192,7 @@
                     <label class="artefactLabel" for="artefactOra">Ora</label>
                 </td>
                 <td>
-                    <input id="artefactOra2" onkeyup="hiddenMessage()" onclick="hiddenMessage()" type="time" name="oraNews"></input>
+                    <input id="artefactOra2" onkeyup="hiddenMessage()" onclick="hiddenMessage()" disabled type="time" name="oraNews"></input>
                     <span id="errOra" style="visibility: hidden;color:red;font-weight: bold"> Ora Obbligatoria per questa news </span> 
                 </td>
                 </p>
@@ -200,13 +200,19 @@
                 <tr>
                 <p style="text-align: left;" class="formp">
                 <td>
-                    <label class="artefactLabel" for="artefactAllegato">Allegato non pu&ograve; essere modificato</label>
+                    <label class="artefactLabel" for="artefactAllegato">Allegato (pu&ograve; essere anche vuoto)</label>
+                </td>
+                <td>
+                    <input type="file" disabled id="selectFile"  name="scegliFile" ></input>
                 </td>
                 </p>                      
                 </tr>
                 <tr>
-                    <td colspan="2">
-                        <input type="submit" class="windowButton" id="confirmUpdateNews" value="Ok"/>                 
+                    <td>
+                       <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
+                           <input type="button" class="windowButton2" id="updateNews" value="Modifica" onclick="enableButtonUpdate()" />
+                           <input type="submit" style="visibility: hidden;" class="windowButton2" id="confirmUpdateNews"  value="Salva"/>                 
+                       </c:if>
                     </td>
                 </tr>
             </table>                 
@@ -224,7 +230,6 @@
             <thead>
                 <tr>
                     <th>Titolo</th>
-                    <th>Descrizione</th>
                     <th>Data</th>
                     <th>Ora</th>
                     <th>Tipo</th>

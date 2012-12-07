@@ -39,11 +39,17 @@ public class UpdateNewsServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+            boolean flag=false;
             PrintWriter out = response.getWriter();
             INewsManager mn = JDBCNewsManager.getInstance();
             News n = new News();
             n.setTitle(request.getParameter("artefactTitolo"));
-            n.setDescription(request.getParameter("artefactDescrizione"));
+            n.setDescription(request.getParameter("artefactDescrizione"));            
+            String allegato=request.getParameter("artefactAllegato");
+            if(allegato!=""){
+                n.setAttached(allegato);
+                flag=true;
+            }            
             int id = Integer.parseInt(request.getParameter("idNews"));
             int scelta = Integer.parseInt(request.getParameter("artefactTipo"));
             switch (scelta) {
@@ -83,7 +89,7 @@ public class UpdateNewsServlet extends HttpServlet {
                 n.setTime(t);
             }
             //   System.out.print(n.getTitle()+n.getDescription()+n.getType()+n.getAttached()+n.getTime()+n.getDate().getTime());
-            mn.update(n);
+            mn.update(n,flag);
         } catch (SQLException ex) {
             Logger.getLogger(InsertNewsServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
