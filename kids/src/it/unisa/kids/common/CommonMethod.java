@@ -79,7 +79,7 @@ public class CommonMethod {
         String toReturn;
         if(gregorian != null) {
             toReturn = new String(gregorian.get(Calendar.YEAR) + "-" + 
-                    gregorian.get(Calendar.MONTH) + "-" + gregorian.get(Calendar.DAY_OF_YEAR));
+                    gregorian.get(Calendar.MONTH) + "-" + gregorian.get(Calendar.DAY_OF_MONTH));
         } else {
             toReturn = null;
         }

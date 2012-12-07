@@ -394,6 +394,7 @@ function viewDetailsRegistrationChild(id) {
     $("#viewDetailsIdDraft").val(id);
     //alert("L'id: " + $("#viewDetailsIdDraft").val())
     //* Primo tentativo
+    /*
     $.ajax({
             url: "GetRegistrationChild",
             dataType: 'json',
@@ -423,23 +424,41 @@ function viewDetailsRegistrationChild(id) {
             error: function(jqXHR, textStatus, errorThrown) {
                 alert("c'è stato un errore: " + textStatus + " errorThrown: " + errorThrown);
             },
-            complete: function(json) { // codice eseguito indipendentemente dal riuscita o meno
-                /*alert("La richiesta è stata fatta");
-                alert("L'id è: " + json.Id);*/
+            complete: function(json) {
+                // codice eseguito indipendentemente dal riuscita o meno
+                // alert("La richiesta è stata fatta");
+                // alert("L'id è: " + json.Id);
             }
         });
     //*/
-    /* Secondo
-    $.post("GetRegistrationChild",{
+    //* Secondo
+    var nomeServlet = "GetRegistrationChild";
+    var parametri = {
                 Id: id
-            },function(data){
-                var result = data.split(",")
-                alert("CI sono: " + result[0]);
-            })//*/
-    /*
-     * MANCA LA PARTE DI COMPLETAMENTO DELLA FORM PRENDENDO I DATI DAL DATABASE
-     */
+            };
+    var toExecuteAtEnd = function(risultato) {
+        // Elaboro il risultato: risultato.NOME_PROPRIETA_IMPOSTATO_NELLA_SERVLET
+        $("#viewDetailsIdDraft").val(risultato.Id);
+        $("#viewDetailsCognome").html(risultato.Cognome);
+        $("#viewDetailsNome").html(risultato.Nome);
+        $("#viewDetailsDataNascita").html(risultato.DataNascita);
+        $("#viewDetailsComuneNascita").html(risultato.ComuneNascita);
+        $("#viewDetailsCodiceFiscale").html(risultato.CodiceFiscale);
+        $("#viewDetailsCittadinanza").html(risultato.Cittadinanza);
+        $("#viewDetailsFasciaUtenza").html(risultato.FasciaUtenza);
+        $("#viewDetailsDataIscrizione").html(risultato.DataIscrizione);
+        $("#viewDetailsFaseIscrizione").html(risultato.FaseDellIscrizione);
+        // Non utilizzo il valore di parentAccountId
+        $("#viewDetailsMalattie").html(risultato.Malattie);
+        $("#viewDetailsVaccinazioni").html(risultato.Vaccinazioni);
+        $("#viewDetailsDichiarazionePrivacy").html(risultato.DichiarazioneDellaPrivacy);
+    }
+    comunicaConServlet(nomeServlet, parametri, toExecuteAtEnd);
     
+    //alert(risultato.Id + " " + risultato.Cognome);
+    
+    // Non utilizzo il valore di sectionId
+    //*/
     $("#viewDetailsRegistrationChildWindow").dialog("open");
 }
 
@@ -495,4 +514,24 @@ function getTypeValue(idRadio) {
         }
     }
     return radios[indice].value; 
-} 
+}
+
+function comunicaConServlet(nomeServlet, parametri, toExecuteAtEnd) {
+    $.ajax({
+        url: nomeServlet,
+        dataType: 'json',
+        type: 'POST',
+        data: parametri,
+        success: function(json) {
+            toExecuteAtEnd(json);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert("c'è stato un errore: " + textStatus + " errorThrown: " + errorThrown);
+        },
+        complete: function() {
+            // codice da eseguire indipendentemente dal riuscita o meno della richiesta
+            // viene eseguito al completamento
+        }
+    });
+}
+
