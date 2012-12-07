@@ -5,20 +5,24 @@ package it.unisa.kids.communicationManagement.surveyManagement;
  * @author felice
  */
 public class Survey {
+    
+    private int id;
+    private String link;
+    
     /**
      *Constructor is empty.
      */
     public Survey() {}
     
     /**
-     *Sets the Survey's id.
+     *Sets an ID for the survey.
      * @param pId
      */
     public void setId(int pId){
         this.id = pId;
     }
     /**
-     *Returns the Survey's id.
+     *Returns the ID for a survey.
      * @return id
      */
     public int getId() {
@@ -26,7 +30,7 @@ public class Survey {
     }
     
     /**
-     *Sets the Survey's link.
+     *Sets the link of the survey.
      * @param pLink
      */
      public void setLink(String pLink) {
@@ -34,23 +38,11 @@ public class Survey {
     }
     
      /**
-      *Returns the Survey's link.
+      *Returns the link of the survey.
       * @return link
       */
     public String getLink() {
         return this.link;
     }
     
-    
-    public void setCompiled() {
-       this.compiled = true; 
-    }
-    
-    public boolean getCompiled() {
-        return (this.compiled);
-    }
-    
-    private int id;
-    private String link;
-    private boolean compiled;
 }

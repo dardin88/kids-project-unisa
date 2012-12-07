@@ -158,8 +158,11 @@ public class JDBCSurveyManager implements ISurveyManager{
             DBConnectionPool.releaseConnection(connection);
         }
     }
-
     
+    
+
+   /* Not necessary at this moment. The other methods are unimplemented. 
+    * 
     public void insert(Survey pAvailableSurvey, Account pParent) throws SQLException {
        Connection connection = null;
        PreparedStatement pStmt = null;
@@ -205,5 +208,5 @@ public class JDBCSurveyManager implements ISurveyManager{
     public List<Survey> search(Account pParent) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet.");
     } 
-    
+     */
 }
