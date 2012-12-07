@@ -155,7 +155,7 @@ function updateCommunication(id,type,idEducator,idChild,description,data){
         }
     });
 }
-function buildNeedCommunicationTable(){
+function buildHealthCommunicationTable(){
     $('#CommunicationTable').dataTable({
         "bJQueryUI": true,
         "bServerSide": true,

@@ -20,6 +20,8 @@
         <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css">
+        <link rel="stylesheet" type="text/css" href="css/jquery.ui.timepicker.css">
+        
         <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
         <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
@@ -27,23 +29,25 @@
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/needCommunicationTable.js"></script>
+        <script type="text/javascript" src="js/jquery.ui.timepicker.js"></script>
+        
         <title>Gestione Bambini "Visualizza Cominucazioni Bisogni"- Kids Project</title>
         <script type="text/javascript">
             $(document).ready(function() {
                 activePage();
                 initializeLinksManager();
-                buildShowTable();
+                $("#artefactData").datepicker({dateFormat:'yy-mm-dd' });
+                buildNeedCommunicationTable();
             });
         </script>
     </head>
     <div id="addCommunicationWindow" title="Inserisci Comunicazione" style="display: inline">
-         <form id="addCommunicationForm" class="cmxform" method="post" action="">
-             <fieldset>
+        <form id="addCommunicationForm" class="cmxform" method="post" action="" enctype="multipart/form-data" >
+         <fieldset>
                  <p style="text-align: left;" class="formp">
                      <label class="artefactLabel" for="artefactType">Tipo *</label>
                       <select id="artefactType"style=" display:block;" name="Type" class="artefactSelect">
                         <option value="0">Scegli tipo Comunicazione</option>
-                        <option value="1">Salute</option>
                         <option value="1">Bisogno</option>
                       </select>
                  </p>
@@ -60,8 +64,8 @@
                      <input id="artefactDescription" style="display:block;" type="date" name="description"></input>
                  </p>
                 <p style="text-align: left;" class="formp">
-                     <label class="artefactLabel" for="artefactDate">Data *</label>
-                     <input id="artefactDate" style="display:block;" type="date" name="date"></input>
+                     <label class="artefactLabel" for="artefactData">Data *</label>
+                     <input id="artefactData"  type="text" name="date"></input>
                  </p>
                 <p style="text-align: left;" class="formp">
                      <label class="artefactLabel" for="artefactSolved">Risolvi *</label>
@@ -71,12 +75,13 @@
              </fieldset>
          </form>
     </div>
-    <div id="removeCommunicationWindow" title="Rimuovi Comunicazione" style="display: inline">
-            <h3> Vuoi rimuovere definitivamente questa comunicazione?</h3>
-            <input type="button" class="windowButton" id="removeCommunicationButton" value="Ok" />
-            <input type="button" class="windowButton" id="notRemoveCommunicationButton" value="Annulla" />
-        
-    </div>
+    <div class="removeCommunication" id="removeCommunicationWindow" title="Rimuovi Comunicazione" >
+        <p class="formp">    
+        <h3> Vuoi rimuovere definitivamente questa comunicazione?</h3>
+        <input type="button" class="buttonRemove" id="removeCommunicationButton" value="Ok" />
+        <input type="button" class="buttonRemove" id="notRemoveCommunicationButton" value="Annulla" />
+    </p>
+</div>
     <div id="updateCommunicationWindow" title="Modifica Comunicazione" style="display: inline">
     <form id="updateCommunicationForm" name="updateCommunicationForm" class="cmxform" method="post" action="">
         <fieldset>
@@ -84,7 +89,6 @@
                      <label class="artefactLabel" for="artefactType">Tipo *</label>
                       <select id="artefactType"style=" display:block;" name="Type" class="artefactSelect">
                         <option value="0">Scegli tipo Comunicazione</option>
-                        <option value="1">Salute</option>
                         <option value="1">Bisogno</option>
                       </select>
                  </p>
@@ -101,8 +105,8 @@
                      <input id="artefactDescription" style="display:block;" type="date" name="description"></input>
                  </p>
                  <p style="text-align: left;" class="formp">
-                     <label class="artefactLabel" for="artefactDate">Data *</label>
-                     <input id="artefactDate" style="display:block;" type="date" name="date"></input>
+                     <label class="artefactLabel" for="artefactData">Data *</label>
+                     <input id="artefactData"  type="text" name="date"></input>
                  </p>
                  <p style="text-align: left;" class="formp">
                      <label class="artefactLabel" for="artefactSolved">Risolvi *</label>
