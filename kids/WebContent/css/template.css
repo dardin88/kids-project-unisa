@@ -539,6 +539,11 @@ managerTraineeRequest
     width: 80%;
 }
 
+.formp .details {
+    margin-left:  2%;
+    color: #FFF;
+    width: 50%;
+}
 /* 
      TimeServiceManagment
 */

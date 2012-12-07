@@ -35,9 +35,6 @@ function initializeRegistrationFields(){
                 NewNome: {
                     required: true
                 },
-                NewDataNascita:    {
-//                    date: true
-                },
                 NewCodiceFiscale:  {
                     //codicefiscale: true
                 }
@@ -48,9 +45,6 @@ function initializeRegistrationFields(){
                 },
                 NewNome:   {
                     required: "Inserisci il nome"
-                },
-                NewDataNascita:    {
-//                    date: "La data di nascita deve essere nel formato (AAAA/MM/GG)"
                 },
                 NewCodiceFiscale:  {
                    // codicefiscale: "Inserire il codice fiscale in modo corretto"
@@ -64,7 +58,7 @@ function initializeRegistrationFields(){
                     ComuneNascita: $("#NewComuneNascita").val(),
                     CodiceFiscale: $("#NewCodiceFiscale").val(),
                     Cittadinanza: $("#NewCittadinanza").val(),
-                    FasciaUtenza: $("#NewFasciaUtenza").val()
+                    FasciaUtenza: getTypeValue('NewFasciaUtenza')
                 });
                 $("#newRegistrationChildWindow").dialog("close");
                 //alert("La bozza è stata salvata");
@@ -290,7 +284,6 @@ function initializeRegistrationFields(){
     $("#undoViewDetailsDraftButton").button();
     $("#undoViewDetailsDraftButton").click(function(){
         $("#viewDetailsRegistrationChildWindow").dialog("close");
-        location.href = "./registrationChild.jsp";
     });
     // FINE VISUALIZZA DETTAGLI DOMANDA
     
@@ -308,7 +301,6 @@ function initializeRegistrationFields(){
     $("#undoOperationRCButton").button();
     $("#undoOperationRCButton").click(function(){
         $("#confirmOperationRCWindow").dialog("close");
-        location.href = "./registrationChild.jsp";
     });
     // FINE VISUALE DI CONFERMA ELIMINA/CONVALIDA BUTTON
     
@@ -402,25 +394,40 @@ function viewDetailsRegistrationChild(id) {
     $("#viewDetailsIdDraft").val(id);
     //alert("L'id: " + $("#viewDetailsIdDraft").val())
     //* Primo tentativo
-    $.ajax({   // prima ajax
-                        url: "GetRegistrationChild",
-                        dataType: 'json',
-                        type: 'POST',
-                        data: {
-                            Id: id
-                        },
-                        success: function() {
-                            alert("Successo");
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            alert("c'è stato un errore: " + textStatus + " errorThrown: " + errorThrown);
-                        },
-                        complete: function(json) { // codice eseguito indipendentemente dal riuscita o meno
-                            /*alert("La richiesta è stata fatta");
-                            alert("L'id è: " + json.Id);*/
-                        }
-                      });
-    //alert(datavisualizza.Cognome);
+    $.ajax({
+            url: "GetRegistrationChild",
+            dataType: 'json',
+            type: 'POST',
+            data: {
+                Id: id
+            },
+            success: function(json) {
+                // La variabile json contiene tutti gli id/valore ricevuti dalla servlet
+                //alert("Successo nel caricamento! Inizio a settare i campi");
+                $("#viewDetailsIdDraft").val(json.Id);
+                $("#viewDetailsCognome").html(json.Cognome);
+                $("#viewDetailsNome").html(json.Nome);
+                $("#viewDetailsDataNascita").html(json.DataNascita);
+                $("#viewDetailsComuneNascita").html(json.ComuneNascita);
+                $("#viewDetailsCodiceFiscale").html(json.CodiceFiscale);
+                $("#viewDetailsCittadinanza").html(json.Cittadinanza);
+                $("#viewDetailsFasciaUtenza").html(json.FasciaUtenza);
+                $("#viewDetailsDataIscrizione").html(json.DataIscrizione);
+                $("#viewDetailsFaseIscrizione").html(json.FaseDellIscrizione);
+                // Non utilizzo il valore di parentAccountId
+                $("#viewDetailsMalattie").html(json.Malattie);
+                $("#viewDetailsVaccinazioni").html(json.Vaccinazioni);
+                $("#viewDetailsDichiarazionePrivacy").html(json.DichiarazioneDellaPrivacy);
+                // Non utilizzo il valore di sectionId
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert("c'è stato un errore: " + textStatus + " errorThrown: " + errorThrown);
+            },
+            complete: function(json) { // codice eseguito indipendentemente dal riuscita o meno
+                /*alert("La richiesta è stata fatta");
+                alert("L'id è: " + json.Id);*/
+            }
+        });
     //*/
     /* Secondo
     $.post("GetRegistrationChild",{
@@ -444,15 +451,11 @@ function removeRegistrationChild(id) {
     
     // Assegno la funzione al bottone
     $("#confirmOperationRCButton").click(function(){
-        $("#confirmOperationRCForm").validate({
-            submitHandler: function() {
-                $.post("EditPhaseRegistrationChild", {
-                    Id: $("#confirmOperationRCIdDraft").val(),
-                    FaseDellIscrizione: "eliminata"
-                });
-                $("#confirmOperationRCWindow").dialog("close");
-            }
+        $.post("EditPhaseRegistrationChild", {
+                Id: $("#confirmOperationRCIdDraft").val(),
+                FaseDellIscrizione: "eliminata"
         });
+        $("#confirmOperationRCWindow").dialog("close");
     });
     
     // la rendo visibile
@@ -466,17 +469,30 @@ function confirmRegistrationChild(id) {
     
     // Assegno la funzione al bottone
     $("#confirmOperationRCIdDraft").click(function(){
-        $("#confirmOperationRCForm").validate({
-            submitHandler: function() {
-                $.post("EditPhaseRegistrationChild", {
-                    Id: $("#confirmOperationRCIdDraft").val(),
-                    FaseDellIscrizione: "confermata"
-                });
-                $("#confirmOperationRCWindow").dialog("close");
-            }
+        $.post("EditPhaseRegistrationChild", {
+            Id: $("#confirmOperationRCIdDraft").val(),
+            FaseDellIscrizione: "confermata"
         });
+        $("#confirmOperationRCWindow").dialog("close");
     });
     
     // la rendo visibile
     $("#confirmOperationRCWindow").dialog("open");
 }
+
+
+function getTypeValue(idRadio) { 
+    var indice = -1; 
+    var i = 0;
+    var radios = document.getElementsByName(idRadio);
+
+    while(i < radios.length && indice == -1) {
+        if(radios[i].checked) {
+            indice = i;
+            alert(radios[i].value);
+        } else {
+            i++;
+        }
+    }
+    return radios[indice].value; 
+} 
