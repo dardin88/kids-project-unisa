@@ -15,7 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,12 +43,12 @@ public class UploadFileServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         // Create path components to save the file
-        final String path = "/home/francesco/attached";
+        final String path = getServletContext().getInitParameter("attachedFIleFolder");
         final Part filePart = request.getPart("scegliFile");
         final String fileName = getFileName(filePart);
-    
+
         OutputStream out = null;
         InputStream filecontent = null;
         final PrintWriter writer = response.getWriter();
@@ -64,15 +63,15 @@ public class UploadFileServlet extends HttpServlet {
             while ((read = filecontent.read(bytes)) != -1) {
                 out.write(bytes, 0, read);
             }
-           // writer.println("New file " + fileName + " created at " + path);
+            // writer.println("New file " + fileName + " created at " + path);
             LOGGER.log(Level.INFO, "File{0}being uploaded to {1}",
                     new Object[]{fileName, path});
-           writer.println("<script language=\"javascript\" type=\"text/javascript\">");
+            writer.println("<script language=\"javascript\" type=\"text/javascript\">");
             writer.println("var fileName = " + fileName + ";");
-            
+
             request.getSession().setAttribute("nameFile", fileName);
-           //request.getServletContext().getRequestDispatcher("/newsShowTable.jsp").forward(request, response);
-           response.sendRedirect("/kids/newsShowTable.jsp");
+            //request.getServletContext().getRequestDispatcher("/newsShowTable.jsp").forward(request, response);
+            response.sendRedirect("/kids/newsShowTable.jsp");
 
         } catch (FileNotFoundException fne) {
             writer.println("You either did not specify a file to upload or are "

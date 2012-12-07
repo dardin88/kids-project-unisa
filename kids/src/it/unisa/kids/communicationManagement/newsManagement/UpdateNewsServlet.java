@@ -6,6 +6,7 @@
 package it.unisa.kids.communicationManagement.newsManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -41,12 +42,16 @@ public class UpdateNewsServlet extends HttpServlet {
         try {
             boolean flag=false;
             PrintWriter out = response.getWriter();
+            String vecchioAllegato = "";
+            String path = (String) getServletContext().getAttribute("attachedFIleFolder");
+            File f = new File (path+"/"+vecchioAllegato);
+            f.delete();
             INewsManager mn = JDBCNewsManager.getInstance();
             News n = new News();
             n.setTitle(request.getParameter("artefactTitolo"));
-            n.setDescription(request.getParameter("artefactDescrizione"));            
+            n.setDescription(request.getParameter("artefactDescrizione"));
             String allegato=request.getParameter("artefactAllegato");
-            if(allegato!=""){
+            if(!allegato.equals("")){
                 n.setAttached(allegato);
                 flag=true;
             }            
@@ -88,7 +93,6 @@ public class UpdateNewsServlet extends HttpServlet {
                 Time t = new Time(0, 0, 0);
                 n.setTime(t);
             }
-            //   System.out.print(n.getTitle()+n.getDescription()+n.getType()+n.getAttached()+n.getTime()+n.getDate().getTime());
             mn.update(n,flag);
         } catch (SQLException ex) {
             Logger.getLogger(InsertNewsServlet.class.getName()).log(Level.SEVERE, null, ex);
