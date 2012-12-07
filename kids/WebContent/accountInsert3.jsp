@@ -27,6 +27,7 @@
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/accountInformation3.js"></script>
+        <script type="text/javascript" src="js/account.js"></script>
         <title>Registrazione Account - Kids Project</title>
          <jsp:include page="/NicknamePassword" />
         <script type="text/javascript">
@@ -57,7 +58,17 @@
 
                     <div>
                         <span id="accountLabel">  Tipo di Account: </span>
-                        <input id="typeAccount" class="accountInput" type="text" name="typeAccount" value="TipoAccount">
+                        <select id="choose" name="tipo" onchange="verificaAccount()">
+                            <OPTION value="Nothing" name="Scelta" selected> Scegli 
+                            <OPTION value="Genitore" name="Genitore"> Genitore 
+                            <OPTION value="DelegatoUfficio" name="DelegatoUfficio"> Segreteria 
+                            <OPTION value="ScienzeFormazione" name="ScienzeFormazione"> Delegato Scienze della Formazione 
+                            <OPTION value="Educatore" name="Educatore"> Educatore 
+                            <OPTION value="CoordinatorePsicopedagogico" name="CoordinatorePsicopedagogico"> Coordinatore Psicopedagogico 
+                            <OPTION value="ResponsabileScentifico" name="ResponsabileScientifico"> Responsabile Scentifico 
+                            <OPTION value="ResponsabileAsilo" name="ResponsabileAsilo"> Responsabile Asilo
+                        </select>
+                       
                     </div>
 
                     <div>
@@ -71,23 +82,31 @@
                     </div>
 
                     <div>
-                        <label id="accountLabel"> Scadenza Contratto: </label>
-                        <input id="contractExpirationDate" class="accountInput" type="text" name="ScadenzaContratto">
+                        <label id="accountLabel3" style="display: none"> Scadenza Contratto: </label>
+                        <input style="display: none"  id="contractExpirationDate" class="accountInput" type="text" name="ScadenzaContratto">
                     </div>
 
                     <div>
-                        <span id="accountLabel">  Facoltà: </span>
-                        <input id="faculty" class="accountInput" type="text" name="Facolta">
+                        <span id="accountLabel5" style="display: none">  Facoltà: </span>
+                        <input style="display: none" id="faculty" class="accountInput" type="text" name="Facolta">
                     </div>
 
                     <div>
-                        <label id="accountLabel"> Data di Immatricolazione: </label>
-                        <input id="registrationDate" class="accountInput" type="text" name="DataRegistrazione">
+                        <label id="accountLabel4" style="display: none"> Data di Immatricolazione: </label>
+                        <input style="display: none" id="registrationDate" class="accountInput" type="text" name="DataRegistrazione">
                     </div>
 
                     <div>
-                        <label id="accountLabel"> Tipologia Genitore: </label>
-                        <input id="typeParent" class="accountInput" type="text" name="TipoAccount" /> 
+                        <label id="accountLabel2" style="display: none"> Tipologia Genitore: </label>
+                        <select id="choose2" style="display: none" name="tipo" onchange="verificaGenitore()">
+                            <OPTION value="Nothing" name="Scegli" selected> Scegli
+                            <OPTION value="Studente" name="Genitore"> Studente 
+                            <OPTION value="TecnicoAmministrativo" name=""> Tecnico Amministrativo 
+                            <OPTION value="Docente" name="Genitore"> Docente 
+                            <OPTION value="ContrattoTempoDeterminato" name="Genitore"> Contratto Tempo Determinato 
+                            <OPTION value="Ricercatore" name="Ricercatore">Ricercatore 
+                            <OPTION value="Dottorando" name="Dottorando"> Dottorando 
+                        </select>
                     </div>
                     
                     <input id="password" class="registrationField" type="text" name="Password" value="${Password}" style="visibility: hidden"> 
