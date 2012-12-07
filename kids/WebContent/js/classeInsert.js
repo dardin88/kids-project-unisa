@@ -27,19 +27,16 @@ $(document).ready(function(){
             
             Nome:{
                 required:true
-            },
-            Stato:"required"
+            }
         },
         messages:{
-            Nome:" Inserisci il nome",
-            Stato:" Inserisci lo stato della richiesta"
+            Nome:" Inserisci il nome"
         },
         submitHandler:function() {
-            $.post("AddAccount",{  //non so qui come farlo XD
-                matricolaAccount:$("#Name").val(),
-                nomeAccount:$("#State").val()
+            $.post("AddClassBean",{  
+                Nome:$("#name").val()
             })
-            location.href="AddClassBeanServlet"; //e nemmeno qui, la servlet nn va bene
+            location.href="classe.jsp";
         }
         
     });

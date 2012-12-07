@@ -3,9 +3,9 @@
  * and open the template in the editor.
  */
 function initializeClassFields() {
-    $("#registrationButton").button();
-    $("#registrationButton").click(function() {
-        $("#registrationButton").submit();
+    $("#ricarica").button();
+    $("#ricarica").click(function() {
+        $("#ricarica").submit();
     });
     $("#removeAccountWindow").dialog({
        autoOpen: false,
@@ -27,13 +27,13 @@ function buildAccountTable(){
         "fnServerParams": function ( aoData ) {
             aoData.push(
             {
-                "name" : "state", 
+                "name" : "name", 
                 "value" : $('#name').val()
             },
 
             {
-                "name" : "name", 
-                "value" : $('#surname').val()
+                "name" : "state", 
+                "value" : $('#state').val()
             }
             );
      
@@ -47,8 +47,8 @@ function buildAccountTable(){
             "sProcessing":   "Caricamento...",
             "sLengthMenu":   "Visualizza _MENU_ link",
             "sZeroRecords":  "La ricerca non ha portato alcun risultato.",
-            "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Account",
-            "sInfoEmpty":    "Vista da 0 a 0 di 0 Account",
+            "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Classi",
+            "sInfoEmpty":    "Vista da 0 a 0 di 0 Classi",
             "sInfoFiltered": "(filtrati da _MAX_ link totali)",
             "sInfoPostFix":  "",
             "oPaginate": {
@@ -67,10 +67,13 @@ function buildAccountTable(){
         },
         "aoColumns": [
         {
-            "sWidth": "50%"
+            "sWidth": "40%"
         },
         {
-            "sWidth": "50%"
+            "sWidth": "40%"
+        },
+        {
+            "sWidth": "20%"
         }
         ]
     });
@@ -86,7 +89,7 @@ function removeAccount(id){
         $("#removeAccountWindow").dialog("close"); 
         var oTable = $("#accountsTable").dataTable();
         oTable.fnDraw();
-        location.href="./accountSecretary.jsp";
+        location.href="./classe.jsp";
     });
     $("#notConfirmRemoveLinkButton").button();
     $("#notConfirmRemoveLinkButton").click(function(){

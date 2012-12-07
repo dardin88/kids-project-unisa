@@ -5,6 +5,7 @@ import it.unisa.kids.communicationManagement.newsManagement.JDBCNewsManager;
 import it.unisa.kids.serviceManagement.paymentManagement.JDBCPaymentManager;
 import it.unisa.kids.serviceManagement.trainingManagement.JDBCTrainingManager;
 import it.unisa.kids.accessManagement.accountManagement.*;
+import it.unisa.kids.accessManagement.classManagement.JDBCClassManager;
 import it.unisa.kids.accessManagement.classificationManagement.JDBCClassificationManager;
 import it.unisa.kids.accessManagement.registrationChildManagement.JDBCRegistrationChildManager;
 
@@ -39,6 +40,10 @@ public class RefinedAbstractManager extends AbstractManager<IManager> {
             this.imp = JDBCRegistrationChildManager.getInstance();
         } else if(pManagerType.equals(DBNames.TABLE_CLASSIFICATION)) {
             this.imp = JDBCClassificationManager.getInstance();
+        }
+        
+        else if(pManagerType.equals(DBNames.TABLE_CLASS)) {
+            this.imp = JDBCClassManager.getInstance();
         }
         
         return this.imp;

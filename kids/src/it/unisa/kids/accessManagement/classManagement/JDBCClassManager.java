@@ -85,11 +85,11 @@ public class JDBCClassManager implements IClassManager {
             andState = true;
         }
         if (pClass.getClassName() != null) {
-            query.append(useAnd(andState) + DBNames.ATT_CLASS_NAME + "=?");
+            query.append(useAnd(andState) + DBNames.ATT_CLASS_NAME + "='?'");
             andState = true;
         }
         if (pClass.getState() != null) {
-            query.append(useAnd(andState) + DBNames.ATT_CLASS_STATE + "=?");
+            query.append(useAnd(andState) + DBNames.ATT_CLASS_STATE + "='?'");
             andState = true;
         }
         if (andState == false) {

@@ -4,6 +4,7 @@
     Author     : tonino
 --%>
 
+<%@page import="java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%--<c:if test="${sessionScope.user==null}">
@@ -45,15 +46,26 @@
                     <table style="margin-left: 5%; font-weight: bold; font-size: 10pt; float: left">
                         <tr><td> Nome:
                             <td> <p class="formp">
-                                    <input style="margin-left: 2%; width: 250px" id="Name" class="registrationField" type="text" name="Nome" size="50%">
-                                </p> 
-                        <tr><td> Stato: <td>       
-                                <p class="formp">
-                                    <input  style="margin-left: 2%; width: 250px" id="State" class="registrationField"type="text" name="Stato">                                </p>
-                                 </p>
+                                    <input style="margin-left: 2%; width: 250px" id="name" class="registrationField" type="text" name="Nome" size="50%">
+                                </p>
+                        <tr><td> <p class="formp">
+                                    <input style="margin-left: 2%; width: 250px" id="educator" class="registrationField" type="checkbox" name="Educatori" size="50%" value="AAA">
+                                </p>
+                                
+                                <%List<String> lista = (ArrayList<String>)session.getAttribute("LaMiaLista");%>
+                                
+                            <select id="lista" name="lista">      
+                              <option value="">- Seleziona -</option>   
+                              <%
+                                  for (int x = 0; x < lista.size(); x++) {
+                              %>                                                   
+                              <option value="<%=x%>"><%= lista.get(x) %></option>
+                              <%
+                                  }
+                              %>
                     </table>
                 </div>
-                <input style="width: 300px; margin-left: 7%" type="submit" name="registrationButton" id="registrationButton" value="Crea" />
+                <input style="width: 300px; margin-left: 7%" type="submit" name="registrationButton" id="registrationButton" value="Salva Bozza" />
             </fieldset>
         </form>
         <%@include file="footer.jsp" %>
