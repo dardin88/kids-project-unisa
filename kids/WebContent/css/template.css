@@ -587,3 +587,13 @@ managerTraineeRequest
     padding-top: 1%;
     width: 80%;
 }
+
+/*
+Gestione bambini
+*/
+.removeCommunication{
+    height: 105px;
+    text-align: center;
+    display: inline;
+    
+}
