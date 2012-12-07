@@ -1,4 +1,4 @@
-<%-- 
+    <%-- 
     Document   : classe
     Created on : 3-dic-2012, 13.07.01
     Author     : tonino
@@ -14,21 +14,23 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/template.css">
-                <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
+        <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css">
         <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
         <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
         <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
-        <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/classe.js"></script>
         <title>Classe - Kids Project</title>
         <script type="text/javascript">
             $(document).ready(function() {
+                activePage();
                 initializeClassFields();
+                buildAccountTable();
             });
         </script>
     </head>
@@ -41,8 +43,8 @@
         <div id="linksManagement">
                 <h1 style="font-size: 35px;text-align: center;"> Classi </h1>
                 
-                <input type="text" id="state"  name="state"  />
-                <input type="text" id="name"  name="name"/>
+                Nome: <input type="text" id="state"  name="state"  />
+                Stato: <input type="text" id="name"  name="name"/>
                 <input type="button" name="ricarica" id="ricarica" value="ricerca" onclick="search()"/>
                 
                 <table id="accountsTable" style="width:95%;">
@@ -50,6 +52,7 @@
                         <tr>
                             <th>Nome</th>
                             <th>Stato</th>
+                            <th>Operazione</th>
                         </tr>
                     </thead>
                     <tbody>
