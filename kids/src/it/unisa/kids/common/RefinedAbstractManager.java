@@ -35,7 +35,7 @@ public class RefinedAbstractManager extends AbstractManager<IManager> {
             this.imp = JDBCNewsManager.getInstance();
         } else if(pManagerType.equals(DBNames.TABLE_SURVEY)) {
             this.imp = JDBCSurveyManager.getInstance();
-        } else if (pManagerType.equals(DBNames.TABLE_COMUNICATION)) {
+        } else if (pManagerType.equals(DBNames.TABLE_COMMUNICATION)) {
             this.imp = JDBCCommunicationManager.getInstance();
         } else if (pManagerType.equals(DBNames.TABLE_ACCOUNT)) {
             this.imp = JDBCAccountManager.getInstance();

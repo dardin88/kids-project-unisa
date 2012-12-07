@@ -55,7 +55,7 @@ public class JDBCCommunicationManager implements ICommunicationManager {
         String query1;
         try {
             connection = DBConnectionPool.getConnection();
-            query1 = "insert into " + DBNames.TABLE_COMUNICATION + "("
+            query1 = "insert into " + DBNames.TABLE_COMMUNICATION + "("
                     + DBNames.ATT_COMMUNICATION_ID + ","
                     + DBNames.ATT_COMMUNICATION_TYPE + ","
                     + DBNames.ATT_COMMUNICATION_IDEDUCATOR + ","
@@ -94,7 +94,7 @@ public class JDBCCommunicationManager implements ICommunicationManager {
         ArrayList<Communication> listCommunication = new ArrayList<Communication>();
         try {
             connection = DBConnectionPool.getConnection();
-            query = "select * from " + DBNames.TABLE_COMUNICATION;
+            query = "select * from " + DBNames.TABLE_COMMUNICATION;
             stmt = connection.createStatement();
             rsCommunication = stmt.executeQuery(query);
             while (rsCommunication.next()) {
@@ -137,7 +137,7 @@ public class JDBCCommunicationManager implements ICommunicationManager {
         String query;
         try {
             connection = DBConnectionPool.getConnection();
-            query = "delete from " + DBNames.TABLE_COMUNICATION + " where " + DBNames.ATT_COMMUNICATION_ID + "='" + pCommunication.getId();
+            query = "delete from " + DBNames.TABLE_COMMUNICATION + " where " + DBNames.ATT_COMMUNICATION_ID + "='" + pCommunication.getId();
             stmt = connection.createStatement();
             stmt.executeUpdate(query);
             connection.commit();
@@ -159,7 +159,7 @@ public class JDBCCommunicationManager implements ICommunicationManager {
         String query;
         try {
             connection = DBConnectionPool.getConnection();
-            query = "update " + DBNames.TABLE_COMUNICATION + " set "
+            query = "update " + DBNames.TABLE_COMMUNICATION + " set "
                     + DBNames.ATT_COMMUNICATION_TYPE + "=" + pCommunication.getType() + " "
                     + DBNames.ATT_COMMUNICATION_IDEDUCATOR + "=" + pCommunication.getIdEducator() + " "
                     + DBNames.ATT_COMMUNICATION_IDCHILD + "=" + pCommunication.getIdChild() + " "
@@ -193,7 +193,7 @@ public class JDBCCommunicationManager implements ICommunicationManager {
         try {
             connection = DBConnectionPool.getConnection();
             String query;
-            query = "select * from " + DBNames.TABLE_COMUNICATION + " WHERE "
+            query = "select * from " + DBNames.TABLE_COMMUNICATION + " WHERE "
                     + DBNames.ATT_COMMUNICATION_DESCRIPTION + " like '%" + word + "%'"
                     + " or " + DBNames.ATT_COMMUNICATION_DATE + " like '%" + word + "%'"
                     + " or " + DBNames.ATT_COMMUNICATION_TYPE + " like '%" + word + "%'";
