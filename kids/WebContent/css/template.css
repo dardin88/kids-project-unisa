@@ -249,6 +249,14 @@ div#navigation li{
     margin: 5px;
     margin-bottom: 0px;
 }
+
+.windowButton2{
+    height: 30px;
+    width: 45%;
+    margin: 5px;
+    margin-bottom: 0px;
+}
+
 .buttonRemove{
     height: 30px;
     margin: 5px;

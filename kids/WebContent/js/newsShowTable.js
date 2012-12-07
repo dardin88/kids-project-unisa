@@ -1,4 +1,3 @@
-
 function initializeLinksManager(){
     $.ajaxSetup({
         cache: false
@@ -48,6 +47,7 @@ function removeNews(id){
             idNews:""+id
         });
         $("#removeNewsWindow").dialog("close");
+        document.location.reload(true);
         var oTable = $("#linkTable").dataTable();
         oTable.fnDraw();
     }) 
@@ -55,10 +55,10 @@ function removeNews(id){
 
 
 
-function updateNews(id,title,description,type,data,time){
+function updateNews(id,title,description,type,data,time,attached){
     $("#updateNewsWindow").dialog("open");
-    $("#selectFile").button();
     $("#confirmUpdateNews").button();
+    $("#updateNews").button();
        
     document.forms["updateNewsForm"].elements["nomeNews"].value=title;        
     document.forms["updateNewsForm"].elements["descrizioneNews"].value=description;        
@@ -71,8 +71,8 @@ function updateNews(id,title,description,type,data,time){
   
   
     document.forms["updateNewsForm"].elements["dataNews"].value=data;        
-    document.forms["updateNewsForm"].elements["oraNews"].value=time;        
-  
+    document.forms["updateNewsForm"].elements["oraNews"].value=time;
+     
     $("#updateNewsForm").validate({
         rules: {
             nomeNews: {
@@ -117,18 +117,26 @@ function updateNews(id,title,description,type,data,time){
                 required:"Selezionare la data"
             }
         },
-        submitHandler: function() {          
+        submitHandler: function() { 
+            var attached=$("#selectFile").val();
+            var str=attached.split("\\");
+            var s=str[str.length-1];  
+            if(attached!="")
+                document.getElementById("addLinkForm").action="UploadFile";
+            else
+                document.getElementById("addLinkForm").action="";
             $.post("UpdateNews", {
                 artefactTitolo: $("#artefactTitolo2").val(),
                 artefactDescrizione: $("#artefactDescrizione2").val(),
                 artefactTipo: $("#artefactTipo2").val(),
                 artefactData: $("#artefactData2").val(),
                 artefactOra: $("#artefactOra2").val(),
+                artefactAllegato:s,
                 idNews:""+id               
             });
             $("#updateNewsWindow").dialog("close"); 
-         //   var oTable = $("#linksTable").dataTable();
-         //   oTable.fnDraw();
+            //   var oTable = $("#linksTable").dataTable();
+            //   oTable.fnDraw();
             document.location.reload(true);
             $("#artefactTitolo2").val("");
             $("#artefactDescrizione2").val("");
@@ -140,6 +148,21 @@ function updateNews(id,title,description,type,data,time){
     
 }
 
+function enableButtonUpdate(){
+    document.getElementById("updateNews").style.visibility="hidden";
+    document.getElementById("confirmUpdateNews").style.visibility="visible";
+    document.getElementById("selectFile").disabled=false;
+    document.getElementById("artefactTitolo2").disabled=false;
+    document.getElementById("artefactDescrizione2").disabled=false;
+    document.getElementById("artefactTipo2").disabled=false;
+    document.getElementById("artefactData2").disabled=false;
+    document.getElementById("artefactOra2").disabled=false;
+    $("#selectFile").button();
+
+   
+}
+
+
 function verifyOra(){
     var valore=document.getElementById("artefactTipo").value;
     if(valore!=2)
@@ -147,7 +170,7 @@ function verifyOra(){
 }
 function hiddenMessage(){
     if((document.getElementById("artefactOra").text!="") ||(document.getElementById("artefactOra2").text!=""))
-             document.getElementById("errOra").style.visibility="hidden";       
+        document.getElementById("errOra").style.visibility="hidden";       
 }
 
 
@@ -203,9 +226,9 @@ function addNews(){
             submitHandler: function() {
                 var attached=$("#addLinkButton2").val();
                 var str=attached.split("\\");
-                var s=str[str.length-1];      
+                var s=str[str.length-1];  
                 if(attached!="")
-                        document.getElementById("addLinkForm").action="UploadFile";
+                    document.getElementById("addLinkForm").action="UploadFile";
                 else
                     document.getElementById("addLinkForm").action="";
                 $.post("InsertNews", {
@@ -268,9 +291,6 @@ function buildShowTable(){
         "aoColumns": [
         {
             "sWidth": "15%"
-        },
-        {
-            "sWidth": "28%"
         },
         {
             "sWidth": "8%"

@@ -132,9 +132,6 @@
                 <li id="meetingCalendarMenuEL"><a href="meetingCalendar.jsp">Gestione Riunioni</a></li>
             </div>
             <div class="div">
-                <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
-            </div>
-            <div class="div">
                 <li id="accountParent"><a href="accountParent.jsp">Gestione Account</a></li>
             </div>
         </c:if>
