@@ -55,7 +55,7 @@ public class TestRegistrationChildManager {
             System.out.println("Errore: " + ex.getMessage());
         }
         //*/
-        //* Test Ricerca
+        /* Test Ricerca
         RegistrationChild selectAll = new RegistrationChild();
         RegistrationChild selectById = new RegistrationChild();
         selectById.setId(1);
@@ -66,7 +66,7 @@ public class TestRegistrationChildManager {
             System.out.println("La ricerca dell'id ha restituito " + listId.size() + " elementi");
             // Stampo tutti gli elementi
             for(RegistrationChild tmp : list1) {
-                System.out.println(tmp.getName() + " " + tmp.getSurname());
+                System.out.println("FI: " + tmp.getRegistrationPhase() + " N: " + tmp.getName() + " C: " + tmp.getSurname());
             }
         } catch (SQLException ex) {
             System.out.println("Errore: " + ex.getMessage());

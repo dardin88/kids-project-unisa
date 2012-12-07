@@ -5,7 +5,9 @@
 package it.unisa.kids.accessManagement.registrationChildManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -29,7 +31,12 @@ import javax.servlet.http.HttpSession;
  * @author Giuseppe Giovanni Lauri
  */
 public class ServletCreateDraftRegistrationChild extends HttpServlet {
+    private IRegistrationChildManager registrationChildManager;
 
+    public void init(ServletConfig config) {
+        RefinedAbstractManager refinedAbstractRegistrationChildManager = RefinedAbstractManager.getInstance();
+        registrationChildManager = (IRegistrationChildManager) refinedAbstractRegistrationChildManager.getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
+    }
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -46,8 +53,7 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             System.out.println("ci sono");
-            JDBCRegistrationChildManager registrationChildManager = JDBCRegistrationChildManager.getInstance();
-
+            
             // Prelevo i dati necessari
             String surname = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_SURNAME);
             System.out.println(request.getParameter(DBNames.ATT_REGISTRATIONCHILD_SURNAME));
@@ -56,7 +62,7 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
             String birthDate = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE);
             GregorianCalendar birth;
             if(!birthDate.equals("")) {
-                birth = parseGregorianCalendar(birthDate);
+                birth = CommonMethod.parseGregorianCalendar(birthDate);
             } else {
                 birth = null;
             }
@@ -96,16 +102,7 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
             Logger.getLogger(ServletCreateDraftRegistrationChild.class.getName()).log(Level.SEVERE, "SQL-Error: " + ex.getMessage(), ex);
         }
     }
-
-        private GregorianCalendar parseGregorianCalendar(String pDate) throws ParseException {
-        DateFormat df = new SimpleDateFormat("yy-MM-dd");
-        Date parsed = df.parse(pDate);
-        GregorianCalendar date = new GregorianCalendar();
-        date.setTime(parsed);
-        return date;
-    }
-
-    
+   
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP

@@ -5,7 +5,9 @@
 package it.unisa.kids.accessManagement.registrationChildManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -29,7 +31,12 @@ import javax.servlet.http.HttpSession;
  * @author Giuseppe Giovanni Lauri
  */
 public class ServletEditRegistrationChild extends HttpServlet {
+    private IRegistrationChildManager registrationChildManager;
 
+    public void init(ServletConfig config) {
+        RefinedAbstractManager refinedAbstractRegistrationChildManager = RefinedAbstractManager.getInstance();
+        registrationChildManager = (IRegistrationChildManager) refinedAbstractRegistrationChildManager.getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
+    }
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -46,14 +53,13 @@ public class ServletEditRegistrationChild extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             response.setContentType("text/html;charset=UTF-8");
-            JDBCRegistrationChildManager registrationChildManager = JDBCRegistrationChildManager.getInstance();
-
+            
             // Prelevo i dati necessari
             String surname = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_SURNAME);
             String name = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_NAME);
 
             String birthDate = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE);
-            GregorianCalendar birth = parseGregorianCalendar(birthDate);
+            GregorianCalendar birth = CommonMethod.parseGregorianCalendar(birthDate);
 
             String birthPlace = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_BIRTHPLACE);
             String fiscalCode = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_FISCALCODE);
@@ -87,15 +93,6 @@ public class ServletEditRegistrationChild extends HttpServlet {
         }
     }
 
-        private GregorianCalendar parseGregorianCalendar(String pDate) throws ParseException {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        Date parsed = df.parse(pDate);
-        GregorianCalendar date = new GregorianCalendar();
-        date.setTime(parsed);
-        return date;
-    }
-
-    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP

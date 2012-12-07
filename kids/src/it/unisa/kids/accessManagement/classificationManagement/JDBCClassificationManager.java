@@ -220,7 +220,7 @@ public class JDBCClassificationManager implements IClassificationManager {
                 query.append("1");
             }
             // chiusura della query, le graduatorie vanno messe prima in ordine di stato bozza > provvisoria > definitiva
-            query.append(" ORDER BY (" + DBNames.ATT_CLASSIFICATION_STATUS + ", " + DBNames.ATT_CLASSIFICATION_ID + ");");
+            query.append(" ORDER BY " + DBNames.ATT_CLASSIFICATION_STATUS + ", " + DBNames.ATT_CLASSIFICATION_ID + ";");
             
             pstmt = con.prepareStatement(query.toString());
 
@@ -421,9 +421,9 @@ public class JDBCClassificationManager implements IClassificationManager {
                 query.append("1");
             }
             // ordinamento
-            query.append(" ORDER BY (" + DBNames.ATT_RESULT_SCORE + ", " + 
+            query.append(" ORDER BY " + DBNames.ATT_RESULT_SCORE + ", " + 
                         DBNames.ATT_RESULT_CLASSIFICATIONID + ", " + 
-                        DBNames.ATT_RESULT_REGISTRATIONCHILDID + ") DESC;");
+                        DBNames.ATT_RESULT_REGISTRATIONCHILDID + " DESC;");
             
             pstmt = con.prepareStatement(query.toString());
             int i = 1;
@@ -707,7 +707,7 @@ public class JDBCClassificationManager implements IClassificationManager {
                 query.append("1");
             }
             // ordinamento
-            query.append(" ORDER BY (" + DBNames.ATT_CRITERIA_DESCRIPTION + ");");
+            query.append(" ORDER BY " + DBNames.ATT_CRITERIA_DESCRIPTION + ";");
             
             pstmt = con.prepareStatement(query.toString());
             int i = 1;
