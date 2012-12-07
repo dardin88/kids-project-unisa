@@ -508,6 +508,40 @@ div#navigation li{
 }
 
 /*
+    CanteenManagement
+*/
+
+#canteenManagement {
+    float: left;
+    padding: 2%;
+    padding-top: 1%;
+    width: 80%;
+}
+
+#canteenManagement h1 {
+    font-size: 30px;
+    text-align: center;
+}
+
+#canteenManagement h2 {
+    font-size: 22px;
+    padding-top: 20px;
+    text-align: center;
+}
+
+#searchParent {
+    padding-bottom: 20px;
+}
+
+.selectedParent {
+    font-size: 18px;
+}
+
+.selectedParent > span {
+    font-weight: bold;
+}
+
+/*
 managerTraineeActivity
 */
 #traineesManagement{
