@@ -5,17 +5,13 @@
 package it.unisa.kids.accessManagement.registrationChildManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,7 +21,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -54,6 +49,7 @@ public class ServletGetRegistrationChild extends HttpServlet {
             throws ServletException, IOException, SQLException, ParseException {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
+        JSONObject json = new JSONObject();
         try {
             HttpSession session = request.getSession();
             Account account = (Account) session.getAttribute("user");
@@ -72,20 +68,19 @@ public class ServletGetRegistrationChild extends HttpServlet {
                     tmpChild = listResult.get(0);
 
                     // costruisco l'output
-                    JSONObject json = new JSONObject();
-                    /*JSONArray jarray = new JSONArray();
-                    JSONObject jobject = new JSONObject();*/
                     
                     json.put(DBNames.ATT_REGISTRATIONCHILD_ID, tmpChild.getId());
                     json.put(DBNames.ATT_REGISTRATIONCHILD_SURNAME, tmpChild.getSurname());
                     json.put(DBNames.ATT_REGISTRATIONCHILD_NAME, tmpChild.getName());
-                    json.put(DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE, tmpChild.getBirthDate());
+                    json.put(DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE, CommonMethod.parseString(tmpChild.getBirthDate()));
                     json.put(DBNames.ATT_REGISTRATIONCHILD_BIRTHPLACE, tmpChild.getBirthPlace());
                     json.put(DBNames.ATT_REGISTRATIONCHILD_FISCALCODE, tmpChild.getFiscalCode());
                     json.put(DBNames.ATT_REGISTRATIONCHILD_CITIZENSHIP, tmpChild.getCitizenship());
-                    json.put(DBNames.ATT_REGISTRATIONCHILD_SICKNESS, tmpChild.getSickness());
-                    json.put(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONDATE, tmpChild.getRegistrationDate());
+                    json.put(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONDATE, CommonMethod.parseString(tmpChild.getRegistrationDate()));
                     json.put(DBNames.ATT_REGISTRATIONCHILD_USERRANGE, tmpChild.getUserRange());
+                    json.put(DBNames.ATT_REGISTRATIONCHILD_SICKNESS, tmpChild.getSickness());
+                    json.put(DBNames.ATT_REGISTRATIONCHILD_VACCINATIONS, tmpChild.getVaccinations());
+                    json.put(DBNames.ATT_REGISTRATIONCHILD_PRIVACYSTATEMENT, tmpChild.getPrivacyStatement());
                     json.put(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE, tmpChild.getRegistrationPhase());
                     json.put(DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID, tmpChild.getParentId());
                     

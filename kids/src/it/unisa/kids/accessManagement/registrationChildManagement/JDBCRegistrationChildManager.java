@@ -3,6 +3,7 @@ package it.unisa.kids.accessManagement.registrationChildManagement;
 import it.unisa.kids.accessManagement.classificationManagement.IClassificationManager;
 import it.unisa.kids.accessManagement.classificationManagement.JDBCClassificationManager;
 import it.unisa.kids.accessManagement.classificationManagement.Result;
+import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.storage.connectionPool.DBConnectionPool;
@@ -64,7 +65,7 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             pstmt.setString(2, child.getName());
             Date dateToSet;
             if(child.getBirthDate() != null) {
-                dateToSet = new Date(child.getBirthDate().getTimeInMillis());
+                dateToSet = CommonMethod.parseDate(child.getBirthDate());
             } else {
                 dateToSet = null;
             }
@@ -75,7 +76,7 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             pstmt.setString(6, child.getCitizenship());
             pstmt.setString(7, child.getUserRange());
             if(child.getRegistrationDate() != null) {
-                dateToSet = new Date(child.getRegistrationDate().getTimeInMillis());
+                dateToSet = CommonMethod.parseDate(child.getRegistrationDate());
             } else {
                 dateToSet = null;
             }
@@ -128,7 +129,7 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             pstmt.setString(2, child.getName());
             Date tmp;
             if(child.getBirthDate() != null) {
-                tmp = new Date(child.getBirthDate().getTimeInMillis());
+                tmp = CommonMethod.parseDate(child.getBirthDate());
             } else {
                 tmp = null;
             }
@@ -138,7 +139,7 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             pstmt.setString(6, child.getCitizenship());
             pstmt.setString(7, child.getSickness());
             if(child.getRegistrationDate() != null) {
-                tmp = new Date(child.getRegistrationDate().getTimeInMillis());
+                tmp = CommonMethod.parseDate(child.getRegistrationDate());
             } else {
                 tmp = null;
             }
@@ -298,7 +299,7 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
                 paramNum++;
             }
             if(child.getBirthDate() != null) {
-                pstmt.setDate(paramNum, new Date(child.getBirthDate().getTimeInMillis()));
+                pstmt.setDate(paramNum, CommonMethod.parseDate(child.getBirthDate()));
                 paramNum++;
             }
             if(child.getBirthPlace() != null) {
@@ -317,7 +318,7 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
                 paramNum++;
             }
             if(child.getRegistrationDate() != null) {
-                pstmt.setDate(paramNum, new Date(child.getRegistrationDate().getTimeInMillis()));
+                pstmt.setDate(paramNum, CommonMethod.parseDate(child.getRegistrationDate()));
                 paramNum++;
             }
             if(child.getUserRange() != null) {
@@ -345,27 +346,23 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
                 tmpRegChild.setSurname(result.getString(DBNames.ATT_REGISTRATIONCHILD_SURNAME));
                 tmpRegChild.setName(result.getString(DBNames.ATT_REGISTRATIONCHILD_NAME));
                 
-                GregorianCalendar tmpBDGC;
-                if(result.getDate(DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE) != null) {
-                    tmpBDGC = new GregorianCalendar();
-                    tmpBDGC.setTime(result.getDate(DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE));
-                } else {
-                    tmpBDGC = null;
-                }
+                GregorianCalendar tmpBDGC = CommonMethod.parseGregorianCalendar(result.getDate(DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE));
                 tmpRegChild.setBirthDate(tmpBDGC);
                 
                 tmpRegChild.setBirthPlace(result.getString(DBNames.ATT_REGISTRATIONCHILD_BIRTHPLACE));
                 tmpRegChild.setCitizenship(result.getString(DBNames.ATT_REGISTRATIONCHILD_CITIZENSHIP));
                 tmpRegChild.setFiscalCode(result.getString(DBNames.ATT_REGISTRATIONCHILD_FISCALCODE));
-                tmpRegChild.setSickness(result.getString(DBNames.ATT_REGISTRATIONCHILD_SICKNESS));
                 
-                GregorianCalendar tmpRDGC = new GregorianCalendar();
-                tmpRDGC.setTime(result.getDate(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONDATE));
+                GregorianCalendar tmpRDGC = CommonMethod.parseGregorianCalendar(result.getDate(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONDATE));
                 tmpRegChild.setRegistrationDate(tmpRDGC);
                 
                 tmpRegChild.setUserRange(result.getString(DBNames.ATT_REGISTRATIONCHILD_USERRANGE));
                 tmpRegChild.setRegistrationPhase(result.getString(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE));
 
+                tmpRegChild.setSickness(result.getString(DBNames.ATT_REGISTRATIONCHILD_SICKNESS));
+                tmpRegChild.setVaccinations(result.getString(DBNames.ATT_REGISTRATIONCHILD_VACCINATIONS));
+                tmpRegChild.setPrivacyStatement(result.getString(DBNames.ATT_REGISTRATIONCHILD_PRIVACYSTATEMENT));
+                
                 tmpRegChild.setParentId(result.getInt(DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID));
                 tmpRegChild.setSectionId(result.getInt(DBNames.ATT_REGISTRATIONCHILD_SECTIONID));
 
