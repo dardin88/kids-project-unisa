@@ -39,17 +39,16 @@
             </div>
 
             <div class="div">
-                <li id="renunciationManager"><a href="renunciation.jsp">Gestione Rinunce</a></li>
+                <li id="registrationChild"><a href="registrationChild.jsp">Gestione Domanda d'Iscrizione</a></li>
             </div>
-
             <div class="div">
                 <li id="classification"><a href="classification.jsp">Gestione Graduatorie</a></li>
             </div>
             <div class="div">
-                <li id="registrationChild"><a href="registrationChild.jsp">Gestione Domanda d'Iscrizione</a></li>
+                <li id="renunciationManager"><a href="renunciation.jsp">Gestione Rinunce</a></li>
             </div>
-
         </c:if>
+
         <c:if test="${sessionScope.user.getAccountType()=='Tirocinante'}">
             <div class="div">
                 <li id="traineeRegister"><a href="traineeRegister.jsp">Registro attivit&agrave</a></li>
@@ -90,7 +89,6 @@
         </c:if>
 
         <c:if test="${sessionScope.user.getAccountType()=='Genitore'}">
-
             <div class="div">
                 <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
             </div>
@@ -109,13 +107,11 @@
             <div class="div">
                 <li id="registrationChild"><a href="registrationChild.jsp">Gestione Domanda d'Iscrizione</a></li>
             </div>
-
-            <div class="div">
-                <li id="renunciationManager"><a href="renunciation.jsp">Gestione Rinunce</a></li>
-            </div>
-
             <div class="div">
                 <li id="classification"><a href="classification.jsp">Gestione Graduatorie</a></li>
+            </div>
+            <div class="div">
+                <li id="renunciationManager"><a href="renunciation.jsp">Gestione Rinunce</a></li>
             </div>
             <div class="div">
                 <li id="TimeServiceMenuEL"><a href="timeService.jsp">Gestione orario di servizio</a></li>
@@ -151,8 +147,5 @@
                 <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
             </div>  
         </c:if>
-</div>
-
-
-</ul>
+    </ul>
 </div>
