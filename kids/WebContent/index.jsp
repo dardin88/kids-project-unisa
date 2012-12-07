@@ -11,7 +11,9 @@
     <c:if test="${sessionScope.user.getAccountType()=='Genitore'}"> 
         <c:redirect url="newsGenitorePage.jsp" />
     </c:if>
-
+    <c:if test="${sessionScope.user.getAccountType()=='Educatore'}"> 
+        <c:redirect url="healthCommunicationTable.jsp" />
+    </c:if>
     <%-- Da rimuovere dato che ora si chiama 'Segreteria' ??? --%>
     <c:if test="${sessionScope.user.getAccountType()=='Delegato Ufficio'}">
         <c:redirect url="newsDelegatoPage.jsp" />

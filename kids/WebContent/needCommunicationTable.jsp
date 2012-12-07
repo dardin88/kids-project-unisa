@@ -8,9 +8,10 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:if test="${sessionScope.user==null}">
-    <c:if test="${sessionScope.user.getAccountType()!='Educatore'}">
-    <c:if test="${sessionScope.user.getAccountType()!='Genitore'}">
-        <c:redirect url="index.jsp" />
+    <c:redirect url="index.jsp" />    
+</c:if>
+<c:if test="${sessionScope.user.getAccountType()!='Educatore'} && ${sessionScope.user.getAccountType()!='Genitore'}">
+    <c:redirect url="index.jsp" />    
 </c:if>
 <!DOCTYPE html>
 <html>
