@@ -421,7 +421,7 @@ div#navigation li{
     margin-top: 5px;
 }
 
-#accountLabel{
+#accountLabel, #accountLabel2, #accountLabel3, #accountLabel4, #accountLabel5{
     margin-left: 5%;
     font-weight: bold;
     font-size: 10pt;
@@ -431,6 +431,14 @@ div#navigation li{
 
 .accountInput {
     width: 250px;
+    height: 25%;
+    padding: 0.5%;
+    margin-bottom: 2%;
+    margin-left: 2%;
+}
+
+#typeAccount, #typeParent {
+    width: 262px;
     height: 25%;
     padding: 0.5%;
     margin-bottom: 2%;
