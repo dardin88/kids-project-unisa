@@ -1,10 +1,10 @@
 package it.unisa.kids.serviceManagement.paymentManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
-import it.unisa.kids.common.facade.AccessFacade;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.Mail;
 import it.unisa.kids.common.MailManager;
+import it.unisa.kids.common.facade.AccessFacade;
 import it.unisa.kids.common.facade.IAccessFacade;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 import java.sql.Connection;
@@ -15,7 +15,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Locale;
 import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -493,28 +492,6 @@ public class JDBCPaymentManager extends Observable implements IPaymentManager {
             }
         }
         return payments;
-    }
-
-    public synchronized void addCharge(PaymentBean pPayment) throws SQLException {
-        IAccessFacade accessFacade = new AccessFacade();
-
-        Account parentAccount = accessFacade.getParentById(pPayment.getParentId());
-
-        String email = parentAccount.getEmail();
-        String name = parentAccount.getNameUser();
-        String surname = parentAccount.getSurnameUser();
-        String body = "Salve " + name + " " + surname + ".\n";
-        body += "La informiamo che le è stato addebitato il seguente pagamento dell'importo "
-                + pPayment.getAmount() + ": " + pPayment.getPaymentDescription();
-
-        insert(pPayment);
-
-//        Email e = new Email();
-//        e.setEmail(email);
-//        e.setBody(body);
-
-//        pPayment.addObserver(new EmailObserver());
-//        pPayment.notifyObservers(e);
     }
 
     public synchronized void insert(RefundBean pRefund) throws SQLException {
