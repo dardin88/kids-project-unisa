@@ -10,6 +10,7 @@ public class Survey {
     private String link;
     private int officerId;
     private int parentId;
+    private boolean compiled;
     
     /**
      *Constructor is empty.
@@ -63,5 +64,12 @@ public class Survey {
         return this.officerId;
     }
     
+    public void setCompiled(boolean comp) {
+        this.compiled = comp;
+    }
+    
+    public boolean getCompiled() {
+        return (this.compiled);
+    }
     
 }

@@ -160,9 +160,8 @@ public class JDBCSurveyManager implements ISurveyManager{
     }
     
     
-
-   /* Not necessary at this moment. The other methods are unimplemented. 
-    * 
+    /* Methods used for insert and show Available Survey for parents. */
+    
     public void insert(Survey pAvailableSurvey, Account pParent) throws SQLException {
        Connection connection = null;
        PreparedStatement pStmt = null;
@@ -194,19 +193,41 @@ public class JDBCSurveyManager implements ISurveyManager{
         }              
     }
 
-     
-    public void update(Survey pAvailableSurvey, Account pParent) throws SQLException {
-    
-    }
-
-    
-    public void delete(Survey pAvailableSurvey, Account pParent) throws SQLException {
-    
-    }
-
-    
+         
     public List<Survey> search(Account pParent) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
+      Connection connection = null;
+      Statement pStmt = null;
+      ResultSet rsSurvey = null;
+      String query;
+      List<Survey> listSurvey = null;
+      
+      try {
+         connection = DBConnectionPool.getConnection();
+         query = "SELECT * FROM" + DBNames.TABLE_SURVEYCOMPILED;
+         pStmt = connection.createStatement();
+         rsSurvey = pStmt.executeQuery(query);
+         connection.commit();
+         
+         while(rsSurvey.next()){
+             int id = rsSurvey.getInt(DBNames.ATT_SURVEYCOMPILED_SURVEYID);
+             int parentId = rsSurvey.getInt(DBNames.ATT_SURVEYCOMPILED_ACCOUNTID);
+             boolean compiled = rsSurvey.getBoolean(DBNames.ATT_SURVEYCOMPILED_COMPILED);
+             
+             Survey survey = new Survey();
+             survey.setId(id);
+             survey.setParent(parentId);
+             survey.setCompiled(compiled);
+             
+             listSurvey.add(survey);
+         }
+         
+         return listSurvey;
+      } 
+      finally {
+          pStmt.close();
+          DBConnectionPool.releaseConnection(connection);
+      }
     } 
-     */
+     
 }
