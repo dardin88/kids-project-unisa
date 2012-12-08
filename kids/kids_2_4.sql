@@ -246,6 +246,9 @@ CREATE TABLE IF NOT EXISTS `graduatoria` (
 
 CREATE TABLE IF NOT EXISTS `iscrizionebambino` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `AccountGenitore` int(11) NOT NULL,
+  `DataIscrizione` date NOT NULL,
+  `FaseDellIscrizione` enum('bozza','sottomessa','confermata','rifiutata','accettata','completata','eliminata','rinunciata','ricorso') NOT NULL DEFAULT 'bozza',
   `Cognome` varchar(25),
   `Nome` varchar(25),
   `DataNascita` date DEFAULT NULL,
@@ -253,14 +256,11 @@ CREATE TABLE IF NOT EXISTS `iscrizionebambino` (
   `CodiceFiscale` char(16),
   `Cittadinanza` varchar(20),
   `FasciaUtenza` enum('full_time','part_time_pomeridiana','part_time_mattutina') DEFAULT NULL,
-  `DataIscrizione` date NOT NULL,
-  `FaseDellIscrizione` enum('bozza','sottomessa','confermata','rifiutata','accettata','completata','eliminata','rinunciata','ricorso') NOT NULL DEFAULT 'bozza',
-  `AccountGenitore` int(11) NOT NULL,
   `Malattie` text,
-  `IsSetMalattie` enum('si', 'no', 'in_parte') DEFAULT 'no',
   `Vaccinazioni` text,
-  `IsSetVaccinazioni` enum('si', 'no', 'in_parte') DEFAULT 'no',
   `DichiarazioneDellaPrivacy` text,
+  `IsSetMalattie` enum('si', 'no', 'in_parte') DEFAULT 'no',
+  `IsSetVaccinazioni` enum('si', 'no', 'in_parte') DEFAULT 'no',
   `IsSetDichiarazioneDellaPrivacy` enum('si', 'no', 'in_parte') DEFAULT 'no',
   `Classe` int(11) DEFAULT NULL,
   PRIMARY KEY (`Id`)
