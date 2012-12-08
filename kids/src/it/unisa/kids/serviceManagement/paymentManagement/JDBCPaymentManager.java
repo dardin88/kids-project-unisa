@@ -295,12 +295,12 @@ public class JDBCPaymentManager extends Observable implements IPaymentManager {
             }
 
             if (pPayment.getPaymentDescription() != null) {
-                query += useAnd(andState) + DBNames.ATT_PAYMENT_DESCRIPTION + " = ?";
+                query += useAnd(andState) + DBNames.ATT_PAYMENT_DESCRIPTION + " LIKE CONCAT('%', ?, '%')";
                 andState = true;
             }
 
             if (pPayment.getAmount() >= 0) {
-                query += useAnd(andState) + DBNames.ATT_PAYMENT_AMOUNT + " = ?";
+                query += useAnd(andState) + DBNames.ATT_PAYMENT_AMOUNT + " LIKE CONCAT('%', ?, '%')";
                 andState = true;
             }
 
@@ -310,22 +310,22 @@ public class JDBCPaymentManager extends Observable implements IPaymentManager {
             }
 
             if (pPayment.getDiscount() >= 0) {
-                query += useAnd(andState) + DBNames.ATT_PAYMENT_DISCOUNT + " = ?";
+                query += useAnd(andState) + DBNames.ATT_PAYMENT_DISCOUNT + " LIKE CONCAT('%', ?, '%')";
                 andState = true;
             }
 
             if (pPayment.getDiscountDescription() != null) {
-                query += useAnd(andState) + DBNames.ATT_PAYMENT_DISCDESCRIPTION + " = ?";
+                query += useAnd(andState) + DBNames.ATT_PAYMENT_DISCDESCRIPTION + " LIKE CONCAT('%', ?, '%')";
                 andState = true;
             }
 
             if (pPayment.getOriginAccount() != null) {
-                query += useAnd(andState) + DBNames.ATT_PAYMENT_ORIGINACCOUNT + " = ?";
+                query += useAnd(andState) + DBNames.ATT_PAYMENT_ORIGINACCOUNT + " LIKE CONCAT('%', ?, '%')";
                 andState = true;
             }
 
             if (pPayment.getPayee() != null) {
-                query += useAnd(andState) + DBNames.ATT_PAYMENT_PAYEE + " = ?";
+                query += useAnd(andState) + DBNames.ATT_PAYMENT_PAYEE + " LIKE CONCAT('%', ?, '%')";
                 andState = true;
             }
 
@@ -335,7 +335,7 @@ public class JDBCPaymentManager extends Observable implements IPaymentManager {
             }
 
             if (pPayment.getReceiptCode() != null) {
-                query += useAnd(andState) + DBNames.ATT_PAYMENT_RECEIPTCODE + " = ?";
+                query += useAnd(andState) + DBNames.ATT_PAYMENT_RECEIPTCODE + " LIKE CONCAT('%', ?, '%')";
                 andState = true;
             }
 
@@ -652,12 +652,12 @@ public class JDBCPaymentManager extends Observable implements IPaymentManager {
             }
 
             if (pRefund.getDescription() != null) {
-                query += useAnd(andState) + DBNames.ATT_REFUND_DESCRIPTION + " = ?";
+                query += useAnd(andState) + DBNames.ATT_REFUND_DESCRIPTION + " LIKE CONCAT('%', ?, '%')";
                 andState = true;
             }
 
             if (pRefund.getAmount() >= 0) {
-                query += useAnd(andState) + DBNames.ATT_REFUND_AMOUNT + " = ?";
+                query += useAnd(andState) + DBNames.ATT_REFUND_AMOUNT + " LIKE CONCAT('%', ?, '%')";
                 andState = true;
             }
 
