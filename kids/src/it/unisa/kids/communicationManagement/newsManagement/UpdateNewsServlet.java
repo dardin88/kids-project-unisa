@@ -42,19 +42,19 @@ public class UpdateNewsServlet extends HttpServlet {
         try {
             boolean flag = false;
             PrintWriter out = response.getWriter();
-            String vecchioAllegato = "";
+            String vecchioAllegato = request.getParameter("oldAllegato");
             INewsManager mn = JDBCNewsManager.getInstance();
             News n = new News();
             n.setTitle(request.getParameter("artefactTitolo"));
             n.setDescription(request.getParameter("artefactDescrizione"));
             String allegato = request.getParameter("artefactAllegato");
             if (!allegato.equals("")) {
-                String path = (String) getServletContext().getInitParameter("attachedFIleFolder");
+                String path = (String) getServletContext().getInitParameter("attachedFileFolder");
                 File f = new File(path + "/" + vecchioAllegato);
                 f.delete();
                 n.setAttached(allegato);
-                flag = true;
-            }
+                flag=true;
+            }            
             int id = Integer.parseInt(request.getParameter("idNews"));
             int scelta = Integer.parseInt(request.getParameter("artefactTipo"));
             switch (scelta) {

@@ -55,7 +55,7 @@ function removeNews(id){
 
 
 
-function updateNews(id,title,description,type,data,time,attached){
+function updateNews(id,title,description,type,data,time,allegato){
     $("#updateNewsWindow").dialog("open");
     $("#confirmUpdateNews").button();
     $("#updateNews").button();
@@ -120,11 +120,13 @@ function updateNews(id,title,description,type,data,time,attached){
         submitHandler: function() { 
             var attached=$("#selectFile").val();
             var str=attached.split("\\");
-            var s=str[str.length-1];  
-            if(attached!="")
-                document.getElementById("addLinkForm").action="UploadFile";
+            var s=str[str.length-1];
+         /*   if(attached!="")
+                document.getElementById("updateNewsForm").action="UploadFile";
             else
-                document.getElementById("addLinkForm").action="";
+                document.getElementById("updateNewsForm").action="";
+            $("#updateNewsForm").submit();*/
+            
             $.post("UpdateNews", {
                 artefactTitolo: $("#artefactTitolo2").val(),
                 artefactDescrizione: $("#artefactDescrizione2").val(),
@@ -132,8 +134,10 @@ function updateNews(id,title,description,type,data,time,attached){
                 artefactData: $("#artefactData2").val(),
                 artefactOra: $("#artefactOra2").val(),
                 artefactAllegato:s,
+                oldAllegato:allegato,
                 idNews:""+id               
             });
+            
             $("#updateNewsWindow").dialog("close"); 
             //   var oTable = $("#linksTable").dataTable();
             //   oTable.fnDraw();
