@@ -5,6 +5,10 @@
         <param-name>attachedFileFolder</param-name>
         <param-value>/home/francesco/attached</param-value>
     </context-param>
+    <context-param>
+        <param-name>projectFileFolder</param-name>
+        <param-value>/home/francesco/projectEducative</param-value>
+    </context-param>
     <servlet>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.paymentManagement.servlet.GetParentsTableServlet</servlet-class>
@@ -269,6 +273,14 @@
         <servlet-name>UpdateCommunicationServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.childrenManagement.UpdateCommunicationServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ShowProjectServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.programEducationalManagement.ShowProjectServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadProjectServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.programEducationalManagement.UploadProjectServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
@@ -532,6 +544,14 @@
     <servlet-mapping>
         <servlet-name>ModifyPasswordServlet</servlet-name>
         <url-pattern>/ModifyPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowProjectServlet</servlet-name>
+        <url-pattern>/ShowProject</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadProjectServlet</servlet-name>
+        <url-pattern>/UploadProject</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

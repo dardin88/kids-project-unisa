@@ -17,6 +17,7 @@ public class AnnualProject
 	private String topic;
 	private String description;
 	private String applicationYear;
+        private String scadenza;
 
 	private int id;
        // private MailManager email;
@@ -97,5 +98,11 @@ public class AnnualProject
 		return id;
 	}
         
+        public String getScadenza(){
+            return scadenza;
+        }
+        public void setScadenza(String pScadenza){
+            this.scadenza=pScadenza;
+        }
 	
 }
