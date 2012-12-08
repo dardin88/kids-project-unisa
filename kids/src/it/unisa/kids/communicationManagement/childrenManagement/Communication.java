@@ -1,7 +1,5 @@
 package it.unisa.kids.communicationManagement.childrenManagement;
 
-import java.util.GregorianCalendar;
-
 /**This class models the communication entity
  * @author Elena Sollai
  *
@@ -13,7 +11,7 @@ public class Communication {
 	private int idEducator;
 	private int idChild;
 	private String description;
-	private GregorianCalendar date;
+        private String date;
 	private boolean solved;
 
 	/**Empty constructor
@@ -92,16 +90,16 @@ public class Communication {
 	}
 	
 	/**this method returns the date
-	 * @return GregorianCalendar date
+	 * @return String date
 	 */
-	public GregorianCalendar getDate() {
+	public String getDate() {
 		return date;
 	}
 
 	/**this method sets the date
-	 * @param GregorianCalendar date
+	 * @param String date
 	 */
-	public void setDate(GregorianCalendar date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	/**this method returns the solved

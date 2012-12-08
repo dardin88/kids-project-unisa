@@ -4,24 +4,29 @@
  */
 package it.unisa.kids.communicationManagement.childrenManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.common.DBNames;
+import it.unisa.storage.connectionPool.DBConnectionPool;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Elena
  */
 public class AddCommunicationServlet extends HttpServlet {
+    Connection connection = null;
+    Statement stmt = null;
+    ResultSet rsCommunication = null;
 
     /**
      * Processes requests for both HTTP
@@ -41,12 +46,31 @@ public class AddCommunicationServlet extends HttpServlet {
             Communication a = new Communication();  
             int aId = Integer.parseInt(request.getParameter("Id"));
             int aType = Integer.parseInt(request.getParameter("Type"));
-            int aIdEducator = Integer.parseInt(request.getParameter("IdEducator"));
-            int aIdChild = Integer.parseInt(request.getParameter("IdChild"));
+            //int aIdEducator = Integer.parseInt(request.getParameter("IdEducator"));
+           
+            HttpSession session = request.getSession();
+            Account user = (Account) session.getAttribute("user");
+            int aIdEducator = user.getId();
+            
+            String childName = request.getParameter("childName");
+            String childSurname = request.getParameter("childSurname");
+            
+            connection = DBConnectionPool.getConnection();
+            String query = "select "+DBNames.ATT_REGISTRATIONCHILD_ID+" from " + DBNames.TABLE_REGISTRATIONCHILD
+                    + " where "+DBNames.ATT_REGISTRATIONCHILD_NAME+"="+childName+"&&"
+                    +DBNames.ATT_REGISTRATIONCHILD_SURNAME+"="+childSurname;
+            rsCommunication = stmt.executeQuery(query);
+            int IdC = 0;
+            while (rsCommunication.next()) {
+                IdC = rsCommunication.getInt(DBNames.ATT_REGISTRATIONCHILD_ID);
+            }
+            int aIdChild=IdC;            
+            
             String aDescription = request.getParameter("Description");
-            String aDat = request.getParameter("Date");
-            GregorianCalendar aDate= parseGregorianCalendar(aDat);
+            String aDate = request.getParameter("Date");
+            //GregorianCalendar aDate= parseGregorianCalendar(aDat);
             boolean aSolved = Boolean.getBoolean(request.getParameter("Solved"));
+            
             a.setId(aId);
             a.setType(aType);
             a.setIdEducator(aIdEducator);
@@ -59,14 +83,14 @@ public class AddCommunicationServlet extends HttpServlet {
             Logger.getLogger(GetCommunicationServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+/*
 private GregorianCalendar parseGregorianCalendar(String pDate) throws ParseException {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date parsed = df.parse(pDate);
         GregorianCalendar date = new GregorianCalendar();
         date.setTime(parsed);
         return date;
-    }
+    }*/
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

@@ -48,8 +48,8 @@ public class UpdateCommunicationServlet extends HttpServlet {
             c.setIdEducator(Integer.parseInt(request.getParameter("idEducator")));
             c.setIdChild(Integer.parseInt(request.getParameter("idChild")));
             c.setDescription(request.getParameter("description"));
-            String aDat = request.getParameter("date");
-            GregorianCalendar aDate= parseGregorianCalendar(aDat);
+            String aDate = request.getParameter("date");
+            //GregorianCalendar aDate= parseGregorianCalendar(aDat);
             c.setDate(aDate);
             c.setSolved(Boolean.getBoolean(request.getParameter("solved")));
             cc.modifyCommunication(c);

@@ -88,15 +88,15 @@ public class GetCommunicationServlet extends HttpServlet {
                     ja.put(a.getIdEducator());
                     ja.put(a.getIdChild());
                     ja.put(a.getDescription());
-                    int day = a.getDate().get(Calendar.DAY_OF_MONTH);
-                    int month = a.getDate().get(Calendar.MONTH);
-                    int year = a.getDate().get(Calendar.YEAR);
-                    String date = year + "-" + month + "-" + day;
-                    ja.put(date);
+                    //int day = a.getDate().get(Calendar.DAY_OF_MONTH);
+                    //int month = a.getDate().get(Calendar.MONTH);
+                    //int year = a.getDate().get(Calendar.YEAR);
+                    //String date = year + "-" + month + "-" + day;
+                    ja.put(a.getDate());
                     ja.put(a.getSolved());
-                    String operazioni="<div style=\"text-align:center;\" ><input id=\"idUpdateCommunication\" class='tableImage' height='20px' type='image' src='img/lente.gif' onclick=\"updateCommunication("+a.getId()+",'"+a.getType()+"','"+a.getIdEducator()+"','"+a.getIdChild()+"','"+a.getDescription()+"','"+date+"','"+a.getSolved()+"')\" />";
+                    String operazioni="<div style=\"text-align:center;\" ><input id=\"idUpdateCommunication\" class='tableImage' height='20px' type='image' src='img/lente.gif' onclick=\"updateCommunication("+a.getId()+",'"+a.getType()+"','"+a.getIdEducator()+"','"+a.getIdChild()+"','"+a.getDescription()+"','"+a.getDate()+"','"+a.getSolved()+"')\" />";
                     if(nomeUtente.equals("Educatore")){
-                        operazioni+="<input id=\"idUpdateCommunication\" class='tableImage' height='20px' type='image' src='img/change.png' onclick=\"updateCommunication("+a.getId()+",'"+a.getType()+"','"+a.getIdEducator()+"','"+a.getIdChild()+"','"+a.getDescription()+"','"+date+"','"+a.getSolved()+"')\" /></div>";
+                        operazioni+="<input id=\"idUpdateCommunication\" class='tableImage' height='20px' type='image' src='img/change.png' onclick=\"updateCommunication("+a.getId()+",'"+a.getType()+"','"+a.getIdEducator()+"','"+a.getIdChild()+"','"+a.getDescription()+"','"+a.getDate()+"','"+a.getSolved()+"')\" /></div>";
                         ja.put(operazioni);
                     }
                     else {

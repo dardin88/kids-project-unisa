@@ -70,7 +70,7 @@ public class JDBCCommunicationManager implements ICommunicationManager {
             stmt.setInt(3, pCommunication.getIdEducator());
             stmt.setInt(4, pCommunication.getIdChild());
             stmt.setString(5, pCommunication.getDescription());
-            stmt.setDate(6, new Date(pCommunication.getDate().getTimeInMillis()));
+            stmt.setString(6, pCommunication.getDate());
             stmt.setBoolean(7, pCommunication.getSolved());
             stmt.executeUpdate();
             connection.commit();
@@ -103,10 +103,11 @@ public class JDBCCommunicationManager implements ICommunicationManager {
                 int idEducator = rsCommunication.getInt(DBNames.ATT_COMMUNICATION_IDEDUCATOR);
                 int idChild = rsCommunication.getInt(DBNames.ATT_COMMUNICATION_IDCHILD);
                 String description = rsCommunication.getString(DBNames.ATT_COMMUNICATION_DESCRIPTION);
-                Date date = rsCommunication.getDate(DBNames.ATT_COMMUNICATION_DATE);
-                GregorianCalendar data = new GregorianCalendar();
-                data.setTime(date);
-                data.set(Calendar.MONTH, (data.get(Calendar.MONTH)) + 1);
+                String date = rsCommunication.getDate(DBNames.ATT_COMMUNICATION_DATE).toString();
+                //Date date = rsCommunication.getDate(DBNames.ATT_COMMUNICATION_DATE);
+                //GregorianCalendar data = new GregorianCalendar();
+                //data.setTime(date);
+                //data.set(Calendar.MONTH, (data.get(Calendar.MONTH)) + 1);
                 boolean solved = rsCommunication.getBoolean(DBNames.ATT_COMMUNICATION_SOLVED);
                 Communication communication = new Communication();
                 communication.setId(id);
@@ -114,7 +115,7 @@ public class JDBCCommunicationManager implements ICommunicationManager {
                 communication.setIdEducator(idEducator);
                 communication.setIdChild(idChild);
                 communication.setDescription(description);
-                communication.setDate(data);
+                communication.setDate(date);
                 communication.setSolved(solved);
                 listCommunication.add(communication);
             }
@@ -205,10 +206,10 @@ public class JDBCCommunicationManager implements ICommunicationManager {
                 int idEducator = rsCommunication.getInt(DBNames.ATT_COMMUNICATION_IDEDUCATOR);
                 int idChild = rsCommunication.getInt(DBNames.ATT_COMMUNICATION_IDCHILD);
                 String description = rsCommunication.getString(DBNames.ATT_COMMUNICATION_DESCRIPTION);
-                Date date = rsCommunication.getDate(DBNames.ATT_COMMUNICATION_DATE);
-                GregorianCalendar data = new GregorianCalendar();
-                data.setTime(date);
-                data.set(Calendar.MONTH, (data.get(Calendar.MONTH)) + 1);
+                String date = rsCommunication.getDate(DBNames.ATT_COMMUNICATION_DATE).toString();
+                //GregorianCalendar data = new GregorianCalendar();
+                //data.setTime(date);
+                //data.set(Calendar.MONTH, (data.get(Calendar.MONTH)) + 1);
                 boolean solved = rsCommunication.getBoolean(DBNames.ATT_COMMUNICATION_SOLVED);
                 Communication communication = new Communication();
                 communication.setId(id);
@@ -216,7 +217,7 @@ public class JDBCCommunicationManager implements ICommunicationManager {
                 communication.setIdEducator(idEducator);
                 communication.setIdChild(idChild);
                 communication.setDescription(description);
-                communication.setDate(data);
+                communication.setDate(date);
                 communication.setSolved(solved);
                 listCommunication.add(communication);
             }
