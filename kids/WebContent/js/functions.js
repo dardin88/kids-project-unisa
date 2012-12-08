@@ -108,7 +108,7 @@ function activePage(){
             $("#title").html("Gestione Domande di Iscrizione");
             break;
         case 'classification.jsp':
-            $("#classificationMR").css("background-color", "#444");
+            $("#classificationME").css("background-color", "#444");
             $("#classificationME").css("color", "#FFFFFF");
             $("#title").html("Gestione Graduatorie");
             break;
