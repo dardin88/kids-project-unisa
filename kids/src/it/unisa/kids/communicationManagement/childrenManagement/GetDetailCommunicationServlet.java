@@ -49,10 +49,11 @@ public class GetDetailCommunicationServlet extends HttpServlet {
                 json.put("idEducator",a.getIdEducator());
                 json.put("idChild",a.getIdChild());
                 json.put("description",a.getDescription());
-                int day = a.getDate().get(Calendar.DAY_OF_MONTH);
-                int month = a.getDate().get(Calendar.MONTH);
-                int year = a.getDate().get(Calendar.YEAR);
-                json.put("date",year + "-" + month + "-" + day);
+                //int day = a.getDate().get(Calendar.DAY_OF_MONTH);
+                //int month = a.getDate().get(Calendar.MONTH);
+                //int year = a.getDate().get(Calendar.YEAR);
+                //json.put("date",year + "-" + month + "-" + day);
+                json.put("date",a.getDate());
                 json.put("solved",a.getSolved());
                 array.put(json);
             }
