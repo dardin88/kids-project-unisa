@@ -11,6 +11,12 @@ function initializeLinksManager(){
         resizable: false,
         width: 600
     });
+    $("#showNewsWindow").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 500
+    });
     $("#removeNewsWindow").dialog({
         autoOpen: false,
         modal: true,
@@ -60,6 +66,8 @@ function updateNews(id,title,description,type,data,time,allegato){
     $("#updateNewsWindow").dialog("open");
     $("#confirmUpdateNews").button();
     $("#updateNews").button();
+    $("#selectFile").button();
+
        
     document.forms["updateNewsForm"].elements["nomeNews"].value=title;        
     document.forms["updateNewsForm"].elements["descrizioneNews"].value=description;        
@@ -125,8 +133,8 @@ function updateNews(id,title,description,type,data,time,allegato){
             if(attached!="")
                 document.getElementById("updateNewsForm").action="UploadFile";
             else
-                 document.getElementById("updateNewsForm").action="";
-          //  $("#updateNewsForm").submit();
+                document.getElementById("updateNewsForm").action="";
+            //  $("#updateNewsForm").submit();
             $.post("UpdateNews", {
                 artefactTitolo: $("#artefactTitolo2").val(),
                 artefactDescrizione: $("#artefactDescrizione2").val(),
@@ -152,6 +160,23 @@ function updateNews(id,title,description,type,data,time,allegato){
     
 }
 
+function showNews(title,description,type,data,time,allegato){
+    $("#showNewsWindow").dialog("open");
+    $("#backButton").button();
+    document.getElementById('labelTitolo').innerHTML = title; 
+    document.getElementById('labelDescrizione').innerHTML = description; 
+    document.getElementById('labelTipo').innerHTML = type; 
+    document.getElementById('labelData').innerHTML = data; 
+    document.getElementById('labelOra').innerHTML = time; 
+    document.getElementById('labelAllegato').innerHTML = allegato; 
+    document.getElementById('labelAllegato').href="DownloadFile?nameFile="+allegato;
+    $("backButton").click(function(){
+        $("#showNewsWindow").dialog("close");
+    });
+}
+
+
+
 function enableButtonUpdate(){
     document.getElementById("updateNews").style.visibility="hidden";
     document.getElementById("confirmUpdateNews").style.visibility="visible";
@@ -161,7 +186,6 @@ function enableButtonUpdate(){
     document.getElementById("artefactTipo2").disabled=false;
     document.getElementById("artefactData2").disabled=false;
     document.getElementById("artefactOra2").disabled=false;
-    $("#selectFile").button();
 
    
 }
