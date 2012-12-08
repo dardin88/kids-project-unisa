@@ -121,13 +121,13 @@ public final class DBNames {
     public static final String ATT_REGISTRATIONCHILD_ENUM_USERRANGE_PARTTIMEPM = "part_time_pomeridiana";
     public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DRAFT = "bozza";
     public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED = "sottomessa";
-    public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_CONFIRMED = "confermata";
-    public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_UNACCEPTED = "rifiutata";
+    public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_RECEIPT = "ricevuta";
+    public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DELETED = "eliminata";
+    public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_RECOURSE = "ricorso";
     public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_ACCEPTED = "accettata";
     public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_COMPLETED = "completata";
-    public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DELETED = "eliminata";
+    public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_VALIDATED = "validata";
     public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_RENOUNCED = "rinunciata";
-    public static final String ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_RECOURSE = "ricorso";
     // Recourses's attributes
     public static final String ATT_RECOURSE_ID = "Id";
     public static final String ATT_RECOURSE_DATA = "Data";

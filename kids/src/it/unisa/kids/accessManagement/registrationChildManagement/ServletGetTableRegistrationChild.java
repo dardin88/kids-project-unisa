@@ -46,7 +46,6 @@ public class ServletGetTableRegistrationChild extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
         RegistrationChild[] paginateChildRequestSet;
@@ -112,24 +111,28 @@ public class ServletGetTableRegistrationChild extends HttpServlet {
                     
                     StringBuffer operazioni = new StringBuffer();
                     // Sia genitore che segreteria possono vederne i dettagli, la visualizza dettagli deve esser possibile su tutte le domanda
-                    operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Visualizza Dettagli\" alt=\"Dettagli\" src='img/lente.gif' onclick='viewDetailsRegistrationChild(\""+regChildRequest.getId()+"\")'/>");
+                    operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Visualizza Dettagli\" alt=\"Dettagli\" src='img/lente.gif' onclick='openViewDetailsRegistrationChildWindow(\""+regChildRequest.getId()+"\")'/>");
                     
                     if(account.getAccountType().equals("Genitore")) {
                         // solo il genitore può eliminarla o modificarla
                         if(regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DRAFT)) {
-                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Modifica\" alt=\"Modifica\" src='img/edit.gif' onclick='editDraftRegistrationChild(\""+regChildRequest.getId()+"\")'/>");
+                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Modifica\" alt=\"Modifica\" src='img/edit.gif' onclick='openModifyRegistrationChildWindow(\""+regChildRequest.getId()+"\")'/>");
                         }
                         if(!regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_ACCEPTED) && !regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DELETED)) {
-                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Elimina\" alt=\"Elimina\" src='img/trash.png' onclick='removeRegistrationChild(\"" + regChildRequest.getId() + "\")'/>");
+                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Elimina\" alt=\"Elimina\" src='img/trash.png' onclick='openDeleteRegistrationChildWindow(\"" + regChildRequest.getId() + "\")'/>");
                         }
                         if(regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_ACCEPTED)) {
-                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Completa\" alt=\"Completa\" src='img/tocomplete.png' onclick='completeRegistrationChild(\"" + regChildRequest.getId() + "\")'/>");
+                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Completa\" alt=\"Completa\" src='img/tocomplete.png' onclick='openCompleteRegistrationChildWindow(\"" + regChildRequest.getId() + "\")'/>");
                         }
                     }
                     if(account.getAccountType().equals("Segreteria")) {
                         // solo la segreteria può confermare
-                        if(!regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED)) {
-                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" alt=\"Conferma\" alt=\"Conferma\" src='img/accept.png' onclick='confirmRegistrationChild(\"" + regChildRequest.getId() + "\")'/>");
+                        if(regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED)) {
+                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" alt=\"Conferma\" alt=\"Conferma\" src='img/accept.png' onclick='openComfirmRegistrationChildWindow(\"" + regChildRequest.getId() + "\")'/>");
+                        }
+                        // e confermare il completamento
+                        if(regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_COMPLETED)) {
+                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" alt=\"Conferma\" alt=\"Conferma completamento\" src='img/accept.png' onclick='openComfirmCompletedRegistrationChildWindow(\"" + regChildRequest.getId() + "\")'/>");
                         }
                     }
                     ja.put(operazioni.toString());
