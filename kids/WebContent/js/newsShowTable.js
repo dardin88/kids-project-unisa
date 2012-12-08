@@ -35,7 +35,7 @@ function initializeLinksManager(){
     addNews(); 
 }
 
-function removeNews(id){
+function removeNews(id,attached){
     $("#removeNewsWindow").dialog("open");
     $("#notRemoveNewsButton").button();
     $("#notRemoveNewsButton").click(function(){
@@ -44,7 +44,8 @@ function removeNews(id){
     $("#removeNewsButton").button();
     $("#removeNewsButton").click(function(){
         $.post("RemoveNews",{
-            idNews:""+id
+            idNews:""+id,
+            allegatoName:attached
         });
         $("#removeNewsWindow").dialog("close");
         document.location.reload(true);

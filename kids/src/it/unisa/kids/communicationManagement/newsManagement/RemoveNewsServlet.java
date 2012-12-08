@@ -4,6 +4,7 @@
  */
 package it.unisa.kids.communicationManagement.newsManagement;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -37,6 +38,12 @@ public class RemoveNewsServlet extends HttpServlet {
         try {
             INewsManager am = JDBCNewsManager.getInstance();
             String temp = request.getParameter("idNews");
+            String allegato = request.getParameter("allegatoName");
+            if (!allegato.equals("")) {
+                String path = (String) getServletContext().getInitParameter("attachedFileFolder");
+                File f = new File(path + "/" + allegato);
+                f.delete();
+            }
             int id = Integer.parseInt(temp);
             News n = new News();
             n.setId(id);
