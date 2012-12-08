@@ -630,3 +630,22 @@ Gestione bambini
     display: inline;
     
 }
+
+/*
+* SurveyManagement
+*/
+
+ #webapp iframe {
+    position: relative;
+    overflow: scroll;
+    top: 40px;
+    left: 40px;
+    height:70%;
+    width: 70%;
+    margin: 10px 20px;
+    outline-style: solid;
+    outline-color: #666;
+    outline-width: 2px;
+}
+
+
