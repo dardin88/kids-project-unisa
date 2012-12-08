@@ -102,7 +102,16 @@ function activePage(){
             $("#coordinatorePsico").css("color", "#FFFFFF");
             $("#title").html("Gestione Programma Educativo");
             break;
-           
+        case 'registrationChild.jsp':
+            $("#registrationChildME").css("background-color", "#444");
+            $("#registrationChildME").css("color", "#FFFFFF");
+            $("#title").html("Gestione Domande di Iscrizione");
+            break;
+        case 'classification.jsp':
+            $("#classificationMR").css("background-color", "#444");
+            $("#classificationME").css("color", "#FFFFFF");
+            $("#title").html("Gestione Graduatorie");
+            break;
     }
 }
 
