@@ -257,18 +257,18 @@ public class JDBCAccountManager implements IAccountManager {
             }
 
             if (pAccount.getNickName() != null && !pAccount.getNickName().equals("")) {
-                query = query + useAnd(andState) + DBNames.ATT_ACCOUNT_NICKNAME + " = ?";
+                query = query + useAnd(andState) + DBNames.ATT_ACCOUNT_NICKNAME + " LIKE CONCAT('%', ?, '%')";
                 andState = true;
             }
 
 
             if (pAccount.getSurnameUser() != null && !pAccount.getSurnameUser().equals("")) {
-                query += useAnd(andState) + DBNames.ATT_ACCOUNT_SURNAMEUSER + " = ?";
+                query += useAnd(andState) + DBNames.ATT_ACCOUNT_SURNAMEUSER + " LIKE CONCAT('%', ?, '%')";
                 andState = true;
             }
 
             if (pAccount.getNameUser() != null && !pAccount.getNameUser().equals("")) {
-                query += useAnd(andState) + DBNames.ATT_ACCOUNT_NAME + " = ?";
+                query += useAnd(andState) + DBNames.ATT_ACCOUNT_NAME + " LIKE CONCAT('%', ?, '%')";
                 andState = true;
             }
 
@@ -276,11 +276,11 @@ public class JDBCAccountManager implements IAccountManager {
 
 
             if (pAccount.getTaxCode() != null && !pAccount.getTaxCode().equals("")) {
-                query += useAnd(andState) + DBNames.ATT_ACCOUNT_TAXCODE + " = ?";
+                query += useAnd(andState) + DBNames.ATT_ACCOUNT_TAXCODE + " LIKE CONCAT('%', ?, '%')";
                 andState = true;
             }
             if (pAccount.getState() != null) {
-                query += useAnd(andState) + DBNames.ATT_ACCOUNT_STATE + " =?";
+                query += useAnd(andState) + DBNames.ATT_ACCOUNT_STATE + " = ?";
                 andState = true;
             }
 
