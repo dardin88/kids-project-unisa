@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `account` (
 INSERT INTO `account` (`Id`, `Nickname`, `Password`, `Cognome`, `Nome`, `Email`, `Telefono`, `Cellulare`, `Fax`, `DataNascita`, `ComuneNascita`, `CodiceFiscale`, `Cittadinanza`, `ResidenzaIndirizzo`, `ResidenzaComune`, `ResidenzaProvincia`, `ResidenzaCap`, `DomicilioIndirizzo`, `DomicilioComune`, `DomicilioProvincia`, `DomicilioCap`, `TitoloStudio`, `SituazioneFamiliare`, `Reddito`, `TipologiaGenitore`, `DataScadenzaContratto`, `Facolta`, `DataRegistrazione`, `NumeroStradaResidenza`, `NumeroStradaDomicilio`, `TipologiaAccount`, `Matricola`, `Stato`) VALUES
 (1, 'segreteria', 'segreteria', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Segreteria', NULL, NULL),
 (2, 'admin', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Admin', NULL, NULL),
-(4, 'genitore', 'genitore', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Genitore', NULL, NULL);
+(4, 'genitore', 'genitore', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Genitore', NULL, NULL),
 (5, 'gen2', 'gen2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Genitore', NULL, NULL);
 
 -- --------------------------------------------------------
@@ -257,11 +257,11 @@ CREATE TABLE IF NOT EXISTS `iscrizionebambino` (
   `FaseDellIscrizione` enum('bozza','sottomessa','confermata','rifiutata','accettata','completata','eliminata','rinunciata','ricorso') NOT NULL DEFAULT 'bozza',
   `AccountGenitore` int(11) NOT NULL,
   `Malattie` text,
-  `IsSetMalattie` enum('si', 'no', 'forse') DEFAULT 'no',
+  `IsSetMalattie` enum('si', 'no', 'in_parte') DEFAULT 'no',
   `Vaccinazioni` text,
-  `IsSetVaccinazioni` enum('si', 'no', 'forse') DEFAULT 'no',
+  `IsSetVaccinazioni` enum('si', 'no', 'in_parte') DEFAULT 'no',
   `DichiarazioneDellaPrivacy` text,
-  `IsSetDichiarazioneDellaPrivacy` enum('si', 'no', 'forse') DEFAULT 'no',
+  `IsSetDichiarazioneDellaPrivacy` enum('si', 'no', 'in_parte') DEFAULT 'no',
   `Classe` int(11) DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -270,18 +270,7 @@ CREATE TABLE IF NOT EXISTS `iscrizionebambino` (
 -- Dump dei dati per la tabella `iscrizionebambino`
 --
 
-INSERT INTO `iscrizionebambino` (`Id`, `Cognome`, `Nome`, `DataNascita`, `ComuneNascita`, `CodiceFiscale`, `Cittadinanza`, `FasciaUtenza`, `DataIscrizione`, `FaseDellIscrizione`, `Malattie`, `Vaccinazioni`, `DichiarazioneDellaPrivacy`, `AccountGenitore`, `Classe`) VALUES
-(1, 'Ciccio', 'Paolo', NULL, '', '', '', 'full_time', '2012-12-05', 'sottomessa', NULL, NULL, NULL, 4, 0),
-(2, 'pop', 'nola', NULL, '', '', '', 'full_time', '2012-12-05', 'bozza', NULL, NULL, NULL, 4, 0),
-(3, 'provo', 'pao', NULL, '', '', '', 'full_time', '2012-12-05', 'bozza', NULL, NULL, NULL, 4, 0),
-(4, 'baaaaaaaa', 'lol', NULL, '', '', '', 'full_time', '2012-12-05', 'accettata', NULL, NULL, NULL, 4, 0),
-(5, 'bahl', 'hla', NULL, '', '', '', 'full_time', '2012-12-05', 'bozza', NULL, NULL, NULL, 4, 0),
-(6, 'data', 'data', '2012-12-10', '', '', '', 'full_time', '2012-12-05', 'bozza', NULL, NULL, NULL, 4, 0),
-(7, 'dopoedit', 'dopoedit', NULL, '', '', '', 'full_time', '2012-12-06', 'bozza', NULL, NULL, NULL, 4, 0),
-(8, 'aaa', 'aaa', NULL, '', '', '', 'full_time', '2012-12-06', 'bozza', NULL, NULL, NULL, 4, 0),
-(9, 'nona', 'nona', NULL, '', '', 'boh', 'full_time', '2012-12-06', 'bozza', NULL, NULL, NULL, 4, 0),
-(10, 'decima', 'lol', NULL, '', '', '', 'full_time', '2012-12-06', 'bozza', NULL, NULL, NULL, 5, 0),
-(11, 'undicesima', 'lalla', NULL, '', '', '', 'full_time', '2012-12-06', 'bozza', NULL, NULL, NULL, 4, 0);
+
 
 -- --------------------------------------------------------
 
