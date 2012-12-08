@@ -502,13 +502,17 @@ div#navigation li{
 
 #paymentsManagement h1 {
     font-size: 30px;
+    padding-bottom: 20px;
     text-align: center;
 }
 
 #paymentsManagement h2 {
     font-size: 22px;
-    padding-top: 20px;
     text-align: center;
+}
+
+#paymentsManagement h3 {
+    font-size: 18px;
 }
 
 #searchParent {

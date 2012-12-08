@@ -93,11 +93,16 @@ public class GetRefundsTableServlet extends HttpServlet {
                 }
                 for (RefundBean refund : paginateRefundSet) {
                     JSONObject jObj = new JSONObject();
-                    
+
                     checkAddToJSON(jObj, "0", refund.getDescription());
                     jObj.put("1", refund.getAmount());
-                    jObj.put("2", refund.isPerformed() ? "Effettuato" : "Non effettuato");
-                    
+
+                    String acceptImage = "<img class=\"tableImage\" style=\"width:20px;height:20px\" title=\"Si\" alt=\"Si\" src=\"img/accept.png\" />";
+                    String negateImage = "<img class=\"tableImage\" style=\"width:20px; height:20px;\" title=\"No\" alt=\"No\" src=\"img/negate.png\" />";
+                    jObj.put("2", refund.isPerformed() ? acceptImage : negateImage);
+
+                    jObj.put("DT_RowId", "" + refund.getId());
+
                     array.put(jObj);
                 }
             }
@@ -120,7 +125,7 @@ public class GetRefundsTableServlet extends HttpServlet {
 
     private RefundBean checkSearchParameters(HttpServletRequest pRequest) {
         RefundBean refund = new RefundBean();
-        
+
         String parentIdParameter = pRequest.getParameter("parentId");
         int parentId = 0;
         try {
@@ -128,11 +133,11 @@ public class GetRefundsTableServlet extends HttpServlet {
         } catch (NumberFormatException e) {
             Logger.getLogger(GetRefundsTableServlet.class.getName()).log(Level.SEVERE, "Cannot parse this parentId: " + parentIdParameter, e);
         }
-        
+
         refund.setParentId(parentId);
         return refund;
     }
-    
+
     private void checkAddToJSON(JSONObject jObj, String key, Object value) {
         if (value != null) {
             jObj.put(key, value);

@@ -46,6 +46,11 @@ public class Mail {
         this.to = to;
     }
     
+    public void setTo(String pTo) {
+        this.to = new ArrayList();
+        this.to.add(pTo);
+    }
+    
     
     
 }

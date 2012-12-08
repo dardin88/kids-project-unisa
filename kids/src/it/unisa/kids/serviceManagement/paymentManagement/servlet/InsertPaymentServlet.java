@@ -30,7 +30,6 @@ import javax.servlet.http.HttpServletResponse;
 public class InsertPaymentServlet extends HttpServlet {
     
     private static final int DESCRIPTION_MAXLENGTH = 200;
-    private static final String CHARGE_TRUE = "chargeTrue";
 
     private IPaymentManager paymentManager;
 
@@ -89,13 +88,6 @@ public class InsertPaymentServlet extends HttpServlet {
                 return;
             }
             payment.setDiscountDescription(discountDescription);
-            
-            String charge = request.getParameter("charge");
-            if (charge != null && charge.equals(CHARGE_TRUE)) {
-                payment.setCharge(true);
-            } else {
-                payment.setCharge(false);
-            }
             
             String expDate = request.getParameter("expDate");
             if (expDate == null) {

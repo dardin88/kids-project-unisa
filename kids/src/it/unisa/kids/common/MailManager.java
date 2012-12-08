@@ -4,9 +4,7 @@
  */
 package it.unisa.kids.common;
 
-import it.unisa.kids.serviceManagement.trainingManagement.*;
 import java.util.Observable;
-
 import java.util.Observer;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -25,7 +23,6 @@ import javax.mail.internet.MimeMessage;
 public class MailManager implements Observer {
 
     private String smtpServer;
-    private ITrainingManager manager;
     private String from;
     private String password;
 
@@ -33,7 +30,6 @@ public class MailManager implements Observer {
         from = "kids.asilo@gmail.com";
         smtpServer = "smtp.gmail.com";
         password = "progettokids";
-        
     }
 
     @Override
@@ -43,10 +39,6 @@ public class MailManager implements Observer {
 
     public void sendMail(Mail mail) {
         try {
-            
-            
-
-
             Properties props = System.getProperties();
 
             props.put("mail.smtp.user", from);
@@ -76,13 +68,8 @@ public class MailManager implements Observer {
             } finally {
                 transport.close();
             }
-
-
-        } 
-         catch (MessagingException ex) {
+        } catch (MessagingException ex) {
             Logger.getLogger(MailManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    
 }

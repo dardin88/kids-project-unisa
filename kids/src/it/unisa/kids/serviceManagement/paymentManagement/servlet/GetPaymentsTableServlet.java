@@ -75,8 +75,6 @@ public class GetPaymentsTableServlet extends HttpServlet {
             searchPayment.setId(-1);                // setto a -1 cosi la search non considera l'id
             searchPayment.setAmount(-1);            // idem
             searchPayment.setDiscount(-1);          // idem
-            searchPayment.setChargeUsable(false);   // idem
-            searchPayment.setPaidUsable(false);     // idem
             List<PaymentBean> paymentsList = paymentManager.search(searchPayment);
 
             PaymentBean[] paginatePaymentSet;
@@ -93,23 +91,15 @@ public class GetPaymentsTableServlet extends HttpServlet {
                     paginatePaymentSet = new PaymentBean[toShow];
                     System.arraycopy(paymentsList.toArray(), start, paginatePaymentSet, 0, toShow);
                 }
+
                 for (PaymentBean payment : paginatePaymentSet) {
-                    JSONObject jObj = new JSONObject();
-                    
-                    double amountPayment = payment.getAmount();
-                    double discountPayment = payment.getDiscount();
-                    double amountDuePayment = amountPayment - (amountPayment * discountPayment / 100);
-                    
-                    jObj.put("0", unparseGregorianCalendar(payment.getExpDate()));
-                    checkAddToJSON(jObj, "1", payment.getPaymentDescription());
-                    jObj.put("2", amountPayment);
-                    jObj.put("3", discountPayment);
-                    checkAddToJSON(jObj, "4", payment.getDiscountDescription());
-                    jObj.put("5", amountDuePayment);
-                    jObj.put("6", payment.isCharge() ? "Si" : "No");
-                    jObj.put("7", payment.isPaid() ? "Si" : "No");
-                    
-                    jObj.put("DT_RowId", "" + payment.getId());
+                    JSONObject jObj;
+
+                    if (searchPayment.isPaidUsable()) {
+                        jObj = createValidatePaymentJSON(payment);
+                    } else {
+                        jObj = createShowPaymentJSON(payment);
+                    }
                     
                     array.put(jObj);
                 }
@@ -133,19 +123,23 @@ public class GetPaymentsTableServlet extends HttpServlet {
 
     private PaymentBean checkSearchParameters(HttpServletRequest pRequest) {
         PaymentBean payment = new PaymentBean();
-        
+
         String parentIdParameter = pRequest.getParameter("parentId");
-        int parentId = 0;
+        if (parentIdParameter == null) {
+            parentIdParameter = pRequest.getParameter("parentIdConv");
+            payment.setPaidUsable(true);
+        }
+        int parentId = -1;
         try {
             parentId = Integer.parseInt(parentIdParameter);
         } catch (NumberFormatException e) {
             Logger.getLogger(GetPaymentsTableServlet.class.getName()).log(Level.SEVERE, "Cannot parse this parentId: " + parentIdParameter, e);
         }
-        
+
         payment.setParentId(parentId);
         return payment;
     }
-    
+
     private String unparseGregorianCalendar(GregorianCalendar pDate) {
         if (pDate != null) {
             return pDate.get(GregorianCalendar.YEAR) + "-"
@@ -155,13 +149,59 @@ public class GetPaymentsTableServlet extends HttpServlet {
             return null;
         }
     }
-    
+
     private void checkAddToJSON(JSONObject jObj, String key, Object value) {
         if (value != null) {
             jObj.put(key, value);
         } else {
             jObj.put(key, "");
         }
+    }
+
+    private JSONObject createShowPaymentJSON(PaymentBean payment) throws NullPointerException {
+        JSONObject jObj = new JSONObject();
+        
+        double amountPayment = payment.getAmount();
+        double discountPayment = payment.getDiscount();
+        double amountDuePayment = amountPayment - (amountPayment * discountPayment / 100);
+
+        jObj.put("0", unparseGregorianCalendar(payment.getExpDate()));
+        checkAddToJSON(jObj, "1", payment.getPaymentDescription());
+        jObj.put("2", amountPayment);
+        jObj.put("3", discountPayment);
+        checkAddToJSON(jObj, "4", payment.getDiscountDescription());
+        jObj.put("5", amountDuePayment);
+        checkAddToJSON(jObj, "6", payment.getOriginAccount());
+        checkAddToJSON(jObj, "7", payment.getPayee());
+        checkAddToJSON(jObj, "8", payment.getReceiptCode());
+        
+        String acceptImage = "<img class=\"tableImage\" style=\"width:20px;height:20px\" title=\"Si\" alt=\"Si\" src=\"img/accept.png\" />";
+        String negateImage = "<img class=\"tableImage\" style=\"width:20px; height:20px;\" title=\"No\" alt=\"No\" src=\"img/negate.png\" />";
+        jObj.put("9", payment.isPaid() ? acceptImage : negateImage);
+
+        jObj.put("DT_RowId", "" + payment.getId());
+        
+        return jObj;
+    }
+    
+    private JSONObject createValidatePaymentJSON(PaymentBean payment) throws NullPointerException {
+        JSONObject jObj = new JSONObject();
+        
+        double amountPayment = payment.getAmount();
+        double discountPayment = payment.getDiscount();
+        double amountDuePayment = amountPayment - (amountPayment * discountPayment / 100);
+
+        jObj.put("0", unparseGregorianCalendar(payment.getExpDate()));
+        checkAddToJSON(jObj, "1", payment.getPaymentDescription());
+        jObj.put("2", amountPayment);
+        jObj.put("3", discountPayment);
+        checkAddToJSON(jObj, "4", payment.getDiscountDescription());
+        jObj.put("5", amountDuePayment);
+        checkAddToJSON(jObj, "6", payment.getPayee());
+
+        jObj.put("DT_RowId", "" + payment.getId());
+        
+        return jObj;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
