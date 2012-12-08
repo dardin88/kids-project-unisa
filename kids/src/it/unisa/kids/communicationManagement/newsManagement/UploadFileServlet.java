@@ -22,7 +22,7 @@ import javax.servlet.http.Part;
 
 /**
  *
- * @author francesco
+ * @author francesco di lorenzo
  */
 //@WebServlet(name = "UploadFileServlet", urlPatterns = {"/UploadFile"})
 @MultipartConfig
@@ -45,10 +45,9 @@ public class UploadFileServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         // Create path components to save the file
-        final String path = getServletContext().getInitParameter("attachedFIleFolder");
+        final String path = getServletContext().getInitParameter("attachedFileFolder");
         final Part filePart = request.getPart("scegliFile");
         final String fileName = getFileName(filePart);
-
         OutputStream out = null;
         InputStream filecontent = null;
         final PrintWriter writer = response.getWriter();
@@ -63,14 +62,12 @@ public class UploadFileServlet extends HttpServlet {
             while ((read = filecontent.read(bytes)) != -1) {
                 out.write(bytes, 0, read);
             }
-            // writer.println("New file " + fileName + " created at " + path);
             LOGGER.log(Level.INFO, "File{0}being uploaded to {1}",
                     new Object[]{fileName, path});
             writer.println("<script language=\"javascript\" type=\"text/javascript\">");
             writer.println("var fileName = " + fileName + ";");
 
-            request.getSession().setAttribute("nameFile", fileName);
-            //request.getServletContext().getRequestDispatcher("/newsShowTable.jsp").forward(request, response);
+           // request.getSession().setAttribute("nameFile", fileName);
             response.sendRedirect("/kids/newsShowTable.jsp");
 
         } catch (FileNotFoundException fne) {

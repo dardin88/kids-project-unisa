@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author francesco
+ * @author francesco di lorenzo
  */
 public class DownloadFileServlet extends HttpServlet {
 
@@ -34,10 +34,10 @@ public class DownloadFileServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       
-        String uri = "/home/francesco/attached/";
+                    
+        String uri = (String) getServletContext().getInitParameter("attachedFileFolder");                    
         String fileName=request.getParameter("nameFile");
-        uri+=fileName;
+        uri+="/"+fileName;
         
         File file = new File(uri);
         FileInputStream fileInput = new FileInputStream(file);
