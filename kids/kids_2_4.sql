@@ -255,7 +255,7 @@ CREATE TABLE IF NOT EXISTS `iscrizionebambino` (
   `ComuneNascita` varchar(20),
   `CodiceFiscale` char(16),
   `Cittadinanza` varchar(20),
-  `FasciaUtenza` enum('full_time','part_time_pomeridiana','part_time_mattutina') DEFAULT NULL,
+  `FasciaUtenza` enum('', 'full_time','part_time_pomeridiana','part_time_mattutina') DEFAULT NULL,
   `Malattie` text,
   `Vaccinazioni` text,
   `DichiarazioneDellaPrivacy` text,
