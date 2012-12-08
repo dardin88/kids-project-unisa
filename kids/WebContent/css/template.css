@@ -296,6 +296,12 @@ div#navigation li{
     margin: 1%;
     margin-left: 1.5%;
 }
+.artefactLabel2 {
+    margin: 1%;
+    margin-left: 1.5%;
+    font-weight: bold;
+}
+
 
 #addArtefactButton{
     width: 25%;

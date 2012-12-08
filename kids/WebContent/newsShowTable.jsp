@@ -10,11 +10,7 @@
 <c:if test="${sessionScope.user==null}">
     <c:redirect url="index.jsp" />
 </c:if>
-<%--<c:if test="${sessionScope.user.getAccountType()!='Segreteria'}">
-    <c:if test="${sessionScope.user.getAccountType()!='Genitore'}">
-        <c:redirect url="index.jsp" />
-    </c:if>
-</c:if>--%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -146,7 +142,7 @@
                     <label class="artefactLabel" for="artefactTitolo">Titolo *</label>
                 </td>
                 <td>
-                    <input id="artefactTitolo2" disabled type="text" name="nomeNews" ></input>                     
+                    <input id="artefactTitolo2"  type="text" name="nomeNews" ></input>                     
                 </td>
                 </p>
                 </tr>
@@ -156,7 +152,7 @@
                     <label class="artefactLabel" for="artefactDescrizione">Descrizione *</label>
                 </td>
                 <td>  
-                    <textarea id="artefactDescrizione2"rows="5" disabled cols="25" name="descrizioneNews"></textarea>
+                    <textarea id="artefactDescrizione2"rows="5"  cols="25" name="descrizioneNews"></textarea>
                 </td>
                 </p>
                 </tr>
@@ -166,7 +162,7 @@
                     <label class="artefactLabel" for="artefactTipo">Tipo *</label>
                 </td>
                 <td>
-                    <select id="artefactTipo2" disabled onblur="verifyOra()" name="selectNews" class="artefactSelect">
+                    <select id="artefactTipo2"  onblur="verifyOra()" name="selectNews" class="artefactSelect">
                         <option value="0">Scegli tipo News</option>
                         <option value="1">Evento</option>
                         <option value="2">Notizia</option>
@@ -182,7 +178,7 @@
                     <label class="artefactLabel" for="artefactData">Data *</label>
                 </td>
                 <td>
-                    <input id="artefactData2" disabled type="text" name="dataNews"></input>
+                    <input id="artefactData2"  type="text" name="dataNews"></input>
                 </td>
                 </p>
                 </tr>
@@ -192,7 +188,7 @@
                     <label class="artefactLabel" for="artefactOra">Ora</label>
                 </td>
                 <td>
-                    <input id="artefactOra2" onkeyup="hiddenMessage()" onclick="hiddenMessage()" disabled type="time" name="oraNews"></input>
+                    <input id="artefactOra2" onkeyup="hiddenMessage()" onclick="hiddenMessage()"  type="time" name="oraNews"></input>
                     <span id="errOra" style="visibility: hidden;color:red;font-weight: bold"> Ora Obbligatoria per questa news </span> 
                 </td>
                 </p>
@@ -203,21 +199,80 @@
                     <label class="artefactLabel" for="artefactAllegato">Allegato (pu&ograve; essere anche vuoto)</label>
                 </td>
                 <td>
-                    <input type="file" disabled id="selectFile"  name="scegliFile" ></input>
+                    <input type="file"  id="selectFile"  name="scegliFile" ></input>
                 </td>
                 </p>                      
                 </tr>
                 <tr>
                     <td>
-                       <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
-                           <input type="button" class="windowButton2" id="updateNews" value="Modifica" onclick="enableButtonUpdate()" />
-                           <input type="submit" style="visibility: hidden;" class="windowButton2" id="confirmUpdateNews"  value="Salva"/>                 
-                       </c:if>
+                        <input type="submit"  class="windowButton2" id="confirmUpdateNews"  value="Salva"/>                 
                     </td>
                 </tr>
             </table>                 
         </fieldset>
     </form>
+</div>
+<div id="showNewsWindow" title="Visualizza News" style="display: inline">  
+    <fieldset>
+        <table>
+            <tr>
+                <td>
+                    <label class="artefactLabel2">Titolo</label>
+                </td>
+                <td>
+
+                    <label class="artefactLabel" id="labelTitolo" ></label>
+                </td>
+            </tr>
+            <tr>
+                <td>       
+                    <label class="artefactLabel2">Descrizione</label>
+                </td>
+                <td>                    
+                    <label class="artefactLabel" id="labelDescrizione"></label>
+                </td>
+            </tr>
+            <tr>
+                <td>                    
+                    <label class="artefactLabel2">Data</label>
+                </td>
+                <td>                    
+                    <label class="artefactLabel" id="labelData"></label>
+                </td>
+            </tr>
+            <tr>
+                <td>                    
+                    <label class="artefactLabel2">Ora</label>
+                </td>
+                <td>
+
+                    <label class="artefactLabel" id="labelOra"></label>
+                </td>
+            </tr>
+            <tr>
+                <td>                    
+                    <label class="artefactLabel2">Tipo</label>
+                </td>
+                <td>                    
+                    <label class="artefactLabel" id="labelTipo"></label> 
+                </td>
+            </tr>
+            <tr>
+                <td>                
+                    <label class="artefactLabel2">Allegato</label>
+                </td>
+                <td>                
+                    <a style="color:black;background:none;" href="" id="labelAllegato"> </a><br />
+                </td>
+
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="button" value="Indietro" id="backButton"/>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
 </div>
 <body>
     <%@include file="header.jsp" %>
