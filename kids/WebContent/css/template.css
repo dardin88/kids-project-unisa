@@ -261,8 +261,14 @@ div#navigation li{
     height: 30px;
     margin: 5px;
     margin-bottom: 0px;
-    left: 30%;
+    width:100px;
+    left: 23%;
 }
+
+.center{
+    text-align: center;
+}
+
 .removeNews{
     height: 105px;
     text-align: center;
@@ -300,6 +306,7 @@ div#navigation li{
     margin: 1%;
     margin-left: 1.5%;
     font-weight: bold;
+    font-size: 15px;
 }
 
 

@@ -162,7 +162,6 @@ function updateNews(id,title,description,type,data,time,allegato){
 
 function showNews(title,description,type,data,time,allegato){
     $("#showNewsWindow").dialog("open");
-    $("#backButton").button();
     document.getElementById('labelTitolo').innerHTML = title; 
     document.getElementById('labelDescrizione').innerHTML = description; 
     document.getElementById('labelTipo').innerHTML = type; 
@@ -170,25 +169,12 @@ function showNews(title,description,type,data,time,allegato){
     document.getElementById('labelOra').innerHTML = time; 
     document.getElementById('labelAllegato').innerHTML = allegato; 
     document.getElementById('labelAllegato').href="DownloadFile?nameFile="+allegato;
-    $("#backButton").click(function(){
-        $("#showNewsWindow").dialog("close");
-    });
+    
 }
 
 
 
-function enableButtonUpdate(){
-    document.getElementById("updateNews").style.visibility="hidden";
-    document.getElementById("confirmUpdateNews").style.visibility="visible";
-    document.getElementById("selectFile").disabled=false;
-    document.getElementById("artefactTitolo2").disabled=false;
-    document.getElementById("artefactDescrizione2").disabled=false;
-    document.getElementById("artefactTipo2").disabled=false;
-    document.getElementById("artefactData2").disabled=false;
-    document.getElementById("artefactOra2").disabled=false;
 
-   
-}
 
 
 function verifyOra(){
@@ -318,25 +304,25 @@ function buildShowTable(){
         },
         "aoColumns": [
         {
-            "sWidth": "15%"
+            "sWidth": "15%","sClass": "center"
         },
         {
-            "sWidth": "8%"
+            "sWidth": "8%","sClass": "center"
         },
         {
-            "sWidth": "8%"
+            "sWidth": "8%","sClass": "center"
         },
         {
-            "sWidth": "15%"
+            "sWidth": "15%","sClass": "center"
         },
         {
-            "sWidth": "15%"  
+            "sWidth": "15%"  ,"sClass": "center"
         },
         {
-            "sWidth": "10%"
+            "sWidth": "10%","sClass": "center"
         }
-        
         ],
+       
         "fnServerData": function (sSource, aoData, fnCallback){ 
             $.post(sSource,aoData,fnCallback,"json");
         }

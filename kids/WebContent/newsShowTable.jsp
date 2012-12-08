@@ -266,18 +266,12 @@
                 </td>
 
             </tr>
-            <tr>
-                <td colspan="2">
-                    <input type="button" value="Indietro" id="backButton"/>
-                </td>
-            </tr>
         </table>
     </fieldset>
 </div>
 <body>
     <%@include file="header.jsp" %>
     <div id="linksManagement">
-        <h1 style="font-size: 35px;text-align: center;"> Lista News </h1>
         <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}" >
             <input type="button" id="addLinkButton" value="Inserisci News" />               
         </c:if>
