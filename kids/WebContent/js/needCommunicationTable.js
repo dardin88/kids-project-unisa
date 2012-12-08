@@ -203,6 +203,9 @@ function buildShowTable(){
         },
         {
             "sWidth": "10%"
+        },
+        {
+            "sWidth": "10%"
         }
         ],
         "fnServerData": function (sSource, aoData, fnCallback){ 
