@@ -170,7 +170,7 @@ function showNews(title,description,type,data,time,allegato){
     document.getElementById('labelOra').innerHTML = time; 
     document.getElementById('labelAllegato').innerHTML = allegato; 
     document.getElementById('labelAllegato').href="DownloadFile?nameFile="+allegato;
-    $("backButton").click(function(){
+    $("#backButton").click(function(){
         $("#showNewsWindow").dialog("close");
     });
 }
