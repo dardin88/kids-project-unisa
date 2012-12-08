@@ -5,12 +5,7 @@
 package it.unisa.kids.communicationManagement.childrenManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
-import it.unisa.kids.common.DBNames;
-import it.unisa.storage.connectionPool.DBConnectionPool;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -24,10 +19,6 @@ import javax.servlet.http.HttpSession;
  * @author Elena
  */
 public class AddCommunicationServlet extends HttpServlet {
-    Connection connection = null;
-    Statement stmt = null;
-    ResultSet rsCommunication = null;
-
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -55,16 +46,7 @@ public class AddCommunicationServlet extends HttpServlet {
             String childName = request.getParameter("childName");
             String childSurname = request.getParameter("childSurname");
             
-            connection = DBConnectionPool.getConnection();
-            String query = "select "+DBNames.ATT_REGISTRATIONCHILD_ID+" from " + DBNames.TABLE_REGISTRATIONCHILD
-                    + " where "+DBNames.ATT_REGISTRATIONCHILD_NAME+"="+childName+"&&"
-                    +DBNames.ATT_REGISTRATIONCHILD_SURNAME+"="+childSurname;
-            rsCommunication = stmt.executeQuery(query);
-            int IdC = 0;
-            while (rsCommunication.next()) {
-                IdC = rsCommunication.getInt(DBNames.ATT_REGISTRATIONCHILD_ID);
-            }
-            int aIdChild=IdC;            
+            int aIdChild = am.getIdChild(childName, childSurname);
             
             String aDescription = request.getParameter("Description");
             String aDate = request.getParameter("Date");

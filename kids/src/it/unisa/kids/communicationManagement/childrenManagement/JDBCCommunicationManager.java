@@ -227,4 +227,21 @@ public class JDBCCommunicationManager implements ICommunicationManager {
         }
         return listCommunication;
     }
+    
+    public int getIdChild(String name, String surname) throws SQLException{
+    Connection connection = null;
+    Statement stmt = null;
+    ResultSet rsCommunication = null;
+    int id=0;
+    connection = DBConnectionPool.getConnection();
+    String query = "select "+DBNames.ATT_REGISTRATIONCHILD_ID+
+            " from " + DBNames.TABLE_REGISTRATIONCHILD+ 
+            " where "+DBNames.ATT_REGISTRATIONCHILD_NAME+"="+name+"&&"
+                    +DBNames.ATT_REGISTRATIONCHILD_SURNAME+"="+surname;
+            rsCommunication = stmt.executeQuery(query);
+    while (rsCommunication.next()) {
+        id = rsCommunication.getInt(DBNames.ATT_REGISTRATIONCHILD_ID);
+    }
+    return id;
+}
 }
