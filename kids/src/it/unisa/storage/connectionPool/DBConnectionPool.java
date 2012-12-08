@@ -135,6 +135,6 @@ public class DBConnectionPool {
         DBConnectionPool.dbProperties.setProperty("driver", "org.gjt.mm.mysql.Driver");
         DBConnectionPool.dbProperties.setProperty("url", "jdbc:mysql://localhost/progetto-kids");
         DBConnectionPool.dbProperties.setProperty("username", "root");
-        DBConnectionPool.dbProperties.setProperty("password", "qwerty");
+        DBConnectionPool.dbProperties.setProperty("password", "");
     }
 }
