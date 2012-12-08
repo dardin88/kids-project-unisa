@@ -3,20 +3,20 @@ function initializeLinksManager(){
         cache: false
     });
     $("#addLinkButton").button();   
-   
+    
     $("#addLinkWindow").dialog({
         autoOpen: false,
         modal: true,
         resizable: false,
         width: 600
     });
-    $("#solveCommunicationWindow").dialog({
+
+    $("#updateCommunicationWindow").dialog({
         autoOpen: false,
         modal: true,
         resizable: false,
         width: 600
     });
-    
     $.validator.setDefaults({
         highlight: function(input) {
             $(input).addClass("ui-state-highlight");
@@ -28,14 +28,79 @@ function initializeLinksManager(){
     addCommunication(); 
 }
 
+function updateCommunication(id,typeCommunication,idEducator,idChild,description,date,solved){
+    $("#updateCommunicationWindow").dialog("open");
+    $("#confirmCommunicationNews").button();
+    $("#updateCommunication").button();
+    
+    document.forms["updateCommunicationForm"].elements["idEducator"].value=idEducator;        
+    document.forms["updateCommunicationForm"].elements["idChild"].value=idChild;
+    document.forms["updateCommunicationForm"].elements["description"].value=description;
+    document.forms["updateCommunicationForm"].elements["date"].value=date;
+    
+    $("#artefactSolved option").each(function() {
+        if($(this).text()==solved){
+            $(this).attr("selected","selected");
+        }
+    });
+     
+    $("#updateCommunicationForm").validate({
+        rules: {
+            solved:{
+                required:true,
+                remote:{
+                    url:"VerifySolved",
+                    type: "post",
+                    data:{
+                        valore:function(){
+                            var valoreSelect=$("#solvedCommunication").val();
+                            return valoreSelect;
+                        }  
+                    }        
+                }  
+            }
+        },
+        messages: {
+            solved:{
+                required: "Non puoi selezionare il primo item.",
+                remote: "Non puoi selezionare il primo item."
+            }
+        },
+        submitHandler: function() { 
+            $.post("UpdateCommunication", {
+                artefactTipo: $("#artefactSolved").val()            
+            });
+            $("#updateCommunicationWindow").dialog("close");
+            document.location.reload(true);
+            $("#artefactSolved").val("")
+        }
+    });
+}
+
+function enableButtonUpdate(){
+    document.getElementById("updateCommunication").style.visibility="hidden";
+    document.getElementById("confirmUpdateCommunication").style.visibility="visible";
+    document.getElementById("artefactSolved").disabled=false;
+}
+
 function addCommunication(){
     $("#addLinkButton").click(function() {
         $("#addLinkWindow").dialog("open");
         $("#addLinkButton3").button();
         $("#addLinkForm").validate({
             rules: {
-                type: {
-                    required: true
+                typeCommunication:{
+                    required:true,
+                    remote:{
+                        url:"VerifyTypeCommunication",
+                        type: "post",
+                        data:{
+                            valore:function(){
+                                var valoreSelect=$("#selectCommunication").val();
+                                return valoreSelect;
+                            }
+                        }    
+                    }
                 },
                 idEducator: {
                     required: true
@@ -51,8 +116,9 @@ function addCommunication(){
                 }
             },
             messages: {
-                type: {
-                    required: "Inserisci tipo."
+                typeCommunication:{
+                    required: "Non puoi selezionare il primo item.",
+                    remote: "Non puoi selezionare il primo item."
                 },
                 idEducator: {
                     required: "Inserisci id Educatore."
@@ -69,11 +135,11 @@ function addCommunication(){
             },
             submitHandler: function() {
                 $.post("InsertCommunication", {
-                    artefactType: $("artefactType").val(),
-                    artefactIdEducator: $("artefactIdEducator").val(),
-                    artefactIdChild: $("artefactIdChild").val(),
-                    artefactDescription: $("artefactDescription").val(),
-                    artefactDate: $("artefactDate").val()
+                    artefactType: $("#artefactType").val(),
+                    artefactIdEducator: $("#artefactIdEducator").val(),
+                    artefactIdChild: $("#artefactIdChild").val(),
+                    artefactDescription: $("#artefactDescription").val(),
+                    artefactDate: $("#artefactDate").val()
                 });
                 
                 $("#addLinkWindow").dialog("close"); 
@@ -89,34 +155,6 @@ function addCommunication(){
     });
 }
 
-function solveCommunication(solved){
-    $("#solveCommunicationWindow").dialog("open");
-    $("#confirmSolveCommunication").button();
-    $("#solveCommunication").button();
-       
-    document.forms["solveCommunicationForm"].elements["solved"].value=solved;        
-    
-    $("#solveCommunicationForm").validate({
-        rules: {
-            solved: {
-                required: true
-            },
-        messages: {
-            solved:{
-                required:"Risolvi"
-            }
-        },
-        submitHandler: function() { 
-            $.post("solveCommunication", {
-                artefactSolved: $("#artefactSolved").val()             
-            });
-            $("#solveCommunicationWindow").dialog("close"); 
-            document.location.reload(true);
-            $("#artefactSolved").val("");
-        }
-    }
-});
-}
 function buildShowTable(){
     $('#linkTable').dataTable({
         "bJQueryUI": true,
@@ -166,7 +204,6 @@ function buildShowTable(){
         {
             "sWidth": "10%"
         }
-        
         ],
         "fnServerData": function (sSource, aoData, fnCallback){ 
             $.post(sSource,aoData,fnCallback,"json");
