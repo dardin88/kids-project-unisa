@@ -39,10 +39,10 @@
             </div>
 
             <div class="div">
-                <li id="registrationChild"><a href="registrationChild.jsp">Gestione Domanda d'Iscrizione</a></li>
+                <li id="registrationChildME"><a href="registrationChild.jsp">Gestione Domanda d'Iscrizione</a></li>
             </div>
             <div class="div">
-                <li id="classification"><a href="classification.jsp">Gestione Graduatorie</a></li>
+                <li id="classificationME"><a href="classification.jsp">Gestione Graduatorie</a></li>
             </div>
             <div class="div">
                 <li id="renunciationManager"><a href="renunciation.jsp">Gestione Rinunce</a></li>
@@ -105,10 +105,10 @@
                 <li id="accountParent"><a href="accountParent.jsp">Gestione Account</a></li>
             </div>
             <div class="div">
-                <li id="registrationChild"><a href="registrationChild.jsp">Gestione Domanda d'Iscrizione</a></li>
+                <li id="registrationChildME"><a href="registrationChild.jsp">Gestione Domanda d'Iscrizione</a></li>
             </div>
             <div class="div">
-                <li id="classification"><a href="classification.jsp">Gestione Graduatorie</a></li>
+                <li id="classificationME"><a href="classification.jsp">Gestione Graduatorie</a></li>
             </div>
             <div class="div">
                 <li id="renunciationManager"><a href="renunciation.jsp">Gestione Rinunce</a></li>
