@@ -147,5 +147,10 @@
                 <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
             </div>  
         </c:if>
+        <c:if test="${sessionScope.user.getAccountType()=='Coordinatore Psicopedagogico'}">
+            <div class="div">
+                <li id="coordinatorePsico"><a href="showProject.jsp">Gestione Programma Educativo</a></li>
+            </div> 
+        </c:if>
     </ul>
 </div>

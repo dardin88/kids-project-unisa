@@ -97,6 +97,12 @@ function activePage(){
             $("#needCommunicationTable").css("color", "#FFFFFF");
             $("#title").html("Gestione bambini - Comunicazioni bisogni");
             break;
+        case 'showProject.jsp':
+            $("#coordinatorePsico").css("background-color", "#444");
+            $("#coordinatorePsico").css("color", "#FFFFFF");
+            $("#title").html("Gestione Programma Educativo");
+            break;
+           
     }
 }
 

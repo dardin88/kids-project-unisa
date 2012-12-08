@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.unisa.kids.communicationManagement.newsManagement;
+package it.unisa.kids.communicationManagement.programEducationalManagement;
 
+import it.unisa.kids.communicationManagement.newsManagement.UploadFileServlet;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -22,13 +23,12 @@ import javax.servlet.http.Part;
 
 /**
  *
- * @author francesco di lorenzo
+ * @author francesco
  */
-//@WebServlet(name = "UploadFileServlet", urlPatterns = {"/UploadFile"})
 @MultipartConfig
-public class UploadFileServlet extends HttpServlet {
+public class UploadProjectServlet extends HttpServlet {
 
-    private static final Logger LOGGER = Logger.getLogger(UploadFileServlet.class.getCanonicalName());
+        private static final Logger LOGGER = Logger.getLogger(UploadFileServlet.class.getCanonicalName());
 
     /**
      * Processes requests for both HTTP
@@ -42,10 +42,7 @@ public class UploadFileServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-
-        // Create path components to save the file
-        final String path = getServletContext().getInitParameter("attachedFileFolder");
+        final String path = getServletContext().getInitParameter("projectFileFolder");
         final Part filePart = request.getPart("scegliFile");
         final String fileName = getFileName(filePart);
         OutputStream out = null;
@@ -98,10 +95,11 @@ public class UploadFileServlet extends HttpServlet {
         }
         return null;
     }
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP
+   
      * <code>GET</code> method.
      *
      * @param request servlet request
@@ -139,4 +137,5 @@ public class UploadFileServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

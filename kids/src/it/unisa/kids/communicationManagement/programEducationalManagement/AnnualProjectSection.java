@@ -20,6 +20,7 @@ public class AnnualProjectSection extends AnnualProject implements Serializable 
     private int section;
     private int idYear; //serve come chiave esterna per progetto annuale
     private String attached;
+    private String scadenza;
 
     public void setCommenti(ArrayList<CommentoBean> commenti) {
         this.commenti = commenti;
@@ -145,5 +146,13 @@ public class AnnualProjectSection extends AnnualProject implements Serializable 
          destinatari.add(name)
          toSend.setTo(null);*/
 
+    }
+
+    public String getScadenza() {
+        return scadenza;
+    }
+
+    public void setScadenza(String pScadenza) {
+        this.scadenza = pScadenza;
     }
 }
