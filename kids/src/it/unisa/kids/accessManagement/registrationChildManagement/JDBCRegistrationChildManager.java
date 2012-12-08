@@ -427,7 +427,7 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
      * @throws SQLException 
      */
     public boolean confirmRegistrationChild(RegistrationChild child) throws SQLException {
-        return changeRegistrationPhase(child, DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_CONFIRMED);
+        return changeRegistrationPhase(child, DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_RECEIPT);
     }
     
     /**

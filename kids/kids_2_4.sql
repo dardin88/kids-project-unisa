@@ -248,7 +248,7 @@ CREATE TABLE IF NOT EXISTS `iscrizionebambino` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `AccountGenitore` int(11) NOT NULL,
   `DataIscrizione` date NOT NULL,
-  `FaseDellIscrizione` enum('bozza','sottomessa','confermata','rifiutata','accettata','completata','eliminata','rinunciata','ricorso') NOT NULL DEFAULT 'bozza',
+  `FaseDellIscrizione` enum('bozza','sottomessa','ricevuta','eliminata','ricorso','accettata','completata','validata','rinunciata') NOT NULL DEFAULT 'bozza',
   `Cognome` varchar(25),
   `Nome` varchar(25),
   `DataNascita` date DEFAULT NULL,

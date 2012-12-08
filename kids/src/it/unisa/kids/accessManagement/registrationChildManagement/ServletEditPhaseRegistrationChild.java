@@ -17,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONObject;
 
 /**
  * Servlet used to create a new draft of registrationchild
@@ -42,10 +43,14 @@ public class ServletEditPhaseRegistrationChild extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, ParseException {
-        response.setContentType("text/html;charset=UTF-8");
+        
+        response.setContentType("application/json");
         PrintWriter out = response.getWriter();
+        JSONObject json = new JSONObject();
+        boolean isSuccess = true;
+        String errorMsg = new String();
+        
         try {
-            
             // Prelevo i dati necessari
             String id = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_ID);
             String registrationPhase = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE);
@@ -54,20 +59,27 @@ public class ServletEditPhaseRegistrationChild extends HttpServlet {
             tmpChild.setId(Integer.parseInt(id));
             switch(registrationPhase) {
             case    DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED :
-                registrationChildManager.submitRegistrationChild(tmpChild);
+                isSuccess = registrationChildManager.submitRegistrationChild(tmpChild);
                 break;
-            case    DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_CONFIRMED :
-                registrationChildManager.confirmRegistrationChild(tmpChild);
+            case    DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_RECEIPT :
+                isSuccess = registrationChildManager.confirmRegistrationChild(tmpChild);
                 break;
             case    DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DELETED :
-                registrationChildManager.removeRegistrationChild(tmpChild);
+                isSuccess = registrationChildManager.removeRegistrationChild(tmpChild);
                 break;
             default :
-                out.println("Errore: parametro phase errato!");
+                isSuccess = false;
+                errorMsg = "Parametro 'FaseDellIscrizione' errato!";
             }
         } catch (SQLException ex) {
             Logger.getLogger(ServletEditPhaseRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
+            isSuccess = false;
+            errorMsg = ex.getMessage();
         } finally {
+            json.put("IsSuccess", isSuccess);
+            json.put("ErrorMsg", errorMsg);
+            
+            out.write(json.toString());
             out.close();
         }
     }

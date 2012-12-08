@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.json.JSONObject;
 
 /**
  * Servlet used to create a new draft of registrationchild
@@ -49,14 +50,16 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, ParseException {
-        response.setContentType("text/html;charset=UTF-8");
+        
+        response.setContentType("application/json");
         PrintWriter out = response.getWriter();
+        JSONObject json = new JSONObject();
+        boolean isSuccess = true;
+        String errorMsg = new String();
+        
         try {
-            System.out.println("ci sono");
-            
             // Prelevo i dati necessari
             String surname = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_SURNAME);
-            System.out.println(request.getParameter(DBNames.ATT_REGISTRATIONCHILD_SURNAME));
             String name = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_NAME);
 
             String birthDate = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE);
@@ -69,19 +72,19 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
             String birthPlace = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_BIRTHPLACE);
             String fiscalCode = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_FISCALCODE);
             String citizenship = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_CITIZENSHIP);
-            // Le malattie vengono inserite nella fase di conferma
-            // String sickness = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_SICKNESS);
             String userRange = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_USERRANGE);
+            
             // L'id del padre viene preso dalla sessione
             HttpSession session = request.getSession();
             Account parentAccount = (Account) session.getAttribute("user");
 
             // La data di creazione della bozza va presa dal server
-            // String registrationDate = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONDATE);
             GregorianCalendar registrationDate = new GregorianCalendar();
             registrationDate.setTime(new Date(System.currentTimeMillis()));
 
-            // La Sezione verrà inserita dopo l'accettazione della domanda di registrazione
+            //* TEST DELLA RICHIESTA ALLA SERVLET
+            System.out.println("Sono nella CreateServlet ed il cognome è: " + request.getParameter(DBNames.ATT_REGISTRATIONCHILD_SURNAME));
+            //*/
             
             // Creo la domanda di iscrizione bambino
             RegistrationChild registrationChild = new RegistrationChild();
@@ -97,9 +100,23 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
             registrationChild.setParentId(parentAccount.getId());
 
             // La inserisco nel db
-            registrationChildManager.insert(registrationChild);
+            isSuccess = registrationChildManager.insert(registrationChild);
         } catch (SQLException ex) {
             Logger.getLogger(ServletCreateDraftRegistrationChild.class.getName()).log(Level.SEVERE, "SQL-Error: " + ex.getMessage(), ex);
+            isSuccess = false;
+            errorMsg = ex.getMessage();
+        } finally {
+            System.out.println("Risultato: " + isSuccess);
+            
+            if(isSuccess) {
+                json.put("IsSuccess", "true");
+            } else {
+                json.put("IsSuccess", "false");
+            }
+            json.put("ErrorMsg", errorMsg);
+            
+            out.write(json.toString());
+            out.close();
         }
     }
    
