@@ -114,12 +114,15 @@
                 <li id="renunciationManager"><a href="renunciation.jsp">Gestione Rinunce</a></li>
             </div>
             <div class="div">
+                <li id="paymentManagementMenuEl"><a href="paymentParent.jsp">Gestione pagamenti</a></li>
+            </div>
+            <div class="div">
                 <li id="TimeServiceMenuEL"><a href="timeService.jsp">Gestione orario di servizio</a></li>
-            </div>  
+            </div>
         </c:if>
 
         <c:if test="${sessionScope.user.getAccountType()=='Educatore'}">  
-           <div class="div">
+            <div class="div">
                 <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
             </div>  
             <div class="div">

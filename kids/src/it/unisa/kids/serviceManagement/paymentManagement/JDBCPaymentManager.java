@@ -1,10 +1,10 @@
 package it.unisa.kids.serviceManagement.paymentManagement;
 
-import it.unisa.kids.common.EmailObserver;
-import it.unisa.kids.common.Email;
 import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.facade.AccessFacade;
 import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.Mail;
+import it.unisa.kids.common.MailManager;
 import it.unisa.kids.common.facade.IAccessFacade;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 import java.sql.Connection;
@@ -15,8 +15,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
+import java.util.Observable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class JDBCPaymentManager implements IPaymentManager {
+public class JDBCPaymentManager extends Observable implements IPaymentManager {
 
     // Singleton Design Pattern's implementation
     private static JDBCPaymentManager manager;
@@ -27,6 +31,7 @@ public class JDBCPaymentManager implements IPaymentManager {
     public static synchronized JDBCPaymentManager getInstance() {
         if (manager == null) {
             manager = new JDBCPaymentManager();
+            manager.addObserver(new MailManager());
         }
         return manager;
     }
@@ -49,12 +54,11 @@ public class JDBCPaymentManager implements IPaymentManager {
                     + DBNames.ATT_PAYMENT_ORIGINACCOUNT + ", "
                     + DBNames.ATT_PAYMENT_PAYEE + ", "
                     + DBNames.ATT_PAYMENT_PARENTID + ", "
-                    + DBNames.ATT_PAYMENT_CHARGE + ", "
                     + DBNames.ATT_PAYMENT_DESCRIPTION + ", "
                     + DBNames.ATT_PAYMENT_DISCOUNT + ", "
                     + DBNames.ATT_PAYMENT_DISCDESCRIPTION + ", "
                     + DBNames.ATT_PAYMENT_RECEIPTCODE
-                    + ") VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    + ") VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             pstmt = con.prepareStatement(query);
 
@@ -66,11 +70,10 @@ public class JDBCPaymentManager implements IPaymentManager {
             pstmt.setString(5, pPayment.getOriginAccount());
             pstmt.setString(6, pPayment.getPayee());
             pstmt.setInt(7, pPayment.getParentId());
-            pstmt.setBoolean(8, pPayment.isCharge());
-            pstmt.setString(9, pPayment.getPaymentDescription());
-            pstmt.setDouble(10, pPayment.getDiscount());
-            pstmt.setString(11, pPayment.getDiscountDescription());
-            pstmt.setString(12, pPayment.getReceiptCode());
+            pstmt.setString(8, pPayment.getPaymentDescription());
+            pstmt.setDouble(9, pPayment.getDiscount());
+            pstmt.setString(10, pPayment.getDiscountDescription());
+            pstmt.setString(11, pPayment.getReceiptCode());
 
             pstmt.executeUpdate();
             con.commit();
@@ -82,6 +85,28 @@ public class JDBCPaymentManager implements IPaymentManager {
                 DBConnectionPool.releaseConnection(con);
             }
         }
+
+        // invio dell'email usando l'Observer Pattern
+        IAccessFacade accessFacade = new AccessFacade();
+        Account parentAccount = accessFacade.getParentById(pPayment.getParentId());
+
+        double amountDue = pPayment.getAmount() - (pPayment.getAmount() * pPayment.getDiscount() / 100);
+        GregorianCalendar expDate = pPayment.getExpDate();
+
+        Mail mail = new Mail();
+        String body = "Gentile " + parentAccount.getNameUser() + " " + parentAccount.getSurnameUser()
+                + ",<br><br>La informiamo che le &egrave; stato addebitato il seguente pagamento:"
+                + "<br>Importo dovuto: " + amountDue
+                + "<br>Descrizione: " + pPayment.getPaymentDescription()
+                + "<br>Data di scadenza: " + expDate.get(GregorianCalendar.DAY_OF_MONTH)
+                + "/" + (expDate.get(GregorianCalendar.MONTH) + 1)
+                + "/" + expDate.get(GregorianCalendar.YEAR)
+                + "<br><br>Per ulteriori dettagli consultare la sezione Pagamenti di Unisa - Kids.";
+        mail.setBody(body);
+        mail.setSubject("Unisa - Kids: Nuovo pagamento");
+        mail.setTo(parentAccount.getEmail());
+        super.setChanged();
+        super.notifyObservers(mail);
     }
 
     public synchronized void update(PaymentBean pPayment) throws SQLException {
@@ -98,11 +123,6 @@ public class JDBCPaymentManager implements IPaymentManager {
             query = "UPDATE " + DBNames.TABLE_PAYMENT + " SET ";
             if (pPayment.getExpDate() != null) {
                 query += DBNames.ATT_PAYMENT_EXPDATE + " = ?";
-                commaState = true;
-            }
-
-            if (pPayment.isChargeUsable()) {
-                query += useComma(commaState) + DBNames.ATT_PAYMENT_CHARGE + " = ?";
                 commaState = true;
             }
 
@@ -145,7 +165,7 @@ public class JDBCPaymentManager implements IPaymentManager {
                 query += useComma(commaState) + DBNames.ATT_PAYMENT_PARENTID + " = ?";
                 commaState = true;
             }
-            
+
             if (pPayment.getReceiptCode() != null) {
                 query += useComma(commaState) + DBNames.ATT_PAYMENT_RECEIPTCODE + " = ?";
                 commaState = true;
@@ -159,11 +179,6 @@ public class JDBCPaymentManager implements IPaymentManager {
 
             if (pPayment.getExpDate() != null) {
                 pstmt.setDate(i, new java.sql.Date(pPayment.getExpDate().getTimeInMillis()));
-                i++;
-            }
-
-            if (pPayment.isChargeUsable()) {
-                pstmt.setBoolean(i, pPayment.isCharge());
                 i++;
             }
 
@@ -206,7 +221,7 @@ public class JDBCPaymentManager implements IPaymentManager {
                 pstmt.setInt(i, pPayment.getParentId());
                 i++;
             }
-            
+
             if (pPayment.getReceiptCode() != null) {
                 pstmt.setString(i, pPayment.getReceiptCode());
                 i++;
@@ -280,11 +295,6 @@ public class JDBCPaymentManager implements IPaymentManager {
                 andState = true;
             }
 
-            if (pPayment.isChargeUsable()) {
-                query += useAnd(andState) + DBNames.ATT_PAYMENT_CHARGE + " = ?";
-                andState = true;
-            }
-
             if (pPayment.getPaymentDescription() != null) {
                 query += useAnd(andState) + DBNames.ATT_PAYMENT_DESCRIPTION + " = ?";
                 andState = true;
@@ -324,7 +334,7 @@ public class JDBCPaymentManager implements IPaymentManager {
                 query += useAnd(andState) + DBNames.ATT_PAYMENT_PARENTID + " = ?";
                 andState = true;
             }
-            
+
             if (pPayment.getReceiptCode() != null) {
                 query += useAnd(andState) + DBNames.ATT_PAYMENT_RECEIPTCODE + " = ?";
                 andState = true;
@@ -341,11 +351,6 @@ public class JDBCPaymentManager implements IPaymentManager {
 
             if (pPayment.getExpDate() != null) {
                 pstmt.setDate(i, new java.sql.Date(pPayment.getExpDate().getTimeInMillis()));
-                i++;
-            }
-
-            if (pPayment.isChargeUsable()) {
-                pstmt.setBoolean(i, pPayment.isCharge());
                 i++;
             }
 
@@ -388,7 +393,7 @@ public class JDBCPaymentManager implements IPaymentManager {
                 pstmt.setInt(i, pPayment.getParentId());
                 i++;
             }
-            
+
             if (pPayment.getReceiptCode() != null) {
                 pstmt.setString(i, pPayment.getReceiptCode());
                 i++;
@@ -409,7 +414,6 @@ public class JDBCPaymentManager implements IPaymentManager {
                 expDate.setTime(rs.getDate(DBNames.ATT_PAYMENT_EXPDATE));   // check di valori nulli non eseguito perche' expDate è NOT NULL nel DB
                 p.setExpDate(expDate);
 
-                p.setCharge(rs.getBoolean(DBNames.ATT_PAYMENT_CHARGE));
                 p.setPaymentDescription(rs.getString(DBNames.ATT_PAYMENT_DESCRIPTION));
                 p.setAmount(rs.getDouble(DBNames.ATT_PAYMENT_AMOUNT));
                 p.setPaid(rs.getBoolean(DBNames.ATT_PAYMENT_PAID));
@@ -465,7 +469,6 @@ public class JDBCPaymentManager implements IPaymentManager {
                 expDate.setTime(rs.getDate(DBNames.ATT_PAYMENT_EXPDATE));
                 p.setExpDate(expDate);
 
-                p.setCharge(rs.getBoolean(DBNames.ATT_PAYMENT_CHARGE));
                 p.setPaymentDescription(rs.getString(DBNames.ATT_PAYMENT_DESCRIPTION));
                 p.setAmount(rs.getDouble(DBNames.ATT_PAYMENT_AMOUNT));
                 p.setPaid(rs.getBoolean(DBNames.ATT_PAYMENT_PAID));
@@ -506,12 +509,12 @@ public class JDBCPaymentManager implements IPaymentManager {
 
         insert(pPayment);
 
-        Email e = new Email();
-        e.setEmail(email);
-        e.setBody(body);
+//        Email e = new Email();
+//        e.setEmail(email);
+//        e.setBody(body);
 
-        pPayment.addObserver(new EmailObserver());
-        pPayment.notifyObservers(e);
+//        pPayment.addObserver(new EmailObserver());
+//        pPayment.notifyObservers(e);
     }
 
     public synchronized void insert(RefundBean pRefund) throws SQLException {
@@ -556,7 +559,7 @@ public class JDBCPaymentManager implements IPaymentManager {
         Connection con = null;
         PreparedStatement pstmt = null;
         String query = null;
-        
+
         boolean commaState = false;
 
         try {
@@ -578,7 +581,7 @@ public class JDBCPaymentManager implements IPaymentManager {
                 query += useComma(commaState) + DBNames.ATT_REFUND_PARENTID + " = ?";
                 commaState = true;
             }
-            
+
             if (pRefund.isPerformedUsable()) {
                 query += useComma(commaState) + DBNames.ATT_REFUND_PERFORMED + " = ?";
                 commaState = true;
@@ -594,23 +597,25 @@ public class JDBCPaymentManager implements IPaymentManager {
                 pstmt.setString(i, pRefund.getDescription());
                 i++;
             }
-            
+
             if (pRefund.getAmount() >= 0) {
                 pstmt.setDouble(i, pRefund.getAmount());
                 i++;
             }
-            
+
             if (pRefund.getParentId() > 0) {
                 pstmt.setInt(i, pRefund.getParentId());
                 i++;
             }
-            
+
             if (pRefund.isPerformedUsable()) {
                 pstmt.setBoolean(i, pRefund.isPerformed());
                 i++;
             }
 
             pstmt.setInt(i, pRefund.getId());
+
+            Logger.getLogger(JDBCPaymentManager.class.getName()).log(Level.INFO, "pstmt: " + pstmt.toString());
 
             // executing update query
             pstmt.executeUpdate();
@@ -683,7 +688,7 @@ public class JDBCPaymentManager implements IPaymentManager {
                 query += useAnd(andState) + DBNames.ATT_REFUND_PARENTID + " = ?";
                 andState = true;
             }
-            
+
             if (pRefund.isPerformedUsable()) {
                 query += useAnd(andState) + DBNames.ATT_REFUND_PERFORMED + " = ?";
                 andState = true;
@@ -712,7 +717,7 @@ public class JDBCPaymentManager implements IPaymentManager {
                 pstmt.setInt(i, pRefund.getParentId());
                 i++;
             }
-            
+
             if (pRefund.isPerformedUsable()) {
                 pstmt.setBoolean(i, pRefund.isPerformed());
                 i++;

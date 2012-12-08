@@ -6,6 +6,13 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:if test="${sessionScope.user == null}">
+    <c:redirect url="index.jsp" />
+</c:if>
+<c:if test="${sessionScope.user.getAccountType() != 'Segreteria'}">
+    <c:redirect url="index.jsp" />
+</c:if>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -126,17 +133,13 @@
                                     <td><input type="text" name="discountDescription" id="discountDescription"></td>
                                 </tr>
                                 <tr>
-                                    <td><label for="charge">Addebito:&nbsp;</label></td>
-                                    <td><input type="checkbox" name="charge" id="charge" value="chargeTrue"></td>
-                                </tr>
-                                <tr>
                                     <td><label for="expDate">Data di scadenza:&nbsp;</label></td>
                                     <td><input type="text" name="expDate" id="expDate"></td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <input type="hidden" name="hiddenParentIdInsPayment" id="hiddenParentIdInsPayment" value="-1">
-                                        <input type="submit" name="insertPaymentButton" id="insertPaymentButton" value="Inserisci pagamento">
+                                        <input class="confirmButton" type="submit" name="insertPaymentButton" id="insertPaymentButton" value="Inserisci pagamento">
                                     </td>
                                 </tr>
                             </table>
@@ -157,7 +160,7 @@
                                 <tr>
                                     <td>
                                         <input type="hidden" name="hiddenParentIdInsRefund" id="hiddenParentIdInsRefund" value="-1">
-                                        <input type="submit" name="insertRefundButton" id="insertRefundButton" value="Inserisci rimborso">
+                                        <input class="confirmButton" type="submit" name="insertRefundButton" id="insertRefundButton" value="Inserisci rimborso">
                                     </td>
                                 </tr>
                             </table>
@@ -165,6 +168,7 @@
                     </div>
 
                     <div id="showPayments">
+                        <h3>Selezionare un elemento della lista per modificare i dati di un pagamento</h3>
                         <table id="showPaymentsTable" style="width:100%">
                             <thead>
                                 <tr>
@@ -174,7 +178,9 @@
                                     <th>Sconto</th>
                                     <th>Descrizione sconto</th>
                                     <th>Importo dovuto</th>
-                                    <th>Addebito</th>
+                                    <th>Conto d'origine</th>
+                                    <th>Beneficiario</th>
+                                    <th>Codice ricevuta</th>
                                     <th>Effettuato</th>
                                 </tr>
                             </thead>
@@ -192,12 +198,12 @@
                                     <td><input type="text" name="modifyPaymentDescription" id="modifyPaymentDescription"></td>
                                 </tr>
                                 <tr>
-                                    <td><label for="modifyAmount">Importo:&nbsp;</label></td>
-                                    <td><input type="text" name="modifyAmount" id="modifyAmount"></td>
+                                    <td><label for="modifyExpDate">Data di scadenza:&nbsp;</label></td>
+                                    <td><input type="text" name="modifyExpDate" id="modifyExpDate"></td>
                                 </tr>
                                 <tr>
-                                    <td><label for="modifyPayee">Beneficiario:&nbsp;</label></td>
-                                    <td><input type="text" name="modifyPayee" id="modifyPayee" value="Unisa - Kids" readonly></td>
+                                    <td><label for="modifyAmount">Importo:&nbsp;</label></td>
+                                    <td><input type="text" name="modifyAmount" id="modifyAmount"></td>
                                 </tr>
                                 <tr>
                                     <td><label for="modifyDiscount">Percentuale di sconto:&nbsp;</label></td>
@@ -206,20 +212,23 @@
                                 <tr>
                                     <td><label for="modifyDiscountDescription">Descrizione sconto:&nbsp;</label></td>
                                     <td><input type="text" name="modifyDiscountDescription" id="modifyDiscountDescription"></td>
-
                                 </tr>
                                 <tr>
-                                    <td><label for="modifyCharge">Addebito:&nbsp;</label></td>
-                                    <td><input type="checkbox" name="modifyCharge" id="modifyCharge" value="chargeTrue"></td>
+                                    <td><label for="modifyOriginAccount">Conto d'origine:&nbsp;</label></td>
+                                    <td><input type="text" name="modifyOriginAccount" id="modifyOriginAccount" disabled></td>
                                 </tr>
                                 <tr>
-                                    <td><label for="modifyExpDate">Data di scadenza:&nbsp;</label></td>
-                                    <td><input type="text" name="modifyExpDate" id="modifyExpDate"></td>
+                                    <td><label for="modifyPayee">Beneficiario:&nbsp;</label></td>
+                                    <td><input type="text" name="modifyPayee" id="modifyPayee" value="Unisa - Kids" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="modifyReceiptCode">Codice ricevuta:&nbsp;</label></td>
+                                    <td><input type="text" name="modifyReceiptCode" id="modifyReceiptCode" disabled></td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <input type="hidden" name="hiddenModPaymentId" id="hiddenModPaymentId" value="-1">
-                                        <input type="submit" name="modifyPaymentButton" id="modifyPaymentButton" value="Conferma modifica pagamento">
+                                        <input class="confirmButton" type="submit" name="modifyPaymentButton" id="modifyPaymentButton" value="Conferma modifica pagamento">
                                     </td>
                                 </tr>
                             </table>
@@ -228,12 +237,13 @@
                     <%-- fine div della Dialog per la modifica dei pagamenti --%>
 
                     <div id="showRefunds">
+                        <h3>Selezionare un elemento della lista per modificare un rimborso</h3>
                         <table id="showRefundsTable" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>Descrizione</th>
                                     <th>Importo</th>
-                                    <th>Stato</th>
+                                    <th>Effettuato</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -241,7 +251,35 @@
                         </table>
                     </div>
 
+                    <%-- div della Dialog per la modifica dei rimborsi --%>
+                    <div id="modifyRefundsDialog" title="Modifica rimborso">
+                        <form id="modifyRefundsForm" class="cmxform" method="post" action="UpdatePayment">
+                            <table>
+                                <tr>
+                                    <td><label for="modifyRefundDescription">Descrizione rimborso:&nbsp;</label></td>
+                                    <td><input type="text" name="modifyRefundDescription" id="modifyRefundDescription"></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="modifyRefundAmount">Importo:&nbsp;</label></td>
+                                    <td><input type="text" name="modifyRefundAmount" id="modifyRefundAmount"></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="modifyRefundStatus">Effettuato:&nbsp;</label></td>
+                                    <td><input type="checkbox" name="modifyRefundStatus" id="modifyRefundStatus" value="performedTrue"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" name="hiddenModRefundId" id="hiddenModRefundId" value="-1">
+                                        <input class="confirmButton" type="submit" name="modifyRefundButton" id="modifyRefundButton" value="Conferma modifica rimborso">
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                    <%-- fine div della Dialog per la modifica dei rimborsi --%>
+
                     <div id="validatePayment">
+                        <h3>Selezionare un elemento della lista per convalidare un pagamento</h3>
                         <table id="showPaymentsConvTable" style="width:100%">
                             <thead>
                                 <tr>
@@ -251,15 +289,14 @@
                                     <th>Sconto</th>
                                     <th>Descrizione sconto</th>
                                     <th>Importo dovuto</th>
-                                    <th>Addebito</th>
-                                    <th>Effettuato</th>
+                                    <th>Beneficiario</th>
                                 </tr>
                             </thead>
                             <tbody>
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <%-- div della Dialog per la convalida dei pagamenti --%>
                     <div id="validatePaymentsDialog" title="Convalida pagamento">
                         <form id="validatePaymentForm" class="cmxform" method="post" action="UpdatePayment">
@@ -286,10 +323,6 @@
 
                                 </tr>
                                 <tr>
-                                    <td><label for="validateCharge">Addebito:&nbsp;</label></td>
-                                    <td><input type="checkbox" name="validateCharge" id="validateCharge" value="chargeTrue" disabled></td>
-                                </tr>
-                                <tr>
                                     <td><label for="validateExpDate">Data di scadenza:&nbsp;</label></td>
                                     <td><input type="text" name="validateExpDate" id="validateExpDate" disabled></td>
                                 </tr>
@@ -304,7 +337,7 @@
                                 <tr>
                                     <td>
                                         <input type="hidden" name="hiddenValPaymentId" id="hiddenValPaymentId" value="-1">
-                                        <input type="submit" name="validatePaymentButton" id="validatePaymentButton" value="Conferma convalida pagamento">
+                                        <input class="confirmButton" type="submit" name="validatePaymentButton" id="validatePaymentButton" value="Conferma convalida pagamento">
                                     </td>
                                 </tr>
                             </table>
@@ -315,7 +348,6 @@
                 <button id="goToParentsSearchBtn" style="margin-top: 10px;">Indietro</button>
             </div>
             <%-- fine blocco div funzioni gestione pagamenti --%>
-
         </div>
 
         <%@include file="footer.jsp" %>

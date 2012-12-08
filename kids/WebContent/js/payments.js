@@ -41,6 +41,14 @@ function initializePaymentsPage() {
     });
     $("#validatePaymentButton").button();
     
+    $("#modifyRefundsDialog").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 400
+    });
+    $("#modifyRefundButton").button();
+    
     TableTools.DEFAULTS.aButtons = [];
     buildParentsTable();
 }
@@ -72,19 +80,23 @@ function doModifyPayment(paymentData) {
     $("#modifyAmount").val(paymentData.cells[2].innerHTML);
     $("#modifyDiscount").val(paymentData.cells[3].innerHTML);
     $("#modifyDiscountDescription").val(paymentData.cells[4].innerHTML);
+    $("#modifyOriginAccount").val(paymentData.cells[6].innerHTML);
+    $("#modifyReceiptCode").val(paymentData.cells[8].innerHTML);
     
-    if (paymentData.cells[6].innerHTML == "true")
-        $("#modifyCharge").attr('checked', true);
+    if (paymentData.cells[9].innerHTML.indexOf("accept.png") >= 0) {
+        $("#modifyOriginAccount").attr('disabled', false);
+        $("#modifyReceiptCode").attr('disabled', false);
+    } else {
+        $("#modifyOriginAccount").attr('disabled', true);
+        $("#modifyReceiptCode").attr('disabled', true);
+        $("#modifyOriginAccount").val('');
+        $("#modifyReceiptCode").val('');
+    }
     
     $("#modifyPaymentsDialog").dialog("open");
 }
 
 function doValidatePayment(paymentData) {
-    if (paymentData.cells[7].innerHTML == "true") {
-        alert('Pagamento gia\' convalidato');   // da sostituire con un dialog
-        return;
-    }
-    
     $("#hiddenValPaymentId").val(paymentData.id);
     
     $("#validateExpDate").val(paymentData.cells[0].innerHTML);
@@ -93,10 +105,22 @@ function doValidatePayment(paymentData) {
     $("#validateDiscount").val(paymentData.cells[3].innerHTML);
     $("#validateDiscountDescription").val(paymentData.cells[4].innerHTML);
     
-    if (paymentData.cells[6].innerHTML == "true")
-        $("#validateCharge").attr('checked', true);
-    
     $("#validatePaymentsDialog").dialog("open");
+}
+
+function doModifyRefund(refundData) {
+    $("#hiddenModRefundId").val(refundData.id);
+    
+    $("#modifyRefundDescription").val(refundData.cells[0].innerHTML);
+    $("#modifyRefundAmount").val(refundData.cells[1].innerHTML);
+    
+    if (refundData.cells[2].innerHTML.indexOf("accept.png") >= 0) {
+        $("#modifyRefundStatus").attr('checked', true);
+    } else {
+        $("#modifyRefundStatus").attr('checked', false);
+    }
+    
+    $("#modifyRefundsDialog").dialog("open");
 }
 
 function buildParentsTable(){
@@ -241,6 +265,13 @@ function buildRefundsTable(parentId){
                 "sNext":     ">",
                 "sLast":     ">>"
             }
+        },
+        "sDom": '<"H"Tfr>t<"F"ip>',
+        "oTableTools": {
+            "sRowSelect": "single",
+            "fnRowSelected": function(nodes) {
+                doModifyRefund(nodes[0]);
+            }
         }
     });
 }
@@ -257,7 +288,7 @@ function buildPaymentsConvTable(parentId){
         "fnServerParams": function ( aoData ) {
             aoData.push(
             {
-                "name" : "parentId", 
+                "name" : "parentIdConv", 
                 "value" : parentId
             }
             );
@@ -271,7 +302,7 @@ function buildPaymentsConvTable(parentId){
         "oLanguage": {
             "sProcessing":   "Caricamento...",
             "sLengthMenu":   "Visualizza _MENU_ link",
-            "sZeroRecords":  "Nessun pagamento disponibile.",
+            "sZeroRecords":  "Nessun pagamento da convalidare.",
             "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Pagamenti",
             "sInfoEmpty":    "Vista da 0 a 0 di 0 Pagamenti",
             "sInfoFiltered": "(filtrati da _MAX_ link totali)",

@@ -8,6 +8,7 @@ import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.kids.serviceManagement.paymentManagement.IPaymentManager;
 import it.unisa.kids.serviceManagement.paymentManagement.PaymentBean;
+import it.unisa.kids.serviceManagement.paymentManagement.RefundBean;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -31,7 +32,8 @@ public class UpdatePaymentServlet extends HttpServlet {
 
     private static final int DESCRIPTION_MAXLENGTH = 200;
     private static final int ORIGACCOUNT_MAXLENGTH = 30;
-    private static final String CHARGE_TRUE = "chargeTrue";
+    private static final int RECEIPTCODE_MAXLENGTH = 50;
+    private static final String PERFORMED_TRUE = "performedTrue";
     private IPaymentManager paymentManager;
 
     public void init(ServletConfig config) {
@@ -55,6 +57,8 @@ public class UpdatePaymentServlet extends HttpServlet {
                 modifyPayment(request, response);
             } else if (request.getParameter("hiddenValPaymentId") != null) {
                 validatePayment(request, response);
+            } else if (request.getParameter("hiddenModRefundId") != null) {
+                modifyRefund(request, response);
             }
 
         } catch (SQLException e) {
@@ -95,7 +99,26 @@ public class UpdatePaymentServlet extends HttpServlet {
         }
         payment.setAmount(amount);
 
+        String originAccount = request.getParameter("modifyOriginAccount");
+        if (originAccount != null) {
+            if (originAccount.trim().length() > ORIGACCOUNT_MAXLENGTH) {
+                sendMessageRedirect(request, response, "Errore: conto origine errato");
+                return;
+            }
+            payment.setOriginAccount(originAccount.trim());
+        }
+
         payment.setPayee(request.getParameter("modifyPayee").trim());
+
+        String receiptCode = request.getParameter("modifyReceiptCode");
+        if (receiptCode != null) {
+            if (receiptCode.trim().equals("") || receiptCode.trim().length() > RECEIPTCODE_MAXLENGTH) {
+                sendMessageRedirect(request, response, "Errore: codice di ricevuta pagamento inserito non correttamente");
+                return;
+            } else {
+                payment.setReceiptCode(receiptCode.trim());
+            }
+        }
 
         double discount = Double.parseDouble(request.getParameter("modifyDiscount").trim());
         if (discount < 0 || discount > 100) {
@@ -111,14 +134,6 @@ public class UpdatePaymentServlet extends HttpServlet {
         }
         payment.setDiscountDescription(discountDescription);
 
-        String charge = request.getParameter("modifyCharge");
-        payment.setChargeUsable(true);
-        if (charge != null && charge.equals(CHARGE_TRUE)) {
-            payment.setCharge(true);
-        } else {
-            payment.setCharge(false);
-        }
-
         String expDate = request.getParameter("modifyExpDate");
         if (expDate == null) {
             sendMessageRedirect(request, response, "Errore: data di scadenza non specificata.");
@@ -132,7 +147,7 @@ public class UpdatePaymentServlet extends HttpServlet {
     }
 
     private void validatePayment(HttpServletRequest request, HttpServletResponse response)
-            throws NumberFormatException, SQLException, IOException, ServletException, ParseException {
+            throws NumberFormatException, SQLException, IOException, ServletException {
         PaymentBean payment = new PaymentBean();
         int paymentId = Integer.parseInt(request.getParameter("hiddenValPaymentId"));
         if (paymentId <= 0) {
@@ -149,23 +164,62 @@ public class UpdatePaymentServlet extends HttpServlet {
         payment.setOriginAccount(originAccount);
 
         String receiptCode = request.getParameter("validateConfirmCode").trim();
-        if (receiptCode != null && !receiptCode.trim().equals("")) {
-            //payment.setReceiptCode(request.getParameter("validateConfirmCode"));       // bisogna aggiungere l'attributo nel db
-        } else {
-            sendMessageRedirect(request, response, "Errore: nessun codice di ricevuta pagamento inserito");
+        if (receiptCode != null && (receiptCode.trim().equals("") || receiptCode.trim().length() > RECEIPTCODE_MAXLENGTH)) {
+            sendMessageRedirect(request, response, "Errore: codice di ricevuta pagamento inserito non correttamente");
             return;
+        } else {
+            payment.setReceiptCode(request.getParameter("validateConfirmCode").trim());
         }
+
         payment.setPaid(true);
         payment.setPaidUsable(true);
 
         // setto opportunamente gli attributi da non usare nell'update
         payment.setAmount(-1);
         payment.setDiscount(-1);
-        payment.setChargeUsable(false);
         payment.setParentId(-1);
 
         paymentManager.update(payment);
         sendMessageRedirect(request, response, "Pagamento convalidato con successo.");
+    }
+
+    private void modifyRefund(HttpServletRequest request, HttpServletResponse response)
+            throws NumberFormatException, SQLException, IOException, ServletException {
+        RefundBean refund = new RefundBean();
+        int refundId = Integer.parseInt(request.getParameter("hiddenModRefundId"));
+        if (refundId <= 0) {
+            sendMessageRedirect(request, response, "Errore: rimborso selezionato non corretto - " + refundId);
+            return;
+        }
+        refund.setId(refundId);
+
+        String refundDescription = request.getParameter("modifyRefundDescription").trim();
+        if (refundDescription.length() > DESCRIPTION_MAXLENGTH) {
+            sendMessageRedirect(request, response, "Errore: descrizione rimborso troppo lunga.");
+            return;
+        }
+        refund.setDescription(refundDescription);
+
+        double amount = Double.parseDouble(request.getParameter("modifyRefundAmount").trim());
+        if (amount < 0) {
+            sendMessageRedirect(request, response, "Errore: importo negativo non consentito.");
+            return;
+        }
+        refund.setAmount(amount);
+
+        String refundStatus = request.getParameter("modifyRefundStatus");
+        Logger.getLogger(UpdatePaymentServlet.class.getName()).log(Level.INFO, "refundStatus: " + refundStatus);
+        refund.setPerformedUsable(true);
+        if (refundStatus != null && refundStatus.equals(PERFORMED_TRUE)) {
+            refund.setPerformed(true);
+        } else {
+            refund.setPerformed(false);
+        }
+
+        Logger.getLogger(UpdatePaymentServlet.class.getName()).log(Level.INFO, "refund: " + refund.toString());
+        refund.setParentId(-1);
+        paymentManager.update(refund);
+        sendMessageRedirect(request, response, "Rimborso modificato con successo.");
     }
 
     private GregorianCalendar parseGregorianCalendar(String pDate) throws ParseException {

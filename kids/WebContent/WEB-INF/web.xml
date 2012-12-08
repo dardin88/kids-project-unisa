@@ -282,6 +282,10 @@
         <url-pattern>/GetRefundsTable</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>InsertRefundServlet</servlet-name>
+        <url-pattern>/InsertRefund</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>InsertPaymentServlet</servlet-name>
         <url-pattern>/InsertPayment</url-pattern>
     </servlet-mapping>

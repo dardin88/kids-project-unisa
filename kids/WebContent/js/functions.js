@@ -72,6 +72,11 @@ function activePage(){
             $("#paymentManagementMenuEl").css("color", "#FFFFFF");
             $("#title").html("Gestione Pagamenti");
             break;
+        case 'paymentParent.jsp':
+            $("#paymentManagementMenuEl").css("background-color", "#444");
+            $("#paymentManagementMenuEl").css("color", "#FFFFFF");
+            $("#title").html("Pagamenti");
+            break;
         case 'timeService.jsp':
             $("#TimeServiceMenuEL").css("background-color", "#444");
             $("#TimeServiceMenuEL").css("color", "#FFFFFF");

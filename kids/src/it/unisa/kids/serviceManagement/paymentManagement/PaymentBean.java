@@ -4,12 +4,10 @@ import java.io.Serializable;
 import java.util.GregorianCalendar;
 import java.util.Observable;
 
-public class PaymentBean extends Observable implements Serializable {
+public class PaymentBean implements Serializable {
 
     private int id;
     private GregorianCalendar expDate;
-    private boolean charge;
-    private boolean chargeUsable;       // used to determine if it's ok to use charge in querys
     private String paymentDescription;
     private double amount;
     private boolean paid;
@@ -38,23 +36,6 @@ public class PaymentBean extends Observable implements Serializable {
 
     public void setExpDate(GregorianCalendar pExpDate) {
         this.expDate = pExpDate;
-    }
-
-    public boolean isCharge() {
-        return this.charge;
-    }
-
-    public void setCharge(boolean pCharge) {
-        this.charge = pCharge;
-        setChanged();		// marks this Observable object as having been changed
-    }
-
-    public boolean isChargeUsable() {
-        return this.chargeUsable;
-    }
-    
-    public void setChargeUsable(boolean pChargeUsable) {
-        this.chargeUsable = pChargeUsable;
     }
 
     public String getPaymentDescription() {
