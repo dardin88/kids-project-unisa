@@ -34,7 +34,7 @@
             $(document).ready(function() {
                 activePage();
                 initializeLinksManager();
-                $("#artefactData").datepicker({dateFormat:'yy-mm-dd' });
+                $("#artefactDate").datepicker({dateFormat:'yy-mm-dd' });
                 buildShowTable();
             });
         </script>
@@ -46,53 +46,65 @@
                     <tr>
                     <p style="text-align: left;" class="formp">
                     <td>
-                        <label class="artefactLabel" for="type">Tipo *</label>
+                        <label class="artefactLabel" for="artefactType">Tipo *</label>
                     </td>
                     <td>
-                        <select id="artefactType" name="type" class="artefactSelect">
+                        <select id="artefactType" name="typeCommunication" class="artefactSelect">
                             <option value="0">Scegli tipo Comunicazione</option>
                             <option value="1">Salute</option>
                         </select>
                     </td>
                     </p>
                     </tr>
-                    <tr>
+                    <%--<tr>
                     <p style="text-align: left;" class="formp">
                     <td>
-                        <label class="artefactLabel" for="idEducator">Id Educatore *</label>
-                    </td>
-                    <td>
-                        <input id="artefactIdEducator" type="text" name="idEducator" ></input>                                         
-                    </td>
-                    </p>
-                    </tr>
-                    <tr>
-                    <p style="text-align: left;" class="formp">
-                    <td>
-                        <label class="artefactLabel" for="idChild">Id Bambino *</label>
+                        <label class="artefactLabel" for="artefactIdChild">Id Bambino *</label>
                     </td>
                     <td>
                         <input id="artefactIdChild" type="text" name="idChild" ></input>                                         
                     </td>
                     </p>
-                    </tr>
+                    </tr>--%>
                     <tr>
                     <p style="text-align: left;" class="formp">
                     <td>
-                        <label class="artefactLabel" for="Description">Descrizione *</label>
+                        <label class="artefactLabel" for="artefactSurname">Nome Bambino *</label>
+                    </td>
+                    <td>
+                        <input id="artefactName" type="text" name="name" ></input>                                         
+                    </td>
+                    </p>
+</tr>
+                    <tr>
+                    <p style="text-align: left;" class="formp">
+                    <td>
+                        <label class="artefactLabel" for="artefactSurname">Cognome Bambino *</label>
+                    </td>
+                    <td>
+                        <input id="artefactSurname" type="text" name="surname" ></input>                                         
+                    </td>
+                    </p>
+</tr>
+                    <tr>
+                    <p style="text-align: left;" class="formp">
+                    <td>
+                        <label class="artefactLabel" for="artefactDescription">Descrizione *</label>
                     </td>
                     <td>  
-                        <textarea id="artefactDescription"rows="5" cols="25" name="Description"></textarea>
+                        <textarea id="artefactDescription"rows="5" cols="25" name="description"></textarea>
                     </td>
                     </p>
                     </tr>
+                    
                     <tr>        
                     <p style="text-align: left;" class="formp">
                     <td>
+
                         <label class="artefactLabel" for="artefactData">Data *</label>
                     </td>
                     <td>
-                        <input id="artefactData"  type="text" name="date"></input>
+                        <input id="artefactDate"  type="text" name="date"></input>
                     </td>
                     </p>
                     </tr>
@@ -105,20 +117,22 @@
             </fieldset>
         </form>
     </div> 
+   
 <body>
     <%@include file="header.jsp" %>
     <div id="linksManagement">
-        <h1 style="font-size: 35px;text-align: center;"> Lista Comunicazioni Salute </h1>
         <c:if test="${sessionScope.user.getAccountType()=='Educatore'}" >
-            <input type="button" id="addLinkButton" value="Inserisci Comunicazione Salute" />               
+            <input type="button" id="addLinkButton" value="Inserisci Communicazione" />               
         </c:if>
         <table id="linkTable" style="width:95%;">
             <thead>
                 <tr>
-                    <th>IdEducatore</th>
-                    <th>IdBambino</th>
+                    <th>Tipo</th>
+                    <th>Id Educatore</th>
+                    <th>Id Bambino</th>
                     <th>Descrizione</th>
                     <th>Data</th>
+                    <th>Operazioni</th>
                 </tr>
             </thead>
             <tbody>

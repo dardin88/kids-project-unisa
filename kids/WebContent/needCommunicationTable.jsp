@@ -56,17 +56,7 @@
                     </td>
                     </p>
                     </tr>
-                    <tr>
-                    <p style="text-align: left;" class="formp">
-                    <td>
-                        <label class="artefactLabel" for="artefactIdEducator">Id Educatore *</label>
-                    </td>
-                    <td>
-                        <input id="artefactIdEducator" type="text" name="idEducator" ></input>                                         
-                    </td>
-                    </p>
-                    </tr>
-                    <tr>
+                    <%--<tr>
                     <p style="text-align: left;" class="formp">
                     <td>
                         <label class="artefactLabel" for="artefactIdChild">Id Bambino *</label>
@@ -75,7 +65,27 @@
                         <input id="artefactIdChild" type="text" name="idChild" ></input>                                         
                     </td>
                     </p>
-                    </tr>
+                    </tr>--%>
+                    <tr>
+                    <p style="text-align: left;" class="formp">
+                    <td>
+                        <label class="artefactLabel" for="artefactSurname">Nome Bambino *</label>
+                    </td>
+                    <td>
+                        <input id="artefactName" type="text" name="name" ></input>                                         
+                    </td>
+                    </p>
+</tr>
+                    <tr>
+                    <p style="text-align: left;" class="formp">
+                    <td>
+                        <label class="artefactLabel" for="artefactSurname">Cognome Bambino *</label>
+                    </td>
+                    <td>
+                        <input id="artefactSurname" type="text" name="surname" ></input>                                         
+                    </td>
+                    </p>
+</tr>
                     <tr>
                     <p style="text-align: left;" class="formp">
                     <td>
@@ -108,7 +118,7 @@
         </form>
     </div> 
     
-<div id="updateCommunicationWindow" title="Visualizza Communication" style="display: inline">
+<div id="updateCommunicationWindow" title="Visualizza Communicazione" style="display: inline">
     <form id="updateCommunicationForm"  name="updateCommunicationForm" class="cmxform" method="post" action="">
         <fieldset>
             <table style="width:100%;">
@@ -118,7 +128,7 @@
                     <label class="artefactLabel" for="artefactSolved">Risolvi *</label>
                 </td>
                 <td>
-                    <select id="artefactSolved" disabled onblur="verifyOra()" name="Risolvi" class="artefactSelect">
+                    <select id="artefactSolved" name="Risolvi" class="artefactSelect">
                         <option value="0">Risolvi Comunicazione</option>
                         <option value="1">No</option>
                         <option value="2">Si</option>
@@ -140,9 +150,8 @@
 <body>
     <%@include file="header.jsp" %>
     <div id="linksManagement">
-        <h1 style="font-size: 35px;text-align: center;"> Lista Communication </h1>
         <c:if test="${sessionScope.user.getAccountType()=='Educatore'}" >
-            <input type="button" id="addLinkButton" value="Inserisci Communication" />               
+            <input type="button" id="addLinkButton" value="Inserisci Communicazione" />               
         </c:if>
         <table id="linkTable" style="width:95%;">
             <thead>
