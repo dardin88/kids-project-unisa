@@ -71,13 +71,9 @@ public class ServletConfirmCompletingRegistrationChild extends HttpServlet {
             isSuccess = false;
             errorMsg = ex.getMessage();
         } finally {
-            System.out.println("Risultato: " + isSuccess);
+            System.out.println("Risultato ConfirmCompleting: " + isSuccess);
             
-            if(isSuccess) {
-                json.put("IsSuccess", "true");
-            } else {
-                json.put("IsSuccess", "false");
-            }
+            json.put("IsSuccess", isSuccess);
             json.put("ErrorMsg", errorMsg);
             
             out.write(json.toString());

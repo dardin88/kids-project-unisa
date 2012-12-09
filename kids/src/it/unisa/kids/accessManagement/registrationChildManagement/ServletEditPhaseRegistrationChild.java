@@ -72,6 +72,8 @@ public class ServletEditPhaseRegistrationChild extends HttpServlet {
             isSuccess = false;
             errorMsg = ex.getMessage();
         } finally {
+            System.out.println("Risultato della EditPhase: " + isSuccess);
+            
             json.put("IsSuccess", isSuccess);
             json.put("ErrorMsg", errorMsg);
             

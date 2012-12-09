@@ -76,8 +76,8 @@ public class ServletSubmitNewRegistrationChild extends HttpServlet {
             GregorianCalendar registrationDate = new GregorianCalendar();
             registrationDate.setTime(new Date(System.currentTimeMillis()));
 
-            //* TEST DELLA RICHIESTA ALLA SERVLET
-            System.out.println("Sono nella CreateServlet ed il cognome è: " + request.getParameter(DBNames.ATT_REGISTRATIONCHILD_SURNAME));
+            /* TEST DELLA RICHIESTA ALLA SERVLET
+            System.out.println("Sono nella SubmitServlet ed il cognome è: " + request.getParameter(DBNames.ATT_REGISTRATIONCHILD_SURNAME));
             //*/
             
             // Creo la domanda di iscrizione bambino
@@ -105,13 +105,9 @@ public class ServletSubmitNewRegistrationChild extends HttpServlet {
             isSuccess = false;
             errorMsg = ex.getMessage();
         } finally {
-            System.out.println("Risultato: " + isSuccess);
+            System.out.println("Risultato della SubmitNew: " + isSuccess);
             
-            if(isSuccess) {
-                json.put("IsSuccess", "true");
-            } else {
-                json.put("IsSuccess", "false");
-            }
+            json.put("IsSuccess", isSuccess);
             json.put("ErrorMsg", errorMsg);
             
             out.write(json.toString());

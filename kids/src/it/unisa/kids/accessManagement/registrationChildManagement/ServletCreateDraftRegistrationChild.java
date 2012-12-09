@@ -77,9 +77,9 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
             GregorianCalendar registrationDate = new GregorianCalendar();
             registrationDate.setTime(new Date(System.currentTimeMillis()));
 
-            //* TEST DELLA RICHIESTA ALLA SERVLET
-            System.out.println("Sono nella CreateServlet ed il cognome è: " + request.getParameter(DBNames.ATT_REGISTRATIONCHILD_SURNAME +
-                    "ora: " + registrationDate));
+            /* TEST DELLA RICHIESTA ALLA SERVLET
+            System.out.println("Sono nella CreateServlet ed il cognome è: " + 
+                        request.getParameter(DBNames.ATT_REGISTRATIONCHILD_SURNAME) + "ora: " + CommonMethod.parseString(registrationDate));
             //*/
             
             // Creo la domanda di iscrizione bambino
@@ -101,19 +101,14 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
             Logger.getLogger(ServletCreateDraftRegistrationChild.class.getName()).log(Level.SEVERE, "SQL-Error: " + ex.getMessage(), ex);
             isSuccess = false;
             errorMsg = ex.getMessage();
-        } finally {
-            System.out.println("Risultato: " + isSuccess);
-            
-            if(isSuccess) {
-                json.put("IsSuccess", "true");
-            } else {
-                json.put("IsSuccess", "false");
-            }
-            json.put("ErrorMsg", errorMsg);
-            
-            out.write(json.toString());
-            out.close();
         }
+        json.put("IsSuccess", "" + isSuccess);
+        json.put("ErrorMsg", errorMsg);
+
+        System.out.println("Risultato della CreateServlet: " + isSuccess + "JSON: " + json.toString());
+        out.write(json.toString());
+        out.close();
+        
     }
    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
