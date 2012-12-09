@@ -36,206 +36,218 @@
             activePage();
             initializeRegistrationFields();
             createTableRegistrationChild();
-            $("#NewDataNascita").datepicker({dateFormat:'yy-mm-dd'});
-            $("#EditDataNascita").datepicker({dateFormat:'yy-mm-dd'});
+<c:if test="${sessionScope.user.getAccountType()=='Genitore'}">
+            $("#registrationChildOpenNewDraftWindowButton").button();
+            $("#registrationChildOpenNewDraftWindowButton").click(function() {
+                openInsertNewRegistrationChildWindow();
+            });
+            $("#createNewDraftRegistrationChildButton").button();
+            $("#createNewDraftRegistrationChildButton").click(function() {
+                createNewDraftRegistrationChildAction();
+            });
+            $("#saveEditDraftRegistrationChildButton").button();
+            $("#saveEditDraftRegistrationChildButton").click(function() {
+                saveEditDraftRegistrationChildAction();
+            });
+            $("#submitDraftRegistrationChildButton").button();
+            $("#submitDraftRegistrationChildButton").click(function() {
+                submitDraftRegistrationChildAction();
+            });
+            $("#deleteDraftRegistrationChildButton").button();
+            $("#deleteDraftRegistrationChildButton").click(function() {
+                deleteDraftRegistrationChildAction();
+            });
+            $("#completeDraftRegistrationChildButton").button();
+            $("#completeDraftRegistrationChildButton").click(function() {
+                completeDraftRegistrationChildAction();
+            });
+</c:if>
+<c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
+            $("#confirmReceivingViewDetailsDraftButton").button();
+            $("#confirmReceivingViewDetailsDraftButton").click(function() {
+                confirmReceivingDraftRegistrationChildAction();
+            });
+            $("#confirmCompletedViewDetailsDraftButton").button();
+            $("#confirmCompletedViewDetailsDraftButton").click(function() {
+                confirmCompletingDraftRegistrationChildAction();
+            });
+</c:if>
         });
+        
     </script>
     
     <body>
         <%@include file="header.jsp" %>
-        <div id="newRegistrationChildWindow" title="Inserisci Domanda di Iscrizione" style="display: inline">
-
-            <form id="newRegistrationChildForm" name="newRegistrationChildForm" class="cmxform" method="post" action="">
-                <fieldset>
-                    <div>
-                        <p class="formp">
-                            <label><h3>Cognome:</h3></label>
-                            <input id="NewCognome" name="NewCognome" type="text" size="40%" style="margin-right: 2%">
-                        </p>
-                        <p class="formp">
-                            <label><h3>Nome:</h3></label>
-                            <input id="NewNome" name="NewNome" type="text" size="40%" style="margin-right: 2%">
-                        </p>
-                        <p class="formp">
-                            <label><h3>Data di nascita:</h3></label>
-                            <input id="NewDataNascita" name="NewDataNascita" type="text" size="40%" style="margin-right: 2%"> 
-                        </p>
-                        <p class="formp">
-                            <label><h3>Comune di nascita:</h3></label>
-                            <input id="NewComuneNascita" name="NewComuneNascita" type="text" size="40%" style="margin-right: 2%"> 
-                        </p>
-                        <p class="formp">
-                            <label><h3>Codice fiscale:</h3></label>
-                            <input id="NewCodiceFiscale" name="NewCodiceFiscale" type="text" size="40%" style="margin-right: 2%"> 
-                        </p>
-                        <p class="formp">
-                            <label><h3>Cittadinanza:</h3></label>
-                            <input id="NewCittadinanza" name="NewCittadinanza" type="text" size="40%" style="margin-right: 2%"> 
-                        </p>
-                        <p class="formp"> 
-                            <legend><h3>Fascia di utenza:</h3></legend>
-                            <ul>
-                                <input type="radio" id="NewFasciaUtenza" name="NewFasciaUtenza" value="<%= DBNames.ATT_REGISTRATIONCHILD_ENUM_USERRANGE_FULLTIME %>" checked="checked">Full Time
-                                <input type="radio" id="NewFasciaUtenza" name="NewFasciaUtenza" value="<%= DBNames.ATT_REGISTRATIONCHILD_ENUM_USERRANGE_PARTTIMEAM %>" >Part Time Mattutino
-                                <input type="radio" id="NewFasciaUtenza" name="NewFasciaUtenza" value="<%= DBNames.ATT_REGISTRATIONCHILD_ENUM_USERRANGE_PARTTIMEPM %>">Part Time Pomeridiano
-                            </ul>
-                            <br><br>
-                        </p>
-                        <p>
-                            <input type="submit" id="createNewDraftButton" value="Salva Bozza" >
-                            <%--<input type="submit" id="submitNewDraftButton" value="Sottometti Domanda" >--%>
-                            <input type="button" id="undoNewDraftButton" value="Annulla" >
-                        </p>
-                    </div>
-                </fieldset>
-            </form>
-        </div>
-
-        <div id="editRegistrationChildWindow" title="Modifica Domanda di Iscrizione" style="display: inline">
-            <form id="editRegistrationChildForm" name="newRegistrationChildForm" class="cmxform" method="post" action="">
-                <fieldset>
-                    <div>
-                        <p class="formp">
-                            <label><h3>Cognome:</h3></label>
-                            <input id="EditCognome" name="EditCognome" type="text" size="40%" style="margin-right: 2%">
-                        </p>
-                        <p class="formp">
-                            <label><h3>Nome:</h3></label>
-                            <input id="EditNome" name="EditNome" type="text" size="40%" style="margin-right: 2%">
-                        </p>
-                        <p class="formp">
-                            <label><h3>Data di nascita:</h3></label>
-                            <input id="EditDataNascita" name="EditDataNascita" type="text" size="40%" style="margin-right: 2%"> 
-                        </p>
-                        <p class="formp">
-                            <label><h3>Comune di nascita:</h3></label>
-                            <input id="EditComuneNascita" name="EditComuneNascita" type="text" size="40%" style="margin-right: 2%"> 
-                        </p>
-                        <p class="formp">
-                            <label><h3>Codice fiscale:</h3></label>
-                            <input id="EditCodiceFiscale" name="EditCodiceFiscale" type="text" size="40%" style="margin-right: 2%"> 
-                        </p>
-                        <p class="formp">
-                            <label><h3>Cittadinanza:</h3></label>
-                            <input id="EditCittadinanza" name="EditCittadinanza" type="text" size="40%" style="margin-right: 2%"> 
-                        </p>
-                        <p class="formp"> 
-                            <legend><h3>Fascia di utenza:</h3></legend>
-                            <ul>
-                                <input type="radio" id="EditFasciaUtenza" name="EditFasciaUtenza" value="<%= DBNames.ATT_REGISTRATIONCHILD_ENUM_USERRANGE_FULLTIME %>" checked="checked">Full Time
-                                <input type="radio" id="EditFasciaUtenza" name="EditFasciaUtenza" value="<%= DBNames.ATT_REGISTRATIONCHILD_ENUM_USERRANGE_PARTTIMEAM %>" >Part Time Mattutino
-                                <input type="radio" id="EditFasciaUtenza" name="EditFasciaUtenza" value="<%= DBNames.ATT_REGISTRATIONCHILD_ENUM_USERRANGE_PARTTIMEPM %>">Part Time Pomeridiano
-                            </ul>
-                            <br><br>
-                        </p>
-                        <p>
-                            <input type="hidden" id="EditIdDraft" />
-                            <input type="submit" id="saveEditDraftButton" value="Salva Modifiche" />
-                            <input type="submit" id="submitEditDraftButton" value="Sottometti Domanda" />
-                            <input type="button" id="undoEditDraftButton" value="Annulla" />
-                        </p>
-                    </div>
-                </fieldset>
-            </form>
-        </div>
         
-        <div id="viewDetailsRegistrationChildWindow" title="Dettagli della Domanda di Iscrizione" style="display: inline">
-            <form id="viewDetailsRegistrationChildForm" name="viewDetailsRegistrationChildForm" class="cmxform" method="post" action="">
+        <div id="registrationChildFormWindow" title="" style="display: inline">
+            <form id="registrationChildFormWindowForm" name="registrationChildFormWindowForm" class="cmxform" method="post" action="">
                 <fieldset>
                     <div>
-                        <p class="formp">
-                            <label><h3>Cognome:</h3></label>
-                            <span class="details" id="viewDetailsCognome" name="viewDetailsCognome"></span>
-                        </p>
-                        <p class="formp">
-                            <label><h3>Nome:</h3></label>
-                            <span class="details" id="viewDetailsNome" name="viewDetailsNome"></span>
-                        </p>
-                        <p class="formp">
-                            <label><h3>Data di nascita:</h3></label>
-                            <span class="details" id="viewDetailsDataNascita" name="viewDetailsDataNascita"></span>
-                        </p>
-                        <p class="formp">
-                            <label><h3>Comune di nascita:</h3></label>
-                            <span class="details" id="viewDetailsComuneNascita" name="viewDetailsComuneNascita"></span>
-                        </p>
-                        <p class="formp">
-                            <label><h3>Codice fiscale:</h3></label>
-                            <span class="details" id="viewDetailsCodiceFiscale" name="viewDetailsCodiceFiscale"></span>
-                        </p>
-                        <p class="formp">
-                            <label><h3>Cittadinanza:</h3></label>
-                            <span class="details" id="viewDetailsCittadinanza" name="viewDetailsCittadinanza"></span>
-                        </p>
-                        <p class="formp"> 
-                            <legend><h3>Fascia di utenza:</h3></legend>
-                            <span class="details" id="viewDetailsFasciaUtenza" name="viewDetailsFasciaUtenza"></span>
-                        </p>
-                        <p class="formp"> 
-                            <legend><h3>Data di iscrizione:</h3></legend>
-                            <span class="details" id="viewDetailsDataIscrizione" name="viewDetailsDataIscrizione"></span>
-                        </p>
-                        <p class="formp"> 
-                            <legend><h3>Fase della domanda di iscrizione:</h3></legend>
-                            <span class="details" id="viewDetailsFaseIscrizione" name="viewDetailsFaseIscrizione"></span>
-                        </p>
-                        <p class="formp"> 
-                            <legend><h3>Malattie:</h3></legend>
-                            <span class="details" id="viewDetailsMalattie" name="viewDetailsMalattie"></span>
-                        </p>
-                        <p class="formp"> 
-                            <legend><h3>Vaccinazioni:</h3></legend>
-                            <span class="details" id="viewDetailsVaccinazioni" name="viewDetailsVaccinazioni"></span>
-                        </p>
-                        <p class="formp"> 
-                            <legend><h3>Dichiarazione della privacy:</h3></legend>
-                            <span class="details" id="viewDetailsDichiarazionePrivacy" name="viewDetailsDichiarazionePrivacy"></span>
-                        </p>
-                        <p>
-                            <br><br>
-                            <input type="hidden" id="viewDetailsIdDraft" />
+                        <div id="registrationChildRegistrationInfo" name="registrationChildRegistrationInfo" style="display: inline">
+                            <p class="formp"> 
+                                <legend><h3>Data di iscrizione:</h3></legend>
+                                <input class="details" id="registrationChildFormWindowDataIscrizione" name="registrationChildFormWindowDataIscrizione" type="text" size="40%" style="margin-right: 2%"> 
+                            </p>
+                            <p class="formp"> 
+                                <legend><h3>Fase della domanda di iscrizione:</h3></legend>
+                                <input class="details" id="registrationChildFormWindowFaseIscrizione" name="registrationChildFormWindowFaseIscrizione" type="text" size="40%" style="margin-right: 2%"> 
+                            </p>
+                        </div>
+                        <div id="registrationChildStandardField" name="registrationChildStandardField">
+                            <p class="formp">
+                                <label><h3>Cognome:</h3></label>
+                                <input class="details" id="registrationChildFormWindowCognome" name="registrationChildFormWindowCognome" type="text" size="40%" style="margin-right: 2%"> 
+                            </p>
+                            <p class="formp">
+                                <label><h3>Nome:</h3></label>
+                                <input class="details" id="registrationChildFormWindowNome" name="registrationChildFormWindowNome" type="text" size="40%" style="margin-right: 2%"> 
+                            </p>
+                            <p class="formp">
+                                <label><h3>Data di nascita:</h3></label>
+                                <input class="details" id="registrationChildFormWindowDataNascita" name="registrationChildFormWindowDataNascita" type="text" size="40%" style="margin-right: 2%"> 
+                            </p>
+                            <p class="formp">
+                                <label><h3>Comune di nascita:</h3></label>
+                                <input class="details" id="registrationChildFormWindowComuneNascita" name="registrationChildFormWindowComuneNascita" type="text" size="40%" style="margin-right: 2%"> 
+                            </p>
+                            <p class="formp">
+                                <label><h3>Codice fiscale:</h3></label>
+                                <input class="details" id="registrationChildFormWindowCodiceFiscale" name="registrationChildFormWindowCodiceFiscale" type="text" size="40%" style="margin-right: 2%"> 
+                            </p>
+                            <p class="formp">
+                                <label><h3>Cittadinanza:</h3></label>
+                                <input class="details" id="registrationChildFormWindowCittadinanza" name="registrationChildFormWindowCittadinanza" type="text" size="40%" style="margin-right: 2%"> 
+                            </p>
+                            <p class="formp"> 
+                                <legend><h3>Fascia di utenza:</h3></legend>
+                                <select id="registrationChildFormWindowFasciaUtenza" name="registrationChildFormWindowFasciaUtenza" class="details">
+                                    <option id="registrationChildSelectUserRangeEmpty" value="">--Selezionare la fascia di utenza--</option>
+                                    <option id="registrationChildSelectUserRangeFullTime" value="<%= DBNames.ATT_REGISTRATIONCHILD_ENUM_USERRANGE_FULLTIME %>">Servizio a tempo pieno</option>
+                                    <option id="registrationChildSelectUserRangePartTimeAM" value="<%= DBNames.ATT_REGISTRATIONCHILD_ENUM_USERRANGE_PARTTIMEAM %>">Servizio a tempo ridotto (solo Mattina)</option>
+                                    <option id="registrationChildSelectUserRangePartTimePM" value="<%= DBNames.ATT_REGISTRATIONCHILD_ENUM_USERRANGE_PARTTIMEPM %>">Servizio a tempo ridotto (solo Pomeriggio)</option>
+                                </select>
+                            </p>
+                        </div>
+                        <div id="registrationChildAdvancedField" name="registrationChildAdvancedField" style="display: inline">
+                            <p class="formp"> 
+                                <legend><h3>Malattie:</h3></legend>
+                                <input class="details" id="registrationChildFormWindowMalattie" name="registrationChildFormWindowMalattie" type="text" size="40%" style="margin-right: 2%"> 
+                            </p>
+                            <p class="formp"> 
+                                <legend><h3>Vaccinazioni:</h3></legend>
+                                <input class="details" id="registrationChildFormWindowVaccinazioni" name="registrationChildFormWindowVaccinazioni" type="text" size="40%" style="margin-right: 2%"> 
+                            </p>
+                            <p class="formp"> 
+                                <legend><h3>Autorizza il trattamento dei dati personali contenuti nel mio curriculum vitae in base art. 13 del D. Lgs. 196/2003?</h3></legend>
+                                <select id="registrationChildFormWindowDichiarazionePrivacy" name="registrationChildFormWindowDichiarazionePrivacy" class="details">
+                                    <option id="registrationChildSelectPrivacyEmpty" value="">--Selezionare la risposta--</option>
+                                    <option id="registrationChildSelectPrivacySi" value="si">Si</option>
+                                    <option id="registrationChildselectPrivacyNo" value="no">No</option>
+                                    <option id="registrationChildselectPrivacyForse" value="in_parte">In parte</option>
+                                </select>
+                            </p>
+                        </div>
+                        <div id="registrationChildSegretaryField" name="registrationChildSegretaryField" style="display: inline">
                             <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
-                            <input type="submit" id="confirmViewDetailsDraftButton" value="Conferma Domanda" />
+                            <p class="formp"> 
+                                <legend><h3>Sono stati fornite le malattie?</h3></legend>
+                                <select id="registrationChildFormWindowIsSetMalattie" name="registrationChildFormWindowIsSetMalattie" class="details">
+                                    <option value="">--Selezionare la risposta--</option>
+                                    <option value="si">Si</option>
+                                    <option value="no" selected="selected">No</option>
+                                    <option value="in_parte">In parte</option>
+                                </select>
+                            </p>
+                            <p class="formp"> 
+                                <legend><h3>Sono state fornite le vaccinazioni?</h3></legend>
+                                <select id="registrationChildFormWindowIsSetVaccinazioni" name="registrationChildFormWindowIsSetVaccinazioni" class="details">
+                                    <option value="">--Selezionare la risposta--</option>
+                                    <option value="si">Si</option>
+                                    <option value="no" selected="selected">No</option>
+                                    <option value="in_parte">In parte</option>
+                                </select>
+                            </p>
+                            <p class="formp"> 
+                                <legend><h3>Sono stati accettati i diritti sulla privacy?</h3></legend>
+                                <select id="registrationChildFormWindowIsSetDichiarazionePrivacy" name="registrationChildFormWindowIsSetDichiarazionePrivacy" class="details">
+                                    <option value="">--Selezionare la risposta--</option>
+                                    <option value="si">Si</option>
+                                    <option value="no" selected="selected">No</option>
+                                    <option value="in_parte">In parte</option>
+                                </select>
+                            </p>
                             </c:if>
-                            <input type="button" id="undoViewDetailsDraftButton" value="Annulla" />
+                        </div>
+                        <div id="registrationChildSubmitField">
+                            <p>
+                                <br><br>
+                                <input type="hidden" id="registrationChildFormWindowId" />
+                                <c:if test="${sessionScope.user.getAccountType()=='Genitore'}">
+                                <input type="submit" id="createNewDraftRegistrationChildButton" value="Salva Bozza" />
+                                <input type="submit" id="saveEditDraftRegistrationChildButton" value="Salva Modifiche" />
+                                <input type="submit" id="submitDraftRegistrationChildButton" value="Sottometti Domanda" />
+                                <input type="submit" id="deleteDraftRegistrationChildButton" value="Elimina Domanda" />
+                                <input type="submit" id="completeDraftRegistrationChildButton" value="Completa Domanda" />
+                                </c:if>
+                                <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
+                                <input type="submit" id="confirmReceivingViewDetailsDraftButton" value="Conferma Domanda" />
+                                <input type="submit" id="confirmCompletedViewDetailsDraftButton" value="Conferma completamento Domanda" />
+                                </c:if>
+                                <input type="button" id="registrationChildFormWindowUndoButton" value="Annulla" />
+                            </p>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <div id="registrationChildConfirmWindow" name="registrationChildConfirmWindow" title="Conferma operazione" style="display: inline">
+            <form id="registrationChildConfirmWindowForm" name="registrationChildConfirmWindowForm" class="cmxform" method="post" action="">
+                <fieldset>
+                    <div>
+                        <h3 id="registrationChildConfirmWindowTitle" name="registrationChildConfirmWindowTitle"></h3>
+                        <p>
+                            <input type="submit" id="registrationChildConfirmWindowConfirmButton" value="Conferma" />
+                            <input type="button" id="registrationChildConfirmWindowUndoButton" value="Annulla" />
                         </p>
                     </div>
                 </fieldset>
             </form>
         </div>
 
-        <div id="confirmOperationRCWindow" title="Richiesta di conferma" style="display: inline">
-            <form id="confirmOperationRCForm" name="confirmOperationRCForm" class="cmxform" method="post" action="">
+
+        <div id="registrationChildAlertWindow" name="registrationChildAlertWindow" title="" style="display: inline">
+            <form id="registrationChildAlertWindowForm" name="registrationChildAlertWindowForm" class="cmxform" method="post" action="">
                 <fieldset>
                     <div>
-                        <h3 id="confirmOperationRCTitle" name="confirmOperationRCTitle"></h3>
+                        <h3 id="registrationChildAlertWindowTitle" name="registrationChildAlertWindowTitle"></h3>
                         <p>
-                            <input type="hidden" id="confirmOperationRCIdDraft" />
-                            <input type="submit" id="confirmOperationRCButton" value="Conferma" />
-                            <input type="button" id="undoOperationRCButton" value="Annulla" />
+                            <input type="submit" id="registrationChildAlertOkButton" value="OK" />
                         </p>
                     </div>
                 </fieldset>
             </form>
         </div>
-                 
+
         <div id="registrationChildContent">
-            <h1 style="font-size: 35px;text-align: center;">Gestione Domande d'Iscrizione</h1>
+            <input type="hidden" id="user" name="user" value="${sessionScope.user.getAccountType()}" style="display:none" />
             <c:if test="${sessionScope.user.getAccountType()=='Genitore'}">
             <div>
-                <input type="button" id="newRegistrationChildButton" value="Inserisci Domanda di Iscrizione"/>
+                <input type="button" id="registrationChildOpenNewDraftWindowButton" value="Inserisci Domanda di Iscrizione"/>
             </div>
             </c:if>
-            <table id="registrationChildTable">
-                <thead>
-                    <th>Cognome</th>
-                    <th>Nome</th>
-                    <th>Fase dell'iscrizione</th>
-                    <th>Operazioni</th>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>            
+            <div>
+                <table id="registrationChildTable">
+                    <thead>
+                        <th>Cognome</th>
+                        <th>Nome</th>
+                        <th>Fase dell'iscrizione</th>
+                        <th>Operazioni</th>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
     <%@include file="footer.jsp" %>
     </body>

@@ -12,299 +12,9 @@ function initializeRegistrationFields(){
         }
     });
     
-    //  NUOVA BOZZA - FINESTRA
-    $("#newRegistrationChildWindow").dialog({
-        autoOpen: false,
-        modal: true,
-        resizable: false,
-        width: 600
-    });
-    //  NUOVA BOZZA - BOTTONE DI APERTURA
-    $("#newRegistrationChildButton").button();
-    $("#newRegistrationChildButton").click(function() {
-        $("#newRegistrationChildWindow").dialog("open");
-    });
-    //  NUOVA BOZZA - BOTTONE INSERIMENTO
-    $("#createNewDraftButton").button();
-    $("#createNewDraftButton").click(function() {
-        $("#newRegistrationChildForm").validate({
-            rules: {
-                NewCognome: {
-                    required: true
-                },
-                NewNome: {
-                    required: true
-                },
-                NewCodiceFiscale:  {
-                    //codicefiscale: true
-                }
-            },
-            messages: {
-                NewCognome: {
-                    required: "Inserisci il cognome"
-                },
-                NewNome:   {
-                    required: "Inserisci il nome"
-                },
-                NewCodiceFiscale:  {
-                   // codicefiscale: "Inserire il codice fiscale in modo corretto"
-                }
-            },
-            submitHandler: function() {
-                $.post("CreateDraftRegistrationChild", {
-                    Cognome: $("#NewCognome").val(),
-                    Nome: $("#NewNome").val(),
-                    DataNascita: $("#NewDataNascita").val(),
-                    ComuneNascita: $("#NewComuneNascita").val(),
-                    CodiceFiscale: $("#NewCodiceFiscale").val(),
-                    Cittadinanza: $("#NewCittadinanza").val(),
-                    FasciaUtenza: getTypeValue('NewFasciaUtenza')
-                });
-                $("#newRegistrationChildWindow").dialog("close");
-                //alert("La bozza è stata salvata");
-                location.href = "./registrationChild.jsp";
-            }
-        });
-    });
-    //  NUOVA BOZZA - BOTTONE ANNULLA
-    $("#undoNewDraftButton").button();
-    $("#undoNewDraftButton").click(function(){
-        $("#newRegistrationChildWindow").dialog("close");
-        location.href = "./registrationChild.jsp";
-    });
-    //  FINE NUOVA BOZZA
-    
-    //  MODIFICA BOZZA - FINESTRA
-    $("#editRegistrationChildWindow").dialog({
-        autoOpen: false,
-        modal: true,
-        resizable: false,
-        width: 600
-    });
-    //  MODIFICA BOZZA - BOTTONE SALVA MODIFICHE
-    $("#saveEditDraftButton").button();
-    $("#saveEditDraftButton").click(function() {
-        $("#editRegistrationChildForm").validate({
-            rules: {
-                EditCognome: {
-                    required: true
-                },
-                EditNome: {
-                    required: true
-                },
-                EditDataNascita:    {
-//                    date: true
-                },
-                EditCodiceFiscale:  {
-                    //codicefiscale: true
-                }
-            },
-            messages: {
-                EditCognome: {
-                    required: "Inserisci il cognome"
-                },
-                EditNome:   {
-                    required: "Inserisci il nome"
-                },
-                EditDataNascita:    {
-//                    date: "La data di nascita deve essere nel formato (AAAA/MM/GG)"
-                },
-                EditCodiceFiscale:  {
-                   // codicefiscale: "Inserire il codice fiscale in modo corretto"
-                }
-            },
-            submitHandler: function() {
-                $.post("EditRegistrationChild", {
-                    Id: $("#EditIdDraft").val(),
-                    Cognome: $("#EditCognome").val(),
-                    Nome: $("#EditNome").val(),
-                    DataNascita: $("#EditDataNascita").val(),
-                    ComuneNascita: $("#EditComuneNascita").val(),
-                    CodiceFiscale: $("#EditCodiceFiscale").val(),
-                    Cittadinanza: $("#EditCittadinanza").val(),
-                    FasciaUtenza: $("#EditFasciaUtenza").val()
-                });
-                $("#editRegistrationChildWindow").dialog("close");
-                //alert("La bozza è stata modificata");
-                location.href = "./registrationChild.jsp";
-            }
-        });
-    });
-    //  MODIFICA BOZZA - BOTTONE SOTTOMISSIONE
-    $("#submitEditDraftButton").button();
-    $("#submitEditDraftButton").click(function(){
-        $("#editRegistrationChildForm").validate({
-            rules: {
-                EditCognome: {
-                    required: true
-                },
-                EditNome: {
-                    required: true
-                },
-                EditDataNascita:    {
-                    required: true//,
-//                    date: true
-                },
-                EditComuneNascita:  {
-                    required: true
-                },
-                EditCodiceFiscale:  {
-                    required: true//,
-//                    codicefiscale: true
-                },
-                EditCittadinanza:   {
-                    required: true
-                }
-            },
-            messages: {
-                EditCognome: {
-                    required: "Inserisci il cognome"
-                },
-                EditNome:   {
-                    required: "Inserisci il nome"
-                },
-                EditDataNascita:    {
-                    required: "Inserire la data di nascita (AAAA-MM-GG)"//,
-                    //date: "Inserire la data di nascita (AAAA-MM-GG)"
-                },
-                EditComuneNascita:  {
-                    required: "Inserire il comune di nascita"
-                },
-                EditCodiceFiscale:  {
-                    required: "Inserire il codice fiscale"//,
-//                    codicefiscale: "Inserire il codice fiscale in modo corretto"
-                },
-                EditCittadinanza:   {
-                    required: "Inserire la cittadinanza"
-                }
-            },
-            submitHandler: function() {
-                // Vengono salvate le modifica
-                $.post("EditRegistrationChild", {
-                    Id: $("#EditIdDraft").val(),
-                    Cognome: $("#EditCognome").val(),
-                    Nome: $("#EditNome").val(),
-                    DataNascita: $("#EditDataNascita").val(),
-                    ComuneNascita: $("#EditComuneNascita").val(),
-                    CodiceFiscale: $("#EditCodiceFiscale").val(),
-                    Cittadinanza: $("#EditCittadinanza").val(),
-                    FasciaUtenza: $("#EditFasciaUtenza").val()
-                });
-                // La domanda viene sottomessa
-                $.post("EditPhaseRegistrationChild", {
-                    Id: $("#EditIdDraft").val(),
-                    FaseDellIscrizione: "sottomessa"
-                });
-            }
-        });
-    });
-    //  MODIFICA BOZZA - BOTTONE ANNULLA
-    $("#undoEditDraftButton").button();
-    $("#undoEditDraftButton").click(function(){
-        $("#editRegistrationChildWindow").dialog("close");
-        location.href = "./registrationChild.jsp";
-    });
-    // FINE MODIFICA BOZZA
-    
-    //  VISUALIZZA DETTAGLI DOMANDA - FINESTRA
-    $("#viewDetailsRegistrationChildWindow").dialog({
-        autoOpen: false,
-        modal: true,
-        resizable: false,
-        width: 600
-    });
-    //  VISUALIZZA DETTAGLI DOMANDA - SOTTOMETTI DOMANDA
-    $("#submitViewDetailsDraftButton").button();
-    $("#submitViewDetailsDraftButton").click(function() {
-        $("#viewDetailsRegistrationChildForm").validate({
-            rules: {
-                viewDetailsCognome: {
-                    required: true
-                },
-                viewDetailsNome: {
-                    required: true
-                },
-                viewDetailsDataNascita:  {
-                    required: true
-                },
-                viewDetailsComuneNascita: {
-                    required: true
-                },
-                viewDetailsCodiceFiscale: {
-                    required: true
-                },
-                viewDetailsCittadinanza: {
-                    required: true
-                }
-            },
-            messages: {
-                viewDetailsCognome: {
-                    required: "Modificare la bozza ed inserire il cognome"
-                },
-                viewDetailsNome: {
-                    required: "Modificare la bozza ed inserire il nome"
-                },
-                viewDetailsDataNascita:  {
-                    required: "Modificare la bozza ed inserire la data di nascita"
-                },
-                viewDetailsComuneNascita: {
-                    required: "Modificare la bozza ed inserire il comune di nascita"
-                },
-                viewDetailsCodiceFiscale: {
-                    required: "Modificare la bozza ed inserire il codice fiscale"
-                },
-                viewDetailsCittadinanza: {
-                    required: "Modificare la bozza ed inserire la cittadinanza"
-                }
-            },
-            submitHandler: function() {
-                $.post("EditPhaseRegistrationChild", {
-                    Id: $("#viewDetailsIdDraft").val(),
-                    FaseDellIscrizione: "sottomessa"
-                });
-                $("#viewDetailsRegistrationChildWindow").dialog("close");
-                //alert("La bozza è stata modificata");
-                location.href = "./registrationChild.jsp";
-            }
-        });
-    });
-    //  VISUALIZZA DETTAGLI DOMANDA - BOTTONE CONFERMA
-    $("#confirmViewDetailsDraftButton").button();
-    $("#confirmViewDetailsDraftButton").click(function(){
-        $("#viewDetailsRegistrationChildForm").validate({   // il submit della segreteria non dovrebbe validare in quanto è già completa
-            submitHandler: function() {
-                $.post("EditPhaseRegistrationChild", {
-                    Id: $("#EditIdDraft").val(),
-                    FaseDellIscrizione: "confermata"
-                });
-            }
-        });
-    });
-    //  VISUALIZZA DETTAGLI DOMANDA - BOTTONE ANNULLA
-    $("#undoViewDetailsDraftButton").button();
-    $("#undoViewDetailsDraftButton").click(function(){
-        $("#viewDetailsRegistrationChildWindow").dialog("close");
-    });
-    // FINE VISUALIZZA DETTAGLI DOMANDA
-    
-    // VISUALE DI CONFERMA ELIMINA/CONVALIDA BUTTON
-    $("#confirmOperationRCWindow").dialog({
-        autoOpen: false,
-        modal: true,
-        resizable: false,
-        width: 600
-    });
-    // VISUALE DI CONFERMA ELIMINA/CONVALIDA BUTTON CONFERMA
-    $("#confirmOperationRCButton").button();
-     $("#confirmOperationRCButton").click(function(){});
-    //  VISUALE DI CONFERMA - BOTTONE ANNULLA
-    $("#undoOperationRCButton").button();
-    $("#undoOperationRCButton").click(function(){
-        $("#confirmOperationRCWindow").dialog("close");
-    });
-    // FINE VISUALE DI CONFERMA ELIMINA/CONVALIDA BUTTON
-    
-    // FINE INIZIALIZZAZIONE PAGINA
+    initRegistrationChildFormWindow();
+    initRegistrationChildConfirmWindow();
+    initRegistrationChildAlertWindow();
 }
 
 function createTableRegistrationChild() {
@@ -316,7 +26,7 @@ function createTableRegistrationChild() {
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
-//        "fnServerParams": function ( aoData ) {
+        "fnServerParams": function (aoData) {
 //           aoData.push(// Parametri di ricerca aggiuntivi
 //            {
 //                "name" : "FaseDellIscrizione", 
@@ -324,7 +34,7 @@ function createTableRegistrationChild() {
 //            }
 //            );
 //     
-//        },
+        },
 
         "bSort": false,
         "bDestroy": true,
@@ -346,7 +56,6 @@ function createTableRegistrationChild() {
                 "sLast":     ">>"
             }
         },
-
 
         "oTableTools":{
             "aButtons":[
@@ -370,136 +79,582 @@ function createTableRegistrationChild() {
          "fnServerData": function (sSource, aoData, fnCallback){ 
             $.post(sSource,aoData,fnCallback,"json");
         }
-    });
-    
+    });  
 }
 
 function search(){
-   /* var oTable = $("#traineesTable").dataTable();
-    oTable.fnDraw();
-       */ 
+//    var oTable = $("#traineesTable").dataTable();
+//    oTable.fnDraw();
 }
-
-function editDraftRegistrationChild(id) {
-    $("#EditIdDraft").val(id);
-    
-    /*
-     * MANCA LA PARTE DI COMPLETAMENTO DELLA FORM PRENDENDO I DATI DAL DATABASE
-     */
-    
-    $("#editRegistrationChildWindow").dialog("open");
+// FUNZIONI UTILIZZATE DAI PULSANTI DELLA FORM-WINDOW
+function createNewDraftRegistrationChildAction() {
+    comunicaConServlet(
+            // Nome della Servlet
+            "CreateDraftRegistrationChild", 
+            {
+                // Parametri da inviare alla servlet
+                Cognome : getValue("registrationChildFormWindowCognome"),
+                Nome    : getValue("registrationChildFormWindowNome"),
+                DataNascita : getValue("registrationChildFormWindowDataNascita"),
+                ComuneNascita : getValue("registrationChildFormWindowComuneNascita"),
+                CodiceFiscale : getValue("registrationChildFormWindowCodiceFiscale"),
+                Cittadinanza : getValue("registrationChildFormWindowCittadinanza"),
+                FasciaUtenza : getValue("registrationChildFormWindowFasciaUtenza")
+            }, 
+            function(jsonObject) {
+                // Funzione eseguita se la richiesta alla servlet è eseguita con successo
+                setWindowVisibility("registrationChildFormWindow", false);
+                if(jsonObject.IsSuccess == "true") {
+                    openRegistrationChildAlertWindow("Operazione eseguita correttamente", "La bozza della domanda di iscrizione è stata salvata");
+                } else {
+                    openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
+                }
+            }, 
+            function(errorMsg) {
+                // Funzione eseguita se la richiesta alla servlet ha presentato errori
+                setWindowVisibility("registrationChildFormWindow", false);
+                alert("error function: ");
+                openRegistrationChildAlertWindow("Errore", errorMsg);
+            }
+        );
 }
-
-function viewDetailsRegistrationChild(id) {
-    $("#viewDetailsIdDraft").val(id);
-    //alert("L'id: " + $("#viewDetailsIdDraft").val())
-    //* Primo tentativo
-    /*
-    $.ajax({
-            url: "GetRegistrationChild",
-            dataType: 'json',
-            type: 'POST',
-            data: {
-                Id: id
+function saveEditDraftRegistrationChildAction() {
+    comunicaConServlet(
+            // Nome della Servlet
+            "EditRegistrationChild", 
+            {
+                // Parametri da inviare alla servlet
+                Id : getValue("registrationChildFormWindowId"),
+                Cognome : getValue("registrationChildFormWindowCognome"),
+                Nome    : getValue("registrationChildFormWindowNome"),
+                DataNascita : getValue("registrationChildFormWindowDataNascita"),
+                ComuneNascita : getValue("registrationChildFormWindowComuneNascita"),
+                CodiceFiscale : getValue("registrationChildFormWindowCodiceFiscale"),
+                Cittadinanza : getValue("registrationChildFormWindowCittadinanza"),
+                FasciaUtenza : getValue("registrationChildFormWindowFasciaUtenza")
+            }, 
+            function(jsonObject) {
+                // Funzione eseguita se la richiesta alla servlet è eseguita con successo
+                setWindowVisibility("registrationChildFormWindow", false);
+                if(jsonObject.IsSuccess == "true") {
+                    openRegistrationChildAlertWindow("Operazione eseguita correttamente", "Le modifiche apportate alla bozza della domanda di iscrizione sono state salvata");
+                } else {
+                    openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
+                }
+            }, 
+            function(errorMsg) {
+                // Funzione eseguita se la richiesta alla servlet ha presentato errori
+                setWindowVisibility("registrationChildFormWindow", false);
+                alert("error function: ");
+                openRegistrationChildAlertWindow("Errore", errorMsg);
+            }
+        );
+}
+function submitDraftRegistrationChildAction() {
+    $("#registrationChildFormWindowForm").validate({
+            rules: {
+                registrationChildFormWindowCognome: {required: true},
+                registrationChildFormWindowNome: {required: true},
+                registrationChildFormWindowDataNascita:  {required: true},
+                registrationChildFormWindowComuneNascita:  {required: true},
+                registrationChildFormWindowCodiceFiscale:  {required: true},
+                registrationChildFormWindowCittadinanza:  {required: true},
+                registrationChildFormWindowFasciaUtenza:  {required: true}
             },
-            success: function(json) {
-                // La variabile json contiene tutti gli id/valore ricevuti dalla servlet
-                //alert("Successo nel caricamento! Inizio a settare i campi");
-                $("#viewDetailsIdDraft").val(json.Id);
-                $("#viewDetailsCognome").html(json.Cognome);
-                $("#viewDetailsNome").html(json.Nome);
-                $("#viewDetailsDataNascita").html(json.DataNascita);
-                $("#viewDetailsComuneNascita").html(json.ComuneNascita);
-                $("#viewDetailsCodiceFiscale").html(json.CodiceFiscale);
-                $("#viewDetailsCittadinanza").html(json.Cittadinanza);
-                $("#viewDetailsFasciaUtenza").html(json.FasciaUtenza);
-                $("#viewDetailsDataIscrizione").html(json.DataIscrizione);
-                $("#viewDetailsFaseIscrizione").html(json.FaseDellIscrizione);
-                // Non utilizzo il valore di parentAccountId
-                $("#viewDetailsMalattie").html(json.Malattie);
-                $("#viewDetailsVaccinazioni").html(json.Vaccinazioni);
-                $("#viewDetailsDichiarazionePrivacy").html(json.DichiarazioneDellaPrivacy);
-                // Non utilizzo il valore di sectionId
+            messages: {
+                registrationChildFormWindowCognome: {required: "Inserire il cognome"},
+                registrationChildFormWindowNome: {required: "Inserire il nome"},
+                registrationChildFormWindowDataNascita:  {required: "Selezionare la data di nascita"},
+                registrationChildFormWindowComuneNascita:  {required: "Inserire il comune di nascita"},
+                registrationChildFormWindowCodiceFiscale:  {required: "Inserire il codice fiscale"},
+                registrationChildFormWindowCittadinanza:  {required: "Inserire la cittadianza"},
+                registrationChildFormWindowFasciaUtenza:  {required: "Selezionare la fascia di utilizzo"}
             },
-            error: function(jqXHR, textStatus, errorThrown) {
-                alert("c'è stato un errore: " + textStatus + " errorThrown: " + errorThrown);
-            },
-            complete: function(json) {
-                // codice eseguito indipendentemente dal riuscita o meno
-                // alert("La richiesta è stata fatta");
-                // alert("L'id è: " + json.Id);
+            submitHandler: function() {
+                comunicaConServlet(
+                    // Nome della Servlet
+                    "SubmitNewRegistrationChild", 
+                    {
+                        // Parametri da inviare alla servlet
+                        Id : getValue("registrationChildFormWindowId"),
+                        Cognome : getValue("registrationChildFormWindowCognome"),
+                        Nome    : getValue("registrationChildFormWindowNome"),
+                        DataNascita : getValue("registrationChildFormWindowDataNascita"),
+                        ComuneNascita : getValue("registrationChildFormWindowComuneNascita"),
+                        CodiceFiscale : getValue("registrationChildFormWindowCodiceFiscale"),
+                        Cittadinanza : getValue("registrationChildFormWindowCittadinanza"),
+                        FasciaUtenza : getValue("registrationChildFormWindowFasciaUtenza")
+                    }, 
+                    function(jsonObject) {
+                        // Funzione eseguita se la richiesta alla servlet è eseguita con successo
+                        setWindowVisibility("registrationChildFormWindow", false);
+                        if(jsonObject.IsSuccess == "true") {
+                            openRegistrationChildAlertWindow("Operazione eseguita correttamente", "La domanda di iscrizione è stata sottomessa");
+                        } else {
+                            openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
+                        }
+                    }, 
+                    function(errorMsg) {
+                        // Funzione eseguita se la richiesta alla servlet ha presentato errori
+                        setWindowVisibility("registrationChildFormWindow", false);
+                        alert("error function: ");
+                        openRegistrationChildAlertWindow("Errore", errorMsg);
+                    }
+                );
             }
         });
-    //*/
-    //* Secondo
-    var nomeServlet = "GetRegistrationChild";
-    var parametri = {
-                Id: id
-            };
-    var toExecuteAtEnd = function(risultato) {
-        // Elaboro il risultato: risultato.NOME_PROPRIETA_IMPOSTATO_NELLA_SERVLET
-        $("#viewDetailsIdDraft").val(risultato.Id);
-        $("#viewDetailsCognome").html(risultato.Cognome);
-        $("#viewDetailsNome").html(risultato.Nome);
-        $("#viewDetailsDataNascita").html(risultato.DataNascita);
-        $("#viewDetailsComuneNascita").html(risultato.ComuneNascita);
-        $("#viewDetailsCodiceFiscale").html(risultato.CodiceFiscale);
-        $("#viewDetailsCittadinanza").html(risultato.Cittadinanza);
-        $("#viewDetailsFasciaUtenza").html(risultato.FasciaUtenza);
-        $("#viewDetailsDataIscrizione").html(risultato.DataIscrizione);
-        $("#viewDetailsFaseIscrizione").html(risultato.FaseDellIscrizione);
-        // Non utilizzo il valore di parentAccountId
-        $("#viewDetailsMalattie").html(risultato.Malattie);
-        $("#viewDetailsVaccinazioni").html(risultato.Vaccinazioni);
-        $("#viewDetailsDichiarazionePrivacy").html(risultato.DichiarazioneDellaPrivacy);
+    
+}
+function deleteDraftRegistrationChildAction() {
+    setWindowVisibility("registrationChildFormWindow", false);
+    openDeleteRegistrationChildWindow(getValue("registrationChildFormWindowId"));
+}
+function completeDraftRegistrationChildAction() {
+    $("#registrationChildFormWindowForm").validate({
+            rules: {
+                registrationChildFormWindowMalattie: {required: true},
+                registrationChildFormWindowVaccinazioni: {required: true},
+                registrationChildFormWindowDichiarazionePrivacy:  {required: true}
+            },
+            messages: {
+                registrationChildFormWindowMalattie: {required: "Inserire le malattie (oppure Nessuna)"},
+                registrationChildFormWindowVaccinazioni: {required: "Inserire le vaccinazioni (oppure Nessuna)"},
+                registrationChildFormWindowDichiarazionePrivacy:  {required: "Selezionare la risposta"}
+            },
+            submitHandler: function() {
+                comunicaConServlet(
+                    // Nome della Servlet
+                    "CompleteRegistrationChild", 
+                    {
+                        // Parametri da inviare alla servlet
+                        Id : getValue("registrationChildFormWindowId"),
+                        Malattie : getValue("registrationChildFormWindowMalattie"),
+                        Vaccinazioni    : getValue("registrationChildFormWindowVaccinazioni"),
+                        DichiarazioneDellaPrivacy : getValue("registrationChildFormWindowDichiarazionePrivacy")
+                    }, 
+                    function(jsonObject) {
+                        // Funzione eseguita se la richiesta alla servlet è eseguita con successo
+                        setWindowVisibility("registrationChildFormWindow", false);
+                        if(jsonObject.IsSuccess == "true") {
+                            openRegistrationChildAlertWindow("Operazione eseguita correttamente", "La domanda di iscrizione è stata completata");
+                        } else {
+                            openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
+                        }
+                    }, 
+                    function(errorMsg) {
+                        // Funzione eseguita se la richiesta alla servlet ha presentato errori
+                        setWindowVisibility("registrationChildFormWindow", false);
+                        alert("error function: ");
+                        openRegistrationChildAlertWindow("Errore", errorMsg);
+                    }
+                );
+            }
+        });
+}
+function confirmDraftRegistrationChildAction() {
+    setWindowVisibility("registrationChildFormWindow", false);
+    confirmReceivingRegistrationChildWindow(getValue("registrationChildFormWindowId"));
+}
+function confirmCompletingDraftRegistrationChildAction() {
+    $("#registrationChildFormWindowForm").validate({
+            rules: {
+                registrationChildFormWindowIsSetMalattie: {required: true},
+                registrationChildFormWindowIsSetVaccinazioni: {required: true},
+                registrationChildFormWindowIsSetDichiarazionePrivacy:  {required: true}
+            },
+            messages: {
+                registrationChildFormWindowIsSetMalattie: {required: "Selezionare la risposta"},
+                registrationChildFormWindowIsSetVaccinazioni: {required: "Selezionare la risposta"},
+                registrationChildFormWindowIsSetDichiarazionePrivacy: {required: "Selezionare la risposta"}
+            },
+            submitHandler: function() {
+                comunicaConServlet(
+                    // Nome della Servlet
+                    "ConfirmCompletingRegistrationChild", 
+                    {
+                        // Parametri da inviare alla servlet
+                        Id : getValue("registrationChildFormWindowId"),
+                        IsSetMalattie : getValue("registrationChildFormWindowIsSetMalattie"),
+                        IsSetVaccinazioni    : getValue("registrationChildFormWindowIsSetVaccinazioni"),
+                        IsSetDichiarazioneDellaPrivacy : getValue("registrationChildFormWindowIsSetDichiarazionePrivacy")
+                    }, 
+                    function(jsonObject) {
+                        // Funzione eseguita se la richiesta alla servlet è eseguita con successo
+                        setWindowVisibility("registrationChildFormWindow", false);
+                        if(jsonObject.IsSuccess == "true") {
+                            openRegistrationChildAlertWindow("Operazione eseguita correttamente", "La domanda di iscrizione è stata confermata");
+                        } else {
+                            openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
+                        }
+                    }, 
+                    function(errorMsg) {
+                        // Funzione eseguita se la richiesta alla servlet ha presentato errori
+                        setWindowVisibility("registrationChildFormWindow", false);
+                        alert("error function: ");
+                        openRegistrationChildAlertWindow("Errore", errorMsg);
+                    }
+                );
+            }
+        });
+}
+// FUNZIONI CHE NECESSITANO DI UNA FORM-WINDOW
+function openInsertNewRegistrationChildWindow() {
+    setVisibility("registrationChildRegistrationInfo", false);
+    setVisibility("registrationChildStandardField", true);
+    if(getValue("user") == "Segreteria") {
+        setVisibility("registrationChildSegretaryField", false);
     }
-    comunicaConServlet(nomeServlet, parametri, toExecuteAtEnd);
+    openRegistrationChildFormWindow("modifyDraft", "Visuale di inserimento di una bozza di domanda di iscrizione", null, false);
+}
+function openModifyRegistrationChildWindow(id) {
+    setVisibility("registrationChildRegistrationInfo", true);
+    setVisibility("registrationChildStandardField", true);
+    if(getValue("user") == "Segreteria") {
+        setVisibility("registrationChildSegretaryField", false);
+    }
+    openRegistrationChildFormWindow("modifyDraft", "Visuale di modifica di una bozza di domanda di iscrizione", id, false);
+}
+function openViewDetailsRegistrationChildWindow(id) {
+    setVisibility("registrationChildRegistrationInfo", true);
+    setVisibility("registrationChildStandardField", true);
+    if(getValue("user") == "Segreteria") {
+        setVisibility("registrationChildSegretaryField", false);
+    }
+    openRegistrationChildFormWindow("viewDraft", "Dettagli della domanda di iscrizione", id, true);
+}
+function openCompleteRegistrationChildWindow(id) {
+    setVisibility("registrationChildRegistrationInfo", true);
+    setVisibility("registrationChildStandardField", false);
+    if(getValue("user") == "Segreteria") {
+        setVisibility("registrationChildSegretaryField", false);
+    }
+    openRegistrationChildFormWindow("modifyDraft", "Visuale di completamento della domanda di iscrizione", id, true);
+}
+function openComfirmReceivingRegistrationChildWindow(id) {
+    setVisibility("registrationChildRegistrationInfo", true);
+    setVisibility("registrationChildStandardField", true);
+    if(getValue("user") == "Segreteria") {
+        setVisibility("registrationChildSegretaryField", false);
+    }
+    openRegistrationChildFormWindow("viewDraft", "Visuale di conferma della ricezione della domanda di iscrizione", id, false);
+}
+function openComfirmCompletingRegistrationChildWindow(id) {
+    setVisibility("registrationChildRegistrationInfo", true);
+    setVisibility("registrationChildStandardField", false);
+    if(getValue("user") == "Segreteria") {
+        setVisibility("registrationChildSegretaryField", true);
+    }
+    openRegistrationChildFormWindow("modifyDraft", "Visuale di conferma del completamento della domanda di iscrizione", id, true);
+}
+// FUNZIONI CHE NECESSITANO DI UNA CONFIRM-WINDOW
+function openDeleteRegistrationChildWindow(id) {
+    var title = "Conferma operazione";
+    var text = "Sei sicuro di voler eliminare la domanda di iscrizione";
+    var confirmAction = function() {
+        comunicaConServlet(
+                // Nome della Servlet
+                "EditPhaseRegistrationChild", 
+                {
+                    // Parametri da inviare alla servlet
+                    Id: id,
+                    FaseDellIscrizione: "eliminata"
+                }, 
+                function(jsonObject) {
+                    // Funzione eseguita se la richiesta alla servlet è eseguita con successo
+                    setWindowVisibility("registrationChildFormWindow", false);
+                    if(jsonObject.IsSuccess == "true") {
+                        openRegistrationChildAlertWindow("Operazione eseguita correttamente", "La domanda di iscrizione è stata eliminata");
+                    } else {
+                        openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + risultato.ErrorMsg);
+                    }
+                }, 
+                function(errorMsg) {
+                    // Funzione eseguita se la richiesta alla servlet ha presentato errori
+                    setWindowVisibility("registrationChildFormWindow", false);
+                    openRegistrationChildAlertWindow("Errore", errorMsg);
+                }
+            );
+    }
+    openRegistrationChildConfirmWindow(title, text, id, confirmAction, null);
+}
+function confirmReceivingRegistrationChildWindow(id) {
+    var title = "Conferma operazione";
+    var text = "Sei sicuro di voler confermare la ricezione della domanda di iscrizione";
+    var confirmAction = function() {
+        comunicaConServlet(
+                // Nome della Servlet
+                "EditPhaseRegistrationChild", 
+                {
+                    // Parametri da inviare alla servlet
+                    Id: id,
+                    FaseDellIscrizione: "ricevuta"
+                }, 
+                function(jsonObject) {
+                    // Funzione eseguita se la richiesta alla servlet è eseguita con successo
+                    setWindowVisibility("registrationChildFormWindow", false);
+                    if(jsonObject.IsSuccess == "true") {
+                        openRegistrationChildAlertWindow("Operazione eseguita correttamente", "La domanda di iscrizione è stata memorizzata come ricevuta");
+                    } else {
+                        openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + risultato.ErrorMsg);
+                    }
+                }, 
+                function(errorMsg) {
+                    // Funzione eseguita se la richiesta alla servlet ha presentato errori
+                    setWindowVisibility("registrationChildFormWindow", false);
+                    openRegistrationChildAlertWindow("Errore", errorMsg);
+                }
+            );
+    }
+    openRegistrationChildConfirmWindow(title, text, id, confirmAction, null);
+}
+// FUNZIONI PER L'UTILIZZO DELLA FORM-WINDOW
+function initRegistrationChildFormWindow() {
+    $("#registrationChildFormWindow").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 600
+    });
+    // imposta il campo come inserimento della data dal calendario
+    $("#registrationChildFormWindowDataNascita").datepicker({dateFormat:'yy-mm-dd'});
     
-    //alert(risultato.Id + " " + risultato.Cognome);
+    getElement("registrationChildFormWindowId").disabled = true;
+    getElement("registrationChildFormWindowDataIscrizione").disabled = true;
+    getElement("registrationChildFormWindowFaseIscrizione").disabled = true;
     
-    // Non utilizzo il valore di sectionId
+    $("#registrationChildFormWindowUndoButton").button();
+    $("#registrationChildFormWindowUndoButton").click(function(){
+        setWindowVisibility("registrationChildFormWindow", false);
+        clearFieldRegistrationChildFormWindow();
+    });
+}
+function openRegistrationChildFormWindow(windowType, title, idToLoad, canAdvancedFieldBeVisibily) {
+    $("#registrationChildFormWindow").dialog({title: title});
+    
+    if(windowType == "modifyDraft") {
+        setRegistrationChildFormDisabled(false);
+    } else if(windowType == "viewDraft") {
+        setRegistrationChildFormDisabled(true);
+    }
+    
+    if(idToLoad != null) {
+        comunicaConServlet(
+            // Nome della Servlet
+            "GetRegistrationChild", 
+            {
+                // Parametri da inviare alla servlet
+                Id: idToLoad
+            }, 
+            function(jsonObject) {
+                // Funzione eseguita se la richiesta alla servlet è eseguita con successo
+                fillInFieldRegistrationChildFormWindow(jsonObject);
+                changeButtonVisibility(jsonObject.FaseDellIscrizione, windowType);
+                
+                if((jsonObject.FaseDellIscrizione == "accettata" || jsonObject.FaseDellIscrizione == "completata") && canAdvancedFieldBeVisibily) {
+                    setVisibility("registrationChildAdvancedField", true);
+                } else {
+                    setVisibility("registrationChildAdvancedField", false);
+                }
+            }, 
+            function(errorMsg) {
+                // Funzione eseguita se la richiesta alla servlet ha presentato errori
+                setWindowVisibility("registrationChildFormWindow", false);
+                openRegistrationChildAlertWindow("Errore", errorMsg);
+            }
+        );
+    } else {
+        clearFieldRegistrationChildFormWindow();
+        changeButtonVisibility("", windowType);
+        setVisibility("registrationChildAdvancedField", canAdvancedFieldBeVisibily);
+    }
+    
+    setWindowVisibility("registrationChildFormWindow", true);
+}
+function fillInFieldRegistrationChildFormWindow(registrationChildObject) {
+    $("#registrationChildFormWindowId").val(registrationChildObject.Id);
+
+    $("#registrationChildFormWindowCognome").val(registrationChildObject.Cognome);
+    $("#registrationChildFormWindowNome").val(registrationChildObject.Nome);
+    $("#registrationChildFormWindowDataNascita").val(registrationChildObject.DataNascita);
+    $("#registrationChildFormWindowComuneNascita").val(registrationChildObject.ComuneNascita);
+    $("#registrationChildFormWindowCodiceFiscale").val(registrationChildObject.CodiceFiscale);
+    $("#registrationChildFormWindowCittadinanza").val(registrationChildObject.Cittadinanza);
+    if(registrationChildObject.FasciaUtenza == "full_time") {
+        getElement("registrationChildselectFullTime").selected = true;
+    } else if(registrationChildObject.FasciaUtenza == "part_time_mattutina") {
+        getElement("registrationChildselectPartTimeAM").selected = true;
+    } else if(registrationChildObject.FasciaUtenza == "part_time_pomeridiana") {
+        getElement("registrationChildselectPartTimePM").selected = true;
+    } else {
+        getElement("registrationChildselectEmpty").selected = true;
+    }
+    
+    $("#registrationChildFormWindowDataIscrizione").val(registrationChildObject.DataIscrizione);
+    $("#registrationChildFormWindowFaseIscrizione").val(registrationChildObject.FaseDellIscrizione);
+    // Non utilizzo il valore di parentAccountId
+
+    $("#registrationChildFormWindowMalattie").val(registrationChildObject.Malattie);
+    $("#registrationChildFormWindowVaccinazioni").val(registrationChildObject.Vaccinazioni);
+    $("#registrationChildFormWindowDichiarazionePrivacy").val(registrationChildObject.DichiarazioneDellaPrivacy);
+    if(registrationChildObject.DichiarazioneDellaPrivacy == "si") {
+        getElement("registrationChildSelectPrivacySi").selected = true;
+    } else if(registrationChildObject.DichiarazioneDellaPrivacy == "no") {
+        getElement("registrationChildselectPrivacyNo").selected = true;
+    } else if(registrationChildObject.DichiarazioneDellaPrivacy == "in_parte") {
+        getElement("registrationChildselectPrivacyForse").selected = true;
+    } else {
+        getElement("registrationChildSelectPrivacyEmpty").selected = true;
+    }
+}
+function clearFieldRegistrationChildFormWindow() {
+    $("#registrationChildFormWindowId").val("");
+
+    $("#registrationChildFormWindowCognome").val("");
+    $("#registrationChildFormWindowNome").val("");
+    $("#registrationChildFormWindowDataNascita").val("");
+    $("#registrationChildFormWindowComuneNascita").val("");
+    $("#registrationChildFormWindowCodiceFiscale").val("");
+    $("#registrationChildFormWindowCittadinanza").val("");
+    
+    getElement("registrationChildSelectUserRangeEmpty").selected = true;
+    getElement("registrationChildSelectPrivacyEmpty").selected = true;
+    
+    $("#registrationChildFormWindowDataIscrizione").val("");
+    $("#registrationChildFormWindowFaseIscrizione").val("");
+    // Non utilizzo il valore di parentAccountId
+    
+    $("#registrationChildFormWindowMalattie").val("");
+    $("#registrationChildFormWindowVaccinazioni").val("");
+    $("#registrationChildFormWindowDichiarazionePrivacy").val("");
+}
+function setRegistrationChildFormDisabled(isToDesable) {
+    
+    /* I campi Id, DataIscrizione, FaseDellIscrizione e ParentAccountId non devono mai essere modificati dall'utente
+    getElement("registrationChildFormWindowId").disabled = isToDesable;
+    getElement("registrationChildFormWindowDataIscrizione").disabled = isToDesable;
+    getElement("registrationChildFormWindowFaseIscrizione").disabled = isToDesable;
+    // Non utilizzo il valore di parentAccountId
     //*/
-    $("#viewDetailsRegistrationChildWindow").dialog("open");
+    
+    getElement("registrationChildFormWindowCognome").disabled = isToDesable;
+    getElement("registrationChildFormWindowNome").disabled = isToDesable;
+    getElement("registrationChildFormWindowDataNascita").disabled = isToDesable;
+    getElement("registrationChildFormWindowComuneNascita").disabled = isToDesable;
+    getElement("registrationChildFormWindowCodiceFiscale").disabled = isToDesable;
+    getElement("registrationChildFormWindowCittadinanza").disabled = isToDesable;
+    getElement("registrationChildFormWindowFasciaUtenza").disabled = isToDesable;
+    
+    getElement("registrationChildFormWindowMalattie").disabled = isToDesable;
+    getElement("registrationChildFormWindowVaccinazioni").disabled = isToDesable;
+    getElement("registrationChildFormWindowDichiarazionePrivacy").disabled = isToDesable;
+    
+    if(getValue("user") == "Segreteria") {
+        getElement("registrationChildFormWindowIsSetMalattie").disabled = isToDesable;
+        getElement("registrationChildFormWindowIsSetVaccinazioni").disabled = isToDesable;
+        getElement("registrationChildFormWindowIsSetDichiarazionePrivacy").disabled = isToDesable;
+    }
+}
+// FUNZIONE DI CONTROLLO SULLA VISIBILITA' DEI PULSANTI DELLA FORM-WINDOS
+function changeButtonVisibility(registrationPhase, windowType) {
+    var userType = getValue("user");
+    if(userType == "Genitore") {
+        if(windowType == "modifyDraft" && (registrationPhase == "")) {
+            setVisibility("createNewDraftRegistrationChildButton", true);
+        } else {
+            setVisibility("createNewDraftRegistrationChildButton", false);
+        }
+        if((windowType == "modifyDraft") && (registrationPhase == "bozza")) {
+            setVisibility("saveEditDraftRegistrationChildButton", true);
+        } else {
+            setVisibility("saveEditDraftRegistrationChildButton", false);
+        }
+        if((registrationPhase == "" || registrationPhase == "bozza") &&
+                    (windowType == "createNewDraft" || windowType == "modifyDraft" || windowType == "viewDraft")) {
+
+            setVisibility("submitDraftRegistrationChildButton", true);
+        } else {
+            setVisibility("submitDraftRegistrationChildButton", false);
+        }
+        if((registrationPhase == "bozza" || registrationPhase == "sottomessa" || registrationPhase == "ricevuta") && 
+                    (windowType == "modifyDraft" || windowType == "viewDraft")) {
+
+            setVisibility("deleteDraftRegistrationChildButton", true);
+        } else {
+            setVisibility("deleteDraftRegistrationChildButton", false);
+        }
+        if((registrationPhase == "accettata") && (windowType == "viewDraft")) {
+
+            setVisibility("completeDraftRegistrationChildButton", true);
+        } else {
+            setVisibility("completeDraftRegistrationChildButton", false);
+        }
+    }
+    if(userType == "Segreteria") {
+        if((registrationPhase == "sottomessa") && (windowType == "viewDraft")) {
+            setVisibility("confirmReceivingViewDetailsDraftButton", true);
+        } else {
+            setVisibility("confirmReceivingViewDetailsDraftButton", false);
+        }
+        if((registrationPhase == "completata") && (windowType == "viewDraft")) {
+            setVisibility("confirmCompletedViewDetailsDraftButton", true);
+        } else {
+            setVisibility("confirmCompletedViewDetailsDraftButton", false);
+        }
+    }
 }
 
-// DI SEGUITO TUTTE LE OPERAZIONI CHE NECESSITANO DI CONFERMA
-function removeRegistrationChild(id) {
-    // Inizializzo la finestra di conferma
-    $("#confirmOperationRCTitle").html("Sei sicuro di voler eliminare la Domanda?");
-    $("#confirmOperationRCIdDraft").val(id);
-    
-    // Assegno la funzione al bottone
-    $("#confirmOperationRCButton").click(function(){
-        $.post("EditPhaseRegistrationChild", {
-                Id: $("#confirmOperationRCIdDraft").val(),
-                FaseDellIscrizione: "eliminata"
-        });
-        $("#confirmOperationRCWindow").dialog("close");
+// FUNZIONI PER UTILIZZARE LA CONFIRM-WINDOW
+function initRegistrationChildConfirmWindow() {
+    $("#registrationChildConfirmWindow").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 600
     });
-    
-    // la rendo visibile
-    $("#confirmOperationRCWindow").dialog("open");
-}
-
-function confirmRegistrationChild(id) {
-    // Inizializzo la finestra di conferma
-    $("#confirmOperationRCTitle").html("Sei sicuro di voler confermare la Domanda?");
-    $("#confirmOperationRCIdDraft").val(id);
-    
-    // Assegno la funzione al bottone
-    $("#confirmOperationRCIdDraft").click(function(){
-        $.post("EditPhaseRegistrationChild", {
-            Id: $("#confirmOperationRCIdDraft").val(),
-            FaseDellIscrizione: "confermata"
-        });
-        $("#confirmOperationRCWindow").dialog("close");
+    $("#registrationChildConfirmWindowConfirmButton").button();
+    $("#registrationChildConfirmWindowUndoButton").button();
+    $("#registrationChildConfirmWindowUndoButton").click(function(){
+        setWindowVisibility("registrationChildConfirmWindow", false);
     });
-    
-    // la rendo visibile
-    $("#confirmOperationRCWindow").dialog("open");
 }
-
-
+function openRegistrationChildConfirmWindow(newTitle, text, id, confirmAction, undoAction) {
+    $("#registrationChildConfirmWindow").dialog({title: newTitle});
+    getElement("registrationChildConfirmWindowTitle").innerHTML = text;
+    $("#registrationChildConfirmWindowId").val(id);
+    
+    $("#registrationChildConfirmWindowConfirmButton").click(function(){
+        confirmAction();
+        setWindowVisibility("registrationChildConfirmWindow",false);
+    });
+    if(undoAction != null) {
+        $("#registrationChildConfirmWindowUndoButton").click(function(){
+            undoAction();
+            setWindowVisibility("registrationChildConfirmWindow", false);
+        });
+    }
+    
+    setWindowVisibility("registrationChildConfirmWindow", true);
+}
+// FUNZIONI PER UTILIZZARE L'ALERT-WINDOW
+function initRegistrationChildAlertWindow() {
+    $("#registrationChildAlertWindow").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 600
+    });
+    $("#registrationChildAlertWindowOkButton").button();
+    $("#registrationChildAlertWindowOkButton").click(function(){
+        setWindowVisibility("registrationChildAlertWindow", false);
+    });
+}
+function openRegistrationChildAlertWindow(newTitle, text) {
+    $("#registrationChildAlertWindow").dialog({title: newTitle});
+    getElement("registrationChildAlertWindowTitle").innerHtml = text;
+    
+    setWindowVisibility("registrationChildAlertWindow", true);
+}
+// OTHER FUNCTION
 function getTypeValue(idRadio) { 
     var indice = -1; 
     var i = 0;
@@ -508,30 +663,59 @@ function getTypeValue(idRadio) {
     while(i < radios.length && indice == -1) {
         if(radios[i].checked) {
             indice = i;
-            alert(radios[i].value);
+            //alert(radios[i].value);
         } else {
             i++;
         }
     }
     return radios[indice].value; 
 }
-
-function comunicaConServlet(nomeServlet, parametri, toExecuteAtEnd) {
+function comunicaConServlet(nomeServlet, parametri, executeIfSuccess, executeIfError) {
+    /*
+     * Supported data types by JSONObject
+     * 1) Number (integer, real, or floating point)
+     * 2) String (double-quoted Unicode with backslash escapement)
+     * 3) Boolean (true and false)
+     * 4) Array (an ordered sequence of values, comma-separated and enclosed in square brackets)
+     * 5) Object (collection of key/value pairs, comma-separated and enclosed in curly brackets)
+     * 6) null
+     */
     $.ajax({
         url: nomeServlet,
         dataType: 'json',
         type: 'POST',
         data: parametri,
         success: function(json) {
-            toExecuteAtEnd(json);
+            // json è un oggetto che ha come variali i campi aggiunti nella servlet facendo json.add("Id", "valore");
+            // per richiamare l'id scrivere json.Id
+            executeIfSuccess(json);
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            alert("c'è stato un errore: " + textStatus + " errorThrown: " + errorThrown);
-        },
-        complete: function() {
-            // codice da eseguire indipendentemente dal riuscita o meno della richiesta
-            // viene eseguito al completamento
+            var errorMsg = "Errore nella richiesta alla Servlet (" + errorThrown + "):" + newLine() + + textStatus;
+            executeIfError(errorMsg);
         }
     });
 }
-
+function newLine() {
+    return "<br>";
+}
+function getElement(id) {
+    return document.getElementById(id);
+}
+function getValue(id) {
+    return document.getElementById(id).value;
+}
+function setWindowVisibility(id, isVisible) {
+    if(isVisible) {
+        $("#" + id).dialog("open");
+    } else {
+        $("#" + id).dialog("close");
+    }
+}
+function setVisibility(id, isVisible) {
+    if(isVisible) {
+        document.getElementById(id).style.display = "inline";
+    } else {
+        document.getElementById(id).style.display = "none";
+    }
+}

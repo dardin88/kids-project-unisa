@@ -11,7 +11,6 @@ import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
@@ -25,11 +24,10 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONObject;
 
 /**
- * Servlet used to create a new draft of registrationchild
- * 
- * @author Giuseppe Giovanni Lauri
+ *
+ * @author PC
  */
-public class ServletCreateDraftRegistrationChild extends HttpServlet {
+public class ServletSubmitNewRegistrationChild extends HttpServlet {
     private IRegistrationChildManager registrationChildManager;
 
     public void init(ServletConfig config) {
@@ -48,7 +46,7 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException, ParseException {
+            throws ServletException, IOException {
         
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
@@ -58,6 +56,7 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
         
         try {
             // Prelevo i dati necessari
+            String id = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_ID);
             String surname = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_SURNAME);
             String name = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_NAME);
 
@@ -95,11 +94,16 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
             registrationChild.setCitizenship(citizenship);
             registrationChild.setRegistrationDate(registrationDate);
             registrationChild.setUserRange(userRange);
-            registrationChild.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DRAFT);
+            registrationChild.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED);
             registrationChild.setParentId(parentAccount.getId());
 
             // La inserisco nel db
-            isSuccess = registrationChildManager.insert(registrationChild);
+            if(id.equals("")) {
+                isSuccess = registrationChildManager.insert(registrationChild);
+            } else {
+                registrationChild.setId(Integer.parseInt(id));
+                isSuccess = registrationChildManager.update(registrationChild);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ServletCreateDraftRegistrationChild.class.getName()).log(Level.SEVERE, "SQL-Error: " + ex.getMessage(), ex);
             isSuccess = false;
@@ -118,7 +122,7 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
             out.close();
         }
     }
-   
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP
@@ -132,13 +136,7 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(ServletCreateDraftRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(ServletCreateDraftRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -153,13 +151,7 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(ServletCreateDraftRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(ServletCreateDraftRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

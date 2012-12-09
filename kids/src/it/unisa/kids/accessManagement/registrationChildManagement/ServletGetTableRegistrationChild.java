@@ -128,11 +128,11 @@ public class ServletGetTableRegistrationChild extends HttpServlet {
                     if(account.getAccountType().equals("Segreteria")) {
                         // solo la segreteria può confermare
                         if(regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED)) {
-                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" alt=\"Conferma\" alt=\"Conferma\" src='img/accept.png' onclick='openComfirmRegistrationChildWindow(\"" + regChildRequest.getId() + "\")'/>");
+                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" alt=\"Conferma\" alt=\"Conferma ricezione\" src='img/accept.png' onclick='confirmReceivingRegistrationChildWindow(\"" + regChildRequest.getId() + "\")'/>");
                         }
                         // e confermare il completamento
                         if(regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_COMPLETED)) {
-                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" alt=\"Conferma\" alt=\"Conferma completamento\" src='img/accept.png' onclick='openComfirmCompletedRegistrationChildWindow(\"" + regChildRequest.getId() + "\")'/>");
+                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" alt=\"Conferma\" alt=\"Conferma completamento\" src='img/accept.png' onclick='openComfirmCompletingRegistrationChildWindow(\"" + regChildRequest.getId() + "\")'/>");
                         }
                     }
                     ja.put(operazioni.toString());
