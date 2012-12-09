@@ -98,7 +98,7 @@ function CalendarEditable() {
                 $("#modifyStartTime").val(firstHour[0]+":"+firstHour[1]);
                 $("#modifyEndTime").val(secondHour[0]+":"+secondHour[1]);
                 setModifyValue(result[6]);
-            })
+            },"text")
         }
         
     }); 	
