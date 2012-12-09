@@ -8,7 +8,6 @@ import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -91,7 +90,7 @@ public class InsertTableChildServlet extends HttpServlet {
             tmpChild.setParentId(idGenitore);
 
             List<RegistrationChild> listaFigli = registrationChildManager.search(tmpChild);
-            registrationChildManager.search(null);
+            //  registrationChildManager.search(null);
 
 
 
@@ -108,10 +107,10 @@ public class InsertTableChildServlet extends HttpServlet {
              */
 
 
-            listRenunciationRequest = registrationRenunciationManager.search(renunciation);
+            //listRenunciationRequest = registrationRenunciationManager.search(renunciation);
             //}
 
-            int linksNumber = listRenunciationRequest.size();
+            int linksNumber = listaFigli.size();
             if (linksNumber < amount) {
                 amount = linksNumber;
             }
@@ -119,10 +118,10 @@ public class InsertTableChildServlet extends HttpServlet {
                 int toShow = linksNumber - start;
                 if (toShow > 10) {
                     paginateRenunciationRequestSet = new Renunciation[amount];
-                    System.arraycopy(listRenunciationRequest.toArray(), start, paginateRenunciationRequestSet, 0, amount);
+                    System.arraycopy(listaFigli.toArray(), start, paginateRenunciationRequestSet, 0, amount);
                 } else {
                     paginateRenunciationRequestSet = new Renunciation[toShow];
-                    System.arraycopy(listRenunciationRequest.toArray(), start, paginateRenunciationRequestSet, 0, toShow);
+                    System.arraycopy(listaFigli.toArray(), start, paginateRenunciationRequestSet, 0, toShow);
                 }
 
                 for (RegistrationChild regRenunciationRequest : listaFigli) {
@@ -157,9 +156,9 @@ public class InsertTableChildServlet extends HttpServlet {
                      operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" alt=\"Conferma\" alt=\"Conferma completamento\" src='img/accept.png' onclick='openComfirmCompletingRegistrationChildWindow(\"" + regRenunciationRequest.getId() + "\")'/>");
                      }
                      }
-                     ja.put(operazioni.toString());
-                     array.put(ja);
-                     */
+                     ja.put(operazioni.toString());*/
+                    array.put(ja);
+
                 }
             }
             result.put("sEcho", sEcho);
