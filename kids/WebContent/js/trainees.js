@@ -146,8 +146,7 @@ function loadInformationTraineePage(id){
     $.post("GetTrainees", {
         traineeId:""+id
     },function(data){
-
-        var result = data.split(",");
+        var result = data.toString().split(",");
         $("#RegisterInf").val(result[0]);
         $("#NameInf").val(result[1]);
         $("#SurnameInf").val(result[2]);
@@ -160,7 +159,7 @@ function loadInformationTraineePage(id){
         $("#EmailInf").val(result[9]);
         $("#QualificationInf").val(result[10]);
         $("#IdInf").val(result[11]);
-    });
+    },"text");
 
 }
 
