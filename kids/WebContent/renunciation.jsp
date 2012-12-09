@@ -6,11 +6,15 @@
 
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:if test="${sessionScope.user==null}">
+
+<c:if test="${sessionScope.user == null}">
     <c:redirect url="index.jsp" />
 </c:if>
-<c:if test="${sessionScope.user.getAccountType()!='Genitore'}">
+<c:if test="${sessionScope.user.getAccountType() != 'Genitore'}">
     <c:redirect url="index.jsp" />
+</c:if>
+
+
 
 
     <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -50,7 +54,7 @@
             <div id="renunciationManagement">
                 <div id="renunciationContent">
                     <h1 style="font-size: 35px;text-align: center;">Gestione Domande d'Iscrizione</h1>
-                    
+
                     <%--
                     <c:if test="${sessionScope.user.getAccountType()=='Genitore'}">
                         <div>
@@ -59,7 +63,7 @@
                     </c:if>
                     --%>
 
-                  
+
                     <table id="showRenunciationTable">
                         <thead>
                             <tr>
@@ -77,6 +81,5 @@
 
             <%@include file="footer.jsp" %>
         </body>
-    </c:if> 
 
-</html>
+    </html>
