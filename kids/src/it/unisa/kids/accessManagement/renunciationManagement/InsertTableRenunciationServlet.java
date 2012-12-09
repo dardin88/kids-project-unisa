@@ -30,7 +30,10 @@ public class InsertTableRenunciationServlet extends HttpServlet {
     private IRenunciationManager renunciationManager;
 
     public void init(ServletConfig config) {
-        renunciationManager = (IRenunciationManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_RENUNCIATION);
+        RefinedAbstractManager refinedAbstractRenunciationManager = RefinedAbstractManager.getInstance();
+        renunciationManager = (IRenunciationManager) refinedAbstractRenunciationManager.getInstance().getManagerImplementor(DBNames.TABLE_RENUNCIATION);
+        
+        
     }
 
     /**
