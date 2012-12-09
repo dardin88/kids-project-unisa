@@ -276,17 +276,18 @@ CREATE TABLE IF NOT EXISTS `iscrizionebambino` (
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `menu_differenziato`
+-- Struttura della tabella `menu_mensa`
 --
 
-CREATE TABLE IF NOT EXISTS `menu_differenziato` (
+CREATE TABLE IF NOT EXISTS `menu_mensa` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Motivazione` varchar(200) NOT NULL,
+  `Tipo` enum('Giornaliero','Differenziato') DEFAULT NULL,
+  `Data` date NOT NULL,
   `Primo` varchar(200) DEFAULT NULL,
   `Secondo` varchar(200) DEFAULT NULL,
   `Contorno` varchar(200) DEFAULT NULL,
   `Frutta` varchar(200) DEFAULT NULL,
-  `Iscrizione` int(11) NOT NULL,
+  `IscrizioneBambinoId` int(11) NOT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
