@@ -289,6 +289,10 @@
         <servlet-name>ModifyAccountParentServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagerment.accountManagement.ModifyAccountParentServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletSubmitNewRegistrationChild</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletSubmitNewRegistrationChild</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
@@ -572,6 +576,10 @@
     <servlet-mapping>
         <servlet-name>ModifyAccountParentServlet</servlet-name>
         <url-pattern>/ModifyAccountParent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletSubmitNewRegistrationChild</servlet-name>
+        <url-pattern>/SubmitNewRegistrationChild</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
