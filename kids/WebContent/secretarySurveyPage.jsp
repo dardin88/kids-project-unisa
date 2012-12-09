@@ -64,28 +64,26 @@
                 <div id="surveyTabGroup">
                     <ul>
                         <li><a href="#webapp"><span class="manSurvTab">Crea e Gestisci Questionari</span></a></li>
-                        <li><a href="#info"><span class="showSurvTab">Visualizza Tabella Questionari-Genitore</span></a></li>  
+                       <!-- <li><a href=""><span class="showSurvTab">Visualizza Tabella Questionari-Genitore</span></a></li>   -->
                       
                     </ul>
                     
                     <div id = "webapp">
                         <iframe src= "https://www.jotformeu.com"></iframe>
-                    </div>
                     
-                    <!--non è propriamente questo ciò che deve andà nella tab, ma è una prova..-->
-                    <div id="info">  
+                     <div>
                         <p>JotForm &egrave un ottimo servizio di creazione e gestione di questionari compilabili online. 
                            Purtroppo per&ograve, per condividere un questionario, affinch&egrave i genitori possano compilarlo, &egrave necessario fare click sulla scheda relativa a 
                            <i>"Setup & Embed"</i> e successivamente fare click sulla icona rappresentante <i>"Embed Forms"</i>, copiare così l'indirizzo all'interno della casella sottostante.</p>
             
-                        <form  class ="cmxform" action= "#" method= "POST">
+                        <form align="center"  class ="cmxform" action= "#" method= "POST">
 		                <input id="intext" type= "text"></input>
 		                <button  id = "inSub" type="submit" name= "sub" onclick="showD()" >Invia</button>
                          </form>
         
                          <p>Pu&ograve essere necessario attuare politiche per le quali un genitore non può rispondere più d'una volta al questionario.Ci&ograve &egrave possibile: basti cliccare
                             sulla icona dell'ingranaggio <i>"Preferences"</i> e scegliere l'opzione <i>"Form limits"</i>, da qu&igrave scegliere <i>"Controllo Strict</i></p>
-            
+                   </div>
                 </div>    
                 </div>
              </div>

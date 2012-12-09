@@ -638,28 +638,21 @@ Gestione bambini
 /*
 * SurveyManagement
 */
+
+#surveyManagement {
+  float: left;
+  padding: 2%;
+  padding-top: 1%;
+  width: 80%;
+}
+
  #webapp iframe {
-    height:60%;
-    width: 50%;
+    height:70%;
+    width: 80%;
     margin: 10px 20px;
     outline-style: solid;
     outline-color: #666;
     outline-width: 2px;
-}
-
- #info {
-    position: fixed;
-    right: 15px;
-    bottom: 60px;
-    text-align: center;
-    color: #444;
-    resize: both;
-    background-color: #F90;
-    width: 15%;
-    overflow: auto;
-    float: left;
-    padding: 2%;
-
 }
 
  #surveyManagement h1 {
