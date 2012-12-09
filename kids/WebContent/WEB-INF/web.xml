@@ -278,10 +278,6 @@
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.ModifyAccountServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ModifyAccount2Servlet</servlet-name>
-        <servlet-class>it.unisa.kids.accessManagement.accountManagement.ModifyAccount2Servlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ModifyAccountParentServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagerment.accountManagement.ModifyAccountParentServlet</servlet-class>
     </servlet>
