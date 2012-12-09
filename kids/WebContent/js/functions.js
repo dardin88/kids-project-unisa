@@ -112,6 +112,16 @@ function activePage(){
             $("#classificationME").css("color", "#FFFFFF");
             $("#title").html("Gestione Graduatorie");
             break;
+       case 'secretarySurveyPage.jsp':
+            $("#surveyManagement").css("background-color", "#444");
+            $("#surveyManagement").css("color", "#FFFFFF");
+            $("#title").html("Gestione Questionari Valutazione");
+            break;
+       case 'surveyShowTable.jsp':
+            $("#surveyShowTable").css("background-color", "#444");
+            $("#surveyShowTable").css("color", "#FFFFFF");
+            $("#title").html("Questionari Valutazione");
+            break;
     }
 }
 
