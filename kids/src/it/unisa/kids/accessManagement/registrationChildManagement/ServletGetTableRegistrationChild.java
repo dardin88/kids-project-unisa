@@ -101,6 +101,7 @@ public class ServletGetTableRegistrationChild extends HttpServlet {
                 
                 for (RegistrationChild regChildRequest : paginateChildRequestSet) {
                     JSONArray ja = new JSONArray();
+                    ja.put(regChildRequest.getFiscalCode());
                     ja.put(regChildRequest.getSurname());
                     ja.put(regChildRequest.getName());
                     ja.put(regChildRequest.getRegistrationPhase());

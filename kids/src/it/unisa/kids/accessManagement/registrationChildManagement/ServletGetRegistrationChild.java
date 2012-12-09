@@ -43,9 +43,13 @@ public class ServletGetRegistrationChild extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, ParseException {
+        
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
+        boolean isSuccess = true;
+        String errorMsg = new String();
+        
         try {
             HttpSession session = request.getSession();
             Account account = (Account) session.getAttribute("user");
@@ -85,18 +89,27 @@ public class ServletGetRegistrationChild extends HttpServlet {
                     
                     json.put(DBNames.ATT_REGISTRATIONCHILD_SECTIONID, tmpChild.getSectionId());
                     
-                    System.out.println(json.toString());
-                    out.write(json.toString());
                 } else {
-                    System.out.println("Errore nella prelevazione dell'ID: " + id);
+                    isSuccess = false;
+                    errorMsg = "Errore nella prelevazione dell'ID: " + id;
                 }
             } else {
-                System.out.println("Errore nella passaggio dei parametri");
+                isSuccess = false;
+                errorMsg = "Errore nella passaggio dei parametri";
             }
             
         } catch (SQLException ex) {
-            Logger.getLogger(ServletGetRegistrationChild.class.getName()).log(
-                    Level.SEVERE, null, ex);
+            Logger.getLogger(ServletGetRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
+            isSuccess = false;
+            errorMsg = ex.getMessage();
+        } finally {
+            System.out.println("Risultato della Get: " + json.toString());
+            
+            json.put("IsSuccess", isSuccess);
+            json.put("ErrorMsg", errorMsg);
+            
+            out.write(json.toString());
+            out.close();
         }
     }
 

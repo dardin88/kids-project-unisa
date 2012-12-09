@@ -259,6 +259,7 @@ CREATE TABLE IF NOT EXISTS `iscrizionebambino` (
   `Malattie` text,
   `Vaccinazioni` text,
   `DichiarazioneDellaPrivacy` text,
+  `NoteAggiuntive` text,
   `IsSetMalattie` enum('si', 'no', 'in_parte') DEFAULT 'no',
   `IsSetVaccinazioni` enum('si', 'no', 'in_parte') DEFAULT 'no',
   `IsSetDichiarazioneDellaPrivacy` enum('si', 'no', 'in_parte') DEFAULT 'no',

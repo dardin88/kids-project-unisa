@@ -3,7 +3,6 @@
     Created on : 2-dic-2012, 16.41.53
     Author     : Lauri Giuseppe Giovanni
 --%>
-
 <%@page import="it.unisa.kids.common.DBNames"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -96,11 +95,11 @@
                         <div id="registrationChildStandardField" name="registrationChildStandardField">
                             <p class="formp">
                                 <label><h3>Cognome:</h3></label>
-                                <input class="details" id="registrationChildFormWindowCognome" name="registrationChildFormWindowCognome" type="text" size="40%" style="margin-right: 2%"> 
+                                <input class="details" id="registrationChildFormWindowCognome" name="registrationChildFormWindowCognome" type="text" maxlength="25" size="40%" style="margin-right: 2%"> 
                             </p>
                             <p class="formp">
                                 <label><h3>Nome:</h3></label>
-                                <input class="details" id="registrationChildFormWindowNome" name="registrationChildFormWindowNome" type="text" size="40%" style="margin-right: 2%"> 
+                                <input class="details" id="registrationChildFormWindowNome" name="registrationChildFormWindowNome" type="text" maxlength="25" size="40%" style="margin-right: 2%"> 
                             </p>
                             <p class="formp">
                                 <label><h3>Data di nascita:</h3></label>
@@ -108,15 +107,15 @@
                             </p>
                             <p class="formp">
                                 <label><h3>Comune di nascita:</h3></label>
-                                <input class="details" id="registrationChildFormWindowComuneNascita" name="registrationChildFormWindowComuneNascita" type="text" size="40%" style="margin-right: 2%"> 
+                                <input class="details" id="registrationChildFormWindowComuneNascita" name="registrationChildFormWindowComuneNascita" maxlength="20" type="text" size="40%" style="margin-right: 2%"> 
                             </p>
                             <p class="formp">
                                 <label><h3>Codice fiscale:</h3></label>
-                                <input class="details" id="registrationChildFormWindowCodiceFiscale" name="registrationChildFormWindowCodiceFiscale" type="text" size="40%" style="margin-right: 2%"> 
+                                <input class="details" id="registrationChildFormWindowCodiceFiscale" name="registrationChildFormWindowCodiceFiscale" maxlength="16" type="text" size="40%" style="margin-right: 2%"> 
                             </p>
                             <p class="formp">
                                 <label><h3>Cittadinanza:</h3></label>
-                                <input class="details" id="registrationChildFormWindowCittadinanza" name="registrationChildFormWindowCittadinanza" type="text" size="40%" style="margin-right: 2%"> 
+                                <input class="details" id="registrationChildFormWindowCittadinanza" name="registrationChildFormWindowCittadinanza" type="text" maxlength="20" size="40%" style="margin-right: 2%"> 
                             </p>
                             <p class="formp"> 
                                 <legend><h3>Fascia di utenza:</h3></legend>
@@ -153,27 +152,27 @@
                                 <legend><h3>Sono stati fornite le malattie?</h3></legend>
                                 <select id="registrationChildFormWindowIsSetMalattie" name="registrationChildFormWindowIsSetMalattie" class="details">
                                     <option value="">--Selezionare la risposta--</option>
-                                    <option value="si">Si</option>
-                                    <option value="no" selected="selected">No</option>
-                                    <option value="in_parte">In parte</option>
+                                    <option value="<%= DBNames.ATT_REGISTRATIONCHILD_ENUM_ISSET_YES %>">Si</option>
+                                    <option value="<%= DBNames.ATT_REGISTRATIONCHILD_ENUM_ISSET_NO %>" selected="selected">No</option>
+                                    <option value="<%= DBNames.ATT_REGISTRATIONCHILD_ENUM_ISSET_MAYBE %>">In parte</option>
                                 </select>
                             </p>
                             <p class="formp"> 
                                 <legend><h3>Sono state fornite le vaccinazioni?</h3></legend>
                                 <select id="registrationChildFormWindowIsSetVaccinazioni" name="registrationChildFormWindowIsSetVaccinazioni" class="details">
                                     <option value="">--Selezionare la risposta--</option>
-                                    <option value="si">Si</option>
-                                    <option value="no" selected="selected">No</option>
-                                    <option value="in_parte">In parte</option>
+                                    <option value="<%= DBNames.ATT_REGISTRATIONCHILD_ENUM_ISSET_YES %>">Si</option>
+                                    <option value="<%= DBNames.ATT_REGISTRATIONCHILD_ENUM_ISSET_NO %>" selected="selected">No</option>
+                                    <option value="<%= DBNames.ATT_REGISTRATIONCHILD_ENUM_ISSET_MAYBE %>">In parte</option>
                                 </select>
                             </p>
                             <p class="formp"> 
                                 <legend><h3>Sono stati accettati i diritti sulla privacy?</h3></legend>
                                 <select id="registrationChildFormWindowIsSetDichiarazionePrivacy" name="registrationChildFormWindowIsSetDichiarazionePrivacy" class="details">
                                     <option value="">--Selezionare la risposta--</option>
-                                    <option value="si">Si</option>
-                                    <option value="no" selected="selected">No</option>
-                                    <option value="in_parte">In parte</option>
+                                    <option value="<%= DBNames.ATT_REGISTRATIONCHILD_ENUM_ISSET_YES %>">Si</option>
+                                    <option value="<%= DBNames.ATT_REGISTRATIONCHILD_ENUM_ISSET_NO %>" selected="selected">No</option>
+                                    <option value="<%= DBNames.ATT_REGISTRATIONCHILD_ENUM_ISSET_MAYBE %>">In parte</option>
                                 </select>
                             </p>
                             </c:if>
@@ -222,7 +221,7 @@
                     <div>
                         <h3 id="registrationChildAlertWindowTitle" name="registrationChildAlertWindowTitle"></h3>
                         <p>
-                            <input type="submit" id="registrationChildAlertOkButton" value="OK" />
+                            <input type="submit" id="registrationChildAlertWindowOkButton" value="OK" />
                         </p>
                     </div>
                 </fieldset>
@@ -239,6 +238,7 @@
             <div>
                 <table id="registrationChildTable">
                     <thead>
+                        <th>Codice Fiscale</th>
                         <th>Cognome</th>
                         <th>Nome</th>
                         <th>Fase dell'iscrizione</th>

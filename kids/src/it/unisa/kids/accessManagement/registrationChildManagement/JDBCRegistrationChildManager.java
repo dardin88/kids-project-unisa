@@ -223,6 +223,18 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_ID + "=?");
             andState = true;
         }
+        if(child.getParentId() > 0) {
+            query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID + "=?");
+            andState = true;
+        }
+        if(child.getRegistrationDate() != null) {
+            query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONDATE + "=?");
+            andState = true;
+        }
+        if(child.getRegistrationPhase() != null) {
+            query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE + "=?");
+            andState = true;
+        }
         if(child.getSurname() != null) {
             query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_SURNAME + "=?");
             andState = true;
@@ -247,28 +259,16 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_CITIZENSHIP + "=?");
             andState = true;
         } 
-        if(child.getSickness() != null) {
-            query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_SICKNESS + "=?");
-            andState = true;
-        }
-        if(child.getRegistrationDate() != null) {
-            query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONDATE + "=?");
-            andState = true;
-        }
         if(child.getUserRange() != null) {
             query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_USERRANGE + "=?");
             andState = true;
         }
-        if(child.getRegistrationPhase() != null) {
-            query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE + "=?");
-            andState = true;
-        }
-        if(child.getParentId() > 0) {
-            query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID + "=?");
-            andState = true;
-        }
         if(child.getSectionId() > 0) {
             query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_SECTIONID + "=?");
+            andState = true;
+        }
+        if(child.getSickness() != null) {
+            query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_SICKNESS + "=?");
             andState = true;
         }
         if(!andState) {  // nel caso tutti i parametri sono null
@@ -288,6 +288,18 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             int paramNum = 1;
             if(child.getId() > 0) {
                 pstmt.setInt(paramNum, child.getId());
+                paramNum++;
+            }
+            if(child.getParentId() > 0) {
+                pstmt.setInt(paramNum, child.getParentId());
+                paramNum++;
+            }
+            if(child.getRegistrationDate() != null) {
+                pstmt.setDate(paramNum, CommonMethod.parseDate(child.getRegistrationDate()));
+                paramNum++;
+            }
+            if(child.getRegistrationPhase() != null) {
+                pstmt.setString(paramNum, child.getRegistrationPhase());
                 paramNum++;
             }
             if(child.getSurname() != null) {
@@ -313,28 +325,16 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             if(child.getCitizenship() != null) {
                 pstmt.setString(paramNum, child.getCitizenship());
             } 
-            if(child.getSickness() != null) {
-                pstmt.setString(paramNum, child.getSickness());
-                paramNum++;
-            }
-            if(child.getRegistrationDate() != null) {
-                pstmt.setDate(paramNum, CommonMethod.parseDate(child.getRegistrationDate()));
-                paramNum++;
-            }
             if(child.getUserRange() != null) {
                 pstmt.setString(paramNum, child.getUserRange());
                 paramNum++;
             }
-            if(child.getRegistrationPhase() != null) {
-                pstmt.setString(paramNum, child.getRegistrationPhase());
-                paramNum++;
-            }
-            if(child.getParentId() > 0) {
-                pstmt.setInt(paramNum, child.getParentId());
-                paramNum++;
-            }
             if(child.getSectionId() > 0) {
                 pstmt.setInt(paramNum, child.getSectionId());
+            }
+            if(child.getSickness() != null) {
+                pstmt.setString(paramNum, child.getSickness());
+                paramNum++;
             }
             
             result = pstmt.executeQuery();
@@ -343,6 +343,12 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             while(result.next()) {
                 RegistrationChild tmpRegChild = new RegistrationChild();		  
                 tmpRegChild.setId(result.getInt(DBNames.ATT_REGISTRATIONCHILD_ID));
+                tmpRegChild.setParentId(result.getInt(DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID));
+                
+                GregorianCalendar tmpRDGC = CommonMethod.parseGregorianCalendar(result.getDate(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONDATE));
+                tmpRegChild.setRegistrationDate(tmpRDGC);
+                tmpRegChild.setRegistrationPhase(result.getString(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE));
+
                 tmpRegChild.setSurname(result.getString(DBNames.ATT_REGISTRATIONCHILD_SURNAME));
                 tmpRegChild.setName(result.getString(DBNames.ATT_REGISTRATIONCHILD_NAME));
                 
@@ -352,18 +358,13 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
                 tmpRegChild.setBirthPlace(result.getString(DBNames.ATT_REGISTRATIONCHILD_BIRTHPLACE));
                 tmpRegChild.setCitizenship(result.getString(DBNames.ATT_REGISTRATIONCHILD_CITIZENSHIP));
                 tmpRegChild.setFiscalCode(result.getString(DBNames.ATT_REGISTRATIONCHILD_FISCALCODE));
-                
-                GregorianCalendar tmpRDGC = CommonMethod.parseGregorianCalendar(result.getDate(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONDATE));
-                tmpRegChild.setRegistrationDate(tmpRDGC);
-                
                 tmpRegChild.setUserRange(result.getString(DBNames.ATT_REGISTRATIONCHILD_USERRANGE));
-                tmpRegChild.setRegistrationPhase(result.getString(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE));
-
+                
                 tmpRegChild.setSickness(result.getString(DBNames.ATT_REGISTRATIONCHILD_SICKNESS));
                 tmpRegChild.setVaccinations(result.getString(DBNames.ATT_REGISTRATIONCHILD_VACCINATIONS));
                 tmpRegChild.setPrivacyStatement(result.getString(DBNames.ATT_REGISTRATIONCHILD_PRIVACYSTATEMENT));
+                tmpRegChild.setAdditionalNotes(result.getString(DBNames.ATT_REGISTRATIONCHILD_ADDITIONALNOTES));
                 
-                tmpRegChild.setParentId(result.getInt(DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID));
                 tmpRegChild.setSectionId(result.getInt(DBNames.ATT_REGISTRATIONCHILD_SECTIONID));
 
                 listOfChildReg.add(tmpRegChild);
@@ -514,6 +515,111 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             // parameters of values
             pstmt.setInt(1, sectionId);
             pstmt.setInt(2, child.getId());
+            
+            /* Test della query
+            System.out.println(query);
+            //*/
+            numEditedRow = pstmt.executeUpdate();
+            con.commit();
+            if(numEditedRow > 0) {
+                toReturn = true;
+            }
+        } finally {
+            if(pstmt != null) {
+                pstmt.close();
+            }
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }	
+        return toReturn;
+    }
+    
+    public boolean modifySickness(int registrationChildId, String sickness) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        boolean toReturn = false;
+        String query = "UPDATE " + DBNames.TABLE_REGISTRATIONCHILD + " " + 
+                        "SET " + DBNames.ATT_REGISTRATIONCHILD_SICKNESS + "=? " +
+                        "WHERE " + DBNames.ATT_REGISTRATIONCHILD_ID + "=?;"; 
+        int numEditedRow;
+        try {
+            con = DBConnectionPool.getConnection();
+            pstmt = con.prepareStatement(query);
+
+            // parameters of values
+            pstmt.setString(1, sickness);
+            pstmt.setInt(2, registrationChildId);
+            
+            /* Test della query
+            System.out.println(query);
+            //*/
+            numEditedRow = pstmt.executeUpdate();
+            con.commit();
+            if(numEditedRow > 0) {
+                toReturn = true;
+            }
+        } finally {
+            if(pstmt != null) {
+                pstmt.close();
+            }
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }	
+        return toReturn;
+    }
+    
+    public boolean modifyVaccination(int registrationChildId, String vaccination) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        boolean toReturn = false;
+        String query = "UPDATE " + DBNames.TABLE_REGISTRATIONCHILD + " " + 
+                        "SET " + DBNames.ATT_REGISTRATIONCHILD_VACCINATIONS + "=? " +
+                        "WHERE " + DBNames.ATT_REGISTRATIONCHILD_ID + "=?;"; 
+        int numEditedRow;
+        try {
+            con = DBConnectionPool.getConnection();
+            pstmt = con.prepareStatement(query);
+
+            // parameters of values
+            pstmt.setString(1, vaccination);
+            pstmt.setInt(2, registrationChildId);
+            
+            /* Test della query
+            System.out.println(query);
+            //*/
+            numEditedRow = pstmt.executeUpdate();
+            con.commit();
+            if(numEditedRow > 0) {
+                toReturn = true;
+            }
+        } finally {
+            if(pstmt != null) {
+                pstmt.close();
+            }
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }	
+        return toReturn;
+    }
+    
+    public boolean modifyAdditionalNotes(int registrationChildId, String additionalNotes) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        boolean toReturn = false;
+        String query = "UPDATE " + DBNames.TABLE_REGISTRATIONCHILD + " " + 
+                        "SET " + DBNames.ATT_REGISTRATIONCHILD_ADDITIONALNOTES + "=? " +
+                        "WHERE " + DBNames.ATT_REGISTRATIONCHILD_ID + "=?;"; 
+        int numEditedRow;
+        try {
+            con = DBConnectionPool.getConnection();
+            pstmt = con.prepareStatement(query);
+
+            // parameters of values
+            pstmt.setString(1, additionalNotes);
+            pstmt.setInt(2, registrationChildId);
             
             /* Test della query
             System.out.println(query);

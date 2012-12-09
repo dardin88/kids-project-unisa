@@ -85,4 +85,9 @@ public interface IRegistrationChildManager extends IManager {
      * @throws SQLException if occured an SQLException
      */
     public boolean renounceRegistrationChild(RegistrationChild child) throws SQLException;
+    
+    public boolean modifySickness(int registrationChildId, String sickness) throws SQLException;
+    public boolean modifyVaccination(int registrationChildId, String vaccination) throws SQLException;
+    public boolean modifyAdditionalNotes(int registrationChildId, String additionalNotes) throws SQLException;
+    
 }

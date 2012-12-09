@@ -109,6 +109,7 @@ public final class DBNames {
     public static final String ATT_REGISTRATIONCHILD_SICKNESS = "Malattie";
     public static final String ATT_REGISTRATIONCHILD_VACCINATIONS = "Vaccinazioni";
     public static final String ATT_REGISTRATIONCHILD_PRIVACYSTATEMENT = "DichiarazioneDellaPrivacy";
+    public static final String ATT_REGISTRATIONCHILD_ADDITIONALNOTES = "NoteAggiuntive";
     public static final String ATT_REGISTRATIONCHILD_ISSICKNESSSET = "IsSetMalattie";
     public static final String ATT_REGISTRATIONCHILD_ISVACCINATIONSSET = "IsSetVaccinazioni";
     public static final String ATT_REGISTRATIONCHILD_ISPRIVACYSTATEMENTSET = "IsSetDichiarazioneDellaPrivacy";

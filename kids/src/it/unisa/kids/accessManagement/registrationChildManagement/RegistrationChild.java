@@ -24,7 +24,8 @@ public class RegistrationChild {
     private String sickness;
     private String vaccinations;
     private String privacyStatement;
-    
+    private String additionalNotes;
+
     private String isSicknessSet;
     private String isVaccinationsSet;
     private String isPrivacyStatementSet;
@@ -150,6 +151,14 @@ public class RegistrationChild {
 
     public void setIsPrivacyStatementSet(String isPrivacyStatementSet) {
         this.isPrivacyStatementSet = isPrivacyStatementSet;
+    }
+    
+    public String getAdditionalNotes() {
+        return additionalNotes;
+    }
+
+    public void setAdditionalNotes(String additionalNotes) {
+        this.additionalNotes = additionalNotes;
     }
     
 }
