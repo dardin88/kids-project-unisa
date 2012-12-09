@@ -44,16 +44,14 @@ public class InsertCompiledSurveyServlet  extends HttpServlet {
                 ISurveyManager am = JDBCSurveyManager.getInstance();
                 Survey sur = new Survey();
                 int sId = Integer.parseInt(request.getParameter("idQuestionario"));
-                int pId = Integer.parseInt(request.getParameter("idGenitore"));
-                /* e se.. (perchè in effetti l'id del genitore si ricava dalla visualizzazione del questionario)
-                 int parent = account.getId();
-                 sur.setParentId(parent);
-                 */
+                int parentId = account.getId();
+                sur.setParent(parentId);
+                
                 boolean sCompiled = Boolean.parseBoolean(request.getParameter("Compilato"));
              //   String sLink = request.getParameter("Link"); 
                 
                 sur.setId(sId);
-                sur.setParent(pId);
+                sur.setParent(parentId);
                 sur.setCompiled(sCompiled);
          //       sur.setLink(sLink);
                 
