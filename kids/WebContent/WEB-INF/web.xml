@@ -586,13 +586,15 @@
         <url-pattern>/AddAccount2</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>InsertTableChildServlet</servlet-name>
+        <url-pattern>/InsertTableChild</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ModifyAccount2Servlet</servlet-name>
         <url-pattern>/ModifyAccount2</url-pattern>
     </servlet-mapping>
     
-      <servlet-name>InsertTableChildServlet</servlet-name>
-        <url-pattern>/InsertTableChild</url-pattern>
-    </servlet-mapping>
+   
     
     
     <welcome-file-list>
