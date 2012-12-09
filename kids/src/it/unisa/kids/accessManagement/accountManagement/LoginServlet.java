@@ -39,6 +39,7 @@ public class LoginServlet extends HttpServlet {
             JDBCAccountManager mn = JDBCAccountManager.getInstance();
             Account user = mn.authenticate(username, password);
             if (user != null) {
+                request.getSession().setAttribute("id",user.getId());
                 request.getSession().setAttribute("user", user);
             } else {
                 request.setAttribute("error", "Verifica nome utente e password.");

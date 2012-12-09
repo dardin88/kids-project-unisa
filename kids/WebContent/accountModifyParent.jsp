@@ -23,15 +23,13 @@
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/modifyAccountRegistration.js"></script>
-        <script type="text/javascript" src="js/account.js"></script>
-        
         <title>Registrazione Account - Kids Project</title>
-        <jsp:include page="/GetAccount" /> 
+        <jsp:include page="/GetAccountParent" /> 
         <script type="text/javascript">
             $(document).ready(function() {
                 initializeModifyRegistrationFields();
-                initializeLinksManager2();
-                                update();
+                
+                update();
                 $("#modifyDateOfBirth, #modifyContractExpirationDate, #modifyRegistrationDate").datepicker({dateFormat:'yy-mm-dd'});
             });
         </script>
@@ -48,99 +46,98 @@
 
                     <div id="modifyRegistration1">
                          <input id="id" class="accountInput" type="text" name="id" size="50%" value="${id}" readonly="true">
-                         <input id="typeAccount2" class="accountInput" type="text" name="Nome" size="50%" value="${TipoAccount}" readonly="true">
-                         <input id="typeParent2" class="accountInput" type="text" name="Nome" size="50%" value="${TipoGenitore}" readonly="true">
+                         <input id="typeAccount2" class="accountInput" type="text" name="Nome" size="50%" value="${TipoAccount}" >
+                         <input id="typeParent2" class="accountInput" type="text" name="Nome" size="50%" value="${TipoGenitore}" >
 
                         <div >
                             <label id="accountLabel">  Nome*: </label>
-                            <input id="modifyAccountName" class="accountInput" type="text" name="Nome" size="50%" value="${Nome}" readonly="true">
+                            <input id="modifyAccountName" class="accountInput" type="text" name="Nome" size="50%" value="${Nome}" >
                         </div>
 
                         <div>
                             <label id="accountLabel"> Cognome*: </label>
-                            <input id="modifyAccountSurname" class="accountInput"type="text" name="Cognome" value="${Cognome}" readonly="true">                    
+                            <input id="modifyAccountSurname" class="accountInput"type="text" name="Cognome" value="${Cognome}" >                    
                         </div>
 
                         <div>
                             <label id="accountLabel"> Data di nascita*: </label>
-                            <input id="modifyDateOfBirth" class="accountInput" type="text" name="DataNascita" value="${DataNascita}" readonly="true">
+                            <input id="modifyDateOfBirth" class="accountInput" type="text" name="DataNascita" value="${DataNascita}" >
                         </div>
 
                         <div>
                             <label id="accountLabel"> Comune di nascita*: </label>
-                            <input id="modifyPlaceOfBirth" class="accountInput" type="text" name="ComuneNascita" value="${ComuneNascita}" readonly="true">
+                            <input id="modifyPlaceOfBirth" class="accountInput" type="text" name="ComuneNascita" value="${ComuneNascita}" >
                         </div>
 
                         <div>
                             <label id="accountLabel"> CodiceFiscale*: </label>
-                            <input  id="modifyTaxCode" class="accountInput" type="text" name="CodiceFiscale"value="${CodiceFiscale}" readonly="true">
+                            <input  id="modifyTaxCode" class="accountInput" type="text" name="CodiceFiscale"value="${CodiceFiscale}" >
                         </div>
 
                         <div>
                             <label id="accountLabel"> Cittadinanza*: </label>
-                            <input  id="modifyCitizenship" class="accountInput" type="text" name="Cittadinanza"value="${Cittadinanza}" readonly="true">
+                            <input  id="modifyCitizenship" class="accountInput" type="text" name="Cittadinanza"value="${Cittadinanza}" >
                         </div>
 
                         <div>
                             <label id="accountLabel"> Comune di residenza*: </label>
-                            <input  id="modifyMunicipalityResidence" class="accountInput" type="text" name="ComuneResidenza" value="${ComuneResidenza}" readonly="true">
+                            <input  id="modifyMunicipalityResidence" class="accountInput" type="text" name="ComuneResidenza" value="${ComuneResidenza}" >
                         </div>
 
                         <div>
                             <label id="accountLabel"> Provincia Residenza*: </label>
-                            <input  id="modifyProvinceResidence" class="accountInput" type="text" name="ProvinciaResidenza" value="${ProvinciaResidenza}" readonly="true">
+                            <input  id="modifyProvinceResidence" class="accountInput" type="text" name="ProvinciaResidenza" value="${ProvinciaResidenza}" >
                         </div>
 
                         <div>
                             <label id="accountLabel"> Indirizzo Residenza*: </label>
-                            <input  id="modifyViaResidence" class="accountInput" type="text" name="IndirizzoResidenza" value="${ViaResidenza}" readonly="true">
+                            <input  id="modifyViaResidence" class="accountInput" type="text" name="IndirizzoResidenza" value="${ViaResidenza}" >
                         </div>
 
                         <input style="width: 200px; margin-left: 5%" type="submit" name="registrationButton1" id="modifyButton1" value="Avanti"/>
                         <input style="width: 200px; margin-left: 2%" type="button" name="notRegistrationButton1" id="notModifyButton1" value="Indietro"/>
-                        <input style="width: 200px; margin-left: 0.5%" type="button" name="modify" id="modifyButton" value="Modifica" onclick="modifyAccount2(document.getElementById('id').value)"/>
                     </div>
 
                     <div id="modifyRegistration2">
 
                         <div>
                             <label id="accountLabel"> C.A.P. Residenza*: </label>
-                            <input id="modifyCapResidence" class="accountInput" type="text" name="CapResidenza" value="${CapResidenza}" readonly="true">
+                            <input id="modifyCapResidence" class="accountInput" type="text" name="CapResidenza" value="${CapResidenza}" >
                         </div>
 
                         <div>
                             <label id="accountLabel">  Numero di telefono: </label>
-                            <input id="modifyTelephoneNumber" class="accountInput" type="text" name="Telefono" value="${Telefono}" readonly="true">
+                            <input id="modifyTelephoneNumber" class="accountInput" type="text" name="Telefono" value="${Telefono}" >
                         </div>
 
                         <div>
                             <label id="accountLabel">Numero di cellulare: </label>
-                            <input id="modifyCellularNumber" class="accountInput" type="text" name="Cellulare" value="${Cellulare}" readonly="true">
+                            <input id="modifyCellularNumber" class="accountInput" type="text" name="Cellulare" value="${Cellulare}" >
                         </div>
 
                         <div>
                             <label id="accountLabel">  Indirizzo Fax: </label>
-                            <input id="modifyFax" class="accountInput" type="text" name="Fax" value="${Fax}" readonly="true">
+                            <input id="modifyFax" class="accountInput" type="text" name="Fax" value="${Fax}" >
                         </div>
 
                         <div>
                             <label id="accountLabel">Indirizzo email*:</label>
-                            <input id="modifyEmail" class="accountInput" type="text" name="Email" value="${Email}" readonly="true">
+                            <input id="modifyEmail" class="accountInput" type="text" name="Email" value="${Email}" >
                         </div>
 
                         <div>
                             <label id="accountLabel">  Comune di Domicilio*: </label>
-                            <input id="modifyMunicipalityDomicile" class="accountInput" type="text" name="ComuneDomicilio" value="${ComuneDomicilio}" readonly="true">
+                            <input id="modifyMunicipalityDomicile" class="accountInput" type="text" name="ComuneDomicilio" value="${ComuneDomicilio}" >
                         </div>
 
                         <div>
                             <label id="accountLabel">Provincia di Domicilio*:</label>
-                            <input id="modifyProvinceDomicile" class="accountInput" type="text" name="ProvinciaDomicilio" value="${ProvinciaDomicilio}" readonly="true">
+                            <input id="modifyProvinceDomicile" class="accountInput" type="text" name="ProvinciaDomicilio" value="${ProvinciaDomicilio}" >
                         </div>
 
                         <div>
                             <label id="accountLabel">  Indirizzo Domicilio*: </label>
-                            <input id="modifyViaDomicile" class="accountInput" type="text" name="ViaDomicilio" value="${ViaDomicilio}" readonly="true">
+                            <input id="modifyViaDomicile" class="accountInput" type="text" name="ViaDomicilio" value="${ViaDomicilio}" >
                         </div>
 
                         <input style="width: 200px; margin-left: 5%" type="submit" name="modifyButton2" id="modifyButton2" value="Avanti"/>
@@ -151,20 +148,20 @@
 
                         <div>
                             <label id="accountLabel">  C.A.P. Domicilio: </label>
-                            <input id="modifyCapDomicile" class="accountInput" type="text" name="CapDomicilio" value="${CapDomicilio}"readonly="true">
+                            <input id="modifyCapDomicile" class="accountInput" type="text" name="CapDomicilio" value="${CapDomicilio}">
                         </div>
 
                         <div>
                             <label id="accountLabel"> Titolo di Studio*: </label>
-                            <input id="modifyQualification" class="accountInput" type="text" name="TitoloStudio" value="${TitoloStudio}" readonly="true">                  
+                            <input id="modifyQualification" class="accountInput" type="text" name="TitoloStudio" value="${TitoloStudio}" >                  
                         </div>
 
                         <div>
-                            <label id="accountLabel">  Tipo di Account*: </label> <input type="text" class="accountInput" value="${TipoAccount}" readonly="true">
+                            <label id="accountLabel" style="display: none">  Tipo di Account*: </label>
                             <%--<input id="typeAccount" class="accountInput" type="text" name="typeAccount" value="TipoAccount">--%>
                             <select id="modifyTypeAccount" name="tipo" onchange="verificaAccount()" readonly="true"  style="visibility: hidden">
-                                <OPTION value="Nothing" name="Scelta" selected> Scegli 
-                                <OPTION value="Genitore" name="Genitore"> Genitore 
+                                <OPTION value="Nothing" name="Scelta"> Scegli 
+                                <OPTION value="Genitore" name="Genitore" selected> Genitore 
                                 <OPTION value="Delegato Ufficio" name="DelegatoUfficio"> Segreteria 
                                 <OPTION value="Delegato scienze della formazione" name="ScienzeFormazione"> Delegato Scienze della Formazione 
                                 <OPTION value="Educatore" name="Educatore"> Educatore 
@@ -176,20 +173,20 @@
 
                         <div>
                             <label id="accountLabel"> Situazione Familiaria: </label>
-                            <input id="modifyFamilySituation" class="accountInput" type="text" name="SituazioneFamiliaria" value="${SituazioneFamiliare}" readonly="true">
+                            <input id="modifyFamilySituation" class="accountInput" type="text" name="SituazioneFamiliaria" value="${SituazioneFamiliare}" >
                         </div>
 
                         <div>
                             <label id="accountLabel">  Reddito*: </label>
-                            <input id="modifyIncome" class="accountInput" type="text" name="Reddito" value="${Reddito}" readonly="true">
+                            <input id="modifyIncome" class="accountInput" type="text" name="Reddito" value="${Reddito}">
                         </div>
 
                         <div>
-                             <c:if test="${requestScope.TipoGenitore!='Nothing'}"> 
-                            <label id="accountLabel2"> Tipologia Genitore*: </label> <input type="text" class="accountInput" value="${TipoGenitore}" readonly="true">
-                            </c:if>
-                            <%--<input id="typeParent" class="accountInput" type="text" name="TipoAccount" />--%> 
-                            <select id="modifyTypeParent" name="tipo" onchange="verificaGenitore()"  style="visibility: hidden">
+                             
+                            <label id="accountLabel2"> Tipologia Genitore*: </label> 
+                         
+                            
+                            <select id="modifyTypeParent" name="tipo" onchange="verificaGenitore()">
                                 <OPTION value="Nothing" name="Scelta" selected> Scegli 
                                 <OPTION value="Studente" name="Studente"> Studente 
                                 <OPTION value="Tecnico amministrativo" name="TecnicoAmministrativo"> Tecnico Amministrativo 
@@ -202,20 +199,20 @@
 
                         <div>
                             <label id="accountLabel3" style="display: none"> Scadenza Contratto*: </label>
-                            <input id="modifyContractExpirationDate" class="accountInput" type="text" name="ScadenzaContratto" value="${ScadenzaContratto}" style="display: none" readonly="true">
+                            <input id="modifyContractExpirationDate" class="accountInput" type="text" name="ScadenzaContratto" value="${ScadenzaContratto}" style="display: none">
                         </div>
 
                         <div>
                             <label id="accountLabel5" style="display: none">  Facoltà*: </label>
-                            <input id="modifyFaculty" class="accountInput" type="text" name="Facolta" value="${Facolta}"style="display: none" readonly="true">
+                            <input id="modifyFaculty" class="accountInput" type="text" name="Facolta" value="${Facolta}"style="display: none" >
                         </div>
 
                         <div>
                             <label id="accountLabel4" style="display: none" > Data di Immatricolazione*: </label>
-                            <input id="modifyRegistrationDate" class="accountInput" type="text" name="DataRegistrazione" value="${DataIscrizione}" style="display: none" readonly="true">
+                            <input id="modifyRegistrationDate" class="accountInput" type="text" name="DataRegistrazione" value="${DataIscrizione}" style="display: none" >
                         </div>
 
-                        
+                        <input style="width: 200px; margin-left: 5%" type="submit" name="modifyButton3" id="modifyButton3" value="Conferma Modifiche" />
                         <input style="width: 200px; margin-left: 2%" type="button" name="notModifyButton3" id="notModifyButton3" value="Indietro"/>
                     </div>
                 </div>
@@ -223,8 +220,6 @@
 
 
         </form>
-                        
-        
         <%@include file="footer.jsp" %>
     </body>
 </html>

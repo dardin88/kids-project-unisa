@@ -37,6 +37,9 @@
             <div class="div">
                 <li id="meetingCalendarMenuEL"><a href="meetingCalendar.jsp">Gestione Riunioni</a></li>
             </div>
+            <div class="div">
+                <li id="meetingCalendarMenuEL"><a href="accountInformationAll.jsp">Gestione Account</a></li>
+            </div>
 
             <div class="div">
                 <li id="registrationChildME"><a href="registrationChild.jsp">Gestione Domanda d'Iscrizione</a></li>
@@ -86,6 +89,9 @@
             <div class="div">
                 <li id="meetingCalendarMenuEL"><a href="meetingCalendar.jsp">Gestione Riunioni</a></li>
             </div>
+            <div class="div">
+                <li id="meetingCalendarMenuEL"><a href="accountInformationAll.jsp">Gestione Account</a></li>
+            </div>
         </c:if>
 
         <c:if test="${sessionScope.user.getAccountType()=='Genitore'}">
@@ -102,7 +108,7 @@
                 <li id="needCommunicationTable"><a href="needCommunicationTable.jsp">Gestione Bambini - Comunicazioni Bisogni</a></li>
             </div>
             <div class="div">
-                <li id="accountParent"><a href="accountParent.jsp">Gestione Account</a></li>
+                <li id="accountParent"><a href="accountInformationParent.jsp">Gestione Account</a></li>
             </div>
             <div class="div">
                 <li id="registrationChildME"><a href="registrationChild.jsp">Gestione Domanda d'Iscrizione</a></li>
@@ -135,7 +141,7 @@
                 <li id="meetingCalendarMenuEL"><a href="meetingCalendar.jsp">Gestione Riunioni</a></li>
             </div>
             <div class="div">
-                <li id="accountParent"><a href="accountParent.jsp">Gestione Account</a></li>
+                <li id="accountParent"><a href="accountInformationAll.jsp">Gestione Account</a></li>
             </div>
         </c:if>
 
@@ -146,10 +152,20 @@
             <div class="div">
                 <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
             </div>  
+            <div class="div">
+                <li id="newsShowTable"><a href="accountSecretary.jsp">Gestione Account</a></li>
+            </div>  
         </c:if>
         <c:if test="${sessionScope.user.getAccountType()=='Coordinatore Psicopedagogico'}">
             <div class="div">
                 <li id="coordinatorePsico"><a href="showProject.jsp">Gestione Programma Educativo</a></li>
+                <li id="newsShowTable"><a href="accountInformationAll.jsp">Gestione Account</a></li>
+            </div> 
+        </c:if>
+        <c:if test="${sessionScope.user.getAccountType()=='Responsabile Scientifico'}">
+            <div class="div">
+                
+                <li id="newsShowTable"><a href="accountInformationAll.jsp">Gestione Account</a></li>
             </div> 
         </c:if>
     </ul>

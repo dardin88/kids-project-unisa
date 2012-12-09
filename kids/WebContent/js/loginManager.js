@@ -9,7 +9,7 @@ function initializeLoginFields() {
     password.hide();
     $("#registerButton").button();
     $("#registerButton").click(function() {
-        location.href="./accountInsert.jsp";
+        location.href="./accountInsertParent.jsp";
     });
     $("#loginButton").button();
     $("#loginButton").click(function() {

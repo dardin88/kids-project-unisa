@@ -20,12 +20,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Gianmarco
  */
-public class GetAccountServlet extends HttpServlet {
+public class GetAccountParentServlet extends HttpServlet {
     
       private IAccountManager accountManager;
 
@@ -49,8 +50,10 @@ public class GetAccountServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            System.out.println("null??:"+request.getParameter("id"));
-            int id=Integer.parseInt(request.getParameter("id"));
+            
+             System.out.println("EHIIII");
+            HttpSession rs= request.getSession();
+            int id= (Integer) rs.getAttribute("id");
             System.out.println("Questo è l'id "+id);
             Account account=new Account();
             account.setId(id);
@@ -67,7 +70,7 @@ public class GetAccountServlet extends HttpServlet {
             else{
                 request.setAttribute("DataNascita", null);
             }
-            
+            request.setAttribute("app","0");
             request.setAttribute("ComuneNascita", list.get(0).getPlaceOfBirth());
             request.setAttribute("TitoloStudio", list.get(0).getQualification());
             request.setAttribute("TipoAccount", list.get(0).getAccountType());

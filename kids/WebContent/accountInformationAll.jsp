@@ -23,15 +23,14 @@
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/modifyAccountRegistration.js"></script>
-        <script type="text/javascript" src="js/account.js"></script>
-        
+          <script type="text/javascript" src="js/account.js"></script>
         <title>Registrazione Account - Kids Project</title>
-        <jsp:include page="/GetAccount" /> 
+        <jsp:include page="/GetAccountParent" /> 
         <script type="text/javascript">
             $(document).ready(function() {
                 initializeModifyRegistrationFields();
                 initializeLinksManager2();
-                                update();
+                update();
                 $("#modifyDateOfBirth, #modifyContractExpirationDate, #modifyRegistrationDate").datepicker({dateFormat:'yy-mm-dd'});
             });
         </script>
@@ -98,7 +97,7 @@
 
                         <input style="width: 200px; margin-left: 5%" type="submit" name="registrationButton1" id="modifyButton1" value="Avanti"/>
                         <input style="width: 200px; margin-left: 2%" type="button" name="notRegistrationButton1" id="notModifyButton1" value="Indietro"/>
-                        <input style="width: 200px; margin-left: 0.5%" type="button" name="modify" id="modifyButton" value="Modifica" onclick="modifyAccount2(document.getElementById('id').value)"/>
+                       
                     </div>
 
                     <div id="modifyRegistration2">
@@ -160,10 +159,10 @@
                         </div>
 
                         <div>
-                            <label id="accountLabel">  Tipo di Account*: </label> <input type="text" class="accountInput" value="${TipoAccount}" readonly="true">
-                            <%--<input id="typeAccount" class="accountInput" type="text" name="typeAccount" value="TipoAccount">--%>
+                            <label id="accountLabel">  Tipo di Account*: </label>
+                            <input id="typeAccount" class="accountInput" type="text" name="typeAccount" value="${TipoAccount}">
                             <select id="modifyTypeAccount" name="tipo" onchange="verificaAccount()" readonly="true"  style="visibility: hidden">
-                                <OPTION value="Nothing" name="Scelta" selected> Scegli 
+                                <OPTION value="Nothing" name="Scelta"> Scegli 
                                 <OPTION value="Genitore" name="Genitore"> Genitore 
                                 <OPTION value="Delegato Ufficio" name="DelegatoUfficio"> Segreteria 
                                 <OPTION value="Delegato scienze della formazione" name="ScienzeFormazione"> Delegato Scienze della Formazione 
@@ -185,12 +184,13 @@
                         </div>
 
                         <div>
-                             <c:if test="${requestScope.TipoGenitore!='Nothing'}"> 
-                            <label id="accountLabel2"> Tipologia Genitore*: </label> <input type="text" class="accountInput" value="${TipoGenitore}" readonly="true">
-                            </c:if>
-                            <%--<input id="typeParent" class="accountInput" type="text" name="TipoAccount" />--%> 
+                             
+                            <label id="accountLabel2" style="visibility: hidden"> Tipologia Genitore*: </label> 
+                         
+         
+                            </div>
                             <select id="modifyTypeParent" name="tipo" onchange="verificaGenitore()"  style="visibility: hidden">
-                                <OPTION value="Nothing" name="Scelta" selected> Scegli 
+                                <OPTION value="Nothing" name="Scelta"selected > Scegli 
                                 <OPTION value="Studente" name="Studente"> Studente 
                                 <OPTION value="Tecnico amministrativo" name="TecnicoAmministrativo"> Tecnico Amministrativo 
                                 <OPTION value="Docente" name="Docente"> Docente 
@@ -198,7 +198,7 @@
                                 <OPTION value="Ricercatore" name="Ricercatore">Ricercatore 
                                 <OPTION value="Dottorando" name="Dottorando"> Dottorando 
                             </select>
-                        </div>
+                        
 
                         <div>
                             <label id="accountLabel3" style="display: none"> Scadenza Contratto*: </label>
@@ -220,11 +220,9 @@
                     </div>
                 </div>
             </fieldset>
-
+           
 
         </form>
-                        
-        
         <%@include file="footer.jsp" %>
     </body>
 </html>

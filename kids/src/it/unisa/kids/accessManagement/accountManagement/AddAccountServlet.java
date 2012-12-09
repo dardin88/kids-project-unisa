@@ -18,6 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONObject;
 
 /**
  *
@@ -38,13 +39,13 @@ public class AddAccountServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
+         JSONObject jObj = new JSONObject();
         PrintWriter out = response.getWriter();
         try {
 
             response.setContentType("text/html;charset=UTF-8");
 
             JDBCAccountManager man = JDBCAccountManager.getInstance();
-            String matricola = request.getParameter("matricolaAccount");
             String name = request.getParameter("nomeAccount");
             String surname = request.getParameter("cognomeAccount");
             String birthdate = request.getParameter("dataNascitaAccount");
@@ -54,12 +55,42 @@ public class AddAccountServlet extends HttpServlet {
             String municipalityResidence = request.getParameter("comuneResidenzaAccount");
             String provinceResidence = request.getParameter("provinciaResidenzaAccount");
             String addressResidence = request.getParameter("indirizzoResidenzaAccount");
+            String fax = request.getParameter("fax");
+            String email = request.getParameter("email");
+            String telephoneNumber = request.getParameter("telefono");
+            String cellular = request.getParameter("cellulare");
+            String capResidence = request.getParameter("capResidenza");
+            String provinceDomicile = request.getParameter("provinciaDomicilio");
+            String municipalityDomicile = request.getParameter("comuneDomicilio");
+            String addressDomicile = request.getParameter("indirizzoDomicilio");
+            String capDomicile = request.getParameter("capDomicilio");
+            String familySituation = request.getParameter("situazioneFamiliaria");
+            String faculty = request.getParameter("facolta");
+            String qualification = request.getParameter("titoloStudio");
+            String typeAccount = request.getParameter("tipoAccount");
+            double income = Double.parseDouble(request.getParameter("reddito"));
+            String expDate = request.getParameter("scadenzaContratto");
+            String regDate = request.getParameter("dataRegistrazione");
+            String typeParent = request.getParameter("tipoGenitore");
 
+            GregorianCalendar exp;
+            GregorianCalendar reg;
             GregorianCalendar birth = parseGregorianCalendar(birthdate);
+
+            if (expDate != "") {
+                exp = parseGregorianCalendar(expDate);
+            } else {
+                exp = parseGregorianCalendar("0000-00-00");
+            }
+            if (regDate != "") {
+                reg = parseGregorianCalendar(regDate);
+            } else {
+                reg = parseGregorianCalendar("0000-00-00");
+            }
 
             Account account = new Account();
 
-            account.setRegister(matricola);
+            account.setRegister("");
             account.setNameUser(name);
             account.setSurnameUser(surname);
             account.setDataOfBirth(birth);
@@ -69,10 +100,30 @@ public class AddAccountServlet extends HttpServlet {
             account.setMunicipalityResidence(municipalityResidence);
             account.setProvinceResidence(provinceResidence);
             account.setViaResidence(addressResidence);
+            account.setFax(fax);
+            account.setEmail(email);
+            account.setTelephoneNumber(telephoneNumber);
+            account.setCellularNumber(cellular);
+            account.setCapResidence(capResidence);
+            account.setProvinceDomicile(provinceDomicile);
+            account.setMunicipalityDomicile(municipalityDomicile);
+            account.setViaDomicile(addressDomicile);
+            account.setCapDomicile(capDomicile);
+            account.setFamilySituation(familySituation);
+            account.setFaculty(faculty);
+            account.setQualification(qualification);
+            account.setAccountType(typeAccount);
+            account.setIncome(income);
+            account.setContractExpirationDate(exp);
+            account.setRegistrationDate(reg);
+            account.setTypeParent(typeParent);
 
             account = man.insert(account);
             
             request.getSession().setAttribute("id", account.getId());
+             
+             out.println(account.getNickName()+","+account.getPassword());
+           System.out.println("inviato!"+account.getNickName()+","+account.getPassword());
         } catch (SQLException ex) {
             Logger.getLogger(AddAccountServlet.class.getName()).log(Level.SEVERE, "SQL-Error: " + ex.getMessage(), ex);
         }
