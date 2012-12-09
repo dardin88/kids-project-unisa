@@ -1,19 +1,19 @@
-package it.unisa.kids.accessManagement.registrationChildManagement;
+package it.unisa.kids.accessManagement.renunciationManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
-import it.unisa.kids.accessManagement.renunciationManagement.IRenunciationManager;
-import it.unisa.kids.accessManagement.renunciationManagement.Renunciation;
+import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationChildManager;
+import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -129,37 +129,37 @@ public class InsertTableChildServlet extends HttpServlet {
                     JSONArray ja = new JSONArray();
                     ja.put(regRenunciationRequest.getName());
                     ja.put(regRenunciationRequest.getSurname());
-                    
 
-                    StringBuffer operazioni = new StringBuffer();
-                    // Sia genitore che segreteria possono vederne i dettagli, la visualizza dettagli deve esser possibile su tutte le domanda
-                    operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Visualizza Dettagli\" alt=\"Dettagli\" src='img/lente.gif' onclick='openViewDetailsRegistrationChildWindow(\"" + regRenunciationRequest.getId() + "\")'/>");
+                    /*
+                     StringBuffer operazioni = new StringBuffer();
+                     // Sia genitore che segreteria possono vederne i dettagli, la visualizza dettagli deve esser possibile su tutte le domanda
+                     operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Visualizza Dettagli\" alt=\"Dettagli\" src='img/lente.gif' onclick='openViewDetailsRegistrationChildWindow(\"" + regRenunciationRequest.getId() + "\")'/>");
 
-                    if (account.getAccountType().equals("Genitore")) {
-                        // solo il genitore può eliminarla o modificarla
-                        if (regRenunciationRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DRAFT)) {
-                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Modifica\" alt=\"Modifica\" src='img/edit.gif' onclick='openModifyRegistrationChildWindow(\"" + regRenunciationRequest.getId() + "\")'/>");
-                        }
-                        if (!regRenunciationRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_ACCEPTED) && !regRenunciationRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DELETED)) {
-                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Elimina\" alt=\"Elimina\" src='img/trash.png' onclick='openDeleteRegistrationChildWindow(\"" + regRenunciationRequest.getId() + "\")'/>");
-                        }
-                        if (regRenunciationRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_ACCEPTED)) {
-                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Completa\" alt=\"Completa\" src='img/tocomplete.png' onclick='openCompleteRegistrationChildWindow(\"" + regRenunciationRequest.getId() + "\")'/>");
-                        }
-                    }
-                    if (account.getAccountType().equals("Segreteria")) {
-                        // solo la segreteria può confermare
-                        if (regRenunciationRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED)) {
-                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" alt=\"Conferma\" alt=\"Conferma ricezione\" src='img/accept.png' onclick='confirmReceivingRegistrationChildWindow(\"" + regRenunciationRequest.getId() + "\")'/>");
-                        }
-                        // e confermare il completamento
-                        if (regRenunciationRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_COMPLETED)) {
-                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" alt=\"Conferma\" alt=\"Conferma completamento\" src='img/accept.png' onclick='openComfirmCompletingRegistrationChildWindow(\"" + regRenunciationRequest.getId() + "\")'/>");
-                        }
-                    }
-                    ja.put(operazioni.toString());
-                    array.put(ja);
-
+                     if (account.getAccountType().equals("Genitore")) {
+                     // solo il genitore può eliminarla o modificarla
+                     if (regRenunciationRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DRAFT)) {
+                     operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Modifica\" alt=\"Modifica\" src='img/edit.gif' onclick='openModifyRegistrationChildWindow(\"" + regRenunciationRequest.getId() + "\")'/>");
+                     }
+                     if (!regRenunciationRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_ACCEPTED) && !regRenunciationRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DELETED)) {
+                     operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Elimina\" alt=\"Elimina\" src='img/trash.png' onclick='openDeleteRegistrationChildWindow(\"" + regRenunciationRequest.getId() + "\")'/>");
+                     }
+                     if (regRenunciationRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_ACCEPTED)) {
+                     operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Completa\" alt=\"Completa\" src='img/tocomplete.png' onclick='openCompleteRegistrationChildWindow(\"" + regRenunciationRequest.getId() + "\")'/>");
+                     }
+                     }
+                     if (account.getAccountType().equals("Segreteria")) {
+                     // solo la segreteria può confermare
+                     if (regRenunciationRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED)) {
+                     operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" alt=\"Conferma\" alt=\"Conferma ricezione\" src='img/accept.png' onclick='confirmReceivingRegistrationChildWindow(\"" + regRenunciationRequest.getId() + "\")'/>");
+                     }
+                     // e confermare il completamento
+                     if (regRenunciationRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_COMPLETED)) {
+                     operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" alt=\"Conferma\" alt=\"Conferma completamento\" src='img/accept.png' onclick='openComfirmCompletingRegistrationChildWindow(\"" + regRenunciationRequest.getId() + "\")'/>");
+                     }
+                     }
+                     ja.put(operazioni.toString());
+                     array.put(ja);
+                     */
                 }
             }
             result.put("sEcho", sEcho);
@@ -172,7 +172,7 @@ public class InsertTableChildServlet extends HttpServlet {
             response.setHeader("Pragma", "no-cache");
             out.print(result);
         } catch (SQLException ex) {
-            Logger.getLogger(ServletGetTableRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InsertTableChildServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
         }

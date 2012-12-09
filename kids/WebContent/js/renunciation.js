@@ -31,9 +31,9 @@ function initializeLinksManager(){
 function createTableRenunciation() {
     $('#showRenunciationTable').dataTable({
         "bJQueryUI": true,
-        //"bServerSide": true,
+        "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": "InsertTableChildServlet",
+        "sAjaxSource": "InsertTableRenunciation",
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
@@ -163,9 +163,4 @@ function addRenunciation(){
             }
         });
     });
-    
-    
-    function search(id){
-        $("#accountsTable").dataTable().fnDraw();
-    }
 }
