@@ -226,6 +226,10 @@
         <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletSubmitNewRegistrationChild</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ServletConfirmCompletingRegistrationChild</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletConfirmCompletingRegistrationChild</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AddClassBeanServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.classManagement.AddClassBeanServlet</servlet-class>
     </servlet>
@@ -504,6 +508,10 @@
     <servlet-mapping>
         <servlet-name>ServletSubmitNewRegistrationChild</servlet-name>
         <url-pattern>/SubmitNewRegistrationChild</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletConfirmCompletingRegistrationChild</servlet-name>
+        <url-pattern>/ConfirmCompletingRegistrationChild</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddClassBeanServlet</servlet-name>
