@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unisa.kids.accessManagement.registrationChildManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
@@ -27,7 +23,7 @@ import org.json.JSONObject;
 /**
  * Servlet used to create a new draft of registrationchild
  * 
- * @author Giuseppe Giovanni Lauri
+ * @author Lauri Giuseppe Giovanni
  */
 public class ServletCreateDraftRegistrationChild extends HttpServlet {
     private IRegistrationChildManager registrationChildManager;
@@ -82,7 +78,8 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
             registrationDate.setTime(new Date(System.currentTimeMillis()));
 
             //* TEST DELLA RICHIESTA ALLA SERVLET
-            System.out.println("Sono nella CreateServlet ed il cognome è: " + request.getParameter(DBNames.ATT_REGISTRATIONCHILD_SURNAME));
+            System.out.println("Sono nella CreateServlet ed il cognome è: " + request.getParameter(DBNames.ATT_REGISTRATIONCHILD_SURNAME +
+                    "ora: " + registrationDate));
             //*/
             
             // Creo la domanda di iscrizione bambino

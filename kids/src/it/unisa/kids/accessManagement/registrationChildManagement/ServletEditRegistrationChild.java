@@ -1,20 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unisa.kids.accessManagement.registrationChildManagement;
 
-import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,7 +20,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet used to create a new draft of registrationchild
  * 
- * @author Giuseppe Giovanni Lauri
+ * @author Lauri Giuseppe Giovanni
  */
 public class ServletEditRegistrationChild extends HttpServlet {
     private IRegistrationChildManager registrationChildManager;

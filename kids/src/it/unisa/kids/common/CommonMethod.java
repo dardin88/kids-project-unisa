@@ -72,16 +72,15 @@ public class CommonMethod {
      * Transforms a GregorianCalendar to an java.sql.Date to storage in the database
      * 
      * @param gregorian gregoriancalendar to transform
-     * @return an java.sql.Date if transformation was possible, null otherweise
+     * @return an java.sql.Date if transformation was possible, an empty string otherweise
      * @throws ParseException 
      */
     public static String parseString(GregorianCalendar gregorian) {
         String toReturn;
         if(gregorian != null) {
-            toReturn = new String(gregorian.get(Calendar.YEAR) + "-" + 
-                    gregorian.get(Calendar.MONTH) + "-" + gregorian.get(Calendar.DAY_OF_MONTH));
+            toReturn = gregorian.get(Calendar.YEAR) + "-" + gregorian.get(Calendar.MONTH) + "-" + gregorian.get(Calendar.DAY_OF_MONTH);
         } else {
-            toReturn = null;
+            toReturn = "";
         }
         return toReturn;
     }
