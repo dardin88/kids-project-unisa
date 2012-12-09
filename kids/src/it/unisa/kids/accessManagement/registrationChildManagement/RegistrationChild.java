@@ -26,6 +26,10 @@ public class RegistrationChild {
     private String vaccinations;
     private String privacyStatement;
     
+    private String isSicknessSet;
+    private String isVaccinationsSet;
+    private String isPrivacyStatementSet;
+    
     public RegistrationChild() {
     }
 
@@ -123,6 +127,30 @@ public class RegistrationChild {
 
     public void setPrivacyStatement(String privacyStatement) {
         this.privacyStatement = privacyStatement;
+    }
+
+    public String getIsSicknessSet() {
+        return isSicknessSet;
+    }
+
+    public void setIsSicknessSet(String isSicknessSet) {
+        this.isSicknessSet = isSicknessSet;
+    }
+
+    public String getIsVaccinationsSet() {
+        return isVaccinationsSet;
+    }
+
+    public void setIsVaccinationsSet(String isVaccinationsSet) {
+        this.isVaccinationsSet = isVaccinationsSet;
+    }
+
+    public String getIsPrivacyStatementSet() {
+        return isPrivacyStatementSet;
+    }
+
+    public void setIsPrivacyStatementSet(String isPrivacyStatementSet) {
+        this.isPrivacyStatementSet = isPrivacyStatementSet;
     }
     
 }

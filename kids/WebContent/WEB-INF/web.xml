@@ -293,6 +293,14 @@
         <servlet-name>ServletSubmitNewRegistrationChild</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletSubmitNewRegistrationChild</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletCompleteRegistrationChild</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletCompleteRegistrationChild</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletConfirmCompletingRegistrationChild</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletConfirmCompletingRegistrationChild</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
@@ -580,6 +588,14 @@
     <servlet-mapping>
         <servlet-name>ServletSubmitNewRegistrationChild</servlet-name>
         <url-pattern>/SubmitNewRegistrationChild</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletCompleteRegistrationChild</servlet-name>
+        <url-pattern>/CompleteRegistrationChild</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletConfirmCompletingRegistrationChild</servlet-name>
+        <url-pattern>/ConfirmCompletingRegistrationChild</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
