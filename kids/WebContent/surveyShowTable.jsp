@@ -22,8 +22,30 @@
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         
         <title>Questionari Valutazione - Kids</title>
+        
+        <script>
+            $(document).ready(function() {
+                $('#example').dataTable();
+            } );
+            
+        </script>
     </head>
     <body>
-        
+        <%@include file="header.jsp" %>
+    <div id="linksManagement">
+       
+        <table id="linkTable" style="width:95%;">
+            <thead>
+                <tr>
+                    <th>ID Questionario</th>
+                    <th>Link</th>   
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <%@include file="footer.jsp" %>
     </body>
 </html>

@@ -82,12 +82,31 @@ public class GetSurveyServlet extends HttpServlet{
                   JSONArray jarr = new JSONArray();
                   jarr.put(sur.getId());
                   jarr.put(sur.getLink());
-                  // must continue
+                  
+                  String operazioni="<div style=\"text-align:center;\" ><input id=\"idUpdateSurvey\" class='tableImage' height='20px' type='image' src='img/lente.gif' onclick=\"updateSurvey("+sur.getId()+",'"+sur.getLink()+"')\" />";
+                    if( nomeUtente.equals("Genitore")){
+                        operazioni += "<input id=\"idUpdateSurvey\" class='tableImage' height='20px' type='image' src='img/change.png' onclick=\"updateSurvey("+sur.getId()+",'"+sur.getLink()+"')\" />"+"<input id=\"removeSurvey\" onclick=\"removeSurvey("+sur.getId() +",'"+sur.getLink()+"')\" class='tableImage' type='image' src='img/trash.png' /></div>";
+                        jarr.put(operazioni);
+                    }
+                    else {
+                        operazioni+="</div>";
+                        jarr.put(operazioni);
+                    }
+                    array.put(jarr);
                   
               }                
                 
                 
                 }
+            result.put("sEcho", sEcho);
+            result.put("iTotalRecords", linksNumber);
+            result.put("iTotalDisplayRecords", linksNumber);
+            result.put("aaData", array);
+            response.setContentType("application/json");
+            response.setHeader("Cache-Control",
+                    "private, no-store, no-cache, must-revalidate");
+            response.setHeader("Pragma", "no-cache");
+            out.println(result);
         
         }catch (Exception ex) {
             Logger.getLogger(GetSurveyServlet.class.getName()).log(Level.SEVERE, null, ex);
