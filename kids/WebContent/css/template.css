@@ -504,7 +504,7 @@ div#navigation li{
 
 /*
  * PaymentManagement
-*/
+ */
 
 #paymentsManagement {
     float: left;
@@ -541,8 +541,8 @@ div#navigation li{
 }
 
 /*
-    CanteenManagement
-*/
+ * CanteenManagement
+ */
 
 #canteenManagement {
     float: left;
@@ -553,24 +553,28 @@ div#navigation li{
 
 #canteenManagement h1 {
     font-size: 30px;
+    padding-bottom: 20px;
     text-align: center;
 }
 
 #canteenManagement h2 {
     font-size: 22px;
-    padding-top: 20px;
     text-align: center;
+}
+
+#canteenManagement h3 {
+    font-size: 18px;
 }
 
 #searchParent {
     padding-bottom: 20px;
 }
 
-.selectedParent {
+.selectedClass {
     font-size: 18px;
 }
 
-.selectedParent > span {
+.selectedClass > span {
     font-weight: bold;
 }
 

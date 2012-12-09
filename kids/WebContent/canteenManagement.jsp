@@ -1,15 +1,23 @@
 <%-- 
     Document   : canteenManagement
-    Created on : Dec 6, 2012, 11:38:57 AM
-    Author     : Emilio Arvonio
+    Created on : 9-dic-2012, 3.42.09
+    Author     : navipar
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:if test="${sessionScope.user == null}">
+    <c:redirect url="index.jsp" />
+</c:if>
+<c:if test="${sessionScope.user.getAccountType() != 'Responsabile Mensa'}">
+    <c:redirect url="index.jsp" />
+</c:if>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
         <link rel="stylesheet" type="text/css" href="css/template.css">
         <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
@@ -24,14 +32,14 @@
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/canteen.js"></script>
-        
-        <title>Gestione mensa - kids</title>
+
+        <title>Gestione mensa - Kids</title>
 
         <script type="text/javascript">
             $(document).ready(function() {
                 activePage();
                 messageDialog();
-                initializePaymentsPage();
+                initializeCanteenPage();
             });
         </script>
     </head>
@@ -40,7 +48,7 @@
 
         <c:if test="${requestScope.message != null}">
             <div id="confirm" title="Message" style="display: inline">
-                <form id="confirmForm" class="cmxform" method="post" action="paymentManagement.jsp">
+                <form id="confirmForm" class="cmxform" method="post" action="canteenManagement.jsp">
                     <fieldset>
                         <p class="formp">
                             <label class="requirementLabel">${requestScope.message}</label>
@@ -55,127 +63,123 @@
 
         <div id="canteenManagement">
             <h1>Gestione mensa</h1>
-
-            <%-- blocco div di ricerca del genitore --%>
-            <div id="searchParent">
-                <h2>Ricerca menù associati</h2>
-                <form style="padding-bottom: 20px" onkeyup="search();">
-                    <fieldset>
-                        <label for="parentName">Nome:&nbsp;&nbsp;</label>
-                        <input type="text" name="parentName" id="parentName">
-                            &nbsp;
-                        <label for="parentSurname">Cognome:&nbsp;&nbsp;</label>
-                        <input type="text" name="parentSurname" id="parentSurname">
-                            &nbsp;
-                        <label for="parentFiscalCode">Codice fiscale:&nbsp;&nbsp;</label>
-                        <input type="text" name="parentFiscalCode" id="parentFiscalCode">
-                    </fieldset>
-                </form>
-
-                <table id="parentsTable">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Cognome</th>
-                            <th>Classe</th>
-                            <th>Codice fiscale</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-            <%-- fine blocco div ricerca genitore --%>
-
-            <%-- blocco div delle varie funzioni della gestione pagamenti --%>
-            <div id="generalPaymentSection">
+            <%-- blocco div delle varie funzioni della gestione mensa --%>
+            <div id="generalCanteenSection">
                 <h2>Operazioni</h2>
-                <span class="selectedParent">Genitore:&nbsp;<span id="selectedParentData"></span></span>
-                <div id="paymentTabGroup">
+                <div id="canteenTabGroup">
                     <ul>
-                        <li><a href="#showPayments"><span class="paymentsTab">Visualizza pagamenti</span></a></li>
-                        <li><a href="#showRefunds"><span class="paymentsTab">Visualizza rimborsi</span></a></li>
-                        <li><a href="#insertPayment"><span class="paymentsTab">Inserisci pagamento</span></a></li>
-                        <li><a href="#insertRefund"><span class="paymentsTab">Inserisci rimborso</span></a></li>
-                        <li><a href="#validatePayment"><span class="paymentsTab">Convalida pagamenti</span></a></li>
+                        <li><a href="#diffMenus"><span class="canteenTab">Men&ugrave; differenziati</span></a></li>
+                        <li><a href="#showAssociatedMenus"><span class="canteenTab">Visualizza men&ugrave; associati</span></a></li>
+                        <li><a href="#showDailyMenus"><span class="canteenTab">Visualizza i men&ugrave; giornalieri</span></a></li>
+                        <li><a href="#modifyDailyMenu"><span class="canteenTab">Modifica men&ugrave; giornaliero</span></a></li>
                     </ul>
 
-                    <div id="insertPayment">
-                        <form id="insertPaymentForm" class="cmxform" method="post" action="InsertPayment">
-                            <table>
-                                <tr>
-                                    <td><label for="paymentDescription">Descrizione pagamento:&nbsp;</label></td>
-                                    <td><input type="text" name="paymentDescription" id="paymentDescription"></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="amount">Importo:&nbsp;</label></td>
-                                    <td><input type="text" name="amount" id="amount"></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="payee">Beneficiario:&nbsp;</label></td>
-                                    <td><input type="text" name="payee" id="payee" value="Unisa - Kids" readonly></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="discount">Percentuale di sconto:&nbsp;</label></td>
-                                    <td><input type="text" name="discount" id="discount"></td>
-
-                                </tr>
-                                <tr>
-                                    <td><label for="discountDescription">Descrizione sconto:&nbsp;</label></td>
-                                    <td><input type="text" name="discountDescription" id="discountDescription"></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="charge">Addebito:&nbsp;</label></td>
-                                    <td><input type="checkbox" name="charge" id="charge" value="chargeTrue"></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="expDate">Data di scadenza:&nbsp;</label></td>
-                                    <td><input type="text" name="expDate" id="expDate"></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="hidden" name="hiddenParentIdInsPayment" id="hiddenParentIdInsPayment" value="-1">
-                                        <input type="submit" name="insertPaymentButton" id="insertPaymentButton" value="Inserisci pagamento">
-                                    </td>
-                                </tr>
+                    <div id="diffMenus">
+                        <div id="classSelection">
+                            <h3>Selezionare la classe interessata</h3>
+                            <table id="showClassTable" style="width: 100%">
+                                <thead>
+                                    <tr>
+                                        <th>Classe</th>
+                                        <th>Numero pasti richiesti</th>
+                                        <th>Presenza condizioni particolari</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
                             </table>
-                        </form>
+                        </div>
+                        <div id="childSelection">
+                            <span class="selectedClass">Classe:&nbsp;<span id="selectedClassData"></span></span>
+                            <h3>Selezionare un bambino per inserire il men&ugrave; differenziato esaminando le condizioni particolari</h3>
+                            <table id="childSelectionTable" style="width: 100%">
+                                <thead>
+                                    <tr>
+                                        <th>Bambino</th>
+                                        <th>Genitore</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="insertDiffMenuDialog">
+                            <form id="insertDiffMenuForm" class="cmxform" method="post" action="InsertMenu">
+                                <table>
+                                    <tr>
+                                        <td><label for="firstDiff">Primo:&nbsp;</label></td>
+                                        <td><input type="text" name="firstDiff" id="firstDiff"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="secondDiff">Secondo:&nbsp;</label></td>
+                                        <td><input type="text" name="secondDiff" id="secondDiff"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="sideDishDiff">Contorno:&nbsp;</label></td>
+                                        <td><input type="text" name="sideDishDiff" id="sideDishDiff"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="fruitDiff">Frutta:&nbsp;</label></td>
+                                        <td><input type="text" name="fruitDiff" id="fruitDiff"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="hidden" name="hiddenChildIdInsDiff" id="hiddenChildIdInsDiff" value="-1">
+                                            <input class="confirmButton" type="submit" name="insertDiffMenuButton" id="insertDiffMenuButton" value="Inserisci men&ugrave; differenziato">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
                     </div>
 
-                    <div id="insertRefund">
-                        <form id="insertRefundForm" class="cmxform" method="post" action="InsertRefund">
-                            <table>
-                                <tr>
-                                    <td><label for="refundDescription">Descrizione rimborso:&nbsp;</label></td>
-                                    <td><input type="text" name="refundDescription" id="refundDescription"></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="refundAmount">Importo:&nbsp;</label></td>
-                                    <td><input type="text" name="refundAmount" id="refundAmount"></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="hidden" name="hiddenParentIdInsRefund" id="hiddenParentIdInsRefund" value="-1">
-                                        <input type="submit" name="insertRefundButton" id="insertRefundButton" value="Inserisci rimborso">
-                                    </td>
-                                </tr>
-                            </table>
-                        </form>
-                    </div>
-
-                    <div id="showPayments">
-                        <table id="showPaymentsTable" style="width:100%">
+                    <div id="showAssociatedMenus">
+                        <h3>Selezionare un bambino per visualizzare i dettagli sui pasti</h3>
+                        <table id="showAssociatedMenusTable" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Data di scadenza</th>
-                                    <th>Descrizione pagamento</th>
-                                    <th>Importo</th>
-                                    <th>Sconto</th>
-                                    <th>Descrizione sconto</th>
-                                    <th>Importo dovuto</th>
-                                    <th>Addebito</th>
-                                    <th>Effettuato</th>
+                                    <th>Bambino</th>
+                                    <th>Genitore</th>
+                                    <th>Tipo men&ugrave;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <div id="showAssociatedMenuDialog">
+                            <table>
+                                <tr>
+                                    <td><label for="associatedFirst">Primo:&nbsp;</label></td>
+                                    <td><input type="text" name="associatedFirst" id="associatedFirst" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="associatedSecond">Secondo:&nbsp;</label></td>
+                                    <td><input type="text" name="associatedSecond" id="associatedSecond" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="associatedSideDish">Contorno:&nbsp;</label></td>
+                                    <td><input type="text" name="associatedSideDish" id="associatedSideDish" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="associatedFruit">Frutta:&nbsp;</label></td>
+                                    <td><input type="text" name="associatedFruit" id="associatedFruit" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="associatedMenuType">Tipo men&ugrave;:&nbsp;</label></td>
+                                    <td><input type="text" name="associatedMenuType" id="associatedMenuType" readonly></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="showDailyMenus">
+                        <table id="showDailyMenusTable" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Primo</th>
+                                    <th>Secondo</th>
+                                    <th>Contorno</th>
+                                    <th>Frutta</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -183,139 +187,37 @@
                         </table>
                     </div>
 
-                    <%-- div della Dialog per la modifica dei pagamenti --%>
-                    <div id="modifyPaymentsDialog" title="Modifica pagamento">
-                        <form id="modifyPaymentForm" class="cmxform" method="post" action="UpdatePayment">
+                    <div id="modifyDailyMenu">
+                        <form id="modifyDailyMenuForm" class="cmxform" method="post" action="InsertMenu">
                             <table>
                                 <tr>
-                                    <td><label for="modifyPaymentDescription">Descrizione pagamento:&nbsp;</label></td>
-                                    <td><input type="text" name="modifyPaymentDescription" id="modifyPaymentDescription"></td>
+                                    <td><label for="firstEditDaily">Primo:&nbsp;</label></td>
+                                    <td><input type="text" name="firstEditDaily" id="firstEditDaily"></td>
                                 </tr>
                                 <tr>
-                                    <td><label for="modifyAmount">Importo:&nbsp;</label></td>
-                                    <td><input type="text" name="modifyAmount" id="modifyAmount"></td>
+                                    <td><label for="secondEditDaily">Secondo:&nbsp;</label></td>
+                                    <td><input type="text" name="secondEditDaily" id="secondEditDaily"></td>
                                 </tr>
                                 <tr>
-                                    <td><label for="modifyPayee">Beneficiario:&nbsp;</label></td>
-                                    <td><input type="text" name="modifyPayee" id="modifyPayee" value="Unisa - Kids" readonly></td>
+                                    <td><label for="sideDishEditDaily">Contorno:&nbsp;</label></td>
+                                    <td><input type="text" name="sideDishEditDaily" id="sideDishEditDaily"></td>
                                 </tr>
                                 <tr>
-                                    <td><label for="modifyDiscount">Percentuale di sconto:&nbsp;</label></td>
-                                    <td><input type="text" name="modifyDiscount" id="modifyDiscount"></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="modifyDiscountDescription">Descrizione sconto:&nbsp;</label></td>
-                                    <td><input type="text" name="modifyDiscountDescription" id="modifyDiscountDescription"></td>
-
-                                </tr>
-                                <tr>
-                                    <td><label for="modifyCharge">Addebito:&nbsp;</label></td>
-                                    <td><input type="checkbox" name="modifyCharge" id="modifyCharge" value="chargeTrue"></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="modifyExpDate">Data di scadenza:&nbsp;</label></td>
-                                    <td><input type="text" name="modifyExpDate" id="modifyExpDate"></td>
+                                    <td><label for="fruitEditDaily">Frutta:&nbsp;</label></td>
+                                    <td><input type="text" name="fruitEditDaily" id="fruitEditDaily"></td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <input type="hidden" name="hiddenModPaymentId" id="hiddenModPaymentId" value="-1">
-                                        <input type="submit" name="modifyPaymentButton" id="modifyPaymentButton" value="Conferma modifica pagamento">
+                                        <input class="confirmButton" type="submit" name="modifyDailyMenuButton" id="modifyDailyMenuButton" value="Modifica men&ugrave; giornaliero">
                                     </td>
                                 </tr>
                             </table>
                         </form>
-                    </div>
-                    <%-- fine div della Dialog per la modifica dei pagamenti --%>
-
-                    <div id="showRefunds">
-                        <table id="showRefundsTable" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>Descrizione</th>
-                                    <th>Importo</th>
-                                    <th>Stato</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div id="validatePayment">
-                        <table id="showPaymentsConvTable" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>Data di scadenza</th>
-                                    <th>Descrizione pagamento</th>
-                                    <th>Importo</th>
-                                    <th>Sconto</th>
-                                    <th>Descrizione sconto</th>
-                                    <th>Importo dovuto</th>
-                                    <th>Addebito</th>
-                                    <th>Effettuato</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
                     </div>
                     
-                    <%-- div della Dialog per la convalida dei pagamenti --%>
-                    <div id="validatePaymentsDialog" title="Convalida pagamento">
-                        <form id="validatePaymentForm" class="cmxform" method="post" action="UpdatePayment">
-                            <table>
-                                <tr>
-                                    <td><label for="validatePaymentDescription">Descrizione pagamento:&nbsp;</label></td>
-                                    <td><input type="text" name="validatePaymentDescription" id="validatePaymentDescription" disabled></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="validateAmount">Importo:&nbsp;</label></td>
-                                    <td><input type="text" name="validateAmount" id="validateAmount" disabled></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="validatePayee">Beneficiario:&nbsp;</label></td>
-                                    <td><input type="text" name="validatePayee" id="validatePayee" value="Unisa - Kids" readonly disabled></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="validateDiscount">Percentuale di sconto:&nbsp;</label></td>
-                                    <td><input type="text" name="validateDiscount" id="validateDiscount" disabled></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="validateDiscountDescription">Descrizione sconto:&nbsp;</label></td>
-                                    <td><input type="text" name="validateDiscountDescription" id="validateDiscountDescription" disabled></td>
-
-                                </tr>
-                                <tr>
-                                    <td><label for="validateCharge">Addebito:&nbsp;</label></td>
-                                    <td><input type="checkbox" name="validateCharge" id="validateCharge" value="chargeTrue" disabled></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="validateExpDate">Data di scadenza:&nbsp;</label></td>
-                                    <td><input type="text" name="validateExpDate" id="validateExpDate" disabled></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="validateOriginAccount">Conto d'origine:&nbsp;</label></td>
-                                    <td><input type="text" name="validateOriginAccount" id="validateOriginAccount"></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="validateConfirmCode">Codice ricevuta pagamento:&nbsp;</label></td>
-                                    <td><input type="text" name="validateConfirmCode" id="validateConfirmCode"></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="hidden" name="hiddenValPaymentId" id="hiddenValPaymentId" value="-1">
-                                        <input type="submit" name="validatePaymentButton" id="validatePaymentButton" value="Conferma convalida pagamento">
-                                    </td>
-                                </tr>
-                            </table>
-                        </form>
-                    </div>
-                    <%-- fine div della Dialog per la convalida dei pagamenti --%>
                 </div>
-                <button id="goToParentsSearchBtn" style="margin-top: 10px;">Indietro</button>
             </div>
-            <%-- fine blocco div funzioni gestione pagamenti --%>
-
+            <%-- fine blocco div funzioni gestione mensa --%>
         </div>
 
         <%@include file="footer.jsp" %>
