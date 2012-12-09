@@ -2,88 +2,58 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-function initializePaymentsPage() {
-    $("#paymentTabGroup").tabs();
-    $("#generalPaymentSection").hide();
-    $("#goToParentsSearchBtn").button();
-    $("#goToParentsSearchBtn").click(function() {
-        $("#generalPaymentSection").hide();
-        $("#searchParent").show();
-        search();
-    });
+
+function initializeCanteenPage() {
+    $("#canteenTabGroup").tabs();
     
-    $( "#expDate" ).datepicker({
-        dateFormat: "yy-mm-dd",
-        changeYear: true
-    });
-    $("#insertPaymentButton").button();
-    
-    $("#insertRefundButton").button();
-    
-    $("#modifyPaymentsDialog").dialog({
+    $("#insertDiffMenuDialog").dialog({
         autoOpen: false,
         modal: true,
         resizable: false,
         width: 400
     });
-    $( "#modifyExpDate" ).datepicker({
-        dateFormat: "yy-mm-dd",
-        changeYear: true
-    });
-    $("#modifyPaymentButton").button();
+    $("#insertDiffMenuButton").button();
     
-    $("#validatePaymentsDialog").dialog({
+    $("#showAssociatedMenuDialog").dialog({
         autoOpen: false,
         modal: true,
         resizable: false,
-        width: 450
+        width: 400
     });
-    $("#validatePaymentButton").button();
     
     TableTools.DEFAULTS.aButtons = [];
-    buildParentsTable();
+    buildClassTable();
+    buildAssociatedMenusTable();
 }
 
-function search() {
-    $("#parentsTable").dataTable().fnDraw();
+function doClassSelection(classData) {
+    $("#selectedClassData").html(classData.cells[0].innerHTML);
+    //$("#hiddenParentIdInsPayment").val(classData.id);
+    //$("#hiddenParentIdInsRefund").val(classData.id);
+    
+    buildChildrenTable(classData.id);
+    //buildRefundsTable(classData.id);
+    //buildPaymentsConvTable(classData.id);
+    $("#classSelection").hide();
+    $("#childSelection").show();
+    
+    $("#childSelectionTable").dataTable().fnDraw();
 }
 
-function doParentSelection(parentData) {
-    $("#selectedParentData").html(parentData.cells[0].innerHTML + ' ' + parentData.cells[1].innerHTML + ' ' + parentData.cells[2].innerHTML);
-    $("#hiddenParentIdInsPayment").val(parentData.id);
-    $("#hiddenParentIdInsRefund").val(parentData.id);
+function doInsertDiffMenu(childData) {
+    $("#hiddenChildIdInsDiff").val(childData.id);
     
-    buildPaymentsTable(parentData.id);
-    buildRefundsTable(parentData.id);
-    buildPaymentsConvTable(parentData.id);
-    $("#searchParent").hide();
-    $("#generalPaymentSection").show();
-    
-    $("#showPaymentsTable").dataTable().fnDraw();
-    $("#showRefundsTable").dataTable().fnDraw();
+    $("#insertDiffMenuDialog").dialog("open");
 }
 
-function doModifyPayment(paymentData) {
-    $("#hiddenModPaymentId").val(paymentData.id);
+function doAssociatedMenuSelection(assMenuData) {
+    var childId = assMenuData.id;   // child Id
+    // do $.post to get menu data
     
-    $("#modifyExpDate").val(paymentData.cells[0].innerHTML);
-    $("#modifyPaymentDescription").val(paymentData.cells[1].innerHTML);
-    $("#modifyAmount").val(paymentData.cells[2].innerHTML);
-    $("#modifyDiscount").val(paymentData.cells[3].innerHTML);
-    $("#modifyDiscountDescription").val(paymentData.cells[4].innerHTML);
-    
-    if (paymentData.cells[6].innerHTML == "true")
-        $("#modifyCharge").attr('checked', true);
-    
-    $("#modifyPaymentsDialog").dialog("open");
+    $("#showAssociatedMenuDialog").dialog("open");
 }
 
 function doValidatePayment(paymentData) {
-    if (paymentData.cells[7].innerHTML == "true") {
-        alert('Pagamento gia\' convalidato');   // da sostituire con un dialog
-        return;
-    }
-    
     $("#hiddenValPaymentId").val(paymentData.id);
     
     $("#validateExpDate").val(paymentData.cells[0].innerHTML);
@@ -92,22 +62,19 @@ function doValidatePayment(paymentData) {
     $("#validateDiscount").val(paymentData.cells[3].innerHTML);
     $("#validateDiscountDescription").val(paymentData.cells[4].innerHTML);
     
-    if (paymentData.cells[6].innerHTML == "true")
-        $("#validateCharge").attr('checked', true);
-    
     $("#validatePaymentsDialog").dialog("open");
 }
 
-function buildParentsTable(){
-    $("#parentsTable").dataTable({
+function buildClassTable(){
+    $("#showClassTable").dataTable({
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": "GetParentsTable",
+        "sAjaxSource": "GetClassTable",
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
-        "fnServerParams": function ( aoData ) {
+        /*"fnServerParams": function ( aoData ) {
             aoData.push(
             {
                 "name" : "parentName", 
@@ -124,7 +91,7 @@ function buildParentsTable(){
             }
             );
      
-        },
+        },*/
         "bSort": false,
         "bDestroy": true,
         "bInfo": true,
@@ -134,8 +101,8 @@ function buildParentsTable(){
             "sProcessing":   "Caricamento...",
             "sLengthMenu":   "Visualizza _MENU_ link",
             "sZeroRecords":  "La ricerca non ha portato alcun risultato.",
-            "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Genitori",
-            "sInfoEmpty":    "Vista da 0 a 0 di 0 Genitori",
+            "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Classi",
+            "sInfoEmpty":    "Vista da 0 a 0 di 0 Classi",
             "sInfoFiltered": "(filtrati da _MAX_ link totali)",
             "sInfoPostFix":  "",
             "oPaginate": {
@@ -149,26 +116,26 @@ function buildParentsTable(){
         "oTableTools": {
             "sRowSelect": "single",
             "fnRowSelected": function(nodes) {
-                doParentSelection(nodes[0]);
+                doClassSelection(nodes[0]);
             }
         }
     });
 }
 
-function buildPaymentsTable(parentId){
-    $("#showPaymentsTable").dataTable({
+function buildChildrenTable(classId){
+    $("#childSelectionTable").dataTable({
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": "GetPaymentsTable",
+        "sAjaxSource": "GetChildrenTable",
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
         "fnServerParams": function ( aoData ) {
             aoData.push(
             {
-                "name" : "parentId", 
-                "value" : parentId
+                "name" : "classId", 
+                "value" : classId
             }
             );
      
@@ -181,9 +148,9 @@ function buildPaymentsTable(parentId){
         "oLanguage": {
             "sProcessing":   "Caricamento...",
             "sLengthMenu":   "Visualizza _MENU_ link",
-            "sZeroRecords":  "Nessun pagamento disponibile.",
-            "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Pagamenti",
-            "sInfoEmpty":    "Vista da 0 a 0 di 0 Pagamenti",
+            "sZeroRecords":  "Nessun bambino disponibile.",
+            "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Bambini",
+            "sInfoEmpty":    "Vista da 0 a 0 di 0 Bambini",
             "sInfoFiltered": "(filtrati da _MAX_ link totali)",
             "sInfoPostFix":  "",
             "oPaginate": {
@@ -197,22 +164,22 @@ function buildPaymentsTable(parentId){
         "oTableTools": {
             "sRowSelect": "single",
             "fnRowSelected": function(nodes) {
-                doModifyPayment(nodes[0]);
+                doInsertDiffMenu(nodes[0]);
             }
         }
     });
 }
 
-function buildRefundsTable(parentId){
+function buildAssociatedMenusTable(){
     $("#showRefundsTable").dataTable({
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": "GetRefundsTable",
+        "sAjaxSource": "GetMenuTable",
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
-        "fnServerParams": function ( aoData ) {
+        /*"fnServerParams": function ( aoData ) {
             aoData.push(
             {
                 "name" : "parentId", 
@@ -220,7 +187,7 @@ function buildRefundsTable(parentId){
             }
             );
      
-        },
+        },*/
         "bSort": false,
         "bDestroy": true,
         "bInfo": true,
@@ -229,9 +196,9 @@ function buildRefundsTable(parentId){
         "oLanguage": {
             "sProcessing":   "Caricamento...",
             "sLengthMenu":   "Visualizza _MENU_ link",
-            "sZeroRecords":  "Nessun rimborso disponibile.",
-            "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Rimborsi",
-            "sInfoEmpty":    "Vista da 0 a 0 di 0 Rimborsi",
+            "sZeroRecords":  "Nessun men&ugrave; disponibile.",
+            "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Men&ugrave;",
+            "sInfoEmpty":    "Vista da 0 a 0 di 0 Men&ugrave;",
             "sInfoFiltered": "(filtrati da _MAX_ link totali)",
             "sInfoPostFix":  "",
             "oPaginate": {
@@ -239,6 +206,13 @@ function buildRefundsTable(parentId){
                 "sPrevious": "<",
                 "sNext":     ">",
                 "sLast":     ">>"
+            }
+        },
+        "sDom": '<"H"Tfr>t<"F"ip>',
+        "oTableTools": {
+            "sRowSelect": "single",
+            "fnRowSelected": function(nodes) {
+                doAssociatedMenuSelection(nodes[0]);
             }
         }
     });
@@ -256,7 +230,7 @@ function buildPaymentsConvTable(parentId){
         "fnServerParams": function ( aoData ) {
             aoData.push(
             {
-                "name" : "parentId", 
+                "name" : "parentIdConv", 
                 "value" : parentId
             }
             );
@@ -270,7 +244,7 @@ function buildPaymentsConvTable(parentId){
         "oLanguage": {
             "sProcessing":   "Caricamento...",
             "sLengthMenu":   "Visualizza _MENU_ link",
-            "sZeroRecords":  "Nessun pagamento disponibile.",
+            "sZeroRecords":  "Nessun pagamento da convalidare.",
             "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Pagamenti",
             "sInfoEmpty":    "Vista da 0 a 0 di 0 Pagamenti",
             "sInfoFiltered": "(filtrati da _MAX_ link totali)",
@@ -291,4 +265,3 @@ function buildPaymentsConvTable(parentId){
         }
     });
 }
-
