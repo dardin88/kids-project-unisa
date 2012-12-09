@@ -146,7 +146,7 @@
                             <tbody>
                             </tbody>
                         </table>
-                        <div id="showAssociatedMenuDialog">
+                        <div id="showAssociatedMenusDialog">
                             <table>
                                 <tr>
                                     <td><label for="associatedFirst">Primo:&nbsp;</label></td>

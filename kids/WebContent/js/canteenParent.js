@@ -14,7 +14,7 @@ function initializeCanteenPage() {
     });
     $("#insertDiffMenuButton").button();
     
-    $("#showAssociatedMenusDialog").dialog({
+    $("#showAssociatedMenuDialog").dialog({
         autoOpen: false,
         modal: true,
         resizable: false,
@@ -50,7 +50,7 @@ function doAssociatedMenuSelection(assMenuData) {
     var childId = assMenuData.id;   // child Id
     // do $.post to get menu data
     
-    $("#showAssociatedMenusDialog").dialog("open");
+    $("#showAssociatedMenuDialog").dialog("open");
 }
 
 function doValidatePayment(paymentData) {
