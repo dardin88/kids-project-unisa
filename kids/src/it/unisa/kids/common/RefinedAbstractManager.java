@@ -9,6 +9,7 @@ import it.unisa.kids.accessManagement.accountManagement.*;
 import it.unisa.kids.accessManagement.classManagement.JDBCClassManager;
 import it.unisa.kids.accessManagement.classificationManagement.JDBCClassificationManager;
 import it.unisa.kids.accessManagement.registrationChildManagement.JDBCRegistrationChildManager;
+import it.unisa.kids.accessManagement.renunciationManagement.JDBCRenunciationManager;
 
 public class RefinedAbstractManager extends AbstractManager<IManager> {
 
@@ -43,6 +44,8 @@ public class RefinedAbstractManager extends AbstractManager<IManager> {
             this.imp = JDBCRegistrationChildManager.getInstance();
         } else if(pManagerType.equals(DBNames.TABLE_CLASSIFICATION)) {
             this.imp = JDBCClassificationManager.getInstance();
+        }else if(pManagerType.equals(DBNames.TABLE_RENUNCIATION)) {
+            this.imp = (IManager) JDBCRenunciationManager.getInstance();
         }
          
         
