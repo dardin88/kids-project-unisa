@@ -222,6 +222,10 @@
         <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletGetTableRegistrationChild</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ServletSubmitNewRegistrationChild</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletSubmitNewRegistrationChild</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AddClassBeanServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.classManagement.AddClassBeanServlet</servlet-class>
     </servlet>
@@ -496,6 +500,10 @@
     <servlet-mapping>
         <servlet-name>ServletGetTableRegistrationChild</servlet-name>
         <url-pattern>/GetTableRegistrationChild</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletSubmitNewRegistrationChild</servlet-name>
+        <url-pattern>/SubmitNewRegistrationChild</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddClassBeanServlet</servlet-name>
