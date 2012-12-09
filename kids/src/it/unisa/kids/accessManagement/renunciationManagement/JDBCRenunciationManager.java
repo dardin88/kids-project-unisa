@@ -3,6 +3,7 @@ package it.unisa.kids.accessManagement.renunciationManagement;
 import it.unisa.kids.common.DBNames;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 
+import it.unisa.kids.common.RefinedAbstractManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +19,7 @@ public class JDBCRenunciationManager implements IRenunciationManager {
     private JDBCRenunciationManager() {
     }
 
-    public static JDBCRenunciationManager getInstance() {
+    public static synchronized JDBCRenunciationManager getInstance() {
         if (manager == null) {
             manager = new JDBCRenunciationManager();
         }

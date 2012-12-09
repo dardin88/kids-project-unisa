@@ -3,6 +3,7 @@ package it.unisa.kids.accessManagement.renunciationManagement;
 import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationChildManager;
 import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
+import it.unisa.kids.accessManagement.registrationChildManagement.*;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
@@ -73,23 +74,14 @@ public class InsertTableRenunciationServlet extends HttpServlet {
             Account user = (Account) session.getAttribute("user");
             int idGenitore = user.getId();
 
-            //String nome = request.getParameter("idGenitore");
             RefinedAbstractManager refinedAbstractRegistrationChildManager = RefinedAbstractManager.getInstance();
-
             IRegistrationChildManager registrationChildManager = (IRegistrationChildManager) refinedAbstractRegistrationChildManager.getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
 
-            RegistrationChild tmpChild = RegistrationChild();
+            RegistrationChild tmpChild = new RegistrationChild();
             tmpChild.setParentId(idGenitore);
 
             registrationChildManager.search(tmpChild);
-
             registrationChildManager.search(null);
-
-
-
-
-
-
 
             Renunciation pRenunciation = new Renunciation();
             pRenunciation.setId(idGenitore);
