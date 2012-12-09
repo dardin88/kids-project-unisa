@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unisa.kids.accessManagement.registrationChildManagement;
 
 import it.unisa.kids.common.DBNames;
@@ -22,7 +18,7 @@ import org.json.JSONObject;
 /**
  * Servlet used to create a new draft of registrationchild
  * 
- * @author Giuseppe Giovanni Lauri
+ * @author Lauri Giuseppe Giovanni
  */
 public class ServletEditPhaseRegistrationChild extends HttpServlet {
     private IRegistrationChildManager registrationChildManager;

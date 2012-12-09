@@ -1,6 +1,5 @@
 package it.unisa.kids.accessManagement.registrationChildManagement;
 
-import it.unisa.kids.common.DBNames;
 import java.util.GregorianCalendar;
 
 /**

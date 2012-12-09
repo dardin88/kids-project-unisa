@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unisa.kids.accessManagement.registrationChildManagement;
 
 import it.unisa.kids.common.DBNames;
@@ -11,7 +7,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
- *
+ *  TestClass utilized by author
+ * 
  * @author Lauri Giuseppe Giovanni
  */
 public class TestRegistrationChildManager {
