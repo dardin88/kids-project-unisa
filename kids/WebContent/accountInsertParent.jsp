@@ -9,11 +9,7 @@
 <%--<c:if test="${sessionScope.user==null}">
     <c:redirect url="index.jsp" />
 </c:if>--%>
-<c:if test="${sessionScope.id >=0}">
-    <c:if test="${sessionScope.user.getAccountType()=='Genitore'}"> 
-        <c:redirect url="newsGenitorePage.jsp" />
-    </c:if>
-</c:if>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,6 +24,7 @@
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/provaAccount.js"></script>
         <title>Registrazione Account - Kids Project</title>
+     
         <script type="text/javascript">
             $(document).ready(function() {
                 initializeRegistrationFields();
@@ -46,6 +43,7 @@
                     <h1  style="font-weight: bold; font-size: 30pt"id="titleReg" align="center">Form di Registrazione</h1><br> <br>
 
                     <div id="registration1">
+                        
 
                         <div >
                             <label id="accountLabel">  Nome*: </label>
@@ -155,9 +153,9 @@
                         <div>
                             <label id="accountLabel">  Tipo di Account*: </label>
                             <%--<input id="typeAccount" class="accountInput" type="text" name="typeAccount" value="TipoAccount">--%>
-                            <select id="typeAccount" name="tipo" onchange="verificaAccount()">
-                                <OPTION value="Nothing" name="Nothing" selected> Scegli 
-                                <OPTION value="Genitore" name="Genitore"> Genitore 
+                            <select id="typeAccount" name="tipo" onchange="verificaAccount()" style="visibility: hidden">
+                                <OPTION value="Nothing" name="Nothing" > Scegli 
+                                <OPTION value="Genitore" name="Genitore" selected> Genitore 
                                 <OPTION value="Delegato Ufficio" name="DelegatoUfficio"> Segreteria 
                                 <OPTION value="Delegato scienze della formazione" name="ScienzeFormazione"> Delegato Scienze della Formazione 
                                 <OPTION value="Educatore" name="Educatore"> Educatore 
@@ -178,14 +176,14 @@
                         </div>
 
                         <div>
-                            <label id="accountLabel2" style="display: none;"> Tipologia Genitore*: </label>
+                            <label id="accountLabel2" > Tipologia Genitore*: </label>
                             <%--<input id="typeParent" class="accountInput" type="text" name="TipoAccount" />--%> 
-                            <select id="typeParent" name="tipo" onchange="verificaGenitore()" style="display: none">
+                            <select id="typeParent" name="tipo" onchange="verificaGenitore()">
                                 <OPTION value="Nothing" name="Scelta" selected> Scegli 
                                 <OPTION value="Studente" name="Studente"> Studente 
-                                <OPTION value="TecnicoAmministrativo" name="TecnicoAmministrativo"> Tecnico Amministrativo 
+                                <OPTION value="Tecnico amministrativo" name="TecnicoAmministrativo"> Tecnico Amministrativo 
                                 <OPTION value="Docente" name="Docente"> Docente 
-                                <OPTION value="ContrattoTempoDeterminato" name="ContrattoTempoDeterminato"> Contratto Tempo Determinato 
+                                <OPTION value="Contratto Tempo Determinato" name="ContrattoTempoDeterminato"> Contratto Tempo Determinato 
                                 <OPTION value="Ricercatore" name="Ricercatore">Ricercatore 
                                 <OPTION value="Dottorando" name="Dottorando"> Dottorando 
                             </select>

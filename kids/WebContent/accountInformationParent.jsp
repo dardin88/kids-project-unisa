@@ -23,15 +23,14 @@
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/modifyAccountRegistration.js"></script>
-        <script type="text/javascript" src="js/account.js"></script>
-        
+          <script type="text/javascript" src="js/account.js"></script>
         <title>Registrazione Account - Kids Project</title>
-        <jsp:include page="/GetAccount" /> 
+        <jsp:include page="/GetAccountParent" /> 
         <script type="text/javascript">
             $(document).ready(function() {
                 initializeModifyRegistrationFields();
                 initializeLinksManager2();
-                                update();
+                update();
                 $("#modifyDateOfBirth, #modifyContractExpirationDate, #modifyRegistrationDate").datepicker({dateFormat:'yy-mm-dd'});
             });
         </script>
@@ -98,7 +97,9 @@
 
                         <input style="width: 200px; margin-left: 5%" type="submit" name="registrationButton1" id="modifyButton1" value="Avanti"/>
                         <input style="width: 200px; margin-left: 2%" type="button" name="notRegistrationButton1" id="notModifyButton1" value="Indietro"/>
-                        <input style="width: 200px; margin-left: 0.5%" type="button" name="modify" id="modifyButton" value="Modifica" onclick="modifyAccount2(document.getElementById('id').value)"/>
+                        <input style="width: 200px; margin-left: 0.5%" type="button" name="modify" id="modifyButton" value="Modifica" onclick="modifyAccount(document.getElementById('id').value)"/>
+                        <input style="width: 200px; margin-left: 0.5%" type="button" name="elimina" id="eliminaButton" value="Elimina" onclick="removeAccountParent(document.getElementById('id').value)"/>
+                        <input style="width: 200px; margin-left: 0.5%" type="button" name="password" id="modifyPassword" value="Modifica Password" onclick="modifyPassword2(document.getElementById('id').value)"/>
                     </div>
 
                     <div id="modifyRegistration2">
@@ -160,11 +161,11 @@
                         </div>
 
                         <div>
-                            <label id="accountLabel">  Tipo di Account*: </label> <input type="text" class="accountInput" value="${TipoAccount}" readonly="true">
+                            <label id="accountLabel" style="visibility: hidden">  Tipo di Account*: </label>
                             <%--<input id="typeAccount" class="accountInput" type="text" name="typeAccount" value="TipoAccount">--%>
                             <select id="modifyTypeAccount" name="tipo" onchange="verificaAccount()" readonly="true"  style="visibility: hidden">
-                                <OPTION value="Nothing" name="Scelta" selected> Scegli 
-                                <OPTION value="Genitore" name="Genitore"> Genitore 
+                                <OPTION value="Nothing" name="Scelta"> Scegli 
+                                <OPTION value="Genitore" name="Genitore" selected> Genitore 
                                 <OPTION value="Delegato Ufficio" name="DelegatoUfficio"> Segreteria 
                                 <OPTION value="Delegato scienze della formazione" name="ScienzeFormazione"> Delegato Scienze della Formazione 
                                 <OPTION value="Educatore" name="Educatore"> Educatore 
@@ -185,20 +186,21 @@
                         </div>
 
                         <div>
-                             <c:if test="${requestScope.TipoGenitore!='Nothing'}"> 
-                            <label id="accountLabel2"> Tipologia Genitore*: </label> <input type="text" class="accountInput" value="${TipoGenitore}" readonly="true">
-                            </c:if>
-                            <%--<input id="typeParent" class="accountInput" type="text" name="TipoAccount" />--%> 
+                             
+                            <label id="accountLabel"> Tipologia Genitore*: </label> 
+                         
+                            <input id="typeParent" class="accountInput" type="text" name="TipoAccount" value="${TipoGenitore}" readonly="true"/>
+                            </div>
                             <select id="modifyTypeParent" name="tipo" onchange="verificaGenitore()"  style="visibility: hidden">
-                                <OPTION value="Nothing" name="Scelta" selected> Scegli 
-                                <OPTION value="Studente" name="Studente"> Studente 
+                                <OPTION value="Nothing" name="Scelta" > Scegli 
+                                <OPTION value="Studente" name="Studente"selected> Studente 
                                 <OPTION value="Tecnico amministrativo" name="TecnicoAmministrativo"> Tecnico Amministrativo 
                                 <OPTION value="Docente" name="Docente"> Docente 
                                 <OPTION value="Contratto Tempo Determinato" name="ContrattoTempoDeterminato"> Contratto Tempo Determinato 
                                 <OPTION value="Ricercatore" name="Ricercatore">Ricercatore 
                                 <OPTION value="Dottorando" name="Dottorando"> Dottorando 
                             </select>
-                        </div>
+                        
 
                         <div>
                             <label id="accountLabel3" style="display: none"> Scadenza Contratto*: </label>
@@ -220,11 +222,52 @@
                     </div>
                 </div>
             </fieldset>
+                        
+                        <%--rimozione --%>
+          <div id="removeAccountWindow" title="Rimuovi Account" style="display: inline">
+            <form id="removeAccountForm" class="cmxform" method="post" action="">
+                <fieldset>
+                    <p class="formp">
+                        <label class="requirementLabel">Sei sicuro di voler eliminare questo Account?</label>
+                    </p>
+                    <p class="formp">
+                        <input type="button" class="confirmRemoveButton" id="confirmRemoveLinkButton" value="Si"/>
+                        <input type="button" class="notConfirmRemoveButton" id="notConfirmRemoveLinkButton" value="No"/>
+                    </p>
+                </fieldset>
+            </form>
+        </div>
+                        
+                        <%-- Modifica Password --%>
+                        
+           <div id="modifyPasswordWindow" title="Modifica Password" style="display: inline">
+            <form id="modifyPasswordForm" class="cmxform" method="post" action="">
+                <fieldset>
+
+                    <p class="formp">
+                        <label style="font-weight: bold; font-size: 10pt" class="requirementLabel">Inserisci vecchia password:</label>
+                        <input type="text" id="oldPass"/>
+                    </p><br>
+
+                    <p class="formp">
+                        <label style="font-weight: bold; font-size: 10pt; margin-right: 3%" class="requirementLabel">Inserisci nuova password: </label>
+                        <input type="text" id="newPass"/>
+                    </p>
+                    <p class="formp">
+                        <label style="font-weight: bold; font-size: 10pt" class="requirementLabel">Conferma nuova password:</label>
+                        <input type="text" id="confNewPass"/>
+                    </p><br>
+
+                    <p class="formp">
+                        <input type="button" id="confirmModifyButton" value="Modifica"/>
+                        <input type="button" id="notConfirmModifyButton" value="Annulla"/>
+                    </p>
+                </fieldset>
+            </form>
+        </div>
 
 
         </form>
-                        
-        
         <%@include file="footer.jsp" %>
     </body>
 </html>

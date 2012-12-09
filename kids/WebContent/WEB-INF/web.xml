@@ -90,10 +90,6 @@
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.GetAccountServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ModifyAccountServlet</servlet-name>
-        <servlet-class>it.unisa.kids.accessManagement.accountManagement.ModifyAccountServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>InsertTableRenunciation</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.renunciationManagement.InsertTableRenunciationServlet</servlet-class>
     </servlet>
@@ -124,10 +120,6 @@
     <servlet>
         <servlet-name>NicknamePasswordServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.NicknamePasswordServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ModifyAccount3Servlet</servlet-name>
-        <servlet-class>it.unisa.kids.accessManagement.accountManagement.ModifyAccount3Servlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetTraineeRequestServletTable</servlet-name>
@@ -294,16 +286,16 @@
         <servlet-class>it.unisa.kids.accessManagerment.accountManagement.ModifyAccountParentServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletSubmitNewRegistrationChild</servlet-name>
-        <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletSubmitNewRegistrationChild</servlet-class>
+        <servlet-name>GetAccountParentServlet</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.accountManagement.GetAccountParentServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletCompleteRegistrationChild</servlet-name>
-        <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletCompleteRegistrationChild</servlet-class>
+        <servlet-name>AddAccount2Servlet</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.accountManagement.AddAccount2Servlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletConfirmCompletingRegistrationChild</servlet-name>
-        <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletConfirmCompletingRegistrationChild</servlet-class>
+        <servlet-name>ModifyAccount2Servlet</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.accountManagement.ModifyAccount2Servlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
@@ -370,10 +362,6 @@
         <url-pattern>/InsertTrainee</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ModifyAccountServlet</servlet-name>
-        <url-pattern>/ModifyAccount</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>GetAccountServlet</servlet-name>
         <url-pattern>/GetAccount</url-pattern>
     </servlet-mapping>
@@ -408,14 +396,6 @@
     <servlet-mapping>
         <servlet-name>RemoveTraineeServlet</servlet-name>
         <url-pattern>/RemoveTrainee</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ModifyAccount2Servlet</servlet-name>
-        <url-pattern>/ModifyAccount2</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ModifyAccount3Servlet</servlet-name>
-        <url-pattern>/ModifyAccount3</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetTraineeRequestServletTable</servlet-name>
@@ -590,16 +570,16 @@
         <url-pattern>/ModifyAccountParent</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletSubmitNewRegistrationChild</servlet-name>
-        <url-pattern>/SubmitNewRegistrationChild</url-pattern>
+        <servlet-name>GetAccountParentServlet</servlet-name>
+        <url-pattern>/GetAccountParent</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletCompleteRegistrationChild</servlet-name>
-        <url-pattern>/CompleteRegistrationChild</url-pattern>
+        <servlet-name>AddAccount2Servlet</servlet-name>
+        <url-pattern>/AddAccount2</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletConfirmCompletingRegistrationChild</servlet-name>
-        <url-pattern>/ConfirmCompletingRegistrationChild</url-pattern>
+        <servlet-name>ModifyAccount2Servlet</servlet-name>
+        <url-pattern>/ModifyAccount2</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

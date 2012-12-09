@@ -61,11 +61,11 @@ public class ModifyPasswordServlet extends HttpServlet {
        if((!newPass.equals(newPass2))||(!old.equals(account.getPassword()))){
            System.out.println("ho effettuato il controllo esito positivo...invio messaggio");
            jObj.put("message", "NO");
-            out.print(jObj);
+            
            }else{
        System.out.println("ho effettuato il controllo esito negativo");
        jObj.put("message", "OK");
-            out.print(jObj);
+          
            account.setPassword(newPass);
             }
        

@@ -37,14 +37,16 @@ $(document).ready(function(){
                 id:$("#id").val(),
                 capDomicilio:$("#capDomicile").val(),
                 titoloStudio:$("#qualification").val(),
-                tipoAccount:$("#typeAccount").val(),
+                tipoAccount:$("#choose").val(),
                 reddito:$("#income").val(),
                 scadenzaContratto:$("#contractExpirationDate").val(),
                 dataRegistrazione:$("#registrationDate").val(),
                 situazioneFamiliaria:$("#familySituation").val(),
-                tipoGenitore:$("#typeParent").val(),
+                tipoGenitore:$("#choose2").val(),
                 facolta:$("#faculty").val()
                })
+               
+               
                var string=" nick: ";
                var string2="   pass: "
                var pass=document.getElementById('password').value;

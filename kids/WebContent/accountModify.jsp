@@ -1,7 +1,7 @@
 <%-- 
-    Document   : account
-    Created on : 23-nov-2012, 14.57.05
-    Author     : tonino ft. gianma
+    Document   : modifyRegistration
+    Created on : 7-dic-2012, 23.11.51
+    Author     : Pasquale
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -9,11 +9,7 @@
 <%--<c:if test="${sessionScope.user==null}">
     <c:redirect url="index.jsp" />
 </c:if>--%>
-<c:if test="${sessionScope.id >=0}">
-    <c:if test="${sessionScope.user.getAccountType()=='Genitore'}"> 
-        <c:redirect url="newsGenitorePage.jsp" />
-    </c:if>
-</c:if>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,73 +22,205 @@
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
-        <script type="text/javascript" src="js/accountModify.js"></script>
+        <script type="text/javascript" src="js/modifyAccountRegistration.js"></script>
         <title>Registrazione Account - Kids Project</title>
-        
         <jsp:include page="/GetAccount" /> 
-        
         <script type="text/javascript">
-                     
             $(document).ready(function() {
-                initializeRegistrationFields();
+                initializeModifyRegistrationFields();
+                                update();
+                $("#modifyDateOfBirth, #modifyContractExpirationDate, #modifyRegistrationDate").datepicker({dateFormat:'yy-mm-dd'});
             });
-            
         </script>
     </head>
-     
     <%@include file="header.jsp"%>
-    
     <body id="bodyRegistration">
-
         
-        
-        <h1  id="titleReg" align="center">Form di Registrazione</h1>
 
-        <form id="registrationForm2" class="cmxform"  action="" method="post">
-            <fieldset id="registrationFieldSet">
+        <form id="modifyForm" class="cmxform"  action="" method="post">
+
+            <fieldset id="modifyFieldSet">
                 <div id="artefactsManagement">
-                    <input type="text" id="register" name="Matricola" class="registrationField" style="visibility: hidden" value="${Matricola}">
-                    <input type="text" id="id" name="id" class="registrationField"  value="${id}">
-                    <p class="formp">
-                        <label> <h3>Nome: </h3> </label>
-                        <input id="accountName" class="registrationField" type="text" name="Nome" size="50%" value="${Nome}">
-                    </p>
-                    <p class="formp">
-                        <label> <h3>Cognome:  </h3> </label>
-                        <input id="accountSurname" class="registrationField"type="text" name="Cognome" value="${Cognome}">
-                    </p>
-                    <p class="formp">
-                        <label> <h3>Data di nascita:  </h3> </label>
-                        <input id="dateOfBirth" class="registrationField" type="text" name="DataNascita" value="${DataNascita}" >
-                    </p>
-                    <p class="formp">
-                        <label> <h3>Comune di nascita:  </h3> </label>
-                        <input id="placeOfBirth" class="registrationField" type="text" name="ComuneNascita" value="${ComuneNascita}">
-                    </p>
-                    <p class="formp">
-                        <label> <h3>Codice Fiscale:  </h3> </label>
-                        <input id="taxCode" class="registrationField" type="text" name="CodiceFiscale" value="${CodiceFiscale}">
-                    </p>
-                    <p class="formp">
-                        <label> <h3>Cittadinanza:  </h3> </label>
-                        <input id="citizenship" class="registrationField" type="text" name="Cittadinanza" value="${Cittadinanza}">
-                    </p>
-                    <p class="formp">
-                        <label> <h3>Comune di residenza:  </h3> </label>
-                        <input id="municipalityResidence" class="registrationField" type="text" name="ComuneResidenza" value="${ComuneResidenza}">
-                    </p>
-                    <p class="formp">
-                        <label> <h3>Provincia Residenza:  </h3> </label>
-                        <input id="provinceResidence" class="registrationField" type="text" name="ProvinciaResidenza" value="${ProvinciaResidenza}">
-                    </p>
-                    <p class="formp">
-                        <label> <h3>Indirizzo Residenza: </h3> </label>
-                        <input id="viaResidence" class="registrationField" type="text" name="IndirizzoResidenza" value="${ViaResidenza}">
-                    </p>
-                    <input type="submit" name="registrationButton" id="registrationButton" value="Avanti" />
+                    <h1  style="font-weight: bold; font-size: 30pt"id="titleReg" align="center">Modifica Account</h1><br> <br>
+
+                    <div id="modifyRegistration1">
+                         <input id="id" class="accountInput" type="text" name="id" size="50%" value="${id}" >
+                         <input id="typeAccount2" class="accountInput" type="text" name="Nome" size="50%" value="${TipoAccount}" >
+                         <input id="typeParent2" class="accountInput" type="text" name="Nome" size="50%" value="${TipoGenitore}" >
+
+                        <div >
+                            <label id="accountLabel">  Nome*: </label>
+                            <input id="modifyAccountName" class="accountInput" type="text" name="Nome" size="50%" value="${Nome}">
+                        </div>
+
+                        <div>
+                            <label id="accountLabel"> Cognome*: </label>
+                            <input id="modifyAccountSurname" class="accountInput"type="text" name="Cognome" value="${Cognome}">                    
+                        </div>
+
+                        <div>
+                            <label id="accountLabel"> Data di nascita*: </label>
+                            <input id="modifyDateOfBirth" class="accountInput" type="text" name="DataNascita" value="${DataNascita}" >
+                        </div>
+
+                        <div>
+                            <label id="accountLabel"> Comune di nascita*: </label>
+                            <input id="modifyPlaceOfBirth" class="accountInput" type="text" name="ComuneNascita" value="${ComuneNascita}">
+                        </div>
+
+                        <div>
+                            <label id="accountLabel"> CodiceFiscale*: </label>
+                            <input  id="modifyTaxCode" class="accountInput" type="text" name="CodiceFiscale"value="${CodiceFiscale}" >
+                        </div>
+
+                        <div>
+                            <label id="accountLabel"> Cittadinanza*: </label>
+                            <input  id="modifyCitizenship" class="accountInput" type="text" name="Cittadinanza"value="${Cittadinanza}">
+                        </div>
+
+                        <div>
+                            <label id="accountLabel"> Comune di residenza*: </label>
+                            <input  id="modifyMunicipalityResidence" class="accountInput" type="text" name="ComuneResidenza" value="${ComuneResidenza}">
+                        </div>
+
+                        <div>
+                            <label id="accountLabel"> Provincia Residenza*: </label>
+                            <input  id="modifyProvinceResidence" class="accountInput" type="text" name="ProvinciaResidenza" value="${ProvinciaResidenza}" >
+                        </div>
+
+                        <div>
+                            <label id="accountLabel"> Indirizzo Residenza*: </label>
+                            <input  id="modifyViaResidence" class="accountInput" type="text" name="IndirizzoResidenza" value="${ViaResidenza}">
+                        </div>
+
+                        <input style="width: 200px; margin-left: 5%" type="submit" name="registrationButton1" id="modifyButton1" value="Avanti"/>
+                        <input style="width: 200px; margin-left: 2%" type="button" name="notRegistrationButton1" id="notModifyButton1" value="Indietro"/>
+                    </div>
+
+                    <div id="modifyRegistration2">
+
+                        <div>
+                            <label id="accountLabel"> C.A.P. Residenza*: </label>
+                            <input id="modifyCapResidence" class="accountInput" type="text" name="CapResidenza" value="${CapResidenza}">
+                        </div>
+
+                        <div>
+                            <label id="accountLabel">  Numero di telefono: </label>
+                            <input id="modifyTelephoneNumber" class="accountInput" type="text" name="Telefono" value="${Telefono}" >
+                        </div>
+
+                        <div>
+                            <label id="accountLabel">Numero di cellulare: </label>
+                            <input id="modifyCellularNumber" class="accountInput" type="text" name="Cellulare" value="${Cellulare}">
+                        </div>
+
+                        <div>
+                            <label id="accountLabel">  Indirizzo Fax: </label>
+                            <input id="modifyFax" class="accountInput" type="text" name="Fax" value="${Fax}">
+                        </div>
+
+                        <div>
+                            <label id="accountLabel">Indirizzo email*:</label>
+                            <input id="modifyEmail" class="accountInput" type="text" name="Email" value="${Email}">
+                        </div>
+
+                        <div>
+                            <label id="accountLabel">  Comune di Domicilio*: </label>
+                            <input id="modifyMunicipalityDomicile" class="accountInput" type="text" name="ComuneDomicilio" value="${ComuneDomicilio}">
+                        </div>
+
+                        <div>
+                            <label id="accountLabel">Provincia di Domicilio*:</label>
+                            <input id="modifyProvinceDomicile" class="accountInput" type="text" name="ProvinciaDomicilio" value="${ProvinciaDomicilio}">
+                        </div>
+
+                        <div>
+                            <label id="accountLabel">  Indirizzo Domicilio*: </label>
+                            <input id="modifyViaDomicile" class="accountInput" type="text" name="ViaDomicilio" value="${ViaDomicilio}">
+                        </div>
+
+                        <input style="width: 200px; margin-left: 5%" type="submit" name="modifyButton2" id="modifyButton2" value="Avanti"/>
+                        <input style="width: 200px; margin-left: 2%" type="button" name="notModifyButton2" id="notModifyButton2" value="Indietro"/>
+                    </div>
+
+                    <div id="modifyRegistration3">
+
+                        <div>
+                            <label id="accountLabel">  C.A.P. Domicilio: </label>
+                            <input id="modifyCapDomicile" class="accountInput" type="text" name="CapDomicilio" value="${CapDomicilio}">
+                        </div>
+
+                        <div>
+                            <label id="accountLabel"> Titolo di Studio*: </label>
+                            <input id="modifyQualification" class="accountInput" type="text" name="TitoloStudio" value="${TitoloStudio}" >                  
+                        </div>
+
+                        <div>
+                            <label id="accountLabel">  Tipo di Account*: </label> 
+                            <%--<input id="typeAccount" class="accountInput" type="text" name="typeAccount" value="TipoAccount">--%>
+                            <select id="modifyTypeAccount" name="tipo" onchange="verificaAccount()">
+                                <OPTION value="Nothing" name="Scelta" selected> Scegli 
+                                <OPTION value="Genitore" name="Genitore"> Genitore 
+                                <OPTION value="Delegato Ufficio" name="DelegatoUfficio"> Segreteria 
+                                <OPTION value="Delegato scienze della formazione" name="ScienzeFormazione"> Delegato Scienze della Formazione 
+                                <OPTION value="Educatore" name="Educatore"> Educatore 
+                                <OPTION value="Coordinatore Psicopedagogico" name="CoordinatorePsicopedagogico"> Coordinatore Psicopedagogico 
+                                <OPTION value="Responsabile Scientifico" name="ResponsabileScientifico"> Responsabile Scientifico 
+                                <OPTION value="Responsabile Asilo" name="ResponsabileAsilo"> Responsabile Asilo
+                            </select>
+                        </div>
+
+                        <div>
+                            <label id="accountLabel"> Situazione Familiaria: </label>
+                            <input id="modifyFamilySituation" class="accountInput" type="text" name="SituazioneFamiliaria" value="${SituazioneFamiliare}">
+                        </div>
+
+                        <div>
+                            <label id="accountLabel">  Reddito*: </label>
+                            <input id="modifyIncome" class="accountInput" type="text" name="Reddito" value="${Reddito}">
+                        </div>
+
+                        <div>
+                             
+                            <label id="accountLabel2"> Tipologia Genitore*: </label> 
+                            
+                            <%--<input id="typeParent" class="accountInput" type="text" name="TipoAccount" />--%> 
+                            <select id="modifyTypeParent" name="tipo" onchange="verificaGenitore()">
+                                <OPTION value="Nothing" name="Scelta" selected> Scegli 
+                                <OPTION value="Studente" name="Studente"> Studente 
+                                <OPTION value="Tecnico amministrativo" name="TecnicoAmministrativo"> Tecnico Amministrativo 
+                                <OPTION value="Docente" name="Docente"> Docente 
+                                <OPTION value="Contratto Tempo Determinato" name="ContrattoTempoDeterminato"> Contratto Tempo Determinato 
+                                <OPTION value="Ricercatore" name="Ricercatore">Ricercatore 
+                                <OPTION value="Dottorando" name="Dottorando"> Dottorando 
+                            </select>
+                        </div>
+
+                        <div>
+                            <label id="accountLabel3" style="display: none"> Scadenza Contratto*: </label>
+                            <input id="modifyContractExpirationDate" class="accountInput" type="text" name="ScadenzaContratto" value="${ScadenzaContratto}" style="display: none">
+                        </div>
+
+                        <div>
+                            <label id="accountLabel5" style="display: none">  Facoltà*: </label>
+                            <input id="modifyFaculty" class="accountInput" type="text" name="Facolta" value="${Facolta}"style="display: none">
+                        </div>
+
+                        <div>
+                            <label id="accountLabel4" style="display: none" > Data di Immatricolazione*: </label>
+                            <input id="modifyRegistrationDate" class="accountInput" type="text" name="DataRegistrazione" value="${DataIscrizione}" style="display: none" >
+                        </div>
+
+                                                <input style="width: 200px; margin-left: 5%" type="submit" name="modifyButton3" id="modifyButton3" value="Conferma Modifiche" />
+                        <input style="width: 200px; margin-left: 2%" type="button" name="notModifyButton3" id="notModifyButton3" value="Indietro"/>
+                    </div>
                 </div>
             </fieldset>
+
+
         </form>
+                        
+        
         <%@include file="footer.jsp" %>
     </body>
 </html>
