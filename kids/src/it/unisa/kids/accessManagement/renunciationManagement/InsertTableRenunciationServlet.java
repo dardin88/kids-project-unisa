@@ -1,6 +1,8 @@
 package it.unisa.kids.accessManagement.renunciationManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationChildManager;
+import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
@@ -66,21 +68,33 @@ public class InsertTableRenunciationServlet extends HttpServlet {
                     amount = 10;
                 }
             }
-            
+
             HttpSession session = request.getSession();
-            Account user  = (Account) session.getAttribute("user");
+            Account user = (Account) session.getAttribute("user");
             int idGenitore = user.getId();
-            
+
             //String nome = request.getParameter("idGenitore");
+            RefinedAbstractManager refinedAbstractRegistrationChildManager = RefinedAbstractManager.getInstance();
+
+            IRegistrationChildManager registrationChildManager = (IRegistrationChildManager) refinedAbstractRegistrationChildManager.getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
+
+            RegistrationChild tmpChild = RegistrationChild();
+            tmpChild.setParentId(idGenitore);
+
+            registrationChildManager.search(tmpChild);
+
+            registrationChildManager.search(null);
+
+
+
+
+
 
 
             Renunciation pRenunciation = new Renunciation();
-            pRenunciation.setIdBambino(Integer.parseInt(nome));
+            pRenunciation.setId(idGenitore);
 
             listRenunciation = renunciationManager.search(pRenunciation);
-
-
-
             int linksNumber = listRenunciation.size();
             if (linksNumber < amount) {
                 amount = linksNumber;
@@ -115,11 +129,7 @@ public class InsertTableRenunciationServlet extends HttpServlet {
             out.print(result);
         } catch (SQLException ex) {
             Logger.getLogger(InsertTableRenunciationServlet.class.getName()).log(Level.SEVERE, null, ex);
-
         }
-
-
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
