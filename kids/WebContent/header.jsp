@@ -48,7 +48,7 @@
                 <li id="classificationME"><a href="classification.jsp">Gestione Graduatorie</a></li>
             </div>
             <div class="div">
-                <li id="renunciationManager"><a href="renunciation.jsp">Gestione Rinunce</a></li>
+                <li id="renunciationManagement"><a href="renunciation.jsp">Gestione Rinunce</a></li>
             </div>
         </c:if>
 
@@ -117,8 +117,9 @@
                 <li id="classificationME"><a href="classification.jsp">Gestione Graduatorie</a></li>
             </div>
             <div class="div">
-                <li id="renunciationManager"><a href="renunciation.jsp">Gestione Rinunce</a></li>
+                <li id="renunciationManagement"><a href="renunciation.jsp">Gestione Rinunce</a></li>
             </div>
+            
             <div class="div">
                 <li id="paymentManagementMenuEl"><a href="paymentParent.jsp">Gestione pagamenti</a></li>
             </div>
