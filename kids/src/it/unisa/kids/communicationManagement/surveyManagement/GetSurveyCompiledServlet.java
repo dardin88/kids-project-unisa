@@ -83,12 +83,21 @@ public class GetSurveyCompiledServlet  extends HttpServlet{
                   jarr.put(sur.getLink());
                   jarr.put(sur.getParent());
                   jarr.put(sur.getCompiled());
-                  // must continue
+                  // must continue..but I think it's the same of GetSurveyServlet.java
                   
               }                
                 
                 
                 }
+            result.put("sEcho", sEcho);
+            result.put("iTotalRecords", linksNumber);
+            result.put("iTotalDisplayRecords", linksNumber);
+            result.put("aaData", array);
+            response.setContentType("application/json");
+            response.setHeader("Cache-Control",
+                    "private, no-store, no-cache, must-revalidate");
+            response.setHeader("Pragma", "no-cache");
+            out.println(result);
         
         }catch (Exception ex) {
             Logger.getLogger(GetSurveyServlet.class.getName()).log(Level.SEVERE, null, ex);
