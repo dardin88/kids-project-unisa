@@ -688,3 +688,9 @@ Gestione bambini
     padding-top: 1%;
     width: 80%;
 }
+#classificationDisplay {
+    float: left;
+    padding: 2%;
+    padding-top: 1%;
+    width: 80%;
+}
