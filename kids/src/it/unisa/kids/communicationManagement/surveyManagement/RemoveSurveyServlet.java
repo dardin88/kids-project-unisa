@@ -9,11 +9,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
  *
  * @author felice
  */
-public class RemoveSurveyServlet extends HttpServlet{
+public class RemoveSurveyServlet extends HttpServlet {
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -24,29 +26,24 @@ public class RemoveSurveyServlet extends HttpServlet{
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        try{
-             response.setContentType("text/html;charset=UTF-8");
-                ISurveyManager am = JDBCSurveyManager.getInstance();
-                Survey sur = new Survey();
-                int sId = Integer.parseInt(request.getParameter("Id"));
-                String sLink = request.getParameter("Link");
-                
-                sur.setId(sId);
-                am.delete(sur);
-            
-        }catch(SQLException ex){
+        try {
+            ISurveyManager am = JDBCSurveyManager.getInstance();
+            Survey sur = new Survey();
+            int sId = Integer.parseInt(request.getParameter("id"));
+            sur.setId(sId);
+            am.delete(sur);
+
+        } catch (SQLException ex) {
             Logger.getLogger(RemoveSurveyServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
         }
-  }
-    
-    
+    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP
