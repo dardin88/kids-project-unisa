@@ -7,22 +7,20 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-        <link rel="stylesheet" type="text/css" href="css/template.css">
-        <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
-        <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
-        <link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css">
-        <link rel="stylesheet" type="text/css" href="css/TableTools.css">
-
-        <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
-        <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
-        <script type="text/javascript" src="js/jquery.validate.min.js"></script>
-        <script type="text/javascript" src="js/additional-methods.min.js"></script>
-        <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" src="js/TableTools.min.js"></script>
-        <script type="text/javascript" src="js/timeService.js"></script>
+         <link rel="stylesheet" type="text/css" href="css/template.css" >
         <script type="text/javascript" src="js/functions.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
+        <script type="text/javascript" src="js/jquery-1.8.2.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.js"></script>   
+        <script type="text/javascript" src="js/timeService.js"></script>
+        <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/jquery.ui.timepicker.css">
+        <script type="text/javascript" src="js/fullcalendar.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/fullcalendar.css">
+
+        <script type="text/javascript" src="js/jquery.ui.timepicker.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 
         <title>Orario di servizio</title>
@@ -63,28 +61,30 @@
                     </ul>
                     <div id="visualTime">
                         <div id="notifyTimeService">
-
-
-                            
                             <textarea readonly style="resize:none"name="orarioDiServizio" rows="20" cols="100" id="TextAreaTimeService"></textarea>
-
-                            
-
-
-
                         </div>
                     </div>
 
-                    <div id="requestTime">
+                    <div id="RequestTime">
                         <form id="requestTimeForm" class="cmxform" method="post" action="requestTime">
                             <table>
                                 <tr><td>Seleziona servizio</td><td> <select name="type" id="type">
-                                    <option value="PreAccoglienza">Pre-accoglienza</option>
-                                    <option value="PostAccoglienza">Post-accoglienza</option>
-                                    <option value="ProlungamentoOrario">Prolungamento Orario di base</option>
-                                </select></td></tr>
+                                            <option value="PreAccoglienza">Pre-accoglienza</option>
+                                            <option value="PostAccoglienza">Post-accoglienza</option>
+                                            <option value="ProlungamentoOrario">Prolungamento Orario di base</option>
+                                        </select></td></tr>
+                                <tr><td>Giorno</td><td><select name="giorno" id="day">
+                                            <option value="Lunedi">Luned&igrave</option>
+                                            <option value="Martedi">Marted&igrave</option>
+                                            <option value="Mercoledi">Mercoled&igrave</option>
+                                            <option value="Giovedi">Gioved&igrave</option>
+                                            <option value="Venerdi">Venerd&igrave</option>
+                                        </select>
+                                    </td></tr>
+                                <tr><td>Ora</td><td><input type="text" name="Ora" id="Time"></td></tr>
+                                <tr><td>Data</td><td><input type="text" name="Data" id="Date"></td></tr>
                             </table>
-                                
+                            <input type="submit" name="SendRequest" value="Invia Richiesta" id="SendRequest">
                     </div>
                 </div> <%--chiusura div per jquery Genitore --%>   
             </c:if>   
