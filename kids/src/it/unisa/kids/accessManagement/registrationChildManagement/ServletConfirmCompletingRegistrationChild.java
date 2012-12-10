@@ -52,13 +52,15 @@ public class ServletConfirmCompletingRegistrationChild extends HttpServlet {
             String vaccinazioni = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_ISVACCINATIONSSET);
             String privacy = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_ISPRIVACYSTATEMENTSET);
 
-            //* TEST DELLA RICHIESTA ALLA SERVLET
+            /* TEST DELLA RICHIESTA ALLA SERVLET
             System.out.println("Sono nella CompleteServlet ed l'id è: " + request.getParameter(DBNames.ATT_REGISTRATIONCHILD_ID));
             //*/
             
             // Creo la domanda di iscrizione bambino
             RegistrationChild registrationChild = new RegistrationChild();
             registrationChild.setId(id);
+            
+            registrationChild = registrationChildManager.search(registrationChild).get(0);
             registrationChild.setIsSicknessSet(malattie);
             registrationChild.setIsVaccinationsSet(vaccinazioni);
             registrationChild.setIsPrivacyStatementSet(privacy);

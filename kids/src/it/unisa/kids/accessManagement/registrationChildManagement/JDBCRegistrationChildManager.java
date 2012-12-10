@@ -44,6 +44,9 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
         boolean toReturn = false;
         String query = "INSERT INTO " + DBNames.TABLE_REGISTRATIONCHILD + " (" +
                       DBNames.ATT_REGISTRATIONCHILD_ID + ", " +
+                      DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID + ", " +
+                      DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONDATE + ", " +
+                      DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE + ", " +
                       DBNames.ATT_REGISTRATIONCHILD_SURNAME + ", " +
                       DBNames.ATT_REGISTRATIONCHILD_NAME + ", " +
                       DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE + ", " +
@@ -51,40 +54,50 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
                       DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + ", " +
                       DBNames.ATT_REGISTRATIONCHILD_CITIZENSHIP + ", " +
                       DBNames.ATT_REGISTRATIONCHILD_USERRANGE + ", " +
-                      DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONDATE + ", " +
                       DBNames.ATT_REGISTRATIONCHILD_SICKNESS + ", " +
-                      DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE + ", " +
-                      DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID + ", " +
+                      DBNames.ATT_REGISTRATIONCHILD_VACCINATIONS + ", " +
+                      DBNames.ATT_REGISTRATIONCHILD_PRIVACYSTATEMENT + ", " +
+                      DBNames.ATT_REGISTRATIONCHILD_ISSICKNESSSET + ", " +
+                      DBNames.ATT_REGISTRATIONCHILD_ISVACCINATIONSSET + ", " +
+                      DBNames.ATT_REGISTRATIONCHILD_ISPRIVACYSTATEMENTSET + ", " +
                       DBNames.ATT_REGISTRATIONCHILD_SECTIONID + ") " +
-                      "VALUES(NULL,?,?,?,?,?,?,?,?,?,?,?,?);";
+                      "VALUES(NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
         try {
             con = DBConnectionPool.getConnection();
             pstmt = con.prepareStatement(query);
-            pstmt.setString(1, child.getSurname());
-            pstmt.setString(2, child.getName());
-            Date dateToSet;
-            if(child.getBirthDate() != null) {
-                dateToSet = CommonMethod.parseDate(child.getBirthDate());
-            } else {
-                dateToSet = null;
-            }
             
-            pstmt.setDate(3, dateToSet);
-            pstmt.setString(4, child.getBirthPlace());
-            pstmt.setString(5, child.getFiscalCode());
-            pstmt.setString(6, child.getCitizenship());
-            pstmt.setString(7, child.getUserRange());
+            pstmt.setInt(1, child.getParentId());
+            Date dateToSet;
             if(child.getRegistrationDate() != null) {
                 dateToSet = CommonMethod.parseDate(child.getRegistrationDate());
             } else {
                 dateToSet = null;
             }
-            pstmt.setDate(8, dateToSet);
-            pstmt.setString(9, child.getSickness());
-            pstmt.setString(10, child.getRegistrationPhase());
-            pstmt.setInt(11, child.getParentId());
-            pstmt.setInt(12, child.getSectionId());
+            pstmt.setDate(2, dateToSet);
+            pstmt.setString(3, child.getRegistrationPhase());
+            
+            pstmt.setString(4, child.getSurname());
+            pstmt.setString(5, child.getName());
+            if(child.getBirthDate() != null) {
+                dateToSet = CommonMethod.parseDate(child.getBirthDate());
+            } else {
+                dateToSet = null;
+            }
+            pstmt.setDate(6, dateToSet);    // data di nascita
+            pstmt.setString(7, child.getBirthPlace());
+            pstmt.setString(8, child.getFiscalCode());
+            pstmt.setString(9, child.getCitizenship());
+            pstmt.setString(10, child.getUserRange());
+            
+            pstmt.setString(11, child.getSickness());
+            pstmt.setString(12, child.getVaccinations());
+            pstmt.setString(13, child.getPrivacyStatement());
+            pstmt.setString(14, child.getIsSicknessSet());
+            pstmt.setString(15, child.getIsVaccinationsSet());
+            pstmt.setString(16, child.getIsPrivacyStatementSet());
+            
+            pstmt.setInt(17, child.getSectionId());
             
             if(pstmt.executeUpdate() > 0) { // executeUpdate restituisce il numero delle righe modificato
                 toReturn = true;
@@ -112,11 +125,16 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
                                 DBNames.ATT_REGISTRATIONCHILD_BIRTHPLACE + "=?, " +
                                 DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + "=?, " +
                                 DBNames.ATT_REGISTRATIONCHILD_CITIZENSHIP + "=?, " +
-                                DBNames.ATT_REGISTRATIONCHILD_SICKNESS + "=?, " +
                                 DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONDATE + "=?, " +
                                 DBNames.ATT_REGISTRATIONCHILD_USERRANGE + "=?, " +
                                 DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE + "=?, " +
                                 DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_SICKNESS + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_VACCINATIONS + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_PRIVACYSTATEMENT + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_ISSICKNESSSET + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_ISVACCINATIONSSET + "=?, " +
+                                DBNames.ATT_REGISTRATIONCHILD_ISPRIVACYSTATEMENTSET + "=?, " +
                                 DBNames.ATT_REGISTRATIONCHILD_SECTIONID + "=? " +
                         "WHERE " + DBNames.ATT_REGISTRATIONCHILD_ID + "=?;"; 
 			
@@ -137,20 +155,27 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             pstmt.setString(4, child.getBirthPlace());
             pstmt.setString(5, child.getFiscalCode());
             pstmt.setString(6, child.getCitizenship());
-            pstmt.setString(7, child.getSickness());
             if(child.getRegistrationDate() != null) {
                 tmp = CommonMethod.parseDate(child.getRegistrationDate());
             } else {
                 tmp = null;
             }
-            pstmt.setDate(8, tmp);
-            pstmt.setString(9, child.getUserRange());
-            pstmt.setString(10, child.getRegistrationPhase());
-            pstmt.setInt(11, child.getParentId());
-            pstmt.setInt(12, child.getSectionId());
+            pstmt.setDate(7, tmp);
+            pstmt.setString(8, child.getUserRange());
+            pstmt.setString(9, child.getRegistrationPhase());
+            pstmt.setInt(10, child.getParentId());
+            
+            pstmt.setString(11, child.getSickness());
+            pstmt.setString(12, child.getVaccinations());
+            pstmt.setString(13, child.getPrivacyStatement());
+            pstmt.setString(14, child.getIsSicknessSet());
+            pstmt.setString(15, child.getIsVaccinationsSet());
+            pstmt.setString(16, child.getIsPrivacyStatementSet());
+            
+            pstmt.setInt(17, child.getSectionId());
 
             // parameters of where
-            pstmt.setInt(13, child.getId());
+            pstmt.setInt(18, child.getId());
             
             /* Test della query
             System.out.println(query);
@@ -271,6 +296,14 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_SICKNESS + "=?");
             andState = true;
         }
+        if(child.getVaccinations() != null) {
+            query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_VACCINATIONS + "=?");
+            andState = true;
+        }
+        if(child.getPrivacyStatement() != null) {
+            query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_PRIVACYSTATEMENT + "=?");
+            andState = true;
+        }
         if(!andState) {  // nel caso tutti i parametri sono null
             query.append("1");
         }
@@ -331,9 +364,18 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             }
             if(child.getSectionId() > 0) {
                 pstmt.setInt(paramNum, child.getSectionId());
+                paramNum++;
             }
             if(child.getSickness() != null) {
                 pstmt.setString(paramNum, child.getSickness());
+                paramNum++;
+            }
+            if(child.getVaccinations() != null) {
+                pstmt.setString(paramNum, child.getVaccinations());
+                paramNum++;
+            }
+            if(child.getPrivacyStatement() != null) {
+                pstmt.setString(paramNum, child.getPrivacyStatement());
                 paramNum++;
             }
             
@@ -387,7 +429,7 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        String query = null;
+        String query;
         int num = 0;
         
         try {

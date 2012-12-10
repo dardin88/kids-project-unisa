@@ -75,14 +75,24 @@ public class ServletGetTableRegistrationChild extends HttpServlet {
             // L'output è in base alla tipologia dell'account
             Account account = (Account) request.getSession().getAttribute("user");
             RegistrationChild child = new RegistrationChild();
-                if(account.getAccountType().equals("Genitore")) {
+            switch (account.getAccountType()) {
+                case "Genitore":
                     // Il genitore può vedere solo le proprie domande di iscrizione
-                child.setParentId(account.getId());
-            } else if(account.getAccountType().equals("Segreteria")) {
-                // La segreteria potrà vedere solo le richieste sottomesse dai genitori, che dovrà andare a confermare
-                child.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED);
+                    child.setParentId(account.getId());
+                    listChildRequest = registrationChildManager.search(child);
+                    break;
+                case "Segreteria":
+                    // La segreteria potrà vedere solo le richieste sottomesse dai genitori, che dovrà andare a confermare
+                    child.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED);
+                    listChildRequest = registrationChildManager.search(child);
+                    child.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_COMPLETED);
+                    listChildRequest.addAll(registrationChildManager.search(child));
+                    break;
+                default:
+                    listChildRequest = registrationChildManager.search(child);
+                    break;
             }
-                listChildRequest = registrationChildManager.search(child);
+                
             //}
 
             int linksNumber = listChildRequest.size();
@@ -115,7 +125,8 @@ public class ServletGetTableRegistrationChild extends HttpServlet {
                         if(regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DRAFT)) {
                             operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Modifica\" alt=\"Modifica\" src='img/edit.gif' onclick='openModifyRegistrationChildWindow(\""+regChildRequest.getId()+"\")'/>");
                         }
-                        if(!regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_ACCEPTED) && !regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DELETED)) {
+                        if(regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DRAFT) && regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED) && 
+                                    !regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_RECEIPT)) {
                             operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Elimina\" alt=\"Elimina\" src='img/trash.png' onclick='openDeleteRegistrationChildWindow(\"" + regChildRequest.getId() + "\")'/>");
                         }
                         if(regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_ACCEPTED)) {

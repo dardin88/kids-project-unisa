@@ -93,6 +93,10 @@ public class ServletSubmitNewRegistrationChild extends HttpServlet {
             registrationChild.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED);
             registrationChild.setParentId(parentAccount.getId());
 
+            registrationChild.setSickness("");
+            registrationChild.setVaccinations("");
+            registrationChild.setPrivacyStatement("");
+            
             // La inserisco nel db
             if(id.equals("")) {
                 isSuccess = registrationChildManager.insert(registrationChild);
