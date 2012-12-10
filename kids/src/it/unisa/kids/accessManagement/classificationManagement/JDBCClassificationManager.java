@@ -39,12 +39,12 @@ public class JDBCClassificationManager implements IClassificationManager {
             con = DBConnectionPool.getConnection();
 
             // constructing query string
-            query = "INSERT INTO " + DBNames.TABLE_CLASSIFICATION + " ("
-                            + DBNames.ATT_CLASSIFICATION_ID + ", "
-                            + DBNames.ATT_CLASSIFICATION_NAME + ", "
-                            + DBNames.ATT_CLASSIFICATION_DATA+ ", "
-                            + DBNames.ATT_CLASSIFICATION_STATUS + ", "
-                            + ") VALUES(NULL, ?, ?, ?);";
+            query = "INSERT INTO " + DBNames.TABLE_CLASSIFICATION + " (" +
+                            DBNames.ATT_CLASSIFICATION_ID + ", " +
+                            DBNames.ATT_CLASSIFICATION_NAME + ", " +
+                            DBNames.ATT_CLASSIFICATION_DATA + ", " +
+                            DBNames.ATT_CLASSIFICATION_STATUS + ") " +
+                      "VALUES(NULL,?,?,?);";
             
             pstmt = con.prepareStatement(query);
 
@@ -65,6 +65,7 @@ public class JDBCClassificationManager implements IClassificationManager {
             if(numEditedRow > 0) {
                 toReturn = true;
             }
+            //System.out.println("Ci sono, esito: " + toReturn);
             /* Come è stato progettato il sistema, una nuova graduatoria non può avere già risultati
              * In caso di modifiche, decommentare
             // inserimento dei risultati
@@ -105,7 +106,7 @@ public class JDBCClassificationManager implements IClassificationManager {
                     "SET " +
                         DBNames.ATT_CLASSIFICATION_NAME + "=?, " +
                         DBNames.ATT_CLASSIFICATION_DATA + "=?, " +
-                        DBNames.ATT_CLASSIFICATION_STATUS + "=?, " +
+                        DBNames.ATT_CLASSIFICATION_STATUS + "=? " +
                     "WHERE " + DBNames.ATT_CLASSIFICATION_ID + "=?;";
 
             pstmt = con.prepareStatement(query);
@@ -269,6 +270,9 @@ public class JDBCClassificationManager implements IClassificationManager {
                 Result tmpResult = new Result();
                 tmpResult.setClassificationId(tmpClassification.getId());
                 tmpClassification.setResults(searchResult(tmpResult));
+                
+                // Aggiungo nella lista di ritorno
+                classificationList.add(tmpClassification);
             }
         } finally {
             if(resultSet != null) {
@@ -297,7 +301,7 @@ public class JDBCClassificationManager implements IClassificationManager {
                         DBNames.ATT_RESULT_REGISTRATIONCHILDID + ", " +
                         DBNames.ATT_RESULT_CLASSIFICATIONID + ", " +
                         DBNames.ATT_RESULT_SCORE + ", " +
-                        DBNames.ATT_RESULT_RESULT + ", " +
+                        DBNames.ATT_RESULT_RESULT + " " +
                     ") VALUES(?, ?, ?, ?);";
                 
             pstmt = con.prepareStatement(query);
@@ -336,7 +340,7 @@ public class JDBCClassificationManager implements IClassificationManager {
             query = "UPDATE" + DBNames.TABLE_RESULT + " " +
                     "SET " +
                         DBNames.ATT_RESULT_SCORE + "=?, " +
-                        DBNames.ATT_RESULT_RESULT + "=?, " +
+                        DBNames.ATT_RESULT_RESULT + "=? " +
                     "WHERE " + DBNames.ATT_RESULT_REGISTRATIONCHILDID + "=? AND " +
                     DBNames.ATT_RESULT_CLASSIFICATIONID + "=?;";
             pstmt = con.prepareStatement(query);
@@ -373,7 +377,7 @@ public class JDBCClassificationManager implements IClassificationManager {
             // constructing query string for classification
             query = "DELETE " +
                     "FROM " + DBNames.TABLE_RESULT + " " +
-                    "WHERE " + DBNames.ATT_RESULT_CLASSIFICATIONID + "=?; AND " +
+                    "WHERE " + DBNames.ATT_RESULT_CLASSIFICATIONID + "=? AND " +
                         DBNames.ATT_RESULT_REGISTRATIONCHILDID + "=?;";
 
             stmt = con.prepareStatement(query);
@@ -398,15 +402,16 @@ public class JDBCClassificationManager implements IClassificationManager {
         ResultSet resultSet = null;
         StringBuffer query = new StringBuffer();
         List<Result> resultList = null;
-        boolean andState = false;
+        boolean andState = true;
 
         try {
             con = DBConnectionPool.getConnection();
-            query.append("SELECT * " +
-                        "FROM " + DBNames.TABLE_RESULT + " " +
-                        "WHERE ");
+            query.append("SELECT R.*, RC." + DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + 
+                                    ", RC." + DBNames.ATT_REGISTRATIONCHILD_SURNAME + ", RC." + DBNames.ATT_REGISTRATIONCHILD_NAME + " " +
+                        "FROM " + DBNames.TABLE_RESULT + " AS R, " + DBNames.TABLE_REGISTRATIONCHILD + " AS RC " +
+                        "WHERE R." + DBNames.ATT_RESULT_REGISTRATIONCHILDID + "=RC." + DBNames.ATT_REGISTRATIONCHILD_ID);
             if(result.getClassificationId() > 0) {
-                query.append(DBNames.ATT_RESULT_CLASSIFICATIONID + "=?");
+                query.append(useAnd(andState) + DBNames.ATT_RESULT_CLASSIFICATIONID + "=?");
                 andState = true;
             }
             if(result.getRegistrationChildId() > 0) {
@@ -425,6 +430,7 @@ public class JDBCClassificationManager implements IClassificationManager {
                         DBNames.ATT_RESULT_CLASSIFICATIONID + ", " + 
                         DBNames.ATT_RESULT_REGISTRATIONCHILDID + " DESC;");
             
+            //System.out.println(query);
             pstmt = con.prepareStatement(query.toString());
             int i = 1;
             if(result.getClassificationId() > 0) {
@@ -447,6 +453,11 @@ public class JDBCClassificationManager implements IClassificationManager {
                 Result rTmp = new Result();
                 rTmp.setClassificationId(resultSet.getInt(DBNames.ATT_RESULT_CLASSIFICATIONID));
                 rTmp.setRegistrationChildId(resultSet.getInt(DBNames.ATT_RESULT_REGISTRATIONCHILDID));
+                
+                rTmp.setRegistrationChildFiscalCode(resultSet.getString(DBNames.ATT_REGISTRATIONCHILD_FISCALCODE));
+                rTmp.setRegistrationChildSurname(resultSet.getString(DBNames.ATT_REGISTRATIONCHILD_SURNAME));
+                rTmp.setRegistrationChildName(resultSet.getString(DBNames.ATT_REGISTRATIONCHILD_NAME));
+                
                 rTmp.setScore(resultSet.getDouble(DBNames.ATT_RESULT_SCORE));
                 rTmp.setResult(resultSet.getBoolean(DBNames.ATT_RESULT_RESULT));
                 resultList.add(rTmp);
@@ -476,8 +487,8 @@ public class JDBCClassificationManager implements IClassificationManager {
             con = DBConnectionPool.getConnection();
 
             // constructing query string for classification
-            query = "DELETE FROM " + DBNames.TABLE_RESULT
-                            + "WHERE " + DBNames.ATT_RESULT_CLASSIFICATIONID + "=?;";
+            query = "DELETE FROM " + DBNames.TABLE_RESULT + " " +
+                            "WHERE " + DBNames.ATT_RESULT_CLASSIFICATIONID + "=?;";
 
             stmt = con.prepareStatement(query);
             stmt.setInt(1, classification.getId());
@@ -508,8 +519,8 @@ public class JDBCClassificationManager implements IClassificationManager {
             con = DBConnectionPool.getConnection();
 
             // constructing query string for classification
-            query = "DELETE FROM " + DBNames.TABLE_RESULT
-                            + "WHERE " + DBNames.ATT_RESULT_REGISTRATIONCHILDID + "=?;";
+            query = "DELETE FROM " + DBNames.TABLE_RESULT + " " +
+                            "WHERE " + DBNames.ATT_RESULT_REGISTRATIONCHILDID + "=?;";
 
             stmt = con.prepareStatement(query);
             stmt.setInt(1, child.getId());
@@ -581,7 +592,7 @@ public class JDBCClassificationManager implements IClassificationManager {
             query = "INSERT INTO " + DBNames.TABLE_CRITERIA + " ("
                             + DBNames.ATT_CRITERIA_ID + ", "
                             + DBNames.ATT_CRITERIA_DESCRIPTION + ", "
-                            + DBNames.ATT_CRITERIA_WEIGHT + ", "
+                            + DBNames.ATT_CRITERIA_WEIGHT + " "
                             + ") VALUES(NULL, ?, ?)";
             
             pstmt = con.prepareStatement(query);
@@ -621,7 +632,7 @@ public class JDBCClassificationManager implements IClassificationManager {
             query = "UPDATE " + DBNames.TABLE_CRITERIA + " " +
                     "SET " +
                     DBNames.ATT_CRITERIA_ID + "=?, " +
-                    DBNames.ATT_CRITERIA_WEIGHT + "=?, " +
+                    DBNames.ATT_CRITERIA_WEIGHT + "=? " +
                     "WHERE " + DBNames.ATT_CRITERIA_ID + "=?;";
 
             pstmt = con.prepareStatement(query);

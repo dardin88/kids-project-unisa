@@ -60,18 +60,18 @@ function createTableClassification() {
 }
 
 
-function createTableResult() {
-        $('#classificationTable').dataTable({
+function createTableResult(id) {
+        $('#classificationResultTable').dataTable({
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": "GetTableResult",
+        "sAjaxSource": "GetTableResult?Id=" + id,
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
         "fnServerParams": function (aoData) {
         aoData.push({
-            Id : getValue("classificationSelectedId")
+//            Id : id
         });
         },
 

@@ -7,11 +7,13 @@ package it.unisa.kids.accessManagement.classificationManagement;
 import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.accessManagement.registrationChildManagement.ServletGetTableRegistrationChild;
+import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,11 +50,35 @@ public class ServletGetTableClassification extends HttpServlet {
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         
-        RegistrationChild[] paginateChildRequestSet;
-        List<RegistrationChild> listChildRequest;
+        Classification[] paginateClassificationRequestSet;
+        List<Classification> listClassification;
         try {
             JSONObject result = new JSONObject();
             JSONArray array = new JSONArray();
+            // L'output è in base alla tipologia dell'account
+            Account account = (Account) request.getSession().getAttribute("user");
+            
+            switch (account.getAccountType()) {
+                case "Genitore":
+                    // Il genitore può vedere solo le classifiche provvisorie e definitive
+                    Classification classification = new Classification();
+                    classification.setStatus(DBNames.ATT_CLASSIFICATION_STATUS_PROVVISORIA);
+                    listClassification = classificationManager.search(classification);
+                    
+                    classification.setStatus(DBNames.ATT_CLASSIFICATION_STATUS_DEFINITIVA);
+                    listClassification.addAll(classificationManager.search(classification));
+                    break;
+                case "Segreteria":
+                    // La segreteria potrà vedere tutte
+                    //System.out.println("Sto producendo la lista per il segretario");
+                    listClassification = classificationManager.getAllClassification();
+                    //System.out.println("La lista contiene: " + listClassification.size() + " elementi");
+                    break;
+                default:
+                    listClassification = new ArrayList<Classification>();
+                    break;
+            }
+            // PRECONFIGURAZIONE DELLA TABELLA
             int start = 0;
             int amount = 10;
             String sStart = request.getParameter("iDisplayStart");
@@ -70,87 +96,48 @@ public class ServletGetTableClassification extends HttpServlet {
                     amount = 10;
                 }
             }
-           /*if (request.getParameter(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE) != null) {
-                RegistrationChild child = new RegistrationChild();
-                child.setRegistrationPhase(request.getParameter(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE));
-                
-                listChildRequest = registrationChildManager.search(child);
-            } else {*/
-            // L'output è in base alla tipologia dell'account
-            Account account = (Account) request.getSession().getAttribute("user");
-            Classification classification = new Classification();
-            
-            switch (account.getAccountType()) {
-                case "Genitore":
-                    // Il genitore può vedere solo le proprie domande di iscrizione
-                    classification.setParentId(account.getId());
-                    listChildRequest = registrationChildManager.search(classification);
-                    break;
-                case "Segreteria":
-                    // La segreteria potrà vedere solo le richieste sottomesse dai genitori, che dovrà andare a confermare
-                    classification.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED);
-                    listChildRequest = registrationChildManager.search(classification);
-                    classification.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_COMPLETED);
-                    listChildRequest.addAll(registrationChildManager.search(classification));
-                    break;
-                default:
-                    listChildRequest = registrationChildManager.search(classification);
-                    break;
-            }
-                
-            //}
-
-            int linksNumber = listChildRequest.size();
+            int linksNumber = listClassification.size();
             if (linksNumber < amount) {
                 amount = linksNumber;
             }
             if (linksNumber != 0) {
                 int toShow = linksNumber - start;
                 if (toShow > 10) {
-                    paginateChildRequestSet = new RegistrationChild[amount];
-                    System.arraycopy(listChildRequest.toArray(), start, paginateChildRequestSet, 0, amount);
+                    paginateClassificationRequestSet = new Classification[amount];
+                    System.arraycopy(listClassification.toArray(), start, paginateClassificationRequestSet, 0, amount);
                 } else {
-                    paginateChildRequestSet = new RegistrationChild[toShow];
-                    System.arraycopy(listChildRequest.toArray(), start, paginateChildRequestSet, 0, toShow);
+                    paginateClassificationRequestSet = new Classification[toShow];
+                    System.arraycopy(listClassification.toArray(), start, paginateClassificationRequestSet, 0, toShow);
                 }
                 
-                for (RegistrationChild regChildRequest : paginateChildRequestSet) {
+                // CREAZIONE DELL'OUTPUT DELLA TABELLA - POPOLAMENTO
+                for (Classification classificationElement : paginateClassificationRequestSet) {
                     JSONArray ja = new JSONArray();
-                    ja.put(regChildRequest.getFiscalCode());
-                    ja.put(regChildRequest.getSurname());
-                    ja.put(regChildRequest.getName());
-                    ja.put(regChildRequest.getRegistrationPhase());
+                    ja.put(CommonMethod.parseString(classificationElement.getDate()));
+                    ja.put(classificationElement.getName());
+                    ja.put(classificationElement.getStatus());
                     
                     StringBuffer operazioni = new StringBuffer();
                     // Sia genitore che segreteria possono vederne i dettagli, la visualizza dettagli deve esser possibile su tutte le domanda
-                    operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Visualizza Dettagli\" alt=\"Dettagli\" src='img/lente.gif' onclick='openViewDetailsRegistrationChildWindow(\""+regChildRequest.getId()+"\")'/>");
+                    operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Visualizza Dettagli\" alt=\"Dettagli\" src='img/lente.gif' onclick='viewDetailsClassification(\""+classificationElement.getId()+"\")'/>");
                     
-                    if(account.getAccountType().equals("Genitore")) {
-                        // solo il genitore può eliminarla o modificarla
-                        if(regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DRAFT)) {
-                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Modifica\" alt=\"Modifica\" src='img/edit.gif' onclick='openModifyRegistrationChildWindow(\""+regChildRequest.getId()+"\")'/>");
-                        }
-                        if(regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DRAFT) || regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED) || 
-                                    regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_RECEIPT)) {
-                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Elimina\" alt=\"Elimina\" src='img/trash.png' onclick='openDeleteRegistrationChildWindow(\"" + regChildRequest.getId() + "\")'/>");
-                        }
-                        if(regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_ACCEPTED)) {
-                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Completa\" alt=\"Completa\" src='img/tocomplete.png' onclick='openCompleteRegistrationChildWindow(\"" + regChildRequest.getId() + "\")'/>");
-                        }
-                    }
                     if(account.getAccountType().equals("Segreteria")) {
-                        // solo la segreteria può confermare
-                        if(regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED)) {
-                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" alt=\"Conferma\" alt=\"Conferma ricezione\" src='img/accept.png' onclick='confirmReceivingRegistrationChildWindow(\"" + regChildRequest.getId() + "\")'/>");
+                        // solo il genitore può eliminarla o modificarla
+                        if(classificationElement.getStatus().equals(DBNames.ATT_CLASSIFICATION_STATUS_BOZZA)) {
+                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Modifica\" alt=\"Modifica\" src='img/edit.gif' onclick='openWindowModifyClassification(\""+classificationElement.getId()+"\")'/>");
                         }
-                        // e confermare il completamento
-                        if(regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_COMPLETED)) {
-                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" alt=\"Conferma\" alt=\"Conferma completamento\" src='img/accept.png' onclick='openComfirmCompletingRegistrationChildWindow(\"" + regChildRequest.getId() + "\")'/>");
+                        if(classificationElement.getStatus().equals(DBNames.ATT_CLASSIFICATION_STATUS_BOZZA)) {
+                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Elimina\" alt=\"Elimina\" src='img/trash.png' onclick='openWindowDeleteClassification(\"" + classificationElement.getId() + "\")'/>");
+                        }
+                        if(classificationElement.getStatus().equals(DBNames.ATT_CLASSIFICATION_STATUS_BOZZA)) {
+                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Rendi Provvisoria\" alt=\"Rendi Provvisoria\" src='img/accept.png' onclick='openWindowToProvvisoriaClassification(\"" + classificationElement.getId() + "\")'/>");
+                        }
+                        if(classificationElement.getStatus().equals(DBNames.ATT_CLASSIFICATION_STATUS_PROVVISORIA)) {
+                            operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Rendi Definitiva\" alt=\"Rendi Definitiva\" src='img/accept.png' onclick='openWindowToDefinitivaClassification(\"" + classificationElement.getId() + "\")'/>");
                         }
                     }
                     ja.put(operazioni.toString());
                     array.put(ja);
-                    
                 }
             }
             result.put("sEcho", sEcho);

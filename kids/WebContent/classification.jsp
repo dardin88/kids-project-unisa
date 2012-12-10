@@ -29,7 +29,7 @@
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/classificationManager.js"></script>
         <script type="text/javascript" src="js/classificationTables.js"></script>
-        <script type="text/javascript" src="js/classificationCriterion.js"></script>
+        <script type="text/javascript" src="js/classificationCriteria.js"></script>
         
         <title>Classification Management</title>
     </head>
@@ -37,54 +37,9 @@
         $(document).ready(function() {
             activePage();
             initClassificationPage();
-            createTableClassification();
-<c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
-            $("#classificationModifyWindowSave").button();
-            $("#classificationModifyWindowSave").click(function() {
-                classificationButtonActionSaveModify();
-            });
-            $("#classificationModifyWindowUndo").button();
-            $("#classificationModifyWindowUndo").click(function() {
-                changeWindowVisibility("classificationModifyWindow", false);
-            });
-            $("#classificationButtonOpenWindowCreateNew").button();
-            $("#classificationButtonOpenWindowCreateNew").click(function() {
-                classificationButtonOpenWindowCreateNew();
-            });
-            $("#classificationButtonActionCreateNew").button();
-            $("#classificationButtonActionCreateNew").click(function() {
-                classificationButtonActionCreateNew();
-            });
-            $("#classificationButtonActionSetProvvisoria").button();
-            $("#classificationButtonActionSetProvvisoria").click(function() {
-                classificationButtonActionSetProvvisoria();
-            });
-            $("#classificationButtonActionSetDefinitiva").button();
-            $("#classificationButtonActionSetDefinitiva").click(function() {
-                classificationButtonActionSetDefinitiva();
-            });
-            $("#classificationButtonOpenWindowAddCriterion").button();
-            $("#classificationButtonOpenWindowAddCriterion").click(function() {
-                classificationButtonOpenWindowAddCriterion();
-            });
-            $("#classificationButtonActionSaveCriterion").button();
-            $("#classificationButtonActionSaveCriterion").click(function() {
-                classificationButtonActionSaveCriterion();
-            });
-            $("#classificationButtonOpenWindowEditCriteria").button();
-            $("#classificationButtonOpenWindowEditCriteria").click(function() {
-                classificationButtonOpenWindowEditCriteria();
-            });
-            $("#classificationButtonActionSaveModifyCriteria").button();
-            $("#classificationButtonActionSaveModifyCriteria").click(function() {
-                classificationButtonActionSaveModify();
-            });
-            $("#classificationButtonActionUpdateResult").button();
-            $("#classificationButtonActionUpdateResult").click(function() {
-                classificationButtonActionUpdateResult();
-            });
+            initCriteriaWindow();
             
-</c:if>
+            createTableClassification();
         });
         
     </script>
@@ -92,95 +47,52 @@
     <body>
         <%@include file="header.jsp" %>
         
-        <div id="classificationSubmit">
-            <input type="hidden" id="classificationSelectedId" />
-            <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
-            <input type="submit" id="classificationButtonOpenWindowCreateNew" value="Crea una nuova graduatoria" />
-            <input type="submit" id="classificationButtonOpenWindowCreateNew" value="Crea una nuova graduatoria" />
-            <input type="button" id="classificationOpenCriteriaWindow" onClick="openCriteriaWindow();" value="Gestisci criteri" />
-            </c:if>
+        <%-- CORPO PRINCIPALE DELLA PAGINA: PULSANTI E TABELLA CON ELENCO DELLE GRADUATORIE --%>
+        <div id="classificationContentPage">
+            <h2>Graduatorie disponibili:</h2>
+            <div id="classificationSubmit">
+                <input type="hidden" id="classificationSelectedId" />
+<c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
+                <input type="button" id="classificationButtonOpenWindowCreateNew" onClick="openAddClassificationWindow();" value="Crea una nuova graduatoria" />
+                <%--<input type="button" id="classificationOpenCriteriaWindow" onClick="openCriteriaWindow();" value="Gestisci criteri" />--%>
+</c:if>
+            </div>
+            <div id="classificationDisplayTable">
+                <table id="classificationTable">
+                    <thead>
+                        <th>Data</th>
+                        <th>Nome</th>
+                        <th>Stato</th>
+                        <th>Operazioni</th>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div id="classificationDisplayTable">
-            <table id="classificationTable">
-                <thead>
-                    <th>Data</th>
-                    <th>Nome</th>
-                    <th>Stato</th>
-                    <th>Operazioni</th>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-        <div id="classificationDisplay">
-            
-                        <div id="classificationFormWindowInfo" name="classificationFormWindowInfo" style="display: inline">
-                            <p class="formp"> 
-                                <legend><h3>Data Creazione:</h3></legend>
-                                <input id="classificationFormWindowData" name="classificationFormWindowData" readonly="readonly" type="text" size="40%" style="margin-right: 2%"> 
-                            </p>
-                            <p class="formp"> 
-                                <legend><h3>Nome:</h3></legend>
-                                <input id="classificationFormWindowNome" name="classificationFormWindowNome" type="text" size="40%" style="margin-right: 2%"> 
-                            </p>
-                            <p class="formp"> 
-                                <legend><h3>Status:</h3></legend>
-                                <input id="classificationFormWindowStatus" name="classificationFormWindowStatus" type="text" size="40%" style="margin-right: 2%"> 
-                            </p>
-                            <p class="formp"> 
-                                <legend><h3>Fase della domanda di iscrizione:</h3></legend>
-                                <input class="details" id="registrationChildFormWindowFaseIscrizione" name="registrationChildFormWindowFaseIscrizione" type="text" size="40%" style="margin-right: 2%"> 
-                            </p>
-                        </div>
-                        <div id="classificationFormWindowResultTable">
-                            <table id="classificationResultTable">
-                                <thead>
-                                    <th>Codice Fiscale</th>
-                                    <th>Cognome</th>
-                                    <th>Nome</th>
-                                    <th>Punteggio</th>
-                                    <th>Esito</th>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                        
-                    </div>
-                </fieldset>
-            </form>
-        </div>
-
-        <div id="registrationChildConfirmWindow" name="registrationChildConfirmWindow" title="Conferma operazione" style="display: inline">
-            <form id="registrationChildConfirmWindowForm" name="registrationChildConfirmWindowForm" class="cmxform" method="post" action="">
-                <fieldset>
-                    <div>
-                        <h3 id="registrationChildConfirmWindowTitle" name="registrationChildConfirmWindowTitle"></h3>
-                        <p>
-                            <input type="submit" id="registrationChildConfirmWindowConfirmButton" value="Conferma" />
-                            <input type="button" id="registrationChildConfirmWindowUndoButton" value="Annulla" />
-                        </p>
-                    </div>
-                </fieldset>
-            </form>
-        </div>
-
-
-        <div id="registrationChildAlertWindow" name="registrationChildAlertWindow" title="" style="display: inline">
-            <form id="registrationChildAlertWindowForm" name="registrationChildAlertWindowForm" class="cmxform" method="post" action="">
-                <fieldset>
-                    <div>
-                        <h3 id="registrationChildAlertWindowTitle" name="registrationChildAlertWindowTitle"></h3>
-                        <p>
-                            <input type="submit" id="registrationChildAlertWindowOkButton" value="OK" />
-                        </p>
-                    </div>
-                </fieldset>
-            </form>
-        </div>
-
+        <%-- FINE CORPO PRINCIPALE DELLA PAGINA: PULSANTI E TABELLA CON ELENCO DELLE GRADUATORIE --%>
         
-        <div id="classificationModifyWindow" name="classificationModifyWindow" title="Conferma operazione" style="display: inline">
+        <%-- FINESTRA DI INSERIMENTO DI UNA NUOVA GRADUATORIA --%>
+        <div id="classificationAddWindow" name="classificationAddWindow" title="Crea una nuova graduatoria" style="display: inline">
+            <form id="classificationAddWindowForm" name="classificationAddWindowForm" class="cmxform" method="post" action="">
+                <fieldset>
+                    <div>
+                        <p>
+                            <label>Nome</label>
+                            <input type="text" id="classificationAddWindowNome" name="classificationAddWindowNome" />
+                        </p>
+                        <p>
+                            <input type="submit" id="classificationAddWindowSave" onClick="saveNewGraduatoria();" value="Crea" />
+                            <input type="button" id="classificationAddWindowUndo" value="Annulla" />
+                        </p>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <%-- FINE FINESTRA DI INSERIMENTO DI UNA NUOVA GRADUATORIA --%>
+        
+        <%-- FINESTRA DI MODIFICA DI UNA GRADUATORIA --%>
+        <div id="classificationModifyWindow" name="classificationModifyWindow" title="Modifica Graduatoria" style="display: inline">
             <form id="classificationModifyForm" name="classificationModifyForm" class="cmxform" method="post" action="">
                 <fieldset>
                     <div>
@@ -189,27 +101,96 @@
                         </p>
                         <p>
                             <label>Data:</label>
-                            <input type="text" readonly="readonly" id="classificationModifyWindowData" name="classificationModifyWindowData" />
+                            <input type="text" readonly="readonly" id="classificationModifyWindowData" disabled="disabled" name="classificationModifyWindowData" />
                         </p>
                         <p>
                             <label>Status:</label>
-                            <input type="text" readonly="readonly" id="classificationModifyWindowStatus" name="classificationModifyWindowStatus" />
+                            <input type="text" readonly="readonly" id="classificationModifyWindowStatus" disabled="disabled" name="classificationModifyWindowStatus" />
                         </p>
                         <p>
                             <label>Nome</label>
                             <input type="text" id="classificationModifyWindowNome" name="classificationModifyWindowNome" />
                         </p>
                         <p>
-                            <input type="submit" id="classificationModifyWindowSave" value="Salva" />
+                            <input type="submit" id="classificationModifyWindowSave" onClick="saveModifyGraduatoria();" value="Salva Moifiche" />
                             <input type="button" id="classificationModifyWindowUndo" value="Annulla" />
                         </p>
                     </div>
                 </fieldset>
             </form>
         </div>
+        <%-- FINE FINESTRA DI MODIFICA DI UNA GRADUATORIA --%>
+        
+        <%-- FINESTRA DI VISUALE IN DETTAGLIO DELLA GRADUATORIA E DEI SUOI RISULTATI --%>
+        <div id="classificationDisplay" style="display: none;">
+            <div id="classificationDisplayInfo" name="classificationFormWindowInfo">
+                <h2>Dettagli della graduatoria</h2>
+                <p class="formp"> 
+                    <legend><h3>Data Creazione:</h3></legend>
+                    <input id="classificationDisplayData" name="classificationDisplayData" disabled="disabled" type="text">
+                </p>
+                <p class="formp"> 
+                    <legend><h3>Nome:</h3></legend>
+                    <input id="classificationDisplayNome" name="classificationDisplayNome" disabled="disabled" type="text">
+                </p>
+                <p class="formp"> 
+                    <legend><h3>Status:</h3></legend>
+                    <input id="classificationDisplayStatus" name="classificationDisplayStatus" disabled="disabled" type="text">
+                </p>
+            </div>
+            <div id="classificationDisplaySubmit">
+                <input id="classificationDisplayId" name="classificationDisplayId" type="hidden">
+<c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
+                <input type="button" id="classificationAggiornaResultButton" name="classificationAggiornaResultButton" onClick="updateResultClassification();" value="Ricalcola esiti" />
+</c:if>
+                <input type="button" id="classificationCloseDetailsButton" name="classificationCloseDetailsButton" onClick="closeDetailsClassification();" value="Chiudi dettaglio" />
+            </div>
+            <div id="classificationDisplayResultTable">
+                <table id="classificationResultTable">
+                    <thead>
+                        <th>Posizione</th>
+                        <th>Codice Fiscale</th>
+                        <th>Cognome</th>
+                        <th>Nome</th>
+                        <th>Punteggio</th>
+                        <th>Esito</th>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <%-- FINE FINESTRA DI VISUALE IN DETTAGLIO DELLA GRADUATORIA E DEI SUOI RISULTATI --%>
+        
+        <%-- FINESTRA DI RICHIESTA DI CONFERMA --%>
+        <div id="classificationConfirmWindow" name="classificationConfirmWindow" title="Conferma operazione" style="display: inline">
+            <div>
+                <h3 id="classificationConfirmWindowText" name="classificationConfirmWindowText"></h3>
+                <p>
+                    <input type="button" id="classificationConfirmWindowConfirmButton" value="Conferma" />
+                    <input type="button" id="classificationConfirmWindowUndoButton" value="Annulla" />
+                </p>
+            </div>
+        </div>
+        <%-- FINESTRA DI RICHIESTA DI CONFERMA --%>
 
+        <%-- FINESTRA DI AVVISO (ALERT) --%>
+        <div id="classificationAlertWindow" name="classificationAlertWindow" title="" style="display: inline">
+            <div>
+                <h3 id="classificationAlertWindowText" name="classificationAlertWindowTitle"></h3>
+                <p>
+                    <input type="button" id="classificationAlertWindowOkButton" value="OK" />
+                </p>
+            </div>
+        </div>
+        <%-- FINE FINESTRA DI AVVISO (ALERT) --%>
+
+        
         <%-- GESTIONE DEI CRITERI DI VALUTAZIONE DELLA GRADUATORIA --%>
         <div id="classificationCriteriaWindow" name="classificationCriteriaWindow" title="Criteri di valutazione della graduatoria" style="display: inline">
+            <div>
+                <input type="button" id="classificationAddCriterion" onClick="openAddCriteriaWindow();" value="Aggiungi Nuovo Criterio" />
+            </div>
             <div>
                 <table id="classificationCriteriaTable">
                     <thead>
@@ -224,36 +205,35 @@
                     </tbody>
                 </table>
             </div>
-            <div>
-                <input type="button" id="classificationAddCriterion" onClick="javascript:addCriterion();" value="Aggiungi Criterio" />
-            </div>
         </div>
 
-        <div id="classificationAddCriterionWindow" name="classificationAddCriterionWindow" title="" style="display: inline">
+        <div id="classificationAddCriterionWindow" name="classificationAddCriterionWindow" title="Visuale di inserimento di un nuovo criterio" style="display: inline">
             <form id="classificationAddCriterionForm" name="classificationAddCriterionForm" class="cmxform" method="post" action="">
                 <fieldset>
                     <div>
-                        <h3>Descrizione</h3>
+                        <h3>Descrizione:</h3>
                         <p>
                             <input type="text" id="classificationNewCriterionDescrizione" name="classificationNewCriterionDescrizione" />
                         </p>
-                        <h3>Campo</h3>
+                        <h3>Campo:</h3>
                         <p>
                             <select id="classificationNewCriterionCampo" name="classificationNewCriterionCampo">
-                                <option></option>
+                                <option id="selectCampoEmpty" value="">--Seleziona operando--</option>
                             </select>
                         </p>
+                        <h3>Operando:</h3>
                         <p>
                             <select id="classificationNewCriterionOperando" name="classificationNewCriterionOperando">
-                                <option value="<">minore (<)</option>
-                                <option value="<=">non maggiore (<=)</option>
-                                <option value="==">uguale (=)</option>
-                                <option value=">=">non minore (>=)</option>
-                                <option value=">=">maggiore (>)</option>
-                                <option value="!=">diverso (!=)</option>
+                                <option id="selectOperandoEmpty" value="">--Seleziona operando--</option>
+                                <option id="selectOperando\<" value="<">minore (<)</option>
+                                <option id="selectOperando\<\=" value="<=">non maggiore (<=)</option>
+                                <option id="selectOperando\=" value="==">uguale (=)</option>
+                                <option id="selectOperando\>\=" value=">=">non minore (>=)</option>
+                                <option id="selectOperando\>" value=">">maggiore (>)</option>
+                                <option id="selectOperando\!\=" value="!=">diverso (!=)</option>
                             </select>
                         </p>
-                        <h3>Condizione</h3>
+                        <h3>Condizione:</h3>
                         <p>
                             <input type="text" id="classificationNewCriterionCondizione" name="classificationNewCriterionCondizione" />
                         </p>
@@ -263,6 +243,7 @@
                         </p>
                         <p>
                             <input type="button" id="classificationAddCriterionSubmit" onClick="addCriterion();" value="Inserisci" />
+                            <input type="button" id="classificationAddCriterionUndoSubmit" value="Annulla" />
                         </p>
                     </div>
                 </fieldset>
@@ -270,19 +251,6 @@
         </div>
         <%-- FINE GESTIONE DEI CRITERI DI VALUTAZIONE DELLA GRADUATORIA --%>
         
-        <div id="classificationAlertWindow" name="classificationAlertWindow" title="" style="display: inline">
-            <form id="classificationAlertWindowForm" name="classificationAlertWindowForm" class="cmxform" method="post" action="">
-                <fieldset>
-                    <div>
-                        <h3 id="classificationAlertWindowTitle" name="classificationAlertWindowTitle"></h3>
-                        <p>
-                            <input type="button" id="classificationAlertWindowOkButton" value="OK" />
-                        </p>
-                    </div>
-                </fieldset>
-            </form>
-        </div>
-
     <%@include file="footer.jsp" %>
     </body>
 </html>

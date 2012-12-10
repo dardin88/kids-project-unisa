@@ -4,19 +4,34 @@
  */
 package it.unisa.kids.accessManagement.classificationManagement;
 
+import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONObject;
 
 /**
  *
  * @author Lauri Giuseppe Giovanni
  */
 public class ServletAddClassification extends HttpServlet {
+    private IClassificationManager classificationManager;
 
+    public void init(ServletConfig config) {
+        RefinedAbstractManager refinedAbstractRegistrationChildManager = RefinedAbstractManager.getInstance();
+        classificationManager = (IClassificationManager) refinedAbstractRegistrationChildManager.getManagerImplementor(DBNames.TABLE_CLASSIFICATION);
+    }
+    
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -29,21 +44,44 @@ public class ServletAddClassification extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        
+        response.setContentType("application/json");
         PrintWriter out = response.getWriter();
+        JSONObject json = new JSONObject();
+        boolean isSuccess = true;
+        String errorMsg = new String();
+        
         try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServletAddClassification</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServletAddClassification at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {            
-            out.close();
+            // Prelevo i dati necessari
+            String name = request.getParameter(DBNames.ATT_CLASSIFICATION_NAME);
+            GregorianCalendar creationDate = new GregorianCalendar();
+            creationDate.setTime(new Date(System.currentTimeMillis()));
+
+            /* TEST DELLA RICHIESTA ALLA SERVLET
+            System.out.println("Sono nella CreateServlet ed il cognome è: " + 
+                        request.getParameter(DBNames.ATT_REGISTRATIONCHILD_SURNAME) + "ora: " + CommonMethod.parseString(registrationDate));
+            //*/
+            
+            // Creo la domanda di iscrizione bambino
+            Classification newClassification = new Classification();
+            newClassification.setName(name);
+            newClassification.setDate(creationDate);
+            newClassification.setStatus(DBNames.ATT_CLASSIFICATION_STATUS_BOZZA);
+            
+            // La inserisco nel db
+            isSuccess = classificationManager.insert(newClassification);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServletAddClassification.class.getName()).log(Level.SEVERE, "SQL-Error: " + ex.getMessage(), ex);
+            isSuccess = false;
+            errorMsg = ex.getMessage();
         }
+        json.put("IsSuccess", "" + isSuccess);
+        json.put("ErrorMsg", errorMsg);
+
+        System.out.println("Risultato della AddClassification: " + isSuccess + " JSON: " + json.toString());
+        out.write(json.toString());
+        out.close();
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

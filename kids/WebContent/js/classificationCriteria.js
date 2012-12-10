@@ -6,18 +6,35 @@ function initCriteriaWindow() {
         resizable: false,
         width: 600
     });
+    $("#classificationOpenCriteriaWindow").button();
+    
     $("#classificationAddCriterionWindow").dialog({
         autoOpen: false,
         modal: true,
         resizable: false,
         width: 600
     });
+    $("#classificationAddCriterion").button();
+    
+    $("#classificationAddCriterionSubmit").button();
+    
+    $("#classificationAddCriterionUndoSubmit").button();
+    $("#classificationAddCriterionUndoSubmit").click(function() {
+        setWindowVisibility("classificationAddCriterionWindow", false);
+        // svuoto i campi della form "classificationAddWindowForm"
+        getElement("classificationNewCriterionDescrizione").value = "";
+        getElement("selectCampoEmpty").selected = true;
+        getElement("selectOperandoEmpty").selected = true;
+        getElement("classificationNewCriterionCondizione").value = "";
+        getElement("classificationNewCriterionPeso").value = "";
+    });
+    
 }
 function openCriteriaWindow() {
     setWindowVisibility("classificationCriteriaWindow", true);
 }
 function openAddCriteriaWindow() {
-    setWindowVisibility("classificationCriteriaWindow", true);
+    setWindowVisibility("classificationAddCriterionWindow", true);
 }
 function addCriterion() {
     
