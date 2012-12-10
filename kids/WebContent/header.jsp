@@ -22,11 +22,11 @@
                 <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
             </div>  
             <div class="div">
-                <li id="paymentManagementMenuEl"><a href="paymentManagement.jsp">Gestione pagamenti</a></li>
+                <li id="paymentManagementMenuEl"><a href="paymentManagement.jsp">Gestione Pagamenti</a></li>
             </div>
 
             <div class="div">
-                <li id="TimeServiceMenuEL"><a href="timeService.jsp">Gestione orario di servizio</a></li>
+                <li id="TimeServiceMenuEL"><a href="timeService.jsp">Gestione Orario di Servizio</a></li>
             </div>  
             <div class="div">
                 <li id="managementTraineeActivity"><a href="managerTraineeActivity.jsp">Gestione Attivit&agrave Tirocinanti</a></li>
@@ -40,7 +40,6 @@
             <div class="div">
                 <li id="meetingCalendarMenuEL"><a href="accountInformationAll.jsp">Gestione Account</a></li>
             </div>
-
             <div class="div">
                 <li id="registrationChildME"><a href="registrationChild.jsp">Gestione Domanda d'Iscrizione</a></li>
             </div>
@@ -49,6 +48,9 @@
             </div>
             <div class="div">
                 <li id="renunciationManagementME"><a href="renunciation.jsp">Gestione Rinunce</a></li>
+            </div>
+            <div class="div">
+                <li id="surveyManagementME"><a href="secretarySurveyPage.jsp">Gestione Questionari Valutazione</a></li>
             </div>
         </c:if>
 
@@ -66,7 +68,7 @@
 
         <c:if test="${sessionScope.user.getAccountType()=='Responsabile Mensa'}">
             <div class="div">
-                <li id="canteenManagementMenuEl"><a href="canteenManagement.jsp">Gestione mensa</a></li>
+                <li id="canteenManagementMenuEl"><a href="canteenManagement.jsp">Gestione Mensa</a></li>
             </div>
             <div class="div">
                 <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
@@ -84,7 +86,7 @@
                 <li id="notifications"><a href="formationScienceNotifications.jsp">Notifiche</a></li>
             </div>
             <div class="div">
-                <li id="scheduler"><a href="schedulerActivity.jsp">Pianificazione attivit&agrave</a></li>
+                <li id="scheduler"><a href="schedulerActivity.jsp">Pianificazione Attivit&agrave</a></li>
             </div>
             <div class="div">
                 <li id="meetingCalendarMenuEL"><a href="meetingCalendar.jsp">Gestione Riunioni</a></li>
@@ -108,6 +110,9 @@
                 <li id="needCommunicationTable"><a href="needCommunicationTable.jsp">Gestione Bambini - Comunicazioni Bisogni</a></li>
             </div>
             <div class="div">
+                <li id="surveyShowTableME"><a href="surveyShowTable.jsp">Questionari Valutazione</a></li>
+            </div>
+            <div class="div">
                 <li id="accountParent"><a href="accountInformationParent.jsp">Gestione Account</a></li>
             </div>
             <div class="div">
@@ -119,20 +124,19 @@
             <div class="div">
                 <li id="renunciationManagementME"><a href="renunciation.jsp">Gestione Rinunce</a></li>
             </div>
-            
             <div class="div">
-                <li id="canteenManagementMenuEl"><a href="canteenParent.jsp">Gestione mensa</a></li>
+                <li id="canteenManagementMenuEl"><a href="canteenParent.jsp">Gestione Mensa</a></li>
             </div>
             
             <div class="div">
-                <li id="paymentManagementMenuEl"><a href="paymentParent.jsp">Gestione pagamenti</a></li>
+                <li id="paymentManagementMenuEl"><a href="paymentParent.jsp">Gestione Pagamenti</a></li>
             </div>
             <div class="div">
-                <li id="TimeServiceMenuEL"><a href="timeService.jsp">Gestione orario di servizio</a></li>
+                <li id="TimeServiceMenuEL"><a href="timeService.jsp">Gestione Orario di Servizio</a></li>
             </div>
         </c:if>
 
-        <c:if test="${sessionScope.user.getAccountType()=='Educatore'}">  
+        <c:if test="${sessionScope.user.getAccountType()=='Educatore'}">
             <div class="div">
                 <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
             </div>  

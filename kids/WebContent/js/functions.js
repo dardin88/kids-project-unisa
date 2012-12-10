@@ -113,13 +113,13 @@ function activePage(){
             $("#title").html("Gestione Graduatorie");
             break;
        case 'secretarySurveyPage.jsp':
-            $("#surveyManagement").css("background-color", "#444");
-            $("#surveyManagement").css("color", "#FFFFFF");
+            $("#surveyManagementME").css("background-color", "#444");
+            $("#surveyManagementME").css("color", "#FFFFFF");
             $("#title").html("Gestione Questionari Valutazione");
             break;
        case 'surveyShowTable.jsp':
-            $("#surveyShowTable").css("background-color", "#444");
-            $("#surveyShowTable").css("color", "#FFFFFF");
+            $("#surveyShowTableME").css("background-color", "#444");
+            $("#surveyShowTableME").css("color", "#FFFFFF");
             $("#title").html("Questionari Valutazione");
             break;
        case 'renunciation.jsp':

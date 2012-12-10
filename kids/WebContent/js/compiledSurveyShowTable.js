@@ -2,45 +2,14 @@ function initializeLinksManager(){
     $.ajaxSetup({
         cache: false
     });
-    $("#surveyTabGroup").tabs();
-    $("#removeSurveyWindow").dialog({
-        autoOpen: false,
-        modal: true,
-        resizable: false,
-        width: 400,
-        height: 150
-    });
     buildShowTable();
 }
 
-function addSurvey(){
-    if(document.getElementById("intext").value.length == 0) {
-        alert("Non è stato inserito nulla. Prego di riprovare");
-    }
-    else { 
-        alert("Grazie! Il questionario è stato aggiunto alla lista e sarà visibile dai genitori.");
-        $.post("InsertSurvey", {
-            link: $("#intext").val() 
-        });
-    }
-}
-
-function removeSurvey(id){
-    $("#removeSurveyWindow").dialog("open");
-    $("#notRemoveSurveyButton").button();
-    $("#notRemoveSurveyButton").click(function(){
-        $("#removeSurveyWindow").dialog("close");
+function addCompiledSurvey(){
+    $.post("InsertCompiledSurvey", {
+        idQuestionario: $("#idQuestionario").val(),
+        userid: $("#userid").val()
     });
-    $("#removeSurveyButton").button();
-    $("#removeSurveyButton").click(function(){
-        $.post("RemoveSurvey",{
-            id: id
-        });
-        $("#removeSurveryWindow").dialog("close");
-        document.location.reload(true);
-        var oTable = $("#linkTable").dataTable();
-        oTable.fnDraw();
-    }) 
 }
 
 function buildShowTable(){
@@ -48,7 +17,7 @@ function buildShowTable(){
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": "GetSurvey",
+        "sAjaxSource": "GetCompiledSurvey",
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": true,
@@ -75,18 +44,13 @@ function buildShowTable(){
         },
         "aoColumns": [
         {
-            "sWidth": "16%",
+            "sWidth": "20%",
             "sClass": "center"
         },
         {
             "sWidth": "80%",
             "sClass": "center"
-        },
-        {
-            "sWidth": "4%",
-            "sClass": "center"
-        },
-        
+        }
         ],
        
         "fnServerData": function (sSource, aoData, fnCallback){ 

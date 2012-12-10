@@ -1,6 +1,6 @@
 /* 
     Document   : template.css
-    Created on : 7-feb-2011, 18.35.59
+    Created on : 15-nov-2012, 18.35.59
     Author     : Tutti
     Description:
         Purpose of the stylesheet follows.
@@ -133,7 +133,7 @@ input.error {
 div#navigation {
     position:relative;
     width: 15%;
-    height: 130%;
+    height: 140%;
     font-weight: bold;
     clear:both;
     float:left;
@@ -659,8 +659,8 @@ Gestione bambini
 }
 
  #webapp iframe {
-    height:70%;
-    width: 80%;
+    height:100%;
+    width: 100%;
     margin: 10px 20px;
     outline-style: solid;
     outline-color: #666;

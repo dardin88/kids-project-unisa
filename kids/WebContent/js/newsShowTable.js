@@ -66,8 +66,7 @@ function updateNews(id,title,description,type,data,time,allegato){
     $("#updateNewsWindow").dialog("open");
     $("#confirmUpdateNews").button();
     $("#updateNews").button();
-    $("#selectFile").button();
-
+    $("#selectFile").button();     
        
     document.forms["updateNewsForm"].elements["nomeNews"].value=title;        
     document.forms["updateNewsForm"].elements["descrizioneNews"].value=description;        
@@ -77,7 +76,6 @@ function updateNews(id,title,description,type,data,time,allegato){
             $(this).attr("selected","selected");
         }
     });
-  
   
     document.forms["updateNewsForm"].elements["dataNews"].value=data;        
     document.forms["updateNewsForm"].elements["oraNews"].value=time;
@@ -171,11 +169,6 @@ function showNews(title,description,type,data,time,allegato){
     document.getElementById('labelAllegato').href="DownloadFile?nameFile="+allegato;
     
 }
-
-
-
-
-
 
 function verifyOra(){
     var valore=document.getElementById("artefactTipo").value;

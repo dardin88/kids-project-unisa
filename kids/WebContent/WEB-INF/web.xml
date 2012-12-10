@@ -10,6 +10,30 @@
         <param-value>/home/francesco/projectEducative</param-value>
     </context-param>
     <servlet>
+        <servlet-name>SurveyFormServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.surveyManagement.SurveyFormServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InsertCompiledSurveyServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.surveyManagement.InsertCompiledSurveyServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InsertSurveyServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.surveyManagement.InsertSurveyServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetCompiledSurveyServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.surveyManagement.GetCompiledSurveyServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RemoveSurveyServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.surveyManagement.RemoveSurveyServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetSurveyServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.surveyManagement.GetSurveyServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.paymentManagement.servlet.GetParentsTableServlet</servlet-class>
     </servlet>
@@ -59,27 +83,27 @@
     </servlet>
     <servlet>
         <servlet-name>AddMeetingServlet</servlet-name>
-        <servlet-class>it.unisa.kids.communicationManagement.reunion.AddMeetingServlet</servlet-class>
+        <servlet-class>it.unisa.kids.communicationManagement.meeting.AddMeetingServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteMeetingServlet</servlet-name>
-        <servlet-class>it.unisa.kids.communicationManagement.reunion.DeleteMeetingServlet</servlet-class>
+        <servlet-class>it.unisa.kids.communicationManagement.meeting.DeleteMeetingServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetMeetingServlet</servlet-name>
-        <servlet-class>it.unisa.kids.communicationManagement.reunion.GetMeetingServlet</servlet-class>
+        <servlet-class>it.unisa.kids.communicationManagement.meeting.GetMeetingServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LoadCalendarServlet</servlet-name>
-        <servlet-class>it.unisa.kids.communicationManagement.reunion.LoadCalendarServlet</servlet-class>
+        <servlet-class>it.unisa.kids.communicationManagement.meeting.LoadCalendarServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ModifyDateServlet</servlet-name>
-        <servlet-class>it.unisa.kids.communicationManagement.reunion.ModifyDateServlet</servlet-class>
+        <servlet-class>it.unisa.kids.communicationManagement.meeting.ModifyDateServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ModifyMeetingServlet</servlet-name>
-        <servlet-class>it.unisa.kids.communicationManagement.reunion.ModifyMeetingServlet</servlet-class>
+        <servlet-class>it.unisa.kids.communicationManagement.meeting.ModifyMeetingServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddAccountServlet</servlet-name>
@@ -732,6 +756,30 @@
     <servlet-mapping>
         <servlet-name>InsertRequestTimeServlet</servlet-name>
         <url-pattern>/InsertRequestTime</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertSurveyServlet</servlet-name>
+        <url-pattern>/InsertSurvey</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveSurveyServlet</servlet-name>
+        <url-pattern>/RemoveSurvey</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetCompiledSurveyServlet</servlet-name>
+        <url-pattern>/GetCompiledSurvey</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetSurveyServlet</servlet-name>
+        <url-pattern>/GetSurvey</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SurveyFormServlet</servlet-name>
+        <url-pattern>/SurveyFormServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertCompiledSurveyServlet</servlet-name>
+        <url-pattern>/InsertCompiledSurvey</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
