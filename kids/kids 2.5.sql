@@ -429,9 +429,8 @@ CREATE TABLE IF NOT EXISTS `registro_scolastico` (
 
 CREATE TABLE IF NOT EXISTS `richiesta_orari_servizio` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Data` date NOT NULL,
-  `TipoServizio` varchar(200) DEFAULT NULL,
-  `GiornoModifica` date DEFAULT NULL,
+  `TipoServizio` varchar(200) NOT NULL,
+  `GiornoModifica` varchar(20) NOT NULL,
   `Ora` time NOT NULL,
   `AccountGenitore` int(11) NOT NULL,
   PRIMARY KEY (`Id`)

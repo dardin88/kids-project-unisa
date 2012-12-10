@@ -15,17 +15,21 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/template.css" >
-        <script type="text/javascript" src="js/functions.js"></script>
         <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
+        <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
+        <link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css">              
         <script type="text/javascript" src="js/jquery-1.8.2.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
-        <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.js"></script>   
-        <script type="text/javascript" src="js/timeService.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.js"></script>
+        <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="js/additional-methods.min.js"></script>
+        <script type="text/javascript" src="js/functions.js"></script>
+        <script type="text/javascript" src="js/timeService.js"></script>
         <link rel="stylesheet" type="text/css" href="css/jquery.ui.timepicker.css">
-        <script type="text/javascript" src="js/fullcalendar.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/fullcalendar.css">
+        
 
         <script type="text/javascript" src="js/jquery.ui.timepicker.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -39,6 +43,7 @@
                 messageDialog();
                 initializetimeServicePage();
                 showTimeService();
+                buildRequestTimeServiceParentTable()
             });
         </script>
     </head>
@@ -75,7 +80,19 @@
 
                     <div id="RequestTime">
                         <input type="button" id="insertRequestTime" value="Inserisci la richiesta di orario di servizio" onclick="openInsertRequestTimeDialog()">
-                        
+                        <table id="requestTimeServiceParentTable">
+                            <thead>
+                                <tr>
+                                    <th>Servizio</th>
+                                    <th>Giorno</th>
+                                    <th>Ora</th>
+                                    <th>Operazioni</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                         <div id="insertRequestTimeDialog">
                             <form id="requestTimeForm" class="cmxform" method="post" action="InsertRequestTime">
                                 <table>
