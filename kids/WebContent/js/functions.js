@@ -122,6 +122,11 @@ function activePage(){
             $("#surveyShowTable").css("color", "#FFFFFF");
             $("#title").html("Questionari Valutazione");
             break;
+       case 'renunciation.jsp':
+            $("#renunciationManagementME").css("background-color", "#444");
+            $("#renunciationManagementME").css("color", "#FFFFFF");
+            $("#title").html("Gestione rinunce");
+            break;
     }
 }
 
