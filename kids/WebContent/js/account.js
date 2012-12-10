@@ -173,7 +173,7 @@ function removeAccount(id){
     });
 }
 function removeAccountParent(id){
-    alert("ooooooo "+id);
+    
     $("#removeAccountWindow").dialog("open"); 
     $("#confirmRemoveLinkButton").button();
     $("#confirmRemoveLinkButton").click(function(){
@@ -259,7 +259,7 @@ function verificaAccount(){
         document.getElementById('registrationDate').value=null;
     }
       if((string=='DelegatoUfficio')||(string=='ScienzeFormazione')||(string=='Educatore')||(string=='CoordinatorePsicopedagogico')||(string=='ResponsabileAsilo')){
-        alert("entrato2");
+        
         document.getElementById('choose2').style.display="none";
         document.getElementById('accountLabel2').style.display="none";
         document.getElementById('accountLabel3').style.display="none";
