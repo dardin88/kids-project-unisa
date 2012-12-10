@@ -172,7 +172,7 @@
                         </div>
 
                         <div>
-                            <label id="accountLabel">  Tipo di Account*: </label>
+                            <label id="accountLabel" style="visibility: hidden">  Tipo di Account*: </label>
                             <%--<input id="typeAccount" class="accountInput" type="text" name="typeAccount" value="TipoAccount">--%>
                             <select id="typeAccount" name="tipo" onchange="verificaAccount()" style="visibility: hidden">
                                 <OPTION value="Nothing" name="Nothing" > Scegli 
