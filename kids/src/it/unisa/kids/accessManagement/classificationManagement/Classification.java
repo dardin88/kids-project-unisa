@@ -6,9 +6,9 @@ import java.util.List;
 public class Classification {
 	
     private int id;
-    private String name;
     private GregorianCalendar date;
     private String status;
+    private String name;
     private List<Result> results;
 
     public Classification() {
