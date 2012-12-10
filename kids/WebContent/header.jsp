@@ -117,7 +117,7 @@
                 <li id="classificationME"><a href="classification.jsp">Gestione Graduatorie</a></li>
             </div>
             <div class="div">
-                <li id="renunciationManagement"><a href="renunciation.jsp">Gestione Rinunce</a></li>
+                <li id="renunciationManagementME"><a href="renunciation.jsp">Gestione Rinunce</a></li>
             </div>
             
             <div class="div">
