@@ -46,9 +46,9 @@
                     <h1  style="font-weight: bold; font-size: 30pt"id="titleReg" align="center">Modifica Account</h1><br> <br>
 
                     <div id="modifyRegistration1">
-                         <input id="id" class="accountInput" type="text" name="id" size="50%" value="${id}" readonly="true">
-                         <input id="typeAccount2" class="accountInput" type="text" name="Nome" size="50%" value="${TipoAccount}" readonly="true">
-                         <input id="typeParent2" class="accountInput" type="text" name="Nome" size="50%" value="${TipoGenitore}" readonly="true">
+                         <input id="id" class="accountInput" type="hidden" name="id" size="50%" value="${id}" readonly="true">
+                         <input id="typeAccount2" class="accountInput" type="hidden" name="Nome" size="50%" value="${TipoAccount}" readonly="true">
+                         <input id="typeParent2" class="accountInput" type="hidden" name="Nome" size="50%" value="${TipoGenitore}" readonly="true">
 
                         <div >
                             <label id="accountLabel">  Nome*: </label>
