@@ -33,7 +33,7 @@ function createTableRenunciation() {
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": "InsertTableRenunciation",
+        "sAjaxSource": "InsertTableChild",
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
@@ -82,7 +82,7 @@ function createTableRenunciation() {
     
 }
 
-function addRenunciation(){
+/*function addRenunciation(){
     $("#annullaButton").button();
     $("#annullaButton").click(function(){
         $("#insertRenunciationWindow").dialog("close");
@@ -163,4 +163,4 @@ function addRenunciation(){
             }
         });
     });
-}
+}*/
