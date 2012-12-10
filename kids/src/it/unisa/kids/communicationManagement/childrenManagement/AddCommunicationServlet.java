@@ -35,31 +35,31 @@ public class AddCommunicationServlet extends HttpServlet {
             response.setContentType("text/html;charset=UTF-8");
             ICommunicationManager am = JDBCCommunicationManager.getInstance();
             Communication a = new Communication();  
-            int aId = Integer.parseInt(request.getParameter("Id"));
-            int aType = Integer.parseInt(request.getParameter("Type"));
+            System.out.print("args");
+            //int aId = Integer.parseInt(request.getParameter("Id"));
+            int aType = Integer.parseInt(request.getParameter("artefactType"));
             //int aIdEducator = Integer.parseInt(request.getParameter("IdEducator"));
            
             HttpSession session = request.getSession();
             Account user = (Account) session.getAttribute("user");
             int aIdEducator = user.getId();
             
-            String childName = request.getParameter("childName");
-            String childSurname = request.getParameter("childSurname");
+            String childName = request.getParameter("artefactName");
+            String childSurname = request.getParameter("artefactSurname");
             
             int aIdChild = am.getIdChild(childName, childSurname);
             
-            String aDescription = request.getParameter("Description");
-            String aDate = request.getParameter("Date");
+            String aDescription = request.getParameter("artefactDescription");
+            String aDate = request.getParameter("artefactDate");
             //GregorianCalendar aDate= parseGregorianCalendar(aDat);
-            boolean aSolved = Boolean.getBoolean(request.getParameter("Solved"));
-            
-            a.setId(aId);
+            //boolean aSolved = Boolean.getBoolean(request.getParameter("Solved"));
+            //a.setId(aId);
             a.setType(aType);
             a.setIdEducator(aIdEducator);
             a.setIdChild(aIdChild);
             a.setDescription(aDescription);
             a.setDate(aDate);
-            a.setSolved(aSolved);
+            //a.setSolved(aSolved);
             am.insertCommunication(a);   
         } catch (Exception ex) {
             Logger.getLogger(GetCommunicationServlet.class.getName()).log(Level.SEVERE, null, ex);

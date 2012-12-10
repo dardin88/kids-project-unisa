@@ -94,7 +94,7 @@ public class GetCommunicationServlet extends HttpServlet {
                     //String date = year + "-" + month + "-" + day;
                     ja.put(a.getDate());
                     ja.put(a.getSolved());
-                    String operazioni="<div style=\"text-align:center;\" ><input id=\"idUpdateCommunication\" class='tableImage' height='20px' type='image' src='img/lente.gif' onclick=\"updateCommunication("+a.getId()+",'"+a.getType()+"','"+a.getIdEducator()+"','"+a.getIdChild()+"','"+a.getDescription()+"','"+a.getDate()+"','"+a.getSolved()+"')\" />";
+                    String operazioni="<div style=\"text-align:center;\" ><input id=\"idShowCommunication\" class='tableImage' height='20px' type='image' src='img/lente.gif' onclick=\"showCommunication("+a.getId()+",'"+a.getType()+"','"+a.getIdEducator()+"','"+a.getIdChild()+"','"+a.getDescription()+"','"+a.getDate()+"','"+a.getSolved()+"')\" />";
                     if(nomeUtente.equals("Educatore")){
                         operazioni+="<input id=\"idUpdateCommunication\" class='tableImage' height='20px' type='image' src='img/change.png' onclick=\"updateCommunication("+a.getId()+",'"+a.getType()+"','"+a.getIdEducator()+"','"+a.getIdChild()+"','"+a.getDescription()+"','"+a.getDate()+"','"+a.getSolved()+"')\" /></div>";
                         ja.put(operazioni);
