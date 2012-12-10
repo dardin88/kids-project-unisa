@@ -49,7 +49,7 @@ private ITimeServiceManager timeServiceManager;
             System.out.println("prova");
             timeServiceNews.setType("OrarioDiServizio");
             List<News> list=timeServiceManager.search(timeServiceNews);
-            out.print(list.get(0).getDescription());
+            out.print(list.get(0).getDescription()+","+list.get(0).getId());
         } 
         catch (SQLException ex) {
             Logger.getLogger(GetTimeServiceServlet.class.getName()).log(Level.SEVERE, null, ex);

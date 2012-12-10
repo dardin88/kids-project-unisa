@@ -361,6 +361,10 @@
         <servlet-name>GetTimeServiceServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.timeServiceManagement.GetTimeServiceServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateTimeServiceServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.timeServiceManagement.UpdateTimeServiceServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
@@ -712,6 +716,10 @@
     <servlet-mapping>
         <servlet-name>GetTimeServiceServlet</servlet-name>
         <url-pattern>/GetTimeService</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateTimeServiceServlet</servlet-name>
+        <url-pattern>/UpdateTimeService</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

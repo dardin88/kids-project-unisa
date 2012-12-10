@@ -28,7 +28,9 @@ public class CommunicationFacade implements ICommunicationFacade {
 
     @Override
     public void update(News pNews) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        RefinedAbstractManager refinedAbstractNewsManager = RefinedAbstractManager.getInstance();
+        INewsManager newsManager = (INewsManager) refinedAbstractNewsManager.getManagerImplementor(DBNames.TABLE_NEWS);
+         newsManager.update(pNews,false);
     }
 
     @Override
