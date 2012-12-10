@@ -40,32 +40,9 @@
         </script>
     </head>
     <div id="addLinkWindow" title="Inserisci Comunicazione Salute" style="display: inline">
-        <form id="addLinkForm" class="cmxform" method="post" action="" enctype="multipart/form-data" >
+        <form id="addLinkForm" class="cmxform" method="post" action="">
             <fieldset>
                 <table>
-                    <tr>
-                    <p style="text-align: left;" class="formp">
-                    <td>
-                        <label class="artefactLabel" for="artefactType">Tipo *</label>
-                    </td>
-                    <td>
-                        <select id="artefactType" name="typeCommunication" class="artefactSelect">
-                            <option value="0">Scegli tipo Comunicazione</option>
-                            <option value="1">Salute</option>
-                        </select>
-                    </td>
-                    </p>
-                    </tr>
-                    <%--<tr>
-                    <p style="text-align: left;" class="formp">
-                    <td>
-                        <label class="artefactLabel" for="artefactIdChild">Id Bambino *</label>
-                    </td>
-                    <td>
-                        <input id="artefactIdChild" type="text" name="idChild" ></input>                                         
-                    </td>
-                    </p>
-                    </tr>--%>
                     <tr>
                     <p style="text-align: left;" class="formp">
                     <td>
@@ -117,12 +94,51 @@
             </fieldset>
         </form>
     </div> 
-   
+    
+<div id="showCommunicationWindow" title="Visualizza Comunicazione Salute" style="display: inline">  
+    <fieldset>
+        <table>
+            <tr>
+                <td>       
+                    <label class="artefactLabel2">Id Educatore</label>
+                </td>
+                <td>                    
+                    <label class="artefactLabel" id="labelIdEducator"></label>
+                </td>
+            </tr>
+            <tr>
+                <td>                    
+                    <label class="artefactLabel2">Id Bambino</label>
+                </td>
+                <td>                    
+                    <label class="artefactLabel" id="labelIdChild"></label>
+                </td>
+            </tr>
+            <tr>
+                <td>                    
+                    <label class="artefactLabel2">Descrizione</label>
+                </td>
+                <td>
+
+                    <label class="artefactLabel" id="labelDescription"></label>
+                </td>
+            </tr>
+            <tr>
+                <td>                    
+                    <label class="artefactLabel2">Data</label>
+                </td>
+                <td>                    
+                    <label class="artefactLabel" id="labelDate"></label> 
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</div>
 <body>
     <%@include file="header.jsp" %>
     <div id="linksManagement">
         <c:if test="${sessionScope.user.getAccountType()=='Educatore'}" >
-            <input type="button" id="addLinkButton" value="Inserisci Communicazione" />               
+            <input type="button" id="addLinkButton" value="Inserisci Communicazione Salute" />               
         </c:if>
         <table id="linkTable" style="width:95%;">
             <thead>
@@ -132,6 +148,7 @@
                     <th>Id Bambino</th>
                     <th>Descrizione</th>
                     <th>Data</th>
+                    <th>Risolto</th>
                     <th>Operazioni</th>
                 </tr>
             </thead>
