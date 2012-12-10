@@ -4,8 +4,6 @@
  */
 package it.unisa.kids.accessManagement.classManagement;
 
-import it.unisa.kids.accessManagement.accountManagement.Account;
-import it.unisa.kids.accessManagement.accountManagement.IAccountManager;
 import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationChildManager;
 import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.DBNames;
@@ -13,7 +11,6 @@ import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,12 +26,12 @@ import org.json.JSONObject;
  *
  * @author tonino
  */
-public class GetTableClassServlet extends HttpServlet {
+public class GetTableChildServlet extends HttpServlet {
 
-    private IClassManager classManager;
+    private IRegistrationChildManager childManager;
 
     public void init(ServletConfig config) {
-        classManager = (IClassManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_CLASS);
+        childManager = (IRegistrationChildManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
     }
 
     /**
@@ -47,12 +44,13 @@ public class GetTableClassServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        ClassBean[] pageClassBean = null;
-        List<ClassBean> listClassBean = null;
+
+        RegistrationChild[] pageRegistrationChild = null;
+        List<RegistrationChild> listRegistrationChild = null;
+        
         try {
             JSONArray array = new JSONArray();
             JSONObject result = new JSONObject();
@@ -74,58 +72,35 @@ public class GetTableClassServlet extends HttpServlet {
                 }
             }
 
-            String nome = request.getParameter("name");
-            String stato = request.getParameter("state");
+            listRegistrationChild = childManager.search(new RegistrationChild());
 
-            ClassBean pClassBean = new ClassBean();
-            pClassBean.setState(stato);
-            pClassBean.setClassName(nome);
-
-//              così non funziona la ricerca non capisco perchè!
-//            if (!pClassBean.getClassName().equals("")&&!pClassBean.getState().equals("")) 
-//            {
-//                listClassBean = classManager.search(pClassBean);
-//                System.out.println("ricerca?");
-//            }
-//            else {
-            listClassBean = classManager.getAll();
-            System.out.println("getall?");
-            //}
-
-            if (!pClassBean.getClassName().equals("")) {
-                ClassBean tmpClassBean = new ClassBean();
-                tmpClassBean.setClassName(nome);
-                listClassBean = classManager.search(pClassBean);
-            }
-
-
-            int linksNumber = listClassBean.size();
+            int linksNumber = listRegistrationChild.size();
             if (linksNumber < amount) {
                 amount = linksNumber;
             }
             if (linksNumber != 0) {
                 int toShow = linksNumber - start;
                 if (toShow > 10) {
-                    pageClassBean = new ClassBean[amount];
-                    System.arraycopy(listClassBean.toArray(), start, pageClassBean, 0, amount);
+                    pageRegistrationChild = new RegistrationChild[amount];
+                    System.arraycopy(listRegistrationChild.toArray(), start, pageRegistrationChild, 0, amount);
                 } else {
-                    pageClassBean = new ClassBean[toShow];
-                    System.arraycopy(listClassBean.toArray(), start, pageClassBean, 0, toShow);
+                    pageRegistrationChild = new RegistrationChild[toShow];
+                    System.arraycopy(listRegistrationChild.toArray(), start, pageRegistrationChild, 0, toShow);
                 }
-                for (ClassBean clas : pageClassBean) {
+                for (RegistrationChild childreg : pageRegistrationChild) {
 
                     JSONArray ja = new JSONArray();
 
-                    ja.put(clas.getClassName());
-                    ja.put(clas.getState());
-                    String operazioni = "<input class='tableImage' type='image' src='img/trash.png' onclick='removeAccount(\"" + clas.getIdClasse() + "\")'/> <input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/lente.gif' onclick='showAccount(\"" + clas.getIdClasse() + "\")'/>";
+                    ja.put(childreg.getClassName());
+                    ja.put(childreg.getState());
+                    String operazioni = "<input class='tableImage' type='image' src='img/trash.png' onclick='removeAccount(\"" + childreg.getIdClasse() + "\")'/> <input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/lente.gif' onclick='showAccount(\"" + childreg.getIdClasse() + "\")'/>";
                     ja.put(operazioni);
                     array.put(ja);
                 }
             }
             result.put("sEcho", sEcho);
-            result.put("iTotalRecords", listClassBean.size());
-            result.put("iTotalDisplayRecords", listClassBean.size());
+            result.put("iTotalRecords", listRegistrationChild.size());
+            result.put("iTotalDisplayRecords", listRegistrationChild.size());
             result.put("aaData", array);
             response.setContentType("application/json");
             response.setHeader("Cache-Control",
@@ -133,41 +108,9 @@ public class GetTableClassServlet extends HttpServlet {
             response.setHeader("Pragma", "no-cache");
             out.print(result);
 
-
-
-            //dopo devi cancellarlo
-
-            List<Account> listaacc = new ArrayList<Account>();
-
-            IAccountManager account = (IAccountManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACCOUNT);
-            Account acc = new Account();
-            acc.setAccountType("Educatore");
-            listaacc = account.search(acc);
-
-            request.getSession().setAttribute("ListaDoc", listaacc);
-
-
-//            questo non serve proprio devo fare la tabella, però serve per creare la query quindi lo conservo 
-
-//            List<RegistrationChild> listareg = new ArrayList<RegistrationChild>();
-//
-//            IRegistrationChildManager childman = (IRegistrationChildManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
-//            RegistrationChild regchild = new RegistrationChild();
-//            regchild.setRegistrationPhase("confermata");
-//            regchild.setSectionId(0);
-//            System.out.println("Sto per chiamare la search del bambino");
-//            listareg = childman.search(regchild);
-//            System.out.println("Chiamata la search "+listareg.size());
-//
-//            request.getSession().setAttribute("ListaBamb", listaacc);
-
-            //fino a qui
         } catch (SQLException ex) {
             Logger.getLogger(GetTableClassServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

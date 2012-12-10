@@ -5,11 +5,13 @@
 package it.unisa.kids.accessManagement.classManagement;
 
 import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +22,12 @@ import javax.servlet.http.HttpServletResponse;
  * @author tonino
  */
 public class UpdateClassBeanServlet extends HttpServlet {
+
+    private IClassManager clasMan;
+    
+    public void init(ServletConfig config) {
+        clasMan = (IClassManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_CLASS);
+    }
 
     /**
      * Processes requests for both HTTP
@@ -34,19 +42,16 @@ public class UpdateClassBeanServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
+
         try {
-            JDBCClassManager clasMan=JDBCClassManager.getInstance();
-            
-            ClassBean clas=new ClassBean();
+            ClassBean clas = new ClassBean();
+            clas.setIdClasse(Integer.parseInt(request.getParameter("id")));
             clas.setClassName(request.getParameter(DBNames.ATT_CLASS_NAME));
-            
+            clas.setState("sottomessa");
+
             clasMan.update(clas);
-        } 
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(UpdateClassBeanServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {      
-            out.close();
         }
     }
 

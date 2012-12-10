@@ -1,7 +1,7 @@
-    <%-- 
-    Document   : classe
-    Created on : 3-dic-2012, 13.07.01
-    Author     : tonino
+<%-- 
+Document   : classe
+Created on : 3-dic-2012, 13.07.01
+Author     : tonino
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -36,49 +36,50 @@
     </head>
     <body>
         <%@include file="header.jsp"%>
-        <body id="bodyRegistration">
-        
+    <body id="bodyRegistration">
+
         <h1  id="titleReg" align="center">Classi</h1>
-        
+
         <div id="linksManagement">
-                <h1 style="font-size: 35px;text-align: center;"> Classi </h1>
-                
-                Nome: <input type="text" id="state"  name="state"  />
-                Stato: <input type="text" id="name"  name="name"/>
-                <input type="button" name="ricarica" id="ricarica" value="ricerca" onclick="search()"/>
-                
-                <table id="accountsTable" style="width:95%;">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Stato</th>
-                            <th>Operazione</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-                <form name="insertAccount" method="post" action="classInsert.jsp" >
-                     <input type="submit" id="addLinkButton" value="Inserisci Classe" />
-                </form>
-                
-                
-            </div>
-      <div id="removeAccountWindow" title="Rimuovi Classe" style="display: inline">
-        <form id="removeAccountForm" class="cmxform" method="post" action="">
-            <fieldset>
-                <p class="formp">
-                    <label class="requirementLabel">Sei sicuro di voler eliminare questa classe?</label>
-                </p>
-                <p class="formp">
-                    <input type="button" class="confirmRemoveButton" id="confirmRemoveLinkButton" value="Si"/>
-                    <input type="button" class="notConfirmRemoveButton" id="notConfirmRemoveLinkButton" value="No"/>
-                </p>
-            </fieldset>
-        </form>
-    </div>
-        
-        
+            <h1 style="font-size: 35px;text-align: center;"> Classi </h1>
+
+            Nome: <input type="text" id="name"  name="name"/>
+            Stato: <input type="text" id="state"  name="state"  />
+
+            <input type="button" name="ricarica" id="ricarica" value="ricerca" onclick="search()"/>
+
+            <table id="accountsTable" style="width:95%;">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Stato</th>
+                        <th>Operazione</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <form name="insertAccount" method="post" action="classInsert.jsp" >
+                <input type="submit" id="addLinkButton" value="Inserisci Classe" />
+            </form>
+
+
+        </div>
+        <div id="removeAccountWindow" title="Rimuovi Classe" style="display: inline">
+            <form id="removeAccountForm" class="cmxform" method="post" action="">
+                <fieldset>
+                    <p class="formp">
+                        <label class="requirementLabel">Sei sicuro di voler eliminare questa classe?</label>
+                    </p>
+                    <p class="formp">
+                        <input type="button" class="confirmRemoveButton" id="confirmRemoveLinkButton" value="Si"/>
+                        <input type="button" class="notConfirmRemoveButton" id="notConfirmRemoveLinkButton" value="No"/>
+                    </p>
+                </fieldset>
+            </form>
+        </div>
+
+
         <%@include file="footer.jsp" %>
     </body>
 </html>

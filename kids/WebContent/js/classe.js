@@ -8,11 +8,11 @@ function initializeClassFields() {
         $("#ricarica").submit();
     });
     $("#removeAccountWindow").dialog({
-       autoOpen: false,
-       modal: true,
-       resizable: false,
-       width: 400
-   });
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 400
+    });
 }
 
 function buildAccountTable(){
@@ -81,9 +81,13 @@ function buildAccountTable(){
 
    
 function removeAccount(id){
+  
+    $("#removeAccountWindow").dialog({
+        autoOpen:true
+    }); 
     $("#confirmRemoveLinkButton").button();
     $("#confirmRemoveLinkButton").click(function(){
-        $.post("DeleteAccount", {
+        $.post("DeleteClassBean", {
             id:""+id
         });
         $("#removeAccountWindow").dialog("close"); 
@@ -96,21 +100,20 @@ function removeAccount(id){
         $("#removeAccountWindow").dialog("close");
     });
 }
-    function removeAccountParent(id){
-     $("#removeAccountWindow").dialog("open"); 
+function removeAccountParent(id){
+    $("#removeAccountWindow").dialog("open"); 
     $("#confirmRemoveLinkButton").button();
     $("#confirmRemoveLinkButton").click(function(){
-        $.post("DeleteAccount", {
+        $.post("DeleteClassBean", {
             id:""+id
         });
         $("#removeAccountWindow").dialog("close"); 
-        location.href="./index.jsp";
+        location.href="./classe.jsp";
     });
     $("#notConfirmRemoveLinkButton").button();
     $("#notConfirmRemoveLinkButton").click(function(){
         $("#removeAccountWindow").dialog("close");
     });
-    
 }
    
 
@@ -121,21 +124,19 @@ function search(){
 }
 
 function showAccount(id){
-    window.location.href="accountInformation.jsp?id="+id;
+    alert(id);
+    window.location.href="classInformation.jsp?id="+id;
 }
 
 function modifyAccount(id){
     alert(id);
-
-    window.open("accountModify.jsp?id="+id);
-     
-     
+    window.open("classeModify.jsp?id="+id);
 }
 function showPartTwoAccount(id){
     $.post("GetAccount",{
         id:id
     })
-    }
+}
 
 function back(id){
     
