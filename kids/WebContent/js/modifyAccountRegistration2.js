@@ -365,7 +365,7 @@ function update(){
 
     
     if((typeParent=='Tecnico amministrativo')||(typeParent=='Docente')){
-        alert("1");
+       
          if(typeParent=='Docente')
               document.getElementById('modifyTypeParent').options[3].selected=true;
 

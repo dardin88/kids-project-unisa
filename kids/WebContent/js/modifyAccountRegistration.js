@@ -181,7 +181,7 @@ function initializeModifyRegistrationFields(){
                     facolta:$("#modifyFaculty").val()
                 })
                 
-                alert("Modifica Effettuata fare qualcosa");
+           
                 var id= document.getElementById('id').value;
                 location.href=("./accountInformation.jsp?id="+id);
             }
@@ -365,7 +365,7 @@ function update(){
 
     
     if((typeParent=='Tecnico amministrativo')||(typeParent=='Docente')){
-        alert("1");
+        
          if(typeParent=='Docente')
               document.getElementById('modifyTypeParent').options[3].selected=true;
 
