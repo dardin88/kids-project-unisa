@@ -10,7 +10,13 @@ function initializeLinksManager(){
         resizable: false,
         width: 600
     });
-
+    
+    $("#showCommunicationWindow").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 500
+    });
     $.validator.setDefaults({
         highlight: function(input) {
             $(input).addClass("ui-state-highlight");
@@ -22,83 +28,66 @@ function initializeLinksManager(){
     addCommunication(); 
 }
 
+function showCommunication(idEducator,idChild,description,date){
+    $("#showCommunicationWindow").dialog("open"); 
+    document.getElementById('labelIdEducator').innerHTML = idEducator; 
+    document.getElementById('labelIdChild').innerHTML = idChild; 
+    document.getElementById('labelDescription').innerHTML = description; 
+    document.getElementById('labelDate').innerHTML = date;
+}
+
 function addCommunication(){
     $("#addLinkButton").click(function() {
         $("#addLinkWindow").dialog("open");
         $("#addLinkButton3").button();
-        $("#addLinkForm").validate({
-            rules: {
-                typeCommunication:{
-                    required:true,
-                    remote:{
-                        url:"VerifyTypeCommunication",
-                        type: "post",
-                        data:{
-                            valore:function(){
-                                var valoreSelect=$("#selectCommunication").val();
-                                return valoreSelect;
-                            }
-                        }    
+                $("#addLinkForm").validate({
+                    rules: {
+                        childName: {
+                            required: true
+                        },
+                        childSurname: {
+                            required: true
+                        },
+                        description: {
+                            required: true
+                        },
+                        date: {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        childName: {
+                            required: "Inserisci nome bambino"
+                        },
+                        childSurname: {
+                            required: "Inserisci cognome bambino"
+                        },
+                        description: {
+                            required: "Inserisci descrizione"
+                        },
+                        date: {
+                            required: "Inserisci data"
+                        }
+                    },
+                    submitHandler: function() {
+                        $.post("AddCommunication", {
+                            artefactType: "1",
+                            artefactName: $("#artefactName").val(),
+                            artefactSurname: $("#artefactSurname").val(),
+                            artefactDescription: $("#artefactDescription").val(),
+                            artefactDate: $("#artefactDate").val()
+                        });
+                        
+                        $("#addLinkWindow").dialog("close"); 
+                        var oTable = $("#linksTable").dataTable();
+                        oTable.fnDraw();
+                        $("#artefactType").val("");
+                        $("#artefactName").val("");
+                        $("#artefactSurname").val("");
+                        $("#artefactDescription").val("");
+                        $("#artefactDate").val("");
                     }
-                },
-                /*idChild: {
-                    required: true
-                },*/
-                childName: {
-                    required: true
-                },
-                childSurname: {
-                    required: true
-                },
-                description: {
-                    required: true
-                },
-                date: {
-                    required: true
-                }
-            },
-            messages: {
-                typeCommunication:{
-                    required: "Non puoi selezionare il primo item.",
-                    remote: "Non puoi selezionare il primo item."
-                },
-                /*idChild: {
-                    required: "Inserisci id Bambino."
-                },*/
-                childName: {
-                    required: "Inserisci nome bambino"
-                },
-                childSurname: {
-                    required: "Inserisci cognome bambino"
-                },
-                description: {
-                    required: "Inserisci descrizione"
-                },
-                date: {
-                    required: "Inserisci data"
-                }
-            },
-            submitHandler: function() {
-                $.post("InsertCommunication", {
-                    artefactType: $("#artefactType").val(),
-                    //artefactIdChild: $("#artefactIdChild").val(),
-                    artefactName: $("#artefactName").val(),
-                    artefactSurname: $("#artefactSurname").val(),
-                    artefactDescription: $("#artefactDescription").val(),
-                    artefactDate: $("#artefactDate").val()
                 });
-                
-                $("#addLinkWindow").dialog("close"); 
-                var oTable = $("#linksTable").dataTable();
-                oTable.fnDraw();
-                $("#artefactType").val("");
-                //$("#artefactIdChild").val("");
-                $("#artefactName").val("");
-                $("#artefactSurname").val("");
-                $("#artefactDescription").val("");
-                $("#artefactDate").val("");
-            }
-        });
     });
 }
 
@@ -149,10 +138,10 @@ function buildShowTable(){
             "sWidth": "15%"  
         },
         {
-            "sWidth": "10%"
+            "sWidth": "15%"  
         },
         {
-            "sWidth": "10%"
+            "sWidth": "15%"  
         }
         ],
         "fnServerData": function (sSource, aoData, fnCallback){ 

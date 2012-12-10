@@ -43,7 +43,7 @@
         <form id="addLinkForm" class="cmxform" method="post" action="" enctype="multipart/form-data" >
             <fieldset>
                 <table>
-                    <tr>
+                    <%--<tr>
                     <p style="text-align: left;" class="formp">
                     <td>
                         <label class="artefactLabel" for="artefactType">Tipo *</label>
@@ -56,7 +56,7 @@
                     </td>
                     </p>
                     </tr>
-                    <%--<tr>
+                    <tr>
                     <p style="text-align: left;" class="formp">
                     <td>
                         <label class="artefactLabel" for="artefactIdChild">Id Bambino *</label>
@@ -146,6 +146,63 @@
             </table>                 
         </fieldset>
     </form>
+</div>
+                    <div id="showCommunicationWindow" title="Visualizza Comunicazione" style="display: inline">  
+    <fieldset>
+        <table>
+            <tr>
+                <td>
+                    <label class="artefactLabel2">Tipo</label>
+                </td>
+                <td>
+
+                    <label class="artefactLabel" id="labelType" ></label>
+                </td>
+            </tr>
+            <tr>
+                <td>       
+                    <label class="artefactLabel2">Id Educatore</label>
+                </td>
+                <td>                    
+                    <label class="artefactLabel" id="labelIdEducator"></label>
+                </td>
+            </tr>
+            <tr>
+                <td>                    
+                    <label class="artefactLabel2">Id Bambino</label>
+                </td>
+                <td>                    
+                    <label class="artefactLabel" id="labelIdChild"></label>
+                </td>
+            </tr>
+            <tr>
+                <td>                    
+                    <label class="artefactLabel2">Descrizione</label>
+                </td>
+                <td>
+
+                    <label class="artefactLabel" id="labelDescription"></label>
+                </td>
+            </tr>
+            <tr>
+                <td>                    
+                    <label class="artefactLabel2">Data</label>
+                </td>
+                <td>                    
+                    <label class="artefactLabel" id="labelDate"></label> 
+                </td>
+            </tr>
+            <tr>
+                <td>                
+                    <label class="artefactLabel2">Risolto</label>
+                </td>
+                <td>                
+                    <label class="artefactLabel" id="labelSolved"></label>
+                </td>
+
+            </tr>
+        </table>
+    </fieldset>
 </div>
 <body>
     <%@include file="header.jsp" %>
