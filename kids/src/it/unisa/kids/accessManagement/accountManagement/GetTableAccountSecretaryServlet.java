@@ -84,7 +84,7 @@ public class GetTableAccountSecretaryServlet extends HttpServlet {
             account.setAccountType(tipo);
             account.setNickName(nomeAcc);
             
-            if((!account.getNameUser().equals(""))||(!account.getSurnameUser().equals(""))||(!account.getTaxCode().equals(""))|| (!account.getAccountType().equals("Nothing"))|| (!account.getNickName().equals(""))){
+            if((!account.getNameUser().equals(""))||(!account.getSurnameUser().equals(""))||(!account.getTaxCode().equals(""))|| (!account.getAccountType().equals(""))|| (!account.getNickName().equals(""))){
             listAccount= accountManager.search(account);
             }
             else{
