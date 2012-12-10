@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import it.unisa.kids.communicationManagement.programEducationalManagement.AnnualProject;
+import it.unisa.kids.communicationManagement.programEducationalManagement.AnnualProjectSection;
+import it.unisa.kids.communicationManagement.programEducationalManagement.CommentoBean;
 import it.unisa.kids.communicationManagement.programEducationalManagement.IProgramEducational;
 
 public class ScientificResponsable extends Account implements IProgramEducational {
@@ -12,20 +14,20 @@ public class ScientificResponsable extends Account implements IProgramEducationa
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
+	
 	public void modifySubstantialProject(AnnualProject pProject)
 			throws SQLException {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	
 	public void modifyLittleProject(AnnualProject pProject) throws SQLException {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	
 	public String approveProject(AnnualProject pProject) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
@@ -45,16 +47,36 @@ public class ScientificResponsable extends Account implements IProgramEducationa
 		return null;
 	}
 
-	@Override
+	
 	public void approvedChangesProposed() throws SQLException {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+
 	public void rejectChangedProposed() throws SQLException {
 		// TODO Auto-generated method stub
 		
 	}
+
+    @Override
+    public void insertComment(CommentoBean toAdd) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public AnnualProjectSection getProgramEducational(int SectionId) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void insertProgramEducational(AnnualProjectSection pAnnual) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void updateProgramEducational(AnnualProjectSection toUpdate) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
 }

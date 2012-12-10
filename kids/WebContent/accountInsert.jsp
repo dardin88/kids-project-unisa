@@ -1,7 +1,7 @@
 <%-- 
     Document   : account
-    Created on : 23-nov-2012, 14.57.05
-    Author     : tonino ft. gianma
+    Created on : 6-dic-2012
+    Author     : Pasquale Caldarese
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -26,7 +26,7 @@
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
-        <script type="text/javascript" src="js/provaAccount.js"></script>
+        <script type="text/javascript" src="js/accountInsert.js"></script>
         <title>Registrazione Account - Kids Project</title>
         <script type="text/javascript">
             $(document).ready(function() {
@@ -36,6 +36,28 @@
             });
         </script>
     </head>
+
+    <div id="NickPassWindow" title="Visualizza dati accesso" style="display: inline">
+        <form id="NickPassForm" class="cmxform" method="get" action="">
+            <fieldset><br>
+                <div >
+                    <label id="accountLabel">  Nickname: </label>
+                    <input id="accountNick" class="accountInput" type="text" name="Nick" size="50%" readonly="true" style="margin-left: 5%">
+                </div>
+                <div >
+                    <label id="accountLabel">  Password: </label>
+                    <input id="accountPass" class="accountInput" type="text" name="Nick" size="50%" readonly="true" style="margin-left: 5%">
+                </div>
+
+                <label style="margin-left: 5%">  N.B. Le verrà inviata una e-mail all'indirizzo da lei specificata </label>
+                <label style="margin-left: 5%"> con i relativi dati di accesso. </label><br>
+                <p class="formp">
+                    <input type="button" class="confirmAddButton" id="showNickPass" value="Ok"/>
+                </p>
+            </fieldset>
+        </form>
+    </div>
+
     <%@include file="header.jsp"%>
     <body id="bodyRegistration">
 
@@ -156,7 +178,7 @@
                             <label id="accountLabel">  Tipo di Account*: </label>
                             <%--<input id="typeAccount" class="accountInput" type="text" name="typeAccount" value="TipoAccount">--%>
                             <select id="typeAccount" name="tipo" onchange="verificaAccount()">
-                                <OPTION value="Nothing" name="Nothing" selected> Scegli 
+                                <OPTION value="Nothing" name="Scelta" selected> Scegli 
                                 <OPTION value="Genitore" name="Genitore"> Genitore 
                                 <OPTION value="Delegato Ufficio" name="DelegatoUfficio"> Segreteria 
                                 <OPTION value="Delegato scienze della formazione" name="ScienzeFormazione"> Delegato Scienze della Formazione 
@@ -183,9 +205,9 @@
                             <select id="typeParent" name="tipo" onchange="verificaGenitore()" style="display: none">
                                 <OPTION value="Nothing" name="Scelta" selected> Scegli 
                                 <OPTION value="Studente" name="Studente"> Studente 
-                                <OPTION value="TecnicoAmministrativo" name="TecnicoAmministrativo"> Tecnico Amministrativo 
+                                <OPTION value="Tecnico amministrativo" name="TecnicoAmministrativo"> Tecnico Amministrativo 
                                 <OPTION value="Docente" name="Docente"> Docente 
-                                <OPTION value="ContrattoTempoDeterminato" name="ContrattoTempoDeterminato"> Contratto Tempo Determinato 
+                                <OPTION value="Contratto Tempo Determinato" name="ContrattoTempoDeterminato"> Contratto Tempo Determinato 
                                 <OPTION value="Ricercatore" name="Ricercatore">Ricercatore 
                                 <OPTION value="Dottorando" name="Dottorando"> Dottorando 
                             </select>

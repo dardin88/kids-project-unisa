@@ -256,7 +256,7 @@ function verificaAccount(){
         document.getElementById('accountLabel5').style.display="none";
     }
     
-    if((string=='Delegato Ufficio')||(string=='Scienze Formazione')||(string=='Educatore')||(string=='Coordinatore Psicopedagogico')||(string=='Responsabile Asilo')){
+    if((string=='Delegato Ufficio')||(string=='Delegato scienze della formazione')||(string=='Educatore')||(string=='Coordinatore Psicopedagogico')||(string=='Responsabile Asilo')){
         document.getElementById('modifyTypeParent').style.display="none";
         document.getElementById('accountLabel2').style.display="none";
         document.getElementById('accountLabel3').style.display="none";
@@ -311,7 +311,7 @@ function update(){
                var typeParent= document.getElementById('typeParent2').value;
                var typeAccount= document.getElementById('typeAccount2').value;
               
-               alert(typeAccount);
+             
                
      if(typeAccount=='Responsabile Scientifico'){
         document.getElementById('modifyTypeAccount').options[6].selected=true;

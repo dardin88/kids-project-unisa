@@ -128,25 +128,28 @@ function buildAccountTable(){
         },
         "aoColumns": [
         {
-            "sWidth": "15%"
+            "sWidth": "15%","sClass":"center"
         },
         {
-            "sWidth": "15%"
+            "sWidth": "15%","sClass":"center"
         },
         {
-            "sWidth": "15%"
+            "sWidth": "15%","sClass":"center"
         },
         {
-            "sWidth": "10%"
+            "sWidth": "10%","sClass":"center"
         },
         {
-            "sWidth": "10%"
+            "sWidth": "10%","sClass":"center"
         },
         {
-            "sWidth": "10%"
+            "sWidth": "10%","sClass":"center"
         }
         ]
-    });
+    });var oTable = $("#linkTable").dataTable();
+    if (oTable.length > 0) {
+        $("#accoutTable").css("width", "100%");
+    }
 }
 
    
@@ -189,9 +192,9 @@ function removeAccountParent(id){
    
 
 function search(){
-    var oTable = $("#accountsTable").dataTable();
-    oTable.fnDraw();
-        
+//    var oTable = $("#accountsTable").dataTable();
+//    oTable.fnDraw();
+        buildAccountTable();
 }
 
 function showAccount(id){

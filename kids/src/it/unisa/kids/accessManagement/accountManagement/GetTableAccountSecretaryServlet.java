@@ -74,9 +74,9 @@ public class GetTableAccountSecretaryServlet extends HttpServlet {
             String nome= request.getParameter("name");
             String cognome= request.getParameter("surname");
             String codFisc= request.getParameter("taxCode");
-            String nomeAcc= request.getParameter("nickName");
+            String nomeAcc= request.getParameter("nickname");
             String tipo= request.getParameter("type");
-            
+            System.out.print(nome+"rr");
             Account account=new Account();
             account.setNameUser(nome);
             account.setSurnameUser(cognome);
@@ -84,7 +84,7 @@ public class GetTableAccountSecretaryServlet extends HttpServlet {
             account.setAccountType(tipo);
             account.setNickName(nomeAcc);
             
-            if(!account.getNameUser().equals("")&&!account.getSurnameUser().equals("")&&!account.getTaxCode().equals("")&& !account.getAccountType().equals("")&& !account.getNickName().equals("")){
+            if((!account.getNameUser().equals(""))||(!account.getSurnameUser().equals(""))||(!account.getTaxCode().equals(""))|| (!account.getAccountType().equals(""))|| (!account.getNickName().equals(""))){
             listAccount= accountManager.search(account);
             }
             else{
