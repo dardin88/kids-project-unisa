@@ -81,7 +81,7 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
         return search(nb);
     }
 
-    public void insert(TimeServiceRequestBean pTimeServReq) throws SQLException {
+    public void insert(TimeServiceRequest pTimeServReq) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
         String query;
@@ -91,23 +91,19 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
 
             // constructing query string
             query = "INSERT INTO " + DBNames.TABLE_TIMESERV_REQUEST + " ("
-                    + DBNames.ATT_TIMESERVREQ_ID + ", "
                     + DBNames.ATT_TIMESERVREQ_DAYREQ + ", "
                     + DBNames.ATT_TIMESERVREQ_SERVTYPE + ", "
-                    + DBNames.ATT_TIMESERVREQ_DATE + ", "
                     + DBNames.ATT_TIMESERVREQ_REQTIME + ", "
                     + DBNames.ATT_TIMESERVREQ_PARENTID
-                    + ") VALUES(?, ?, ?, ?, ?, ?)";
+                    + ") VALUES(?, ?, ?, ?)";
 
             pstmt = con.prepareStatement(query);
 
             //setting pstmt's parameters
-            pstmt.setInt(1, pTimeServReq.getId());
-            pstmt.setString(2, pTimeServReq.getDayRequested());
-            pstmt.setString(3, pTimeServReq.getServiceType());
-            pstmt.setDate(4, new java.sql.Date(pTimeServReq.getDate().getTimeInMillis()));
-            pstmt.setTime(5, pTimeServReq.getRequestTime());
-            pstmt.setInt(6, pTimeServReq.getParentId());
+            pstmt.setString(1, pTimeServReq.getDayRequested());
+            pstmt.setString(2, pTimeServReq.getServiceType());
+            pstmt.setTime(3, pTimeServReq.getRequestTime());
+            pstmt.setInt(4, pTimeServReq.getParentId());
 
             pstmt.executeUpdate();
             con.commit();
@@ -121,7 +117,7 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
         }
     }
 
-    public void update(TimeServiceRequestBean pTimeServReq) throws SQLException {
+    public void update(TimeServiceRequest pTimeServReq) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
         String query = null;
@@ -160,7 +156,7 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
         }
     }
 
-    public void delete(TimeServiceRequestBean pTimeServReq) throws SQLException {
+    public void delete(TimeServiceRequest pTimeServReq) throws SQLException {
         Connection con = null;
         Statement stmt = null;
         String query = null;
@@ -185,13 +181,13 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
         }
     }
 
-    public List<TimeServiceRequestBean> search(TimeServiceRequestBean pTimeServReq)
+    public List<TimeServiceRequest> search(TimeServiceRequest pTimeServReq)
             throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         String query = null;
-        List<TimeServiceRequestBean> timeServReqs = null;
+        List<TimeServiceRequest> timeServReqs = null;
 
         boolean andState = false;
 
@@ -215,9 +211,7 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
                 andState = true;
             }
 
-            if (pTimeServReq.getDate() != null) {
-                query += useAnd(andState) + DBNames.ATT_TIMESERVREQ_DATE + " = ?";
-            }
+           
             
             if (pTimeServReq.getRequestTime() != null) {
                 query += useAnd(andState) + DBNames.ATT_TIMESERVREQ_REQTIME + " = ?";
@@ -247,10 +241,7 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
                 i++;
             }
 
-            if (pTimeServReq.getDate() != null) {
-                pstmt.setDate(i, new java.sql.Date(pTimeServReq.getDate().getTimeInMillis()));
-                i++;
-            }
+            
             
             if (pTimeServReq.getRequestTime() != null) {
                 pstmt.setTime(i, pTimeServReq.getRequestTime());
@@ -267,17 +258,14 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
             con.commit();
 
             // constructing timeServReq list
-            timeServReqs = new ArrayList<TimeServiceRequestBean>();
+            timeServReqs = new ArrayList<TimeServiceRequest>();
             while (rs.next()) {
-                TimeServiceRequestBean ts = new TimeServiceRequestBean();
+                TimeServiceRequest ts = new TimeServiceRequest();
                 ts.setId(rs.getInt(DBNames.ATT_TIMESERVREQ_ID));
                 ts.setDayRequested(rs.getString(DBNames.ATT_TIMESERVREQ_DAYREQ));
                 ts.setServiceType(rs.getString(DBNames.ATT_TIMESERVREQ_SERVTYPE));
 
                 //getting Date from ResultSet and converting it to GregorianCalendar
-                GregorianCalendar sqlDate = new GregorianCalendar();
-                sqlDate.setTime(rs.getDate(DBNames.ATT_TIMESERVREQ_DATE));
-                ts.setDate(sqlDate);
                 
                 ts.setRequestTime(rs.getTime(DBNames.ATT_TIMESERVREQ_REQTIME));
                 ts.setParentId(rs.getInt(DBNames.ATT_TIMESERVREQ_PARENTID));
@@ -303,7 +291,7 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
     }
 
     @Override
-    public List<TimeServiceRequestBean> getTimeServRequestList()
+    public List<TimeServiceRequest> getTimeServRequestList()
             throws SQLException {
         // TODO Auto-generated method stub
         return null;

@@ -15,7 +15,7 @@ public final class DBNames {
     public static final String TABLE_CLASS = "classe";
     public static final String TABLE_ASSIGNATION = "assignazione";  // associazione tra classe e tirocinante
     public static final String TABLE_MEAL_REQUEST = "richiesta_pasto";
-    public static final String TABLE_TIMESERV_REQUEST = "timeserv_request";
+    public static final String TABLE_TIMESERV_REQUEST = "richiesta_orari_servizio";
     public static final String TABLE_MENU = "menu_mensa";
     public static final String TABLE_REFUND = "rimborso";
     public static final String TABLE_PAYMENT = "pagamento";
@@ -160,7 +160,6 @@ public final class DBNames {
     public static final String ATT_TIMESERVREQ_ID = "Id";
     public static final String ATT_TIMESERVREQ_DAYREQ = "GiornoModifica";
     public static final String ATT_TIMESERVREQ_SERVTYPE = "TipoServizio";
-    public static final String ATT_TIMESERVREQ_DATE = "Data";
     public static final String ATT_TIMESERVREQ_REQTIME = "Ora";
     public static final String ATT_TIMESERVREQ_PARENTID = "AccountGenitore";
     //DifferentiatedMenuTable's attributes
