@@ -8,10 +8,10 @@ import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.kids.communicationManagement.newsManagement.News;
-import it.unisa.kids.serviceManagement.trainingManagement.ITrainingManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author marco
  */
-public class InsertTimeServiceServlet extends HttpServlet {
+public class UpdateTimeServiceServlet extends HttpServlet {
 private ITimeServiceManager timeServiceManager;
 
     public void init(ServletConfig config) {
@@ -45,25 +45,25 @@ private ITimeServiceManager timeServiceManager;
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         try {
-            String timeService=request.getParameter("orarioDiServizio");
             HttpSession session=request.getSession();
-            News timeServiceNews=new News();
-            timeServiceNews.setDescription(timeService);
-            timeServiceNews.setDelegate(((Account)session.getAttribute("user")).getId());
-            timeServiceNews.setType("OrarioDiServizio");
-            timeServiceNews.setDate(new GregorianCalendar());
-            timeServiceManager.insert(timeServiceNews);
-            request.setAttribute("message",
-                    "Orario di servizio salvato con successo");
-            request.getServletContext().getRequestDispatcher("/secretaryPage.jsp").forward(request, response);
+            String timeService=request.getParameter("orarioDiServizio");
+            News news=new News();
+            news.setDelegate(((Account)session.getAttribute("user")).getId());
+            news.setId(Integer.parseInt(request.getParameter("idNews")));
+            news.setDescription(timeService);
+            news.setType("OrarioDiServizio");
+            news.setDate(new GregorianCalendar());
+            news.setTime(new Time(0,0,0));
+            timeServiceManager.update(news);
+           
+            request.getServletContext().getRequestDispatcher("/timeService.jsp").forward(request, response);
             
-            
-        } 
-        catch (SQLException ex) {
-            Logger.getLogger(InsertTimeServiceServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }    }
+        } catch (SQLException ex) {
+            Logger.getLogger(UpdateTimeServiceServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

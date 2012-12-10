@@ -93,6 +93,9 @@ function buildVisualTimeTable() {
 
 function showTimeService() {
     $.post("GetTimeService", function(data) {
-        $("#TextAreaTimeService").val(data);
+        var split=data.split(",");
+        $("#TextAreaTimeService").val(split[0]);
+        $("#idNews").val(split[1]);
+        
     }, "text");
 }

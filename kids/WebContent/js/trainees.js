@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-function initializeLinksManager(){
+function initializeLinksManager() {
     $.ajaxSetup({
         cache: false
     });
@@ -16,39 +16,38 @@ function initializeLinksManager(){
     });
     $("#insertButton").button();
     $("#insertTraineeWindow").dialog({
-        autoOpen:false,
-        modal:true,
-        resizable:false,
-        width:400
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 400
     });
     $("#saveButton").button();
     $("#informationTraineeWindow").dialog({
-        close: function( event, ui ) {
-            document.getElementById("modifyButton").style.visibility="visible";
-            document.getElementById("saveChanges").style.visibility="hidden";
-            document.getElementById("RegisterInf").disabled=true;
-            document.getElementById("NameInf").disabled=true;
-            document.getElementById("SurnameInf").disabled=true;
-            document.getElementById("BirthDateInf").disabled=true;
-            document.getElementById("CityOfBirthInf").disabled=true;
-            document.getElementById("CityOfResidenceInf").disabled=true;
-            document.getElementById("AddressInf").disabled=true;
-            document.getElementById("CAPInf").disabled=true;
-            document.getElementById("TelephoneNumberInf").disabled=true;
-            document.getElementById("EmailInf").disabled=true;
-            document.getElementById("QualificationInf").disabled=true;
+        close: function(event, ui) {
+            document.getElementById("modifyButton").style.visibility = "visible";
+            document.getElementById("saveChanges").style.visibility = "hidden";
+            document.getElementById("RegisterInf").disabled = true;
+            document.getElementById("NameInf").disabled = true;
+            document.getElementById("SurnameInf").disabled = true;
+            document.getElementById("BirthDateInf").disabled = true;
+            document.getElementById("CityOfBirthInf").disabled = true;
+            document.getElementById("CityOfResidenceInf").disabled = true;
+            document.getElementById("AddressInf").disabled = true;
+            document.getElementById("CAPInf").disabled = true;
+            document.getElementById("TelephoneNumberInf").disabled = true;
+            document.getElementById("EmailInf").disabled = true;
+            document.getElementById("QualificationInf").disabled = true;
         },
-
-        autoOpen:false,
-        modal:true,
-        resizable:false,
-        width:400
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 400
     });
     $("#modifyButton").button();
-   
-    
+
+
 }
-function buildTraineeTable(){
+function buildTraineeTable() {
     $('#traineesTable').dataTable({
         "bJQueryUI": true,
         "bServerSide": true,
@@ -57,19 +56,18 @@ function buildTraineeTable(){
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
-        "fnServerParams": function ( aoData ) {
+        "fnServerParams": function(aoData) {
             aoData.push(
+                    {
+                        "name": "Nome",
+                        "value": $('#Nome').val()
+                    },
             {
-                "name" : "Nome", 
-                "value" : $('#Nome').val()
-            },
-
-            {
-                "name" : "Cognome", 
-                "value" : $('#Cognome').val()
+                "name": "Cognome",
+                "value": $('#Cognome').val()
             }
             );
-     
+
         },
         "bSort": false,
         "bDestroy": true,
@@ -77,75 +75,75 @@ function buildTraineeTable(){
         "bAutoWidth": true,
         "sPaginationType": "full_numbers",
         "oLanguage": {
-            "sProcessing":   "Caricamento...",
-            "sLengthMenu":   "Visualizza _MENU_ link",
-            "sZeroRecords":  "La ricerca non ha portato alcun risultato.",
-            "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Tirocinanti",
-            "sInfoEmpty":    "Vista da 0 a 0 di 0 Tirocinanti",
+            "sProcessing": "Caricamento...",
+            "sLengthMenu": "Visualizza _MENU_ link",
+            "sZeroRecords": "La ricerca non ha portato alcun risultato.",
+            "sInfo": "Vista da _START_ a _END_ di _TOTAL_ Tirocinanti",
+            "sInfoEmpty": "Vista da 0 a 0 di 0 Tirocinanti",
             "sInfoFiltered": "(filtrati da _MAX_ link totali)",
-            "sInfoPostFix":  "",
+            "sInfoPostFix": "",
             "oPaginate": {
-                "sFirst":    "<<",
+                "sFirst": "<<",
                 "sPrevious": "<",
-                "sNext":     ">",
-                "sLast":     ">>"
+                "sNext": ">",
+                "sLast": ">>"
             }
         },
-
-
-        "oTableTools":{
-            "aButtons":[
-            "Modifica","Visualizza","Contatta"
+        "oTableTools": {
+            "aButtons": [
+                "Modifica", "Visualizza", "Contatta"
             ]
         },
         "aoColumns": [
-        {
-            "sWidth": "25%"
-        },
-        {
-            "sWidth": "25%"
-        },
-        {
-            "sWidth": "25%"
-        },
-        {
-            "sWidth":"10%"
-        },
-        {
-            "sWidth": "10%"
-        }
+            {
+                "sWidth": "25%"
+            },
+            {
+                "sWidth": "25%"
+            },
+            {
+                "sWidth": "25%"
+            },
+            {
+                "sWidth": "10%"
+            },
+            {
+                "sWidth": "10%"
+            }
         ]
     });
 }
 
-function removeTrainee(id){
+function removeTrainee(id) {
     $("#removeTraineeWindow").dialog({
-        autoOpen:true
-    }); 
+        autoOpen: true
+    });
     $("#confirmRemoveLinkButton").button();
-    $("#confirmRemoveLinkButton").click(function(){
+    $("#confirmRemoveLinkButton").click(function() {
         $.post("RemoveTrainee", {
-            traineeId:""+id
+            traineeId: "" + id
         });
-        $("#removeTraineeWindow").dialog("close"); 
+        $("#removeTraineeWindow").dialog("close");
         var oTable = $("#traineesTable").dataTable();
         oTable.fnDraw();
+        location.reload(true);
+
     });
     $("#notConfirmRemoveLinkButton").button();
-    $("#notConfirmRemoveLinkButton").click(function(){
+    $("#notConfirmRemoveLinkButton").click(function() {
         $("#removeTraineeWindow").dialog("close");
     });
 }
-function search(){
+function search() {
     var oTable = $("#traineesTable").dataTable();
     oTable.fnDraw();
-        
+
 }
-function loadInformationTraineePage(id){
+function loadInformationTraineePage(id) {
     $("#informationTraineeWindow").dialog("open");
     $.post("GetTrainees", {
-        traineeId:""+id
-    },function(data){
+        traineeId: "" + id
+    }, function(data) {
         var result = data.toString().split(",");
         $("#RegisterInf").val(result[0]);
         $("#NameInf").val(result[1]);
@@ -159,15 +157,15 @@ function loadInformationTraineePage(id){
         $("#EmailInf").val(result[9]);
         $("#QualificationInf").val(result[10]);
         $("#IdInf").val(result[11]);
-    },"text");
+    }, "text");
 
 }
 
-function openInsertTraineeDialog(){
+function openInsertTraineeDialog() {
     $("#insertTraineeWindow").dialog("open");
 
 }
-function messageDialog(){
+function messageDialog() {
     $("#confirm").dialog({
         autoOpen: true,
         modal: true,
@@ -175,45 +173,42 @@ function messageDialog(){
         width: 400
     });
     $("#confirmButton").button();
-};
+}
+;
 
-function modify(){
-    document.getElementById("modifyButton").style.visibility="hidden";
-    document.getElementById("saveChanges").style.visibility="visible";
-    document.getElementById("RegisterInf").disabled=false;
-    document.getElementById("NameInf").disabled=false;
-    document.getElementById("SurnameInf").disabled=false;
-    document.getElementById("BirthDateInf").disabled=false;
-    document.getElementById("CityOfBirthInf").disabled=false;
-    document.getElementById("CityOfResidenceInf").disabled=false;
-    document.getElementById("AddressInf").disabled=false;
-    document.getElementById("CAPInf").disabled=false;
-    document.getElementById("TelephoneNumberInf").disabled=false;
-    document.getElementById("EmailInf").disabled=false;
-    document.getElementById("QualificationInf").disabled=false;
+function modify() {
+    document.getElementById("modifyButton").style.visibility = "hidden";
+    document.getElementById("saveChanges").style.visibility = "visible";
+    document.getElementById("RegisterInf").disabled = false;
+    document.getElementById("NameInf").disabled = false;
+    document.getElementById("SurnameInf").disabled = false;
+    document.getElementById("BirthDateInf").disabled = false;
+    document.getElementById("CityOfBirthInf").disabled = false;
+    document.getElementById("CityOfResidenceInf").disabled = false;
+    document.getElementById("AddressInf").disabled = false;
+    document.getElementById("CAPInf").disabled = false;
+    document.getElementById("TelephoneNumberInf").disabled = false;
+    document.getElementById("EmailInf").disabled = false;
+    document.getElementById("QualificationInf").disabled = false;
 }
 
 
-$(document).ready(function(){
+$(document).ready(function() {
     $("#information").validate({
         rules:
-        {
-            
-            DataNascita:{
-                date:true
-            },
-            
-            Email:{
-                email:true
-            }
+                {
+                    DataNascita: {
+                        date: true
+                    },
+                    Email: {
+                        email: true
+                    }
+                },
+        messages: {
+            DataNascita: " Inserisci la data di nascita nel formato corretto(gg/MM/AAAA)",
+            Email: " Inserisci l'email nel formato corretto"
         },
-        messages:{
-            
-            DataNascita:" Inserisci la data di nascita nel formato corretto(gg/MM/AAAA)",
-           
-            Email:" Inserisci l'email nel formato corretto"
-        },
-        submitHandler:function(form){
+        submitHandler: function(form) {
             form.submit();
         }
     });
