@@ -369,6 +369,10 @@
         <servlet-name>GetTableChildServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.classManagement.GetTableChildServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>InsertRequestTimeServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.timeServiceManagement.InsertRequestTimeServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
@@ -724,6 +728,10 @@
     <servlet-mapping>
         <servlet-name>GetTableChildServlet</servlet-name>
         <url-pattern>/GetTableChildServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertRequestTimeServlet</servlet-name>
+        <url-pattern>/InsertRequestTime</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

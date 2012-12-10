@@ -20,13 +20,13 @@ public interface ITimeServiceManager extends IManager {
 
     public List<News> getTimeServiceList(String pTimeServType) throws SQLException;
 
-    public void insert(TimeServiceRequestBean pTimeServReq) throws SQLException;
+    public void insert(TimeServiceRequest pTimeServReq) throws SQLException;
 
-    public void update(TimeServiceRequestBean pTimeServReq) throws SQLException;
+    public void update(TimeServiceRequest pTimeServReq) throws SQLException;
 
-    public void delete(TimeServiceRequestBean pTimeServReq) throws SQLException;
+    public void delete(TimeServiceRequest pTimeServReq) throws SQLException;
 
-    public List<TimeServiceRequestBean> search(TimeServiceRequestBean pTimeServReq) throws SQLException;
+    public List<TimeServiceRequest> search(TimeServiceRequest pTimeServReq) throws SQLException;
 
-    public List<TimeServiceRequestBean> getTimeServRequestList() throws SQLException;
+    public List<TimeServiceRequest> getTimeServRequestList() throws SQLException;
 }

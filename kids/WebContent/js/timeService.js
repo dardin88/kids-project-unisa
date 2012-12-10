@@ -4,6 +4,10 @@
  */
 function initializetimeServicePage() {
     $("#timeserviceTab").tabs();
+    $("#insertRequestTime").button();
+    $("#insertRequestTimeDialog").dialog({
+        autoOpen: false
+    });
     //  buildnotifyTable();
     //buildVisualTimeTable();
     $("#InsertTimeServiceButton").button();
@@ -116,4 +120,24 @@ function showTimeService() {
         $("#idNews").val(split[1]);
 
     }, "text");
+}
+$(document).ready(function() {
+    $("#requestTimeForm").validate({
+        rules:
+                {
+                    ora: {
+                        required: true
+                    }
+                },
+        messages: {
+            ora: "Inserisci l'ora"
+        },
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+});
+
+function openInsertRequestTimeDialog(){
+    $("#insertRequestTimeDialog").dialog("open");
 }

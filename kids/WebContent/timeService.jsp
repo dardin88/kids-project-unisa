@@ -4,10 +4,18 @@
     Author     : stefanoferrante
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<c:if test="${sessionScope.user==null}">
+    <c:redirect url="index.jsp" />
+</c:if>
+<c:if test="${sessionScope.user.getAccountType()!='Genitore' && sessionScope.user.getAccountType()!='Segreteria'}">
+    <c:redirect url="index.jsp" />
+</c:if>
 <!DOCTYPE html>
 <html>
     <head>
-         <link rel="stylesheet" type="text/css" href="css/template.css" >
+        <link rel="stylesheet" type="text/css" href="css/template.css" >
         <script type="text/javascript" src="js/functions.js"></script>
         <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
         <script type="text/javascript" src="js/jquery-1.8.2.js"></script>
@@ -66,61 +74,65 @@
                     </div>
 
                     <div id="RequestTime">
-                        <form id="requestTimeForm" class="cmxform" method="post" action="requestTime">
-                            <table>
-                                <tr><td>Seleziona servizio</td><td> <select name="type" id="type">
-                                            <option value="PreAccoglienza">Pre-accoglienza</option>
-                                            <option value="PostAccoglienza">Post-accoglienza</option>
-                                            <option value="ProlungamentoOrario">Prolungamento Orario di base</option>
-                                        </select></td></tr>
-                                <tr><td>Giorno</td><td><select name="giorno" id="day">
-                                            <option value="Lunedi">Luned&igrave</option>
-                                            <option value="Martedi">Marted&igrave</option>
-                                            <option value="Mercoledi">Mercoled&igrave</option>
-                                            <option value="Giovedi">Gioved&igrave</option>
-                                            <option value="Venerdi">Venerd&igrave</option>
-                                        </select>
-                                    </td></tr>
-                                <tr><td>Ora</td><td><input type="text" name="Ora" id="Time"></td></tr>
-                                <tr><td>Data</td><td><input type="text" name="Data" id="Date"></td></tr>
-                            </table>
-                            <input type="submit" name="SendRequest" value="Invia Richiesta" id="SendRequest">
-                    </div>
-                </div> <%--chiusura div per jquery Genitore --%>   
-            </c:if>   
-            <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}"> 
-                <div id="timeserviceTab">      <%--div tab jQuery--%>
-                    <ul>
-                        <li><a href="#InsertTime"><span class="TimeTab">Orari di servizio</span></a></li>
-                        <li><a href="#notifyTimeService"><span class="TimeTab">Notifiche</span></a></li>
-                    </ul>
-                    <div id="InsertTime">
-                        <form id="InsertTimeForm" method="post" action="UpdateTimeService">
-                            <h1>Orario di servizio</h1>
-                            <input type="hidden" id="idNews" name="idNews">
-                            <textarea name="orarioDiServizio" rows="20" cols="100" id="TextAreaTimeService" style="resize:none;display:block"></textarea>
-                            <input type="submit" name="Insert" value="Salva" id="InsertTimeServiceButton">
-                        </form>
-                    </div>
+                        <input type="button" id="insertRequestTime" value="Inserisci la richiesta di orario di servizio" onclick="openInsertRequestTimeDialog()">
+                        
+                        <div id="insertRequestTimeDialog">
+                            <form id="requestTimeForm" class="cmxform" method="post" action="InsertRequestTime">
+                                <table>
+                                    <tr><td>Seleziona servizio*</td><td> <select name="tipo" id="type">
+                                                <option value="Pre-Accoglienza">Pre-accoglienza</option>
+                                                <option value="Post-Accoglienza">Post-accoglienza</option>
+                                                <option value="Prolungamento Orario di base">Prolungamento Orario di base</option>
+                                            </select></td></tr>
+                                    <tr><td>Giorno*</td><td><select name="giorno" id="day">
+                                                <option value="Lunedi">Luned&igrave</option>
+                                                <option value="Martedi">Marted&igrave</option>
+                                                <option value="Mercoledi">Mercoled&igrave</option>
+                                                <option value="Giovedi">Gioved&igrave</option>
+                                                <option value="Venerdi">Venerd&igrave</option>
+                                            </select>
+                                        </td></tr>
+                                    <tr><td>Ora*</td><td><input type="text" name="ora" id="Time"></td></tr>
+                                </table>
+                                <h1>* Campi obbligatori</h1>
+                                <input type="submit" name="SendRequest" value="Invia Richiesta" id="SendRequest">
+                                </div>
+                                </div>
+                                </div> <%--chiusura div per jquery Genitore --%>   
+                            </c:if>   
+                            <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}"> 
+                                <div id="timeserviceTab">      <%--div tab jQuery--%>
+                                    <ul>
+                                        <li><a href="#InsertTime"><span class="TimeTab">Orari di servizio</span></a></li>
+                                        <li><a href="#notifyTimeService"><span class="TimeTab">Notifiche</span></a></li>
+                                    </ul>
+                                    <div id="InsertTime">
+                                        <form id="InsertTimeForm" method="post" action="UpdateTimeService">
+                                            <h1>Orario di servizio</h1>
+                                            <input type="hidden" id="idNews" name="idNews">
+                                            <textarea name="orarioDiServizio" rows="20" cols="100" id="TextAreaTimeService" style="resize:none;display:block"></textarea>
+                                            <input type="submit" name="Insert" value="Salva" id="InsertTimeServiceButton">
+                                        </form>
+                                    </div>
 
-                    <div id="notifyTimeService">
-                        <table id="notifyTable">
-                            <thead>
-                                <tr>
-                                    <th>N.</th>
-                                    <th>Notifiche</th>
-                                    <th>Operazioni</th>
-                                </tr>
-                            </thead>
+                                    <div id="notifyTimeService">
+                                        <table id="notifyTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>N.</th>
+                                                    <th>Notifiche</th>
+                                                    <th>Operazioni</th>
+                                                </tr>
+                                            </thead>
 
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
-                </div> 
-            </c:if>
-        </div> 
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div> 
+                            </c:if>
+                    </div> 
 
-        <%@include file="footer.jsp" %>
-    </body>
-</html>
+                    <%@include file="footer.jsp" %>
+                    </body>
+                    </html>
