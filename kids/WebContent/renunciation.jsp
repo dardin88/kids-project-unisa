@@ -36,7 +36,7 @@
         <script type="text/javascript" src="js/functions.js"></script>
 
 
-        <jsp:include page="/InsertTableChildServlet" />
+        <jsp:include page="/InsertTableChild" />
 
         <script type="text/javascript">
                 
