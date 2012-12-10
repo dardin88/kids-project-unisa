@@ -5,6 +5,8 @@ import java.util.GregorianCalendar;
 import java.util.Observable;
 
 public class PaymentBean implements Serializable {
+    
+    public static final String DEFAULT_PAYEE = "Unisa - Kids";
 
     private int id;
     private GregorianCalendar expDate;
