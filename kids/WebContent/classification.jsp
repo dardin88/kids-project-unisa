@@ -29,6 +29,8 @@
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/classificationManager.js"></script>
         <script type="text/javascript" src="js/classificationTables.js"></script>
+        <script type="text/javascript" src="js/classificationCriterion.js"></script>
+        
         <title>Classification Management</title>
     </head>
     <script type="text/javascript">
@@ -89,11 +91,13 @@
     
     <body>
         <%@include file="header.jsp" %>
+        
         <div id="classificationSubmit">
             <input type="hidden" id="classificationSelectedId" />
             <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
             <input type="submit" id="classificationButtonOpenWindowCreateNew" value="Crea una nuova graduatoria" />
             <input type="submit" id="classificationButtonOpenWindowCreateNew" value="Crea una nuova graduatoria" />
+            <input type="button" id="classificationOpenCriteriaWindow" onClick="openCriteriaWindow();" value="Gestisci criteri" />
             </c:if>
         </div>
         <div id="classificationDisplayTable">
@@ -204,6 +208,67 @@
             </form>
         </div>
 
+        <%-- GESTIONE DEI CRITERI DI VALUTAZIONE DELLA GRADUATORIA --%>
+        <div id="classificationCriteriaWindow" name="classificationCriteriaWindow" title="Criteri di valutazione della graduatoria" style="display: inline">
+            <div>
+                <table id="classificationCriteriaTable">
+                    <thead>
+                        <th>Descrizione</th>
+                        <th>Campo</th>
+                        <th>Operando</th>
+                        <th>Condizione</th>
+                        <th>Peso</th>
+                        <th>Operazioni</th>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <input type="button" id="classificationAddCriterion" onClick="javascript:addCriterion();" value="Aggiungi Criterio" />
+            </div>
+        </div>
+
+        <div id="classificationAddCriterionWindow" name="classificationAddCriterionWindow" title="" style="display: inline">
+            <form id="classificationAddCriterionForm" name="classificationAddCriterionForm" class="cmxform" method="post" action="">
+                <fieldset>
+                    <div>
+                        <h3>Descrizione</h3>
+                        <p>
+                            <input type="text" id="classificationNewCriterionDescrizione" name="classificationNewCriterionDescrizione" />
+                        </p>
+                        <h3>Campo</h3>
+                        <p>
+                            <select id="classificationNewCriterionCampo" name="classificationNewCriterionCampo">
+                                <option></option>
+                            </select>
+                        </p>
+                        <p>
+                            <select id="classificationNewCriterionOperando" name="classificationNewCriterionOperando">
+                                <option value="<">minore (<)</option>
+                                <option value="<=">non maggiore (<=)</option>
+                                <option value="==">uguale (=)</option>
+                                <option value=">=">non minore (>=)</option>
+                                <option value=">=">maggiore (>)</option>
+                                <option value="!=">diverso (!=)</option>
+                            </select>
+                        </p>
+                        <h3>Condizione</h3>
+                        <p>
+                            <input type="text" id="classificationNewCriterionCondizione" name="classificationNewCriterionCondizione" />
+                        </p>
+                        <h3>Peso</h3>
+                        <p>
+                            <input type="text" id="classificationNewCriterionPeso" name="classificationNewCriterionPeso" />
+                        </p>
+                        <p>
+                            <input type="button" id="classificationAddCriterionSubmit" onClick="addCriterion();" value="Inserisci" />
+                        </p>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <%-- FINE GESTIONE DEI CRITERI DI VALUTAZIONE DELLA GRADUATORIA --%>
         
         <div id="classificationAlertWindow" name="classificationAlertWindow" title="" style="display: inline">
             <form id="classificationAlertWindowForm" name="classificationAlertWindowForm" class="cmxform" method="post" action="">
