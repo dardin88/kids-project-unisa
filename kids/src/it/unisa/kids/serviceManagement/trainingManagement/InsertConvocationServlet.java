@@ -33,13 +33,12 @@ import javax.servlet.http.HttpSession;
  */
 public class InsertConvocationServlet extends HttpServlet {
 
-    private JDBCTrainingManager trainingManager;
+    private ITrainingManager trainingManager;
 
     public void init(ServletConfig config) {
         RefinedAbstractManager refinedAbstractTrainingManager = RefinedAbstractManager.getInstance();
-        trainingManager = (JDBCTrainingManager) (ITrainingManager) refinedAbstractTrainingManager.getManagerImplementor(DBNames.TABLE_TRAINEE);
-        Observer o=new MailManager();
-        trainingManager.addObserver(o);
+        trainingManager =  (ITrainingManager) refinedAbstractTrainingManager.getManagerImplementor(DBNames.TABLE_TRAINEE);
+        
     }
 
     /**

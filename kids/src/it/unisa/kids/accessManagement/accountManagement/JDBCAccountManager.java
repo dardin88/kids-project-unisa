@@ -133,10 +133,11 @@ public class JDBCAccountManager implements IAccountManager {
             stmt.executeUpdate(query2);
             con.commit();
             list=search(pAccount);
-            if(list!=null)
+           /* if(list!=null)
             return list.get(0);
             else
-                return pAccount;
+                return pAccount;*/
+            return  null;
         } finally {
             if (stmt != null) {
                 stmt.close();

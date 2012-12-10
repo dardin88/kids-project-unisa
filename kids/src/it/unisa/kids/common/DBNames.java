@@ -4,6 +4,7 @@ public final class DBNames {
 
     private DBNames() {
     }
+    public static final String TABLE_TIMESERVICE="orariDiServizio";
     public static final String TABLE_ACCOUNT = "account";
     public static final String TABLE_REGISTRATIONCHILD = "iscrizionebambino";
     public static final String TABLE_CLASSIFICATION = "graduatoria";
