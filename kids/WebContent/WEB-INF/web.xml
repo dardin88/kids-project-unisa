@@ -353,6 +353,14 @@
         <servlet-name>ServletDeleteCriterion</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.classificationManagement.ServletDeleteCriterion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>InsertTimeServiceServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.timeServiceManagement.InsertTimeServiceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetTimeServiceServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.timeServiceManagement.GetTimeServiceServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
@@ -696,6 +704,14 @@
     <servlet-mapping>
         <servlet-name>ServletDeleteCriterion</servlet-name>
         <url-pattern>/DeleteCriterion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertTimeServiceServlet</servlet-name>
+        <url-pattern>/InsertTimeService</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetTimeServiceServlet</servlet-name>
+        <url-pattern>/GetTimeService</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

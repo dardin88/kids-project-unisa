@@ -3,7 +3,6 @@
     Created on : 6-dic-2012, 10.13.44
     Author     : stefanoferrante
 --%>
-ahaahahahah abuahauhauha
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -33,6 +32,7 @@ ahaahahahah abuahauhauha
                 activePage();
                 messageDialog();
                 initializetimeServicePage();
+                showTimeService();
             });
         </script>
     </head>
@@ -52,7 +52,6 @@ ahaahahahah abuahauhauha
                 </form>
             </div>
         </c:if>
-        <h1>Orario di Servizio</h1>
 
         <div id="timeserviceManagement">    <%--/generale--%>
             <c:if test="${sessionScope.user.getAccountType()=='Genitore'}">
@@ -87,34 +86,17 @@ ahaahahahah abuahauhauha
                 <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}"> 
                     <div id="timeserviceTab">      <%--div tab jQuery--%>
                         <ul>
-                            <li><a href="#InsertTime"><span class="TimeTab">Inserisci Orari di servizio</span></a></li>
-                            <li><a href="#modifyTime"><span class="TimeTab">Modifica Orari di servizio</span></a></li>
+                            <li><a href="#InsertTime"><span class="TimeTab">Orari di servizio</span></a></li>
                             <li><a href="#notifyTimeService"><span class="TimeTab">Notifiche</span></a></li>
                         </ul>
                         <div id="InsertTime">
-                            <form id="InsertTimeForm" class="cmxform" method="post" action="InsertTime">
-                                <h1>Inserisci Orario di apertura</h1>
-                                <textarea name="testo" rows="10" cols="100">
-          
-                                </textarea>
-                                <h1>Inserisci Orario di chiusura</h1>  
-                                <textarea name="testo" rows="10" cols="100">
-          
-                                </textarea>
+                            <form id="InsertTimeForm" method="post" action="InsertTimeService">
+                                <h1>Orario di servizio</h1>
+                                <textarea name="orarioDiServizio" rows="20" cols="100" id="TextAreaTimeService"></textarea>
+                                <input type="submit" name="Insert" value="Salva" id="InsertTimeServiceButton">
                             </form>
                         </div>
-                        <div id="modifyTime">
-                            <form id="modifyTimeForm" class="cmxform" method="post" action="modifyTime">
-                                <h1>Modifica Orario di apertura</h1>
-                                <textarea name="testo" rows="10" cols="100">
-          
-                                </textarea>
-                                <h1>Modifica Orario di chiusura</h1>  
-                                <textarea name="testo" rows="10" cols="100">
-          
-                                </textarea>
-                            </form>
-                        </div>
+                        
                         <div id="notifyTimeService">
                             <table id="notifyTable">
                                 <thead>

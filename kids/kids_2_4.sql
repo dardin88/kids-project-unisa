@@ -193,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `convocazione` (
   `NomeAttivita` varchar(50) NOT NULL,
   `Confermato` tinyint(1) DEFAULT '0',
   `IdDelegato` int(11) NOT NULL,
-  `IdTirociante` int(11) NOT NULL,
+  `IdTirocinante` int(11) NOT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 

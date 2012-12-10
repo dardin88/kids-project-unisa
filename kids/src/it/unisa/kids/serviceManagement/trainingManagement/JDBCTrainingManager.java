@@ -3,6 +3,7 @@ package it.unisa.kids.serviceManagement.trainingManagement;
 import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.Mail;
+import it.unisa.kids.common.MailManager;
 import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.kids.common.facade.AccessFacade;
 import it.unisa.kids.common.facade.IAccessFacade;
@@ -22,7 +23,7 @@ import java.util.logging.Logger;
 
 public class JDBCTrainingManager extends Observable implements ITrainingManager {
 
-    private static ITrainingManager manager;
+    private static JDBCTrainingManager manager;
     private static Logger logger = Logger.getLogger("global");
 
     private JDBCTrainingManager() {
@@ -31,13 +32,17 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
     public static ITrainingManager getInstance() {
         if (manager == null) {
             manager = new JDBCTrainingManager();
+            manager.addObserver(new MailManager());
         }
         return manager;
     }
-    /* (non-Javadoc)
-     * @see it.unisa.kids.serviceManagement.trainingManagement.ITrainingManager#insertTrainee(it.unisa.kids.serviceManagement.trainingManagement.Trainee)
-     */
 
+    /**
+     * Insert a new Trainee into the DB
+     *
+     * @param Account pTrainee
+     * @throws SQLException
+     */
     @Override
     public void insert(Account pTrainee) throws SQLException {
         IAccessFacade accessFacade = new AccessFacade();
@@ -49,6 +54,12 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
 
     }
 
+    /**
+     * Insert a new TraineeRequest into the DB
+     *
+     * @param TraineeRequest pTraineeRequest
+     * @throws SQLException
+     */
     @Override
     public void insert(TraineeRequest pTraineeRequest) throws SQLException {
         Connection con = null;
@@ -78,6 +89,12 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
         }
     }
 
+    /**
+     * Insert a new TraineeConvocation into the DB
+     *
+     * @param TraineeConvocation pTraineeConvocation
+     * @throws SQLException
+     */
     @Override
     public void insert(TraineeConvocation pTraineeConvocation) throws SQLException {
         Connection con = null;
@@ -126,8 +143,10 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
         }
     }
 
-    /* (non-Javadoc)
-     * @see it.unisa.kids.serviceManagement.trainingManagement.ITrainingManager#insertActivity(it.unisa.kids.serviceManagement.trainingManagement.TraineeActivity)
+    /** 
+     * Insert a new TraineeActivity into the DB
+     * @param TraineeActivity pTraineeActivity
+     * @throws SQLException
      */
     @Override
     public void insert(TraineeActivity pTraineeActivity) throws SQLException {
@@ -180,8 +199,11 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
             DBConnectionPool.releaseConnection(con);
         }
     }
-    /* (non-Javadoc)
-     * @see it.unisa.kids.serviceManagement.trainingManagement.ITrainingManager#update(it.unisa.kids.serviceManagement.trainingManagement.Trainee)
+    
+    /** 
+     * Update trainee's information
+     * @param Account pTrainee
+     * @throws SQLException
      */
 
     @Override
@@ -190,7 +212,12 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
         IAccessFacade accessFacade = new AccessFacade();
         accessFacade.update(pTrainee);
     }
-
+    
+    /** 
+     * Update activity's information
+     * @param TraineeActivity pTrainee
+     * @throws SQLException
+     */
     @Override
     public void update(TraineeActivity pTrainee) throws SQLException {
         Connection con = null;
@@ -469,7 +496,7 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
             i = 0;
             if (pTraineeActivity.getTrainee() > 0) {
                 i++;
-                pStmt.setInt(i,pTraineeActivity.getTrainee());
+                pStmt.setInt(i, pTraineeActivity.getTrainee());
             }
             if (pTraineeActivity.getId() > 0) {
                 i++;
@@ -492,7 +519,7 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
         try {
             con = DBConnectionPool.getConnection();
             query = "DELETE FROM " + DBNames.TABLE_TRAINEEREQUEST + " WHERE " + DBNames.ATT_TRAINEEREQUEST_ID + "=? ";
-           
+
             pStmt = con.prepareStatement(query);
             pStmt.setInt(1, pTraineeRequest.getId());
             pStmt.executeUpdate();
@@ -510,7 +537,7 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
         String query;
         try {
             con = DBConnectionPool.getConnection();
-            query = "DELETE FROM " + DBNames.TABLE_TRAINEECONVOCATION + " WHERE " ;
+            query = "DELETE FROM " + DBNames.TABLE_TRAINEECONVOCATION + " WHERE ";
             int i = 0;
             if (pTraineeConvocation.getTraineeId() > 0) {
                 i++;
@@ -528,14 +555,14 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
             i = 0;
             if (pTraineeConvocation.getTraineeId() > 0) {
                 i++;
-                pStmt.setInt(i,pTraineeConvocation.getTraineeId());
+                pStmt.setInt(i, pTraineeConvocation.getTraineeId());
             }
             if (pTraineeConvocation.getId() > 0) {
                 i++;
                 pStmt.setInt(i, pTraineeConvocation.getId());
 
             }
-            
+
             pStmt.executeUpdate();
             con.commit();
         } finally {

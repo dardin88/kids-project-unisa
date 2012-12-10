@@ -4,27 +4,28 @@
  */
 function initializetimeServicePage() {
     $("#timeserviceTab").tabs();
-    buildnotifyTable();
-    buildVisualTimeTable()
+  //  buildnotifyTable();
+    //buildVisualTimeTable();
+    $("#InsertTimeServiceButton").button();
 }
 
-function buildnotifyTable(){
+function buildnotifyTable() {
     $('#notifyTable').dataTable({
-    "bJQueryUI": true,
+        "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
         "sAjaxSource": "GetRefundsTable",
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
-        "fnServerParams": function ( aoData ) {
+        "fnServerParams": function(aoData) {
             aoData.push(
-            {
-                "name" : "parentId", 
-                "value" : parentId
-            }
+                    {
+                        "name": "parentId",
+                        "value": parentId
+                    }
             );
-     
+
         },
         "bSort": false,
         "bDestroy": true,
@@ -32,40 +33,40 @@ function buildnotifyTable(){
         "bAutoWidth": true,
         "sPaginationType": "full_numbers",
         "oLanguage": {
-            "sProcessing":   "Caricamento...",
-            "sLengthMenu":   "Visualizza _MENU_ link",
-            "sZeroRecords":  "Nessun rimborso disponibile.",
-            "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Rimborsi",
-            "sInfoEmpty":    "Vista da 0 a 0 di 0 Rimborsi",
+            "sProcessing": "Caricamento...",
+            "sLengthMenu": "Visualizza _MENU_ link",
+            "sZeroRecords": "Nessun rimborso disponibile.",
+            "sInfo": "Vista da _START_ a _END_ di _TOTAL_ Rimborsi",
+            "sInfoEmpty": "Vista da 0 a 0 di 0 Rimborsi",
             "sInfoFiltered": "(filtrati da _MAX_ link totali)",
-            "sInfoPostFix":  "",
+            "sInfoPostFix": "",
             "oPaginate": {
-                "sFirst":    "<<",
+                "sFirst": "<<",
                 "sPrevious": "<",
-                "sNext":     ">",
-                "sLast":     ">>"
+                "sNext": ">",
+                "sLast": ">>"
             }
         }
     });
 }
 
-function buildVisualTimeTable(){
+function buildVisualTimeTable() {
     $('#visualTimeTable').dataTable({
-    "bJQueryUI": true,
+        "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
         "sAjaxSource": "GetRefundsTable",
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
-        "fnServerParams": function ( aoData ) {
+        "fnServerParams": function(aoData) {
             aoData.push(
-            {
-                "name" : "parentId", 
-                "value" : parentId
-            }
+                    {
+                        "name": "parentId",
+                        "value": parentId
+                    }
             );
-     
+
         },
         "bSort": false,
         "bDestroy": true,
@@ -73,19 +74,25 @@ function buildVisualTimeTable(){
         "bAutoWidth": true,
         "sPaginationType": "full_numbers",
         "oLanguage": {
-            "sProcessing":   "Caricamento...",
-            "sLengthMenu":   "Visualizza _MENU_ link",
-            "sZeroRecords":  "Nessun rimborso disponibile.",
-            "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Rimborsi",
-            "sInfoEmpty":    "Vista da 0 a 0 di 0 Rimborsi",
+            "sProcessing": "Caricamento...",
+            "sLengthMenu": "Visualizza _MENU_ link",
+            "sZeroRecords": "Nessun rimborso disponibile.",
+            "sInfo": "Vista da _START_ a _END_ di _TOTAL_ Rimborsi",
+            "sInfoEmpty": "Vista da 0 a 0 di 0 Rimborsi",
             "sInfoFiltered": "(filtrati da _MAX_ link totali)",
-            "sInfoPostFix":  "",
+            "sInfoPostFix": "",
             "oPaginate": {
-                "sFirst":    "<<",
+                "sFirst": "<<",
                 "sPrevious": "<",
-                "sNext":     ">",
-                "sLast":     ">>"
+                "sNext": ">",
+                "sLast": ">>"
             }
         }
     });
+}
+
+function showTimeService() {
+    $.post("GetTimeService", function(data) {
+        $("#TextAreaTimeService").val(data);
+    }, "text");
 }
