@@ -202,15 +202,14 @@ function showAccount(id){
 }
 
 function modifyAccount(id){
-    alert(id);
-
+   
     window.open("accountModifyParent.jsp?id="+id);
      
      
 }
 
 function modifyAccount2(id){
-    alert(id);
+    
 
     window.open("accountModify.jsp?id="+id);
      
