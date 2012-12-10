@@ -21,21 +21,23 @@
             <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
             <script type="text/javascript" src="js/jquery.validate.min.js"></script>
             <script type="text/javascript" src="js/additional-methods.min.js"></script>
-            <script type='text/javascript' src='./calendario/fullcalendar/fullcalendar.min.js'></script>
+            <script type='text/javascript' src='calendario/fullcalendar/fullcalendar.min.js'></script>
             <script type="text/javascript" src="js/functions.js"></script>
             <script type="text/javascript" src="js/meetingManager.js"></script>
             <script type="text/javascript" src="js/jquery.ui.timepicker.js"></script>
-            <link rel='stylesheet' type='text/css' href='./calendario/fullcalendar/fullcalendar.css' /> 
+            <link rel='stylesheet' type='text/css' href='calendario/fullcalendar/fullcalendar.css' /> 
             <title>Kids</title>
             <script type="text/javascript">
                 $(document).ready(function() {
                     activePage();
                     initializeMeetingManager();
-                <c:if test="${sessionScope.user.getAccountType()=='Adim'||sessionScope.user.getAccountType()=='Segreteria'||sessionScope.user.getAccountType()=='Responsabile Asilo'}">                               
-                        CalendarEditable();
+                <c:if test="${sessionScope.user.getAccountType()=='Admin'||sessionScope.user.getAccountType()=='Segreteria'||sessionScope.user.getAccountType()=='Responsabile Asilo'}">                               
+                        
+                       CalendarEditable();
                 </c:if>
-                <c:if test="${sessionScope.user.getAccountType()!='Adim'&&sessionScope.user.getAccountType()!='Segreteria'&&sessionScope.user.getAccountType()=='Responsabile Asilo'}">                               
-                        CalendarNotEditable();
+                <c:if test="${sessionScope.user.getAccountType()!='Admin' && sessionScope.user.getAccountType() != 'Segreteria' && sessionScope.user.getAccountType() != 'Responsabile Asilo'}">                               
+                       alert("entrato");
+                       CalendarNotEditable();
                 </c:if> 
                         $("#dataMeeting,#modifyDataMeeting").datepicker({dateFormat:'yy-mm-dd'});
                  
@@ -140,10 +142,10 @@
                                             <label style="margin-left: 2%;" id="showTypeMeeting" name="showTypeMeeting"></label> <br> <br>
                                                     </p>
                                                     <p style="width: 480px">
-                                                        <c:if test="${sessionScope.user.getAccountType()=='Adim'||sessionScope.user.getAccountType()=='Segreteria'||sessionScope.user.getAccountType()=='Responsabile Asilo'}">                                                            <input type="button" id="modifyMeetingButton" value="Modifica Riunione" />
+                                                        <c:if test="${sessionScope.user.getAccountType()=='Admin'||sessionScope.user.getAccountType()=='Segreteria'||sessionScope.user.getAccountType()=='Responsabile Asilo'}">                                                            <input type="button" id="modifyMeetingButton" value="Modifica Riunione" />
                                                             <input type="button" id="deleteMeetingButton" value="Elimina Riunione" />
                                                         </c:if>
-                                                            <input style="width: 140px" type="button" id="notMeetingButton" value="Annulla" />
+                                                        <input style="width: 140px" type="button" id="notMeetingButton" value="Annulla" />
                                                     </p>
                                                     </div>
                                                     </fieldset>
@@ -270,10 +272,10 @@
 
                                                                                                                                                                                                         <body>
                                                                                                                                                                                                         <%@include file="header.jsp" %>
-                                                                                                                                                                                                        <c:if test="${sessionScope.user.getAccountType()=='Adim'||sessionScope.user.getAccountType()=='Segreteria'}">
+                                                                                                                                                                                                        <c:if test="${sessionScope.user.getAccountType()=='Admin'||sessionScope.user.getAccountType()=='Segreteria'||sessionScope.user.getAccountType()=='Responsabile Asilo'}"> 
                                                                                                                                                                                                         <input type="button"  id="newMeetingButton" style="position: absolute; left: 15%" value="Inserisci Riunione"/> 
                                                                                                                                                                                                         </c:if>
-                                                                                                                                                                                                        <div id='meetingCalendar' style="width: 60%"></div>
+                                                                                                                                                                                                        <div id="meetingCalendar" style="width: 60%"></div>
                                                                                                                                                                                                         <%@include file="footer.jsp" %>
                                                                                                                                                                                                         </body>
                                                                                                                                                                                                         </html>
