@@ -11,7 +11,7 @@ function initializeLinksManager(){
         width: 600
     });
 
-    $("#updateCommunicationWindow").dialog({
+    $("#solvedCommunicationWindow").dialog({
         autoOpen: false,
         modal: true,
         resizable: false,
@@ -44,27 +44,27 @@ function showCommunication(id,type,idEducator,idChild,description,date,solved){
     document.getElementById('labelSolved').innerHTML = solved;
 }
 
-function updateCommunication(id,typeCommunication,idEducator,idChild,description,date,solved){
-    $("#updateCommunicationWindow").dialog("open");
+function solvedCommunication(id,typeCommunication,idEducator,idChild,description,date,solved){
+    $("#solvedCommunicationWindow").dialog("open");
     $("#confirmCommunicationNews").button();
-    $("#updateCommunication").button();
-    
+    $("#solvedCommunication").button();
+    /*
     document.forms["updateCommunicationForm"].elements["idEducator"].value=idEducator;        
     document.forms["updateCommunicationForm"].elements["idChild"].value=idChild;
     document.forms["updateCommunicationForm"].elements["description"].value=description;
     document.forms["updateCommunicationForm"].elements["date"].value=date;
-    
+    */
     $("#artefactSolved option").each(function() {
         if($(this).text()==solved){
             $(this).attr("selected","selected");
         }
     });
      
-    $("#updateCommunicationForm").validate({
+    $("#solvedCommunicationForm").validate({
         rules: {
             solved:{
-                required:true,
-                remote:{
+                required:true
+                /*remote:{
                     url:"VerifySolved",
                     type: "post",
                     data:{
@@ -73,20 +73,20 @@ function updateCommunication(id,typeCommunication,idEducator,idChild,description
                             return valoreSelect;
                         }  
                     }        
-                }  
+                }  */
             }
         },
         messages: {
             solved:{
-                required: "Non puoi selezionare il primo item.",
-                remote: "Non puoi selezionare il primo item."
+                required: "Non puoi selezionare il primo item."
+              //  remote: "Non puoi selezionare il primo item."
             }
         },
         submitHandler: function() { 
-            $.post("UpdateCommunication", {
+            $.post("SolvedCommunication", {
                 artefactTipo: $("#artefactSolved").val()            
             });
-            $("#updateCommunicationWindow").dialog("close");
+            $("#solvedCommunicationWindow").dialog("close");
             document.location.reload(true);
             $("#artefactSolved").val("")
         }
@@ -94,8 +94,8 @@ function updateCommunication(id,typeCommunication,idEducator,idChild,description
 }
 
 function enableButtonUpdate(){
-    document.getElementById("updateCommunication").style.visibility="hidden";
-    document.getElementById("confirmUpdateCommunication").style.visibility="visible";
+    document.getElementById("solvedCommunication").style.visibility="hidden";
+    document.getElementById("confirmSolvedCommunication").style.visibility="visible";
     document.getElementById("artefactSolved").disabled=false;
 }
 
@@ -134,7 +134,7 @@ function addCommunication(){
                     },
                     submitHandler: function() {
                         $.post("AddCommunication", {
-                            artefactType: "1",
+                            artefactType: "Bisogno",
                             artefactName: $("#artefactName").val(),
                             artefactSurname: $("#artefactSurname").val(),
                             artefactDescription: $("#artefactDescription").val(),
@@ -159,7 +159,7 @@ function buildShowTable(){
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": "GetCommunication",
+        "sAjaxSource": "GetNeedCommunication",
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": true,

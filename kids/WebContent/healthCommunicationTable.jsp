@@ -148,7 +148,6 @@
                     <th>Id Bambino</th>
                     <th>Descrizione</th>
                     <th>Data</th>
-                    <th>Risolto</th>
                     <th>Operazioni</th>
                 </tr>
             </thead>

@@ -42,7 +42,7 @@ public class SolvedCommunicationServlet extends HttpServlet {
             PrintWriter out = response.getWriter();
             ICommunicationManager cc = JDBCCommunicationManager.getInstance();
             Communication c = new Communication();
-            /*
+         
             c.setId(Integer.parseInt(request.getParameter("idCommunication")));
             c.setType(request.getParameter("type"));
             c.setIdEducator(Integer.parseInt(request.getParameter("idEducator")));
@@ -50,9 +50,9 @@ public class SolvedCommunicationServlet extends HttpServlet {
             c.setDescription(request.getParameter("description"));
             String aDate = request.getParameter("date");
             //GregorianCalendar aDate= parseGregorianCalendar(aDat);
-            c.setDate(aDate);*/
+            c.setDate(aDate);
             c.setSolved(request.getParameter("solved"));
-            cc.modifyCommunication(c);
+            cc.solvedCommunication(c);
         } catch (SQLException ex) {
             Logger.getLogger(SolvedCommunicationServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -82,9 +82,9 @@ public class SolvedCommunicationServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ParseException ex) {
-            Logger.getLogger(UpdateCommunicationServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SolvedCommunicationServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(UpdateCommunicationServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SolvedCommunicationServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -103,9 +103,9 @@ public class SolvedCommunicationServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ParseException ex) {
-            Logger.getLogger(UpdateCommunicationServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SolvedCommunicationServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(UpdateCommunicationServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SolvedCommunicationServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
