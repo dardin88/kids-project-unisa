@@ -26,6 +26,7 @@ public class JDBCRenunciationManager implements IRenunciationManager {
 
         return manager;
     }
+
     public synchronized void insert(Renunciation pRenunciation) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -48,7 +49,7 @@ public class JDBCRenunciationManager implements IRenunciationManager {
             pstmt.setInt(1, pRenunciation.getId());
             pstmt.setInt(2, pRenunciation.getIdBambino());
             pstmt.setString(3, pRenunciation.getMotivazione());
-            pstmt.setBoolean(4, pRenunciation.isConferma());
+            pstmt.setInt(4, pRenunciation.isConferma());
 
             pstmt.executeUpdate();
             con.commit();
@@ -80,44 +81,72 @@ public class JDBCRenunciationManager implements IRenunciationManager {
 
     public List<Renunciation> search(Renunciation pRenunciation) throws SQLException {
         Connection con = null;
-        Statement stmt = null;
+        PreparedStatement pstmt = null;
         ResultSet result = null;
-        Renunciation tmpRenunciation = new Renunciation();
-        boolean andState = false;
         List<Renunciation> listRenunciation = new ArrayList<Renunciation>();
-        String query = "SELECT * FROM '" + DBNames.TABLE_RENUNCIATION + "' WHERE ";
+        StringBuffer query = new StringBuffer("SELECT * "
+                + "FROM " + DBNames.TABLE_RENUNCIATION
+                + "WHERE ");
 
-        if (pRenunciation.getId() != 0) {
-            query += "'" + DBNames.ATT_RENUNCIATION_ID + "'='" + pRenunciation.getId() + "'";
+        boolean andState = false;
+
+        if (pRenunciation.getId() > 0) {
+            query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_ID + "=? ,");
             andState = true;
         }
-        if (pRenunciation.getIdBambino() != 0) {
-            query += useAnd(andState) + "'" + DBNames.ATT_RENUNCIATION_ID_CHILD + "'='" + pRenunciation.getIdBambino() + "'";
+        if (pRenunciation.getIdBambino() >= 0) {
+            query.append(useAnd(andState) + DBNames.ATT_RENUNCIATION_ID_CHILD + " = ? ,");
             andState = true;
         }
-        if (pRenunciation.isConferma() == true) //Chiedo conferma :D
-        {
-            query += useAnd(andState) + "'" + DBNames.ATT_RENUNCIATION_CONFIRM + "'='" + pRenunciation.isConferma() + "'";
+        if (pRenunciation.isConferma() == 1) {
+            query.append(useAnd(andState) + DBNames.ATT_RENUNCIATION_CONFIRM + " = ? ");
             andState = true;
         }
-        query += ";";
+        if (!andState) {  // nel caso tutti i parametri sono null
+            query.append("1");
+        }
+        System.out.println(query);
 
         try {
             con = DBConnectionPool.getConnection();
-            stmt = con.createStatement();
-            result = stmt.executeQuery(query);
+            pstmt = con.prepareStatement(query.toString());
 
+            int paramNum = 1;
+
+            if (pRenunciation.getIdBambino() > 0) {
+                pstmt.setInt(paramNum, pRenunciation.getId());
+                paramNum++;
+            }
+
+            if (pRenunciation.getIdBambino() > 0) {
+                pstmt.setInt(paramNum, pRenunciation.getIdBambino());
+                paramNum++;
+            }
+            if (pRenunciation.isConferma() == 1) {
+                pstmt.setInt(paramNum, pRenunciation.isConferma());
+                paramNum++;
+            }
+
+            result = pstmt.executeQuery();
+            con.commit();
             while (result.next()) {
-                tmpRenunciation.setConferma(result.getBoolean(DBNames.ATT_RENUNCIATION_CONFIRM));
-                tmpRenunciation.setIdBambino(result.getInt(DBNames.ATT_RENUNCIATION_ID_CHILD));
-                tmpRenunciation.setMotivazione(result.getString(DBNames.ATT_RENUNCIATION_MOTIVATION));
-
-
-                listRenunciation.add(tmpRenunciation);
+                Renunciation p = new Renunciation();
+                p.setId(result.getInt(DBNames.ATT_RENUNCIATION_ID));
+                p.setConferma(result.getInt(DBNames.ATT_RENUNCIATION_CONFIRM));
+                p.setIdBambino(result.getInt(DBNames.ATT_RENUNCIATION_ID_CHILD));
+                p.setMotivazione(result.getString(DBNames.ATT_RENUNCIATION_MOTIVATION));
+                listRenunciation.add(p);
             }
         } finally {
-            stmt.close();
-            DBConnectionPool.releaseConnection(con);
+            if (result != null) {
+                result.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
+            if (con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
         }
 
         return listRenunciation;
@@ -169,7 +198,7 @@ public class JDBCRenunciationManager implements IRenunciationManager {
                 i++;
             }
 
-            pstmt.setBoolean(i, pRenunciation.isConferma());
+            pstmt.setInt(i, pRenunciation.isConferma());
             i++;
 
             pstmt.setInt(i, pRenunciation.getId());
@@ -186,6 +215,4 @@ public class JDBCRenunciationManager implements IRenunciationManager {
             }
         }
     }
-
-  
 }

@@ -107,10 +107,10 @@ public class InsertTableChildServlet extends HttpServlet {
              */
 
 
-            //listRenunciationRequest = registrationRenunciationManager.search(renunciation);
+            listRenunciationRequest = registrationRenunciationManager.search(renunciation);
             //}
 
-            int linksNumber = listaFigli.size();
+            int linksNumber = listRenunciationRequest.size();
             if (linksNumber < amount) {
                 amount = linksNumber;
             }
@@ -121,9 +121,15 @@ public class InsertTableChildServlet extends HttpServlet {
                     System.arraycopy(listaFigli.toArray(), start, paginateRenunciationRequestSet, 0, amount);
                 } else {
                     paginateRenunciationRequestSet = new Renunciation[toShow];
-                    System.arraycopy(listaFigli.toArray(), start, paginateRenunciationRequestSet, 0, toShow);
+                    System.arraycopy(listRenunciationRequest.toArray(), start, paginateRenunciationRequestSet, 0, toShow);
                 }
 
+                if(listaFigli.size()==0)
+                    System.out.println("lista vuota");
+                else
+                    for(RegistrationChild regRenunciationRequest : listaFigli)
+                        System.out.println(regRenunciationRequest.getId());
+                            
                 for (RegistrationChild regRenunciationRequest : listaFigli) {
                     JSONArray ja = new JSONArray();
                     ja.put(regRenunciationRequest.getName());

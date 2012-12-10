@@ -7,7 +7,7 @@ public class Renunciation {
     private int id;
     private String motivazione;
     private int idBambino;
-    private boolean conferma;
+    private int conferma;
 
     public Renunciation() {
     }
@@ -36,11 +36,11 @@ public class Renunciation {
         this.motivazione = motivazione;
     }
 
-    public boolean isConferma() {
+    public int isConferma() {
         return conferma;
     }
 
-    public void setConferma(boolean conferma) {
+    public void setConferma(int conferma) {
         this.conferma = conferma;
     }
 }
