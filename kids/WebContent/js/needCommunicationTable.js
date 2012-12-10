@@ -44,59 +44,31 @@ function showCommunication(id,type,idEducator,idChild,description,date,solved){
     document.getElementById('labelSolved').innerHTML = solved;
 }
 
-function solvedCommunication(id,typeCommunication,idEducator,idChild,description,date,solved){
+function solvedCommunication(id,solved){
     $("#solvedCommunicationWindow").dialog("open");
-    $("#confirmCommunicationNews").button();
+    $("#confirmSolvedCommunication").button();
     $("#solvedCommunication").button();
-    /*
-    document.forms["updateCommunicationForm"].elements["idEducator"].value=idEducator;        
-    document.forms["updateCommunicationForm"].elements["idChild"].value=idChild;
-    document.forms["updateCommunicationForm"].elements["description"].value=description;
-    document.forms["updateCommunicationForm"].elements["date"].value=date;
-    */
-    $("#artefactSolved option").each(function() {
-        if($(this).text()==solved){
-            $(this).attr("selected","selected");
-        }
-    });
-     
     $("#solvedCommunicationForm").validate({
         rules: {
             solved:{
                 required:true
-                /*remote:{
-                    url:"VerifySolved",
-                    type: "post",
-                    data:{
-                        valore:function(){
-                            var valoreSelect=$("#solvedCommunication").val();
-                            return valoreSelect;
-                        }  
-                    }        
-                }  */
             }
         },
         messages: {
             solved:{
                 required: "Non puoi selezionare il primo item."
-              //  remote: "Non puoi selezionare il primo item."
             }
         },
         submitHandler: function() { 
             $.post("SolvedCommunication", {
-                artefactTipo: $("#artefactSolved").val()            
+                idCommunication:""+id,
+                artefactSolved: $("#artefactSolved").val()            
             });
             $("#solvedCommunicationWindow").dialog("close");
             document.location.reload(true);
             $("#artefactSolved").val("")
         }
     });
-}
-
-function enableButtonUpdate(){
-    document.getElementById("solvedCommunication").style.visibility="hidden";
-    document.getElementById("confirmSolvedCommunication").style.visibility="visible";
-    document.getElementById("artefactSolved").disabled=false;
 }
 
 function addCommunication(){

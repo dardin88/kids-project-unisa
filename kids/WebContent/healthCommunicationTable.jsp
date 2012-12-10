@@ -94,8 +94,7 @@
             </fieldset>
         </form>
     </div> 
-    
-<div id="showCommunicationWindow" title="Visualizza Comunicazione Salute" style="display: inline">  
+<div id="showCommunicationWindow" title="Visualizza Comunicazione" style="display: inline">  
     <fieldset>
         <table>
             <tr>

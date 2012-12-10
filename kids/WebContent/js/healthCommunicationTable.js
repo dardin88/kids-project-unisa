@@ -28,7 +28,7 @@ function initializeLinksManager(){
     addCommunication(); 
 }
 
-function showCommunication(idEducator,idChild,description,date){
+function showCommunication(id,type,idEducator,idChild,description,date){
     $("#showCommunicationWindow").dialog("open"); 
     document.getElementById('labelIdEducator').innerHTML = idEducator; 
     document.getElementById('labelIdChild').innerHTML = idChild; 
