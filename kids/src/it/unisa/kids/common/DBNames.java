@@ -287,7 +287,7 @@ public final class DBNames {
     public static final String ATT_REGISTER_DAILYACTIVITYID="idAttivitaGiornaliera";
     public static final String ATT_REGISTER_PRESENCE="Stato";
     //Survey's attributes
-    public static final String ATT_SURVEY_SURVEYID = "Id";
+    public static final String ATT_SURVEY_SURVEYID = "idQuestionario";
     public static final String ATT_SURVEY_SURVEYLINK = "Link";  
     //Survey-compiled's attributes
     public static final String ATT_SURVEYCOMPILED_SURVEYID = "IdQuestionario";
