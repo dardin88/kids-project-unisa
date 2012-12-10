@@ -7,14 +7,12 @@ public class MealRequestBean {
 	public static final double PRICE_MEALREQ = 5.00;
 	
 	private int id;
-	private String requestedMenuType;		// one of: MenuBean.MAIN_MENU, MenuBean.ALTERNATIVE_MENU
 	private GregorianCalendar date;
-	private int childInscriptionId;
+	private int parentId;
 	
 	public MealRequestBean() {
 		
 	}
-	
 	
 	public int getId() {
 		return this.id;
@@ -22,14 +20,6 @@ public class MealRequestBean {
 	
 	public void setId(int pId) {
 		this.id = pId;
-	}
-	
-	public String getRequestedMenuType() {
-		return this.requestedMenuType;
-	}
-	
-	public void setRequestedMenuType(String pReqMenuType) {
-		this.requestedMenuType = pReqMenuType;
 	}
 	
 	public GregorianCalendar getDate() {
@@ -40,11 +30,11 @@ public class MealRequestBean {
 		this.date = pDate;
 	}
 	
-	public int getChildInscriptionId() {
-		return this.childInscriptionId;
+	public int getParentId() {
+		return this.parentId;
 	}
 	
-	public void setChildInscriptionId(int pChildInscriptionId) {
-		this.childInscriptionId = pChildInscriptionId;
+	public void setParentId(int pParentId) {
+		this.parentId = pParentId;
 	}
 }

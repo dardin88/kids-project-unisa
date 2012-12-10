@@ -165,7 +165,7 @@ public class GetCanteenClassTableServlet extends HttpServlet {
         }
 
         MealRequestBean mr = new MealRequestBean();
-        mr.setChildInscriptionId(rc.getParentId());     // in realta' è setParentId, da sistemare in un secondo momento nel manager della mensa
+        mr.setParentId(rc.getParentId());     // in realta' è setParentId, da sistemare in un secondo momento nel manager della mensa
         mr.setDate(new GregorianCalendar());    // setto la data corrente per verificare solo le richieste per il giorno corrente
         List<MealRequestBean> mealReqList = canteenManager.search(mr);
 
