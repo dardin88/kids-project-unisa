@@ -448,8 +448,6 @@ CREATE TABLE IF NOT EXISTS `richiesta_orari_servizio` (
 CREATE TABLE IF NOT EXISTS `richiesta_pasto` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Data` date NOT NULL,
-  `MenuRichiesto` varchar(200) DEFAULT NULL,
-  `Ora` time NOT NULL,
   `AccountGenitore` int(11) NOT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
