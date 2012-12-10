@@ -4,9 +4,27 @@
  */
 function initializetimeServicePage() {
     $("#timeserviceTab").tabs();
-  //  buildnotifyTable();
+    //  buildnotifyTable();
     //buildVisualTimeTable();
     $("#InsertTimeServiceButton").button();
+    $("#Time").timepicker({
+        showLeadingZero: false,
+        hours: {
+            starts: 0,
+            ends: 23
+        },
+        minutes: {
+            starts: 0,
+            ends: 59,
+            interval: 1
+        },
+        showCloseButton: true
+    });
+    $("#Date").datepicker({
+        dateFormat: "yy-mm-dd"
+
+    });
+    $("#SendRequest").button();
 }
 
 function buildnotifyTable() {
@@ -93,9 +111,9 @@ function buildVisualTimeTable() {
 
 function showTimeService() {
     $.post("GetTimeService", function(data) {
-        var split=data.split(",");
+        var split = data.split(",");
         $("#TextAreaTimeService").val(split[0]);
         $("#idNews").val(split[1]);
-        
+
     }, "text");
 }
