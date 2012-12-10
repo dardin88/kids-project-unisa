@@ -127,6 +127,11 @@ function activePage(){
             $("#renunciationManagementME").css("color", "#FFFFFF");
             $("#title").html("Gestione rinunce");
             break;
+       case 'canteenParent.jsp':
+            $("#canteenManagementMenuEl").css("background-color", "#444");
+            $("#canteenManagementMenuEl").css("color", "#FFFFFF");
+            $("#title").html("Gestione Mensa");
+            break;
     }
 }
 

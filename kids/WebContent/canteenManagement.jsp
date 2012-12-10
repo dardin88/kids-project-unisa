@@ -135,10 +135,18 @@
                     </div>
 
                     <div id="showAssociatedMenus">
+                        <h2>Ricerca men&ugrave; associato</h2>
+                        <form style="padding-bottom: 20px" onkeyup="searchAssociatedMenus();">
+                            <fieldset>
+                                <label for="menuDate">Data:&nbsp;</label>
+                                <input type="text" name="menuDate" id="menuDate">
+                            </fieldset>
+                        </form>
                         <h3>Selezionare un bambino per visualizzare i dettagli sui pasti</h3>
                         <table id="showAssociatedMenusTable" style="width:100%">
                             <thead>
                                 <tr>
+                                    <th>Data</th>
                                     <th>Bambino</th>
                                     <th>Genitore</th>
                                     <th>Tipo men&ugrave;</th>
@@ -149,6 +157,10 @@
                         </table>
                         <div id="showAssociatedMenusDialog">
                             <table>
+                                <tr>
+                                    <td><label for="associatedDate">Data:&nbsp;</label></td>
+                                    <td><input type="text" name="associatedDate" id="associatedDate" readonly></td>
+                                </tr>
                                 <tr>
                                     <td><label for="associatedFirst">Primo:&nbsp;</label></td>
                                     <td><input type="text" name="associatedFirst" id="associatedFirst" readonly></td>
@@ -174,9 +186,18 @@
                     </div>
 
                     <div id="showDailyMenus">
+                        <h2>Ricerca men&ugrave; giornaliero</h2>
+                        <form style="padding-bottom: 20px" onkeyup="searchDailyMenus();">
+                            <fieldset>
+                                <label for="dailyMenuDate">Data:&nbsp;</label>
+                                <input type="text" name="dailyMenuDate" id="dailyMenuDate">
+                            </fieldset>
+                        </form>
+                        <h3>Lista dei men&ugrave; giornalieri</h3>
                         <table id="showDailyMenusTable" style="width:100%">
                             <thead>
                                 <tr>
+                                    <th>Data</th>
                                     <th>Primo</th>
                                     <th>Secondo</th>
                                     <th>Contorno</th>
@@ -189,7 +210,8 @@
                     </div>
 
                     <div id="modifyDailyMenu">
-                        <form id="modifyDailyMenuForm" class="cmxform" method="post" action="InsertMenu">
+                        <h2>Modifica men&ugrave; giornaliero</h2>
+                        <form id="modifyDailyMenuForm" class="cmxform" method="post" action="InsertDailyMenu">
                             <table>
                                 <tr>
                                     <td><label for="firstEditDaily">Primo:&nbsp;</label></td>
@@ -215,7 +237,7 @@
                             </table>
                         </form>
                     </div>
-                    
+
                 </div>
             </div>
             <%-- fine blocco div funzioni gestione mensa --%>

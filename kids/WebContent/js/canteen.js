@@ -5,6 +5,7 @@
 
 function initializeCanteenPage() {
     $("#canteenTabGroup").tabs();
+    $("#childSelection").hide();
     
     $("#insertDiffMenuDialog").dialog({
         autoOpen: false,
@@ -21,9 +22,19 @@ function initializeCanteenPage() {
         width: 400
     });
     
+    
     TableTools.DEFAULTS.aButtons = [];
     buildClassTable();
+    
+    $("#menuDate").datepicker({
+        dateFormat: "yy-mm-dd",
+        changeYear: true
+    });
     buildAssociatedMenusTable();
+    
+    buildDailyMenusTable();
+    
+    $("#modifyDailyMenuButton").button();
 }
 
 function doClassSelection(classData) {
@@ -42,9 +53,20 @@ function doInsertDiffMenu(childData) {
     $("#insertDiffMenuDialog").dialog("open");
 }
 
-function doAssociatedMenuSelection(assMenuData) {
-    var childId = assMenuData.id;   // child Id
+function doAssociatedMenuSelection(assMenuData) {    
     // do $.post to get menu data
+    $.post("GetAssociatedMenu",
+    {
+        childId: assMenuData.id
+    },
+    function(jsonData, status) {
+        $("#associatedDate").val(jsonData.date);
+        $("#associatedFirst").val(jsonData.first);
+        $("#associatedSecond").val(jsonData.second);
+        $("#associatedSideDish").val(jsonData.sideDish);
+        $("#associatedFruit").val(jsonData.fruit);
+        $("#associatedMenuType").val(jsonData.type);
+    });
     
     $("#showAssociatedMenusDialog").dialog("open");
 }
@@ -137,23 +159,23 @@ function buildChildrenTable(classId){
 }
 
 function buildAssociatedMenusTable(){
-    $("#showRefundsTable").dataTable({
+    $("#showAssociatedMenusTable").dataTable({
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": "GetMenuTable",
+        "sAjaxSource": "GetAssociatedMenuTable",
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
-        /*"fnServerParams": function ( aoData ) {
+        "fnServerParams": function ( aoData ) {
             aoData.push(
             {
-                "name" : "parentId", 
-                "value" : parentId
+                "name" : "menuDate", 
+                "value" : $("#menuDate").val()
             }
             );
      
-        },*/
+        },
         "bSort": false,
         "bDestroy": true,
         "bInfo": true,
@@ -185,23 +207,23 @@ function buildAssociatedMenusTable(){
 }
 
 function buildDailyMenusTable(){
-    $("#showPaymentsConvTable").dataTable({
+    $("#showDailyMenusTable").dataTable({
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": "GetPaymentsTable",
+        "sAjaxSource": "GetDailyMenuTable",
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
-        /*"fnServerParams": function ( aoData ) {
+        "fnServerParams": function ( aoData ) {
             aoData.push(
             {
-                "name" : "parentIdConv", 
-                "value" : parentId
+                "name" : "dailyMenuDate", 
+                "value" : $("#dailyMenuDate").val()
             }
             );
      
-        },*/
+        },
         "bSort": false,
         "bDestroy": true,
         "bInfo": true,
@@ -226,8 +248,16 @@ function buildDailyMenusTable(){
         "oTableTools": {
             "sRowSelect": "single",
             "fnRowSelected": function(nodes) {
-                //doValidatePayment(nodes[0]);
+            //doValidatePayment(nodes[0]);
             }
         }
     });
+}
+
+function searchAssociatedMenus() {
+    $("#showAssociatedMenusTable").dataTable().fnDraw();
+}
+
+function searchDailyMenus() {
+    $("#showDailyMenusTable").dataTable().fnDraw();
 }
