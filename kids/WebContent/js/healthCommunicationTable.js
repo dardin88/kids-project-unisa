@@ -71,7 +71,7 @@ function addCommunication(){
                     },
                     submitHandler: function() {
                         $.post("AddCommunication", {
-                            artefactType: "1",
+                            artefactType: "Salute",
                             artefactName: $("#artefactName").val(),
                             artefactSurname: $("#artefactSurname").val(),
                             artefactDescription: $("#artefactDescription").val(),
@@ -96,7 +96,7 @@ function buildShowTable(){
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": "GetCommunication",
+        "sAjaxSource": "GetHealthCommunication",
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": true,
@@ -133,9 +133,6 @@ function buildShowTable(){
         },
         {
             "sWidth": "15%"
-        },
-        {
-            "sWidth": "15%"  
         },
         {
             "sWidth": "15%"  

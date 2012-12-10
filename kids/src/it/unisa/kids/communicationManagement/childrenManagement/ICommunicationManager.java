@@ -9,7 +9,7 @@ public interface ICommunicationManager extends IManager{
 	abstract void insertCommunication(Communication pCommunication) throws SQLException;
 	abstract ArrayList<Communication> showCommunication()throws SQLException ;
 	abstract void deleteCommunication(Communication pCommunication) throws SQLException;
-	abstract void modifyCommunication(Communication pCommunication)throws SQLException;
+	abstract void solvedCommunication(Communication pCommunication)throws SQLException;
         abstract ArrayList<Communication> searchCommunication(String word)throws SQLException;
         abstract int getIdChild(String name, String surname) throws SQLException;
 }

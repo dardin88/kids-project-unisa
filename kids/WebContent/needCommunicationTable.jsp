@@ -29,7 +29,7 @@
         <script type="text/javascript" src="js/needCommunicationTable.js"></script>
         <script type="text/javascript" src="js/jquery.ui.timepicker.js"></script>
 
-        <title>Gestione Bambini "Visualizza Cominucazioni Bisogni"- Kids Project</title>
+        <title>Gestione Bambini "Visualizza Comunicazioni Bisogni"- Kids Project</title>
         <script type="text/javascript">
             $(document).ready(function() {
                 activePage();
@@ -40,32 +40,9 @@
         </script>
     </head>
     <div id="addLinkWindow" title="Inserisci Comunicazione Bisogni" style="display: inline">
-        <form id="addLinkForm" class="cmxform" method="post" action="" enctype="multipart/form-data" >
+        <form id="addLinkForm" class="cmxform" method="post" action="">
             <fieldset>
                 <table>
-                    <%--<tr>
-                    <p style="text-align: left;" class="formp">
-                    <td>
-                        <label class="artefactLabel" for="artefactType">Tipo *</label>
-                    </td>
-                    <td>
-                        <select id="artefactType" name="typeCommunication" class="artefactSelect">
-                            <option value="0">Scegli tipo Comunicazione</option>
-                            <option value="1">Bisogni</option>
-                        </select>
-                    </td>
-                    </p>
-                    </tr>
-                    <tr>
-                    <p style="text-align: left;" class="formp">
-                    <td>
-                        <label class="artefactLabel" for="artefactIdChild">Id Bambino *</label>
-                    </td>
-                    <td>
-                        <input id="artefactIdChild" type="text" name="idChild" ></input>                                         
-                    </td>
-                    </p>
-                    </tr>--%>
                     <tr>
                     <p style="text-align: left;" class="formp">
                     <td>
@@ -118,8 +95,8 @@
         </form>
     </div> 
     
-<div id="updateCommunicationWindow" title="Visualizza Communicazione" style="display: inline">
-    <form id="updateCommunicationForm"  name="updateCommunicationForm" class="cmxform" method="post" action="">
+<div id="solvedCommunicationWindow" title="Risolvi Comunicazione" style="display: inline">
+    <form id="solvedCommunicationForm"  name="solvedCommunicationForm" class="cmxform" method="post" action="">
         <fieldset>
             <table style="width:100%;">
                 <tr>
@@ -128,8 +105,7 @@
                     <label class="artefactLabel" for="artefactSolved">Risolvi *</label>
                 </td>
                 <td>
-                    <select id="artefactSolved" name="Risolvi" class="artefactSelect">
-                        <option value="0">Risolvi Comunicazione</option>
+                    <select id="artefactSolved" name="Risolvi comunicazione" class="artefactSelect">
                         <option value="1">No</option>
                         <option value="2">Si</option>
                     </select>
@@ -138,8 +114,8 @@
                 </tr>
                     <td>
                        <c:if test="${sessionScope.user.getAccountType()=='Educatore'}">
-                           <input type="button" class="windowButton2" id="updateCommunication" value="Risolvi" onclick="enableButtonUpdate()" />
-                           <input type="submit" style="visibility: hidden;" class="windowButton2" id="confirmUpdateCommunication"  value="Salva"/>                 
+                           <input type="button" class="windowButton2" id="solvedCommunication" value="Risolvi" onclick="enableButtonUpdate()" />
+                           <input type="submit" style="visibility: hidden;" class="windowButton2" id="confirmSolvedCommunication"  value="Salva"/>                 
                        </c:if>
                     </td>
                 </tr>
@@ -150,15 +126,6 @@
                     <div id="showCommunicationWindow" title="Visualizza Comunicazione" style="display: inline">  
     <fieldset>
         <table>
-            <tr>
-                <td>
-                    <label class="artefactLabel2">Tipo</label>
-                </td>
-                <td>
-
-                    <label class="artefactLabel" id="labelType" ></label>
-                </td>
-            </tr>
             <tr>
                 <td>       
                     <label class="artefactLabel2">Id Educatore</label>
@@ -208,7 +175,7 @@
     <%@include file="header.jsp" %>
     <div id="linksManagement">
         <c:if test="${sessionScope.user.getAccountType()=='Educatore'}" >
-            <input type="button" id="addLinkButton" value="Inserisci Communicazione" />               
+            <input type="button" id="addLinkButton" value="Inserisci Comunicazione Bisogni" />               
         </c:if>
         <table id="linkTable" style="width:95%;">
             <thead>
