@@ -32,12 +32,10 @@
                     activePage();
                     initializeMeetingManager();
                 <c:if test="${sessionScope.user.getAccountType()=='Admin'||sessionScope.user.getAccountType()=='Segreteria'||sessionScope.user.getAccountType()=='Responsabile Asilo'}">                               
-                        
-                       CalendarEditable();
+                        CalendarEditable();
                 </c:if>
                 <c:if test="${sessionScope.user.getAccountType()!='Admin' && sessionScope.user.getAccountType() != 'Segreteria' && sessionScope.user.getAccountType() != 'Responsabile Asilo'}">                               
-                       alert("entrato");
-                       CalendarNotEditable();
+                        CalendarNotEditable();
                 </c:if> 
                         $("#dataMeeting,#modifyDataMeeting").datepicker({dateFormat:'yy-mm-dd'});
                  
