@@ -54,25 +54,24 @@ public class JDBCCommunicationManager implements ICommunicationManager {
         PreparedStatement stmt = null;
         String query1;
         try {
+            String[] temp=pCommunication.getDate().split("-");
             connection = DBConnectionPool.getConnection();
             query1 = "insert into " + DBNames.TABLE_COMMUNICATION + "("
-                    + DBNames.ATT_COMMUNICATION_ID + ","
+                    
                     + DBNames.ATT_COMMUNICATION_TYPE + ","
                     + DBNames.ATT_COMMUNICATION_IDEDUCATOR + ","
                     + DBNames.ATT_COMMUNICATION_IDCHILD + ","
                     + DBNames.ATT_COMMUNICATION_DESCRIPTION + ","
                     + DBNames.ATT_COMMUNICATION_DATE
-                    + DBNames.ATT_COMMUNICATION_SOLVED
-                    + ") values (?,?,?,?,?,?,?)";
+                    + ") values (?,?,?,?,?)";
+            GregorianCalendar d=new GregorianCalendar(Integer.parseInt(temp[0]),Integer.parseInt(temp[1])-1,Integer.parseInt(temp[2]));
             stmt = connection.prepareStatement(query1);
-            stmt.setInt(1, pCommunication.getId());
-            stmt.setInt(2, pCommunication.getType());
-            stmt.setInt(3, pCommunication.getIdEducator());
-            stmt.setInt(4, pCommunication.getIdChild());
-            stmt.setString(5, pCommunication.getDescription());
-            stmt.setString(6, pCommunication.getDate());
-            stmt.setBoolean(7, pCommunication.getSolved());
-            stmt.executeUpdate();
+            stmt.setInt(1, pCommunication.getType());
+            stmt.setInt(2, pCommunication.getIdEducator());
+            stmt.setInt(3, pCommunication.getIdChild());
+            stmt.setString(4, pCommunication.getDescription());
+            stmt.setDate(5, new Date(d.getTimeInMillis()));
+           stmt.executeUpdate();
             connection.commit();
         } finally {
             stmt.close();
@@ -227,21 +226,22 @@ public class JDBCCommunicationManager implements ICommunicationManager {
         }
         return listCommunication;
     }
-    
-    public int getIdChild(String name, String surname) throws SQLException{
-    Connection connection = null;
-    Statement stmt = null;
-    ResultSet rsCommunication = null;
-    int id=0;
-    connection = DBConnectionPool.getConnection();
-    String query = "select "+DBNames.ATT_REGISTRATIONCHILD_ID+
-            " from " + DBNames.TABLE_REGISTRATIONCHILD+ 
-            " where "+DBNames.ATT_REGISTRATIONCHILD_NAME+"="+name+"&&"
-                    +DBNames.ATT_REGISTRATIONCHILD_SURNAME+"="+surname;
-            rsCommunication = stmt.executeQuery(query);
-    while (rsCommunication.next()) {
-        id = rsCommunication.getInt(DBNames.ATT_REGISTRATIONCHILD_ID);
+
+    public int getIdChild(String name, String surname) throws SQLException {
+        Connection connection = null;
+        Statement stmt = null;
+        ResultSet rsCommunication = null;
+        int id = 0;
+        connection = DBConnectionPool.getConnection();
+        String query = "select " + DBNames.ATT_REGISTRATIONCHILD_ID
+                + " from " + DBNames.TABLE_REGISTRATIONCHILD
+                + " where " + DBNames.ATT_REGISTRATIONCHILD_NAME + "='" + name + "' and "
+                + DBNames.ATT_REGISTRATIONCHILD_SURNAME + "='" + surname+"'";
+        stmt=connection.createStatement();
+        rsCommunication = stmt.executeQuery(query);
+        while (rsCommunication.next()) {
+            id = rsCommunication.getInt(DBNames.ATT_REGISTRATIONCHILD_ID);
+        }
+        return id;
     }
-    return id;
-}
 }
