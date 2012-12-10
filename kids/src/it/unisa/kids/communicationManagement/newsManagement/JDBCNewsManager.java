@@ -160,27 +160,41 @@ public class JDBCNewsManager implements INewsManager {
     @Override
     public void update(News pNews, boolean flag) throws SQLException {
         Connection connection = null;
-        Statement stmt = null;
+        PreparedStatement stmt = null;
         String query;
         try {
             connection = DBConnectionPool.getConnection();
             if (flag) {
-                query = "update " + DBNames.TABLE_NEWS + " set " + DBNames.ATT_NEWS_DATE + "='" + new Date(pNews.getDate().getTimeInMillis()) + "',"
-                        + DBNames.ATT_NEWS_DELEGATEACCOUNT + "=" + pNews.getDelegate() + ","
-                        + DBNames.ATT_NEWS_ATTACHED + "='" + pNews.getAttached() + "',"
-                        + DBNames.ATT_NEWS_DESCRIPTION + "='" + pNews.getDescription() + "',"
-                        + DBNames.ATT_NEWS_TIME + "='" + pNews.getTime() + "'," + DBNames.ATT_NEWS_TITLE + "='" + pNews.getTitle() + "',"
-                        + DBNames.ATT_NEWS_TYPE + "='" + pNews.getType() + "' where " + DBNames.ATT_NEWS_ID + "=" + pNews.getId();
+                query = "update " + DBNames.TABLE_NEWS + " set " + DBNames.ATT_NEWS_DATE + "=?,"
+                        + DBNames.ATT_NEWS_DELEGATEACCOUNT + "=?,"
+                        + DBNames.ATT_NEWS_ATTACHED + "=?,"
+                        + DBNames.ATT_NEWS_DESCRIPTION + "=?,"
+                        + DBNames.ATT_NEWS_TIME + "=?," + DBNames.ATT_NEWS_TITLE + "=?,"
+                        + DBNames.ATT_NEWS_TYPE + "=? where " + DBNames.ATT_NEWS_ID + "=" + pNews.getId();
+                stmt = connection.prepareStatement(query);
+                stmt.setDate(1, new Date(pNews.getDate().getTimeInMillis()));
+                stmt.setInt(2, pNews.getDelegate());
+                stmt.setString(3, pNews.getAttached());
+                stmt.setString(4, pNews.getDescription());
+                stmt.setTime(5, pNews.getTime());
+                stmt.setString(6, pNews.getTitle());
+                stmt.setString(7, pNews.getType());
             } else {
-                query = "update " + DBNames.TABLE_NEWS + " set " + DBNames.ATT_NEWS_DATE + "='" + new Date(pNews.getDate().getTimeInMillis()) + "',"
-                        + DBNames.ATT_NEWS_DELEGATEACCOUNT + "=" + pNews.getDelegate() + ","
-                        + DBNames.ATT_NEWS_DESCRIPTION + "='" + pNews.getDescription() + "',"
-                        + DBNames.ATT_NEWS_TIME + "='" + pNews.getTime() + "'," + DBNames.ATT_NEWS_TITLE + "='" + pNews.getTitle() + "',"
-                        + DBNames.ATT_NEWS_TYPE + "='" + pNews.getType() + "' where " + DBNames.ATT_NEWS_ID + "=" + pNews.getId();
+                query = "update " + DBNames.TABLE_NEWS + " set " + DBNames.ATT_NEWS_DATE + "=?,"
+                        + DBNames.ATT_NEWS_DELEGATEACCOUNT + "=?,"
+                        + DBNames.ATT_NEWS_DESCRIPTION + "=?,"
+                        + DBNames.ATT_NEWS_TIME + "=?," + DBNames.ATT_NEWS_TITLE + "=?,"
+                        + DBNames.ATT_NEWS_TYPE + "=? where " + DBNames.ATT_NEWS_ID + "=" + pNews.getId();
+                stmt = connection.prepareStatement(query);
+                stmt.setDate(1, new Date(pNews.getDate().getTimeInMillis()));
+                stmt.setInt(2, pNews.getDelegate());
+             //   stmt.setString(3, "null");
+                stmt.setString(3, pNews.getDescription());
+                stmt.setTime(4, pNews.getTime());
+                stmt.setString(5, pNews.getTitle());
+                stmt.setString(6, pNews.getType());
             }
-
-            stmt = connection.createStatement();
-            stmt.executeUpdate(query);
+            stmt.executeUpdate();
             connection.commit();
         } finally {
             stmt.close();
@@ -241,4 +255,4 @@ public class JDBCNewsManager implements INewsManager {
         }
         return listNews;
     }
-            }
+}

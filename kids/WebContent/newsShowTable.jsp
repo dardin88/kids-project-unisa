@@ -78,8 +78,6 @@
                             <option value="0">Scegli tipo News</option>
                             <option value="1">Evento</option>
                             <option value="2">Notizia</option>
-                            <option value="3">Apertura Mensa</option>
-                            <option value="4">Chiusura Mensa</option>
                         </select>
                     </td>
                     </p>
@@ -133,7 +131,7 @@
     </p>
 </div>
 <div id="updateNewsWindow" title="Visualizza News" style="display: inline">
-    <form id="updateNewsForm"  name="updateNewsForm" class="cmxform" method="post" action="" enctype="multipart/form-data">
+    <form id="updateNewsForm"  name="updateNewsForm" class="cmxform" method="post" action="UploadFile" enctype="multipart/form-data">
         <fieldset>
             <table style="width:100%;">
                 <tr>
@@ -166,8 +164,6 @@
                         <option value="0">Scegli tipo News</option>
                         <option value="1">Evento</option>
                         <option value="2">Notizia</option>
-                        <option value="3">Apertura Mensa</option>
-                        <option value="4">Chiusura Mensa</option>
                     </select>
                 </td>
                 </p>

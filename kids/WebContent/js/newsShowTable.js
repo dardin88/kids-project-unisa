@@ -130,10 +130,10 @@ function updateNews(id,title,description,type,data,time,allegato){
             var attached=$("#selectFile").val();
             var str=attached.split("\\");
             var s=str[str.length-1];
-            if(attached!="")
-                document.getElementById("updateNewsForm").action="UploadFile";
-            else
-                document.getElementById("updateNewsForm").action="";
+//            if(attached!="")
+//                document.getElementById("updateNewsForm").action="UploadFile";
+//            else
+//                document.getElementById("updateNewsForm").action="";
             //  $("#updateNewsForm").submit();
             $.post("UpdateNews", {
                 artefactTitolo: $("#artefactTitolo2").val(),

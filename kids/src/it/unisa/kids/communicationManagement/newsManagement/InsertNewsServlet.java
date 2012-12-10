@@ -59,14 +59,6 @@ public class InsertNewsServlet extends HttpServlet {
                     n.setType("Notizia");
                     break;
                 }
-                case 3: {
-                    n.setType("Apertura Mensa");
-                    break;
-                }
-                case 4: {
-                    n.setType("Chiusura Mensa");
-                    break;
-                }
             }
             String data=request.getParameter("artefactData");
             String[] temp=data.split("-");
