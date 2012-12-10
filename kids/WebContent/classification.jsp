@@ -28,13 +28,14 @@
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/classificationManager.js"></script>
+        <script type="text/javascript" src="js/classificationTables.js"></script>
         <title>Classification Management</title>
     </head>
     <script type="text/javascript">
         $(document).ready(function() {
             activePage();
-            initializeRegistrationFields();
-            createTableRegistrationChild();
+            initClassificationPage();
+            createTableClassification();
 <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
             $("#classificationModifyWindowSave").button();
             $("#classificationModifyWindowSave").click(function() {
