@@ -37,11 +37,20 @@
             <div id="linksManagement">
                 <h1 style="font-size: 35px;text-align: center;"> Account </h1>
                 
-                <input type="text" id="nickname"  name="id"  />
-                <input type="text" id="name"  name="name"/>
-                <input type="text" id="surname" name="surname" />
-                <input type="text" id="taxCode" name="taxCode" />
-                <input type="text" id="type" name="type"/>
+                 Nickname:<input type="text" id="nickname"  name="id"  />
+                Nome:<input type="text" id="name"  name="name"/>
+                Cognome:<input type="text" id="surname" name="surname" />
+                Codice Fiscale:<input type="text" id="taxCode" name="taxCode" />
+                Tipo Account<select id="type" name="type">
+                                <OPTION value="Nothing" name="Nothing" > Scegli 
+                                <OPTION value="Genitore" name="Genitore" selected> Genitore 
+                                <OPTION value="Delegato Ufficio" name="DelegatoUfficio"> Segreteria 
+                                <OPTION value="Delegato scienze della formazione" name="ScienzeFormazione"> Delegato Scienze della Formazione 
+                                <OPTION value="Educatore" name="Educatore"> Educatore 
+                                <OPTION value="Coordinatore Psicopedagogico" name="CoordinatorePsicopedagogico"> Coordinatore Psicopedagogico 
+                                <OPTION value="Responsabile Scientifico" name="ResponsabileScientifico"> Responsabile Scentifico 
+                                <OPTION value="Responsabile Asilo" name="ResponsabileAsilo"> Responsabile Asilo
+                            </select>
                 <input type="button" name="ricarica" id="ricarica" value="ricerca" onclick="search()"/>
                 
                 <table id="accountsTable" style="width:95%;">
