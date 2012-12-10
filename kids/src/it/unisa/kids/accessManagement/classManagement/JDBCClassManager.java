@@ -54,14 +54,15 @@ public class JDBCClassManager implements IClassManager {
     public synchronized ClassBean delete(ClassBean pClass) throws SQLException {
         Connection con = null;
         Statement stmt = null;
-        String query = "DELETE FROM '" + DBNames.TABLE_CLASS + "' "
-                + "WHERE '" + DBNames.ATT_CLASS_ID + "'='" + pClass.getIdClasse() + "';";
+        String query = "DELETE FROM " + DBNames.TABLE_CLASS 
+                + " WHERE " + DBNames.ATT_CLASS_ID + "=" + pClass.getIdClasse() + ";";
 
 
         try {
             con = DBConnectionPool.getConnection();
             stmt = con.createStatement();
             stmt.executeUpdate(query);
+            con.commit();
         } finally {
             stmt.close();
             DBConnectionPool.releaseConnection(con);
@@ -84,12 +85,12 @@ public class JDBCClassManager implements IClassManager {
             query.append(DBNames.ATT_CLASS_ID + "=?");
             andState = true;
         }
-        if (pClass.getClassName() != null) {
-            query.append(useAnd(andState) + DBNames.ATT_CLASS_NAME + "='?'");
+        if (pClass.getClassName() != null  ) {
+            query.append(useAnd(andState) + DBNames.ATT_CLASS_NAME + "=?");
             andState = true;
         }
-        if (pClass.getState() != null) {
-            query.append(useAnd(andState) + DBNames.ATT_CLASS_STATE + "='?'");
+        if (pClass.getState() != null  ) {
+            query.append(useAnd(andState) + DBNames.ATT_CLASS_STATE + "=?s");
             andState = true;
         }
         if (andState == false) {
@@ -110,11 +111,11 @@ public class JDBCClassManager implements IClassManager {
                 stmt.setInt(paramNum, pClass.getIdClasse());
                 paramNum++;
             }
-            if (pClass.getClassName() != null) {
+            if (pClass.getClassName() != null ) {
                 stmt.setString(paramNum, pClass.getClassName());
                 paramNum++;
             }
-            if (pClass.getState() != null) {
+            if (pClass.getState() != null ) {
                 stmt.setString(paramNum, pClass.getState());
                 paramNum++;
             }
@@ -159,15 +160,17 @@ public class JDBCClassManager implements IClassManager {
     public synchronized ClassBean update(ClassBean pClass) throws SQLException {
         Connection con = null;
         Statement stmt = null;
-        String query = "UPDATE '" + DBNames.TABLE_CLASS + "' "
-                + "SET '" + DBNames.ATT_CLASS_NAME + "'='" + pClass.getClassName()
-                + ",'" + DBNames.ATT_CLASS_STATE + "'='" + pClass.getState()
-                + "' WHERE '" + DBNames.ATT_CLASS_ID + "'='" + pClass.getIdClasse() + "';";
+        String query = "UPDATE " + DBNames.TABLE_CLASS + " "
+                + "SET " + DBNames.ATT_CLASS_NAME + "='" + pClass.getClassName()
+                + "', " + DBNames.ATT_CLASS_STATE + "='" + pClass.getState()
+                + "' WHERE " + DBNames.ATT_CLASS_ID + "=" + pClass.getIdClasse() + ";";
 
+        System.out.println(query);
         try {
             con = DBConnectionPool.getConnection();
             stmt = con.createStatement();
             stmt.executeUpdate(query);
+            con.commit();
         } finally {
             stmt.close();
             DBConnectionPool.releaseConnection(con);

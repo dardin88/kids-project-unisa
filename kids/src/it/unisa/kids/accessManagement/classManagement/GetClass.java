@@ -5,11 +5,15 @@
 package it.unisa.kids.accessManagement.classManagement;
 
 import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
+import it.unisa.kids.serviceManagement.trainingManagement.GetTraineesServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +21,16 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author tonino
+ * @author Gianmarco
  */
-public class DeleteClassBeanServlet extends HttpServlet {
+public class GetClass extends HttpServlet {
+    
+      private IClassManager classManager;
+
+     public void init(ServletConfig config) {
+        classManager = (IClassManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_CLASS);
+    }
+
 
     /**
      * Processes requests for both HTTP
@@ -31,22 +42,24 @@ public class DeleteClassBeanServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            JDBCClassManager clasMan=JDBCClassManager.getInstance();
-            
+            Logger.getLogger(GetClass.class.getName()).log(Level.SEVERE, "Id passato = " + request.getParameter("id"));
+            int id=Integer.parseInt(request.getParameter("id"));
+            System.out.println("Questo è l'id "+id);
             ClassBean clas=new ClassBean();
-            clas.setIdClasse(Integer.parseInt(request.getParameter("id")));
+            clas.setIdClasse(id);
+            List<ClassBean> list=classManager.search(clas);
             
-            clasMan.delete(clas);
-
+            request.setAttribute("id", list.get(0).getIdClasse());
+            request.setAttribute("Nome", list.get(0).getClassName());   
+            request.setAttribute("Stato",list.get(0).getState());
+           
+            
         } catch (SQLException ex) {
-            Logger.getLogger(DeleteClassBeanServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {            
-            out.close();
+            Logger.getLogger(GetTraineesServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

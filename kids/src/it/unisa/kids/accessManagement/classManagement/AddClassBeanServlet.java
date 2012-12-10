@@ -33,19 +33,18 @@ public class AddClassBeanServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            JDBCClassManager clasMan=JDBCClassManager.getInstance();
-            
-            ClassBean clas=new ClassBean();
+            JDBCClassManager clasMan = JDBCClassManager.getInstance();
+
+            ClassBean clas = new ClassBean();
             clas.setClassName(request.getParameter(DBNames.ATT_CLASS_NAME));
-            //clas.setState(request.getParameter(DBNames.ATT_CLASS_STATE));
-            System.out.println("ecco il nome"+clas.getClassName());
+            clas.setState(request.getParameter(DBNames.ATT_CLASS_STATE)); //non capisco pkè nn se lo prende questo parametro
+            System.out.println("ecco il nome " + clas.getClassName());
+            System.out.println("ecco lo stato " + clas.getState());
             clasMan.insert(clas);
-        }
-        catch (SQLException exeption)
-        {
-            request.setAttribute("message","Verfica i campi");
+        } catch (SQLException exeption) {
+            request.setAttribute("message", "Verfica i campi");
             request.getServletContext().getRequestDispatcher("/classe.jsp").forward(request, response);
-        }finally {      
+        } finally {
             out.close();
         }
     }

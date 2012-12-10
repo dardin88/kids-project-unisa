@@ -1,9 +1,11 @@
 <%-- 
-    Document   : account
+    Document   : classe
     Created on : 23-nov-2012, 14.57.05
     Author     : tonino
 --%>
 
+<%@page import="it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild"%>
+<%@page import="it.unisa.kids.accessManagement.accountManagement.Account"%>
 <%@page import="java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -49,20 +51,30 @@
                                     <input style="margin-left: 2%; width: 250px" id="name" class="registrationField" type="text" name="Nome" size="50%">
                                 </p>
                         <tr><td> <p class="formp">
-                                    <input style="margin-left: 2%; width: 250px" id="educator" class="registrationField" type="checkbox" name="Educatori" size="50%" value="AAA">
+                                    <input style="margin-left: 2%; width: 250px" id="educator" class="registrationField" type="checkbox" name="Stato" size="50%" value="AAA">
                                 </p>
-                                
-                                <%List<String> lista = (ArrayList<String>)session.getAttribute("LaMiaLista");%>
-                                
-                            <select id="lista" name="lista">      
-                              <option value="">- Seleziona -</option>   
-                              <%
-                                  for (int x = 0; x < lista.size(); x++) {
-                              %>                                                   
-                              <option value="<%=x%>"><%= lista.get(x) %></option>
-                              <%
-                                  }
-                              %>
+                        <tr><td> <p class="formp">
+                                    <input id="state" class="registrationField" type="text" name="Stato" size="50%" value="bozza">
+                                </p>
+
+                                <%List<Account> listaacc = (ArrayList<Account>) session.getAttribute("ListaDoc");%>   
+                                <select id="listaDoc" name="lista1" size="5" multiple="multiple">      
+                                    <option value="">- Seleziona Docenti -</option>   
+                                    <%
+                                        for (int x = 0; x < listaacc.size(); x++) {
+                                    %>                                                   
+                                    <option value="<%=x%>"><%= listaacc.get(x).getNameUser()%></option>
+                                    <%
+                                        }
+                                    %>
+
+                                    <%-- nella servlet devo prelevarli con:
+                                          request.getParameterValues("listaDoc") returns an array of all submitted values.--%>
+
+
+
+
+
                     </table>
                 </div>
                 <input style="width: 300px; margin-left: 7%" type="submit" name="registrationButton" id="registrationButton" value="Salva Bozza" />

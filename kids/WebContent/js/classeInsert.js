@@ -18,29 +18,31 @@ function initializeRegistrationFields(){
             $(input).removeClass("ui-state-highlight");
         }
     });
-}
 
-$(document).ready(function(){
-    $("#registrationForm").validate({
-        rules:
-        {
+    $(document).ready(function(){
+        $("#registrationForm").validate({
+            rules:
+            {
             
-            Nome:{
-                required:true
+                Nome:{
+                    required:true
+                }
+            },
+            messages:{
+                Nome:" Inserisci il nome"
+            },
+            submitHandler:function() {
+                $.post("AddClassBean",{  
+                    Nome:$("#name").val(),
+                    Stato: $("#state").val()
+                },
+                function(){
+                    location.href="classe.jsp";
+                });
             }
-        },
-        messages:{
-            Nome:" Inserisci il nome"
-        },
-        submitHandler:function() {
-            $.post("AddClassBean",{  
-                Nome:$("#name").val()
-            })
-            location.href="classe.jsp";
-        }
-        
+        });
     });
-});
+}
 
 
 
