@@ -125,49 +125,23 @@ public class JDBCCommunicationManager implements ICommunicationManager {
     }
 
     /**
-     * this method delete communication by the database
+     * this method solved need communication.
      *
-     * @param Communication pCommunication
+     * @param int id, String solved
      */
     @Override
-    public void deleteCommunication(Communication pCommunication) throws SQLException {
+    public void solvedCommunication(int id, String solved) throws SQLException {
         Connection connection = null;
-        Statement stmt = null;
-        String query;
-        try {
-            connection = DBConnectionPool.getConnection();
-            query = "delete from " + DBNames.TABLE_COMMUNICATION + " where " + DBNames.ATT_COMMUNICATION_ID + "='" + pCommunication.getId();
-            stmt = connection.createStatement();
-            stmt.executeUpdate(query);
-            connection.commit();
-        } finally {
-            stmt.close();
-            DBConnectionPool.releaseConnection(connection);
-        }
-    }
-
-    /**
-     * this method modify a communication.
-     *
-     * @param Communication pCommunication
-     */
-    @Override
-    public void solvedCommunication(Communication pCommunication) throws SQLException {
-        Connection connection = null;
-        Statement stmt = null;
+        PreparedStatement stmt = null;
         String query;
         try {
             connection = DBConnectionPool.getConnection();
             query = "update " + DBNames.TABLE_COMMUNICATION + " set "
-                    /*+ DBNames.ATT_COMMUNICATION_TYPE + "= '" + pCommunication.getType() + "' "
-                    + DBNames.ATT_COMMUNICATION_IDEDUCATOR + "= '" + pCommunication.getIdEducator() + "' "
-                    + DBNames.ATT_COMMUNICATION_IDCHILD + "= '" + pCommunication.getIdChild() + "' "
-                    + DBNames.ATT_COMMUNICATION_DESCRIPTION + "= '" + pCommunication.getDescription() + "' "
-                    + DBNames.ATT_COMMUNICATION_DATE + "= '" + pCommunication.getDate() + "' "*/
-                    + DBNames.ATT_COMMUNICATION_SOLVED + "= '" + pCommunication.getSolved()+"' "
-                    + " where " + DBNames.ATT_COMMUNICATION_ID + "= '" + pCommunication.getId()+"'";
-            stmt = connection.createStatement();
-            stmt.executeUpdate(query);
+                    + DBNames.ATT_COMMUNICATION_SOLVED + "=? where " 
+                    + DBNames.ATT_COMMUNICATION_ID + "=" + id;
+            stmt = connection.prepareStatement(query);
+            stmt.setString(1, solved);
+            stmt.executeUpdate();
             connection.commit();
         } finally {
             stmt.close();
