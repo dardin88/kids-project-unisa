@@ -98,8 +98,8 @@
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.GetAccountServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>InsertTableRenunciation</servlet-name>
-        <servlet-class>it.unisa.kids.accessManagement.renunciationManagement.InsertTableRenunciationServlet</servlet-class>
+        <servlet-name>InsertTableChildServlet</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.renunciationManagement.InsertTableChildServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
@@ -361,10 +361,6 @@
         <servlet-name>GetTimeServiceServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.timeServiceManagement.GetTimeServiceServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>UpdateTimeServiceServlet</servlet-name>
-        <servlet-class>it.unisa.kids.serviceManagement.timeServiceManagement.UpdateTimeServiceServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
@@ -614,8 +610,8 @@
         <url-pattern>/ModifyTraineeActivity</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>InsertTableRenunciation</servlet-name>
-        <url-pattern>/InsertTableRenunciationServlet</url-pattern>
+        <servlet-name>InsertTableChildServlet</servlet-name>
+        <url-pattern>/InsertTableChild</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddCommunicationServlet</servlet-name>
@@ -716,10 +712,6 @@
     <servlet-mapping>
         <servlet-name>GetTimeServiceServlet</servlet-name>
         <url-pattern>/GetTimeService</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UpdateTimeServiceServlet</servlet-name>
-        <url-pattern>/UpdateTimeService</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
