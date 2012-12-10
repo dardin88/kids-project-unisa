@@ -36,9 +36,7 @@ public class AddCommunicationServlet extends HttpServlet {
             ICommunicationManager am = JDBCCommunicationManager.getInstance();
             Communication a = new Communication();  
             System.out.print("args");
-            //int aId = Integer.parseInt(request.getParameter("Id"));
-            int aType = Integer.parseInt(request.getParameter("artefactType"));
-            //int aIdEducator = Integer.parseInt(request.getParameter("IdEducator"));
+            String aType = request.getParameter("artefactType");
            
             HttpSession session = request.getSession();
             Account user = (Account) session.getAttribute("user");
@@ -52,17 +50,14 @@ public class AddCommunicationServlet extends HttpServlet {
             String aDescription = request.getParameter("artefactDescription");
             String aDate = request.getParameter("artefactDate");
             //GregorianCalendar aDate= parseGregorianCalendar(aDat);
-            //boolean aSolved = Boolean.getBoolean(request.getParameter("Solved"));
-            //a.setId(aId);
             a.setType(aType);
             a.setIdEducator(aIdEducator);
             a.setIdChild(aIdChild);
             a.setDescription(aDescription);
             a.setDate(aDate);
-            //a.setSolved(aSolved);
             am.insertCommunication(a);   
         } catch (Exception ex) {
-            Logger.getLogger(GetCommunicationServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddCommunicationServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 /*

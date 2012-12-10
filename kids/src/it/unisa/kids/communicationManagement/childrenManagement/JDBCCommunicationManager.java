@@ -66,7 +66,7 @@ public class JDBCCommunicationManager implements ICommunicationManager {
                     + ") values (?,?,?,?,?)";
             GregorianCalendar d=new GregorianCalendar(Integer.parseInt(temp[0]),Integer.parseInt(temp[1])-1,Integer.parseInt(temp[2]));
             stmt = connection.prepareStatement(query1);
-            stmt.setInt(1, pCommunication.getType());
+            stmt.setString(1, pCommunication.getType());
             stmt.setInt(2, pCommunication.getIdEducator());
             stmt.setInt(3, pCommunication.getIdChild());
             stmt.setString(4, pCommunication.getDescription());
@@ -98,7 +98,7 @@ public class JDBCCommunicationManager implements ICommunicationManager {
             rsCommunication = stmt.executeQuery(query);
             while (rsCommunication.next()) {
                 int id = rsCommunication.getInt(DBNames.ATT_COMMUNICATION_ID);
-                int type = rsCommunication.getInt(DBNames.ATT_COMMUNICATION_TYPE);
+                String type = rsCommunication.getString(DBNames.ATT_COMMUNICATION_TYPE);
                 int idEducator = rsCommunication.getInt(DBNames.ATT_COMMUNICATION_IDEDUCATOR);
                 int idChild = rsCommunication.getInt(DBNames.ATT_COMMUNICATION_IDCHILD);
                 String description = rsCommunication.getString(DBNames.ATT_COMMUNICATION_DESCRIPTION);
@@ -107,7 +107,7 @@ public class JDBCCommunicationManager implements ICommunicationManager {
                 //GregorianCalendar data = new GregorianCalendar();
                 //data.setTime(date);
                 //data.set(Calendar.MONTH, (data.get(Calendar.MONTH)) + 1);
-                boolean solved = rsCommunication.getBoolean(DBNames.ATT_COMMUNICATION_SOLVED);
+                String solved = rsCommunication.getString(DBNames.ATT_COMMUNICATION_SOLVED);
                 Communication communication = new Communication();
                 communication.setId(id);
                 communication.setType(type);
@@ -201,7 +201,7 @@ public class JDBCCommunicationManager implements ICommunicationManager {
             rsCommunication = stmt.executeQuery(query);
             while (rsCommunication.next()) {
                 int id = rsCommunication.getInt(DBNames.ATT_COMMUNICATION_ID);
-                int type = rsCommunication.getInt(DBNames.ATT_COMMUNICATION_TYPE);
+                String type = rsCommunication.getString(DBNames.ATT_COMMUNICATION_TYPE);
                 int idEducator = rsCommunication.getInt(DBNames.ATT_COMMUNICATION_IDEDUCATOR);
                 int idChild = rsCommunication.getInt(DBNames.ATT_COMMUNICATION_IDCHILD);
                 String description = rsCommunication.getString(DBNames.ATT_COMMUNICATION_DESCRIPTION);
@@ -209,7 +209,7 @@ public class JDBCCommunicationManager implements ICommunicationManager {
                 //GregorianCalendar data = new GregorianCalendar();
                 //data.setTime(date);
                 //data.set(Calendar.MONTH, (data.get(Calendar.MONTH)) + 1);
-                boolean solved = rsCommunication.getBoolean(DBNames.ATT_COMMUNICATION_SOLVED);
+                String solved = rsCommunication.getString(DBNames.ATT_COMMUNICATION_SOLVED);
                 Communication communication = new Communication();
                 communication.setId(id);
                 communication.setType(type);
@@ -243,5 +243,37 @@ public class JDBCCommunicationManager implements ICommunicationManager {
             id = rsCommunication.getInt(DBNames.ATT_REGISTRATIONCHILD_ID);
         }
         return id;
+    }
+    public String getName(int idChild) throws SQLException {
+        Connection connection = null;
+        Statement stmt = null;
+        ResultSet rsCommunication = null;
+        String name=null;
+        connection = DBConnectionPool.getConnection();
+        String query = "select " + DBNames.ATT_REGISTRATIONCHILD_NAME
+                + " from " + DBNames.TABLE_REGISTRATIONCHILD
+                + " where " + DBNames.ATT_REGISTRATIONCHILD_ID + "='" + idChild +"'";
+        stmt=connection.createStatement();
+        rsCommunication = stmt.executeQuery(query);
+        while (rsCommunication.next()) {
+            name = rsCommunication.getString(DBNames.ATT_REGISTRATIONCHILD_ID);
+        }
+        return name;
+    }
+    public String getSurname(int idChild) throws SQLException {
+        Connection connection = null;
+        Statement stmt = null;
+        ResultSet rsCommunication = null;
+        String surname = null;
+        connection = DBConnectionPool.getConnection();
+        String query = "select " + DBNames.ATT_REGISTRATIONCHILD_SURNAME
+                + " from " + DBNames.TABLE_REGISTRATIONCHILD
+                + " where " + DBNames.ATT_REGISTRATIONCHILD_ID + "='" + idChild + "'";
+        stmt=connection.createStatement();
+        rsCommunication = stmt.executeQuery(query);
+        while (rsCommunication.next()) {
+            surname = rsCommunication.getString(DBNames.ATT_REGISTRATIONCHILD_ID);
+        }
+        return surname;
     }
 }

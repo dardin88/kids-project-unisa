@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Elena
  */
-public class UpdateCommunicationServlet extends HttpServlet {
+public class SolvedCommunicationServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -42,29 +42,29 @@ public class UpdateCommunicationServlet extends HttpServlet {
             PrintWriter out = response.getWriter();
             ICommunicationManager cc = JDBCCommunicationManager.getInstance();
             Communication c = new Communication();
-            
+            /*
             c.setId(Integer.parseInt(request.getParameter("idCommunication")));
-            c.setType(Integer.parseInt(request.getParameter("type")));
+            c.setType(request.getParameter("type"));
             c.setIdEducator(Integer.parseInt(request.getParameter("idEducator")));
             c.setIdChild(Integer.parseInt(request.getParameter("idChild")));
             c.setDescription(request.getParameter("description"));
             String aDate = request.getParameter("date");
             //GregorianCalendar aDate= parseGregorianCalendar(aDat);
-            c.setDate(aDate);
-            c.setSolved(Boolean.getBoolean(request.getParameter("solved")));
+            c.setDate(aDate);*/
+            c.setSolved(request.getParameter("solved"));
             cc.modifyCommunication(c);
         } catch (SQLException ex) {
-            Logger.getLogger(UpdateCommunicationServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SolvedCommunicationServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    /*
     private GregorianCalendar parseGregorianCalendar(String pDate) throws ParseException {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date parsed = df.parse(pDate);
         GregorianCalendar date = new GregorianCalendar();
         date.setTime(parsed);
         return date;
-    }
+    }*/
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

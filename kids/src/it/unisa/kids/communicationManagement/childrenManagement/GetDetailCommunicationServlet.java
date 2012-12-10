@@ -60,7 +60,7 @@ public class GetDetailCommunicationServlet extends HttpServlet {
             out.println(array.toString());
         }
         catch (Exception ex) {
-            Logger.getLogger(GetCommunicationServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GetDetailCommunicationServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally {
             out.close();
