@@ -91,6 +91,12 @@ function search(){
 }
 // FUNZIONI UTILIZZATE DAI PULSANTI DELLA FORM-WINDOW
 function createNewDraftRegistrationChildAction() {
+        $("#registrationChildFormWindowForm").validate({
+        rules: {
+        },
+        messages: {
+        },
+        submitHandler: function() {
     comunicaConServlet(
         // Nome della Servlet
         "CreateDraftRegistrationChild", 
@@ -107,7 +113,7 @@ function createNewDraftRegistrationChildAction() {
         function(jsonObject) {
             // Funzione eseguita se la richiesta alla servlet è eseguita con successo
             setWindowVisibility("registrationChildFormWindow", false);
-            if(jsonObject.IsSuccess == true) {
+            if(jsonObject.IsSuccess) {
                 openRegistrationChildAlertWindow("Operazione eseguita correttamente", "La domanda di iscrizione è stata memorizzata");
             } else {
                 openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
@@ -120,8 +126,16 @@ function createNewDraftRegistrationChildAction() {
             openRegistrationChildAlertWindow("Errore", errorMsg);
         }
     );
+                }
+    });
 }
 function saveEditDraftRegistrationChildAction() {
+    $("#registrationChildFormWindowForm").validate({
+        rules: {
+        },
+        messages: {
+        },
+        submitHandler: function() {
     comunicaConServlet(
         // Nome della Servlet
         "EditRegistrationChild", 
@@ -140,7 +154,7 @@ function saveEditDraftRegistrationChildAction() {
         function(jsonObject) {
             // Funzione eseguita se la richiesta alla servlet è eseguita con successo
             setWindowVisibility("registrationChildFormWindow", false);
-            if(jsonObject.IsSuccess == true) {
+            if(jsonObject.IsSuccess) {
                 openRegistrationChildAlertWindow("Operazione eseguita correttamente", "Le modifiche apportate alla bozza della domanda di iscrizione sono state salvata");
             } else {
                 openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
@@ -153,10 +167,12 @@ function saveEditDraftRegistrationChildAction() {
             openRegistrationChildAlertWindow("Errore", errorMsg);
         }
     );
+        }
+    });
 }
 function submitDraftRegistrationChildAction() {
     //alert($("#registrationChildFormWindowFasciaUtenza").val());
-    setRegistrationChildFormDisabled(false);
+    setRegistrationChildFormEditable(true);
     $("#registrationChildFormWindowForm").validate({
             rules: {
                 registrationChildFormWindowCognome: {required: true},
@@ -168,16 +184,18 @@ function submitDraftRegistrationChildAction() {
                 registrationChildFormWindowFasciaUtenza:  {required: true}
             },
             messages: {
-                registrationChildFormWindowCognome: {required: "Inserire il cognome"},
-                registrationChildFormWindowNome: {required: "Inserire il nome"},
-                registrationChildFormWindowDataNascita:  {required: "Selezionare la data di nascita"},
-                registrationChildFormWindowComuneNascita:  {required: "Inserire il comune di nascita"},
-                registrationChildFormWindowCodiceFiscale:  {required: "Inserire il codice fiscale"},
-                registrationChildFormWindowCittadinanza:  {required: "Inserire la cittadianza"},
-                registrationChildFormWindowFasciaUtenza:  {required: "Selezionare la fascia di utilizzo"}
+                registrationChildFormWindowCognome: {required: ""},
+                registrationChildFormWindowNome: {required: ""},
+                registrationChildFormWindowDataNascita:  {required: ""},
+                registrationChildFormWindowComuneNascita:  {required: ""},
+                registrationChildFormWindowCodiceFiscale:  {required: ""},
+                registrationChildFormWindowCittadinanza:  {required: ""},
+                registrationChildFormWindowFasciaUtenza:  {required: ""}
             },
             invalidHandler: function() {
-                setVisibility("saveEditDraftRegistrationChildButton", true);
+                setRegistrationChildFormEditable(false);
+                openRegistrationChildAlertWindow("Impossibile effettuare la sottomissione", "Alcuni campi della bozza sono ancora vuoti!" + newLine() + 
+                    "Modificare la bozza e riempire tutti i campi");
             },
             submitHandler: function() {
                 comunicaConServlet(
@@ -197,7 +215,7 @@ function submitDraftRegistrationChildAction() {
                     function(jsonObject) {
                         // Funzione eseguita se la richiesta alla servlet è eseguita con successo
                         setWindowVisibility("registrationChildFormWindow", false);
-                        if(jsonObject.IsSuccess == true) {
+                        if(jsonObject.IsSuccess) {
                             openRegistrationChildAlertWindow("Operazione eseguita correttamente", "La domanda di iscrizione è stata sottomessa");
                         } else {
                             openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
@@ -213,10 +231,6 @@ function submitDraftRegistrationChildAction() {
             }
         });
     
-}
-function deleteDraftRegistrationChildAction() {
-    setWindowVisibility("registrationChildFormWindow", false);
-    openDeleteRegistrationChildWindow(getValue("registrationChildFormWindowId"));
 }
 function completeDraftRegistrationChildAction() {
     $("#registrationChildFormWindowForm").validate({
@@ -244,7 +258,7 @@ function completeDraftRegistrationChildAction() {
                     function(jsonObject) {
                         // Funzione eseguita se la richiesta alla servlet è eseguita con successo
                         setWindowVisibility("registrationChildFormWindow", false);
-                        if(jsonObject.IsSuccess == true) {
+                        if(jsonObject.IsSuccess) {
                             openRegistrationChildAlertWindow("Operazione eseguita correttamente", "La domanda di iscrizione è stata completata");
                         } else {
                             openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
@@ -259,10 +273,6 @@ function completeDraftRegistrationChildAction() {
                 );
             }
         });
-}
-function confirmReceivingDraftRegistrationChildAction() {
-    setWindowVisibility("registrationChildFormWindow", false);
-    confirmReceivingRegistrationChildWindow(getValue("registrationChildFormWindowId"));
 }
 function confirmCompletingDraftRegistrationChildAction() {
     $("#registrationChildFormWindowForm").validate({
@@ -290,7 +300,7 @@ function confirmCompletingDraftRegistrationChildAction() {
                     function(jsonObject) {
                         // Funzione eseguita se la richiesta alla servlet è eseguita con successo
                         setWindowVisibility("registrationChildFormWindow", false);
-                        if(jsonObject.IsSuccess == true) {
+                        if(jsonObject.IsSuccess) {
                             openRegistrationChildAlertWindow("Operazione eseguita correttamente", "La domanda di iscrizione è stata confermata");
                         } else {
                             openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
@@ -313,7 +323,7 @@ function openInsertNewRegistrationChildWindow() {
     if(getValue("user") == "Segreteria") {
         setVisibility("registrationChildSegretaryField", false);
     }
-    openRegistrationChildFormWindow("modifyDraft", "Visuale di inserimento di una bozza di domanda di iscrizione", null, false);
+    openRegistrationChildFormWindow("modifyDraft", "Visuale di inserimento di una bozza di domanda di iscrizione", null);
 }
 function openModifyRegistrationChildWindow(id) {
     setVisibility("registrationChildRegistrationInfo", true);
@@ -321,7 +331,7 @@ function openModifyRegistrationChildWindow(id) {
     if(getValue("user") == "Segreteria") {
         setVisibility("registrationChildSegretaryField", false);
     }
-    openRegistrationChildFormWindow("modifyDraft", "Visuale di modifica di una bozza di domanda di iscrizione", id, false);
+    openRegistrationChildFormWindow("modifyDraft", "Visuale di modifica di una bozza di domanda di iscrizione", id);
 }
 function openViewDetailsRegistrationChildWindow(id) {
     setVisibility("registrationChildRegistrationInfo", true);
@@ -337,7 +347,7 @@ function openCompleteRegistrationChildWindow(id) {
     if(getValue("user") == "Segreteria") {
         setVisibility("registrationChildSegretaryField", false);
     }
-    openRegistrationChildFormWindow("modifyDraft", "Visuale di completamento della domanda di iscrizione", id, true);
+    openRegistrationChildFormWindow("modifyDraft", "Visuale di completamento della domanda di iscrizione", id);
 }
 function openComfirmReceivingRegistrationChildWindow(id) {
     setVisibility("registrationChildRegistrationInfo", true);
@@ -345,7 +355,7 @@ function openComfirmReceivingRegistrationChildWindow(id) {
     if(getValue("user") == "Segreteria") {
         setVisibility("registrationChildSegretaryField", false);
     }
-    openRegistrationChildFormWindow("viewDraft", "Visuale di conferma della ricezione della domanda di iscrizione", id, false);
+    openRegistrationChildFormWindow("viewDraft", "Visuale di conferma della ricezione della domanda di iscrizione", id);
 }
 function openComfirmCompletingRegistrationChildWindow(id) {
     setVisibility("registrationChildRegistrationInfo", true);
@@ -353,7 +363,7 @@ function openComfirmCompletingRegistrationChildWindow(id) {
     if(getValue("user") == "Segreteria") {
         setVisibility("registrationChildSegretaryField", true);
     }
-    openRegistrationChildFormWindow("modifyDraft", "Visuale di conferma del completamento della domanda di iscrizione", id, true);
+    openRegistrationChildFormWindow("modifyDraft", "Visuale di conferma del completamento della domanda di iscrizione", id);
 }
 // FUNZIONI CHE NECESSITANO DI UNA CONFIRM-WINDOW
 function openDeleteRegistrationChildWindow(id) {
@@ -371,7 +381,7 @@ function openDeleteRegistrationChildWindow(id) {
                 function(jsonObject) {
                     // Funzione eseguita se la richiesta alla servlet è eseguita con successo
                     setWindowVisibility("registrationChildFormWindow", false);
-                    if(jsonObject.IsSuccess == true) {
+                    if(jsonObject.IsSuccess) {
                         openRegistrationChildAlertWindow("Operazione eseguita correttamente", "La domanda di iscrizione è stata eliminata");
                     } else {
                         openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
@@ -401,7 +411,7 @@ function confirmReceivingRegistrationChildWindow(id) {
                 function(jsonObject) {
                     // Funzione eseguita se la richiesta alla servlet è eseguita con successo
                     setWindowVisibility("registrationChildFormWindow", false);
-                    if(jsonObject.IsSuccess == true) {
+                    if(jsonObject.IsSuccess) {
                         openRegistrationChildAlertWindow("Operazione eseguita correttamente", "La domanda di iscrizione è stata memorizzata come ricevuta");
                     } else {
                         openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
@@ -433,19 +443,19 @@ function initRegistrationChildFormWindow() {
     
     $("#registrationChildFormWindowUndoButton").button();
     $("#registrationChildFormWindowUndoButton").click(function(){
-        //setWindowVisibility("registrationChildFormWindow", false);
-        //clearFieldRegistrationChildFormWindow();
+        setWindowVisibility("registrationChildFormWindow", false);
+        clearFieldRegistrationChildFormWindow();
         // test: alert("sono in annulla");
-        location.href = "./registrationChild.jsp";
+        //location.href = "./registrationChild.jsp";
     });
 }
-function openRegistrationChildFormWindow(windowType, title, idToLoad, canAdvancedFieldBeVisibily) {
+function openRegistrationChildFormWindow(windowType, title, idToLoad) {
     $("#registrationChildFormWindow").dialog({title: title});
     
     if(windowType == "modifyDraft") {
-        setRegistrationChildFormDisabled(false);
+        setRegistrationChildFormEditable(true);
     } else if(windowType == "viewDraft") {
-        setRegistrationChildFormDisabled(true);
+        setRegistrationChildFormEditable(false);
     }
     
     if(idToLoad != null) {
@@ -457,17 +467,20 @@ function openRegistrationChildFormWindow(windowType, title, idToLoad, canAdvance
                 Id: idToLoad
             }, 
             function(jsonObject) {
-                if(jsonObject.IsSuccess == true) {
+                if(jsonObject.IsSuccess) {
                     // Funzione eseguita se la richiesta alla servlet è eseguita con successo
                     fillInFieldRegistrationChildFormWindow(jsonObject);
                     changeButtonVisibility(jsonObject.FaseDellIscrizione, windowType);
-
-                    if((jsonObject.FaseDellIscrizione == "accettata" || jsonObject.FaseDellIscrizione == "completata") && canAdvancedFieldBeVisibily) {
+                    var fase = jsonObject.FaseDellIscrizione;
+                    if((getValue("user") &&((windowType == "viewDraft" && (fase == "validata" || fase == "completata")) || (windowType == "modifyDraft" && fase == "accettata")))) {
                         setVisibility("registrationChildAdvancedField", true);
                     } else {
                         setVisibility("registrationChildAdvancedField", false);
                     }
-                    //openRegistrationChildAlertWindow("Caricamento riuscito");
+                    if(getValue("user") == "Segreteria" && fase == "completata") {
+                        changeRegistrationChildAdvancedFieldState(true, true);
+                    }
+                    //openRegistrationChildAlertWindow("Caricamento riuscito", "I dati sono stati caricati correttamente");
                 } else {
                     openRegistrationChildAlertWindow("Errore", jsonObject.ErrorMsg);
                 }
@@ -481,7 +494,7 @@ function openRegistrationChildFormWindow(windowType, title, idToLoad, canAdvance
     } else {
         clearFieldRegistrationChildFormWindow();
         changeButtonVisibility("", windowType);
-        setVisibility("registrationChildAdvancedField", canAdvancedFieldBeVisibily);
+        setVisibility("registrationChildAdvancedField", false);
     }
     
     setWindowVisibility("registrationChildFormWindow", true);
@@ -512,6 +525,7 @@ function fillInFieldRegistrationChildFormWindow(registrationChildObject) {
     getElement("registrationChildFormWindowMalattie").value = registrationChildObject.Malattie;
     getElement("registrationChildFormWindowVaccinazioni").value = registrationChildObject.Vaccinazioni;
     getElement("registrationChildFormWindowDichiarazionePrivacy").value = registrationChildObject.DichiarazioneDellaPrivacy;
+    
     if(registrationChildObject.DichiarazioneDellaPrivacy == "si") {
         getElement("registrationChildSelectPrivacySi").selected = true;
     } else if(registrationChildObject.DichiarazioneDellaPrivacy == "no") {
@@ -581,7 +595,7 @@ function changeRegistrationChildSegretaryFieldState(isVisible, isDisabled) {
         getElement("registrationChildFormWindowIsSetDichiarazionePrivacy").disabled = isDisabled;
     }
 }
-function setRegistrationChildFormDisabled(isToDesable) {
+function setRegistrationChildFormEditable(isEditable) {
     
     /* I campi Id, DataIscrizione, FaseDellIscrizione e ParentAccountId non devono mai essere modificati dall'utente
     getElement("registrationChildFormWindowId").disabled = isToDesable;
@@ -590,22 +604,22 @@ function setRegistrationChildFormDisabled(isToDesable) {
     // Non utilizzo il valore di parentAccountId
     //*/
     
-    getElement("registrationChildFormWindowCognome").disabled = isToDesable;
-    getElement("registrationChildFormWindowNome").disabled = isToDesable;
-    getElement("registrationChildFormWindowDataNascita").disabled = isToDesable;
-    getElement("registrationChildFormWindowComuneNascita").disabled = isToDesable;
-    getElement("registrationChildFormWindowCodiceFiscale").disabled = isToDesable;
-    getElement("registrationChildFormWindowCittadinanza").disabled = isToDesable;
-    getElement("registrationChildFormWindowFasciaUtenza").disabled = isToDesable;
+    setEditable("registrationChildFormWindowCognome", isEditable);
+    setEditable("registrationChildFormWindowNome", isEditable);
+    setEditable("registrationChildFormWindowDataNascita", isEditable);
+    setEditable("registrationChildFormWindowComuneNascita", isEditable);
+    setEditable("registrationChildFormWindowCodiceFiscale", isEditable);
+    setEditable("registrationChildFormWindowCittadinanza", isEditable);
+    setEditable("registrationChildFormWindowFasciaUtenza", isEditable);
     
-    getElement("registrationChildFormWindowMalattie").disabled = isToDesable;
-    getElement("registrationChildFormWindowVaccinazioni").disabled = isToDesable;
-    getElement("registrationChildFormWindowDichiarazionePrivacy").disabled = isToDesable;
+    setEditable("registrationChildFormWindowMalattie", isEditable);
+    setEditable("registrationChildFormWindowVaccinazioni", isEditable);
+    setEditable("registrationChildFormWindowDichiarazionePrivacy", isEditable);
     
     if(getValue("user") == "Segreteria") {
-        getElement("registrationChildFormWindowIsSetMalattie").disabled = isToDesable;
-        getElement("registrationChildFormWindowIsSetVaccinazioni").disabled = isToDesable;
-        getElement("registrationChildFormWindowIsSetDichiarazionePrivacy").disabled = isToDesable;
+        setEditable("registrationChildFormWindowIsSetMalattie", isEditable);
+        setEditable("registrationChildFormWindowIsSetVaccinazioni", isEditable);
+        setEditable("registrationChildFormWindowIsSetDichiarazionePrivacy", isEditable);
     }
 }
 // FUNZIONE DI CONTROLLO SULLA VISIBILITA' DEI PULSANTI DELLA FORM-WINDOS
@@ -622,21 +636,14 @@ function changeButtonVisibility(registrationPhase, windowType) {
         } else {
             setVisibility("saveEditDraftRegistrationChildButton", false);
         }
-        if((registrationPhase == "" || registrationPhase == "bozza") &&
-                    (windowType == "createNewDraft" || windowType == "modifyDraft" || windowType == "viewDraft")) {
+        if((registrationPhase == "bozza") &&
+                    (windowType == "viewDraft")) {
 
             setVisibility("submitDraftRegistrationChildButton", true);
         } else {
             setVisibility("submitDraftRegistrationChildButton", false);
         }
-        if((registrationPhase == "bozza" || registrationPhase == "sottomessa" || registrationPhase == "ricevuta") && 
-                    (windowType == "modifyDraft" || windowType == "viewDraft")) {
-
-            setVisibility("deleteDraftRegistrationChildButton", true);
-        } else {
-            setVisibility("deleteDraftRegistrationChildButton", false);
-        }
-        if((registrationPhase == "accettata") && (windowType == "viewDraft")) {
+        if((registrationPhase == "accettata") && (windowType == "modifyDraft")) {
 
             setVisibility("completeDraftRegistrationChildButton", true);
         } else {
@@ -644,12 +651,7 @@ function changeButtonVisibility(registrationPhase, windowType) {
         }
     }
     if(userType == "Segreteria") {
-        if((registrationPhase == "sottomessa") && (windowType == "viewDraft")) {
-            setVisibility("confirmReceivingViewDetailsDraftButton", true);
-        } else {
-            setVisibility("confirmReceivingViewDetailsDraftButton", false);
-        }
-        if((registrationPhase == "completata") && (windowType == "viewDraft")) {
+        if((registrationPhase == "completata") && (windowType == "modifyDraft")) {
             setVisibility("confirmCompletedViewDetailsDraftButton", true);
         } else {
             setVisibility("confirmCompletedViewDetailsDraftButton", false);
@@ -781,7 +783,6 @@ function comunicaConServlet(nomeServlet, parametri, executeIfSuccess, executeIfE
              * such as "Not Found" or "Internal Server Error"
              */
             var errorMsg = "Errore nella richiesta alla Servlet (" + textStatus + "):" + newLine() 
-                    + jqXHR.error + newLine()
                     + "HTTP error: " + errorThrown;
             executeIfError(errorMsg);
         },
@@ -816,5 +817,14 @@ function setVisibility(id, isVisible) {
         document.getElementById(id).style.display = "inline";
     } else {
         document.getElementById(id).style.display = "none";
+    }
+}
+function setEditable(id, isEditable) {
+    if(isEditable) {
+        //document.getElementById(id).readOnly = "";
+        document.getElementById(id).disabled = false;
+    } else {
+        //document.getElementById(id).readOnly = "false";
+        document.getElementById(id).disabled = true;
     }
 }

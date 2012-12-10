@@ -95,6 +95,10 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
             registrationChild.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DRAFT);
             registrationChild.setParentId(parentAccount.getId());
 
+            registrationChild.setSickness("");
+            registrationChild.setVaccinations("");
+            registrationChild.setPrivacyStatement("");
+            
             // La inserisco nel db
             isSuccess = registrationChildManager.insert(registrationChild);
         } catch (SQLException ex) {
@@ -105,7 +109,7 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
         json.put("IsSuccess", "" + isSuccess);
         json.put("ErrorMsg", errorMsg);
 
-        System.out.println("Risultato della CreateServlet: " + isSuccess + "JSON: " + json.toString());
+        System.out.println("Risultato della CreateServlet: " + isSuccess + " JSON: " + json.toString());
         out.write(json.toString());
         out.close();
         

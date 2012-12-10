@@ -52,20 +52,12 @@
             $("#submitDraftRegistrationChildButton").click(function() {
                 submitDraftRegistrationChildAction();
             });
-            $("#deleteDraftRegistrationChildButton").button();
-            $("#deleteDraftRegistrationChildButton").click(function() {
-                deleteDraftRegistrationChildAction();
-            });
             $("#completeDraftRegistrationChildButton").button();
             $("#completeDraftRegistrationChildButton").click(function() {
                 completeDraftRegistrationChildAction();
             });
 </c:if>
 <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
-            $("#confirmReceivingViewDetailsDraftButton").button();
-            $("#confirmReceivingViewDetailsDraftButton").click(function() {
-                confirmReceivingDraftRegistrationChildAction();
-            });
             $("#confirmCompletedViewDetailsDraftButton").button();
             $("#confirmCompletedViewDetailsDraftButton").click(function() {
                 confirmCompletingDraftRegistrationChildAction();
@@ -185,11 +177,9 @@
                                 <input type="submit" id="createNewDraftRegistrationChildButton" value="Salva Bozza" />
                                 <input type="submit" id="saveEditDraftRegistrationChildButton" value="Salva Modifiche" />
                                 <input type="submit" id="submitDraftRegistrationChildButton" value="Sottometti Domanda" />
-                                <input type="submit" id="deleteDraftRegistrationChildButton" value="Elimina Domanda" />
                                 <input type="submit" id="completeDraftRegistrationChildButton" value="Completa Domanda" />
                                 </c:if>
                                 <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
-                                <input type="submit" id="confirmReceivingViewDetailsDraftButton" value="Conferma Domanda" />
                                 <input type="submit" id="confirmCompletedViewDetailsDraftButton" value="Conferma completamento Domanda" />
                                 </c:if>
                                 <input type="button" id="registrationChildFormWindowUndoButton" value="Annulla" />

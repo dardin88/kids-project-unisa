@@ -104,15 +104,13 @@ public class ServletEditRegistrationChild extends HttpServlet {
             Logger.getLogger(ServletCreateDraftRegistrationChild.class.getName()).log(Level.SEVERE, "SQL-Error: " + ex.getMessage(), ex);
             isSuccess = false;
             errorMsg = ex.getMessage();
-        } finally {
-            System.out.println("Risultato della Edit: " + isSuccess);
-            
-            json.put("IsSuccess", isSuccess);
-            json.put("ErrorMsg", errorMsg);
-            
-            out.write(json.toString());
-            out.close();
         }
+        json.put("IsSuccess", "" + isSuccess);
+        json.put("ErrorMsg", errorMsg);
+
+        System.out.println("Risultato della Edit: " + isSuccess + " JSON: " + json.toString());
+        out.write(json.toString());
+        out.close();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

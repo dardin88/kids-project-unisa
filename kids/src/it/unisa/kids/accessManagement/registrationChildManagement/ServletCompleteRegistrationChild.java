@@ -59,6 +59,8 @@ public class ServletCompleteRegistrationChild extends HttpServlet {
             // Creo la domanda di iscrizione bambino
             RegistrationChild registrationChild = new RegistrationChild();
             registrationChild.setId(id);
+            
+            registrationChild = registrationChildManager.search(registrationChild).get(0);
             registrationChild.setSickness(malattie);
             registrationChild.setVaccinations(vaccinazioni);
             registrationChild.setPrivacyStatement(privacy);
