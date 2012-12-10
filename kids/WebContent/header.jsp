@@ -121,6 +121,10 @@
             </div>
             
             <div class="div">
+                <li id="canteenManagementMenuEl"><a href="canteenParent.jsp">Gestione mensa</a></li>
+            </div>
+            
+            <div class="div">
                 <li id="paymentManagementMenuEl"><a href="paymentParent.jsp">Gestione pagamenti</a></li>
             </div>
             <div class="div">

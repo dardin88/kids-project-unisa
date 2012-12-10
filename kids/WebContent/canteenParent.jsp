@@ -31,7 +31,7 @@
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
-        <script type="text/javascript" src="js/canteen.js"></script>
+        <script type="text/javascript" src="js/canteenParent.js"></script>
 
         <title>Mensa - Kids</title>
 
@@ -68,91 +68,101 @@
             <div id="generalCanteenSection">
                 <div id="canteenTabGroup">
                     <ul>
-                        <li><a href="#showDailyMenu"><span class="paymentsTab">Visualizza men&ugrave; giornaliero</span></a></li>
-                        <li><a href="#showAssociatedMenu"><span class="paymentsTab">Visualizza men&ugrave; associati</span></a></li>
-                        <li><a href="#modifySickness"><span class="paymentsTab">Modifica malattie/Inserisci note</span></a></li>
-                        <li><a href="#mealRequest"><span class="paymentsTab">Richiedi pasto</span></a></li>
+                        <li><a href="#showDailyMenu"><span class="canteenTab">Visualizza men&ugrave; giornaliero</span></a></li>
+                        <li><a href="#showAssociatedMenu"><span class="canteenTab">Visualizza men&ugrave; associati</span></a></li>
+                        <li><a href="#modifySickness"><span class="canteenTab">Modifica malattie/Inserisci note</span></a></li>
+                        <li><a href="#mealRequest"><span class="canteenTab">Richiedi pasto</span></a></li>
                     </ul>
 
                     <div id="showDailyMenu">
-                        <table id="showDailyMenuTable" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>Primo</th>
-                                    <th>Secondo</th>
-                                    <th>Contorno</th>
-                                    <th>Frutta</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
+                        <h2>Men&ugrave; giornaliero</h2>
+                        <table>
+                            <tr>
+                                <td><label for="dailyMenuDate">Data:&nbsp;</label></td>
+                                <td><input type="text" name="dailyMenuDate" id="dailyMenuDate" readonly></td>
+                            </tr>
+                            <tr>
+                                <td><label for="dailyMenuFirst">Primo:&nbsp;</label></td>
+                                <td><input type="text" name="dailyMenuFirst" id="dailyMenuFirst" readonly></td>
+                            </tr>
+                            <tr>
+                                <td><label for="dailyMenuSecond">Secondo:&nbsp;</label></td>
+                                <td><input type="text" name="dailyMenuSecond" id="dailyMenuSecond" readonly></td>
+                            </tr>
+                            <tr>
+                                <td><label for="dailyMenuSideDish">Contorno:&nbsp;</label></td>
+                                <td><input type="text" name="dailyMenuSideDish" id="dailyMenuSideDish" readonly></td>
+                            </tr>
+                            <tr>
+                                <td><label for="dailyMenuFruit">Frutta:&nbsp;</label></td>
+                                <td><input type="text" name="dailyMenuFruit" id="dailyMenuFruit" readonly></td>
+                            </tr>
                         </table>
                     </div>
 
                     <div id="showAssociatedMenu">
-                        <h3>Selezionare un elemento della lista per visualizzare i dettagli sul pasto</h3>
+                        <h2>Ricerca men&ugrave; associato</h2>
+                        <form style="padding-bottom: 20px" onkeyup="searchAssociatedMenus();">
+                            <fieldset>
+                                <label for="menuDate">Data:&nbsp;</label>
+                                <input type="text" name="menuDate" id="menuDate">
+                            </fieldset>
+                        </form>
                         <table id="showAssociatedMenuTable" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>Data</th>
+                                    <th>Primo</th>
+                                    <th>Secondo</th>
+                                    <th>Contorno</th>
+                                    <th>Frutta</th>
                                     <th>Tipo men&ugrave;</th>
                                 </tr>
                             </thead>
                             <tbody>
                             </tbody>
                         </table>
-                        <div id="showAssociatedMenuDialog">
-                            <table>
-                                <tr>
-                                    <td><label for="associatedFirst">Primo:&nbsp;</label></td>
-                                    <td><input type="text" name="associatedFirst" id="associatedFirst" readonly></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="associatedSecond">Secondo:&nbsp;</label></td>
-                                    <td><input type="text" name="associatedSecond" id="associatedSecond" readonly></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="associatedSideDish">Contorno:&nbsp;</label></td>
-                                    <td><input type="text" name="associatedSideDish" id="associatedSideDish" readonly></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="associatedFruit">Frutta:&nbsp;</label></td>
-                                    <td><input type="text" name="associatedFruit" id="associatedFruit" readonly></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="associatedMenuType">Tipo men&ugrave;:&nbsp;</label></td>
-                                    <td><input type="text" name="associatedMenuType" id="associatedMenuType" readonly></td>
-                                </tr>
-                            </table>
-                        </div>
                     </div>
 
                     <div id="modifySickness">
                         <h3>Modifica malattie/Inserisci note</h3>
-                        <table>
-                            <tr>
-                                <td><label for="sicknessArea">Malattie:&nbsp;</label></td>
-                                <td><textarea rows="5" cols="20" maxlength="400" name="sicknessArea" id="sicknessArea"></textarea></td>
-                            </tr>
-                            <tr>
-                                <td><label for="sicknessArea">Note:&nbsp;</label></td>
-                                <td><textarea rows="5" cols="20" maxlength="400" name="sicknessArea" id="sicknessArea"></textarea></td>
-                            </tr>
-                        </table>
+                        <form id="modifySicknessForm" class="cmxform" method="post" action="ModifySickness">
+                            <table>
+                                <tr>
+                                    <td><label for="sicknessArea">Malattie:&nbsp;</label></td>
+                                    <td><textarea rows="5" cols="20" maxlength="400" name="sicknessArea" id="sicknessArea"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="noteArea">Note:&nbsp;</label></td>
+                                    <td><textarea rows="5" cols="20" maxlength="400" name="noteArea" id="noteArea"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" name="hiddenParentIdSickness" id="hiddenParentIdSickness" value="${sessionScope.user.getId()}">
+                                        <input class="confirmButton" type="submit" name="modifySicknessButton" id="modifySicknessButton" value="Invia dati">
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
                     </div>
-                    
+
                     <div id="mealRequest">
-                        <h3>Modifica malattie/Inserisci note</h3>
-                        <table>
-                            <tr>
-                                <td><label for="sicknessArea">Malattie:&nbsp;</label></td>
-                                <td><textarea rows="5" cols="20" maxlength="400" name="sicknessArea" id="sicknessArea"></textarea></td>
-                            </tr>
-                            <tr>
-                                <td><label for="sicknessArea">Note:&nbsp;</label></td>
-                                <td><textarea rows="5" cols="20" maxlength="400" name="sicknessArea" id="sicknessArea"></textarea></td>
-                            </tr>
-                        </table>
+                        <h2>Richiedi pasto</h2>
+                        <h3>Selezionare la data della richiesta del pasto</h3>
+                        <form id="mealRequestForm" class="cmxform" method="post" action="InsertMealRequest">
+                            <table>
+                                <tr>
+                                    <td><label for="requestDate">Data richiesta:&nbsp;</label></td>
+                                    <td><input type="text" name="requestDate" id="requestDate"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" name="hiddenParentIdMealReq" id="hiddenParentIdMealReq" value="${sessionScope.user.getId()}">
+                                        <input class="confirmButton" type="submit" name="requestMealButton" id="requestMealButton" value="Invia richiesta">
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
                     </div>
 
                 </div>
