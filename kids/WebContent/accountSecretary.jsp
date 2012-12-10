@@ -42,7 +42,7 @@
                 Cognome:<input type="text" id="surname" name="surname" />
                 Codice Fiscale:<input type="text" id="taxCode" name="taxCode" />
                 Tipo Account<select id="type" name="type">
-                                <OPTION value="Nothing" name="Nothing" > Scegli 
+                                <OPTION value="" name="Nothing" > Scegli 
                                 <OPTION value="Genitore" name="Genitore" selected> Genitore 
                                 <OPTION value="Delegato Ufficio" name="DelegatoUfficio"> Segreteria 
                                 <OPTION value="Delegato scienze della formazione" name="ScienzeFormazione"> Delegato Scienze della Formazione 
