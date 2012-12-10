@@ -106,17 +106,15 @@
                 </td>
                 <td>
                     <select id="artefactSolved" name="Risolvi comunicazione" class="artefactSelect">
+                        <option value="0">Seleziona...</option>
                         <option value="1">No</option>
                         <option value="2">Si</option>
                     </select>
                 </td>
                 </p>
                 </tr>
-                    <td>
-                       <c:if test="${sessionScope.user.getAccountType()=='Educatore'}">
-                           <input type="button" class="windowButton2" id="solvedCommunication" value="Risolvi" onclick="enableButtonUpdate()" />
-                           <input type="submit" style="visibility: hidden;" class="windowButton2" id="confirmSolvedCommunication"  value="Salva"/>                 
-                       </c:if>
+                    <td colspan="2">
+                        <input type="submit" class="windowButton2" id="confirmSolvedCommunication" value="Salva" />
                     </td>
                 </tr>
             </table>                 
