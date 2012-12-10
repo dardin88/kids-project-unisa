@@ -41,18 +41,9 @@ public class SolvedCommunicationServlet extends HttpServlet {
         try {
             PrintWriter out = response.getWriter();
             ICommunicationManager cc = JDBCCommunicationManager.getInstance();
-            Communication c = new Communication();
-         
-            c.setId(Integer.parseInt(request.getParameter("idCommunication")));
-            c.setType(request.getParameter("type"));
-            c.setIdEducator(Integer.parseInt(request.getParameter("idEducator")));
-            c.setIdChild(Integer.parseInt(request.getParameter("idChild")));
-            c.setDescription(request.getParameter("description"));
-            String aDate = request.getParameter("date");
-            //GregorianCalendar aDate= parseGregorianCalendar(aDat);
-            c.setDate(aDate);
-            c.setSolved(request.getParameter("solved"));
-            cc.solvedCommunication(c);
+            int id = Integer.parseInt(request.getParameter("idCommunication"));
+            String solved = request.getParameter("artefactSolved");
+            cc.solvedCommunication(id, solved);
         } catch (SQLException ex) {
             Logger.getLogger(SolvedCommunicationServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
