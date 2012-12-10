@@ -88,12 +88,13 @@ public class GetTableChildServlet extends HttpServlet {
                     System.arraycopy(listRegistrationChild.toArray(), start, pageRegistrationChild, 0, toShow);
                 }
                 for (RegistrationChild childreg : pageRegistrationChild) {
-
                     JSONArray ja = new JSONArray();
 
-                    ja.put(childreg.getClassName());
-                    ja.put(childreg.getState());
-                    String operazioni = "<input class='tableImage' type='image' src='img/trash.png' onclick='removeAccount(\"" + childreg.getIdClasse() + "\")'/> <input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/lente.gif' onclick='showAccount(\"" + childreg.getIdClasse() + "\")'/>";
+                    ja.put(childreg.getName());
+                    ja.put(childreg.getSurname());
+                    String operazioni = "<input type='checkbox' name='childRow' value='" + childreg.getId() + "' >";
+                    String[] childChecked = request.getParameterValues("childRow");
+                    
                     ja.put(operazioni);
                     array.put(ja);
                 }

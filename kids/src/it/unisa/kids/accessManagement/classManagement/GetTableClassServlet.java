@@ -6,8 +6,6 @@ package it.unisa.kids.accessManagement.classManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.accessManagement.accountManagement.IAccountManager;
-import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationChildManager;
-import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
@@ -135,7 +133,7 @@ public class GetTableClassServlet extends HttpServlet {
 
 
 
-            //dopo devi cancellarlo
+            //dopo devo cancellarlo
 
             List<Account> listaacc = new ArrayList<Account>();
 
@@ -161,7 +159,8 @@ public class GetTableClassServlet extends HttpServlet {
 //
 //            request.getSession().setAttribute("ListaBamb", listaacc);
 
-            //fino a qui
+            //cancellare fino a qui
+            
         } catch (SQLException ex) {
             Logger.getLogger(GetTableClassServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

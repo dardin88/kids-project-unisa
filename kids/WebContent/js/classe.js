@@ -124,21 +124,19 @@ function search(){
 }
 
 function showAccount(id){
-    alert(id);
     window.location.href="classInformation.jsp?id="+id;
 }
 
 function modifyAccount(id){
-    alert(id);
     window.open("classeModify.jsp?id="+id);
 }
-function showPartTwoAccount(id){
-    $.post("GetAccount",{
-        id:id
-    })
-}
+//function showPartTwoAccount(id){
+//    $.post("GetAccount",{
+//        id:id
+//    })
+//}
 
-function back(id){
-    
-    location.href="./accountInformation.jsp?id="+id;
-}
+//function back(id){
+//    
+//    location.href="./accountInformation.jsp?id="+id;
+//}
