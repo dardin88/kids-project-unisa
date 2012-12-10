@@ -7,12 +7,12 @@ package it.unisa.kids.communicationManagement.childrenManagement;
 public class Communication {
 	
 	private int id;
-	private int type;
+	private String type;
 	private int idEducator;
 	private int idChild;
 	private String description;
         private String date;
-	private boolean solved;
+	private String solved;
 
 	/**Empty constructor
 	 */
@@ -34,16 +34,16 @@ public class Communication {
 	}
 
 	/**this method returns the type
-	 * @return int type
+	 * @return String type
 	 */
-	public int getType() {
+	public String getType() {
 		return type;
 	}
 
 	/**this method sets the type
-	 * @param int type
+	 * @param String type
 	 */
-	public void setType(int type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 	
@@ -103,16 +103,16 @@ public class Communication {
 		this.date = date;
 	}
 	/**this method returns the solved
-	 * @return boolean solved
+	 * @return String solved
 	 */
-	public boolean getSolved() {
+	public String getSolved() {
 		return solved;
 	}
 
 	/**this method sets the solved
-	 * @param boolean solved
+	 * @param String solved
 	 */
-	public void setSolved(boolean solved) {
+	public void setSolved(String solved) {
 		this.solved = solved;
 	}
 }

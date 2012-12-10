@@ -23,7 +23,7 @@ import org.json.JSONObject;
  *
  * @author Elena
  */
-public class GetCommunicationServlet extends HttpServlet {
+public class GetNeedCommunicationServlet extends HttpServlet {
     
     /**
      * Processes requests for both HTTP
@@ -83,6 +83,7 @@ public class GetCommunicationServlet extends HttpServlet {
                     System.arraycopy(listCommunication.toArray(), start, paginateCommunicationSet, 0, toShow);
 	          }
                 for (Communication a : paginateCommunicationSet) {
+                    if (a.getType().equalsIgnoreCase("Bisogno")){
                     JSONArray ja = new JSONArray();
                     ja.put(a.getType());
                     ja.put(a.getIdEducator());
@@ -104,6 +105,7 @@ public class GetCommunicationServlet extends HttpServlet {
                         ja.put(operazioni);
                     }
                     array.put(ja);
+                    }
                 }
             }
             result.put("sEcho", sEcho);
@@ -115,7 +117,7 @@ public class GetCommunicationServlet extends HttpServlet {
             response.setHeader("Pragma", "no-cache");
             out.println(result);
         } catch (Exception ex) {
-            Logger.getLogger(GetCommunicationServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GetNeedCommunicationServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
         }
