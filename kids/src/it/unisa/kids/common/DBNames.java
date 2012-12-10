@@ -85,6 +85,9 @@ public final class DBNames {
     public static final String ATT_CLASSIFICATION_NAME = "Nome";
     public static final String ATT_CLASSIFICATION_DATA = "Data";
     public static final String ATT_CLASSIFICATION_STATUS = "Stato";
+    public static final String ATT_CLASSIFICATION_STATUS_BOZZA = "bozza";
+    public static final String ATT_CLASSIFICATION_STATUS_PROVVISORIA = "provvisoria";
+    public static final String ATT_CLASSIFICATION_STATUS_DEFINITIVA = "definitiva";
     // CriteriaTable's attributes
     public static final String ATT_CRITERIA_ID = "Id";
     public static final String ATT_CRITERIA_DESCRIPTION = "Descrizione";

@@ -206,7 +206,11 @@ CREATE TABLE IF NOT EXISTS `convocazione` (
 CREATE TABLE IF NOT EXISTS `criteripesati` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Descrizione` varchar(20) NOT NULL,
+  `Campo` varchar(20) NOT NULL,
+  `Operando` varchar(5) NOT NULL,
+  `Condizione` varchar(20) NOT NULL,
   `Peso` double NOT NULL,
+  `Abilitato` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -234,7 +238,7 @@ CREATE TABLE IF NOT EXISTS `graduatoria` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Nome` varchar(20) DEFAULT NULL,
   `Data` date NOT NULL,
-  `Stato` enum('bozza','provvisoria','definitiva') DEFAULT NULL,
+  `Stato` enum('bozza','provvisoria','definitiva') DEFAULT 'bozza',
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
