@@ -1,6 +1,6 @@
 
 function CalendarNotEditable() {
-    $('#meetingCalendar').fullCalendar({ 
+    $("#meetingCalendar").fullCalendar({ 
         header: { 
             left: 'prev,next today',
             center: 'title', 	
@@ -53,7 +53,7 @@ function CalendarNotEditable() {
 
 
 function CalendarEditable() {
-    $('#meetingCalendar').fullCalendar({ 
+    $("#meetingCalendar").fullCalendar({ 
         header: { 
             left: 'prev,next today',
             center: 'title', 	
