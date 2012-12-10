@@ -66,14 +66,6 @@ public class UpdateNewsServlet extends HttpServlet {
                     n.setType("Notizia");
                     break;
                 }
-                case 3: {
-                    n.setType("Apertura Mensa");
-                    break;
-                }
-                case 4: {
-                    n.setType("Chiusura Mensa");
-                    break;
-                }
             }
             n.setId(id);
             String data = request.getParameter("artefactData");
