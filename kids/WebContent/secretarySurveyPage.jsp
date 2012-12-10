@@ -7,11 +7,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<%--
-    <c:if test="${sessionScope.user==null}">
-        <c:redirect url="index.jsp" />
-    </c:if>
---%>
+<c:if test="${sessionScope.user.getAccountType()!='Segreteria'}">
+    <c:redirect url="index.jsp" />
+</c:if>
 
 <!DOCTYPE html>
 <html>
@@ -31,73 +29,61 @@
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
-
-        <title>Gestione Questionari Valutazione - Kids</title>
-        
-        <script type = "text/javascript">
-	function showD() {
-		if(document.getElementById("intext").value.length == 0) {
-			alert("Non è stato inserito nulla. Prego di riprovare"); 
-			return false;
-		}
-		else { 
-			alert("Grazie! Il questionario è stato aggiunto alla lista e sarà  visibile dai genitori."); 
-			return true;
-		}
-	}
-        </script>
-    
-        <script>
-            $(function() {
-                 $( "#surveyTabGroup" ).tabs();
+        <script type="text/javascript" src="js/surveyShowTable.js"></script>
+        <title>Kids</title>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                initializeLinksManager();
+                activePage();
             });
         </script>
     </head>
+    <div class="removeSurvey" id="removeSurveyWindow" title="Rimuovi Questionario" >
+        <h3 style="text-align:center; margin-top: 10px; margin-bottom: 10px">Vuoi rimuovere definitivamente questo questionario?</h3>
+        <input type="button" class="buttonRemove" id="removeSurveyButton" value="Ok" />
+        <input type="button" class="buttonRemove" id="notRemoveSurveyButton" value="Annulla" />
+    </div>
+
     <body>
         <%@include file="header.jsp" %>
-<%--
-<c:if test="${sessionScope.user.getAccountType()=='Segreteria'}" >
-            <input type="button" id="addLinkButton" value="Gestisci Questionari" />               
-        </c:if>
---%>
-     
-
         <div id="surveyManagement">
-            <h1>Gestione Questionari Valutazione</h1>
-
-   
-            <%-- blocco div delle varie funzioni della gestione questionari --%>
-            <div id="generalSurveySection">
-                <h2>Operazioni</h2>
-               
-                <div id="surveyTabGroup">
-                    <ul>
-                        <li><a href="#webapp"><span class="manSurvTab">Crea e Gestisci Questionari</span></a></li>
-                       <!-- <li><a href=""><span class="showSurvTab">Visualizza Tabella Questionari-Genitore</span></a></li>   -->
-                      
-                    </ul>
-                    
-                    <div id = "webapp">
-                        <iframe src= "https://www.jotformeu.com"></iframe>
-                    
-                     <div>
-                        <p>JotForm &egrave un ottimo servizio di creazione e gestione di questionari compilabili online. 
-                           Purtroppo per&ograve, per condividere un questionario, affinch&egrave i genitori possano compilarlo, &egrave necessario fare click sulla scheda relativa a 
-                           <i>"Setup & Embed"</i> e successivamente fare click sulla icona rappresentante <i>"Embed Forms"</i>, copiare così l'indirizzo all'interno della casella sottostante.</p>
-            
+            <div id="surveyTabGroup">
+                <ul>
+                    <li><a href="#webapp">Crea e Gestisci Questionari</a></li>
+                    <li><a href="#questionariTable">Visualizza Questionari Proposti</a></li>
+                </ul>
+                <div id="webapp">
+                    <iframe src= "https://www.jotformeu.com"></iframe>
+                    <div>
+                        <p>
+                            Affinch&egrave i genitori possano compilare il questionario, &egrave necessario fare click sulla scheda relativa a 
+                            <i>"Setup & Embed"</i> e successivamente fare click sulla icona rappresentante <i>"Embed Forms"</i>, copiare così l'indirizzo all'interno della casella sottostante.
+                        </p>
                         <form align="center"  class ="cmxform" action= "#" method= "POST">
-		                <input id="intext" type= "text"></input>
-		                <button  id = "inSub" type="submit" name= "sub" onclick="showD()" >Invia</button>
-                         </form>
-        
-                         <p>Pu&ograve essere necessario attuare politiche per le quali un genitore non può rispondere più d'una volta al questionario.Ci&ograve &egrave possibile: basti cliccare
-                            sulla icona dell'ingranaggio <i>"Preferences"</i> e scegliere l'opzione <i>"Form limits"</i>, da qu&igrave scegliere <i>"Controllo Strict</i></p>
-                   </div>
-                </div>    
+                            <input id="intext" type= "text"></input>
+                            <button  id = "inSub" type="submit" name= "sub" onclick="addSurvey()" >Invia</button>
+                        </form>
+                        <p>
+                            Pu&ograve essere necessario attuare politiche per le quali un genitore non può rispondere più d'una volta al questionario.
+                            Ci&ograve &egrave possibile: basta cliccare sulla icona dell'ingranaggio <i>"Preferences"</i> e scegliere l'opzione <i>"Form limits"</i>, da qu&igrave scegliere <i>"Controllo Strict</i>
+                        </p>
+                    </div>
                 </div>
-             </div>
-          </div>
-
+                <div id="questionariTable">
+                    <table id="linkTable">
+                        <thead>
+                            <tr>
+                                <th>ID Questionario</th>
+                                <th>Link</th>   
+                                <th>Operazioni</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
         <%@include file="footer.jsp" %>
     </body>
 </html>
