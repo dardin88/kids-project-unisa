@@ -22,7 +22,7 @@
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
-        <script type="text/javascript" src="js/provaAccount.js"></script>
+        <script type="text/javascript" src="js/accountInsert.js"></script>
         <title>Registrazione Account - Kids Project</title>
      
         <script type="text/javascript">
@@ -35,6 +35,27 @@
     </head>
     <%@include file="header.jsp"%>
     <body id="bodyRegistration">
+        
+         <div id="NickPassWindow" title="Visualizza dati accesso" style="display: inline">
+        <form id="NickPassForm" class="cmxform" method="get" action="">
+            <fieldset><br>
+                <div >
+                    <label id="accountLabel">  Nickname: </label>
+                    <input id="accountNick" class="accountInput" type="text" name="Nick" size="50%" readonly="true" style="margin-left: 5%">
+                </div>
+                <div >
+                    <label id="accountLabel">  Password: </label>
+                    <input id="accountPass" class="accountInput" type="text" name="Nick" size="50%" readonly="true" style="margin-left: 5%">
+                </div>
+
+                <label style="margin-left: 5%">  N.B. Le verrà inviata una e-mail all'indirizzo da lei specificata </label>
+                <label style="margin-left: 5%"> con i relativi dati di accesso. </label><br>
+                <p class="formp">
+                    <input type="button" class="confirmAddButton" id="showNickPass" value="Ok"/>
+                </p>
+            </fieldset>
+        </form>
+    </div>
 
         <form id="registrationForm" class="cmxform"  action="" method="post">
 

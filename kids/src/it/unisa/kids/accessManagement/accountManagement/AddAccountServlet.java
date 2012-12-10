@@ -92,7 +92,7 @@ public class AddAccountServlet extends HttpServlet {
 
             Account account = new Account();
 
-            account.setRegister("");
+            
             account.setNameUser(name);
             account.setSurnameUser(surname);
             account.setDataOfBirth(birth);
@@ -120,7 +120,8 @@ public class AddAccountServlet extends HttpServlet {
             account.setRegistrationDate(reg);
             account.setTypeParent(typeParent);
 
-            account = man.insert(account);
+            Account acc=new Account();
+            acc = man.insert(account);
             
 //            System.out.println("Invio email...");
 //            MailManager mailManager = new MailManager();
@@ -131,9 +132,9 @@ public class AddAccountServlet extends HttpServlet {
 //            mail.setTo(account.getEmail());
 //            mailManager.sendMail(mail);
 
-            request.getSession().setAttribute("id", account.getId());
-
-            out.println(account.getNickName() + "," + account.getPassword());
+            //request.getSession().setAttribute("id", account.getId());
+System.out.println(acc.getNickName()+","+account.getPassword());
+            out.println(acc.getNickName() + "," + acc.getPassword());
             System.out.println("inviato!" + account.getNickName() + "," + account.getPassword());
         } catch (SQLException ex) {
             Logger.getLogger(AddAccountServlet.class.getName()).log(Level.SEVERE, "SQL-Error: " + ex.getMessage(), ex);
