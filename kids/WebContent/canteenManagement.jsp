@@ -97,6 +97,7 @@
                                     <tr>
                                         <th>Bambino</th>
                                         <th>Genitore</th>
+                                        <th>Men&ugrave; differenziato</th>
                                     </tr>
                                 </thead>
                                 <tbody>

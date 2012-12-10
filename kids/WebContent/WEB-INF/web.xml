@@ -34,6 +34,14 @@
         <servlet-class>it.unisa.kids.serviceManagement.paymentManagement.servlet.InsertRefundServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>GetCanteenClassTableServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.canteenManagement.servlet.GetCanteenClassTableServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetCanteenChildrenTableServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.canteenManagement.servlet.GetCanteenChildrenTableServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>GetTraineesServletTable</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.GetTraineesServletTable</servlet-class>
     </servlet>
@@ -368,6 +376,14 @@
     <servlet-mapping>
         <servlet-name>UpdatePaymentServlet</servlet-name>
         <url-pattern>/UpdatePayment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetCanteenClassTableServlet</servlet-name>
+        <url-pattern>/GetCanteenClassTable</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetCanteenChildrenTableServlet</servlet-name>
+        <url-pattern>/GetCanteenChildrenTable</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddMeetingServlet</servlet-name>

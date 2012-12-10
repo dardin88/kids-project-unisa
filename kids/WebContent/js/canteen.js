@@ -28,12 +28,8 @@ function initializeCanteenPage() {
 
 function doClassSelection(classData) {
     $("#selectedClassData").html(classData.cells[0].innerHTML);
-    //$("#hiddenParentIdInsPayment").val(classData.id);
-    //$("#hiddenParentIdInsRefund").val(classData.id);
     
     buildChildrenTable(classData.id);
-    //buildRefundsTable(classData.id);
-    //buildPaymentsConvTable(classData.id);
     $("#classSelection").hide();
     $("#childSelection").show();
     
@@ -53,45 +49,15 @@ function doAssociatedMenuSelection(assMenuData) {
     $("#showAssociatedMenusDialog").dialog("open");
 }
 
-function doValidatePayment(paymentData) {
-    $("#hiddenValPaymentId").val(paymentData.id);
-    
-    $("#validateExpDate").val(paymentData.cells[0].innerHTML);
-    $("#validatePaymentDescription").val(paymentData.cells[1].innerHTML);
-    $("#validateAmount").val(paymentData.cells[2].innerHTML);
-    $("#validateDiscount").val(paymentData.cells[3].innerHTML);
-    $("#validateDiscountDescription").val(paymentData.cells[4].innerHTML);
-    
-    $("#validatePaymentsDialog").dialog("open");
-}
-
 function buildClassTable(){
     $("#showClassTable").dataTable({
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": "GetClassTable",
+        "sAjaxSource": "GetCanteenClassTable",
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
-        /*"fnServerParams": function ( aoData ) {
-            aoData.push(
-            {
-                "name" : "parentName", 
-                "value" : $("#parentName").val()
-            },
-
-            {
-                "name" : "parentSurname", 
-                "value" : $("#parentSurname").val()
-            },
-            {
-                "name" : "parentFiscalCode",
-                "value" : $("#parentFiscalCode").val()
-            }
-            );
-     
-        },*/
         "bSort": false,
         "bDestroy": true,
         "bInfo": true,
@@ -127,7 +93,7 @@ function buildChildrenTable(classId){
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": "GetChildrenTable",
+        "sAjaxSource": "GetCanteenChildrenTable",
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
@@ -218,7 +184,7 @@ function buildAssociatedMenusTable(){
     });
 }
 
-function buildPaymentsConvTable(parentId){
+function buildDailyMenusTable(){
     $("#showPaymentsConvTable").dataTable({
         "bJQueryUI": true,
         "bServerSide": true,
@@ -227,7 +193,7 @@ function buildPaymentsConvTable(parentId){
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
-        "fnServerParams": function ( aoData ) {
+        /*"fnServerParams": function ( aoData ) {
             aoData.push(
             {
                 "name" : "parentIdConv", 
@@ -235,7 +201,7 @@ function buildPaymentsConvTable(parentId){
             }
             );
      
-        },
+        },*/
         "bSort": false,
         "bDestroy": true,
         "bInfo": true,
@@ -260,7 +226,7 @@ function buildPaymentsConvTable(parentId){
         "oTableTools": {
             "sRowSelect": "single",
             "fnRowSelected": function(nodes) {
-                doValidatePayment(nodes[0]);
+                //doValidatePayment(nodes[0]);
             }
         }
     });
