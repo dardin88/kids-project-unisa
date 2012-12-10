@@ -311,7 +311,7 @@ function update(){
                var typeParent= document.getElementById('typeParent2').value;
                var typeAccount= document.getElementById('typeAccount2').value;
               
-               alert(typeAccount);
+              
                
      if(typeAccount=='Responsabile Scientifico'){
         document.getElementById('modifyTypeAccount').options[6].selected=true;

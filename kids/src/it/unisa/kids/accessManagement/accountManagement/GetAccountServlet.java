@@ -26,13 +26,12 @@ import javax.servlet.http.HttpServletResponse;
  * @author Gianmarco
  */
 public class GetAccountServlet extends HttpServlet {
-    
-      private IAccountManager accountManager;
 
-     public void init(ServletConfig config) {
-        accountManager =(IAccountManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACCOUNT);
+    private IAccountManager accountManager;
+
+    public void init(ServletConfig config) {
+        accountManager = (IAccountManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACCOUNT);
     }
-
 
     /**
      * Processes requests for both HTTP
@@ -49,25 +48,32 @@ public class GetAccountServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            System.out.println("null??:"+request.getParameter("id"));
-            int id=Integer.parseInt(request.getParameter("id"));
-            System.out.println("Questo è l'id "+id);
-            Account account=new Account();
+            System.out.println("null??:" + request.getParameter("id"));
+            int id = Integer.parseInt(request.getParameter("id"));
+            System.out.println("Questo è l'id " + id);
+            Account account = new Account();
             account.setId(id);
-            List<Account> list=accountManager.search(account);
-            request.setAttribute("Password",list.get(0).getPassword());
-            request.setAttribute("Nickname",list.get(0).getNickName());
+            List<Account> list = accountManager.search(account);
+            request.setAttribute("Password", list.get(0).getPassword());
+            request.setAttribute("Nickname", list.get(0).getNickName());
             request.setAttribute("Nome", list.get(0).getNameUser());
             request.setAttribute("Cognome", list.get(0).getSurnameUser());
             request.setAttribute("id", list.get(0).getId());
-            GregorianCalendar birthDate=list.get(0).getDataOfBirth();
-            if(birthDate!=null){
-            request.setAttribute("DataNascita", birthDate.get(Calendar.DAY_OF_MONTH)+"-"+(birthDate.get(Calendar.MONTH)+1)+"-"+birthDate.get(Calendar.YEAR));
-            }
-            else{
+            GregorianCalendar birthDate = list.get(0).getDataOfBirth();
+            if (birthDate != null) {
+                String giorno = "" + birthDate.get(Calendar.DAY_OF_MONTH);
+                if (giorno.length() < 2) {
+                    giorno = "0" + giorno;
+                }
+                String mese = "" + (birthDate.get(Calendar.MONTH) + 1);
+                if (mese.length() < 2) {
+                    mese = "0" + mese;
+                }
+                request.setAttribute("DataNascita", birthDate.get(Calendar.YEAR) + "-" + mese + "-" + giorno);
+            } else {
                 request.setAttribute("DataNascita", null);
             }
-            
+
             request.setAttribute("ComuneNascita", list.get(0).getPlaceOfBirth());
             request.setAttribute("TitoloStudio", list.get(0).getQualification());
             request.setAttribute("TipoAccount", list.get(0).getAccountType());
@@ -90,24 +96,23 @@ public class GetAccountServlet extends HttpServlet {
             request.setAttribute("CodiceFiscale", list.get(0).getTaxCode());
             request.setAttribute("ViaDomicilio", list.get(0).getViaDomicile());
             request.setAttribute("ViaResidenza", list.get(0).getViaResidence());
-            GregorianCalendar dateContract=list.get(0).getContractExpirationDate();
-            if(dateContract!=null){
-            request.setAttribute("ScadenzaContratto", dateContract.get(Calendar.DAY_OF_MONTH)+"-"+(dateContract.get(Calendar.MONTH)+1)+"-"+dateContract.get(Calendar.YEAR));
-            }
-            else{
+            GregorianCalendar dateContract = list.get(0).getContractExpirationDate();
+            if (dateContract != null) {
+                request.setAttribute("ScadenzaContratto", dateContract.get(Calendar.DAY_OF_MONTH) + "-" + (dateContract.get(Calendar.MONTH) + 1) + "-" + dateContract.get(Calendar.YEAR));
+            } else {
                 request.setAttribute("ScadenzaContratto", null);
             }
-            
-            GregorianCalendar dateRegistration=list.get(0).getRegistrationDate();
-            if(dateRegistration!=null){
-            request.setAttribute("DataIscrizione", dateRegistration.get(Calendar.DAY_OF_MONTH)+"-"+(dateRegistration.get(Calendar.MONTH)+1)+"-"+dateRegistration.get(Calendar.YEAR));            }
-            else{
+
+            GregorianCalendar dateRegistration = list.get(0).getRegistrationDate();
+            if (dateRegistration != null) {
+                request.setAttribute("DataIscrizione", dateRegistration.get(Calendar.DAY_OF_MONTH) + "-" + (dateRegistration.get(Calendar.MONTH) + 1) + "-" + dateRegistration.get(Calendar.YEAR));
+            } else {
                 request.setAttribute("DataIscrizione", null);
             }
-            
-           
-           
-            
+
+
+
+
         } catch (SQLException ex) {
             Logger.getLogger(GetTraineesServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

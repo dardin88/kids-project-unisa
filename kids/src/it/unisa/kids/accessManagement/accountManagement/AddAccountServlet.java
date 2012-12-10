@@ -4,6 +4,8 @@
  */
 package it.unisa.kids.accessManagement.accountManagement;
 
+import it.unisa.kids.common.Mail;
+import it.unisa.kids.common.MailManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -39,7 +41,7 @@ public class AddAccountServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
-         JSONObject jObj = new JSONObject();
+        JSONObject jObj = new JSONObject();
         PrintWriter out = response.getWriter();
         try {
 
@@ -120,10 +122,19 @@ public class AddAccountServlet extends HttpServlet {
 
             account = man.insert(account);
             
+//            System.out.println("Invio email...");
+//            MailManager mailManager = new MailManager();
+//            Mail mail = new Mail();
+//
+//            mail.setBody("Registrazione a Kids completata! \n Nickname: " + account.getNickName() + "; \nPassword: " + account.getPassword() + ";");
+//            mail.setSubject("Registrazione Kids");
+//            mail.setTo(account.getEmail());
+//            mailManager.sendMail(mail);
+
             request.getSession().setAttribute("id", account.getId());
-             
-             out.println(account.getNickName()+","+account.getPassword());
-           System.out.println("inviato!"+account.getNickName()+","+account.getPassword());
+
+            out.println(account.getNickName() + "," + account.getPassword());
+            System.out.println("inviato!" + account.getNickName() + "," + account.getPassword());
         } catch (SQLException ex) {
             Logger.getLogger(AddAccountServlet.class.getName()).log(Level.SEVERE, "SQL-Error: " + ex.getMessage(), ex);
         }

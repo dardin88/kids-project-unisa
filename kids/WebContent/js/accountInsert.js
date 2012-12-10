@@ -24,6 +24,19 @@ function initializeRegistrationFields(){
             $(input).removeClass("ui-state-highlight");
         }
     });
+    
+    $("#NickPassWindow").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 400
+    });
+    
+    $("#showNickPass").button();
+    $("#showNickPass").click(function() {
+        $("#NickPassWindow").dialog("close");
+        location.href="http://localhost:8080/kids/";
+    });
  
     $("#registration1").show();
     $("#registration2").hide();
@@ -45,7 +58,8 @@ function initializeRegistrationFields(){
             },
             CodiceFiscale:{
                 required: true,
-                codfiscale: true
+                codfiscale: true,
+                maxlength: 16
             },
             Cittadinanza:"required",
             ComuneResidenza:"required",
@@ -93,7 +107,8 @@ function initializeRegistrationFields(){
             },
             CodiceFiscale:{
                 required: "Inserisci il codice fiscale",
-                codfiscale: "Formato non valido"
+                codfiscale: "Formato non valido",
+                maxlength: "Max 16 caratteri"
             },
             Cittadinanza:" Inserisci la cittadinanza",
             ComuneResidenza:" Inserisci il comune del residenza",
@@ -161,12 +176,12 @@ function initializeRegistrationFields(){
                     tipoGenitore:$("#typeParent").val(),
                     facolta:$("#faculty").val()
                 },function(data) {
-                var result = data.split(",");
-                alert(result[0]+result[1]);
-        });
-                  
-              
-                location.href="/NicknamePassword.jsp";
+                    var result = data.split(",");
+                    $("#accountNick").val(result[0]);
+                    $("#accountPass").val(result[1]);
+                    $("#NickPassWindow").dialog("open");
+                //alert("Nick: "+result[0]+" pass: "+result[1]);
+                },"text")
             }
             if(count==1){
                 //alert("ci sono");
@@ -217,6 +232,7 @@ function verificaAccount(){
     }
     if(string=='Genitore'){
         document.getElementById('typeParent').style.display="inline";
+        document.getElementById('typeParent').options[0].selected=true;
         document.getElementById('accountLabel2').style.display="inline";
         document.getElementById('accountLabel3').style.display="none";
         document.getElementById('accountLabel4').style.display="none";    
@@ -228,6 +244,7 @@ function verificaAccount(){
     
     if(string=='Responsabile Scientifico'){
         document.getElementById('typeParent').style.display="none";
+        document.getElementById('typeParent').options[0].selected=true;
         document.getElementById('accountLabel2').style.display="none";
         document.getElementById('contractExpirationDate').style.display="inline";
         document.getElementById('accountLabel3').style.display="inline";
@@ -239,6 +256,7 @@ function verificaAccount(){
     
     if((string=='Delegato Ufficio')||(string=='Delegato scienze della formazione')||(string=='Educatore')||(string=='Coordinatore Psicopedagogico')||(string=='Responsabile Asilo')){
         document.getElementById('typeParent').style.display="none";
+        document.getElementById('typeParent').options[0].selected=true;
         document.getElementById('accountLabel2').style.display="none";
         document.getElementById('accountLabel3').style.display="none";
         document.getElementById('accountLabel4').style.display="none";
