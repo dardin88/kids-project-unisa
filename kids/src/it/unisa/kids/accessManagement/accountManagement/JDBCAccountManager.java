@@ -45,13 +45,13 @@ public class JDBCAccountManager implements IAccountManager {
     public Account insert(Account pAccount) throws SQLException {
         Connection con = null;
         Statement stmt = null;
-        String nickname;
-        String query1;
-        String query2;
+        String nickname ;
+        String query1 ;
+        String query2 ;
         String data1 = null;
         String data2 = null;
         String data3 = null;
-        ResultSet rs;
+        ResultSet rs ;
         List<Account> list;
 
         GregorianCalendar birthDate = pAccount.getDataOfBirth();
@@ -80,8 +80,8 @@ public class JDBCAccountManager implements IAccountManager {
                 rs = stmt.executeQuery(query1);
                 con.commit();
 
-                if (rs.next() == true) {
-                    nickname += i;
+                if (rs.next()==true) {
+                    nickname+=i;
                 } else {
                     break;
                 }
@@ -132,13 +132,12 @@ public class JDBCAccountManager implements IAccountManager {
             stmt = con.createStatement();
             stmt.executeUpdate(query2);
             con.commit();
-            list = search(pAccount);
-            if (list != null) {
-                return list.get(0);
-            } else {
-                return pAccount;*/
-            return  null;
-            }
+            list=search(pAccount);
+           if(list!=null)
+            return list.get(0);
+            else
+                return pAccount;
+            
         } finally {
             if (stmt != null) {
                 stmt.close();
@@ -224,7 +223,7 @@ public class JDBCAccountManager implements IAccountManager {
             String query = "Delete From " + DBNames.TABLE_ACCOUNT + " Where " + DBNames.ATT_ACCOUNT_ID + "=" + pDeletedAccount.getId() + "";
             System.out.println("cancellazione effettuata!");
             stmt = con.createStatement();
-            System.out.println("" + query);
+            System.out.println(""+query);
             stmt.executeUpdate(query);
             con.commit();
 
@@ -241,7 +240,7 @@ public class JDBCAccountManager implements IAccountManager {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         String query = null;
-
+        
         List<Account> account = null;
         boolean andState = false;
         System.out.println(pAccount.getId() + "," + pAccount.getNameUser() + "," + pAccount.getSurnameUser() + "," + pAccount.getNickName() + "," + pAccount.getAccountType());
@@ -252,7 +251,7 @@ public class JDBCAccountManager implements IAccountManager {
             query = "SELECT * "
                     + "FROM " + DBNames.TABLE_ACCOUNT
                     + " WHERE ";
-            //LIKE '+"getNameUser()+"%'"//
+             //LIKE '+"getNameUser()+"%'"//
             if (pAccount.getId() > 0) {
                 query = query + DBNames.ATT_ACCOUNT_ID + " = ?";
                 andState = true;
@@ -289,12 +288,11 @@ public class JDBCAccountManager implements IAccountManager {
 
             if (pAccount.getAccountType() != null && !pAccount.getAccountType().equals("")) {
                 query += useAnd(andState) + DBNames.ATT_ACCOUNT_TYPEACCOUNT + " = ?";
-                andState = true;
+                andState=true;
             }
-            if (pAccount.getRegister() != null) {
+            if (pAccount.getRegister() != null ) {
                 query += useAnd(andState) + DBNames.ATT_ACCOUNT_REGISTER + " = ?";
             }
-            query+=";";
             pstmt = con.prepareStatement(query);
 
             // setting pstmt's parameters
@@ -324,7 +322,7 @@ public class JDBCAccountManager implements IAccountManager {
                 pstmt.setString(i, pAccount.getTaxCode());
                 i++;
             }
-            if (pAccount.getState() != null) {
+            if (pAccount.getState() != null ) {
                 pstmt.setString(i, pAccount.getState());
                 i++;
             }
@@ -332,16 +330,14 @@ public class JDBCAccountManager implements IAccountManager {
                 pstmt.setString(i, pAccount.getAccountType());
                 i++;
             }
-            if (pAccount.getRegister() != null) {
+            if (pAccount.getRegister() != null ) {
                 pstmt.setString(i, pAccount.getRegister());
                 i++;
             }
-            
+            System.out.println(query);
             rs = pstmt.executeQuery();
             con.commit();
 
-            System.out.println("Query prodotta: " + query);
-            
             // constructing payment list
             account = new ArrayList<Account>();
             while (rs.next()) {
@@ -357,32 +353,35 @@ public class JDBCAccountManager implements IAccountManager {
                 p.setTelephoneNumber(rs.getString(DBNames.ATT_ACCOUNT_TELEPHONENUMBER));
                 p.setCellularNumber(rs.getString(DBNames.ATT_ACCOUNT_CELLULARNUMBER));
                 p.setFax(rs.getString(DBNames.ATT_ACCOUNT_FAX));
-                Date date = new Date();
+                Date date= new Date();
                 //getting Date from ResultSet and converting it to GregorianCalendar
                 GregorianCalendar dateBirth = new GregorianCalendar();
-                if ((date = rs.getDate(DBNames.ATT_ACCOUNT_DATEOFBIRTH)) != null) {
-                    dateBirth.setTime(date);
-                    p.setDataOfBirth(dateBirth);
-                } else {
-                    p.setDataOfBirth(null);
+                if((date=rs.getDate(DBNames.ATT_ACCOUNT_DATEOFBIRTH))!=null){
+                dateBirth.setTime(date);
+                p.setDataOfBirth(dateBirth);
                 }
-
+                else{
+                p.setDataOfBirth(null);
+                }
+                              
                 GregorianCalendar expDate = new GregorianCalendar();
-                if ((date = rs.getDate(DBNames.ATT_ACCOUNT_CONTRACTEXPIRATIONDATE)) != null) {
-                    expDate.setTime(date);
-                    p.setContractExpirationDate(expDate);
-                } else {
-                    p.setContractExpirationDate(null);
+                if((date=rs.getDate(DBNames.ATT_ACCOUNT_CONTRACTEXPIRATIONDATE))!=null){
+                expDate.setTime(date);
+                p.setContractExpirationDate(expDate);
                 }
-
-                GregorianCalendar regDate = new GregorianCalendar();
-                if ((date = rs.getDate(DBNames.ATT_ACCOUNT_REGISTRATIONDATE)) != null) {
-                    regDate.setTime(date);
-                    p.setRegistrationDate(regDate);
-                } else {
-                    p.setRegistrationDate(null);
+                else{
+                p.setContractExpirationDate(null);
                 }
-
+                
+                 GregorianCalendar regDate = new GregorianCalendar();
+                if((date=rs.getDate(DBNames.ATT_ACCOUNT_REGISTRATIONDATE))!=null){
+                regDate.setTime(date);
+                p.setRegistrationDate(regDate);
+                }
+                else{
+                p.setRegistrationDate(null);
+                }               
+                 
                 p.setTypeParent(rs.getString(DBNames.ATT_ACCOUNT_TYPEPARENT));
                 p.setState(rs.getString(DBNames.ATT_ACCOUNT_STATE));
                 p.setRegister(rs.getString(DBNames.ATT_ACCOUNT_REGISTER));
@@ -420,9 +419,10 @@ public class JDBCAccountManager implements IAccountManager {
         }
         return account;
     }
-
+    
+    
     @Override
-    public List<Account> getAllAccount() throws SQLException {
+   public List<Account> getAllAccount() throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -435,7 +435,7 @@ public class JDBCAccountManager implements IAccountManager {
             rs = pstmt.executeQuery(query);
             con.commit();
             while (rs.next()) {
-                Account p = new Account();
+            Account p = new Account();
                 p.setId(rs.getInt(DBNames.ATT_PAYMENT_ID));
                 p.setAccountType(rs.getString(DBNames.ATT_ACCOUNT_TYPEACCOUNT));
                 p.setNickName(rs.getString(DBNames.ATT_ACCOUNT_NICKNAME));
@@ -446,32 +446,35 @@ public class JDBCAccountManager implements IAccountManager {
                 p.setTelephoneNumber(rs.getString(DBNames.ATT_ACCOUNT_TELEPHONENUMBER));
                 p.setCellularNumber(rs.getString(DBNames.ATT_ACCOUNT_CELLULARNUMBER));
                 p.setFax(rs.getString(DBNames.ATT_ACCOUNT_FAX));
-                Date date = new Date();
+                Date date= new Date();
                 //getting Date from ResultSet and converting it to GregorianCalendar
                 GregorianCalendar dateBirth = new GregorianCalendar();
-                if ((date = rs.getDate(DBNames.ATT_ACCOUNT_DATEOFBIRTH)) != null) {
-                    dateBirth.setTime(date);
-                    p.setDataOfBirth(dateBirth);
-                } else {
-                    p.setDataOfBirth(null);
+                if((date=rs.getDate(DBNames.ATT_ACCOUNT_DATEOFBIRTH))!=null){
+                dateBirth.setTime(date);
+                p.setDataOfBirth(dateBirth);
                 }
-
+                else{
+                p.setDataOfBirth(null);
+                }
+                              
                 GregorianCalendar expDate = new GregorianCalendar();
-                if ((date = rs.getDate(DBNames.ATT_ACCOUNT_CONTRACTEXPIRATIONDATE)) != null) {
-                    expDate.setTime(date);
-                    p.setContractExpirationDate(expDate);
-                } else {
-                    p.setContractExpirationDate(null);
+                if((date=rs.getDate(DBNames.ATT_ACCOUNT_CONTRACTEXPIRATIONDATE))!=null){
+                expDate.setTime(date);
+                p.setContractExpirationDate(expDate);
                 }
-
-                GregorianCalendar regDate = new GregorianCalendar();
-                if ((date = rs.getDate(DBNames.ATT_ACCOUNT_REGISTRATIONDATE)) != null) {
-                    regDate.setTime(date);
-                    p.setRegistrationDate(regDate);
-                } else {
-                    p.setRegistrationDate(null);
+                else{
+                p.setContractExpirationDate(null);
                 }
-
+                
+                 GregorianCalendar regDate = new GregorianCalendar();
+                if((date=rs.getDate(DBNames.ATT_ACCOUNT_REGISTRATIONDATE))!=null){
+                regDate.setTime(date);
+                p.setRegistrationDate(regDate);
+                }
+                else{
+                p.setRegistrationDate(null);
+                }               
+                 
                 p.setTypeParent(rs.getString(DBNames.ATT_ACCOUNT_TYPEPARENT));
                 p.setState(rs.getString(DBNames.ATT_ACCOUNT_STATE));
                 p.setRegister(rs.getString(DBNames.ATT_ACCOUNT_REGISTER));
@@ -509,6 +512,7 @@ public class JDBCAccountManager implements IAccountManager {
         }
         return account;
     }
+    
 
     private String useAnd(boolean pEnableAnd) {
         return pEnableAnd ? " AND " : " ";
@@ -736,34 +740,37 @@ public class JDBCAccountManager implements IAccountManager {
                 p.setTelephoneNumber(rs.getString(DBNames.ATT_ACCOUNT_TELEPHONENUMBER));
                 p.setCellularNumber(rs.getString(DBNames.ATT_ACCOUNT_CELLULARNUMBER));
                 p.setFax(rs.getString(DBNames.ATT_ACCOUNT_FAX));
-
-                Date date = new Date();
+                
+                Date date=new Date();
                 //getting Date from ResultSet and converting it to GregorianCalendar
                 GregorianCalendar dateBirth = new GregorianCalendar();
-                if ((date = rs.getDate(DBNames.ATT_ACCOUNT_DATEOFBIRTH)) != null) {
-                    dateBirth.setTime(date);
-                    p.setDataOfBirth(dateBirth);
-                } else {
-                    p.setDataOfBirth(null);
+                if((date=rs.getDate(DBNames.ATT_ACCOUNT_DATEOFBIRTH))!=null){
+                dateBirth.setTime(date);
+                p.setDataOfBirth(dateBirth);
                 }
-
+                else{
+                p.setDataOfBirth(null);
+                }
+                              
                 GregorianCalendar expDate = new GregorianCalendar();
-                if ((date = rs.getDate(DBNames.ATT_ACCOUNT_CONTRACTEXPIRATIONDATE)) != null) {
-                    expDate.setTime(date);
-                    p.setContractExpirationDate(expDate);
-                } else {
-                    p.setContractExpirationDate(null);
+                if((date=rs.getDate(DBNames.ATT_ACCOUNT_CONTRACTEXPIRATIONDATE))!=null){
+                expDate.setTime(date);
+                p.setContractExpirationDate(expDate);
                 }
-
-                GregorianCalendar regDate = new GregorianCalendar();
-                if ((date = rs.getDate(DBNames.ATT_ACCOUNT_REGISTRATIONDATE)) != null) {
-                    regDate.setTime(date);
-                    p.setRegistrationDate(regDate);
-                } else {
-                    p.setRegistrationDate(null);
+                else{
+                p.setContractExpirationDate(null);
                 }
-
-
+                
+                 GregorianCalendar regDate = new GregorianCalendar();
+                if((date=rs.getDate(DBNames.ATT_ACCOUNT_REGISTRATIONDATE))!=null){
+                regDate.setTime(date);
+                p.setRegistrationDate(regDate);
+                }
+                else{
+                p.setRegistrationDate(null);
+                }               
+                 
+                  
                 p.setTypeParent(rs.getString(DBNames.ATT_ACCOUNT_TYPEPARENT));
                 p.setState(rs.getString(DBNames.ATT_ACCOUNT_STATE));
                 p.setRegister(rs.getString(DBNames.ATT_ACCOUNT_REGISTER));
@@ -802,4 +809,6 @@ public class JDBCAccountManager implements IAccountManager {
         }
         return account;
     }
+
+   
 }
