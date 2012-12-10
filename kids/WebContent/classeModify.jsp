@@ -73,13 +73,12 @@
                         <tbody>
                         </tbody>
                     </table>
-                    
+
                 </div>
 
                 <%-- fine tabella--%>
 
                 <input type="submit" name="registrationButton" id="registrationButton" value="Modifica" />
-                </div>
             </fieldset>
         </form>
         <%@include file="footer.jsp" %>

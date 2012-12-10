@@ -93,7 +93,8 @@ $(document).ready(function(){
         submitHandler:function() {
             $.post("UpdateClassBean",{
                 id:$("#id").val(),
-                Nome:$("#Nome").val()
+                Nome:$("#Nome").val(),
+                checkedChildren: $(".childrenSelected").val()
             })
             location.href="classe.jsp";
         }
