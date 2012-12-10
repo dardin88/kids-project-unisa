@@ -13,9 +13,9 @@ public final class DBNames {
     public static final String TABLE_RENUNCIATION = "rinunce";
     public static final String TABLE_CLASS = "classe";
     public static final String TABLE_ASSIGNATION = "assignazione";  // associazione tra classe e tirocinante
-    public static final String TABLE_MEAL_REQUEST = "meal_request";
+    public static final String TABLE_MEAL_REQUEST = "richiesta_pasto";
     public static final String TABLE_TIMESERV_REQUEST = "timeserv_request";
-    public static final String TABLE_DIFFMENU = "menu_differenziato";
+    public static final String TABLE_MENU = "menu_mensa";
     public static final String TABLE_REFUND = "rimborso";
     public static final String TABLE_PAYMENT = "pagamento";
     public static final String TABLE_PARTICIPATION = "participation";
@@ -153,9 +153,8 @@ public final class DBNames {
     public static final String ATT_REQUEST_ACCOUNT_PARENT = "accountGenitore";
     //MealRequestTable's attributes
     public static final String ATT_MEALREQ_ID = "Id";
-    public static final String ATT_MEALREQ_MENUTYPE = "type";
-    public static final String ATT_MEALREQ_DATE = "date";
-    public static final String ATT_MEALREQ_CHILDINSCID = "Iscrizione";
+    public static final String ATT_MEALREQ_DATE = "Data";
+    public static final String ATT_MEALREQ_PARENTID = "AccountGenitore";
     //TimeServiceRequestTable's attributes
     public static final String ATT_TIMESERVREQ_ID = "Id";
     public static final String ATT_TIMESERVREQ_DAYREQ = "GiornoModifica";
@@ -164,13 +163,14 @@ public final class DBNames {
     public static final String ATT_TIMESERVREQ_REQTIME = "Ora";
     public static final String ATT_TIMESERVREQ_PARENTID = "AccountGenitore";
     //DifferentiatedMenuTable's attributes
-    public static final String ATT_DIFFMENU_ID = "Id";
-    public static final String ATT_DIFFMENU_MOTIVATION = "Motivazione";
-    public static final String ATT_DIFFMENU_FIRST = "Primo";
-    public static final String ATT_DIFFMENU_SECOND = "Secondo";
-    public static final String ATT_DIFFMENU_SIDEDISH = "Contorno";
-    public static final String ATT_DIFFMENU_FRUIT = "Frutta";
-    public static final String ATT_DIFFMENU_CHILDINSCID = "Iscrizione";
+    public static final String ATT_MENU_ID = "Id";
+    public static final String ATT_MENU_TYPE = "Tipo";
+    public static final String ATT_MENU_DATE = "Data";
+    public static final String ATT_MENU_FIRST = "Primo";
+    public static final String ATT_MENU_SECOND = "Secondo";
+    public static final String ATT_MENU_SIDEDISH = "Contorno";
+    public static final String ATT_MENU_FRUIT = "Frutta";
+    public static final String ATT_MENU_CHILDINSCID = "IscrizioneBambinoId";
     //PaymentTable's attributes
     public static final String ATT_PAYMENT_ID = "Id";
     public static final String ATT_PAYMENT_EXPDATE = "DataScadenza";
