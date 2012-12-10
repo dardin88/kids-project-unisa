@@ -4,19 +4,38 @@
  */
 package it.unisa.kids.accessManagement.classificationManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.accessManagement.registrationChildManagement.ServletGetTableRegistrationChild;
+import it.unisa.kids.common.CommonMethod;
+import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
  * @author Lauri Giuseppe Giovanni
  */
 public class ServletGetTableResult extends HttpServlet {
+    private IClassificationManager classificationManager;
 
+    public void init(ServletConfig config) {
+        RefinedAbstractManager refinedAbstractRegistrationChildManager = RefinedAbstractManager.getInstance();
+        classificationManager = (IClassificationManager) refinedAbstractRegistrationChildManager.getManagerImplementor(DBNames.TABLE_CLASSIFICATION);
+    }
+    
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -29,19 +48,97 @@ public class ServletGetTableResult extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        
+        Result[] paginateClassificationRequestSet;
+        List<Result> listResult;
         try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServletGetTableResult</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServletGetTableResult at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {            
+            JSONObject result = new JSONObject();
+            JSONArray array = new JSONArray();
+            
+            String requestClassificationId = request.getParameter(DBNames.ATT_CLASSIFICATION_ID);
+            if(requestClassificationId != null) {
+                int classificationId = Integer.parseInt(requestClassificationId);
+                Result toSearch = new Result();
+                toSearch.setClassificationId(classificationId);
+                listResult = classificationManager.searchResult(toSearch);
+            } else {
+                listResult = new ArrayList<Result>();
+            }
+            // I genitori visualizzano solo il risultato, la segreteria può modificarla
+            Account account = (Account) request.getSession().getAttribute("user");
+
+            // PRECONFIGURAZIONE DELLA TABELLA
+            int start = 0;
+            int amount = 10;
+            String sStart = request.getParameter("iDisplayStart");
+            String sAmount = request.getParameter("sAmount");
+            String sEcho = request.getParameter("sEcho");
+            if (sStart != null) {
+                start = Integer.parseInt(sStart);
+                if (start < 0) {
+                    start = 0;
+                }
+            }
+            if (sAmount != null) {
+                amount = Integer.parseInt(sAmount);
+                if (amount < 10) {
+                    amount = 10;
+                }
+            }
+            int linksNumber = listResult.size();
+            if (linksNumber < amount) {
+                amount = linksNumber;
+            }
+            if (linksNumber != 0) {
+                int toShow = linksNumber - start;
+                if (toShow > 10) {
+                    paginateClassificationRequestSet = new Result[amount];
+                    System.arraycopy(listResult.toArray(), start, paginateClassificationRequestSet, 0, amount);
+                } else {
+                    paginateClassificationRequestSet = new Result[toShow];
+                    System.arraycopy(listResult.toArray(), start, paginateClassificationRequestSet, 0, toShow);
+                }
+                
+                
+                // CREAZIONE DELL'OUTPUT DELLA TABELLA - POPOLAMENTO
+                int posizione = 1;
+                for (Result resultElement : paginateClassificationRequestSet) {
+                    JSONArray ja = new JSONArray();
+                    ja.put(posizione);
+                    ja.put(resultElement.getRegistrationChildFiscalCode());
+                    ja.put(resultElement.getRegistrationChildSurname());
+                    ja.put(resultElement.getRegistrationChildName());
+                    ja.put(resultElement.getScore());
+                    if(account.getAccountType().equals("Segreteria")) {
+                        String htmlResult = "<input type=\"checkbox\" onChange=\"aggiornaRisultatoResult(" + resultElement.getClassificationId() + ", " + resultElement.getRegistrationChildId() + ");\" ";
+                        if(resultElement.getResult()) {
+                            htmlResult += "checked=\"checked\"";
+                        }
+                        htmlResult += " />";
+                        ja.put(htmlResult);
+                    } else {
+                        if(resultElement.getResult()) {
+                            ja.put("Ammessa");
+                        } else {
+                            ja.put("Non ammessa");
+                        }
+                    }
+                    array.put(ja);
+                }
+            }
+            result.put("sEcho", sEcho);
+            result.put("iTotalRecords", linksNumber);
+            result.put("iTotalDisplayRecords", linksNumber);
+            result.put("aaData", array);
+            response.setContentType("application/json");
+            response.setHeader("Cache-Control",
+                    "private, no-store, no-cache, must-revalidate");
+            response.setHeader("Pragma", "no-cache");
+            out.print(result);
+        } catch(SQLException ex) {
+            Logger.getLogger(ServletGetTableRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
             out.close();
         }
     }

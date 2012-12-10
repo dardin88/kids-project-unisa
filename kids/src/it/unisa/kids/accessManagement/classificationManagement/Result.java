@@ -10,6 +10,9 @@ package it.unisa.kids.accessManagement.classificationManagement;
  */
 public class Result {
     private int registrationChildId;
+    private String registrationChildFiscalCode;
+    private String registrationChildSurname;
+    private String registrationChildName;
     private int classificationId;
     private double score;
     private boolean result;
@@ -20,6 +23,18 @@ public class Result {
     
     public void setRegistrationChildId(int registrationChildId) {
         this.registrationChildId = registrationChildId;
+    }
+
+    public void setRegistrationChildFiscalCode(String registrationChildFiscalCode) {
+        this.registrationChildFiscalCode = registrationChildFiscalCode;
+    }
+
+    public void setRegistrationChildSurname(String registrationChildSurname) {
+        this.registrationChildSurname = registrationChildSurname;
+    }
+
+    public void setRegistrationChildName(String registrationChildName) {
+        this.registrationChildName = registrationChildName;
     }
 
     public void setClassificationId(int classificationId) {
@@ -36,6 +51,22 @@ public class Result {
 
     public int getRegistrationChildId() {
         return registrationChildId;
+    }
+
+    public String getRegistrationChildFiscalCode() {
+        return registrationChildFiscalCode;
+    }
+
+    public String getRegistrationChildSurname() {
+        return registrationChildSurname;
+    }
+
+    public String getRegistrationChildName() {
+        return registrationChildName;
+    }
+
+    public boolean isResult() {
+        return result;
     }
 
     public int getClassificationId() {
