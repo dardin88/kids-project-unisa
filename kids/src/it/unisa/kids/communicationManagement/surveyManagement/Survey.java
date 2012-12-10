@@ -8,7 +8,6 @@ public class Survey {
     
     private int id;
     private String link;
-    private int officerId;
     private int parentId;
     private boolean compiled;
     
@@ -54,14 +53,6 @@ public class Survey {
     
     public int getParent() { 
         return this.parentId; 
-    }
-    
-    public void setOfficer(int officerId) {
-        this.officerId = officerId;
-    }
-    
-    public int getOfficer() {
-        return this.officerId;
     }
     
     public void setCompiled(boolean comp) {

@@ -3,7 +3,6 @@ package it.unisa.kids.communicationManagement.surveyManagement;
 import it.unisa.kids.accessManagement.accountManagement.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,13 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 /**
  *
  * @author felice
  */
-public class GetSurveyCompiledServlet  extends HttpServlet{
-    
-     /**
+public class GetCompiledSurveyServlet extends HttpServlet {
+
+    /**
      * Processes requests for both HTTP
      * <code>GET</code> and
      * <code>POST</code> methods.
@@ -32,13 +32,13 @@ public class GetSurveyCompiledServlet  extends HttpServlet{
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         Survey[] paginateSurveySet;
         List<Survey> listSurvey;
-        try{
-            ISurveyManager am = JDBCSurveyManager.getInstance();
+        try {
+            ICompiledSurveyManager am = JDBCCompiledSurveyManager.getInstance();
             JSONObject result = new JSONObject();
             JSONArray array = new JSONArray();
             int start = 0;
@@ -46,7 +46,7 @@ public class GetSurveyCompiledServlet  extends HttpServlet{
             String sStart = request.getParameter("iDisplayStart");
             String sAmount = request.getParameter("sAmount");
             String sEcho = request.getParameter("sEcho");
-            
+
             if (sStart != null) {
                 start = Integer.parseInt(sStart);
                 if (start < 0) {
@@ -60,9 +60,8 @@ public class GetSurveyCompiledServlet  extends HttpServlet{
                 }
             }
             HttpSession s = request.getSession();
-            Account account =  (Account) s.getAttribute("user");
-            String nomeUtente=account.getAccountType();                       
-            listSurvey = am.search();
+            Account account = (Account) s.getAttribute("user");
+            listSurvey = am.search(account);
             int linksNumber = listSurvey.size();
             if (linksNumber < amount) {
                 amount = linksNumber;
@@ -76,19 +75,18 @@ public class GetSurveyCompiledServlet  extends HttpServlet{
                     paginateSurveySet = new Survey[toShow];
                     System.arraycopy(listSurvey.toArray(), start, paginateSurveySet, 0, toShow);
                 }
-
-              for(Survey sur : listSurvey) {
-                  JSONArray jarr = new JSONArray();
-                  jarr.put(sur.getId());
-                  jarr.put(sur.getLink());
-                  jarr.put(sur.getParent());
-                  jarr.put(sur.getCompiled());
-                  // must continue..but I think it's the same of GetSurveyServlet.java
-                  
-              }                
-                
-                
+                for (Survey sur : listSurvey) {
+                    JSONArray jarr = new JSONArray();
+                    jarr.put(sur.getId());
+                    jarr.put("<form id=\'makeSurveyForm\' action=\'surveyForm.jsp\' method=\'GET\'>"+
+                            "<input name=\'link\' id=\'link\' type=\'hidden\' value=\'"+sur.getLink()+"\'/>"+
+                            "<input name=\'idUtente\' id=\'idUtente\' type=\'hidden\' value=\'"+account.getId()+"\'/>"+
+                            "<input name=\'idQuestionario\' id=\'idQuestionario\' type=\'hidden\' value=\'"+sur.getId()+"\'/>"+
+                            "<input type=\'submit\' value=\'"+sur.getLink()+"\'/>"+
+                            "</form>");
+                    array.put(jarr);
                 }
+            }
             result.put("sEcho", sEcho);
             result.put("iTotalRecords", linksNumber);
             result.put("iTotalDisplayRecords", linksNumber);
@@ -98,15 +96,20 @@ public class GetSurveyCompiledServlet  extends HttpServlet{
                     "private, no-store, no-cache, must-revalidate");
             response.setHeader("Pragma", "no-cache");
             out.println(result);
-        
-        }catch (Exception ex) {
-            Logger.getLogger(GetSurveyServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(GetCompiledSurveyServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
         }
     }
-        // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    
+    private String escapeUrl(String url){
+        String escapedUrl = url.replace("/", "//");
+        System.out.println(escapedUrl);
+        return escapedUrl;
+    }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP
      * <code>GET</code> method.

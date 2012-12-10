@@ -3,7 +3,6 @@ package it.unisa.kids.communicationManagement.surveyManagement;
 import it.unisa.kids.accessManagement.accountManagement.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,13 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 /**
  *
  * @author felice
  */
-public class GetSurveyServlet extends HttpServlet{
-    
-    
+public class GetSurveyServlet extends HttpServlet {
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -33,12 +32,12 @@ public class GetSurveyServlet extends HttpServlet{
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         Survey[] paginateSurveySet;
         List<Survey> listSurvey;
-        try{
+        try {
             ISurveyManager am = JDBCSurveyManager.getInstance();
             JSONObject result = new JSONObject();
             JSONArray array = new JSONArray();
@@ -47,7 +46,7 @@ public class GetSurveyServlet extends HttpServlet{
             String sStart = request.getParameter("iDisplayStart");
             String sAmount = request.getParameter("sAmount");
             String sEcho = request.getParameter("sEcho");
-            
+
             if (sStart != null) {
                 start = Integer.parseInt(sStart);
                 if (start < 0) {
@@ -61,8 +60,8 @@ public class GetSurveyServlet extends HttpServlet{
                 }
             }
             HttpSession s = request.getSession();
-            Account account =  (Account) s.getAttribute("user");
-            String nomeUtente=account.getAccountType();                       
+            Account account = (Account) s.getAttribute("user");
+            String tipoAccount = account.getAccountType();
             listSurvey = am.search();
             int linksNumber = listSurvey.size();
             if (linksNumber < amount) {
@@ -77,27 +76,21 @@ public class GetSurveyServlet extends HttpServlet{
                     paginateSurveySet = new Survey[toShow];
                     System.arraycopy(listSurvey.toArray(), start, paginateSurveySet, 0, toShow);
                 }
-
-              for(Survey sur : listSurvey) {
-                  JSONArray jarr = new JSONArray();
-                  jarr.put(sur.getId());
-                  jarr.put(sur.getLink());
-                  
-                  String operazioni="<div style=\"text-align:center;\" ><input id=\"idUpdateSurvey\" class='tableImage' height='20px' type='image' src='img/lente.gif' onclick=\"updateSurvey("+sur.getId()+",'"+sur.getLink()+"')\" />";
-                    if( nomeUtente.equals("Genitore")){
-                        operazioni += "<input id=\"idUpdateSurvey\" class='tableImage' height='20px' type='image' src='img/change.png' onclick=\"updateSurvey("+sur.getId()+",'"+sur.getLink()+"')\" />"+"<input id=\"removeSurvey\" onclick=\"removeSurvey("+sur.getId() +",'"+sur.getLink()+"')\" class='tableImage' type='image' src='img/trash.png' /></div>";
+                for (Survey sur : listSurvey) {
+                    JSONArray jarr = new JSONArray();
+                    jarr.put(sur.getId());
+                    jarr.put("<a style='color:black; background-color:white; text-decoration:underline; font-style:italic' href=\'"+sur.getLink()+"\' target=\"_blank\">"+sur.getLink()+"</a>");
+                    String operazioni = "<div style=\"text-align:center;\" >";
+                    if (tipoAccount.equals("Segreteria")) {
+                        operazioni += "<input id=\"removeSurvey\" onclick=\"removeSurvey(" + sur.getId() + ")\" class='tableImage' type='image' src='img/trash.png' /></div>";
                         jarr.put(operazioni);
-                    }
-                    else {
-                        operazioni+="</div>";
+                    } else {
+                        operazioni += "</div>";
                         jarr.put(operazioni);
                     }
                     array.put(jarr);
-                  
-              }                
-                
-                
                 }
+            }
             result.put("sEcho", sEcho);
             result.put("iTotalRecords", linksNumber);
             result.put("iTotalDisplayRecords", linksNumber);
@@ -107,16 +100,15 @@ public class GetSurveyServlet extends HttpServlet{
                     "private, no-store, no-cache, must-revalidate");
             response.setHeader("Pragma", "no-cache");
             out.println(result);
-        
-        }catch (Exception ex) {
-            Logger.getLogger(GetSurveyServlet.class.getName()).log(Level.SEVERE, null, ex);
+
+        } catch (Exception ex) {
+            Logger.getLogger(GetCompiledSurveyServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
         }
     }
-    
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP
      * <code>GET</code> method.
