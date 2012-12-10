@@ -50,7 +50,7 @@ public class GetTableChildServlet extends HttpServlet {
 
         RegistrationChild[] pageRegistrationChild = null;
         List<RegistrationChild> listRegistrationChild = null;
-        
+
         try {
             JSONArray array = new JSONArray();
             JSONObject result = new JSONObject();
@@ -92,9 +92,8 @@ public class GetTableChildServlet extends HttpServlet {
 
                     ja.put(childreg.getName());
                     ja.put(childreg.getSurname());
-                    String operazioni = "<input type='checkbox' name='childRow' value='" + childreg.getId() + "' >";
-                    String[] childChecked = request.getParameterValues("childRow");
-                    
+                    String operazioni = "<input type='checkbox' class='childrenSelected' name='childRow' value='" + childreg.getId() + "' >";
+
                     ja.put(operazioni);
                     array.put(ja);
                 }

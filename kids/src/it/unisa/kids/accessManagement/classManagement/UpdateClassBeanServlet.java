@@ -4,6 +4,8 @@
  */
 package it.unisa.kids.accessManagement.classManagement;
 
+import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationChildManager;
+import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
@@ -24,9 +26,11 @@ import javax.servlet.http.HttpServletResponse;
 public class UpdateClassBeanServlet extends HttpServlet {
 
     private IClassManager clasMan;
-    
+    private IRegistrationChildManager regMan;
+
     public void init(ServletConfig config) {
         clasMan = (IClassManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_CLASS);
+        regMan = (IRegistrationChildManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
     }
 
     /**
@@ -48,8 +52,17 @@ public class UpdateClassBeanServlet extends HttpServlet {
             clas.setIdClasse(Integer.parseInt(request.getParameter("id")));
             clas.setClassName(request.getParameter(DBNames.ATT_CLASS_NAME));
             clas.setState("sottomessa");
-
             clasMan.update(clas);
+
+            String[] childChecked = request.getParameterValues("checkedChildren");
+
+            for (int i = 0; i < childChecked.length; i++) {
+                RegistrationChild tmpRegChild = new RegistrationChild();
+                tmpRegChild.setId(Integer.parseInt(childChecked[i]));
+                tmpRegChild.setSectionId(Integer.parseInt(request.getParameter("id")));
+                regMan.update(tmpRegChild);
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(UpdateClassBeanServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
