@@ -305,6 +305,46 @@
         <servlet-name>ModifyAccount2Servlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.ModifyAccount2Servlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletGetTableClassification</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.classificationManagement.ServletGetTableClassification</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletGetTableResult</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.classificationManagement.ServletGetTableResult</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletGetTableCriteria</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.classificationManagement.ServletGetTableCriteria</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletGetClassification</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.classificationManagement.ServletGetClassification</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletUpdateResult</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.classificationManagement.ServletUpdateResult</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletAddClassification</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.classificationManagement.ServletAddClassification</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletAddCriterion</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.classificationManagement.ServletAddCriterion</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletModifyClassification</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.classificationManagement.ServletModifyClassification</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletDeleteClassification</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.classificationManagement.ServletDeleteClassification</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletDeleteCriterion</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.classificationManagement.ServletDeleteCriterion</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
@@ -600,6 +640,46 @@
     <servlet-mapping>
         <servlet-name>ModifyAccount2Servlet</servlet-name>
         <url-pattern>/ModifyAccount2</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletGetTableClassification</servlet-name>
+        <url-pattern>/GetTableClassification</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletGetTableResult</servlet-name>
+        <url-pattern>/GetTableResult</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletGetTableCriteria</servlet-name>
+        <url-pattern>/GetTableCriteria</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletGetClassification</servlet-name>
+        <url-pattern>/GetClassification</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletUpdateResult</servlet-name>
+        <url-pattern>/UpdateResult</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAddClassification</servlet-name>
+        <url-pattern>/AddClassification</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAddCriterion</servlet-name>
+        <url-pattern>/AddCriterion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletModifyClassification</servlet-name>
+        <url-pattern>/ModifyClassification</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletDeleteClassification</servlet-name>
+        <url-pattern>/DeleteClassification</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletDeleteCriterion</servlet-name>
+        <url-pattern>/DeleteCriterion</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
