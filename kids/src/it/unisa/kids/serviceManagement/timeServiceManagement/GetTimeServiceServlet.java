@@ -49,7 +49,6 @@ private ITimeServiceManager timeServiceManager;
         try {
             out=response.getWriter();
             News timeServiceNews=new News();
-            System.out.println("prova");
             timeServiceNews.setType("OrarioDiServizio");
             List<News> list=timeServiceManager.search(timeServiceNews);
             out.print(list.get(0).getDescription()+","+list.get(0).getId());

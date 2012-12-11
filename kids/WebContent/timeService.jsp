@@ -29,7 +29,7 @@
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/timeService.js"></script>
         <link rel="stylesheet" type="text/css" href="css/jquery.ui.timepicker.css">
-        
+
 
         <script type="text/javascript" src="js/jquery.ui.timepicker.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -43,7 +43,8 @@
                 messageDialog();
                 initializetimeServicePage();
                 showTimeService();
-                buildRequestTimeServiceParentTable()
+                buildRequestTimeServiceParentTable();
+                buildRequestTimeServiceSecretaryTable();
             });
         </script>
     </head>
@@ -121,7 +122,7 @@
                                 <div id="timeserviceTab">      <%--div tab jQuery--%>
                                     <ul>
                                         <li><a href="#InsertTime"><span class="TimeTab">Orari di servizio</span></a></li>
-                                        <li><a href="#notifyTimeService"><span class="TimeTab">Notifiche</span></a></li>
+                                        <li><a href="#notifyTimeService"><span class="TimeTab">Richiesta orari di servizio</span></a></li>
                                     </ul>
                                     <div id="InsertTime">
                                         <form id="InsertTimeForm" method="post" action="UpdateTimeService">
@@ -136,8 +137,9 @@
                                         <table id="notifyTable">
                                             <thead>
                                                 <tr>
-                                                    <th>N.</th>
-                                                    <th>Notifiche</th>
+                                                    <th>Servizio</th>
+                                                    <th>Giorno</th>
+                                                    <th>Ora</th>
                                                     <th>Operazioni</th>
                                                 </tr>
                                             </thead>

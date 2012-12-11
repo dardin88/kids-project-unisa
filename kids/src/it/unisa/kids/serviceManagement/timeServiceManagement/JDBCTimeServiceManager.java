@@ -209,8 +209,8 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
                 andState = true;
             }
 
-           
-            
+
+
             if (pTimeServReq.getRequestTime() != null) {
                 query += useAnd(andState) + DBNames.ATT_TIMESERVREQ_REQTIME + " = ?";
             }
@@ -239,8 +239,8 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
                 i++;
             }
 
-            
-            
+
+
             if (pTimeServReq.getRequestTime() != null) {
                 pstmt.setTime(i, pTimeServReq.getRequestTime());
                 i++;
@@ -264,7 +264,7 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
                 ts.setServiceType(rs.getString(DBNames.ATT_TIMESERVREQ_SERVTYPE));
 
                 //getting Date from ResultSet and converting it to GregorianCalendar
-                
+
                 ts.setRequestTime(rs.getTime(DBNames.ATT_TIMESERVREQ_REQTIME));
                 ts.setParentId(rs.getInt(DBNames.ATT_TIMESERVREQ_PARENTID));
 
@@ -291,7 +291,47 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
     @Override
     public List<TimeServiceRequest> getTimeServRequestList()
             throws SQLException {
-        // TODO Auto-generated method stub
-        return null;
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String query = null;
+        List<TimeServiceRequest> timeServReqs = null;
+        try {
+            con = DBConnectionPool.getConnection();
+
+            // constructing search query string
+            query = "SELECT * FROM " + DBNames.TABLE_TIMESERV_REQUEST;
+            pstmt = con.prepareStatement(query);
+            rs = pstmt.executeQuery();
+            con.commit();
+
+            // constructing timeServReq list
+            timeServReqs = new ArrayList<TimeServiceRequest>();
+            while (rs.next()) {
+                TimeServiceRequest ts = new TimeServiceRequest();
+                ts.setId(rs.getInt(DBNames.ATT_TIMESERVREQ_ID));
+                ts.setDayRequested(rs.getString(DBNames.ATT_TIMESERVREQ_DAYREQ));
+                ts.setServiceType(rs.getString(DBNames.ATT_TIMESERVREQ_SERVTYPE));
+
+                //getting Date from ResultSet and converting it to GregorianCalendar
+
+                ts.setRequestTime(rs.getTime(DBNames.ATT_TIMESERVREQ_REQTIME));
+                ts.setParentId(rs.getInt(DBNames.ATT_TIMESERVREQ_PARENTID));
+
+                timeServReqs.add(ts);
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
+            if (con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+        return timeServReqs;
+
     }
 }
