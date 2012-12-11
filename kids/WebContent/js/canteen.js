@@ -37,40 +37,6 @@ function initializeCanteenPage() {
     $("#modifyDailyMenuButton").button();
 }
 
-function doClassSelection(classData) {
-    $("#selectedClassData").html(classData.cells[0].innerHTML);
-    
-    buildChildrenTable(classData.id);
-    $("#classSelection").hide();
-    $("#childSelection").show();
-    
-    $("#childSelectionTable").dataTable().fnDraw();
-}
-
-function doInsertDiffMenu(childData) {
-    $("#hiddenChildIdInsDiff").val(childData.id);
-    
-    $("#insertDiffMenuDialog").dialog("open");
-}
-
-function doAssociatedMenuSelection(assMenuData) {    
-    // do $.post to get menu data
-    $.post("GetAssociatedMenu",
-    {
-        childId: assMenuData.id
-    },
-    function(jsonData, status) {
-        $("#associatedDate").val(jsonData.date);
-        $("#associatedFirst").val(jsonData.first);
-        $("#associatedSecond").val(jsonData.second);
-        $("#associatedSideDish").val(jsonData.sideDish);
-        $("#associatedFruit").val(jsonData.fruit);
-        $("#associatedMenuType").val(jsonData.type);
-    });
-    
-    $("#showAssociatedMenusDialog").dialog("open");
-}
-
 function buildClassTable(){
     $("#showClassTable").dataTable({
         "bJQueryUI": true,
@@ -260,4 +226,38 @@ function searchAssociatedMenus() {
 
 function searchDailyMenus() {
     $("#showDailyMenusTable").dataTable().fnDraw();
+}
+
+function doClassSelection(classData) {
+    $("#selectedClassData").html(classData.cells[0].innerHTML);
+    
+    buildChildrenTable(classData.id);
+    $("#classSelection").hide();
+    $("#childSelection").show();
+    
+    $("#childSelectionTable").dataTable().fnDraw();
+}
+
+function doInsertDiffMenu(childData) {
+    $("#hiddenChildIdInsDiff").val(childData.id);
+    
+    $("#insertDiffMenuDialog").dialog("open");
+}
+
+function doAssociatedMenuSelection(assMenuData) {    
+    // do $.post to get menu data
+    $.post("GetAssociatedMenu",
+    {
+        childId: assMenuData.id
+    },
+    function(jsonData, status) {
+        $("#associatedDate").val(jsonData.date);
+        $("#associatedFirst").val(jsonData.first);
+        $("#associatedSecond").val(jsonData.second);
+        $("#associatedSideDish").val(jsonData.sideDish);
+        $("#associatedFruit").val(jsonData.fruit);
+        $("#associatedMenuType").val(jsonData.type);
+    });
+    
+    $("#showAssociatedMenusDialog").dialog("open");
 }
