@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app id="WebApp_ID" version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"><display-name>kids</display-name><context-param>
         <param-name>attachedFileFolder</param-name>
-        <param-value>/home/francesco/attached</param-value>
+        <param-value>/home/marco/attached</param-value>
     </context-param><context-param>
         <param-name>projectFileFolder</param-name>
         <param-value>/home/francesco/projectEducative</param-value>
@@ -310,6 +310,10 @@
         <servlet-name>RemoveTimeServiceRequestServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.timeServiceManagement.RemoveTimeServiceRequestServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetTimeServiceRequestSecretaryTableServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.timeServiceManagement.GetTimeServiceRequestSecretaryTableServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
@@ -612,8 +616,12 @@
         <servlet-name>RemoveTimeServiceRequestServlet</servlet-name>
         <url-pattern>/RemoveTimeServiceRequest</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetTimeServiceRequestSecretaryTableServlet</servlet-name>
+        <url-pattern>/GetTimeServiceRequestSecretaryTable</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
-
+    
     </web-app>

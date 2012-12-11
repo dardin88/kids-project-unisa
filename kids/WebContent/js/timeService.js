@@ -32,7 +32,7 @@ function initializetimeServicePage() {
 }
 
 function buildnotifyTable() {
-    $('#notifyTable').dataTable({
+    $('#notifyTgdfdable').dataTable({
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
@@ -72,46 +72,6 @@ function buildnotifyTable() {
     });
 }
 
-function buildVisualTimeTable() {
-    $('#visualTimeTable').dataTable({
-        "bJQueryUI": true,
-        "bServerSide": true,
-        "bProcessing": true,
-        "sAjaxSource": "GetRefundsTable",
-        "bPaginate": true,
-        "bLengthChange": false,
-        "bFilter": false,
-        "fnServerParams": function(aoData) {
-            aoData.push(
-                    {
-                        "name": "parentId",
-                        "value": parentId
-                    }
-            );
-
-        },
-        "bSort": false,
-        "bDestroy": true,
-        "bInfo": true,
-        "bAutoWidth": true,
-        "sPaginationType": "full_numbers",
-        "oLanguage": {
-            "sProcessing": "Caricamento...",
-            "sLengthMenu": "Visualizza _MENU_ link",
-            "sZeroRecords": "Nessun rimborso disponibile.",
-            "sInfo": "Vista da _START_ a _END_ di _TOTAL_ Rimborsi",
-            "sInfoEmpty": "Vista da 0 a 0 di 0 Rimborsi",
-            "sInfoFiltered": "(filtrati da _MAX_ link totali)",
-            "sInfoPostFix": "",
-            "oPaginate": {
-                "sFirst": "<<",
-                "sPrevious": "<",
-                "sNext": ">",
-                "sLast": ">>"
-            }
-        }
-    });
-}
 
 function showTimeService() {
     $.post("GetTimeService", function(data) {
@@ -137,6 +97,64 @@ $(document).ready(function() {
         }
     });
 });
+function buildRequestTimeServiceSecretaryTable() {
+    $('#notifyTable').dataTable({
+        "bJQueryUI": true,
+        "bServerSide": true,
+        "bProcessing": true,
+        "sAjaxSource": "GetTimeServiceRequestSecretaryTable",
+        "bPaginate": true,
+        "bLengthChange": false,
+        "bFilter": false,
+        "fnServerParams": function(aoData) {
+            aoData.push(
+                    {
+                        "name": "Nome",
+                        "value": $('#Nome').val()
+                    },
+            {
+                "name": "Cognome",
+                "value": $('#Cognome').val()
+            }
+            );
+
+        },
+        "bSort": false,
+        "bDestroy": true,
+        "bInfo": true,
+        "bAutoWidth": true,
+        "sPaginationType": "full_numbers",
+        "oLanguage": {
+            "sProcessing": "Caricamento...",
+            "sLengthMenu": "Visualizza _MENU_ link",
+            "sZeroRecords": "La ricerca non ha portato alcun risultato.",
+            "sInfo": "Vista da _START_ a _END_ di _TOTAL_ Richieste",
+            "sInfoEmpty": "Vista da 0 a 0 di 0 Richieste",
+            "sInfoFiltered": "(filtrati da _MAX_ link totali)",
+            "sInfoPostFix": "",
+            "oPaginate": {
+                "sFirst": "<<",
+                "sPrevious": "<",
+                "sNext": ">",
+                "sLast": ">>"
+            }
+        },
+        "aoColumns": [
+            {
+                "sWidth": "25%"
+            },
+            {
+                "sWidth": "25%"
+            },
+            {
+                "sWidth": "25%"
+            },
+            {
+                "sWidth": "10%"
+            }
+        ]
+    });
+}
 
 function openInsertRequestTimeDialog() {
     $("#insertRequestTimeDialog").dialog("open");
