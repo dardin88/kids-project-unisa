@@ -39,10 +39,10 @@ public class LoadCalendarServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             out = response.getWriter();
-            JDBCReunionManager am = JDBCReunionManager.getInstance();
-            ArrayList<Reunion> list = am.getMeetingList();
+            JDBCMeetingManager am = JDBCMeetingManager.getInstance();
+            ArrayList<Meeting> list = am.getMeetingList();
             JSONArray jsonArray = new JSONArray();
-            for (Reunion r : list) {
+            for (Meeting r : list) {
                 JSONObject json = new JSONObject();
                 json.put("id", r.getId());
                 json.put("title", r.getTitle());

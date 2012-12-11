@@ -35,13 +35,13 @@ public class ModifyMeetingServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            JDBCReunionManager am = JDBCReunionManager.getInstance();
-            ArrayList<Reunion> list = am.getMeetingList();
-            Reunion meeting = new Reunion();
+            JDBCMeetingManager am = JDBCMeetingManager.getInstance();
+            ArrayList<Meeting> list = am.getMeetingList();
+            Meeting meeting = new Meeting();
 
             int id = Integer.parseInt(request.getParameter("modifyId"));
 
-            for (Reunion r : list) {
+            for (Meeting r : list) {
                 if (r.getId() == id) {
                     meeting.setId(id);
                     meeting.setTitle(request.getParameter("modifyTitolo"));

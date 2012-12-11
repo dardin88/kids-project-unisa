@@ -6,7 +6,7 @@ package it.unisa.kids.communicationManagement.meeting;
  * @author Pasquale Caldarese
  *
  */
-public class Reunion {
+public class Meeting {
 
     private int id;
     private String title;
@@ -26,7 +26,7 @@ public class Reunion {
      * @param time
      * @param type
      */
-    public Reunion(int id, String title, String description, String date, String firstTime, String secondTime, String type) {
+    public Meeting(int id, String title, String description, String date, String firstTime, String secondTime, String type) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -36,7 +36,7 @@ public class Reunion {
         this.type = type;
     }
 
-    public Reunion() {
+    public Meeting() {
     }
 
     /**

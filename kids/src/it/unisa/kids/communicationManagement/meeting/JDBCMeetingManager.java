@@ -3,23 +3,21 @@ package it.unisa.kids.communicationManagement.meeting;
 import it.unisa.kids.common.DBNames;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
-public class JDBCReunionManager implements IReunionManager {
+public class JDBCMeetingManager implements IMeetingManager {
 
-    private static JDBCReunionManager manager;
+    private static JDBCMeetingManager manager;
     private static int id;
 
     /**
      * the constructor empty
      */
-    private JDBCReunionManager() {
+    private JDBCMeetingManager() {
     }
 
     /**
@@ -27,21 +25,21 @@ public class JDBCReunionManager implements IReunionManager {
      *
      * @return manager
      */
-    public static JDBCReunionManager getInstance() {
+    public static JDBCMeetingManager getInstance() {
         if (manager == null) {
-            return manager = new JDBCReunionManager();
+            return manager = new JDBCMeetingManager();
         } else {
             return manager;
         }
     }
 
     /**
-     * this method insert the reunion in the database.
+     * This method insert the meeting in the database.
      *
-     * @param Reunion reunion
+     * @param Meeting reunion
      *
      */
-    public void insert(Reunion reunion) throws ErroreNeiDati, SQLException {
+    public void insert(Meeting reunion) throws SQLException {
         Connection con = null;
         PreparedStatement pStmt = null;
         String query1;
@@ -81,12 +79,12 @@ public class JDBCReunionManager implements IReunionManager {
     }
 
     /**
-     * this method modify the reunion in the database.
+     * This method modify the meeting in the database.
      *
-     * @param Reunion changedReunion
+     * @param Meeting changedReunion
      *
      */
-    public void update(Reunion changedReunion) throws SQLException {
+    public void update(Meeting changedReunion) throws SQLException {
         Connection con = null;
         PreparedStatement pStmt = null;
         String query1;
@@ -123,12 +121,12 @@ public class JDBCReunionManager implements IReunionManager {
     }
 
     /**
-     * this method delete the reunion in the database.
+     * This method delete the meeting in the database.
      *
-     * @param Reunion deletedReunion
+     * @param Meeting deletedReunion
      *
      */
-    public void delete(Reunion deleteReunion) throws SQLException {
+    public void delete(Meeting deleteReunion) throws SQLException {
         Connection con = null;
         PreparedStatement pStmt = null;
         String query;
@@ -149,11 +147,17 @@ public class JDBCReunionManager implements IReunionManager {
         }
     }
 
-    public ArrayList<Reunion> getMeetingList() throws SQLException {
+     /**
+     * This method return all meetings present in the database.
+     *
+     * @return ArrayList<Meeting>
+     *
+     */
+    public ArrayList<Meeting> getMeetingList() throws SQLException {
         Connection con = null;
         Statement stmt = null;
         String query;
-        ArrayList<Reunion> listMeeting = new ArrayList<Reunion>();
+        ArrayList<Meeting> listMeeting = new ArrayList<Meeting>();
         try {
 
             con = DBConnectionPool.getConnection();
@@ -162,7 +166,7 @@ public class JDBCReunionManager implements IReunionManager {
             ResultSet rs = stmt.executeQuery(query);
             con.commit();
             while (rs.next()) {
-                Reunion meeting = new Reunion();
+                Meeting meeting = new Meeting();
                 int id = rs.getInt(DBNames.ATT_REUNION_ID);
                 String title = rs.getString(DBNames.ATT_REUNION_TITLE);
                 String description = rs.getString(DBNames.ATT_REUNION_DESCRIPTION);
