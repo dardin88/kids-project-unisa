@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generato il: Dic 05, 2012 alle 17:11
+-- Generato il: Dic 11, 2012 alle 17:53
 -- Versione del server: 5.5.27
 -- Versione PHP: 5.4.7
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `kids_2_1`
+-- Database: `progetto-kids`
 --
 
 -- --------------------------------------------------------
@@ -51,19 +51,27 @@ CREATE TABLE IF NOT EXISTS `account` (
   `TitoloStudio` varchar(30) DEFAULT NULL,
   `SituazioneFamiliare` varchar(15) DEFAULT NULL,
   `Reddito` double DEFAULT NULL,
-  `TipologiaGenitore` enum('Studente','Tecnico amministrativo','Docente','Ricercatore','Determinato','Dottorando') DEFAULT NULL,
+  `TipologiaGenitore` enum('Studente','Tecnico amministrativo','Docente','Ricercatore','Determinato','Dottorando','Nothing') DEFAULT NULL,
   `DataScadenzaContratto` date DEFAULT NULL,
   `Facolta` varchar(50) DEFAULT NULL,
   `DataRegistrazione` date DEFAULT NULL,
-  `NumeroStradaResidenza` int(11) DEFAULT NULL,
-  `NumeroStradaDomicilio` int(11) DEFAULT NULL,
   `TipologiaAccount` enum('Admin','Segreteria','Genitore','Educatore','Delegato scienze della formazione','Coordinatore Psicopedagogico','Responsabile Scientifico','Tirocinante','Responsabile Mensa','Delegato del rettore','Responsabile Asilo') DEFAULT NULL,
   `Matricola` char(11) DEFAULT NULL,
   `Stato` enum('Bozza','Inserito') DEFAULT NULL,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Nickname` (`Nickname`),
   UNIQUE KEY `Matricola` (`Matricola`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dump dei dati per la tabella `account`
+--
+
+INSERT INTO `account` (`Id`, `Nickname`, `Password`, `Cognome`, `Nome`, `Email`, `Telefono`, `Cellulare`, `Fax`, `DataNascita`, `ComuneNascita`, `CodiceFiscale`, `Cittadinanza`, `ResidenzaIndirizzo`, `ResidenzaComune`, `ResidenzaProvincia`, `ResidenzaCap`, `DomicilioIndirizzo`, `DomicilioComune`, `DomicilioProvincia`, `DomicilioCap`, `TitoloStudio`, `SituazioneFamiliare`, `Reddito`, `TipologiaGenitore`, `DataScadenzaContratto`, `Facolta`, `DataRegistrazione`, `TipologiaAccount`, `Matricola`, `Stato`) VALUES
+(1, 'segreteria', 'segreteria', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Segreteria', NULL, NULL),
+(2, 'admin', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Admin', NULL, NULL),
+(4, 'genitore', 'genitore', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Genitore', NULL, NULL),
+(5, 'gen2', 'gen2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Genitore', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -160,12 +168,12 @@ CREATE TABLE IF NOT EXISTS `commento` (
 
 CREATE TABLE IF NOT EXISTS `comunicazioni` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Tipo` int(11) NOT NULL,
   `IdEducatore` int(11) NOT NULL,
   `Data` date NOT NULL,
-  `IdGenitore` int(11) NOT NULL,
-  `Risolto` tinyint(1) DEFAULT NULL,
   `Descrizione` varchar(2000) NOT NULL,
+  `idBambino` int(11) NOT NULL,
+  `Tipo` enum('Salute','Bisogno') DEFAULT 'Salute',
+  `Risolto` enum('Si','No') DEFAULT 'No',
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -183,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `convocazione` (
   `NomeAttivita` varchar(50) NOT NULL,
   `Confermato` tinyint(1) DEFAULT '0',
   `IdDelegato` int(11) NOT NULL,
-  `IdTirociante` int(11) NOT NULL,
+  `IdTirocinante` int(11) NOT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -196,7 +204,11 @@ CREATE TABLE IF NOT EXISTS `convocazione` (
 CREATE TABLE IF NOT EXISTS `criteripesati` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Descrizione` varchar(20) NOT NULL,
+  `Campo` varchar(20) NOT NULL,
+  `Operando` varchar(5) NOT NULL,
+  `Condizione` varchar(20) NOT NULL,
   `Peso` double NOT NULL,
+  `Abilitato` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -209,7 +221,8 @@ CREATE TABLE IF NOT EXISTS `criteripesati` (
 CREATE TABLE IF NOT EXISTS `esito` (
   `Graduatoria` int(11) NOT NULL,
   `Iscrizione` int(11) NOT NULL,
-  `Esito` tinyint(1) NOT NULL,
+  `Punteggio` double DEFAULT '0',
+  `Esito` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`Iscrizione`,`Graduatoria`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -223,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `graduatoria` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Nome` varchar(20) DEFAULT NULL,
   `Data` date NOT NULL,
-  `Stato` enum('bozza','provvisoria','definitiva') DEFAULT NULL,
+  `Stato` enum('bozza','provvisoria','definitiva') DEFAULT 'bozza',
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -235,35 +248,49 @@ CREATE TABLE IF NOT EXISTS `graduatoria` (
 
 CREATE TABLE IF NOT EXISTS `iscrizionebambino` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `AccountGenitore` int(11) NOT NULL,
+  `DataIscrizione` date NOT NULL,
+  `FaseDellIscrizione` enum('bozza','sottomessa','ricevuta','eliminata','ricorso','accettata','completata','validata','rinunciata') NOT NULL DEFAULT 'bozza',
   `Cognome` varchar(25) DEFAULT NULL,
   `Nome` varchar(25) DEFAULT NULL,
   `DataNascita` date DEFAULT NULL,
   `ComuneNascita` varchar(20) DEFAULT NULL,
   `CodiceFiscale` char(16) DEFAULT NULL,
   `Cittadinanza` varchar(20) DEFAULT NULL,
-  `FasciaUtenza` enum('full_time','part_time_pomeridiana','part_time_mattutina') DEFAULT NULL,
-  `DataIscrizione` date NOT NULL,
-  `Malattia` text,
-  `FaseDellIscrizione` enum('bozza','sottomessa','confermata','rifiutata','accettata','completata','eliminata','rinunciata','ricorso') NOT NULL DEFAULT 'bozza',
-  `AccountGenitore` int(11) NOT NULL,
+  `FasciaUtenza` enum('','full_time','part_time_pomeridiana','part_time_mattutina') DEFAULT NULL,
+  `Malattie` text,
+  `Vaccinazioni` text,
+  `DichiarazioneDellaPrivacy` text,
+  `NoteAggiuntive` text,
+  `IsSetMalattie` enum('si','no','in_parte') DEFAULT 'no',
+  `IsSetVaccinazioni` enum('si','no','in_parte') DEFAULT 'no',
+  `IsSetDichiarazioneDellaPrivacy` enum('si','no','in_parte') DEFAULT 'no',
   `Classe` int(11) DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dump dei dati per la tabella `iscrizionebambino`
+--
+
+INSERT INTO `iscrizionebambino` (`Id`, `AccountGenitore`, `DataIscrizione`, `FaseDellIscrizione`, `Cognome`, `Nome`, `DataNascita`, `ComuneNascita`, `CodiceFiscale`, `Cittadinanza`, `FasciaUtenza`, `Malattie`, `Vaccinazioni`, `DichiarazioneDellaPrivacy`, `NoteAggiuntive`, `IsSetMalattie`, `IsSetVaccinazioni`, `IsSetDichiarazioneDellaPrivacy`, `Classe`) VALUES
+(1, 0, '0000-00-00', 'bozza', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'no', 'no', 'no', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `menu_differenziato`
+-- Struttura della tabella `menu_mensa`
 --
 
-CREATE TABLE IF NOT EXISTS `menu_differenziato` (
+CREATE TABLE IF NOT EXISTS `menu_mensa` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Motivazione` varchar(200) NOT NULL,
+  `Tipo` enum('Giornaliero','Differenziato') DEFAULT NULL,
+  `Data` date NOT NULL,
   `Primo` varchar(200) DEFAULT NULL,
   `Secondo` varchar(200) DEFAULT NULL,
   `Contorno` varchar(200) DEFAULT NULL,
   `Frutta` varchar(200) DEFAULT NULL,
-  `Iscrizione` int(11) NOT NULL,
+  `IscrizioneBambinoId` int(11) NOT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -300,9 +327,10 @@ CREATE TABLE IF NOT EXISTS `pagamento` (
   `DescrizioneSconto` varchar(200) DEFAULT NULL,
   `Importo` double NOT NULL,
   `Effettuato` tinyint(1) NOT NULL DEFAULT '0',
-  `Conto` varchar(30) NOT NULL,
+  `Conto` varchar(30) DEFAULT NULL,
   `Beneficiario` varchar(30) NOT NULL,
   `AccountGenitore` int(11) NOT NULL,
+  `CodiceRicevuta` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -343,6 +371,7 @@ CREATE TABLE IF NOT EXISTS `progetto_annuale` (
   `Tema` varchar(200) NOT NULL,
   `Contenuto` varchar(1500) NOT NULL,
   `AnnoApplicazione` varchar(10) NOT NULL,
+  `Scadenza` date DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -358,6 +387,7 @@ CREATE TABLE IF NOT EXISTS `progetto_sezione` (
   `Sezione` varchar(2) NOT NULL,
   `Contenuto` varchar(1500) NOT NULL,
   `IdAnnuale` int(11) NOT NULL,
+  `Scadenza` date DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -401,6 +431,19 @@ CREATE TABLE IF NOT EXISTS `registro_scolastico` (
 -- --------------------------------------------------------
 
 --
+-- Struttura della tabella `richiesta_modifica_orari_servizio`
+--
+
+CREATE TABLE IF NOT EXISTS `richiesta_modifica_orari_servizio` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Motivazione` varchar(2000) DEFAULT NULL,
+  `FasciaUtenza` enum('full time','part time pomeridiana','part time mattutina') NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Struttura della tabella `richiesta_orari_servizio`
 --
 
@@ -423,8 +466,6 @@ CREATE TABLE IF NOT EXISTS `richiesta_orari_servizio` (
 CREATE TABLE IF NOT EXISTS `richiesta_pasto` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Data` date NOT NULL,
-  `MenuRichiesto` varchar(200) DEFAULT NULL,
-  `Ora` time NOT NULL,
   `AccountGenitore` int(11) NOT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -484,12 +525,9 @@ CREATE TABLE IF NOT EXISTS `rimborso` (
 
 CREATE TABLE IF NOT EXISTS `rinunce` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Nome` varchar(20) DEFAULT NULL,
-  `Cognome` varchar(20) DEFAULT NULL,
-  `CodiceFiscale` varchar(16) DEFAULT NULL,
-  `CognomeFiglio` varchar(20) DEFAULT NULL,
-  `NomeFiglio` varchar(20) DEFAULT NULL,
-  `DataNascita` date DEFAULT NULL,
+  `IdBambino` int(11) DEFAULT NULL,
+  `Motivazione` varchar(50) DEFAULT NULL,
+  `Conferma` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -501,9 +539,9 @@ CREATE TABLE IF NOT EXISTS `rinunce` (
 
 CREATE TABLE IF NOT EXISTS `riunione` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Descrizione` varchar(200) DEFAULT NULL,
+  `Descrizione` varchar(500) DEFAULT NULL,
   `Data` date NOT NULL,
-  `Titolo` varchar(500) DEFAULT NULL,
+  `Titolo` varchar(200) DEFAULT NULL,
   `OraInizio` time DEFAULT NULL,
   `OraFine` time DEFAULT NULL,
   `Tipo` varchar(20) DEFAULT NULL,
