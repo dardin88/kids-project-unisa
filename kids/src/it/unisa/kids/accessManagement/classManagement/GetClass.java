@@ -6,7 +6,6 @@ package it.unisa.kids.accessManagement.classManagement;
 
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
-import it.unisa.kids.serviceManagement.trainingManagement.GetTraineesServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -48,7 +47,7 @@ public class GetClass extends HttpServlet {
         try {
             Logger.getLogger(GetClass.class.getName()).log(Level.SEVERE, "Id passato = " + request.getParameter("id"));
             int id=Integer.parseInt(request.getParameter("id"));
-            System.out.println("Questo è l'id "+id);
+            //System.out.println("Questo è l'id "+id);
             ClassBean clas=new ClassBean();
             clas.setIdClasse(id);
             List<ClassBean> list=classManager.search(clas);
@@ -59,7 +58,7 @@ public class GetClass extends HttpServlet {
            
             
         } catch (SQLException ex) {
-            Logger.getLogger(GetTraineesServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GetClass.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

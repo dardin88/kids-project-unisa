@@ -24,21 +24,21 @@ function buildAccountTable(){
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
-//        credo che non ci vogliono perchè non devo ricercare niente in questa tabella 
-//        "fnServerParams": function ( aoData ) {
-//            aoData.push(
-//            {
-//                "name" : "name", 
-//                "value" : $('#name').val()
-//            },
-//
-//            {
-//                "name" : "state", 
-//                "value" : $('#state').val()
-//            }
-//            );
-//     
-//        },
+        //        credo che non ci vogliono perchè non devo ricercare niente in questa tabella 
+        //        "fnServerParams": function ( aoData ) {
+        //            aoData.push(
+        //            {
+        //                "name" : "name", 
+        //                "value" : $('#name').val()
+        //            },
+        //
+        //            {
+        //                "name" : "state", 
+        //                "value" : $('#state').val()
+        //            }
+        //            );
+        //     
+        //        },
         "bSort": false,
         "bDestroy": true,
         "bInfo": true,
@@ -49,7 +49,7 @@ function buildAccountTable(){
             "sLengthMenu":   "Visualizza _MENU_ link",
             "sZeroRecords":  "La ricerca non ha portato alcun risultato.",
             "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Bambini",
-            "sInfoEmpty":    "Vista da 0 a 0 di 0 Classi",
+            "sInfoEmpty":    "Vista da 0 a 0 di 0 Bambini",
             "sInfoFiltered": "(filtrati da _MAX_ link totali)",
             "sInfoPostFix":  "",
             "oPaginate": {
@@ -62,9 +62,10 @@ function buildAccountTable(){
 
 
         "oTableTools":{
-            "aButtons":[
-            "Modifica","Visualizza"
-            ]
+        //            "sRowSelect": "multiple",
+        //            "fnRowSelected": function(nodes) {
+        //                selectRow(nodes[0]);
+        //            }
         },
         "aoColumns": [
         {
@@ -84,19 +85,13 @@ $(document).ready(function(){
     $("#registrationForm2").validate({
         rules:
         {
-            
             Nome: "required"
         },
         messages:{
             Nome:" Inserisci il nome"
         },
         submitHandler:function() {
-            $.post("UpdateClassBean",{
-                id:$("#id").val(),
-                Nome:$("#Nome").val(),
-                checkedChildren: $(".childrenSelected").val()
-            })
-            location.href="classe.jsp";
+            form.submit();
         }
         
     });
