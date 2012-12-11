@@ -98,35 +98,66 @@
     <fieldset>
         <table>
             <tr>
-                <td>       
-                    <label class="artefactLabel2">Id Educatore</label>
+                <td colspan="2">       
+                    <label class="artefactLabel2">Id Comunicazione:</label>
                 </td>
-                <td>                    
+                <td colspan="2">                    
+                    <label class="artefactLabel" id="labelId"></label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">       
+                    <label class="artefactLabel2">Tipo Comunicazione:</label>
+                </td>
+                <td colspan="2">                    
+                    <label class="artefactLabel" id="labelType"></label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">       
+                    <label class="artefactLabel2">Id Educatore:</label>
+                </td>
+                <td colspan="2">                    
                     <label class="artefactLabel" id="labelIdEducator"></label>
                 </td>
             </tr>
             <tr>
-                <td>                    
-                    <label class="artefactLabel2">Id Bambino</label>
+                <td colspan="2">                    
+                    <label class="artefactLabel2">Id Bambino:</label>
                 </td>
-                <td>                    
+                <td colspan="2">                    
                     <label class="artefactLabel" id="labelIdChild"></label>
                 </td>
             </tr>
             <tr>
-                <td>                    
-                    <label class="artefactLabel2">Descrizione</label>
+                <td colspan="2">       
+                    <label class="artefactLabel2">Nome Bambino:</label>
                 </td>
-                <td>
-
+                <td colspan="2">                    
+                    <label class="artefactLabel" id="labelName"></label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">       
+                    <label class="artefactLabel2">Cognome Bambino:</label>
+                </td>
+                <td colspan="2">                    
+                    <label class="artefactLabel" id="labelSurname"></label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">                    
+                    <label class="artefactLabel2">Descrizione:</label>
+                </td>
+                <td colspan="2">
                     <label class="artefactLabel" id="labelDescription"></label>
                 </td>
             </tr>
             <tr>
-                <td>                    
-                    <label class="artefactLabel2">Data</label>
+                <td colspan="2">                    
+                    <label class="artefactLabel2">Data:</label>
                 </td>
-                <td>                    
+                <td colspan="2">                    
                     <label class="artefactLabel" id="labelDate"></label> 
                 </td>
             </tr>
@@ -142,9 +173,9 @@
         <table id="linkTable" style="width:95%;">
             <thead>
                 <tr>
-                    <th>Tipo</th>
-                    <th>Id Educatore</th>
                     <th>Id Bambino</th>
+                    <th>Nome Bambino</th>
+                    <th>Cognome Bambino</th>
                     <th>Descrizione</th>
                     <th>Data</th>
                     <th>Operazioni</th>

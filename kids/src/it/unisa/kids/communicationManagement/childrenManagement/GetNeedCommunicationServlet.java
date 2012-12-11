@@ -85,14 +85,10 @@ public class GetNeedCommunicationServlet extends HttpServlet {
                 for (Communication a : paginateCommunicationSet) {
                     if (a.getType().equalsIgnoreCase("Bisogno")){
                     JSONArray ja = new JSONArray();
-                    ja.put(a.getType());
-                    ja.put(a.getIdEducator());
                     ja.put(a.getIdChild());
+                    ja.put(am.getName(a.getIdChild()));
+                    ja.put(am.getSurname(a.getIdChild()));
                     ja.put(a.getDescription());
-                    //int day = a.getDate().get(Calendar.DAY_OF_MONTH);
-                    //int month = a.getDate().get(Calendar.MONTH);
-                    //int year = a.getDate().get(Calendar.YEAR);
-                    //String date = year + "-" + month + "-" + day;
                     ja.put(a.getDate());
                     ja.put(a.getSolved());
                     String operazioni="<div style=\"text-align:center;\" ><input id=\"idShowCommunication\" class='tableImage' height='20px' type='image' src='img/lente.gif' onclick=\"showCommunication("+a.getId()+",'"+a.getType()+"','"+a.getIdEducator()+"','"+a.getIdChild()+"','"+a.getDescription()+"','"+a.getDate()+"','"+a.getSolved()+"')\" />";
