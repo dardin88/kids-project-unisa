@@ -29,7 +29,7 @@
         <script type="text/javascript" src="js/healthCommunicationTable.js"></script>
         <script type="text/javascript" src="js/jquery.ui.timepicker.js"></script>
 
-        <title>Gestione Bambini "Visualizza Cominucazioni Salute"- Kids Project</title>
+        <title>Gestione Bambini "Visualizza Comunicazioni Salute"- Kids Project</title>
         <script type="text/javascript">
             $(document).ready(function() {
                 activePage();
@@ -168,7 +168,7 @@
     <%@include file="header.jsp" %>
     <div id="linksManagement">
         <c:if test="${sessionScope.user.getAccountType()=='Educatore'}" >
-            <input type="button" id="addLinkButton" value="Inserisci Communicazione Salute" />               
+            <input type="button" id="addLinkButton" value="Inserisci Comunicazione Salute" />               
         </c:if>
         <table id="linkTable" style="width:95%;">
             <thead>

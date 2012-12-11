@@ -114,10 +114,10 @@ function buildShowTable(){
             "sLengthMenu":   "Visualizza _MENU_ link",
             "sZeroRecords":  "<b>La ricerca non ha portato alcun risultato.</b>",
             "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ COMMUNICATION",
-            "sInfoEmpty":    "<b>Vista da 0 a 0 di 0 di Communicazioni</b>",
+            "sInfoEmpty":    "<b>Vista da 0 a 0 di 0 di Comunicazioni</b>",
             "sInfoFiltered": "(filtrati da _MAX_ link totali)",
             "sInfoPostFix":  "",
-            "sSearch":       "Contenuto Communicazione:",
+            "sSearch":       "Contenuto Comunicazione:",
             "oPaginate": {
                 "sFirst":    "<<",
                 "sPrevious": "<",
