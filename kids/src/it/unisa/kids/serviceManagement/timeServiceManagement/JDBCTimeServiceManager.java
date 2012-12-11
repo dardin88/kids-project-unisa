@@ -129,7 +129,6 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
             query = "UPDATE " + DBNames.TABLE_TIMESERV_REQUEST + " SET "
                     + DBNames.ATT_TIMESERVREQ_DAYREQ + " = ?, "
                     + DBNames.ATT_TIMESERVREQ_SERVTYPE + " = ?, "
-                    + DBNames.ATT_TIMESERVREQ_DATE + " = ?, "
                     + DBNames.ATT_TIMESERVREQ_REQTIME + " = ?, "
                     + DBNames.ATT_TIMESERVREQ_PARENTID + " = ? "
                     + "WHERE " + DBNames.ATT_TIMESERVREQ_ID + " = ?";
@@ -139,10 +138,9 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
             // setting pstmt's parameters
             pstmt.setString(1, pTimeServReq.getDayRequested());
             pstmt.setString(2, pTimeServReq.getServiceType());
-            pstmt.setDate(3, new java.sql.Date(pTimeServReq.getDate().getTimeInMillis()));
-            pstmt.setTime(4, pTimeServReq.getRequestTime());
-            pstmt.setInt(5, pTimeServReq.getParentId());
-            pstmt.setInt(6, pTimeServReq.getId());
+            pstmt.setTime(3, pTimeServReq.getRequestTime());
+            pstmt.setInt(4, pTimeServReq.getParentId());
+            pstmt.setInt(5, pTimeServReq.getId());
 
             pstmt.executeUpdate();
             con.commit();
