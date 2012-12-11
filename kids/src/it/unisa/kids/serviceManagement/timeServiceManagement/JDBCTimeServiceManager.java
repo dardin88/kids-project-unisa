@@ -156,7 +156,6 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
                 query+=","+DBNames.ATT_TIMESERVREQ_CONFIRMED+"=?";
             
             query += " WHERE " + DBNames.ATT_TIMESERVREQ_ID + "=?";
-            System.out.println(query);
             i = 0;
             pstmt = con.prepareStatement(query);
             if (pTimeServReq.getDayRequested() != null) {
