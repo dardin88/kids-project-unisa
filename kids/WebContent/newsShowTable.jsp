@@ -131,7 +131,7 @@
     </p>
 </div>
 <div id="updateNewsWindow" title="Visualizza News" style="display: inline">
-    <form id="updateNewsForm"  name="updateNewsForm" class="cmxform" method="post" action="UploadFile" enctype="multipart/form-data">
+    <form id="updateNewsForm"  name="updateNewsForm" class="cmxform" method="post" action="" enctype="multipart/form-data">
         <fieldset>
             <table style="width:100%;">
                 <tr>

@@ -94,10 +94,10 @@ public class GetNewsServlet extends HttpServlet {
                         ja.put(a.getTime().toString());
                         ja.put(a.getType());
                         String time = (a.getTime().toString().substring(0, 5));
-                        ja.put("<a style=\"color:black;background:none;\" href=\"DownloadFile?nameFile=" + a.getAttached() + "\">" + a.getAttached() + "</a>");
+                        ja.put("<a style=\"color:black;background:none;\" href=\"DownloadFile?nameFile=" + a.getAttached() + "&titoloNews="+a.getTitle()+"\">" + a.getAttached() + "</a>");
                         String operazioni = "<div style=\"text-align:center;\" ><input id=\"idShowNews\" class='tableImage' height='20px' type='image' src='img/lente.gif' onclick=\"showNews('" + a.getTitle() + "','" + a.getDescription() + "','" + a.getType() + "','" + d + "','" + time + "','" + a.getAttached() + "')\" />";
                         if (nomeUtente.equals("Segreteria")) {
-                            operazioni += "<input id=\"idUpdateNews\" class='tableImage' height='20px' type='image' src='img/change.png' onclick=\"updateNews(" + a.getId() + ",'" + a.getTitle() + "','" + a.getDescription() + "','" + a.getType() + "','" + d + "','" + time + "','" + a.getAttached() + "')\" />" + "<input id=\"removeNews\" onclick=\"removeNews(" + a.getId() + ",'" + a.getAttached() + "')\" class='tableImage' type='image' src='img/trash.png' /></div>";
+                            operazioni += "<input id=\"idUpdateNews\" class='tableImage' height='20px' type='image' src='img/change.png' onclick=\"updateNews(" + a.getId() + ",'" + a.getTitle() + "','" + a.getDescription() + "','" + a.getType() + "','" + d + "','" + time + "','" + a.getAttached() + "')\" />" + "<input id=\"removeNews\" onclick=\"removeNews(" + a.getId() + ",'" + a.getAttached() + "','"+a.getTitle()+"')\" class='tableImage' type='image' src='img/trash.png' /></div>";
                             ja.put(operazioni);
                         } else {
                             operazioni += "</div>";

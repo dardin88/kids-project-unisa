@@ -37,7 +37,8 @@ public class DownloadFileServlet extends HttpServlet {
                     
         String uri = (String) getServletContext().getInitParameter("attachedFileFolder");                    
         String fileName=request.getParameter("nameFile");
-        uri+="/"+fileName;
+        String titoloNews=request.getParameter("titoloNews");
+        uri+="/"+titoloNews+fileName;
         
         File file = new File(uri);
         FileInputStream fileInput = new FileInputStream(file);
