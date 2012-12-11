@@ -273,7 +273,7 @@ div#navigation li{
     height: 105px;
     text-align: center;
     display: inline;
-    
+
 }
 
 .tableImage {
@@ -450,7 +450,20 @@ div#navigation li{
     margin-left: 2%;
 }
 
-#typeAccount, #typeParent {
+#adminSearchLabel{
+    font-size: 10pt;
+    font-weight: bold;
+    margin-right: 2%;
+
+}
+.adminSearchButton{
+    padding: 1.5%;    
+    margin-bottom: 1%;
+    width: 170px;
+}
+
+
+#typeAccount, #typeParent, #modifyTypeAccount, #modifyTypeParent {
     width: 262px;
     height: 25%;
     padding: 0.5%;
@@ -504,7 +517,7 @@ div#navigation li{
 
 /*
  * PaymentManagement
- */
+*/
 
 #paymentsManagement {
     float: left;
@@ -542,7 +555,7 @@ div#navigation li{
 
 /*
  * CanteenManagement
- */
+*/
 
 #canteenManagement {
     float: left;
@@ -644,7 +657,7 @@ Gestione bambini
     height: 105px;
     text-align: center;
     display: inline;
-    
+
 }
 
 /*
@@ -652,13 +665,13 @@ Gestione bambini
 */
 
 #surveyManagement {
-  float: left;
-  padding: 2%;
-  padding-top: 1%;
-  width: 80%;
+    float: left;
+    padding: 2%;
+    padding-top: 1%;
+    width: 80%;
 }
 
- #webapp iframe {
+#webapp iframe {
     height:100%;
     width: 100%;
     margin: 10px 20px;
@@ -667,16 +680,16 @@ Gestione bambini
     outline-width: 2px;
 }
 
- #surveyManagement h1 {
+#surveyManagement h1 {
     font-size: 30px;
     padding-bottom: 20px;
     text-align: center;
- }
+}
 
- #surveyManagement h2 {
+#surveyManagement h2 {
     font-size: 22px;
     text-align: center;
- }
+}
 
 
 /*

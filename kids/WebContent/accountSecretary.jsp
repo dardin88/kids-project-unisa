@@ -32,61 +32,95 @@
         </script>
     </head>
     <%@include file="header.jsp" %>
-<body>
-        
-            <div id="linksManagement">
-                <h1 style="font-size: 35px;text-align: center;"> Account </h1>
-                
-                 Nickname:<input type="text" id="nickname"  name="id"  />
-                Nome:<input type="text" id="name"  name="name"/>
-                Cognome:<input type="text" id="surname" name="surname" />
-                Codice Fiscale:<input type="text" id="taxCode" name="taxCode" />
-                Tipo Account<select id="type" name="type">
-                                <OPTION value="" name="Nothing" > Scegli 
-                                <OPTION value="Genitore" name="Genitore" selected> Genitore 
-                                <OPTION value="Delegato Ufficio" name="DelegatoUfficio"> Segreteria 
-                                <OPTION value="Delegato scienze della formazione" name="ScienzeFormazione"> Delegato Scienze della Formazione 
-                                <OPTION value="Educatore" name="Educatore"> Educatore 
-                                <OPTION value="Coordinatore Psicopedagogico" name="CoordinatorePsicopedagogico"> Coordinatore Psicopedagogico 
-                                <OPTION value="Responsabile Scientifico" name="ResponsabileScientifico"> Responsabile Scentifico 
-                                <OPTION value="Responsabile Asilo" name="ResponsabileAsilo"> Responsabile Asilo
-                            </select>
-                <input type="button" name="ricarica" id="ricarica" value="ricerca" onclick="search()"/>
-                
-                <table id="accountsTable" style="width:95%;">
-                    <thead>
-                        <tr>
-                            <th>NickName</th>
-                            <th>Nome</th>
-                            <th>Cognome</th>
-                            <th>Codice Fiscale</th>
-                            <th>Tipo Account</th>
-                            <th>Operazione </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-                <form name="insertAccount" method="post" action="accountInsert.jsp" >
-                     <input type="submit" id="addLinkButton" value="Inserisci Account" />
-                </form>
-                
-                
-            </div>
-      <div id="removeAccountWindow" title="Rimuovi Account" style="display: inline">
-        <form id="removeAccountForm" class="cmxform" method="post" action="">
-            <fieldset>
-                <p class="formp">
-                    <label class="requirementLabel">Sei sicuro di voler eliminare questo Account?</label>
-                </p>
-                <p class="formp">
-                    <input type="button" class="confirmRemoveButton" id="confirmRemoveLinkButton" value="Si"/>
-                    <input type="button" class="notConfirmRemoveButton" id="notConfirmRemoveLinkButton" value="No"/>
-                </p>
-            </fieldset>
-        </form>
-    </div>
-                
+    <body>
+
+        <div id="linksManagement">
+            <h1 style="font-size: 35px;text-align: center;"> Account </h1>
+            <table>
+                <tr>
+                    <td style="width: 110px">
+                        <label id="adminSearchLabel"> Nickname: </label>
+                    </td>
+                    <td style="width: 190px">
+                        <input type="text" id="nickname"  name="id" class="adminSearchButton"/>
+                    </td>
+                    <td style="width: 110px">
+                        <label id="adminSearchLabel"> Nome: </label>
+                    </td>
+                    <td style="width: 190px">
+                        <input type="text" id="name"  name="name" class="adminSearchButton"/>
+                    </td>
+                    <td style="width: 110px">
+                        <label id="adminSearchLabel"> Cognome: </label>
+                    </td>
+                    <td style="width: 190px"> 
+                        <input type="text" id="surname" name="surname" class="adminSearchButton"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 110px">
+                        <label id="adminSearchLabel"> Codice Fiscale: </label>
+                    </td>
+                    <td style="width: 190px">
+                        <input type="text" id="taxCode" name="taxCode" class="adminSearchButton"/>
+                    </td>
+                    <td style="width: 110px">
+                        <label id="adminSearchLabel"> Tipo Account: </label>
+                    </td>
+                    <td style="width: 190px">
+                        <select id="type" name="type" class="adminSearchButton" style="width: 180px">
+                            <OPTION value="Nothing" name="Nothing" > Scegli 
+                            <OPTION value="Genitore" name="Genitore" selected> Genitore 
+                            <OPTION value="Delegato Ufficio" name="DelegatoUfficio"> Segreteria 
+                            <OPTION value="Delegato scienze della formazione" name="ScienzeFormazione"> Delegato Scienze della Formazione 
+                            <OPTION value="Educatore" name="Educatore"> Educatore 
+                            <OPTION value="Coordinatore Psicopedagogico" name="CoordinatorePsicopedagogico"> Coordinatore Psicopedagogico 
+                            <OPTION value="Responsabile Scientifico" name="ResponsabileScientifico"> Responsabile Scentifico 
+                            <OPTION value="Responsabile Asilo" name="ResponsabileAsilo"> Responsabile Asilo
+                        </select>                    </td>
+                    <td colspan="2">
+                        <input type="button" name="ricarica" id="ricarica" value="Ricerca" onclick="search()"style="width: 100%"/>
+                    </td>
+                </tr>
+
+            </table> <br><br>
+
+            <form name="insertAccount" method="post" action="accountInsert.jsp" >
+                <input type="submit" id="addLinkButton" value="Inserisci Account" />
+            </form>
+            
+            <table id="accountsTable" style="width:100%;">
+                <thead>
+                    <tr>
+                        <th>NickName</th>
+                        <th>Nome</th>
+                        <th>Cognome</th>
+                        <th>Codice Fiscale</th>
+                        <th>Tipo Account</th>
+                        <th>Operazione </th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            
+
+
+        </div>
+        <div id="removeAccountWindow" title="Rimuovi Account" style="display: inline">
+            <form id="removeAccountForm" class="cmxform" method="post" action="">
+                <fieldset>
+                    <p class="formp">
+                        <label class="requirementLabel">Sei sicuro di voler eliminare questo Account?</label>
+                    </p>
+                    <p class="formp">
+                        <input type="button" class="confirmRemoveButton" id="confirmRemoveLinkButton" value="Si"/>
+                        <input type="button" class="notConfirmRemoveButton" id="notConfirmRemoveLinkButton" value="No"/>
+                    </p>
+                </fieldset>
+            </form>
+        </div>
+
         <%@include file="footer.jsp" %>
     </body>
 </html>

@@ -41,6 +41,28 @@ function initializeRegistrationFields(){
     $("#registration1").show();
     $("#registration2").hide();
     $("#registration3").hide(); 
+    
+    $("#notRegistrationButton1").button();
+    $("#notRegistrationButton1").click(function(){
+        if(count!=0) count--;
+        location.href=("http://localhost:8080/kids/accountSecretary.jsp");
+    });
+    
+    $("#notRegistrationButton2").button();
+    $("#notRegistrationButton2").click(function(){
+        $("#registration1").show();
+        $("#registration2").hide();
+        $("#registration3").hide();
+        count--;
+    });
+    
+    $("#notRegistrationButton3").button();
+    $("#notRegistrationButton3").click(function(){
+        $("#registration1").hide();
+        $("#registration2").show();
+        $("#registration3").hide();
+        count--;
+    });
    
     $("#registrationButton1").button();
     $("#registrationButton2").button();
