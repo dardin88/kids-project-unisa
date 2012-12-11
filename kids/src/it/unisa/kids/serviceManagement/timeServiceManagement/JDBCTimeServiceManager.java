@@ -7,6 +7,7 @@ import it.unisa.kids.communicationManagement.newsManagement.News;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -93,17 +94,15 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
             query = "INSERT INTO " + DBNames.TABLE_TIMESERV_REQUEST + " ("
                     + DBNames.ATT_TIMESERVREQ_DAYREQ + ", "
                     + DBNames.ATT_TIMESERVREQ_SERVTYPE + ", "
-                    + DBNames.ATT_TIMESERVREQ_REQTIME + ", "
                     + DBNames.ATT_TIMESERVREQ_PARENTID
-                    + ") VALUES(?, ?, ?, ?)";
+                    + ") VALUES(?, ?, ?)";
 
             pstmt = con.prepareStatement(query);
 
             //setting pstmt's parameters
             pstmt.setString(1, pTimeServReq.getDayRequested());
             pstmt.setString(2, pTimeServReq.getServiceType());
-            pstmt.setTime(3, pTimeServReq.getRequestTime());
-            pstmt.setInt(4, pTimeServReq.getParentId());
+            pstmt.setInt(3, pTimeServReq.getParentId());
 
             pstmt.executeUpdate();
             con.commit();
@@ -126,33 +125,72 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
             con = DBConnectionPool.getConnection();
 
             // constructing query string
-            query = "UPDATE " + DBNames.TABLE_TIMESERV_REQUEST + " SET "
-                    + DBNames.ATT_TIMESERVREQ_DAYREQ + " = ?, "
-                    + DBNames.ATT_TIMESERVREQ_SERVTYPE + " = ?, "
-                    + DBNames.ATT_TIMESERVREQ_REQTIME + " = ?, "
-                    + DBNames.ATT_TIMESERVREQ_PARENTID + " = ? "
-                    + "WHERE " + DBNames.ATT_TIMESERVREQ_ID + " = ?";
+            query = "UPDATE " + DBNames.TABLE_TIMESERV_REQUEST + " SET ";
+                   
+          int i = 0;
+            if (pTimeServReq.getDayRequested() != null) {
 
+                query += DBNames.ATT_TIMESERVREQ_DAYREQ + "=?";
+                i++;
+            }
+            if (pTimeServReq.getServiceType()!= null) {
+                if (i == 0) {
+                    query += DBNames.ATT_TIMESERVREQ_SERVTYPE + "=?";
+                } else {
+                    query += "," + DBNames.ATT_TIMESERVREQ_SERVTYPE + "=?";
+                }
+                i++;
+            }
+            if (pTimeServReq.getParentId() >0) {
+                if (i == 0) {
+                    query += DBNames.ATT_TIMESERVREQ_PARENTID + "=?";
+                } else {
+                    query += "," + DBNames.ATT_TIMESERVREQ_PARENTID + "=?";
+                }
+                i++;
+            }
+            if(i==0){
+                query+=DBNames.ATT_TIMESERVREQ_CONFIRMED+"=?";
+            }
+            else
+                query+=","+DBNames.ATT_TIMESERVREQ_CONFIRMED+"=?";
+            
+            query += " WHERE " + DBNames.ATT_TIMESERVREQ_ID + "=?";
+            System.out.println(query);
+            i = 0;
             pstmt = con.prepareStatement(query);
+            if (pTimeServReq.getDayRequested() != null) {
 
-            // setting pstmt's parameters
-            pstmt.setString(1, pTimeServReq.getDayRequested());
-            pstmt.setString(2, pTimeServReq.getServiceType());
-            pstmt.setTime(3, pTimeServReq.getRequestTime());
-            pstmt.setInt(4, pTimeServReq.getParentId());
-            pstmt.setInt(5, pTimeServReq.getId());
 
+                i++;
+                pstmt.setString(i, pTimeServReq.getDayRequested());
+            }
+            if (pTimeServReq.getServiceType()!= null) {
+
+                i++;
+                pstmt.setString(i, pTimeServReq.getServiceType());
+            }
+            if (pTimeServReq.getParentId() >0) {
+
+                i++;
+                pstmt.setInt(i, pTimeServReq.getParentId());
+            }
+            
+
+            i++;
+            pstmt.setInt(i,pTimeServReq.getConfirmed());
+            i++;
+            pstmt.setInt(i, pTimeServReq.getId());
+
+            
             pstmt.executeUpdate();
             con.commit();
         } finally {
-            if (pstmt != null) {
-                pstmt.close();
-            }
-            if (con != null) {
-                DBConnectionPool.releaseConnection(con);
-            }
+            pstmt.close();
+            DBConnectionPool.releaseConnection(con);
         }
     }
+            
 
     public void delete(TimeServiceRequest pTimeServReq) throws SQLException {
         Connection con = null;
@@ -208,12 +246,11 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
                 query += useAnd(andState) + DBNames.ATT_TIMESERVREQ_SERVTYPE + " = ?";
                 andState = true;
             }
+            
+            
 
 
-
-            if (pTimeServReq.getRequestTime() != null) {
-                query += useAnd(andState) + DBNames.ATT_TIMESERVREQ_REQTIME + " = ?";
-            }
+            
 
             if (pTimeServReq.getParentId() > 0) {		// or >= 0 ???
                 query += useAnd(andState) + DBNames.ATT_TIMESERVREQ_PARENTID + " = ?";
@@ -241,10 +278,7 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
 
 
 
-            if (pTimeServReq.getRequestTime() != null) {
-                pstmt.setTime(i, pTimeServReq.getRequestTime());
-                i++;
-            }
+            
 
             if (pTimeServReq.getParentId() > 0) {
                 pstmt.setInt(i, pTimeServReq.getParentId());
@@ -262,10 +296,9 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
                 ts.setId(rs.getInt(DBNames.ATT_TIMESERVREQ_ID));
                 ts.setDayRequested(rs.getString(DBNames.ATT_TIMESERVREQ_DAYREQ));
                 ts.setServiceType(rs.getString(DBNames.ATT_TIMESERVREQ_SERVTYPE));
-
+                ts.setConfirmed(rs.getInt(DBNames.ATT_TIMESERVREQ_CONFIRMED));
                 //getting Date from ResultSet and converting it to GregorianCalendar
 
-                ts.setRequestTime(rs.getTime(DBNames.ATT_TIMESERVREQ_REQTIME));
                 ts.setParentId(rs.getInt(DBNames.ATT_TIMESERVREQ_PARENTID));
 
                 timeServReqs.add(ts);
@@ -315,7 +348,6 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
 
                 //getting Date from ResultSet and converting it to GregorianCalendar
 
-                ts.setRequestTime(rs.getTime(DBNames.ATT_TIMESERVREQ_REQTIME));
                 ts.setParentId(rs.getInt(DBNames.ATT_TIMESERVREQ_PARENTID));
 
                 timeServReqs.add(ts);

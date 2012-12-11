@@ -107,7 +107,10 @@ private ITimeServiceManager timeServiceManager;
                     String type = timeService.getServiceType();
                     ja.put(type);
                     ja.put(timeService.getDayRequested());
-                    ja.put(timeService.getRequestTime().getHours()+":"+timeService.getRequestTime().getMinutes());
+                    if(timeService.getConfirmed()==0)
+                        ja.put("Non confermato");
+                    else
+                        ja.put("Confermato");
                     String operazioni = "<input class='tableImage' type='image' src='img/trash.png' onclick='removeTimeServiceRequest(\"" + timeService.getId() + "\")'/>";
                     ja.put(operazioni);
                     array.put(ja);

@@ -429,9 +429,9 @@ CREATE TABLE IF NOT EXISTS `registro_scolastico` (
 
 CREATE TABLE IF NOT EXISTS `richiesta_orari_servizio` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Confermato` int(1) NOT NULL DEFAULT '0',
   `TipoServizio` varchar(200) NOT NULL,
   `GiornoModifica` varchar(20) NOT NULL,
-  `Ora` time NOT NULL,
   `AccountGenitore` int(11) NOT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;

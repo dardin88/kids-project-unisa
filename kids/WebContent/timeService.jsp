@@ -86,7 +86,7 @@
                                 <tr>
                                     <th>Servizio</th>
                                     <th>Giorno</th>
-                                    <th>Ora</th>
+                                    <th>Confermato</th>
                                     <th>Operazioni</th>
 
                                 </tr>
@@ -97,10 +97,10 @@
                         <div id="insertRequestTimeDialog">
                             <form id="requestTimeForm" class="cmxform" method="post" action="InsertRequestTime">
                                 <table>
-                                    <tr><td>Seleziona servizio*</td><td> <select name="tipo" id="type">
-                                                <option value="Pre-Accoglienza">Pre-accoglienza</option>
-                                                <option value="Post-Accoglienza">Post-accoglienza</option>
-                                                <option value="Prolungamento Orario di base">Prolungamento Orario di base</option>
+                                    <tr><td>Seleziona servizio*</td><td> <select name="tipo" id="type" >
+                                                <option value="Pre-Accoglienza(7:30-8:00)">Pre-accoglienza(7:30-8:00)</option>
+                                                <option value="Post-Accoglienza(18:00-19:30)">Post-accoglienza(18:00-19:30)</option>
+                                                <option value="Prolungamento Orario di base(8:00-18:00)">Orario prolungato(8:00-18:00)</option>
                                             </select></td></tr>
                                     <tr><td>Giorno*</td><td><select name="giorno" id="day">
                                                 <option value="Lunedi">Luned&igrave</option>
@@ -110,7 +110,7 @@
                                                 <option value="Venerdi">Venerd&igrave</option>
                                             </select>
                                         </td></tr>
-                                    <tr><td>Ora*</td><td><input type="text" name="ora" id="Time"></td></tr>
+
                                 </table>
                                 <h1>* Campi obbligatori</h1>
                                 <input type="submit" name="SendRequest" value="Invia Richiesta" id="SendRequest">
@@ -137,9 +137,9 @@
                                         <table id="notifyTable">
                                             <thead>
                                                 <tr>
+                                                    <th>Genitore</th>
                                                     <th>Servizio</th>
                                                     <th>Giorno</th>
-                                                    <th>Ora</th>
                                                     <th>Operazioni</th>
                                                 </tr>
                                             </thead>

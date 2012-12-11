@@ -162,6 +162,7 @@ public final class DBNames {
     public static final String ATT_TIMESERVREQ_SERVTYPE = "TipoServizio";
     public static final String ATT_TIMESERVREQ_REQTIME = "Ora";
     public static final String ATT_TIMESERVREQ_PARENTID = "AccountGenitore";
+    public static final String ATT_TIMESERVREQ_CONFIRMED="Confermato";
     //DifferentiatedMenuTable's attributes
     public static final String ATT_MENU_ID = "Id";
     public static final String ATT_MENU_TYPE = "Tipo";

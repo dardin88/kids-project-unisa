@@ -98,11 +98,15 @@ private ITimeServiceManager timeServiceManager;
                 }
                 for (TimeServiceRequest timeService : paginateTimeServiceRequestSet) {
                     JSONArray ja = new JSONArray();
+                    ja.put("Genitore");
                     String type = timeService.getServiceType();
                     ja.put(type);
                     ja.put(timeService.getDayRequested());
-                    ja.put(timeService.getRequestTime().getHours()+":"+timeService.getRequestTime().getMinutes());
-                    String operazioni = "<input class='tableImage' type='image' src='img/trash.png' onclick='removeTimeServiceRequest(\"" + timeService.getId() + "\")'/>";
+                    String operazioni = "Conferma?<input type=\"checkbox\" id=\""+timeService.getId()+"\" onclick=\"updateTimeServiceRequest('"+timeService.getId()+"',this)\"";
+                    if(timeService.getConfirmed()==1)
+                        operazioni+="checked>";
+                    else
+                        operazioni+=">";
                     ja.put(operazioni);
                     array.put(ja);
                 }

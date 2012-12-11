@@ -225,5 +225,25 @@ function removeTimeServiceRequest(id) {
     });
     var oTable = $("#requestTimeServiceParentTable").dataTable();
     oTable.fnDraw();
-   //location.reload(true)
+    //location.reload(true)
 }
+
+function updateTimeServiceRequest(id, check) {
+    if (check.checked) {
+        $.post("UpdateTimeServiceRequest", {
+            id: id,
+            checked: "true"
+        }
+        )
+    }
+    else {
+        $.post("UpdateTimeServiceRequest", {
+            id: id,
+            checked: "false"
+        }
+        )
+    }
+
+
+}
+
