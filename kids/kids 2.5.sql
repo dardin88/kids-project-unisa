@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generato il: Dic 10, 2012 alle 15:25
+-- Generato il: Dic 11, 2012 alle 11:26
 -- Versione del server: 5.5.27
 -- Versione PHP: 5.4.7
 
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `account` (
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Nickname` (`Nickname`),
   UNIQUE KEY `Matricola` (`Matricola`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=45 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dump dei dati per la tabella `account`
@@ -175,7 +175,7 @@ CREATE TABLE IF NOT EXISTS `comunicazioni` (
   `Tipo` enum('Salute','Bisogno') DEFAULT 'Salute',
   `Risolto` enum('Si','No') DEFAULT 'No',
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -518,9 +518,9 @@ CREATE TABLE IF NOT EXISTS `rinunce` (
 
 CREATE TABLE IF NOT EXISTS `riunione` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Descrizione` varchar(200) DEFAULT NULL,
+  `Descrizione` varchar(500) DEFAULT NULL,
   `Data` date NOT NULL,
-  `Titolo` varchar(500) DEFAULT NULL,
+  `Titolo` varchar(200) DEFAULT NULL,
   `OraInizio` time DEFAULT NULL,
   `OraFine` time DEFAULT NULL,
   `Tipo` varchar(20) DEFAULT NULL,
