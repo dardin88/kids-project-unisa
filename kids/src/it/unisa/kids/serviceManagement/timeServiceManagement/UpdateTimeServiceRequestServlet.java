@@ -4,18 +4,11 @@
  */
 package it.unisa.kids.serviceManagement.timeServiceManagement;
 
-import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -23,19 +16,20 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author marco
  */
-public class InsertRequestTimeServlet extends HttpServlet {
-private ITimeServiceManager timeServiceManager;
+public class UpdateTimeServiceRequestServlet extends HttpServlet {
+
+    private ITimeServiceManager timeServiceManager;
 
     public void init(ServletConfig config) {
         RefinedAbstractManager refinedAbstractTimeServiceManager = RefinedAbstractManager.getInstance();
         timeServiceManager = (ITimeServiceManager) refinedAbstractTimeServiceManager.getManagerImplementor(DBNames.TABLE_TIMESERVICE);
     }
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -49,36 +43,19 @@ private ITimeServiceManager timeServiceManager;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            String type=request.getParameter("tipo");
-            String day=request.getParameter("giorno");
-            HttpSession session=request.getSession();
-            int parent=((Account)session.getAttribute("user")).getId();
-            TimeServiceRequest timeServiceRequest=new TimeServiceRequest();
-            timeServiceRequest.setDayRequested(day);
-            timeServiceRequest.setParentId(parent);
-            timeServiceRequest.setServiceType(type);
-            timeServiceManager.insert(timeServiceRequest);
-            request.setAttribute("message",
-                    "Richiesta inviata con successo");
-            request.getServletContext().getRequestDispatcher("/newsGenitorePage.jsp").forward(request, response);
-            
+            String checked = request.getParameter("checked");
+            int id = Integer.parseInt(request.getParameter("id"));
+            TimeServiceRequest timeServiceRequest = new TimeServiceRequest();
+            if (checked.equals("true")) {
+                timeServiceRequest.setConfirmed(1);
+            } else {
+                timeServiceRequest.setConfirmed(0);
+            }
+            timeServiceRequest.setId(id);
+            timeServiceManager.update(timeServiceRequest);
         } catch (SQLException ex) {
-            Logger.getLogger(InsertRequestTimeServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        
-    }
-    private GregorianCalendar parseGregorianCalendar(String pDate) throws ParseException {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        Date parsed = df.parse(pDate);
-        GregorianCalendar date = new GregorianCalendar();
-        date.setTime(parsed);
-        return date;
-    }
-    private Time parseTime(String pTime) throws ParseException{
-        DateFormat df = new SimpleDateFormat("hh:mm");
-        Date parsed=df.parse(pTime);
-        Time time=new Time(parsed.getTime());
-        return time;
+            Logger.getLogger(UpdateTimeServiceRequestServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

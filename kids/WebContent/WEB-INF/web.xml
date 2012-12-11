@@ -314,6 +314,14 @@
         <servlet-name>GetTimeServiceRequestSecretaryTableServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.timeServiceManagement.GetTimeServiceRequestSecretaryTableServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ModifyTimeServiceSecretaryServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.timeServiceManagement.ModifyTimeServiceSecretaryServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateTimeServiceRequestServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.timeServiceManagement.UpdateTimeServiceRequestServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
@@ -620,8 +628,16 @@
         <servlet-name>GetTimeServiceRequestSecretaryTableServlet</servlet-name>
         <url-pattern>/GetTimeServiceRequestSecretaryTable</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModifyTimeServiceSecretaryServlet</servlet-name>
+        <url-pattern>/ModifyTimeServiceSecretary</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateTimeServiceRequestServlet</servlet-name>
+        <url-pattern>/UpdateTimeServiceRequest</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
-    
+
     </web-app>
