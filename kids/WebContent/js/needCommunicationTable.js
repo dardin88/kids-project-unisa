@@ -35,10 +35,14 @@ function initializeLinksManager(){
     addCommunication(); 
 }
 
-function showCommunication(id,type,idEducator,idChild,description,date,solved){
+function showCommunication(id,type,idEducator,idChild,name,surname,description,date,solved){
     $("#showCommunicationWindow").dialog("open"); 
+    document.getElementById('labelId').innerHTML = id; 
+    document.getElementById('labelType').innerHTML = type; 
     document.getElementById('labelIdEducator').innerHTML = idEducator; 
-    document.getElementById('labelIdChild').innerHTML = idChild; 
+    document.getElementById('labelIdChild').innerHTML = idChild;
+    document.getElementById('labelName').innerHTML = name; 
+    document.getElementById('labelSurname').innerHTML = surname; 
     document.getElementById('labelDescription').innerHTML = description; 
     document.getElementById('labelDate').innerHTML = date;
     document.getElementById('labelSolved').innerHTML = solved;
@@ -158,25 +162,25 @@ function buildShowTable(){
         },
         "aoColumns": [
         {
-            "sWidth": "15%"
+            "sWidth": "15%","sClass": "center"
         },
         {
-            "sWidth": "8%"
+            "sWidth": "15%","sClass": "center"
         },
         {
-            "sWidth": "8%"
+            "sWidth": "15%","sClass": "center"
         },
         {
-            "sWidth": "15%"
+            "sWidth": "15%","sClass": "center"
         },
         {
-            "sWidth": "15%"  
+            "sWidth": "15%","sClass": "center"
         },
         {
-            "sWidth": "10%"
+            "sWidth": "15%","sClass": "center"
         },
         {
-            "sWidth": "10%"
+            "sWidth": "15%","sClass": "center"
         }
         ],
         "fnServerData": function (sSource, aoData, fnCallback){ 

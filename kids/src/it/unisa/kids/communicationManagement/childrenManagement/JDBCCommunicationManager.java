@@ -217,6 +217,7 @@ public class JDBCCommunicationManager implements ICommunicationManager {
         }
         return id;
     }
+    
     public String getName(int idChild) throws SQLException {
         Connection connection = null;
         Statement stmt = null;
@@ -229,7 +230,7 @@ public class JDBCCommunicationManager implements ICommunicationManager {
         stmt=connection.createStatement();
         rsCommunication = stmt.executeQuery(query);
         while (rsCommunication.next()) {
-            name = rsCommunication.getString(DBNames.ATT_REGISTRATIONCHILD_ID);
+            name = rsCommunication.getString(DBNames.ATT_REGISTRATIONCHILD_NAME);
         }
         return name;
     }
@@ -245,7 +246,7 @@ public class JDBCCommunicationManager implements ICommunicationManager {
         stmt=connection.createStatement();
         rsCommunication = stmt.executeQuery(query);
         while (rsCommunication.next()) {
-            surname = rsCommunication.getString(DBNames.ATT_REGISTRATIONCHILD_ID);
+            surname = rsCommunication.getString(DBNames.ATT_REGISTRATIONCHILD_SURNAME);
         }
         return surname;
     }

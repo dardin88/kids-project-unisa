@@ -8,8 +8,9 @@ import java.util.ArrayList;
 public interface ICommunicationManager extends IManager{
 	abstract void insertCommunication(Communication pCommunication) throws SQLException;
 	abstract ArrayList<Communication> showCommunication()throws SQLException ;
-	//abstract void solvedCommunication(Communication pCommunication)throws SQLException;
-        abstract void solvedCommunication(int id, String solved)throws SQLException;
+	abstract void solvedCommunication(int id, String solved)throws SQLException;
         abstract ArrayList<Communication> searchCommunication(String word)throws SQLException;
         abstract int getIdChild(String name, String surname) throws SQLException;
+        abstract String getName(int id) throws SQLException;
+        abstract String getSurname(int id) throws SQLException;
 }
