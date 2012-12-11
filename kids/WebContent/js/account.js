@@ -5,7 +5,8 @@ function initializeLinksManager2(){
     $("#eliminaButton").button();
     $("#modifyPassword").button();
     $("#addLinkButton").button();
-
+    $("#ricarica").button();
+    
     
     $("#removeAccountWindow").dialog({
         autoOpen: false,
@@ -22,29 +23,29 @@ function initializeLinksManager2(){
     });
 }
 
-    function modifyPassword2(id){
+function modifyPassword2(id){
         
-     $("#modifyPasswordWindow").dialog("open"); 
+    $("#modifyPasswordWindow").dialog("open"); 
     
     $("#confirmModifyButton").button();
     $("#confirmModifyButton").click(function(){
-     var old=document.getElementById("oldPass").value;
-     var newPass=document.getElementById("newPass").value;
-     var newPass2=document.getElementById("confNewPass").value;
+        var old=document.getElementById("oldPass").value;
+        var newPass=document.getElementById("newPass").value;
+        var newPass2=document.getElementById("confNewPass").value;
         $.post("ModifyPassword", {
             id:""+id,
             old:""+old,
             newPass:""+newPass,
             newPass2:""+newPass2
         },
-    function(jsonData, status) {
-                if (jsonData.message == "OK")
-                        alert('La password è stata modificata con successo');
+        function(jsonData, status) {
+            if (jsonData.message == "OK")
+                alert('La password è stata modificata con successo');
                 
-                else{
-                        alert('Errore! Le password non coincidono');   
-                    location.href="./accountInformationParent.jsp?id="+id;
-                }
+            else{
+                alert('Errore! Le password non coincidono');   
+                location.href="./accountInformationParent.jsp?id="+id;
+            }
         });
         
         $("#modifyPasswordWindow").dialog("close"); 
@@ -55,7 +56,7 @@ function initializeLinksManager2(){
         $("#modifyPasswordWindow").dialog("close");
     });
     
-    }
+}
 
 /* 
  * To change this template, choose Tools | Templates
@@ -128,25 +129,32 @@ function buildAccountTable(){
         },
         "aoColumns": [
         {
-            "sWidth": "15%","sClass":"center"
+            "sWidth": "15%",
+            "sClass":"center"
         },
         {
-            "sWidth": "15%","sClass":"center"
+            "sWidth": "15%",
+            "sClass":"center"
         },
         {
-            "sWidth": "15%","sClass":"center"
+            "sWidth": "15%",
+            "sClass":"center"
         },
         {
-            "sWidth": "10%","sClass":"center"
+            "sWidth": "10%",
+            "sClass":"center"
         },
         {
-            "sWidth": "10%","sClass":"center"
+            "sWidth": "10%",
+            "sClass":"center"
         },
         {
-            "sWidth": "10%","sClass":"center"
+            "sWidth": "10%",
+            "sClass":"center"
         }
         ]
-    });var oTable = $("#linkTable").dataTable();
+    });
+    var oTable = $("#linkTable").dataTable();
     if (oTable.length > 0) {
         $("#accoutTable").css("width", "100%");
     }
@@ -192,9 +200,9 @@ function removeAccountParent(id){
    
 
 function search(){
-//    var oTable = $("#accountsTable").dataTable();
-//    oTable.fnDraw();
-        buildAccountTable();
+    //    var oTable = $("#accountsTable").dataTable();
+    //    oTable.fnDraw();
+    buildAccountTable();
 }
 
 function showAccount(id){
@@ -258,7 +266,7 @@ function verificaAccount(){
         document.getElementById('accountLabel5').style.display="none";
         document.getElementById('registrationDate').value=null;
     }
-      if((string=='DelegatoUfficio')||(string=='ScienzeFormazione')||(string=='Educatore')||(string=='CoordinatorePsicopedagogico')||(string=='ResponsabileAsilo')){
+    if((string=='DelegatoUfficio')||(string=='ScienzeFormazione')||(string=='Educatore')||(string=='CoordinatorePsicopedagogico')||(string=='ResponsabileAsilo')){
         
         document.getElementById('choose2').style.display="none";
         document.getElementById('accountLabel2').style.display="none";
@@ -288,7 +296,7 @@ function verificaGenitore(){
         document.getElementById('faculty').val="";
         
     }
-        if(string=='Studente'){
+    if(string=='Studente'){
         document.getElementById('accountLabel3').style.display="none";
         document.getElementById('accountLabel4').style.display="inline";     
         document.getElementById('contractExpirationDate').style.display="none";
@@ -299,7 +307,7 @@ function verificaGenitore(){
         
     }
     
-     if((string=='Docente')||(string=='TecnicoAmministrativo')){
+    if((string=='Docente')||(string=='TecnicoAmministrativo')){
          
         document.getElementById('accountLabel3').style.display="none";
         document.getElementById('accountLabel4').style.display="none";     

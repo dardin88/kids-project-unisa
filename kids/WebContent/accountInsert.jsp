@@ -114,7 +114,8 @@
                             <input  id="viaResidence" class="accountInput" type="text" name="IndirizzoResidenza">
                         </div>
 
-                        <input style="width: 300px; margin-left: 7%" type="submit" name="registrationButton1" id="registrationButton1" value="Avanti"/>
+                        <input style="width: 200px; margin-left: 5%" type="button" name="notRegistrationButton1" id="notRegistrationButton1" value="Indietro"/>
+                        <input style="width: 200px; margin-left: 2%" type="submit" name="registrationButton1" id="registrationButton1" value="Avanti"/>
                     </div>
 
                     <div id="registration2">
@@ -159,7 +160,8 @@
                             <input id="viaDomicile" class="accountInput" type="text" name="ViaDomicilio">
                         </div>
 
-                        <input style="width: 300px; margin-left: 7%" type="submit" name="registrationButton2" id="registrationButton2" value="Avanti"/>
+                        <input style="width: 200px; margin-left: 5%" type="button" name="notRegistrationButton2" id="notRegistrationButton2" value="Indietro"/>
+                        <input style="width: 200px; margin-left: 2%" type="submit" name="registrationButton2" id="registrationButton2" value="Avanti"/>
                     </div>
 
                     <div id="registration3">
@@ -228,7 +230,9 @@
                             <input id="registrationDate" class="accountInput" type="text" name="DataRegistrazione" style="display : none ">
                         </div>
 
-                        <input style="width: 300px; margin-left: 7%" type="submit" name="registrationButton3" id="registrationButton3" value="Completa Registrazione" />
+                        <input style="width: 200px; margin-left: 5%" type="button" name="notRegistrationButton3" id="notRegistrationButton3" value="Indietro"/>
+                        <input style="width: 200px; margin-left: 2%" type="submit" name="registrationButton3" id="registrationButton3" value="Completa Registrazione" />
+
                     </div>
                 </div>
             </fieldset>

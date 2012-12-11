@@ -36,7 +36,7 @@
     </head>
     <%@include file="header.jsp"%>
     <body id="bodyRegistration">
-        
+
 
         <form id="modifyForm" class="cmxform"  action="" method="post">
 
@@ -45,9 +45,9 @@
                     <h1  style="font-weight: bold; font-size: 30pt"id="titleReg" align="center">Modifica Account</h1><br> <br>
 
                     <div id="modifyRegistration1">
-                         <input id="id" class="accountInput" type="hidden" name="id" size="50%" value="${id}" readonly="true">
-                         <input id="typeAccount2" class="accountInput" type="hidden" name="Nome" size="50%" value="${TipoAccount}" >
-                         <input id="typeParent2" class="accountInput" type="hidden" name="Nome" size="50%" value="${TipoGenitore}" >
+                        <input id="id" class="accountInput" type="hidden" name="id" size="50%" value="${id}" readonly="true">
+                        <input id="typeAccount2" class="accountInput" type="hidden" name="Nome" size="50%" value="${TipoAccount}" >
+                        <input id="typeParent2" class="accountInput" type="hidden" name="Nome" size="50%" value="${TipoGenitore}" >
 
                         <div >
                             <label id="accountLabel">  Nome*: </label>
@@ -94,8 +94,8 @@
                             <input  id="modifyViaResidence" class="accountInput" type="text" name="IndirizzoResidenza" value="${ViaResidenza}" >
                         </div>
 
-                        <input style="width: 200px; margin-left: 5%" type="submit" name="registrationButton1" id="modifyButton1" value="Avanti"/>
-                        <input style="width: 200px; margin-left: 2%" type="button" name="notRegistrationButton1" id="notModifyButton1" value="Indietro"/>
+                        <input style="width: 200px; margin-left: 5%" type="button" name="notRegistrationButton1" id="notModifyButton1" value="Indietro"/>
+                        <input style="width: 200px; margin-left: 2%" type="submit" name="registrationButton1" id="modifyButton1" value="Avanti"/>
                     </div>
 
                     <div id="modifyRegistration2">
@@ -140,8 +140,8 @@
                             <input id="modifyViaDomicile" class="accountInput" type="text" name="ViaDomicilio" value="${ViaDomicilio}" >
                         </div>
 
-                        <input style="width: 200px; margin-left: 5%" type="submit" name="modifyButton2" id="modifyButton2" value="Avanti"/>
-                        <input style="width: 200px; margin-left: 2%" type="button" name="notModifyButton2" id="notModifyButton2" value="Indietro"/>
+                        <input style="width: 200px; margin-left: 5%" type="button" name="notModifyButton2" id="notModifyButton2" value="Indietro"/>
+                        <input style="width: 200px; margin-left: 2%" type="submit" name="modifyButton2" id="modifyButton2" value="Avanti"/>
                     </div>
 
                     <div id="modifyRegistration3">
@@ -182,10 +182,10 @@
                         </div>
 
                         <div>
-                             
+
                             <label id="accountLabel2"> Tipologia Genitore*: </label> 
-                         
-                            
+
+
                             <select id="modifyTypeParent" name="tipo" onchange="verificaGenitore()">
                                 <OPTION value="Nothing" name="Scelta" selected> Scegli 
                                 <OPTION value="Studente" name="Studente"> Studente 
@@ -212,8 +212,8 @@
                             <input id="modifyRegistrationDate" class="accountInput" type="text" name="DataRegistrazione" value="${DataIscrizione}" style="display: none" >
                         </div>
 
-                        <input style="width: 200px; margin-left: 5%" type="submit" name="modifyButton3" id="modifyButton3" value="Conferma Modifiche" />
-                        <input style="width: 200px; margin-left: 2%" type="button" name="notModifyButton3" id="notModifyButton3" value="Indietro"/>
+                        <input style="width: 200px; margin-left: 5%" type="button" name="notModifyButton3" id="notModifyButton3" value="Indietro"/>
+                        <input style="width: 200px; margin-left: 2%" type="submit" name="modifyButton3" id="modifyButton3" value="Conferma Modifiche" />
                     </div>
                 </div>
             </fieldset>
