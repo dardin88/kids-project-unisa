@@ -89,7 +89,7 @@ public class GetHealthCommunicationServlet extends HttpServlet {
                     ja.put(am.getSurname(a.getIdChild()));
                     ja.put(a.getDescription());
                     ja.put(a.getDate());
-                    String operazioni="<div style=\"text-align:center;\" ><input id=\"idShowCommunication\" class='tableImage' height='20px' type='image' src='img/lente.gif' onclick=\"showCommunication("+a.getId()+",'"+a.getType()+"','"+a.getIdEducator()+"','"+a.getIdChild()+"','"+a.getDescription()+"','"+a.getDate()+"')\" /></div>";
+                    String operazioni="<div style=\"text-align:center;\" ><input id=\"idShowCommunication\" class='tableImage' height='20px' type='image' src='img/lente.gif' onclick=\"showCommunication("+a.getId()+",'"+a.getType()+"','"+a.getIdEducator()+"','"+a.getIdChild()+"','"+am.getName(a.getIdChild())+"','"+am.getSurname(a.getIdChild())+"','"+a.getDescription()+"','"+a.getDate()+"')\" /></div>";
                     ja.put(operazioni);
                     array.put(ja);
                     }

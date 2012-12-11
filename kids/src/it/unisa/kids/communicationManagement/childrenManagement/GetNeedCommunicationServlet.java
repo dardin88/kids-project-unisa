@@ -91,7 +91,7 @@ public class GetNeedCommunicationServlet extends HttpServlet {
                     ja.put(a.getDescription());
                     ja.put(a.getDate());
                     ja.put(a.getSolved());
-                    String operazioni="<div style=\"text-align:center;\" ><input id=\"idShowCommunication\" class='tableImage' height='20px' type='image' src='img/lente.gif' onclick=\"showCommunication("+a.getId()+",'"+a.getType()+"','"+a.getIdEducator()+"','"+a.getIdChild()+"','"+a.getDescription()+"','"+a.getDate()+"','"+a.getSolved()+"')\" />";
+                    String operazioni="<div style=\"text-align:center;\" ><input id=\"idShowCommunication\" class='tableImage' height='20px' type='image' src='img/lente.gif' onclick=\"showCommunication("+a.getId()+",'"+a.getType()+"','"+a.getIdEducator()+"','"+a.getIdChild()+"','"+am.getName(a.getIdChild())+"','"+am.getSurname(a.getIdChild())+"','"+a.getDescription()+"','"+a.getDate()+"','"+a.getSolved()+"')\" />";
                     if(nomeUtente.equals("Educatore")){
                         operazioni+="<input id=\"idSolvedCommunication\" class='tableImage' height='20px' type='image' src='img/change.png' onclick=\"solvedCommunication("+a.getId()+",'"+a.getType()+"','"+a.getIdEducator()+"','"+a.getIdChild()+"','"+a.getDescription()+"','"+a.getDate()+"','"+a.getSolved()+"')\" /></div>";
                         ja.put(operazioni);

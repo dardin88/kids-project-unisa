@@ -107,8 +107,8 @@
                 <td>
                     <select id="artefactSolved" name="Risolvi comunicazione" class="artefactSelect">
                         <option value="0">Seleziona...</option>
-                        <option value="1">No</option>
-                        <option value="2">Si</option>
+                        <option value="1">Si</option>
+                        <option value="2">No</option>
                     </select>
                 </td>
                 </p>
@@ -123,76 +123,76 @@
 </div>
                     <div id="showCommunicationWindow" title="Visualizza Comunicazione" style="display: inline">  
     <fieldset>
-        <table>
+        <table style="width:100%;">
             <tr>
-                <td colspan="2">       
+                <td colspan="4">       
                     <label class="artefactLabel2">Id Comunicazione:</label>
                 </td>
-                <td colspan="2">                    
+                <td colspan="4">                    
                     <label class="artefactLabel" id="labelId"></label>
                 </td>
             </tr>
             <tr>
-                <td colspan="2">       
+                <td colspan="4">       
                     <label class="artefactLabel2">Tipo Comunicazione:</label>
                 </td>
-                <td colspan="2">                    
+                <td colspan="4">                    
                     <label class="artefactLabel" id="labelType"></label>
                 </td>
             </tr>
             <tr>
-                <td colspan="2">       
+                <td colspan="4">       
                     <label class="artefactLabel2">Id Educatore:</label>
                 </td>
-                <td colspan="2">                    
+                <td colspan="4">                    
                     <label class="artefactLabel" id="labelIdEducator"></label>
                 </td>
             </tr>
             <tr>
-                <td colspan="2">                    
+                <td colspan="4">                    
                     <label class="artefactLabel2">Id Bambino:</label>
                 </td>
-                <td colspan="2">                    
+                <td colspan="4">                    
                     <label class="artefactLabel" id="labelIdChild"></label>
                 </td>
             </tr>
             <tr>
-                <td colspan="2">       
+                <td colspan="4">       
                     <label class="artefactLabel2">Nome Bambino:</label>
                 </td>
-                <td colspan="2">                    
+                <td colspan="4">                    
                     <label class="artefactLabel" id="labelName"></label>
                 </td>
             </tr>
             <tr>
-                <td colspan="2">       
+                <td colspan="4">       
                     <label class="artefactLabel2">Cognome Bambino:</label>
                 </td>
-                <td colspan="2">                    
+                <td colspan="4">                    
                     <label class="artefactLabel" id="labelSurname"></label>
                 </td>
             </tr>
             <tr>
-                <td colspan="2">                    
+                <td colspan="4">                    
                     <label class="artefactLabel2">Descrizione:</label>
                 </td>
-                <td colspan="2">
+                <td colspan="4">
                     <label class="artefactLabel" id="labelDescription"></label>
                 </td>
             </tr>
             <tr>
-                <td colspan="2">                    
+                <td colspan="4">                    
                     <label class="artefactLabel2">Data:</label>
                 </td>
-                <td colspan="2">                    
+                <td colspan="4">                    
                     <label class="artefactLabel" id="labelDate"></label> 
                 </td>
             </tr>
             <tr>
-                <td colspan="2">                
+                <td colspan="4">                
                     <label class="artefactLabel2">Risolto:</label>
                 </td>
-                <td>                
+                <td colspan="4">                
                     <label class="artefactLabel" id="labelSolved"></label>
                 </td>
 
