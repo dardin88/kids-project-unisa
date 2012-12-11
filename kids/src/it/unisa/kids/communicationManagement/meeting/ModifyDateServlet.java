@@ -36,9 +36,9 @@ public class ModifyDateServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             response.setContentType("text/html;charset=UTF-8");
-            JDBCReunionManager am = JDBCReunionManager.getInstance();
-            ArrayList<Reunion> list = am.getMeetingList();
-            Reunion meeting = new Reunion();
+            JDBCMeetingManager am = JDBCMeetingManager.getInstance();
+            ArrayList<Meeting> list = am.getMeetingList();
+            Meeting meeting = new Meeting();
 
             int id = Integer.parseInt(request.getParameter("modifyDateId"));
             int giorni = Integer.parseInt(request.getParameter("modifyDateDay"));
@@ -50,7 +50,7 @@ public class ModifyDateServlet extends HttpServlet {
             int Ora = 0;
             int Min = 0;
 
-            for (Reunion r : list) {
+            for (Meeting r : list) {
                 if (r.getId() == id) {
                     if (giorni != 0) {
                         String day = r.getDate();

@@ -36,12 +36,12 @@ public class DeleteMeetingServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         try {
-            JDBCReunionManager am = JDBCReunionManager.getInstance();
-            ArrayList<Reunion> list = am.getMeetingList();
+            JDBCMeetingManager am = JDBCMeetingManager.getInstance();
+            ArrayList<Meeting> list = am.getMeetingList();
             
             int id = Integer.parseInt(request.getParameter("deleteId"));
             
-            for (Reunion r : list) {
+            for (Meeting r : list) {
                  System.out.println("ID="+r.getId()+"ddd "+id);
                 if (r.getId() == id) {
                                         System.out.println("entrato delete");

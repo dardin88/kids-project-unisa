@@ -37,15 +37,15 @@ public class GetMeetingServlet extends HttpServlet {
         PrintWriter out = null;
         try {
             out = response.getWriter();
-            JDBCReunionManager am = JDBCReunionManager.getInstance();
-            ArrayList<Reunion> list = am.getMeetingList();
+            JDBCMeetingManager am = JDBCMeetingManager.getInstance();
+            ArrayList<Meeting> list = am.getMeetingList();
             
             String var = request.getParameter("Id");
             
             
             int k = Integer.parseInt(var);
             
-            for(Reunion r: list){
+            for(Meeting r: list){
                 if(r.getId()==k){
                     out.println(r.getId()+","+r.getTitle()+","+r.getDescription()+","+r.getDate()+","+r.getFirstTime()+","+r.getSecondTime()+","+r.getType());
                 }

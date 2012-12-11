@@ -30,8 +30,8 @@ public class AddMeetingServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            JDBCReunionManager am = JDBCReunionManager.getInstance();
-            Reunion meeting = new Reunion();
+            JDBCMeetingManager am = JDBCMeetingManager.getInstance();
+            Meeting meeting = new Meeting();
 
             meeting.setTitle(request.getParameter("meetingTitolo"));
             meeting.setDescription(request.getParameter("meetingDescrizione"));
