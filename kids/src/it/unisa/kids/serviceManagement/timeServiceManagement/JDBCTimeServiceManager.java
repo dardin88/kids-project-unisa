@@ -166,7 +166,8 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
 
             // constructing query string
             query = "DELETE FROM " + DBNames.TABLE_TIMESERV_REQUEST
-                    + "WHERE " + DBNames.ATT_TIMESERVREQ_ID + " = " + pTimeServReq.getId();
+                    + " WHERE " + DBNames.ATT_TIMESERVREQ_ID + " = " + pTimeServReq.getId();
+            System.out.println(query);
 
             stmt = con.createStatement();
             stmt.executeUpdate(query);
