@@ -41,7 +41,7 @@ function initializeLinksManager(){
     addNews(); 
 }
 
-function removeNews(id,attached){
+function removeNews(id,attached,titolo){
     $("#removeNewsWindow").dialog("open");
     $("#notRemoveNewsButton").button();
     $("#notRemoveNewsButton").click(function(){
@@ -51,7 +51,8 @@ function removeNews(id,attached){
     $("#removeNewsButton").click(function(){
         $.post("RemoveNews",{
             idNews:""+id,
-            allegatoName:attached
+            allegatoName:attached,
+            titoloFile:titolo
         });
         $("#removeNewsWindow").dialog("close");
         document.location.reload(true);
@@ -128,11 +129,6 @@ function updateNews(id,title,description,type,data,time,allegato){
             var attached=$("#selectFile").val();
             var str=attached.split("\\");
             var s=str[str.length-1];
-//            if(attached!="")
-//                document.getElementById("updateNewsForm").action="UploadFile";
-//            else
-//                document.getElementById("updateNewsForm").action="";
-            //  $("#updateNewsForm").submit();
             $.post("UpdateNews", {
                 artefactTitolo: $("#artefactTitolo2").val(),
                 artefactDescrizione: $("#artefactDescrizione2").val(),
@@ -141,8 +137,17 @@ function updateNews(id,title,description,type,data,time,allegato){
                 artefactOra: $("#artefactOra2").val(),
                 artefactAllegato:s,
                 oldAllegato:allegato,
+                oldTitolo:title,
                 idNews:""+id               
             });
+        
+            if(attached!="")
+            {
+                document.getElementById("updateNewsForm").action="UploadFile";
+                $("#updateNewsForm").submit();
+            }    
+            else
+                document.getElementById("updateNewsForm").action="";
             
             $("#updateNewsWindow").dialog("close"); 
             //   var oTable = $("#linksTable").dataTable();
@@ -234,10 +239,7 @@ function addNews(){
                 var attached=$("#addLinkButton2").val();
                 var str=attached.split("\\");
                 var s=str[str.length-1];  
-                if(attached!="")
-                    document.getElementById("addLinkForm").action="UploadFile";
-                else
-                    document.getElementById("addLinkForm").action="";
+               
                 $.post("InsertNews", {
                     artefactTitolo: $("#artefactTitolo").val(),
                     artefactDescrizione: $("#artefactDescrizione").val(),
@@ -246,6 +248,11 @@ function addNews(){
                     artefactOra: $("#artefactOra").val(),
                     attachedName:s
                 });
+                
+                 if(attached!="")
+                    document.getElementById("addLinkForm").action="UploadFile";
+                else
+                    document.getElementById("addLinkForm").action="";
                 
                 $("#addLinkWindow").dialog("close"); 
                 var oTable = $("#linksTable").dataTable();
@@ -297,22 +304,28 @@ function buildShowTable(){
         },
         "aoColumns": [
         {
-            "sWidth": "15%","sClass": "center"
+            "sWidth": "15%",
+            "sClass": "center"
         },
         {
-            "sWidth": "8%","sClass": "center"
+            "sWidth": "8%",
+            "sClass": "center"
         },
         {
-            "sWidth": "8%","sClass": "center"
+            "sWidth": "8%",
+            "sClass": "center"
         },
         {
-            "sWidth": "15%","sClass": "center"
+            "sWidth": "15%",
+            "sClass": "center"
         },
         {
-            "sWidth": "15%"  ,"sClass": "center"
+            "sWidth": "15%"  ,
+            "sClass": "center"
         },
         {
-            "sWidth": "10%","sClass": "center"
+            "sWidth": "10%",
+            "sClass": "center"
         }
         ],
        
