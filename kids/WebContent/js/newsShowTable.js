@@ -171,7 +171,7 @@ function showNews(title,description,type,data,time,allegato){
     document.getElementById('labelData').innerHTML = data; 
     document.getElementById('labelOra').innerHTML = time; 
     document.getElementById('labelAllegato').innerHTML = allegato; 
-    document.getElementById('labelAllegato').href="DownloadFile?nameFile="+allegato;
+    document.getElementById('labelAllegato').href="DownloadFile?nameFile="+allegato+"&titoloNews="+title;
     
 }
 
