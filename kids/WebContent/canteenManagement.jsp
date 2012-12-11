@@ -105,7 +105,7 @@
                             </table>
                         </div>
                         <div id="insertDiffMenuDialog">
-                            <form id="insertDiffMenuForm" class="cmxform" method="post" action="InsertMenu">
+                            <form id="insertDiffMenuForm" class="cmxform" method="post" action="InsertCanteenMenu">
                                 <table>
                                     <tr>
                                         <td><label for="firstDiff">Primo:&nbsp;</label></td>

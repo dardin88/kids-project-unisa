@@ -397,6 +397,14 @@
         <servlet-name>InsertRequestTimeServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.timeServiceManagement.InsertRequestTimeServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>InsertCanteenMenuServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.canteenManagement.servlet.InsertCanteenMenuServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetAssociatedMenuTableServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.canteenManagement.servlet.GetAssociatedMenuTableServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
@@ -780,6 +788,14 @@
     <servlet-mapping>
         <servlet-name>InsertCompiledSurveyServlet</servlet-name>
         <url-pattern>/InsertCompiledSurvey</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertCanteenMenuServlet</servlet-name>
+        <url-pattern>/InsertCanteenMenu</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetAssociatedMenuTableServlet</servlet-name>
+        <url-pattern>/GetAssociatedMenuTableServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
