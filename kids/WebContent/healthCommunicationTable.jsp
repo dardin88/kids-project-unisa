@@ -96,68 +96,68 @@
     </div> 
 <div id="showCommunicationWindow" title="Visualizza Comunicazione" style="display: inline">  
     <fieldset>
-        <table>
+        <table style="width:100%;">
             <tr>
-                <td colspan="2">       
+                <td colspan="4">       
                     <label class="artefactLabel2">Id Comunicazione:</label>
                 </td>
-                <td colspan="2">                    
+                <td colspan="4">                    
                     <label class="artefactLabel" id="labelId"></label>
                 </td>
             </tr>
             <tr>
-                <td colspan="2">       
+                <td colspan="4">       
                     <label class="artefactLabel2">Tipo Comunicazione:</label>
                 </td>
-                <td colspan="2">                    
+                <td colspan="4">                    
                     <label class="artefactLabel" id="labelType"></label>
                 </td>
             </tr>
             <tr>
-                <td colspan="2">       
+                <td colspan="4">       
                     <label class="artefactLabel2">Id Educatore:</label>
                 </td>
-                <td colspan="2">                    
+                <td colspan="4">                    
                     <label class="artefactLabel" id="labelIdEducator"></label>
                 </td>
             </tr>
             <tr>
-                <td colspan="2">                    
+                <td colspan="4">                    
                     <label class="artefactLabel2">Id Bambino:</label>
                 </td>
-                <td colspan="2">                    
+                <td colspan="4">                    
                     <label class="artefactLabel" id="labelIdChild"></label>
                 </td>
             </tr>
             <tr>
-                <td colspan="2">       
+                <td colspan="4">       
                     <label class="artefactLabel2">Nome Bambino:</label>
                 </td>
-                <td colspan="2">                    
+                <td colspan="4">                    
                     <label class="artefactLabel" id="labelName"></label>
                 </td>
             </tr>
             <tr>
-                <td colspan="2">       
+                <td colspan="4">       
                     <label class="artefactLabel2">Cognome Bambino:</label>
                 </td>
-                <td colspan="2">                    
+                <td colspan="4">                    
                     <label class="artefactLabel" id="labelSurname"></label>
                 </td>
             </tr>
             <tr>
-                <td colspan="2">                    
+                <td colspan="4">                    
                     <label class="artefactLabel2">Descrizione:</label>
                 </td>
-                <td colspan="2">
+                <td colspan="4">
                     <label class="artefactLabel" id="labelDescription"></label>
                 </td>
             </tr>
             <tr>
-                <td colspan="2">                    
+                <td colspan="4">                    
                     <label class="artefactLabel2">Data:</label>
                 </td>
-                <td colspan="2">                    
+                <td colspan="4">                    
                     <label class="artefactLabel" id="labelDate"></label> 
                 </td>
             </tr>
