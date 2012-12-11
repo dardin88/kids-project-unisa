@@ -92,7 +92,9 @@ public class GetTableChildServlet extends HttpServlet {
 
                     ja.put(childreg.getName());
                     ja.put(childreg.getSurname());
-                    String operazioni = "<input type='checkbox' class='childrenSelected' name='childRow' value='" + childreg.getId() + "' >";
+                    String operazioni = "<input type='checkbox' name='childRow' value='" + childreg.getId() + "' >";
+                    
+                    Logger.getLogger(GetTableChildServlet.class.getName()).log(Level.SEVERE, "operazioni = " + operazioni);
 
                     ja.put(operazioni);
                     array.put(ja);

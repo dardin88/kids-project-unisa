@@ -47,9 +47,10 @@
 
         <h1  id="titleReg" align="center">Modifica Classe</h1>
 
-        <form id="registrationForm2" class="cmxform"  action="" method="post">
+        <form id="registrationForm2" class="cmxform"  action="UpdateClassBean" method="post">
             <fieldset id="registrationFieldSet">
                 <div id="artefactsManagement">
+                    <%--l'id è nascosto perchè non può essere modificato manualmente--%>
                     <input type="hidden" id="id" name="id" class="registrationField"  value="${id}">
                     <p class="formp">
                         <label> <h3>Nome: </h3> </label>

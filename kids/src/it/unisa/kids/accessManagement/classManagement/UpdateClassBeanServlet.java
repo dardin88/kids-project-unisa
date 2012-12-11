@@ -11,6 +11,7 @@ import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -24,10 +25,10 @@ import javax.servlet.http.HttpServletResponse;
  * @author tonino
  */
 public class UpdateClassBeanServlet extends HttpServlet {
-
+    
     private IClassManager clasMan;
     private IRegistrationChildManager regMan;
-
+    
     public void init(ServletConfig config) {
         clasMan = (IClassManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_CLASS);
         regMan = (IRegistrationChildManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
@@ -46,23 +47,35 @@ public class UpdateClassBeanServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-
+        
         try {
             ClassBean clas = new ClassBean();
             clas.setIdClasse(Integer.parseInt(request.getParameter("id")));
             clas.setClassName(request.getParameter(DBNames.ATT_CLASS_NAME));
             clas.setState("sottomessa");
             clasMan.update(clas);
-
-            String[] childChecked = request.getParameterValues("checkedChildren");
-
+            
+            String[] childChecked = request.getParameterValues("childRow");
+            
             for (int i = 0; i < childChecked.length; i++) {
+                Logger.getLogger(UpdateClassBeanServlet.class.getName()).log(Level.SEVERE, "childChecked[" + i + "] = " + childChecked[i]);
                 RegistrationChild tmpRegChild = new RegistrationChild();
                 tmpRegChild.setId(Integer.parseInt(childChecked[i]));
                 tmpRegChild.setSectionId(Integer.parseInt(request.getParameter("id")));
+                tmpRegChild.setBirthDate(new GregorianCalendar());
+                tmpRegChild.setRegistrationDate(new GregorianCalendar());
+                tmpRegChild.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED);
+                tmpRegChild.setIsSicknessSet("1");
+                tmpRegChild.setIsPrivacyStatementSet("1");
+                tmpRegChild.setIsVaccinationsSet("1");   
+                
+                
+                
                 regMan.update(tmpRegChild);
             }
-
+            
+            response.sendRedirect("classe.jsp");
+            
         } catch (SQLException ex) {
             Logger.getLogger(UpdateClassBeanServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
