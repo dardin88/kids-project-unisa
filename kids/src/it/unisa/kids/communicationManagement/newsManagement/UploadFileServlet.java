@@ -48,12 +48,13 @@ public class UploadFileServlet extends HttpServlet {
         final String path = getServletContext().getInitParameter("attachedFileFolder");
         final Part filePart = request.getPart("scegliFile");
         final String fileName = getFileName(filePart);
+        String titoloNews=request.getParameter("nomeNews");
         OutputStream out = null;
         InputStream filecontent = null;
         final PrintWriter writer = response.getWriter();
 
         try {
-            out = new FileOutputStream(new File(path + File.separator + fileName));
+            out = new FileOutputStream(new File(path + File.separator + titoloNews+fileName));
             filecontent = filePart.getInputStream();
 
             int read = 0;
@@ -66,7 +67,7 @@ public class UploadFileServlet extends HttpServlet {
            
          //   request.getServletContext().getRequestDispatcher("/newsShowTable.jsp").forward(request, response);
 
-            response.sendRedirect("/kids/newsShowTable.jsp");
+          //  response.sendRedirect("/kids/newsShowTable.jsp");
 
         } catch (FileNotFoundException fne) {
             writer.println("You either did not specify a file to upload or are "

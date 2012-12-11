@@ -39,9 +39,11 @@ public class RemoveNewsServlet extends HttpServlet {
             INewsManager am = JDBCNewsManager.getInstance();
             String temp = request.getParameter("idNews");
             String allegato = request.getParameter("allegatoName");
+            String titolo=request.getParameter("titoloFile");
             if (!allegato.equals("")) {
                 String path = (String) getServletContext().getInitParameter("attachedFileFolder");
-                File f = new File(path + "/" + allegato);
+                File f = new File(path + "/" + titolo+allegato);
+                System.out.print(path + "/" + titolo+allegato);
                 f.delete();
             }
             int id = Integer.parseInt(temp);

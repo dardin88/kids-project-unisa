@@ -43,6 +43,7 @@ public class UpdateNewsServlet extends HttpServlet {
             boolean flag = false;
             PrintWriter out = response.getWriter();
             String vecchioAllegato = request.getParameter("oldAllegato");
+            String vecchioTitolo=request.getParameter("oldTitolo");
             INewsManager mn = JDBCNewsManager.getInstance();
             News n = new News();
             n.setTitle(request.getParameter("artefactTitolo"));
@@ -50,7 +51,7 @@ public class UpdateNewsServlet extends HttpServlet {
             String allegato = request.getParameter("artefactAllegato");
             if (!allegato.equals("")) {
                 String path = (String) getServletContext().getInitParameter("attachedFileFolder");
-                File f = new File(path + "/" + vecchioAllegato);
+                File f = new File(path + "/" + vecchioTitolo+vecchioAllegato);
                 f.delete();
                 n.setAttached(allegato);
                 flag=true;
