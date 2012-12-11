@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generato il: Dic 11, 2012 alle 17:53
+-- Generato il: Dic 11, 2012 alle 18:04
 -- Versione del server: 5.5.27
 -- Versione PHP: 5.4.7
 
@@ -438,6 +438,8 @@ CREATE TABLE IF NOT EXISTS `richiesta_modifica_orari_servizio` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Motivazione` varchar(2000) DEFAULT NULL,
   `FasciaUtenza` enum('full time','part time pomeridiana','part time mattutina') NOT NULL,
+  `idBambino` int(11) NOT NULL,
+  `AccountGenitore` int(11) NOT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
