@@ -29,6 +29,10 @@ function initializetimeServicePage() {
 
     });
     $("#SendRequest").button();
+    $("#insertRequestModifyTimeService").button();
+    $("#insertRequestModifyTimeServiceDialog").dialog({
+        autoOpen: false
+    });
 }
 
 function buildnotifyTable() {
@@ -246,4 +250,6 @@ function updateTimeServiceRequest(id, check) {
 
 
 }
-
+function openInsertModifyTimeServiceRequestDialog(){
+    $("#insertRequestModifyTimeServiceDialog").dialog("open");
+}

@@ -71,7 +71,7 @@
                     <ul>
                         <li><a href="#visualTime"><span class="TimeTab">Visualizza Orari di servizio</span></a></li>
                         <li><a href="#RequestTime"><span class="TimeTab">Richiesta Orari di servizio</span></a></li>
-
+                        <li><a href="#RequestModifyTimeService"><span class="TimeTab">Richiesta Modifica Orari di servizio</span></a></li>
                     </ul>
                     <div id="visualTime">
                         <div id="notifyTimeService">
@@ -116,6 +116,21 @@
                                 <input type="submit" name="SendRequest" value="Invia Richiesta" id="SendRequest">
                                 </div>
                                 </div>
+                    <div id="RequestModifyTimeService">
+                        <div id="requestModifyTimeService">
+                            <input type="button" id="insertRequestModifyTimeService" value="Inserisci richiesta di modifica orario di servizio" onclick="openInsertModifyTimeServiceRequestDialog()">
+                            <div id="insertRequestModifyTimeServiceDialog">
+                            <form id="requestTimeForm" class="cmxform" method="post" action="InsertRequestTime">
+                                <table>
+                                    
+
+                                </table>
+                                <h1>* Campi obbligatori</h1>
+                                <input type="submit" name="SendRequest" value="Invia Richiesta" id="SendRequest">
+                                </div>
+                                </div>
+                        </div>
+                    </div>
                                 </div> <%--chiusura div per jquery Genitore --%>   
                             </c:if>   
                             <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}"> 
