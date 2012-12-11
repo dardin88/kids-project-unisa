@@ -36,7 +36,7 @@ function buildnotifyTable() {
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": "GetRefundsTable",
+        "sAjaxSource": "GetTimeServiceRequest",
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
