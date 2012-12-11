@@ -67,7 +67,7 @@ public class UploadFileServlet extends HttpServlet {
            
          //   request.getServletContext().getRequestDispatcher("/newsShowTable.jsp").forward(request, response);
 
-          //  response.sendRedirect("/kids/newsShowTable.jsp");
+            response.sendRedirect("/kids/newsShowTable.jsp");
 
         } catch (FileNotFoundException fne) {
             writer.println("You either did not specify a file to upload or are "
