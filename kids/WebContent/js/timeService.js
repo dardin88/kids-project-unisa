@@ -138,7 +138,7 @@ $(document).ready(function() {
     });
 });
 
-function openInsertRequestTimeDialog(){
+function openInsertRequestTimeDialog() {
     $("#insertRequestTimeDialog").dialog("open");
 }
 function buildRequestTimeServiceParentTable() {
@@ -146,7 +146,7 @@ function buildRequestTimeServiceParentTable() {
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": "",
+        "sAjaxSource": "GetTimeServiceRequestsTableParent",
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
@@ -183,7 +183,6 @@ function buildRequestTimeServiceParentTable() {
                 "sLast": ">>"
             }
         },
-        
         "aoColumns": [
             {
                 "sWidth": "25%"
@@ -199,4 +198,14 @@ function buildRequestTimeServiceParentTable() {
             }
         ]
     });
+}
+
+function removeTimeServiceRequest(id) {
+
+    $.post("RemoveTimeServiceRequest", {
+        id: id
+    });
+    var oTable = $("#requestTimeServiceParentTable").dataTable();
+    oTable.fnDraw();
+   //location.reload(true)
 }
