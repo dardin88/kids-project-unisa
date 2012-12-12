@@ -452,7 +452,7 @@ CREATE TABLE IF NOT EXISTS `richiesta_modifica_orari_servizio` (
 CREATE TABLE IF NOT EXISTS `richiesta_orari_servizio` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `TipoServizio` varchar(200) NOT NULL,
-  `Confermato` int(1) DEFAULT '0'
+  `Confermato` int(1) DEFAULT '0',
   `GiornoModifica` varchar(20) NOT NULL,
   `AccountGenitore` int(11) NOT NULL,
   PRIMARY KEY (`Id`)
