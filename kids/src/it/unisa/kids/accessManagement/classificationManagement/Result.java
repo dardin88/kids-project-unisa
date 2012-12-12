@@ -27,15 +27,15 @@ public class Result {
         this.registrationChildId = registrationChildId;
     }
 
-    public void setRegistrationChildFiscalCode(String registrationChildFiscalCode) {
+    protected void setRegistrationChildFiscalCode(String registrationChildFiscalCode) {
         this.registrationChildFiscalCode = registrationChildFiscalCode;
     }
 
-    public void setRegistrationChildSurname(String registrationChildSurname) {
+    protected void setRegistrationChildSurname(String registrationChildSurname) {
         this.registrationChildSurname = registrationChildSurname;
     }
 
-    public void setRegistrationChildName(String registrationChildName) {
+    protected void setRegistrationChildName(String registrationChildName) {
         this.registrationChildName = registrationChildName;
     }
 

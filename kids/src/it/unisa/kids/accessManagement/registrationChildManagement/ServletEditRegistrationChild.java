@@ -84,7 +84,7 @@ public class ServletEditRegistrationChild extends HttpServlet {
             RegistrationChild registrationChild = new RegistrationChild();
             registrationChild.setId(Integer.parseInt(id));
             registrationChild.setRegistrationDate(registrationDate);
-            registrationChild.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DRAFT);
+            registrationChild.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_DRAFT);
             
             HttpSession session = request.getSession();
             Account parentAccount = (Account) session.getAttribute("user");

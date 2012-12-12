@@ -36,7 +36,7 @@
             activePage();
             initRenunciationPage();
             
-            createTableClassification();
+            createTableRenunciation();
         });
         
     </script>

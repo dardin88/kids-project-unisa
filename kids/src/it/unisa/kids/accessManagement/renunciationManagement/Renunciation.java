@@ -7,7 +7,12 @@ public class Renunciation {
     private int id;
     private GregorianCalendar date;
     private String reason;
+    
     private int registrationChildId;
+    private String registrationChildFiscalCode;
+    private String registrationChildSurname;
+    private String registrationChildName;
+    
     private boolean isConfirmed;
     private boolean isSetConfirmed;
 
@@ -36,6 +41,30 @@ public class Renunciation {
 
     public void setRegistrationChildId(int registrationChildId) {
         this.registrationChildId = registrationChildId;
+    }
+
+    protected String getRegistrationChildFiscalCode() {
+        return registrationChildFiscalCode;
+    }
+
+    protected void setRegistrationChildFiscalCode(String registrationChildFiscalCode) {
+        this.registrationChildFiscalCode = registrationChildFiscalCode;
+    }
+
+    protected String getRegistrationChildSurname() {
+        return registrationChildSurname;
+    }
+
+    protected void setRegistrationChildSurname(String registrationChildSurname) {
+        this.registrationChildSurname = registrationChildSurname;
+    }
+
+    protected String getRegistrationChildName() {
+        return registrationChildName;
+    }
+
+    protected void setRegistrationChildName(String registrationChildName) {
+        this.registrationChildName = registrationChildName;
     }
 
     public String getReason() {

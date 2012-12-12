@@ -90,7 +90,7 @@ public class ServletSubmitNewRegistrationChild extends HttpServlet {
             registrationChild.setCitizenship(citizenship);
             registrationChild.setRegistrationDate(registrationDate);
             registrationChild.setUserRange(userRange);
-            registrationChild.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED);
+            registrationChild.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_SUBMITTED);
             registrationChild.setParentId(parentAccount.getId());
 
             registrationChild.setSickness("");

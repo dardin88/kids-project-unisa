@@ -92,7 +92,7 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
             registrationChild.setCitizenship(citizenship);
             registrationChild.setRegistrationDate(registrationDate);
             registrationChild.setUserRange(userRange);
-            registrationChild.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DRAFT);
+            registrationChild.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_DRAFT);
             registrationChild.setParentId(parentAccount.getId());
 
             registrationChild.setSickness("");

@@ -25,12 +25,11 @@ import org.json.JSONObject;
  * @author Lauri Giuseppe Giovanni
  */
 public class ServletGetTablePossibleRenunciation extends HttpServlet {
-
-    private IRenunciationManager registrationRenunciationManager;
+    private IRegistrationChildManager registrationChildManager;
 
     public void init(ServletConfig config) {
         RefinedAbstractManager refinedAbstractRenunciationManager = RefinedAbstractManager.getInstance();
-        registrationRenunciationManager = (IRenunciationManager) refinedAbstractRenunciationManager.getManagerImplementor(DBNames.TABLE_RENUNCIATION);
+        registrationChildManager = (IRegistrationChildManager) refinedAbstractRenunciationManager.getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
     }
 
     /**
@@ -46,12 +45,31 @@ public class ServletGetTablePossibleRenunciation extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
-
-        Renunciation[] paginateRenunciationRequestSet;
-        List<Renunciation> listRenunciationRequest;
+        
+        RegistrationChild[] pageRenunciation = null;
+        List<RegistrationChild> listPossibleRenunciation;
         try {
-            JSONObject result = new JSONObject();
+            
             JSONArray array = new JSONArray();
+            JSONObject result = new JSONObject();
+            
+            // L'output è in base alla tipologia dell'account
+            HttpSession session = request.getSession();
+            Account account = (Account) session.getAttribute("user");
+            
+            RegistrationChild tmp = new RegistrationChild();
+            tmp.setParentId(account.getId());
+            
+            // Le fasi in cui è possibile presentare domanda di rinuncia sono le seguenti
+            tmp.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_ACCEPTED);
+            listPossibleRenunciation = registrationChildManager.search(tmp);
+            
+            tmp.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_COMPLETED);
+            listPossibleRenunciation.addAll(registrationChildManager.search(tmp));
+            
+            tmp.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_VALIDATED);
+            listPossibleRenunciation.addAll(registrationChildManager.search(tmp));
+            
             int start = 0;
             int amount = 10;
             String sStart = request.getParameter("iDisplayStart");
@@ -70,106 +88,39 @@ public class ServletGetTablePossibleRenunciation extends HttpServlet {
                 }
             }
 
-            // L'output è in base alla tipologia dell'account
-
-
-            Account account = (Account) request.getSession().getAttribute("user");
-            Renunciation renunciation = new Renunciation();
-
-            //prende l'id di chi ha fatto l'accesso
-            HttpSession session = request.getSession();
-            Account user = (Account) session.getAttribute("user");
-            int idGenitore = user.getId();
-
-
-            //Crea la lista dei figli di idGenitore
-            RefinedAbstractManager refinedAbstractRegistrationChildManager = RefinedAbstractManager.getInstance();
-            IRegistrationChildManager registrationChildManager = (IRegistrationChildManager) refinedAbstractRegistrationChildManager.getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
-
-            RegistrationChild tmpChild = new RegistrationChild();
-            tmpChild.setParentId(idGenitore);
-
-            List<RegistrationChild> listaFigli = registrationChildManager.search(tmpChild);
-            //  registrationChildManager.search(null);
-
-
-
-            /*    if (account.getAccountType().equals("Genitore")) {
-             // Il genitore può vedere solo le proprie domande di iscrizione
-
-
-
-             renunciation.setParentId(account.getId());
-             } else if (account.getAccountType().equals("Segreteria")) {
-             // La segreteria potrà vedere solo le richieste sottomesse dai genitori, che dovrà andare a confermare
-             renunciation.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED);
-             }
-             */
-
-
-            listRenunciationRequest = registrationRenunciationManager.search(renunciation);
-            //}
-
-            int linksNumber = listRenunciationRequest.size();
+            int linksNumber = listPossibleRenunciation.size();
             if (linksNumber < amount) {
                 amount = linksNumber;
             }
             if (linksNumber != 0) {
                 int toShow = linksNumber - start;
                 if (toShow > 10) {
-                    paginateRenunciationRequestSet = new Renunciation[amount];
-                    System.arraycopy(listaFigli.toArray(), start, paginateRenunciationRequestSet, 0, amount);
+                    pageRenunciation = new RegistrationChild[amount];
+                    System.arraycopy(listPossibleRenunciation.toArray(), start, pageRenunciation, 0, amount);
                 } else {
-                    paginateRenunciationRequestSet = new Renunciation[toShow];
-                    System.arraycopy(listRenunciationRequest.toArray(), start, paginateRenunciationRequestSet, 0, toShow);
+                    pageRenunciation = new RegistrationChild[toShow];
+                    System.arraycopy(listPossibleRenunciation.toArray(), start, pageRenunciation, 0, toShow);
                 }
+                for (RegistrationChild possibileRinuncia : pageRenunciation) {
 
-                if(listaFigli.size()==0)
-                    System.out.println("lista vuota");
-                else
-                    for(RegistrationChild regRenunciationRequest : listaFigli)
-                        System.out.println(regRenunciationRequest.getId());
-                            
-                for (RegistrationChild regRenunciationRequest : listaFigli) {
                     JSONArray ja = new JSONArray();
-                    ja.put(regRenunciationRequest.getName());
-                    ja.put(regRenunciationRequest.getSurname());
 
-                    /*
-                     StringBuffer operazioni = new StringBuffer();
-                     // Sia genitore che segreteria possono vederne i dettagli, la visualizza dettagli deve esser possibile su tutte le domanda
-                     operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Visualizza Dettagli\" alt=\"Dettagli\" src='img/lente.gif' onclick='openViewDetailsRegistrationChildWindow(\"" + regRenunciationRequest.getId() + "\")'/>");
-
-                     if (account.getAccountType().equals("Genitore")) {
-                     // solo il genitore può eliminarla o modificarla
-                     if (regRenunciationRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DRAFT)) {
-                     operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Modifica\" alt=\"Modifica\" src='img/edit.gif' onclick='openModifyRegistrationChildWindow(\"" + regRenunciationRequest.getId() + "\")'/>");
-                     }
-                     if (!regRenunciationRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_ACCEPTED) && !regRenunciationRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DELETED)) {
-                     operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Elimina\" alt=\"Elimina\" src='img/trash.png' onclick='openDeleteRegistrationChildWindow(\"" + regRenunciationRequest.getId() + "\")'/>");
-                     }
-                     if (regRenunciationRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_ACCEPTED)) {
-                     operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Completa\" alt=\"Completa\" src='img/tocomplete.png' onclick='openCompleteRegistrationChildWindow(\"" + regRenunciationRequest.getId() + "\")'/>");
-                     }
-                     }
-                     if (account.getAccountType().equals("Segreteria")) {
-                     // solo la segreteria può confermare
-                     if (regRenunciationRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED)) {
-                     operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" alt=\"Conferma\" alt=\"Conferma ricezione\" src='img/accept.png' onclick='confirmReceivingRegistrationChildWindow(\"" + regRenunciationRequest.getId() + "\")'/>");
-                     }
-                     // e confermare il completamento
-                     if (regRenunciationRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_COMPLETED)) {
-                     operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" alt=\"Conferma\" alt=\"Conferma completamento\" src='img/accept.png' onclick='openComfirmCompletingRegistrationChildWindow(\"" + regRenunciationRequest.getId() + "\")'/>");
-                     }
-                     }
-                     ja.put(operazioni.toString());*/
+                    ja.put(possibileRinuncia.getFiscalCode());
+                    ja.put(possibileRinuncia.getSurname());
+                    ja.put(possibileRinuncia.getName());
+                    ja.put(possibileRinuncia.getRegistrationPhase());
+                    
+                    String operazioni = "<input class='tableImage' type='image' style=\"width:20px;height:20px\" " +
+                                        "title=\"Presenta domanda di rinuncia\" alt=\"Presenta domanda di rinuncia\" " +
+                                        "src='img/accept.png' onclick='openInsertRenunciationWindow(\"" + possibileRinuncia.getId() + "\")'/>";
+                    
+                    ja.put(operazioni);
                     array.put(ja);
-
                 }
             }
             result.put("sEcho", sEcho);
-            result.put("iTotalRecords", linksNumber);
-            result.put("iTotalDisplayRecords", linksNumber);
+            result.put("iTotalRecords", listPossibleRenunciation.size());
+            result.put("iTotalDisplayRecords", listPossibleRenunciation.size());
             result.put("aaData", array);
             response.setContentType("application/json");
             response.setHeader("Cache-Control",
@@ -177,7 +128,7 @@ public class ServletGetTablePossibleRenunciation extends HttpServlet {
             response.setHeader("Pragma", "no-cache");
             out.print(result);
         } catch (SQLException ex) {
-            Logger.getLogger(ServletGetTablePossibleRenunciation.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletGetTableRenunciation.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
         }

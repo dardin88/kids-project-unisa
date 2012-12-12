@@ -292,4 +292,56 @@ public class JDBCRenunciationManager implements IRenunciationManager {
         }
         return toReturn;
     }
+    
+    public synchronized List<Renunciation> getListFromParent(int parentAccountId) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet result = null;
+        List<Renunciation> listRenunciation = new ArrayList<Renunciation>();
+        StringBuffer query = new StringBuffer();
+
+        try {
+            con = DBConnectionPool.getConnection();
+            
+            query.append("SELECT RE.*, RC." + DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + ", RC." + 
+                    DBNames.ATT_REGISTRATIONCHILD_SURNAME + ", RC." + DBNames.ATT_REGISTRATIONCHILD_NAME + " " +
+                            "FROM " + DBNames.TABLE_RENUNCIATION + " AS RE, " + DBNames.TABLE_REGISTRATIONCHILD + " AS RC " +
+                            "WHERE RE." + DBNames.ATT_RENUNCIATION_REGISTRATIONCHILDID + "=RC." + DBNames.ATT_REGISTRATIONCHILD_ID + " AND " +
+                            DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID + "=?;");
+            
+            pstmt = con.prepareStatement(query.toString());
+            
+            pstmt.setInt(1, parentAccountId);
+            result = pstmt.executeQuery();
+            con.commit();
+            
+            while(result.next()) {
+                Renunciation p = new Renunciation();
+                p.setId(result.getInt(DBNames.ATT_RENUNCIATION_ID));
+                GregorianCalendar date;
+                if(result.getDate(DBNames.ATT_RENUNCIATION_DATE) != null) {
+                    date = CommonMethod.parseGregorianCalendar(result.getDate(DBNames.ATT_RENUNCIATION_DATE));
+                } else {
+                    date = null;
+                }
+                p.setDate(date);
+                p.setIsConfirmed(result.getBoolean(DBNames.ATT_RENUNCIATION_ISCONFIRMED));
+                p.setRegistrationChildId(result.getInt(DBNames.ATT_RENUNCIATION_REGISTRATIONCHILDID));
+                p.setReason(result.getString(DBNames.ATT_RENUNCIATION_REASON));
+                listRenunciation.add(p);
+            }
+        } finally {
+            if(result != null) {
+                result.close();
+            }
+            if(pstmt != null) {
+                pstmt.close();
+            }
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+
+        return listRenunciation;
+    }
 }

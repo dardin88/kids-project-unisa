@@ -54,13 +54,13 @@ public class ServletEditPhaseRegistrationChild extends HttpServlet {
             RegistrationChild tmpChild = new RegistrationChild();
             tmpChild.setId(Integer.parseInt(id));
             switch(registrationPhase) {
-            case    DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED :
+            case    DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_SUBMITTED :
                 isSuccess = registrationChildManager.submitRegistrationChild(tmpChild);
                 break;
-            case    DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_RECEIPT :
+            case    DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_RECEIPT :
                 isSuccess = registrationChildManager.confirmRegistrationChild(tmpChild);
                 break;
-            case    DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DELETED :
+            case    DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_DELETED :
                 isSuccess = registrationChildManager.removeRegistrationChild(tmpChild);
                 break;
             default :
