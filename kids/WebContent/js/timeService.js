@@ -2,9 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+var fulltime = "full_time";
+var partTimeP = "part_time_pomeridiana";
+var partTimeM = "part_time_mattutina";
 function initializetimeServicePage() {
     $("#timeserviceTab").tabs();
     $("#insertRequestTime").button();
+    $("#sendRequestModifyTimeService").button();
     $("#insertRequestTimeDialog").dialog({
         autoOpen: false
     });
@@ -31,7 +35,7 @@ function initializetimeServicePage() {
     $("#SendRequest").button();
     $("#insertRequestModifyTimeService").button();
     $("#insertRequestModifyTimeServiceDialog").dialog({
-        width:700,
+        width: 700,
         autoOpen: false
     });
 }
@@ -251,7 +255,7 @@ function updateTimeServiceRequest(id, check) {
 
 
 }
-function openInsertModifyTimeServiceRequestDialog(){
+function openInsertModifyTimeServiceRequestDialog() {
     $("#insertRequestModifyTimeServiceDialog").dialog("open");
 }
 function buildTableChild() {
@@ -259,7 +263,7 @@ function buildTableChild() {
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": "",
+        "sAjaxSource": "GetRegistrationChildTable",
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
@@ -312,4 +316,33 @@ function buildTableChild() {
         ]
     });
 }
+function changeUserRange(userRange) {
+    var i = 0;
+    var select = document.getElementById("userRange");
+    select.options.length = 0;
+    if (strcmp(userRange, fulltime) != 0) {
+        select.options[select.options.length] = new Option(fulltime, "full_time", false, false);
+    }
+    if (strcmp(userRange, partTimeM) != 0) {
+        select.options[select.options.length] = new Option(partTimeM, "part_time_mattutina", false, false);
+    }
+    if (strcmp(userRange, partTimeP) != 0) {
+        select.options[select.options.length] = new Option(partTimeP, "part_time_pomeridiana", false, false);
+    }
+    select.disabled = false;
+    document.getElementById("motivation").disabled=false;
 
+
+}
+function strcmp(str1, str2) {
+    // http://kevin.vanzonneveld.net
+    // +   original by: Waldo Malqui Silva
+    // +      input by: Steve Hilder
+    // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+    // +    revised by: gorthaur
+    // *     example 1: strcmp( 'waldo', 'owald' );
+    // *     returns 1: 1
+    // *     example 2: strcmp( 'owald', 'waldo' );
+    // *     returns 2: -1
+    return ((str1 == str2) ? 0 : ((str1 > str2) ? 1 : -1));
+}

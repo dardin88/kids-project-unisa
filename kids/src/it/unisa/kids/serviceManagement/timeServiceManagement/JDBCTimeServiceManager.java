@@ -365,4 +365,40 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
         return timeServReqs;
 
     }
+    
+    public void insert(ModifyTimeServiceRequest pModifyTimeServiceRequest) throws SQLException{
+         Connection con = null;
+        PreparedStatement pstmt = null;
+        String query;
+
+        try {
+            con = DBConnectionPool.getConnection();
+
+            // constructing query string
+            query = "INSERT INTO " + DBNames.TABLE_MODIFYTIMESERVICEREQUEST + " ("
+                    + DBNames.ATT_MODIFYTIMESERVICEREQUEST_CHILDID + ", "
+                    + DBNames.ATT_MODIFYTIMESERVICEREQUEST_MOTIVATION + ", "
+                    + DBNames.ATT_MODIFYTIMESERVICEREQUEST_PARENTID+","
+                    +DBNames.ATT_MODIFYTIMESERVICEREQUEST_RANGEUSER
+                    + ") VALUES(?, ?, ?,?)";
+
+            pstmt = con.prepareStatement(query);
+
+            //setting pstmt's parameters
+            pstmt.setInt(1,pModifyTimeServiceRequest.getIdChild());
+            pstmt.setString(2,pModifyTimeServiceRequest.getMotivation());
+            pstmt.setInt(3, pModifyTimeServiceRequest.getIdParent());
+            pstmt.setString(4,pModifyTimeServiceRequest.getUserRange());
+
+            pstmt.executeUpdate();
+            con.commit();
+        } finally {
+            if (pstmt != null) {
+                pstmt.close();
+            }
+            if (con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+    }
 }
