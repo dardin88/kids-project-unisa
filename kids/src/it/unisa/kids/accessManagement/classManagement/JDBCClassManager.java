@@ -1,10 +1,5 @@
 package it.unisa.kids.accessManagement.classManagement;
 
-import it.unisa.kids.accessManagement.accountManagement.Account;
-import it.unisa.kids.accessManagement.accountManagement.Educator;
-import it.unisa.kids.accessManagement.accountManagement.JDBCAccountManager;
-import it.unisa.kids.accessManagement.registrationChildManagement.JDBCRegistrationChildManager;
-import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.DBNames;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 import java.sql.Connection;
@@ -30,14 +25,13 @@ public class JDBCClassManager implements IClassManager {
         return manager;
     }
 
+    @Override
     public synchronized ClassBean insert(ClassBean pClass) throws SQLException {
         Connection con = null;
         Statement stmt = null;
         String query = "INSERT INTO " + DBNames.TABLE_CLASS + " (" + DBNames.ATT_CLASS_NAME + ", " + DBNames.ATT_CLASS_STATE + ") "
                 + "VALUES ('" + pClass.getClassName() + "', '"
                 + pClass.getState() + "');"; 			//come inserire educatori e bambini
-
-
         try {
             con = DBConnectionPool.getConnection();
             stmt = con.createStatement();
@@ -51,10 +45,11 @@ public class JDBCClassManager implements IClassManager {
         return pClass;
     }
 
+    @Override
     public synchronized ClassBean delete(ClassBean pClass) throws SQLException {
         Connection con = null;
         Statement stmt = null;
-        String query = "DELETE FROM " + DBNames.TABLE_CLASS 
+        String query = "DELETE FROM " + DBNames.TABLE_CLASS
                 + " WHERE " + DBNames.ATT_CLASS_ID + "=" + pClass.getIdClasse() + ";";
 
 
@@ -71,58 +66,51 @@ public class JDBCClassManager implements IClassManager {
         return pClass;
     }
 
+    @Override
     public synchronized List<ClassBean> search(ClassBean pClass) throws SQLException {
         Connection con = null;
         ResultSet result;
         PreparedStatement stmt = null;
         boolean andState = false;
         ClassBean tmpClassBean = new ClassBean();
-
-        List<ClassBean> listOfClassBean = new ArrayList<ClassBean>();		//deve essere riempito con il risultato della query
+        List<ClassBean> listOfClassBean = new ArrayList<ClassBean>();
         StringBuffer query = new StringBuffer("SELECT * FROM " + DBNames.TABLE_CLASS + " WHERE ");
-
         if (pClass.getIdClasse() > 0) {
             query.append(DBNames.ATT_CLASS_ID + "=?");
             andState = true;
         }
-        if (pClass.getClassName() != null  ) {
-            query.append(useAnd(andState) + DBNames.ATT_CLASS_NAME + "=?");
-            andState = true;
+        if (pClass.getClassName() != null) {
+            if (!pClass.getClassName().equals("")) {
+                query.append(useAnd(andState) + DBNames.ATT_CLASS_NAME + " like \'%" + pClass.getClassName() + "%\'");
+                andState = true;
+            }
         }
-        if (pClass.getState() != null  ) {
-            query.append(useAnd(andState) + DBNames.ATT_CLASS_STATE + "=?s");
-            andState = true;
+        if (pClass.getState() != null) {
+            if (!pClass.getState().equals("")) {
+                query.append(useAnd(andState) + DBNames.ATT_CLASS_STATE + "=?");
+                andState = true;
+            }
         }
         if (andState == false) {
             query.append("1");
         }
-
         query.append(";");
-
-        System.out.println("****query:" + query);
         con = DBConnectionPool.getConnection();
         stmt = con.prepareStatement(query.toString());
-
         try {
-
-
             int paramNum = 1;
             if (pClass.getIdClasse() > 0) {
                 stmt.setInt(paramNum, pClass.getIdClasse());
                 paramNum++;
             }
-            if (pClass.getClassName() != null ) {
-                stmt.setString(paramNum, pClass.getClassName());
-                paramNum++;
+            if (pClass.getState() != null) {
+                if (!pClass.getState().equals("")) {
+                    stmt.setString(paramNum, pClass.getState());
+                    paramNum++;
+                }
             }
-            if (pClass.getState() != null ) {
-                stmt.setString(paramNum, pClass.getState());
-                paramNum++;
-            }
-
             result = stmt.executeQuery();
             con.commit();
-
             while (result.next()) {
                 /*  ho provato a riempire gli array list bambini e educatori
                  JDBCRegistrationChildManager regMan=JDBCRegistrationChildManager.getInstance();			  
@@ -136,20 +124,16 @@ public class JDBCClassManager implements IClassManager {
                  pAcc.set;
                  List<Account> tmpEducator=accMan.search(pAcc);
                  tmpClassBean.setEducatori(tmpEducator);*/
-                System.out.println(tmpClassBean.getClassName());
                 tmpClassBean = new ClassBean();
-
                 tmpClassBean.setIdClasse(result.getInt(DBNames.ATT_CLASS_ID));
                 tmpClassBean.setClassName(result.getString(DBNames.ATT_CLASS_NAME));
                 tmpClassBean.setState(result.getString(DBNames.ATT_CLASS_STATE));
-
                 listOfClassBean.add(tmpClassBean);
             }
         } finally {
             stmt.close();
             DBConnectionPool.releaseConnection(con);
         }
-
         return listOfClassBean;
     }
 
@@ -157,6 +141,7 @@ public class JDBCClassManager implements IClassManager {
         return pEnableAnd ? " AND " : " ";
     }
 
+    @Override
     public synchronized ClassBean update(ClassBean pClass) throws SQLException {
         Connection con = null;
         Statement stmt = null;
@@ -178,7 +163,8 @@ public class JDBCClassManager implements IClassManager {
 
         return pClass;
     }
- 
+
+    @Override
     public List<ClassBean> getAll() throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -191,17 +177,15 @@ public class JDBCClassManager implements IClassManager {
             pstmt = con.prepareStatement(query);
             rs = pstmt.executeQuery(query);
             con.commit();
-            while(rs.next())
-            {
-                ClassBean tmpClass=new ClassBean();
+            while (rs.next()) {
+                ClassBean tmpClass = new ClassBean();
                 tmpClass.setClassName(rs.getString(DBNames.ATT_CLASS_NAME));
                 tmpClass.setState(rs.getString(DBNames.ATT_CLASS_STATE));
                 tmpClass.setIdClasse(rs.getInt(DBNames.ATT_CLASS_ID));
-                
+
                 classi.add(tmpClass);
             }
-        } 
-        finally {
+        } finally {
             if (rs != null) {
                 rs.close();
             }

@@ -1,10 +1,9 @@
-function initializeRegistrationFields(){
+function initializeModifyClassFields(){
     $.ajaxSetup({
         cache: false
     });
-    
-    $("#registrationButton").button();
-    
+    $("#backClassButton").button();
+    $("#modifyClassButton").button();
     $.validator.setDefaults({
         highlight: function(input){
             $(input).addClass("ui-state-highlight");
@@ -13,10 +12,24 @@ function initializeRegistrationFields(){
             $(input).removeClass("ui-state-highlight");
         }
     });
+    $("#registrationForm2").validate({
+        rules:
+        {
+            Nome: "required"
+        },
+        messages:{
+            Nome:" Inserisci il nome"
+        },
+        submitHandler:function() {
+            form.submit();
+        }
+        
+    });
+    buildChildrenTable();
 }
 
-function buildAccountTable(){
-    $('#accountsTable').dataTable({
+function buildChildrenTable(){
+    $('#childrenTable').dataTable({
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
@@ -24,21 +37,14 @@ function buildAccountTable(){
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
-        //        credo che non ci vogliono perchè non devo ricercare niente in questa tabella 
-        //        "fnServerParams": function ( aoData ) {
-        //            aoData.push(
-        //            {
-        //                "name" : "name", 
-        //                "value" : $('#name').val()
-        //            },
-        //
-        //            {
-        //                "name" : "state", 
-        //                "value" : $('#state').val()
-        //            }
-        //            );
-        //     
-        //        },
+        "fnServerParams": function ( aoData ) {
+            aoData.push(
+            {
+                "name" : "id", 
+                "value" : $('#id').val()
+            }
+            );
+        },
         "bSort": false,
         "bDestroy": true,
         "bInfo": true,
@@ -59,14 +65,6 @@ function buildAccountTable(){
                 "sLast":     ">>"
             }
         },
-
-
-        "oTableTools":{
-        //            "sRowSelect": "multiple",
-        //            "fnRowSelected": function(nodes) {
-        //                selectRow(nodes[0]);
-        //            }
-        },
         "aoColumns": [
         {
             "sWidth": "40%"
@@ -79,20 +77,8 @@ function buildAccountTable(){
         }
         ]
     });
+    var oTable = $("#childrenTable").dataTable();
+    if (oTable.length > 0) {
+        $("#childrenTable").css("width", "100%");
+    }
 }
-
-$(document).ready(function(){
-    $("#registrationForm2").validate({
-        rules:
-        {
-            Nome: "required"
-        },
-        messages:{
-            Nome:" Inserisci il nome"
-        },
-        submitHandler:function() {
-            form.submit();
-        }
-        
-    });
-});

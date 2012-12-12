@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unisa.kids.accessManagement.classManagement;
 
 import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationChildManager;
@@ -72,7 +68,22 @@ public class GetTableChildServlet extends HttpServlet {
                 }
             }
 
-            listRegistrationChild = childManager.search(new RegistrationChild());
+            if (request.getSession().getAttribute("cercamiNeiSogni").equals("modify")) {
+                //metto un account vuoto perchè quando si richiede la modifica deve visualizzare tutti i bambini
+                listRegistrationChild = childManager.search(null);
+            } else if (request.getSession().getAttribute("cercamiNeiSogni").equals("information")) {
+                //ho messo un oggetto con l'id classe perchè deve visualizzare solo le informazioni della classe selezionata
+                int idclasse = Integer.parseInt(request.getParameter("id"));
+                RegistrationChild tmp = new RegistrationChild();
+                tmp.setSectionId(idclasse);
+                listRegistrationChild = childManager.searchSectionId(tmp);
+            } else if (request.getSession().getAttribute("cercamiNeiSogni").equals("insert")) {
+                //deve trovare tutti i bambini senza classe
+                RegistrationChild tmp = new RegistrationChild();
+                tmp.setSectionId(0);
+                listRegistrationChild = childManager.searchSectionId(tmp);
+            }
+
 
             int linksNumber = listRegistrationChild.size();
             if (linksNumber < amount) {
@@ -92,10 +103,21 @@ public class GetTableChildServlet extends HttpServlet {
 
                     ja.put(childreg.getName());
                     ja.put(childreg.getSurname());
-                    String operazioni = "<input type='checkbox' name='childRow' value='" + childreg.getId() + "' >";
-                    
-                    Logger.getLogger(GetTableChildServlet.class.getName()).log(Level.SEVERE, "operazioni = " + operazioni);
-
+                    String operazioni = "";
+                    if (request.getSession().getAttribute("cercamiNeiSogni").equals("modify")) {
+                        RegistrationChild tmpreg = new RegistrationChild();
+                        tmpreg.setSectionId(Integer.parseInt(request.getParameter("id")));
+                        List<RegistrationChild> checkedChildren = childManager.searchSectionId(tmpreg);
+                        for (RegistrationChild c2 : checkedChildren) {
+                            if (childreg.getId() == c2.getId()) {
+                                operazioni = "<input type='checkbox' id='childRow' name='childRow' value='" + childreg.getId() + "' checked=true>";
+                            } else {
+                                operazioni = "<input type='checkbox' id='childRow' name='childRow' value='" + childreg.getId() + "' >";
+                            }
+                        }
+                    } else {
+                        operazioni = "<input type='checkbox' id='childRow' name='childRow' value='" + childreg.getId() + "' >";
+                    }
                     ja.put(operazioni);
                     array.put(ja);
                 }
@@ -114,8 +136,8 @@ public class GetTableChildServlet extends HttpServlet {
             Logger.getLogger(GetTableClassServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP
      * <code>GET</code> method.

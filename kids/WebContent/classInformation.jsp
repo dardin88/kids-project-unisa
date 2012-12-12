@@ -12,74 +12,69 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/template.css" />
         <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css" />
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css" />
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="css/traineeInformation.css" >
+        <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
         <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
         <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
+
         <script type="text/javascript" src="js/functions.js"></script>
-        <script type="text/javascript" src="js/accountInformation.js"></script>
-        <script type="text/javascript" src="js/classe.js"></script>
+        <script type="text/javascript" src="js/class.js"></script>
         <title> Kids </title>
-
         <jsp:include page="/GetClass"/> 
-
         <script type="text/javascript">
             $(document).ready(function() {
-                //initializeLinksManager();
-                initializeLinksManager2();
+                initializeChildrenInformationFields();
             });
         </script>
     </head>
+    <div id="removeClassWindow" title="Rimuovi Classe" style="display: inline">
+        <form id="removeClassForm" class="cmxform" method="post" action="">
+            <fieldset>
+                <p class="formp">
+                    <label class="requirementLabel">Sei sicuro di voler eliminare questa classe?</label>
+                </p>
+                <p class="formp">
+                    <input type="button" class="confirmRemoveButton" id="confirmRemoveLinkButton" value="Si"/>
+                    <input type="button" class="notConfirmRemoveButton" id="notConfirmRemoveLinkButton" value="No"/>
+                </p>
+            </fieldset>
+        </form>
+    </div>
     <%@include file="header.jsp" %>
     <body id="bodyRegistration">
-
-
-
-
-        <form id="registration" class="cmxform"  method="post" action="classe.jsp">
-            <fieldset id="registrationFieldSet">
-                <div  id="artefactsManagement" >
-                    <h1  style="text-align: center; font-size: 30pt; margin-bottom: 5%" >Dati Classe</h1>  
-                    <input type="hidden" id="id" name="id" value="${id}" >
-                    <table style="margin-left: 5%; font-weight: bold; font-size: 10pt; float: left">
-                        <tr><td> Nome 
-                            <td> <p class="formp">
-                                    <input style="margin-left: 2%; width: 250px" id="Nome" type="text" name="Nome" value="${Nome}" readonly="true">
-                                </p> 
-                        <tr><td> Stato <td>
-                                <p class="formp">
-                                    <input style="margin-left: 2%; width: 250px" type="text" name="Stato" id="Stato" value="${Stato}" readonly="true" >
-                                </p>
-                    </table>
-                </div>
-            </fieldset>
-            <input style="float: left; width: 150px; margin-right: 2%; margin-left: 2%" type="submit" name="Avanti1" value="Avanti" id="avantiButton" onclick="showPartTwoAccount(document.getElementById('id').value)"></input>
-
-
-        </form>
-        <form id="information2" method="post" action="" >
-            <input style="float: left; width: 150px; margin-right: 2%" type="button" name="Modifica" value="Modifica" id="modifyButton" onclick="modifyAccount(document.getElementById('id').value)" > </input>
-        </form>
-        <input style="width: 150px; margin-right: 2%" type="button" name="Elimina" value="Elimina" id="eliminaButton" onclick="removeAccountParent(document.getElementById('id').value)"></input>
-
-        <%--   <c:if test="${sessionScope.user!=null}">
-               <c:if test="${sessionScope.user.getTypeAccount()=='Genitore'}"> 
-                       <form method="post" action="index.jsp">
-                           <input type="submit" name="Indietro" value="Indietro" id="genericButton"></input>
-                       </form>
-               </c:if>
-               <c:if test="${sessionScope.user.getTypeAccount()=='Admin'}">        
-                       <form method="post" action="tableAccount.jsp">
-                           <input type="submit" name="Indietro" value="Indietro" id="genericButton"></input>
-                       </form>
-                </c:if>        
-            </c:if>--%>
+        <%
+            String cercamiNeiSogni = "information";
+            session.setAttribute("cercamiNeiSogni", cercamiNeiSogni);
+        %>
+        <input type="hidden" id="id" name="id" value="${id}" >
+        <div  id="artefactsManagement" >
+            <h1  style="text-align: center; font-size: 30pt; margin-bottom: 5%" >Dati Classe</h1>  
+            <div class="classInformationDiv">
+                <label class="classInformationTitle">Nome classe: </label>
+                <label class="classInformationLabel">${Nome}</label>
+            </div>
+            <div class="classInformationDiv">
+                <label class="classInformationTitle">Stato classe: </label>
+                <label class="classInformationLabel">${Stato}</label>
+            </div>
+            <table id="childrenTable" style="width:95%;">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Cognome</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <input class="classButton" type="button" value="Indietro" id="backClassButton" onclick="window.location.replace('class.jsp');"/>
         <%@include file="footer.jsp" %>
 
     </body>

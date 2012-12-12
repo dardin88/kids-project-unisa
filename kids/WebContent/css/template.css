@@ -707,3 +707,65 @@ Gestione bambini
     padding-top: 1%;
     width: 80%;
 }
+
+/*
+* Classe
+*/
+
+#classTable{
+    text-align: center;
+}
+
+#childrenTable{
+    text-align: center;
+}
+
+#classFilter{
+    margin-bottom: 20px;
+}
+
+#ricerca{
+    margin-left: 10px;
+    height: 28px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+#addLinkButton{
+    margin-top: 10px;
+}
+
+.classNameField{
+    margin-left: 2%;
+    margin-bottom: 20px;
+    width: 200px;
+}
+
+.biggerClassButton{
+    margin-top: 2%;
+    margin-left: 2%;
+    width: 300px;
+}
+
+.classButton{
+    width: 150px;
+    margin-right: 2%;
+    margin-left: 2%;
+}
+
+.classInformationTitle{
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.classInformationLabel{
+    font-size: 14px;
+}
+
+.classInformationDiv{
+    margin-bottom: 10px;
+}
+
+#modifyClassName{
+    margin-bottom: 20px;
+}

@@ -24,31 +24,33 @@ Author     : tonino
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
-        <script type="text/javascript" src="js/classe.js"></script>
-        <title>Classe - Kids Project</title>
+        <script type="text/javascript" src="js/class.js"></script>
+        <title>Kids Project</title>
         <script type="text/javascript">
             $(document).ready(function() {
                 activePage();
                 initializeClassFields();
-                buildAccountTable();
             });
         </script>
     </head>
     <body>
         <%@include file="header.jsp"%>
-    <body id="bodyRegistration">
-
-        <h1  id="titleReg" align="center">Classi</h1>
-
+        <h1 align="center">Classi</h1>
         <div id="linksManagement">
             <h1 style="font-size: 35px;text-align: center;"> Classi </h1>
-
-            Nome: <input type="text" id="name"  name="name"/>
-            Stato: <input type="text" id="state"  name="state"  />
-
-            <input type="button" name="ricarica" id="ricarica" value="ricerca" onclick="search()"/>
-
-            <table id="accountsTable" style="width:95%;">
+            <div id="classFilter">
+                <label>Nome</label>
+                <input type="text" id="className"  name="className"/>
+                <label>Stato</label>
+                <select id="classState" name="classState">
+                    <option></option>
+                    <option>bozza</option>
+                    <option>confermata</option>
+                    <option>sottomessa</option>
+                </select>
+                <input type="button" name="ricerca" id="ricerca" value="Ricerca" onclick="search()"/>
+            </div>
+            <table id="classTable" style="width:95%;">
                 <thead>
                     <tr>
                         <th>Nome</th>
@@ -59,14 +61,12 @@ Author     : tonino
                 <tbody>
                 </tbody>
             </table>
-            <form name="insertAccount" method="post" action="classInsert.jsp" >
+            <form name="insertClass" method="post" action="classInsert.jsp" >
                 <input type="submit" id="addLinkButton" value="Inserisci Classe" />
             </form>
-
-
         </div>
-        <div id="removeAccountWindow" title="Rimuovi Classe" style="display: inline">
-            <form id="removeAccountForm" class="cmxform" method="post" action="">
+        <div id="removeClassWindow" title="Rimuovi Classe" style="display: inline">
+            <form id="removeClassForm" class="cmxform" method="post" action="">
                 <fieldset>
                     <p class="formp">
                         <label class="requirementLabel">Sei sicuro di voler eliminare questa classe?</label>
@@ -78,8 +78,6 @@ Author     : tonino
                 </fieldset>
             </form>
         </div>
-
-
         <%@include file="footer.jsp" %>
     </body>
 </html>
