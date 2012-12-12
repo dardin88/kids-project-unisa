@@ -5,7 +5,6 @@ import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.kids.serviceManagement.paymentManagement.IPaymentManager;
 import it.unisa.kids.serviceManagement.paymentManagement.PaymentBean;
 import it.unisa.storage.connectionPool.DBConnectionPool;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -49,7 +48,7 @@ public class JDBCCanteenManager implements ICanteenManager {
                     + DBNames.ATT_MENU_SIDEDISH + ", "
                     + DBNames.ATT_MENU_FRUIT + ", "
                     + DBNames.ATT_MENU_CHILDINSCID
-                    + ") VALUES(?, ?, ?, ?, ?, ?, ?)";
+                    + ") VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 
             pstmt = con.prepareStatement(query);
 
@@ -76,7 +75,7 @@ public class JDBCCanteenManager implements ICanteenManager {
     }
 
     // update da sistemare, per ora non dovrebbe servire
-    public synchronized void update(MenuBean pDiffMenu) throws SQLException {
+    public synchronized void update(MenuBean pMenu) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
         String query = null;
@@ -97,13 +96,13 @@ public class JDBCCanteenManager implements ICanteenManager {
             pstmt = con.prepareStatement(query);
 
             // setting pstmt's parameters
-            pstmt.setString(1, pDiffMenu.getType());
-            pstmt.setString(2, pDiffMenu.getFirst());
-            pstmt.setString(3, pDiffMenu.getSecond());
-            pstmt.setString(4, pDiffMenu.getSideDish());
-            pstmt.setString(5, pDiffMenu.getFruit());
-            pstmt.setInt(6, pDiffMenu.getChildInscriptionId());
-            pstmt.setInt(7, pDiffMenu.getId());
+            pstmt.setString(1, pMenu.getType());
+            pstmt.setString(2, pMenu.getFirst());
+            pstmt.setString(3, pMenu.getSecond());
+            pstmt.setString(4, pMenu.getSideDish());
+            pstmt.setString(5, pMenu.getFruit());
+            pstmt.setInt(6, pMenu.getChildInscriptionId());
+            pstmt.setInt(7, pMenu.getId());
 
             pstmt.executeUpdate();
             con.commit();
@@ -118,7 +117,7 @@ public class JDBCCanteenManager implements ICanteenManager {
     }
 
     // da rivedere, per ora non dovrebbne servire
-    public synchronized void delete(MenuBean pDiffMenu) throws SQLException {
+    public synchronized void delete(MenuBean pMenu) throws SQLException {
         Connection con = null;
         Statement stmt = null;
         String query = null;
@@ -128,7 +127,7 @@ public class JDBCCanteenManager implements ICanteenManager {
 
             // constructing query string
             query = "DELETE FROM " + DBNames.TABLE_MENU
-                    + "WHERE " + DBNames.ATT_MENU_ID + " = " + pDiffMenu.getId();
+                    + "WHERE " + DBNames.ATT_MENU_ID + " = " + pMenu.getId();
 
             stmt = con.createStatement();
             stmt.executeUpdate(query);
@@ -193,7 +192,7 @@ public class JDBCCanteenManager implements ICanteenManager {
                 andState = true;
             }
 
-            if (pMenu.getChildInscriptionId() > 0) {	// or >= 0 ?
+            if (pMenu.getChildInscriptionId() > 0) {
                 query += useAnd(andState) + DBNames.ATT_MENU_CHILDINSCID + " = ?";
                 andState = true;
             }
@@ -246,7 +245,7 @@ public class JDBCCanteenManager implements ICanteenManager {
             rs = pstmt.executeQuery();
             con.commit();
 
-            // constructing diffmenu list
+            // constructing menu list
             menus = new ArrayList<MenuBean>();
             while (rs.next()) {
                 MenuBean m = new MenuBean();
@@ -309,6 +308,65 @@ public class JDBCCanteenManager implements ICanteenManager {
         return search(mb);
     }
 
+    @Override
+    public List<MenuBean> getLastMenu(int pNumOfMenu, String pMenuType) throws SQLException {
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        String query = null;
+        List<MenuBean> menus = null;
+
+        try {
+            con = DBConnectionPool.getConnection();
+
+            // constructing query string
+            query = "SELECT * FROM " + DBNames.TABLE_MENU;
+            if (pMenuType != null && pMenuType.equals(MenuBean.DIFF_MENU)) {
+                query += " WHERE " + DBNames.ATT_MENU_TYPE + " " + MenuBean.DIFF_MENU;
+            } else if (pMenuType != null && pMenuType.equals(MenuBean.DAILY_MENU)) {
+                query += " WHERE " + DBNames.ATT_MENU_TYPE + " " + MenuBean.DAILY_MENU;
+            }
+            //query += " AND " + DBNames.ATT_MENU_CHILDINSCID + "IS NOT NULL";
+            query += " ORDER BY " + DBNames.ATT_MENU_ID + " desc" + " LIMIT " + pNumOfMenu;
+
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+            con.commit();
+
+            // constructing menu list
+            menus = new ArrayList<MenuBean>();
+            while (rs.next()) {
+                MenuBean m = new MenuBean();
+                m.setId(rs.getInt(DBNames.ATT_MENU_ID));
+                m.setType(rs.getString(DBNames.ATT_MENU_TYPE));
+
+                //getting Date from ResultSet and converting it to GregorianCalendar
+                GregorianCalendar menuDate = new GregorianCalendar();
+                menuDate.setTime(rs.getDate(DBNames.ATT_MENU_DATE));   // check di valori nulli non eseguito perche' menuDate è NOT NULL nel DB
+                m.setDate(menuDate);
+
+                m.setFirst(rs.getString(DBNames.ATT_MENU_FIRST));
+                m.setSecond(rs.getString(DBNames.ATT_MENU_SECOND));
+                m.setSideDish(rs.getString(DBNames.ATT_MENU_SIDEDISH));
+                m.setFruit(rs.getString(DBNames.ATT_MENU_FRUIT));
+                m.setChildInscriptionId(rs.getInt(DBNames.ATT_MENU_CHILDINSCID));
+
+                menus.add(m);
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+        return menus;
+    }
+
     public synchronized void insert(MealRequestBean pMealReq) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -321,15 +379,17 @@ public class JDBCCanteenManager implements ICanteenManager {
             query = "INSERT INTO " + DBNames.TABLE_MEAL_REQUEST + " ("
                     + DBNames.ATT_MEALREQ_ID + ", "
                     + DBNames.ATT_MEALREQ_DATE + ", "
+                    + DBNames.ATT_MEALREQ_FULFILLED + ", "
                     + DBNames.ATT_MEALREQ_PARENTID
-                    + ") VALUES(?, ?, ?)";
+                    + ") VALUES(?, ?, ?, ?)";
 
             pstmt = con.prepareStatement(query);
 
             //setting pstmt's parameters
             pstmt.setInt(1, pMealReq.getId());
             pstmt.setDate(2, new java.sql.Date(pMealReq.getDate().getTimeInMillis()));
-            pstmt.setInt(3, pMealReq.getParentId());
+            pstmt.setBoolean(3, pMealReq.isFulfilled());
+            pstmt.setInt(4, pMealReq.getParentId());
 
             pstmt.executeUpdate();
             con.commit();
@@ -343,37 +403,63 @@ public class JDBCCanteenManager implements ICanteenManager {
         }
 
         // adding payment for this meal request DA FARE/RIVEDERE/RIVALUTARE
-        IPaymentManager paymentManager = (IPaymentManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_PAYMENT);
+        /*IPaymentManager paymentManager = (IPaymentManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_PAYMENT);
         PaymentBean chargePayment = new PaymentBean();
         chargePayment.setAmount(MealRequestBean.PRICE_MEALREQ);
         chargePayment.setPayee(PaymentBean.DEFAULT_PAYEE);
         chargePayment.setPaymentDescription("");
-        chargePayment.setParentId(0);	// serve un metodo getParentId(Child c);
+        chargePayment.setParentId(0);	// serve un metodo getParentId(Child c);*/
         //paymentManager.addCharge(chargePayment);
     }
 
-    // da rivalutare - dovrebbe non servire più
     public synchronized void update(MealRequestBean pMealReq) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
         String query = null;
+        
+        boolean commaState = false;
 
         try {
             con = DBConnectionPool.getConnection();
 
             // constructing query string
-            query = "UPDATE " + DBNames.TABLE_MEAL_REQUEST + " SET "
-                    + DBNames.ATT_MEALREQ_DATE + " = ?, "
-                    + DBNames.ATT_MEALREQ_PARENTID + " = ? "
-                    + "WHERE " + DBNames.ATT_MEALREQ_ID + " = ?";
+            query = "UPDATE " + DBNames.TABLE_MEAL_REQUEST + " SET ";
+            if (pMealReq.getDate() != null) {
+                query += DBNames.ATT_MEALREQ_DATE + " = ?";
+                commaState = true;
+            }
 
+            if (pMealReq.isFulfilledUsable()) {
+                query += useComma(commaState) + DBNames.ATT_MEALREQ_FULFILLED + " = ?";
+                commaState = true;
+            }
+
+            if (pMealReq.getParentId() > 0) {
+                query += useComma(commaState) + DBNames.ATT_MEALREQ_PARENTID + " = ?";
+                commaState = true;
+            }
+            query += " WHERE " + DBNames.ATT_MEALREQ_ID + " = ?";
             pstmt = con.prepareStatement(query);
 
             // setting pstmt's parameters
-            //pstmt.setString(1, pMealReq.getRequestedMenuType());
-            pstmt.setDate(2, new java.sql.Date(pMealReq.getDate().getTimeInMillis()));
-            pstmt.setInt(3, pMealReq.getParentId());
-            pstmt.setInt(4, pMealReq.getId());
+            int i = 1;		// index of pstmt first argument
+
+            if (pMealReq.getDate() != null) {
+                pstmt.setDate(i, new java.sql.Date(pMealReq.getDate().getTimeInMillis()));
+                i++;
+            }
+
+            if (pMealReq.isFulfilledUsable()) {
+                pstmt.setBoolean(i, pMealReq.isFulfilled());
+                i++;
+            }
+
+            if (pMealReq.getParentId() > 0) {
+                pstmt.setInt(i, pMealReq.getParentId());
+                i++;
+            }
+            
+            pstmt.setInt(i, pMealReq.getId());
 
             pstmt.executeUpdate();
             con.commit();
@@ -385,6 +471,10 @@ public class JDBCCanteenManager implements ICanteenManager {
                 DBConnectionPool.releaseConnection(con);
             }
         }
+    }
+    
+    private String useComma(boolean pEnableComma) {
+        return pEnableComma ? ", " : "";
     }
 
     // da rivalutare - dovrebbe non servire più
@@ -398,7 +488,7 @@ public class JDBCCanteenManager implements ICanteenManager {
 
             // constructing query string
             query = "DELETE FROM " + DBNames.TABLE_MEAL_REQUEST
-                    + "WHERE " + DBNames.ATT_MEALREQ_ID + " = " + pMealReq.getId();
+                    + " WHERE " + DBNames.ATT_MEALREQ_ID + " = " + pMealReq.getId();
 
             stmt = con.createStatement();
             stmt.executeUpdate(query);
@@ -436,6 +526,11 @@ public class JDBCCanteenManager implements ICanteenManager {
                 query += useAnd(andState) + DBNames.ATT_MEALREQ_DATE + " = ?";
                 andState = true;
             }
+            
+            if (pMealReq.isFulfilledUsable()) {
+                query += useAnd(andState) + DBNames.ATT_MEALREQ_FULFILLED + "= ?";
+                andState = true;
+            }
 
             if (pMealReq.getParentId() > 0) {		// or >= 0 ???
                 query += useAnd(andState) + DBNames.ATT_MEALREQ_PARENTID + " = ?";
@@ -453,6 +548,11 @@ public class JDBCCanteenManager implements ICanteenManager {
 
             if (pMealReq.getDate() != null) {
                 pstmt.setDate(i, new java.sql.Date(pMealReq.getDate().getTimeInMillis()));
+                i++;
+            }
+            
+            if (pMealReq.isFulfilledUsable()) {
+                pstmt.setBoolean(i, pMealReq.isFulfilled());
                 i++;
             }
 
@@ -476,6 +576,7 @@ public class JDBCCanteenManager implements ICanteenManager {
                 mealReqDate.setTime(rs.getDate(DBNames.ATT_MEALREQ_DATE));
                 mr.setDate(mealReqDate);
 
+                mr.setFulfilled(rs.getBoolean(DBNames.ATT_MEALREQ_FULFILLED));
                 mr.setParentId(rs.getInt(DBNames.ATT_MEALREQ_PARENTID));
 
                 mealReqs.add(mr);
@@ -518,6 +619,8 @@ public class JDBCCanteenManager implements ICanteenManager {
                 GregorianCalendar mealReqDate = new GregorianCalendar();
                 mealReqDate.setTime(rs.getDate(DBNames.ATT_MEALREQ_DATE));
                 mr.setDate(mealReqDate);
+                
+                mr.setFulfilled(rs.getBoolean(DBNames.ATT_MEALREQ_FULFILLED));
                 mr.setParentId(rs.getInt(DBNames.ATT_MEALREQ_PARENTID));
 
                 mealReqs.add(mr);
