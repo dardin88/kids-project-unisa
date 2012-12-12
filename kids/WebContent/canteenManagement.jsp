@@ -243,7 +243,7 @@
                     </div>
 
                     <div id="showMealRequests">
-                        <h2>Lista dei men&ugrave; giornalieri</h2>
+                        <h2>Lista richieste pasti</h2>
                         <table id="showMealRequestsTable" style="width:100%">
                             <thead>
                                 <tr>

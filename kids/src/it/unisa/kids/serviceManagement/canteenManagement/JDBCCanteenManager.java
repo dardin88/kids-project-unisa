@@ -1,9 +1,6 @@
 package it.unisa.kids.serviceManagement.canteenManagement;
 
 import it.unisa.kids.common.DBNames;
-import it.unisa.kids.common.RefinedAbstractManager;
-import it.unisa.kids.serviceManagement.paymentManagement.IPaymentManager;
-import it.unisa.kids.serviceManagement.paymentManagement.PaymentBean;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -322,9 +319,9 @@ public class JDBCCanteenManager implements ICanteenManager {
             // constructing query string
             query = "SELECT * FROM " + DBNames.TABLE_MENU;
             if (pMenuType != null && pMenuType.equals(MenuBean.DIFF_MENU)) {
-                query += " WHERE " + DBNames.ATT_MENU_TYPE + " " + MenuBean.DIFF_MENU;
+                query += " WHERE " + DBNames.ATT_MENU_TYPE + " = '" + MenuBean.DIFF_MENU + "'";
             } else if (pMenuType != null && pMenuType.equals(MenuBean.DAILY_MENU)) {
-                query += " WHERE " + DBNames.ATT_MENU_TYPE + " " + MenuBean.DAILY_MENU;
+                query += " WHERE " + DBNames.ATT_MENU_TYPE + " = '" + MenuBean.DAILY_MENU + "'";
             }
             //query += " AND " + DBNames.ATT_MENU_CHILDINSCID + "IS NOT NULL";
             query += " ORDER BY " + DBNames.ATT_MENU_ID + " desc" + " LIMIT " + pNumOfMenu;
