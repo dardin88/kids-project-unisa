@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unisa.kids.accessManagement.classManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
@@ -78,24 +74,12 @@ public class GetTableClassServlet extends HttpServlet {
             ClassBean pClassBean = new ClassBean();
             pClassBean.setState(stato);
             pClassBean.setClassName(nome);
-
-//              così non funziona la ricerca non capisco perchè!
-//            if (!pClassBean.getClassName().equals("")&&!pClassBean.getState().equals("")) 
-//            {
-//                listClassBean = classManager.search(pClassBean);
-//                System.out.println("ricerca?");
-//            }
-//            else {
-            listClassBean = classManager.getAll();
-            System.out.println("getall?");
-            //}
-
-            if (!pClassBean.getClassName().equals("")) {
-                ClassBean tmpClassBean = new ClassBean();
-                tmpClassBean.setClassName(nome);
+            
+            if (!pClassBean.getClassName().equals("") || !pClassBean.getState().equals("")) {
                 listClassBean = classManager.search(pClassBean);
+            } else {
+                listClassBean = classManager.getAll();
             }
-
 
             int linksNumber = listClassBean.size();
             if (linksNumber < amount) {
@@ -116,7 +100,7 @@ public class GetTableClassServlet extends HttpServlet {
 
                     ja.put(clas.getClassName());
                     ja.put(clas.getState());
-                    String operazioni = "<input class='tableImage' type='image' src='img/trash.png' onclick='removeAccount(\"" + clas.getIdClasse() + "\")'/> <input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/lente.gif' onclick='showAccount(\"" + clas.getIdClasse() + "\")'/>";
+                    String operazioni = " <input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/lente.gif' onclick='showClass(\"" + clas.getIdClasse() + "\")'/><input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/edit.gif' onclick='modifyClass(\"" + clas.getIdClasse() + "\")'/><input class='tableImage' type='image' src='img/trash.png' onclick='removeClass(\"" + clas.getIdClasse() + "\")'/>";
                     ja.put(operazioni);
                     array.put(ja);
                 }
@@ -160,7 +144,7 @@ public class GetTableClassServlet extends HttpServlet {
 //            request.getSession().setAttribute("ListaBamb", listaacc);
 
             //cancellare fino a qui
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(GetTableClassServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

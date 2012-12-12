@@ -1,13 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unisa.kids.accessManagement.classManagement;
 
+import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationChildManager;
+import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +21,12 @@ import javax.servlet.http.HttpServletResponse;
  * @author tonino
  */
 public class AddClassBeanServlet extends HttpServlet {
+
+    private IRegistrationChildManager regMan;
+
+    public void init(ServletConfig config) {
+        regMan = (IRegistrationChildManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
+    }
 
     /**
      * Processes requests for both HTTP
@@ -34,13 +43,20 @@ public class AddClassBeanServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             JDBCClassManager clasMan = JDBCClassManager.getInstance();
-
             ClassBean clas = new ClassBean();
+            clas.setIdClasse(0);
             clas.setClassName(request.getParameter(DBNames.ATT_CLASS_NAME));
-            clas.setState(request.getParameter(DBNames.ATT_CLASS_STATE)); //non capisco pkè nn se lo prende questo parametro
-            System.out.println("ecco il nome " + clas.getClassName());
-            System.out.println("ecco lo stato " + clas.getState());
+            clas.setState(request.getParameter(DBNames.ATT_CLASS_STATE));
             clasMan.insert(clas);
+            List<ClassBean> searchedClass = clasMan.search(clas);
+            String[] childChecked = request.getParameterValues("childRow");
+            for (int i = 0; i < childChecked.length; i++) {
+                System.out.println(childChecked[i]);
+                RegistrationChild tmpRegChild = new RegistrationChild();
+                tmpRegChild.setId(Integer.parseInt(childChecked[i]));
+                regMan.setSectionRegistrationChild(tmpRegChild, searchedClass.get(0).getIdClasse());
+            }
+            response.sendRedirect("classe.jsp");
         } catch (SQLException exeption) {
             request.setAttribute("message", "Verfica i campi");
             request.getServletContext().getRequestDispatcher("/classe.jsp").forward(request, response);

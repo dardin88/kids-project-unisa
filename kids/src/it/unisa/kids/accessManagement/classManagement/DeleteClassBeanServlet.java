@@ -1,13 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unisa.kids.accessManagement.classManagement;
 
-import it.unisa.kids.common.DBNames;
+import it.unisa.kids.accessManagement.registrationChildManagement.JDBCRegistrationChildManager;
+import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -36,16 +34,22 @@ public class DeleteClassBeanServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            JDBCClassManager clasMan=JDBCClassManager.getInstance();
-            
-            ClassBean clas=new ClassBean();
-            clas.setIdClasse(Integer.parseInt(request.getParameter("id")));
-            
+            JDBCClassManager clasMan = JDBCClassManager.getInstance();
+            JDBCRegistrationChildManager regman = JDBCRegistrationChildManager.getInstance();
+            int classId = Integer.parseInt(request.getParameter("id"));
+            ClassBean clas = new ClassBean();
+            clas.setIdClasse(classId);
             clasMan.delete(clas);
-
+            RegistrationChild rc = new RegistrationChild();
+            rc.setSectionId(classId);
+            List<RegistrationChild> searchedChild = regman.search(rc);
+            for (RegistrationChild child : searchedChild){
+                child.setSectionId(0);
+                regman.update(child);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DeleteClassBeanServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {            
+        } finally {
             out.close();
         }
     }

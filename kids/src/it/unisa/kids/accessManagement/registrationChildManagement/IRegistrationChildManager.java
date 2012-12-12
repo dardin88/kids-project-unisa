@@ -89,6 +89,7 @@ public interface IRegistrationChildManager extends IManager {
     public boolean modifySickness(int registrationChildId, String sickness) throws SQLException;
     public boolean modifyVaccination(int registrationChildId, String vaccination) throws SQLException;
     public boolean modifyAdditionalNotes(int registrationChildId, String additionalNotes) throws SQLException;
+    public List<RegistrationChild> searchSectionId(RegistrationChild child) throws SQLException;
     
     public List<RegistrationChild> getReceptedRegistrationChild() throws SQLException;
 }

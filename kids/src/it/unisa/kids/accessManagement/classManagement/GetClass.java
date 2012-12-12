@@ -23,13 +23,12 @@ import javax.servlet.http.HttpServletResponse;
  * @author Gianmarco
  */
 public class GetClass extends HttpServlet {
-    
-      private IClassManager classManager;
 
-     public void init(ServletConfig config) {
+    private IClassManager classManager;
+
+    public void init(ServletConfig config) {
         classManager = (IClassManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_CLASS);
     }
-
 
     /**
      * Processes requests for both HTTP
@@ -45,19 +44,14 @@ public class GetClass extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            Logger.getLogger(GetClass.class.getName()).log(Level.SEVERE, "Id passato = " + request.getParameter("id"));
-            int id=Integer.parseInt(request.getParameter("id"));
-            //System.out.println("Questo è l'id "+id);
-            ClassBean clas=new ClassBean();
+            int id = Integer.parseInt(request.getParameter("id"));
+            ClassBean clas = new ClassBean();
             clas.setIdClasse(id);
-            List<ClassBean> list=classManager.search(clas);
-            
+            List<ClassBean> list = classManager.search(clas);
             request.setAttribute("id", list.get(0).getIdClasse());
-            request.setAttribute("Nome", list.get(0).getClassName());   
-            request.setAttribute("Stato",list.get(0).getState());
-           
-            
-        } catch (SQLException ex) {
+            request.setAttribute("Nome", list.get(0).getClassName());
+            request.setAttribute("Stato", list.get(0).getState());
+    } catch (SQLException ex) {
             Logger.getLogger(GetClass.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
