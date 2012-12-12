@@ -7,10 +7,6 @@ package it.unisa.kids.accessManagement.tests.accountManagement;
 import it.unisa.kids.accessManagement.accountManagement.Account;
 import junit.framework.TestCase;
 
-/**
- *
- * @author Gilda
- */
 public class AccountTest extends TestCase{
     private Account account;
 
