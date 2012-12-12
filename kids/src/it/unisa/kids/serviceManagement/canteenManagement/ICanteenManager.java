@@ -14,6 +14,7 @@ public interface ICanteenManager extends IManager {
 	public List<MenuBean> search(MenuBean pMenu) throws SQLException;
 	public List<MenuBean> getMenuList() throws SQLException;
 	public List<MenuBean> getMenuList(String pMenuType) throws SQLException;
+        public List<MenuBean> getLastMenu(int pNumOfMenu, String pMenuType) throws SQLException;
 	
 	
 	public void insert(MealRequestBean pMealReq) throws SQLException;

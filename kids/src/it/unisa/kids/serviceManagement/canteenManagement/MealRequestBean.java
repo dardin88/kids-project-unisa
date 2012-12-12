@@ -8,6 +8,8 @@ public class MealRequestBean {
 	
 	private int id;
 	private GregorianCalendar date;
+        private boolean fulfilled;
+        private boolean fulfilledUsable;
 	private int parentId;
 	
 	public MealRequestBean() {
@@ -29,6 +31,22 @@ public class MealRequestBean {
 	public void setDate(GregorianCalendar pDate) {
 		this.date = pDate;
 	}
+        
+        public boolean isFulfilled() {
+            return this.fulfilled;
+        }
+        
+        public void setFulfilled(boolean pFulfilled) {
+            this.fulfilled = pFulfilled;
+        }
+        
+        public boolean isFulfilledUsable() {
+            return this.fulfilledUsable;
+        }
+        
+        public void setFulfilledUsable(boolean pFulfilledUsable) {
+            this.fulfilledUsable = pFulfilledUsable;
+        }
 	
 	public int getParentId() {
 		return this.parentId;
