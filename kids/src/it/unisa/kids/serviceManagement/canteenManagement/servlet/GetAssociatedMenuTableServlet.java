@@ -93,7 +93,7 @@ public class GetAssociatedMenuTableServlet extends HttpServlet {
                     return;
                 }
             } else if (request.getParameter("onlyLastAssMenu") != null) {
-                menuList = canteenManager.getLastMenu(10, null);
+                menuList = canteenManager.getLastMenu(10, null, false);
             } else {
                 sendMessageRedirect(request, response, "Errore: impossibile recuperare la lista dei men&ugrave;");
                 return;

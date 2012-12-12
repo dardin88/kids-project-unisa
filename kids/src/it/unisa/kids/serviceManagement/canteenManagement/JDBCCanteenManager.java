@@ -306,7 +306,7 @@ public class JDBCCanteenManager implements ICanteenManager {
     }
 
     @Override
-    public List<MenuBean> getLastMenu(int pNumOfMenu, String pMenuType) throws SQLException {
+    public List<MenuBean> getLastMenu(int pNumOfMenu, String pMenuType, boolean pOnlyDaily) throws SQLException {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -323,7 +323,10 @@ public class JDBCCanteenManager implements ICanteenManager {
             } else if (pMenuType != null && pMenuType.equals(MenuBean.DAILY_MENU)) {
                 query += " WHERE " + DBNames.ATT_MENU_TYPE + " = '" + MenuBean.DAILY_MENU + "'";
             }
-            //query += " AND " + DBNames.ATT_MENU_CHILDINSCID + "IS NOT NULL";
+            
+            if (pOnlyDaily) {
+                query += " AND " + DBNames.ATT_MENU_CHILDINSCID + "IS NULL";
+            }
             query += " ORDER BY " + DBNames.ATT_MENU_ID + " desc" + " LIMIT " + pNumOfMenu;
 
             stmt = con.createStatement();
