@@ -437,8 +437,8 @@ CREATE TABLE IF NOT EXISTS `registro_scolastico` (
 CREATE TABLE IF NOT EXISTS `richiesta_modifica_orari_servizio` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Motivazione` varchar(2000) DEFAULT NULL,
-  `FasciaUtenza` enum('full time','part time pomeridiana','part time mattutina') NOT NULL,
-  `idBambino` int(11) NOT NULL,
+  `FasciaUtenza` enum('full_time','part_time_pomeridiana','part_time_mattutina') NOT NULL,
+  `IdBambino` int(11) NOT NULL,
   `AccountGenitore` int(11) NOT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;

@@ -4,7 +4,8 @@ public final class DBNames {
 
     private DBNames() {
     }
-    public static final String TABLE_TIMESERVICE="orariDiServizio";
+    public static final String TABLE_MODIFYTIMESERVICEREQUEST = "richiesta_modifica_orari_servizio";
+    public static final String TABLE_TIMESERVICE = "orariDiServizio";
     public static final String TABLE_ACCOUNT = "account";
     public static final String TABLE_REGISTRATIONCHILD = "iscrizionebambino";
     public static final String TABLE_CLASSIFICATION = "graduatoria";
@@ -34,10 +35,9 @@ public final class DBNames {
     public static final String TABLE_TRAINEEREQUEST = "richiesta_tirocinanti";
     public static final String TABLE_TRAINEEACTIVITY = "attivita_tirocinante";
     public static final String TABLE_REGISTER = "registro_scolastico";
-    public static final String TABLE_ACTIVITYSECTIONDAILY="attivita_giornaliera_per_sezione";
+    public static final String TABLE_ACTIVITYSECTIONDAILY = "attivita_giornaliera_per_sezione";
     public static final String TABLE_SURVEY = "questionario";
     public static final String TABLE_SURVEYCOMPILED = "questionariocompilato";
-    
     //Account's attributes
     public static final String ATT_ACCOUNT_REGISTER = "Matricola";
     public static final String ATT_ACCOUNT_CAPDOMICILIE = "DomicilioCap";
@@ -47,7 +47,7 @@ public final class DBNames {
     public static final String ATT_ACCOUNT_CONTRACTEXPIRATIONDATE = "DataScadenzaContratto";
     public static final String ATT_ACCOUNT_DATEOFBIRTH = "DataNascita";
     public static final String ATT_ACCOUNT_PROVINCEDOMICILE = "DomicilioProvincia";
-    public static final String ATT_ACCOUNT_PROVINCERESIDENCE = "ResidenzaProvincia";    
+    public static final String ATT_ACCOUNT_PROVINCERESIDENCE = "ResidenzaProvincia";
     public static final String ATT_ACCOUNT_EMAIL = "Email";
     // Si devono inserire tra "" i nomi come stanno nel DB
     public static final String ATT_ACCOUNT_FACULTY = "Facolta";
@@ -139,13 +139,11 @@ public final class DBNames {
     public static final String ATT_RECOURSE_REASON = "Motivo";
     public static final String ATT_RECOURSE_VALUTATION = "Valutazione";
     public static final String ATT_RECOURSE_REGISTRATIONCHILDID = "Iscrizione";
-    
     //RinunciaTable's attributes
     public static final String ATT_RENUNCIATION_ID = "Id";
     public static final String ATT_RENUNCIATION_MOTIVATION = "Motivazione";
     public static final String ATT_RENUNCIATION_CONFIRM = "Conferma";
     public static final String ATT_RENUNCIATION_ID_CHILD = "IdBambino";
-    
     //RequestTable's attributes
     public static final String ATT_REQUEST_ID = "id";
     public static final String ATT_REQUEST_DATE = "data";
@@ -163,7 +161,7 @@ public final class DBNames {
     public static final String ATT_TIMESERVREQ_SERVTYPE = "TipoServizio";
     public static final String ATT_TIMESERVREQ_REQTIME = "Ora";
     public static final String ATT_TIMESERVREQ_PARENTID = "AccountGenitore";
-    public static final String ATT_TIMESERVREQ_CONFIRMED="Confermato";
+    public static final String ATT_TIMESERVREQ_CONFIRMED = "Confermato";
     //DifferentiatedMenuTable's attributes
     public static final String ATT_MENU_ID = "Id";
     public static final String ATT_MENU_TYPE = "Tipo";
@@ -192,8 +190,6 @@ public final class DBNames {
     public static final String ATT_REFUND_AMOUNT = "Importo";
     public static final String ATT_REFUND_PARENTID = "Genitore";
     public static final String ATT_REFUND_PERFORMED = "Effettuato";
-    
-    
     //Trainee activity's attributes
     public static final String ATT_TRAINEEACTIVITY_DATE = "Data";
     public static final String ATT_TRAINEEACTIVITY_NAME = "Nome";
@@ -203,7 +199,7 @@ public final class DBNames {
     public static final String ATT_TRAINEEACTIVITY_DELEGATEACCOUNT = "Delegato";
     public static final String ATT_TRAINEEACTIVITY_TRAINEE = "Tirocinante";
     public static final String ATT_TRAINEEACTIVITY_ID = "Id";
-    public static final String ATT_TRAINEEACTIVITY_OPINION="Giudizio";
+    public static final String ATT_TRAINEEACTIVITY_OPINION = "Giudizio";
     // Reunion's attributes
     public static final String ATT_REUNION_ID = "Id";
     public static final String ATT_REUNION_TITLE = "Titolo";
@@ -235,8 +231,7 @@ public final class DBNames {
     public static final String ATT_PROJECTANNUAL_TOPIC = "Tema";
     public static final String ATT_PROJECTANNUAL_DESCRIPTION = "Contenuto";
     public static final String ATT_PROJECTANNUAL_APPLICATIONYEAR = "Anno applicazione";
-    public static final String ATT_PROJECTANNUALSECTION_ATTACHED= "attached";
-
+    public static final String ATT_PROJECTANNUALSECTION_ATTACHED = "attached";
     //ProjectAnnualSection attributes
     public static final String ATT_PROJECTANNUALSECTION_ID = "Id";
     public static final String ATT_PROJECTANNUALSECTION_NAME = "Nome";
@@ -285,14 +280,20 @@ public final class DBNames {
     public static final String ATT_TRAINEECONVOCATION_DELEGATE = "IdDelegato";
     public static final String ATT_TRAINEECONVOCATION_TRAINEE = "IdTirocinante";
     //Register
-    public static final String ATT_REGISTER_CHILDID="idBambino";
-    public static final String ATT_REGISTER_DAILYACTIVITYID="idAttivitaGiornaliera";
-    public static final String ATT_REGISTER_PRESENCE="Stato";
+    public static final String ATT_REGISTER_CHILDID = "idBambino";
+    public static final String ATT_REGISTER_DAILYACTIVITYID = "idAttivitaGiornaliera";
+    public static final String ATT_REGISTER_PRESENCE = "Stato";
     //Survey's attributes
     public static final String ATT_SURVEY_SURVEYID = "idQuestionario";
-    public static final String ATT_SURVEY_SURVEYLINK = "Link";  
+    public static final String ATT_SURVEY_SURVEYLINK = "Link";
     //Survey-compiled's attributes
     public static final String ATT_SURVEYCOMPILED_SURVEYID = "IdQuestionario";
     public static final String ATT_SURVEYCOMPILED_ACCOUNTID = "IdUtente";
     public static final String ATT_SURVEYCOMPILED_COMPILED = "Compilato";
+    //modify time service request's attributes
+    public static final String ATT_MODIFYTIMESERVICEREQUEST_ID = "Id";
+    public static final String ATT_MODIFYTIMESERVICEREQUEST_PARENTID = "AccountGenitore";
+    public static final String ATT_MODIFYTIMESERVICEREQUEST_MOTIVATION = "Motivazione";
+    public static final String ATT_MODIFYTIMESERVICEREQUEST_CHILDID = "IdBambino";
+    public static final String ATT_MODIFYTIMESERVICEREQUEST_RANGEUSER = "FasciaUtenza";
 }
