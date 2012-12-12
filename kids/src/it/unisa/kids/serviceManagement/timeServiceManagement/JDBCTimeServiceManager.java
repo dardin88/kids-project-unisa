@@ -505,4 +505,52 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
         }
         return modifyTimeServiceRequests;
     }
+    
+        public List<ModifyTimeServiceRequest> getRequestModifyTimeServiceList() throws SQLException{
+            Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String query = null;
+        List<ModifyTimeServiceRequest> modifyTimeServiceRequests = null;
+
+        boolean andState = false;
+
+        try {
+            con = DBConnectionPool.getConnection();
+
+            // constructing search query string
+            query = "SELECT * FROM " + DBNames.TABLE_MODIFYTIMESERVICEREQUEST ;
+
+            pstmt = con.prepareStatement(query);
+
+            
+            rs = pstmt.executeQuery();
+            con.commit();
+
+            // constructing timeServReq list
+            modifyTimeServiceRequests= new ArrayList<ModifyTimeServiceRequest>();
+            while (rs.next()) {
+                ModifyTimeServiceRequest mtsr = new ModifyTimeServiceRequest();
+                mtsr.setId(rs.getInt(DBNames.ATT_MODIFYTIMESERVICEREQUEST_ID));
+                mtsr.setIdChild(rs.getInt(DBNames.ATT_MODIFYTIMESERVICEREQUEST_CHILDID));
+                mtsr.setIdParent(rs.getInt(DBNames.ATT_MODIFYTIMESERVICEREQUEST_PARENTID));
+                mtsr.setMotivation(rs.getString(DBNames.ATT_MODIFYTIMESERVICEREQUEST_MOTIVATION));
+                mtsr.setState(rs.getString(DBNames.ATT_MODIFYTIMESERVICEREQUEST_STATE));
+                mtsr.setUserRange(rs.getString(DBNames.ATT_MODIFYTIMESERVICEREQUEST_RANGEUSER));
+                modifyTimeServiceRequests.add(mtsr);
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
+            if (con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+        return modifyTimeServiceRequests;
+        }
+
 }
