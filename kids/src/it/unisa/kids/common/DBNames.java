@@ -296,4 +296,5 @@ public final class DBNames {
     public static final String ATT_MODIFYTIMESERVICEREQUEST_MOTIVATION = "Motivazione";
     public static final String ATT_MODIFYTIMESERVICEREQUEST_CHILDID = "IdBambino";
     public static final String ATT_MODIFYTIMESERVICEREQUEST_RANGEUSER = "FasciaUtenza";
+    public static final String ATT_MODIFYTIMESERVICEREQUEST_STATE = "Stato";
 }

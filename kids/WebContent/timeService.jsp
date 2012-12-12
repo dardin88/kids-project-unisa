@@ -46,6 +46,7 @@
                 buildRequestTimeServiceParentTable();
                 buildRequestTimeServiceSecretaryTable();
                 buildTableChild();
+                tableRequestModifyTimeService();
             });
         </script>
     </head>
@@ -142,9 +143,22 @@
                                         <tr><td>Motivazione</td><td><textarea id="motivation" name="motivazione"style="resize: none" cols="40" rows="10" disabled></textarea></td></tr>
                                     </table>
                                     <input type="submit" value="Invia" id="sendRequestModifyTimeService"  >
-                                    
+
                                 </form>
                             </div>
+                            <table id="TableRequestModifyTimeService">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Richiesta</th>
+                                        <th>Stato</th>
+                                        <th>Operazioni</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+
+                            </table>
                         </div>
                     </div>
                 </div>

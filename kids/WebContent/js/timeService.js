@@ -335,14 +335,51 @@ function changeUserRange(userRange) {
 
 }
 function strcmp(str1, str2) {
-    // http://kevin.vanzonneveld.net
-    // +   original by: Waldo Malqui Silva
-    // +      input by: Steve Hilder
-    // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
-    // +    revised by: gorthaur
-    // *     example 1: strcmp( 'waldo', 'owald' );
-    // *     returns 1: 1
-    // *     example 2: strcmp( 'owald', 'waldo' );
-    // *     returns 2: -1
+    
     return ((str1 == str2) ? 0 : ((str1 > str2) ? 1 : -1));
+}
+function tableRequestModifyTimeService() {
+    $('#TableRequestModifyTimeService').dataTable({
+        "bJQueryUI": true,
+        "bServerSide": true,
+        "bProcessing": true,
+        "sAjaxSource": "GetRequestModifyTimeService",
+        "bPaginate": true,
+        "bLengthChange": false,
+        "bFilter": false,
+        "bSort": false,
+        "bDestroy": true,
+        "bInfo": true,
+        "bAutoWidth": true,
+        "sPaginationType": "full_numbers",
+        "oLanguage": {
+            "sProcessing": "Caricamento...",
+            "sLengthMenu": "Visualizza _MENU_ link",
+            "sZeroRecords": "La ricerca non ha portato alcun risultato.",
+            "sInfo": "Vista da _START_ a _END_ di _TOTAL_ Richieste",
+            "sInfoEmpty": "Vista da 0 a 0 di 0 Richieste",
+            "sInfoFiltered": "(filtrati da _MAX_ link totali)",
+            "sInfoPostFix": "",
+            "oPaginate": {
+                "sFirst": "<<",
+                "sPrevious": "<",
+                "sNext": ">",
+                "sLast": ">>"
+            }
+        },
+        "aoColumns": [
+            {
+                "sWidth": "25%"
+            },
+            {
+                "sWidth": "25%"
+            },
+            {
+                "sWidth": "25%"
+            },
+            {
+                "sWidth": "10%"
+            }
+        ]
+    });
 }
