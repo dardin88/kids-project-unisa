@@ -16,7 +16,7 @@ public class JDBCRenunciationManagerTest extends TestCase {
     public void setUp() {
         this.bean = new Renunciation();
         this.bean.setId(1);
-        this.bean.setConferma(1);
+        this.bean.setIsConfirmed(1);
         this.managerTest=JDBCRenunciationManager.getInstance();
         
         try {
@@ -45,7 +45,7 @@ public class JDBCRenunciationManagerTest extends TestCase {
     public void testInsert() {
         Renunciation test=new Renunciation();
         test.setId(2);
-        test.setConferma(1);
+        test.setIsConfirmed(1);
         
         try {
             this.managerTest.insert(test);            
@@ -69,11 +69,11 @@ public class JDBCRenunciationManagerTest extends TestCase {
         try {
             List<Renunciation> list=this.managerTest.search(this.bean);
             toSearch=list.get(0);
-            list.get(0).setConferma(1);
+            list.get(0).setIsConfirmed(1);
             this.managerTest.update(list.get(0));
 
             try {
-                assertEquals("update() does not work!", 1, this.managerTest.search(toSearch).get(0).isConferma());
+                assertEquals("update() does not work!", 1, this.managerTest.search(toSearch).get(0).getIsConfirmed());
             } catch (Exception e) {
             }
 

@@ -1,150 +1,202 @@
 package it.unisa.kids.accessManagement.renunciationManagement;
 
+import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
 import it.unisa.storage.connectionPool.DBConnectionPool;
-
-import it.unisa.kids.common.RefinedAbstractManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
+/**
+ * 
+ * @author Lauri Giuseppe Giovanni
+ *
+ */
 public class JDBCRenunciationManager implements IRenunciationManager {
-
     private static JDBCRenunciationManager manager;
 
     private JDBCRenunciationManager() {
     }
 
     public static synchronized JDBCRenunciationManager getInstance() {
-        if (manager == null) {
+        if(manager == null) {
             manager = new JDBCRenunciationManager();
         }
 
         return manager;
     }
 
-    public synchronized void insert(Renunciation pRenunciation) throws SQLException {
+    public synchronized boolean insert(Renunciation renunciation) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
         String query;
-
+        int numEditedRow;
+        boolean toReturn = false;
+        
         try {
             con = DBConnectionPool.getConnection();
 
             // constructing query string
             query = "INSERT INTO " + DBNames.TABLE_RENUNCIATION + " ("
                     + DBNames.ATT_RENUNCIATION_ID + ", "
-                    + DBNames.ATT_RENUNCIATION_ID_CHILD + ", "
-                    + DBNames.ATT_RENUNCIATION_MOTIVATION + ", "
-                    + DBNames.ATT_RENUNCIATION_CONFIRM + ", "
+                    + DBNames.ATT_RENUNCIATION_DATE + ", "
+                    + DBNames.ATT_RENUNCIATION_REGISTRATIONCHILDID + ", "
+                    + DBNames.ATT_RENUNCIATION_REASON + ", "
+                    + DBNames.ATT_RENUNCIATION_ISCONFIRMED + ", "
                     + ") VALUES(?, ?, ?, ?)";
 
             pstmt = con.prepareStatement(query);
 
             //setting pstmt's parameters
-            pstmt.setInt(1, pRenunciation.getId());
-            pstmt.setInt(2, pRenunciation.getIdBambino());
-            pstmt.setString(3, pRenunciation.getMotivazione());
-            pstmt.setInt(4, pRenunciation.isConferma());
+            pstmt.setInt(1, renunciation.getId());
+            pstmt.setDate(2, CommonMethod.parseDate(renunciation.getDate()));
+            pstmt.setInt(3, renunciation.getRegistrationChildId());
+            pstmt.setString(4, renunciation.getReason());
+            pstmt.setBoolean(5, renunciation.getIsConfirmed());
 
-            pstmt.executeUpdate();
+            numEditedRow = pstmt.executeUpdate();
             con.commit();
+            if(numEditedRow > 0) {
+                toReturn = true;
+            }
         } finally {
-            if (pstmt != null) {
+            if(pstmt != null) {
                 pstmt.close();
             }
-            if (con != null) {
+            if(con != null) {
                 DBConnectionPool.releaseConnection(con);
             }
         }
+        return toReturn;
     }
 
-    public void delete(Renunciation pRenunciation) throws SQLException {
+    public synchronized boolean delete(Renunciation renunciation) throws SQLException {
         Connection con = null;
-        Statement stmt = null;
-
+        PreparedStatement pstmt = null;
+        boolean toReturn = false;
+        int numEditedRow;
+        
         try {
             con = DBConnectionPool.getConnection();
-            String query = "DELETE FROM '" + DBNames.TABLE_RENUNCIATION + "' WHERE '" + DBNames.ATT_RENUNCIATION_ID + "'='" + pRenunciation.getId() + "';";
+            String query = "DELETE FROM " + DBNames.TABLE_RENUNCIATION + " " +
+                            "WHERE " + DBNames.ATT_RENUNCIATION_ID + "=?;";
 
-            stmt = con.createStatement();
-            stmt.executeUpdate(query);
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, renunciation.getId());
+            
+            numEditedRow = pstmt.executeUpdate(query);
+            con.commit();
+            if(numEditedRow > 0) {
+                toReturn = true;
+            }
         } finally {
-            stmt.close();
-            DBConnectionPool.releaseConnection(con);
+            if(pstmt != null) {
+                pstmt.close();
+            }
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
         }
+        return toReturn;
     }
 
-    public List<Renunciation> search(Renunciation pRenunciation) throws SQLException {
+    public List<Renunciation> search(Renunciation renunciation) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet result = null;
         List<Renunciation> listRenunciation = new ArrayList<Renunciation>();
-        StringBuffer query = new StringBuffer("SELECT * "
-                + "FROM " + DBNames.TABLE_RENUNCIATION
-                + "WHERE ");
-
-        boolean andState = false;
-
-        if (pRenunciation.getId() > 0) {
-            query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_ID + "=? ,");
-            andState = true;
-        }
-        if (pRenunciation.getIdBambino() >= 0) {
-            query.append(useAnd(andState) + DBNames.ATT_RENUNCIATION_ID_CHILD + " = ? ,");
-            andState = true;
-        }
-        if (pRenunciation.isConferma() == 1) {
-            query.append(useAnd(andState) + DBNames.ATT_RENUNCIATION_CONFIRM + " = ? ");
-            andState = true;
-        }
-        if (!andState) {  // nel caso tutti i parametri sono null
-            query.append("1");
-        }
-        System.out.println(query);
+        StringBuffer query = new StringBuffer();
 
         try {
             con = DBConnectionPool.getConnection();
+            
+            query.append("SELECT * " +
+                            "FROM " + DBNames.TABLE_RENUNCIATION + " " +
+                            "WHERE ");
+
+            boolean andState = false;
+
+            if (renunciation.getId() > 0) {
+                query.append(useAnd(andState) + DBNames.ATT_RENUNCIATION_ID + "=?");
+                andState = true;
+            }
+            if (renunciation.getDate() != null) {
+                query.append(useAnd(andState) + DBNames.ATT_RENUNCIATION_DATE + "=?");
+                andState = true;
+            }
+            if (renunciation.getRegistrationChildId() >= 0) {
+                query.append(useAnd(andState) + DBNames.ATT_RENUNCIATION_REGISTRATIONCHILDID + "=?");
+                andState = true;
+            }
+            if (renunciation.isSetConfirmed()) {
+                query.append(useAnd(andState) + DBNames.ATT_RENUNCIATION_ISCONFIRMED + "=? ");
+                andState = true;
+            }
+            if (renunciation.getReason() != null) {
+                query.append(useAnd(andState) + DBNames.ATT_RENUNCIATION_REASON + "=? ");
+                andState = true;
+            }
+            if (!andState) {  // nel caso tutti i parametri sono null
+                query.append("1");
+            }
+            query.append(";");
+            
             pstmt = con.prepareStatement(query.toString());
 
             int paramNum = 1;
 
-            if (pRenunciation.getIdBambino() > 0) {
-                pstmt.setInt(paramNum, pRenunciation.getId());
+            if(renunciation.getId() > 0) {
+                pstmt.setInt(paramNum, renunciation.getId());
                 paramNum++;
             }
 
-            if (pRenunciation.getIdBambino() > 0) {
-                pstmt.setInt(paramNum, pRenunciation.getIdBambino());
+            if(renunciation.getDate() != null) {
+                pstmt.setDate(paramNum, CommonMethod.parseDate(renunciation.getDate()));
                 paramNum++;
             }
-            if (pRenunciation.isConferma() == 1) {
-                pstmt.setInt(paramNum, pRenunciation.isConferma());
+
+            if(renunciation.getRegistrationChildId() > 0) {
+                pstmt.setInt(paramNum, renunciation.getRegistrationChildId());
+                paramNum++;
+            }
+            if(renunciation.isSetConfirmed()) {
+                pstmt.setBoolean(paramNum, renunciation.getIsConfirmed());
+                paramNum++;
+            }
+            if(renunciation.getReason() != null) {
+                pstmt.setString(paramNum, renunciation.getReason());
                 paramNum++;
             }
 
             result = pstmt.executeQuery();
             con.commit();
-            while (result.next()) {
+            while(result.next()) {
                 Renunciation p = new Renunciation();
                 p.setId(result.getInt(DBNames.ATT_RENUNCIATION_ID));
-                p.setConferma(result.getInt(DBNames.ATT_RENUNCIATION_CONFIRM));
-                p.setIdBambino(result.getInt(DBNames.ATT_RENUNCIATION_ID_CHILD));
-                p.setMotivazione(result.getString(DBNames.ATT_RENUNCIATION_MOTIVATION));
+                GregorianCalendar date;
+                if(result.getDate(DBNames.ATT_RENUNCIATION_DATE) != null) {
+                    date = CommonMethod.parseGregorianCalendar(result.getDate(DBNames.ATT_RENUNCIATION_DATE));
+                } else {
+                    date = null;
+                }
+                p.setDate(date);
+                p.setIsConfirmed(result.getBoolean(DBNames.ATT_RENUNCIATION_ISCONFIRMED));
+                p.setRegistrationChildId(result.getInt(DBNames.ATT_RENUNCIATION_REGISTRATIONCHILDID));
+                p.setReason(result.getString(DBNames.ATT_RENUNCIATION_REASON));
                 listRenunciation.add(p);
             }
         } finally {
-            if (result != null) {
+            if(result != null) {
                 result.close();
             }
-            if (pstmt != null) {
+            if(pstmt != null) {
                 pstmt.close();
             }
-            if (con != null) {
+            if(con != null) {
                 DBConnectionPool.releaseConnection(con);
             }
         }
@@ -156,63 +208,88 @@ public class JDBCRenunciationManager implements IRenunciationManager {
         return pEnableAnd ? " AND " : " ";
     }
 
-    public void update(Renunciation pRenunciation) throws SQLException {
+    private String useSeparator(boolean useSeparator) {
+        return useSeparator ? ", " : " ";
+    }
+    public boolean update(Renunciation pRenunciation) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
-        String query = null;
+        StringBuffer query = new StringBuffer();
 
         boolean commaState = false;
-
+        boolean toReturn = false;
+        int numEditedRow;
+        
         try {
             con = DBConnectionPool.getConnection();
 
             // constructing update query string
-            query = "UPDATE " + DBNames.TABLE_RENUNCIATION + " SET ";
+            query.append("UPDATE " + DBNames.TABLE_RENUNCIATION + " SET ");
 
-            if (pRenunciation.getIdBambino() != 0) {
-                query += DBNames.ATT_RENUNCIATION_ID_CHILD + "=?";
+            if(pRenunciation.getRegistrationChildId() > 0) {
+                query.append(DBNames.ATT_RENUNCIATION_REGISTRATIONCHILDID + "=?");
                 commaState = true;
             }
 
-            if (pRenunciation.getMotivazione() != null) {
-                query += DBNames.ATT_RENUNCIATION_MOTIVATION + "=?";
+            if(pRenunciation.getDate() != null) {
+                query.append(useSeparator(commaState) + DBNames.ATT_RENUNCIATION_DATE + "=?");
                 commaState = true;
             }
 
-            query += DBNames.ATT_RENUNCIATION_CONFIRM + "=?";
-            commaState = true;
-
-
-            query += " WHERE " + DBNames.ATT_RENUNCIATION_ID + " = ?";
-            pstmt = con.prepareStatement(query);
-
-            // setting pstmt's parameters
-            int i = 1;		// index of pstmt first argument
-
-            if (pRenunciation.getIdBambino() != 0) {
-                pstmt.setInt(i, pRenunciation.getIdBambino());
-                i++;
-            }
-            if (pRenunciation.getMotivazione() != null) {
-                pstmt.setString(i, pRenunciation.getMotivazione());
-                i++;
+            if(pRenunciation.getReason() != null) {
+                query.append(useSeparator(commaState) + DBNames.ATT_RENUNCIATION_REASON + "=?");
+                commaState = true;
             }
 
-            pstmt.setInt(i, pRenunciation.isConferma());
-            i++;
+            if(pRenunciation.isSetConfirmed()) {
+                query.append(useSeparator(commaState) + DBNames.ATT_RENUNCIATION_ISCONFIRMED + "=?");
+                commaState = true;
+            }
 
-            pstmt.setInt(i, pRenunciation.getId());
+            if(commaState) {
+                query.append(" WHERE " + DBNames.ATT_RENUNCIATION_ID + "=?;");
+                
+                pstmt = con.prepareStatement(query.toString());
 
-            // executing update query
-            pstmt.executeUpdate();
-            con.commit();
+                // setting pstmt's parameters
+                int i = 1;		// index of pstmt first argument
+
+                if (pRenunciation.getRegistrationChildId() > 0) {
+                    pstmt.setInt(i, pRenunciation.getRegistrationChildId());
+                    i++;
+                }
+                if (pRenunciation.getDate() != null) {
+                    pstmt.setDate(i, CommonMethod.parseDate(pRenunciation.getDate()));
+                    i++;
+                }
+                if (pRenunciation.getReason() != null) {
+                    pstmt.setString(i, pRenunciation.getReason());
+                    i++;
+                }
+                if (pRenunciation.isSetConfirmed()) {
+                    pstmt.setBoolean(i, pRenunciation.getIsConfirmed());
+                    i++;
+                }
+                pstmt.setInt(i, pRenunciation.getId());
+                i++;
+
+                pstmt.setInt(i, pRenunciation.getId());
+
+                // executing update query
+                numEditedRow = pstmt.executeUpdate();
+                con.commit();
+                if(numEditedRow > 0) {
+                    toReturn = true;
+                }
+            }
         } finally {
-            if (pstmt != null) {
+            if(pstmt != null) {
                 pstmt.close();
             }
-            if (con != null) {
+            if(con != null) {
                 DBConnectionPool.releaseConnection(con);
             }
         }
+        return toReturn;
     }
 }

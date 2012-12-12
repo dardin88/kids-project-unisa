@@ -24,7 +24,7 @@ import org.json.JSONObject;
  *
  * @author Lauri Giuseppe Giovanni
  */
-public class InsertTableChildServlet extends HttpServlet {
+public class ServletGetTablePossibleRenunciation extends HttpServlet {
 
     private IRenunciationManager registrationRenunciationManager;
 
@@ -177,7 +177,7 @@ public class InsertTableChildServlet extends HttpServlet {
             response.setHeader("Pragma", "no-cache");
             out.print(result);
         } catch (SQLException ex) {
-            Logger.getLogger(InsertTableChildServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletGetTablePossibleRenunciation.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
         }

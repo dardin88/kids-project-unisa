@@ -141,9 +141,10 @@ public final class DBNames {
     public static final String ATT_RECOURSE_REGISTRATIONCHILDID = "Iscrizione";
     //RinunciaTable's attributes
     public static final String ATT_RENUNCIATION_ID = "Id";
-    public static final String ATT_RENUNCIATION_MOTIVATION = "Motivazione";
-    public static final String ATT_RENUNCIATION_CONFIRM = "Conferma";
-    public static final String ATT_RENUNCIATION_ID_CHILD = "IdBambino";
+    public static final String ATT_RENUNCIATION_DATE = "Data";
+    public static final String ATT_RENUNCIATION_REASON = "Motivazione";
+    public static final String ATT_RENUNCIATION_ISCONFIRMED = "Conferma";
+    public static final String ATT_RENUNCIATION_REGISTRATIONCHILDID = "IdIscrizione";
     //RequestTable's attributes
     public static final String ATT_REQUEST_ID = "id";
     public static final String ATT_REQUEST_DATE = "data";

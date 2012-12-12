@@ -5,9 +5,11 @@ import java.util.GregorianCalendar;
 public class Renunciation {
 
     private int id;
-    private String motivazione;
-    private int idBambino;
-    private int conferma;
+    private GregorianCalendar date;
+    private String reason;
+    private int registrationChildId;
+    private boolean isConfirmed;
+    private boolean isSetConfirmed;
 
     public Renunciation() {
     }
@@ -20,27 +22,40 @@ public class Renunciation {
         this.id = id;
     }
 
-    public int getIdBambino() {
-        return idBambino;
+    public GregorianCalendar getDate() {
+        return date;
     }
 
-    public void setIdBambino(int idBambino) {
-        this.idBambino = idBambino;
+    public void setDate(GregorianCalendar data) {
+        this.date = data;
     }
 
-    public String getMotivazione() {
-        return motivazione;
+    public int getRegistrationChildId() {
+        return registrationChildId;
     }
 
-    public void setMotivazione(String motivazione) {
-        this.motivazione = motivazione;
+    public void setRegistrationChildId(int registrationChildId) {
+        this.registrationChildId = registrationChildId;
     }
 
-    public int isConferma() {
-        return conferma;
+    public String getReason() {
+        return reason;
     }
 
-    public void setConferma(int conferma) {
-        this.conferma = conferma;
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public boolean getIsConfirmed() {
+        return isConfirmed;
+    }
+
+    public void setIsConfirmed(boolean isConfirmed) {
+        this.isConfirmed = isConfirmed;
+        this.isSetConfirmed = true;
+    }
+    
+    public boolean isSetConfirmed() {
+        return this.isSetConfirmed;
     }
 }

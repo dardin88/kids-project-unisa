@@ -499,7 +499,7 @@ CREATE TABLE IF NOT EXISTS `ricorso` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Data` date NOT NULL,
   `Motivo` text NOT NULL,
-  `Valutazione` tinyint(1) NOT NULL,
+  `Valutazione` tinyint(1) DEFAULT '0',
   `Iscrizione` int(11) NOT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -527,9 +527,10 @@ CREATE TABLE IF NOT EXISTS `rimborso` (
 
 CREATE TABLE IF NOT EXISTS `rinunce` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `IdBambino` int(11) DEFAULT NULL,
-  `Motivazione` varchar(50) DEFAULT NULL,
-  `Conferma` tinyint(1) DEFAULT NULL,
+  `IdIscrizione` int(11) NOT NULL,
+  `Data` date NOT NULL,
+  `Motivazione` varchar(50),
+  `Conferma` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
