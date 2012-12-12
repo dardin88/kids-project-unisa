@@ -155,6 +155,7 @@ public final class DBNames {
     //MealRequestTable's attributes
     public static final String ATT_MEALREQ_ID = "Id";
     public static final String ATT_MEALREQ_DATE = "Data";
+    public static final String ATT_MEALREQ_FULFILLED = "Soddisfatta";
     public static final String ATT_MEALREQ_PARENTID = "AccountGenitore";
     //TimeServiceRequestTable's attributes
     public static final String ATT_TIMESERVREQ_ID = "Id";
