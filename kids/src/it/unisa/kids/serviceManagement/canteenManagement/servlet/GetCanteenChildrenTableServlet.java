@@ -10,8 +10,6 @@ import it.unisa.kids.common.facade.AccessFacade;
 import it.unisa.kids.common.facade.IAccessFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -107,10 +105,6 @@ public class GetCanteenChildrenTableServlet extends HttpServlet {
 
                     checkAddToJSON(jObj, "0", regChild.getName() + " " + regChild.getSurname());
                     checkAddToJSON(jObj, "1", parent.getNameUser() + " " + parent.getSurnameUser());
-                    
-                    String acceptImage = "<img class=\"tableImage\" style=\"width:20px;height:20px\" title=\"Si\" alt=\"Si\" src=\"img/accept.png\" />";
-                    String negateImage = "<img class=\"tableImage\" style=\"width:20px; height:20px;\" title=\"No\" alt=\"No\" src=\"img/negate.png\" />";
-                    jObj.put("2", needsDiffMenu(regChild) ? acceptImage : negateImage);
 
                     jObj.put("DT_RowId", "" + regChild.getId());
                     array.put(jObj);
@@ -139,15 +133,6 @@ public class GetCanteenChildrenTableServlet extends HttpServlet {
         } else {
             jObj.put(key, "");
         }
-    }
-
-    private boolean needsDiffMenu(RegistrationChild rc) {
-        if (rc.getSickness() != null && !rc.getSickness().trim().equals("")) {
-            if (rc.getAdditionalNotes() != null && !rc.getAdditionalNotes().trim().equals("")) {
-                return true;
-            }
-        }
-        return false;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

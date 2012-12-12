@@ -4,6 +4,7 @@
  */
 package it.unisa.kids.serviceManagement.canteenManagement.servlet;
 
+import it.unisa.kids.accessManagement.classManagement.ClassBean;
 import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
@@ -29,8 +30,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author navi
  */
-public class InsertCanteenMenuServlet extends HttpServlet {
+public class InsertDailyMenuServlet extends HttpServlet {
 
+    // questi attributi dovrebbero essere presenti nella classe it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild
+    public static final String FULL_TIME = "full_time";
+    public static final String PART_TIME_M = "part_time_mattutina";
+    public static final String PART_TIME_P = "part_time_pomeridiana";
     private static final int MEAL_MAXLENGTH = 200;
     private ICanteenManager canteenManager;
     private IAccessFacade accessFacade;
@@ -57,38 +62,32 @@ public class InsertCanteenMenuServlet extends HttpServlet {
         try {
             MenuBean menu = new MenuBean();
 
-            int childId = Integer.parseInt(request.getParameter("hiddenChildIdInsDiff"));
-            if (childId <= 0) {
-                sendMessageRedirect(request, response, "Errore: bambino selezionato non corretto - " + childId);
-                return;
-            }
-            menu.setChildInscriptionId(childId);
-
-            menu.setType(MenuBean.DIFF_MENU);
+            menu.setChildInscriptionId(-1);
+            menu.setType(MenuBean.DAILY_MENU);
             menu.setDate(new GregorianCalendar());  // setto la data corrente
 
-            String first = request.getParameter("firstDiff").trim();
+            String first = request.getParameter("firstEditDaily").trim();
             if (first.length() > MEAL_MAXLENGTH) {
                 sendMessageRedirect(request, response, "Errore: campo menu troppo lungo.");
                 return;
             }
             menu.setFirst(first);
 
-            String second = request.getParameter("secondDiff").trim();
+            String second = request.getParameter("secondEditDaily").trim();
             if (second.length() > MEAL_MAXLENGTH) {
                 sendMessageRedirect(request, response, "Errore: campo menu troppo lungo.");
                 return;
             }
             menu.setSecond(second);
 
-            String sideDish = request.getParameter("sideDishDiff").trim();
+            String sideDish = request.getParameter("sideDishEditDaily").trim();
             if (sideDish.length() > MEAL_MAXLENGTH) {
                 sendMessageRedirect(request, response, "Errore: campo menu troppo lungo.");
                 return;
             }
             menu.setSideDish(sideDish);
 
-            String fruit = request.getParameter("fruitDiff").trim();
+            String fruit = request.getParameter("fruitEditDaily").trim();
             if (fruit.length() > MEAL_MAXLENGTH) {
                 sendMessageRedirect(request, response, "Errore: campo menu troppo lungo.");
                 return;
@@ -96,25 +95,35 @@ public class InsertCanteenMenuServlet extends HttpServlet {
             menu.setFruit(fruit);
 
             canteenManager.insert(menu);
-            
-            // setting meal request to fulfilled
-            RegistrationChild regChildSearch = new RegistrationChild();
-            regChildSearch.setId(childId);
-            RegistrationChild regChild = accessFacade.search(regChildSearch).get(0);
-            
-            MealRequestBean mealReqSearch = new MealRequestBean();
-            mealReqSearch.setParentId(regChild.getParentId());
-            mealReqSearch.setDate(new GregorianCalendar());
-            
-            // ottengo la lista delle richieste odierne, per sicurezza le aggiorno tutte dato che potrebbe capitare di effettuare piu' di una richiesta odierna
-            List<MealRequestBean> mealReqList = canteenManager.search(mealReqSearch);
-            for (MealRequestBean mr : mealReqList) {
-                mr.setFulfilledUsable(true);
-                mr.setFulfilled(true);
-                canteenManager.update(mr);
+
+            // creo l'associazione bambino --- menu giornaliero per tutti i bambini attualmente iscritti
+            List<ClassBean> classList = accessFacade.getClasses();
+            for (ClassBean clas : classList) {
+                List<RegistrationChild> regChildList = clas.getBambini();    // oppure effettuare una ricerca di RegistrationChild con sectionId == clas.getIdClasse();
+                for (RegistrationChild rc : regChildList) {
+                    if (needsLunch(rc) && !needsDiffMenu(rc)) {
+                        menu.setChildInscriptionId(rc.getId());
+                        canteenManager.insert(menu);
+
+                        if (!rc.getUserRange().equals(FULL_TIME)) {
+                            // setting meal request to fulfilled
+                            MealRequestBean mealReqSearch = new MealRequestBean();
+                            mealReqSearch.setParentId(rc.getParentId());
+                            mealReqSearch.setDate(new GregorianCalendar());
+
+                            // ottengo la lista delle richieste odierne, per sicurezza le aggiorno tutte dato che potrebbe capitare di effettuare piu' di una richiesta odierna
+                            List<MealRequestBean> mealReqList = canteenManager.search(mealReqSearch);
+                            for (MealRequestBean mr : mealReqList) {
+                                mr.setFulfilledUsable(true);
+                                mr.setFulfilled(true);
+                                canteenManager.update(mr);
+                            }
+                        }
+                    }
+                }
             }
 
-            sendMessageRedirect(request, response, "Men&ugrave; differenziato inserito con successo.");
+            sendMessageRedirect(request, response, "Men&ugrave; giornaliero inserito con successo.");
 
         } catch (SQLException e) {
             sendMessageRedirect(request, response, "Verfica i campi");
@@ -131,6 +140,34 @@ public class InsertCanteenMenuServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setAttribute("message", msg);
         request.getRequestDispatcher("/canteenManagement.jsp").forward(request, response);
+    }
+
+    private boolean needsLunch(RegistrationChild rc) throws SQLException {
+        if (rc.getUserRange().equals(FULL_TIME)) {
+            return true;
+        }
+
+        MealRequestBean mr = new MealRequestBean();
+        mr.setParentId(rc.getParentId());
+        mr.setDate(new GregorianCalendar());    // setto la data corrente per verificare solo le richieste per il giorno corrente
+        mr.setFulfilledUsable(true);
+        List<MealRequestBean> mealReqList = canteenManager.search(mr);
+
+        if (mealReqList.size() > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean needsDiffMenu(RegistrationChild rc) {
+        if (rc.getSickness() != null && !rc.getSickness().trim().equals("")) {
+            return true;
+        }
+        if (rc.getAdditionalNotes() != null && !rc.getAdditionalNotes().trim().equals("")) {
+            return true;
+        }
+        return false;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -4,8 +4,7 @@
  */
 package it.unisa.kids.serviceManagement.canteenManagement.servlet;
 
-import it.unisa.kids.accessManagement.classManagement.ClassBean;
-import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
+import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.kids.common.facade.AccessFacade;
@@ -14,12 +13,8 @@ import it.unisa.kids.serviceManagement.canteenManagement.ICanteenManager;
 import it.unisa.kids.serviceManagement.canteenManagement.MealRequestBean;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -34,18 +29,14 @@ import org.json.JSONObject;
  *
  * @author navi
  */
-public class GetCanteenClassTableServlet extends HttpServlet {
+public class GetMealRequestsTableServlet extends HttpServlet {
 
-    // questi attributi dovrebbero essere presenti nella classe it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild
-    public static final String FULL_TIME = "full_time";
-    public static final String PART_TIME_M = "part_time_mattutina";
-    public static final String PART_TIME_P = "part_time_pomeridiana";
-    private IAccessFacade accessFacade;
     private ICanteenManager canteenManager;
+    private IAccessFacade accessFacade;
 
     public void init(ServletConfig config) {
-        this.accessFacade = new AccessFacade();     // si dovrebbe implementare il singleton anche qui?
         this.canteenManager = (ICanteenManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_MENU);
+        this.accessFacade = new AccessFacade();
     }
 
     /**
@@ -60,6 +51,7 @@ public class GetCanteenClassTableServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
         try {
@@ -84,56 +76,38 @@ public class GetCanteenClassTableServlet extends HttpServlet {
                 }
             }
 
-            List<ClassBean> classList = accessFacade.getClasses();
-            ClassBean[] paginateClassSet;
+            List<MealRequestBean> mealReqList = canteenManager.getMealReqList();
 
-
-            int linksNumber = classList.size();
+            MealRequestBean[] paginateMealReqSet;
+            int linksNumber = mealReqList.size();
             if (linksNumber < amount) {
                 amount = linksNumber;
             }
             if (linksNumber != 0) {
                 int toShow = linksNumber - start;
                 if (toShow > 10) {
-                    paginateClassSet = new ClassBean[amount];
-                    System.arraycopy(classList.toArray(), start, paginateClassSet, 0, amount);
+                    paginateMealReqSet = new MealRequestBean[amount];
+                    System.arraycopy(mealReqList.toArray(), start, paginateMealReqSet, 0, amount);
                 } else {
-                    paginateClassSet = new ClassBean[toShow];
-                    System.arraycopy(classList.toArray(), start, paginateClassSet, 0, toShow);
+                    paginateMealReqSet = new MealRequestBean[toShow];
+                    System.arraycopy(mealReqList.toArray(), start, paginateMealReqSet, 0, toShow);
                 }
-                for (ClassBean clas : paginateClassSet) {
+
+                for (MealRequestBean mealReq : paginateMealReqSet) {
                     JSONObject jObj = new JSONObject();
 
-                    // mappa che tiene traccia della classe con i suoi bambini, da conservare nella ServletContext per l'uso da parte di GetChildrenTableServlet
-                    Map<Integer, List<Integer>> classChildMap = new HashMap<Integer, List<Integer>>();
-                    List<Integer> childIds = new ArrayList<Integer>();  // lista degli id dei bambini che necessitano di un pranzo di questa classe
-
-                    List<RegistrationChild> regChildList = clas.getBambini();    // oppure effettuare una ricerca di RegistrationChild con sectionId == clas.getIdClasse();
-                    int mealCount = 0;
-                    boolean classHasDiffMenu = false;
-                    for (RegistrationChild rc : regChildList) {
-                        if (needsLunch(rc)) {
-                            mealCount++;
-                            if (!classHasDiffMenu && needsDiffMenu(rc)) {
-                                classHasDiffMenu = true;
-                                childIds.add(rc.getId());
-                            }
-                        }
-                    }
-
-                    checkAddToJSON(jObj, "0", clas.getClassName());
-                    checkAddToJSON(jObj, "1", mealCount);
+                    Account searchAccount = new Account();
+                    searchAccount.setId(mealReq.getParentId());
+                    Account parent = accessFacade.search(searchAccount).get(0);
 
                     String acceptImage = "<img class=\"tableImage\" style=\"width:20px;height:20px\" title=\"Si\" alt=\"Si\" src=\"img/accept.png\" />";
                     String negateImage = "<img class=\"tableImage\" style=\"width:20px; height:20px;\" title=\"No\" alt=\"No\" src=\"img/negate.png\" />";
-                    jObj.put("2", classHasDiffMenu ? acceptImage : negateImage);
 
-                    jObj.put("DT_RowId", "" + clas.getIdClasse());
+                    checkAddToJSON(jObj, "0", unparseGregorianCalendar(mealReq.getDate()));
+                    checkAddToJSON(jObj, "1", parent.getNameUser() + " " + parent.getSurnameUser());
+                    jObj.put("2", mealReq.isFulfilled() ? acceptImage : negateImage);
+                    
                     array.put(jObj);
-
-                    // salvo la mappa costruita in questa ServletContext da prelevare nella GetChildrenTableServlet
-                    classChildMap.put(clas.getIdClasse(), childIds);
-                    getServletContext().setAttribute("classChildMap", classChildMap);
                 }
             }
             result.put("sEcho", sEcho);
@@ -145,9 +119,9 @@ public class GetCanteenClassTableServlet extends HttpServlet {
                     "private, no-store, no-cache, must-revalidate");
             response.setHeader("Pragma", "no-cache");
             out.print(result);
-            Logger.getLogger(GetCanteenClassTableServlet.class.getName()).log(Level.INFO, "Query result(JSONObject): " + result.toString());
+            Logger.getLogger(GetMealRequestsTableServlet.class.getName()).log(Level.INFO, "Query result(JSONObject): " + result.toString());
         } catch (Exception ex) {
-            Logger.getLogger(GetCanteenClassTableServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GetMealRequestsTableServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
         }
@@ -161,32 +135,14 @@ public class GetCanteenClassTableServlet extends HttpServlet {
         }
     }
 
-    private boolean needsLunch(RegistrationChild rc) throws SQLException {
-        if (rc.getUserRange().equals(FULL_TIME)) {
-            return true;
+    private String unparseGregorianCalendar(GregorianCalendar pDate) {
+        if (pDate != null) {
+            return pDate.get(GregorianCalendar.YEAR) + "-"
+                    + (pDate.get(GregorianCalendar.MONTH) + 1) + "-"
+                    + pDate.get(GregorianCalendar.DAY_OF_MONTH);
+        } else {
+            return null;
         }
-
-        MealRequestBean mr = new MealRequestBean();
-        mr.setParentId(rc.getParentId());
-        mr.setDate(new GregorianCalendar());    // setto la data corrente per verificare solo le richieste per il giorno corrente
-        mr.setFulfilledUsable(true);
-        List<MealRequestBean> mealReqList = canteenManager.search(mr);
-
-        if (mealReqList.size() > 0) {
-            return true;
-        }
-
-        return false;
-    }
-
-    private boolean needsDiffMenu(RegistrationChild rc) {
-        if (rc.getSickness() != null && !rc.getSickness().trim().equals("")) {
-            return true;
-        }
-        if (rc.getAdditionalNotes() != null && !rc.getAdditionalNotes().trim().equals("")) {
-            return true;
-        }
-        return false;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
