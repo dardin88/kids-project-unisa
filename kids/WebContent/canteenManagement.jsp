@@ -72,6 +72,7 @@
                         <li><a href="#showAssociatedMenus"><span class="canteenTab">Visualizza men&ugrave; associati</span></a></li>
                         <li><a href="#showDailyMenus"><span class="canteenTab">Visualizza i men&ugrave; giornalieri</span></a></li>
                         <li><a href="#modifyDailyMenu"><span class="canteenTab">Modifica men&ugrave; giornaliero</span></a></li>
+                        <li><a href="#showMealRequests"><span class="canteenTab">Visualizza richieste pasti</span></a></li>
                     </ul>
 
                     <div id="diffMenus">
@@ -97,7 +98,6 @@
                                     <tr>
                                         <th>Bambino</th>
                                         <th>Genitore</th>
-                                        <th>Men&ugrave; differenziato</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -140,9 +140,11 @@
                             <fieldset>
                                 <label for="menuDate">Data:&nbsp;</label>
                                 <input type="text" name="menuDate" id="menuDate">
+                                <label for="onlyLastAssMenu">Mostra solo gli ultimi men&ugrave; inseriti:&nbsp;</label>
+                                <input type="checkbox" name="onlyLastAssMenu" id="onlyLastAssMenu" value="">
                             </fieldset>
                         </form>
-                        <h3>Selezionare un bambino per visualizzare i dettagli sui pasti</h3>
+                        <h3>Selezionare un menu per visualizzare i dettagli sui pasti</h3>
                         <table id="showAssociatedMenusTable" style="width:100%">
                             <thead>
                                 <tr>
@@ -191,6 +193,8 @@
                             <fieldset>
                                 <label for="dailyMenuDate">Data:&nbsp;</label>
                                 <input type="text" name="dailyMenuDate" id="dailyMenuDate">
+                                <label for="onlyLastDailyMenu">Mostra solo gli ultimi men&ugrave; inseriti:&nbsp;</label>
+                                <input type="checkbox" name="onlyLastDailyMenu" id="onlyLastDailyMenu" value="">
                             </fieldset>
                         </form>
                         <h3>Lista dei men&ugrave; giornalieri</h3>
@@ -236,6 +240,21 @@
                                 </tr>
                             </table>
                         </form>
+                    </div>
+
+                    <div id="showMealRequests">
+                        <h2>Lista dei men&ugrave; giornalieri</h2>
+                        <table id="showMealRequestsTable" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Genitore</th>
+                                    <th>Soddisfatta</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                     </div>
 
                 </div>

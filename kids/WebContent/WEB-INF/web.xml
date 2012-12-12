@@ -1,308 +1,411 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app id="WebApp_ID" version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"><display-name>kids</display-name><context-param>
+<web-app id="WebApp_ID" version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <display-name>kids</display-name>
+    <context-param>
         <param-name>attachedFileFolder</param-name>
         <param-value>/home/marco/attached</param-value>
-    </context-param><context-param>
+    </context-param>
+    <context-param>
         <param-name>projectFileFolder</param-name>
         <param-value>/home/francesco/projectEducative</param-value>
-    </context-param><servlet>
+    </context-param>
+    <servlet>
         <servlet-name>SurveyFormServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.surveyManagement.SurveyFormServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>InsertCompiledSurveyServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.surveyManagement.InsertCompiledSurveyServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>InsertSurveyServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.surveyManagement.InsertSurveyServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetCompiledSurveyServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.surveyManagement.GetCompiledSurveyServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>RemoveSurveyServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.surveyManagement.RemoveSurveyServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetSurveyServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.surveyManagement.GetSurveyServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.paymentManagement.servlet.GetParentsTableServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetPaymentsTableServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.paymentManagement.servlet.GetPaymentsTableServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetRefundsTableServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.paymentManagement.servlet.GetRefundsTableServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>InsertPaymentServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.paymentManagement.servlet.InsertPaymentServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>UpdatePaymentServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.paymentManagement.servlet.UpdatePaymentServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>InsertRefundServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.paymentManagement.servlet.InsertRefundServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetCanteenClassTableServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.canteenManagement.servlet.GetCanteenClassTableServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetCanteenChildrenTableServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.canteenManagement.servlet.GetCanteenChildrenTableServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetTraineesServletTable</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.GetTraineesServletTable</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetTraineesServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.GetTraineesServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>InsertTraineeServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.InsertTraineeServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetClass</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.classManagement.GetClass</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>AddMeetingServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.meeting.AddMeetingServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>DeleteMeetingServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.meeting.DeleteMeetingServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetMeetingServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.meeting.GetMeetingServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>LoadCalendarServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.meeting.LoadCalendarServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ModifyDateServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.meeting.ModifyDateServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ModifyMeetingServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.meeting.ModifyMeetingServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>AddAccountServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.AddAccountServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ModifyPasswordServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.ModifyPasswordServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetTableAccountSecretaryServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.GetTableAccountSecretaryServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>DeleteAccountServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.DeleteAccountServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetAccountServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.GetAccountServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ModifyAccountServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.ModifyAccountServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>InsertTableRenunciation</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.renunciationManagement.InsertTableRenunciationServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.LoginServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>InsertNewsServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.newsManagement.InsertNewsServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetNewsServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.newsManagement.GetNewsServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>NewServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.newsManagement.NewServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>VerifyTypeNewsServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.newsManagement.VerifyTypeNewsServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>RemoveTraineeServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.RemoveTraineeServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>NicknamePasswordServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.NicknamePasswordServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetTraineeRequestServletTable</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.GetTraineeRequestServletTable</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetRequestCalendarServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.GetRequestCalendarServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetTraineeServletTableRequest</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.GetTraineeServletTableRequest</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>InsertConvocationServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.InsertConvocationServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetConvocationsServletTable</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.GetConvocationsServletTable</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>RemoveConvocationServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.RemoveConvocationServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetTraineesActivityServletCalendar</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.GetTraineesActivityServletCalendar</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetTraineeActivityServletCalendar</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.GetTraineeActivityServletCalendar</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.LogoutServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetConvocationServletTable</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.GetConvocationServletTable</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ModifyTraineeServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.ModifyTraineeServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetTraineeServletTableActivity</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.GetTraineeServletTableActivity</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>InsertTraineeActivityServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.InsertTraineeActivityServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>RemoveNewsServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.newsManagement.RemoveNewsServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>UpdateNewsServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.newsManagement.UpdateNewsServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>UploadFileServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.newsManagement.UploadFileServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>RemoveTraineeActivityServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.RemoveTraineeActivityServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>InserTraineeRequestServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.InserTraineeRequestServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>InsertTraineeRequestServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.InsertTraineeRequestServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>DownloadFileServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.newsManagement.DownloadFileServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ServletCreateDraftRegistrationChild</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletCreateDraftRegistrationChild</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ServletEditPhaseRegistrationChild</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletEditPhaseRegistrationChild</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ServletEditRegistrationChild</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletEditRegistrationChild</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ServletGetRegistrationChild</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletGetRegistrationChild</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ServletGetTableRegistrationChild</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletGetTableRegistrationChild</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ServletSubmitNewRegistrationChild</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletSubmitNewRegistrationChild</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ServletCompleteRegistrationChild</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletCompleteRegistrationChild</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ServletConfirmCompletingRegistrationChild</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletConfirmCompletingRegistrationChild</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>AddClassBeanServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.classManagement.AddClassBeanServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>UpdateClassBeanServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.classManagement.UpdateClassBeanServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetTableClassServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.classManagement.GetTableClassServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>DeleteClassBeanServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.classManagement.DeleteClassBeanServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>DropTraineeRequestServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.DropTraineeRequestServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ModifyTraineeActivityServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.trainingManagement.ModifyTraineeActivityServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>AddCommunicationServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.childrenManagement.AddCommunicationServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetHealthCommunicationServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.childrenManagement.GetHealthCommunicationServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetNeedCommunicationServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.childrenManagement.GetNeedCommunicationServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetDetailCommunicationServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.childrenManagement.GetDetailCommunicationServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>RemoveCommunicationServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.childrenManagement.RemoveCommunicationServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>SolvedCommunicationServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.childrenManagement.SolvedCommunicationServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ShowProjectServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.programEducationalManagement.ShowProjectServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>UploadProjectServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.programEducationalManagement.UploadProjectServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ModifyAccountServlet4</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.ModifyAccountServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ModifyAccountParentServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagerment.accountManagement.ModifyAccountParentServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetAccountParentServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.GetAccountParentServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>AddAccount2Servlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.AddAccount2Servlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ModifyAccount2Servlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.ModifyAccount2Servlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ServletGetTableClassification</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.classificationManagement.ServletGetTableClassification</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ServletGetTableResult</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.classificationManagement.ServletGetTableResult</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ServletGetTableCriteria</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.classificationManagement.ServletGetTableCriteria</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ServletGetClassification</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.classificationManagement.ServletGetClassification</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ServletUpdateResult</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.classificationManagement.ServletUpdateResult</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ServletAddClassification</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.classificationManagement.ServletAddClassification</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ServletAddCriterion</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.classificationManagement.ServletAddCriterion</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ServletModifyClassification</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.classificationManagement.ServletModifyClassification</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ServletDeleteClassification</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.classificationManagement.ServletDeleteClassification</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ServletDeleteCriterion</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.classificationManagement.ServletDeleteCriterion</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetTableChildServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.classManagement.GetTableChildServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>InsertRequestTimeServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.timeServiceManagement.InsertRequestTimeServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetTimeServiceRequestsTableParentServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.timeServiceManagement.GetTimeServiceRequestsTableParentServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>InsertCanteenMenuServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.canteenManagement.servlet.InsertCanteenMenuServlet</servlet-class>
-    </servlet><servlet>
+    </servlet>
+    <servlet>
         <servlet-name>GetAssociatedMenuTableServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.canteenManagement.servlet.GetAssociatedMenuTableServlet</servlet-class>
     </servlet>
@@ -322,301 +425,415 @@
         <servlet-name>UpdateTimeServiceRequestServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.timeServiceManagement.UpdateTimeServiceRequestServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetAssociatedMenuServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.canteenManagement.servlet.GetAssociatedMenuServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetDailyMenuTableServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.canteenManagement.servlet.GetDailyMenuTableServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InsertDailyMenuServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.canteenManagement.servlet.InsertDailyMenuServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetMealRequestsTableServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.canteenManagement.servlet.GetMealRequestsTableServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetPaymentsTableServlet</servlet-name>
         <url-pattern>/GetPaymentsTable</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetRefundsTableServlet</servlet-name>
         <url-pattern>/GetRefundsTable</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>InsertRefundServlet</servlet-name>
         <url-pattern>/InsertRefund</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>InsertPaymentServlet</servlet-name>
         <url-pattern>/InsertPayment</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>UpdatePaymentServlet</servlet-name>
         <url-pattern>/UpdatePayment</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetCanteenClassTableServlet</servlet-name>
         <url-pattern>/GetCanteenClassTable</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetCanteenChildrenTableServlet</servlet-name>
         <url-pattern>/GetCanteenChildrenTable</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AddMeetingServlet</servlet-name>
         <url-pattern>/AddMeeting</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>DeleteMeetingServlet</servlet-name>
         <url-pattern>/DeleteMeeting</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetMeetingServlet</servlet-name>
         <url-pattern>/GetMeeting</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ModifyMeetingServlet</servlet-name>
         <url-pattern>/ModifyMeeting</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ModifyDateServlet</servlet-name>
         <url-pattern>/ModifyDate</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AddAccountServlet</servlet-name>
         <url-pattern>/AddAccount</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetTableAccountSecretaryServlet</servlet-name>
         <url-pattern>/GetTableAccountSecretary</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>DeleteAccountServlet</servlet-name>
         <url-pattern>/DeleteAccount</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetTraineesServletTable</servlet-name>
         <url-pattern>/GetTraineesTable</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>InsertTraineeServlet</servlet-name>
         <url-pattern>/InsertTrainee</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetAccountServlet</servlet-name>
         <url-pattern>/GetAccount</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>NicknamePasswordServlet</servlet-name>
         <url-pattern>/NicknamePassword</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetTraineesServlet</servlet-name>
         <url-pattern>/GetTrainees</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetClass</servlet-name>
         <url-pattern>/GetClass</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/Login</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetNewsServlet</servlet-name>
         <url-pattern>/GetNews</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>InsertNewsServlet</servlet-name>
         <url-pattern>/InsertNews</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>NewServlet</servlet-name>
         <url-pattern>/NewServlet</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>VerifyTypeNewsServlet</servlet-name>
         <url-pattern>/VerifyTypeNews</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>RemoveTraineeServlet</servlet-name>
         <url-pattern>/RemoveTrainee</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetTraineeRequestServletTable</servlet-name>
         <url-pattern>/GetTraineeRequestTable</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetRequestCalendarServlet</servlet-name>
         <url-pattern>/GetRequestCalendar</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetTraineeServletTableRequest</servlet-name>
         <url-pattern>/GetTraineeTableRequest</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>InsertConvocationServlet</servlet-name>
         <url-pattern>/InsertConvocation</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetConvocationsServletTable</servlet-name>
         <url-pattern>/GetConvocationsTable</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>RemoveConvocationServlet</servlet-name>
         <url-pattern>/RemoveConvocation</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetTraineesActivityServletCalendar</servlet-name>
         <url-pattern>/GetTraineesActivityCalendar</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetTraineeActivityServletCalendar</servlet-name>
         <url-pattern>/GetTraineeActivityCalendar</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/Logout</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetConvocationServletTable</servlet-name>
         <url-pattern>/GetConvocationTable</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>LoadCalendarServlet</servlet-name>
         <url-pattern>/LoadCalendar</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>RemoveNewsServlet</servlet-name>
         <url-pattern>/RemoveNews</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>UpdateNewsServlet</servlet-name>
         <url-pattern>/UpdateNews</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>UploadFileServlet</servlet-name>
         <url-pattern>/UploadFile</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ModifyTraineeServlet</servlet-name>
         <url-pattern>/ModifyTrainee</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetTraineeServletTableActivity</servlet-name>
         <url-pattern>/GetTraineeTableActivity</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>InsertTraineeActivityServlet</servlet-name>
         <url-pattern>/InsertTraineeActivity</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>RemoveTraineeActivityServlet</servlet-name>
         <url-pattern>/RemoveTraineeActivity</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>InserTraineeRequestServlet</servlet-name>
         <url-pattern>/InserTraineeRequest</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>InsertTraineeRequestServlet</servlet-name>
         <url-pattern>/InsertTraineeRequest</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>DownloadFileServlet</servlet-name>
         <url-pattern>/DownloadFile</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ServletCreateDraftRegistrationChild</servlet-name>
         <url-pattern>/CreateDraftRegistrationChild</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ServletEditPhaseRegistrationChild</servlet-name>
         <url-pattern>/EditPhaseRegistrationChild</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ServletEditRegistrationChild</servlet-name>
         <url-pattern>/EditRegistrationChild</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ServletGetRegistrationChild</servlet-name>
         <url-pattern>/GetRegistrationChild</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ServletGetTableRegistrationChild</servlet-name>
         <url-pattern>/GetTableRegistrationChild</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ServletSubmitNewRegistrationChild</servlet-name>
         <url-pattern>/SubmitNewRegistrationChild</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ServletCompleteRegistrationChild</servlet-name>
         <url-pattern>/CompleteRegistrationChild</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ServletConfirmCompletingRegistrationChild</servlet-name>
         <url-pattern>/ConfirmCompletingRegistrationChild</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AddClassBeanServlet</servlet-name>
         <url-pattern>/AddClassBean</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>UpdateClassBeanServlet</servlet-name>
         <url-pattern>/UpdateClassBean</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>DeleteClassBeanServlet</servlet-name>
         <url-pattern>/DeleteClassBean</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetTableClassServlet</servlet-name>
         <url-pattern>/GetTableClassServlet</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>DropTraineeRequestServlet</servlet-name>
         <url-pattern>/DropTraineeRequest</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ModifyTraineeActivityServlet</servlet-name>
         <url-pattern>/ModifyTraineeActivity</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>InsertTableRenunciation</servlet-name>
         <url-pattern>/InsertTableRenunciationServlet</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AddCommunicationServlet</servlet-name>
         <url-pattern>/AddCommunication</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetHealthCommunicationServlet</servlet-name>
         <url-pattern>/GetHealthCommunication</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetNeedCommunicationServlet</servlet-name>
         <url-pattern>/GetNeedCommunication</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetDetailCommunicationServlet</servlet-name>
         <url-pattern>/GetDetailCommunication</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>RemoveCommunicationServlet</servlet-name>
         <url-pattern>/RemoveCommunication</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>SolvedCommunicationServlet</servlet-name>
         <url-pattern>/SolvedCommunication</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ModifyPasswordServlet</servlet-name>
         <url-pattern>/ModifyPassword</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ShowProjectServlet</servlet-name>
         <url-pattern>/ShowProject</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>UploadProjectServlet</servlet-name>
         <url-pattern>/UploadProject</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ModifyAccountServlet4</servlet-name>
         <url-pattern>/ModifyAccount4</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ModifyAccountParentServlet</servlet-name>
         <url-pattern>/ModifyAccountParent</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetAccountParentServlet</servlet-name>
         <url-pattern>/GetAccountParent</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AddAccount2Servlet</servlet-name>
         <url-pattern>/AddAccount2</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ModifyAccount2Servlet</servlet-name>
         <url-pattern>/ModifyAccount2</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ServletGetTableClassification</servlet-name>
         <url-pattern>/GetTableClassification</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ServletGetTableResult</servlet-name>
         <url-pattern>/GetTableResult</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ServletGetTableCriteria</servlet-name>
         <url-pattern>/GetTableCriteria</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ServletGetClassification</servlet-name>
         <url-pattern>/GetClassification</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ServletUpdateResult</servlet-name>
         <url-pattern>/UpdateResult</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ServletAddClassification</servlet-name>
         <url-pattern>/AddClassification</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ServletAddCriterion</servlet-name>
         <url-pattern>/AddCriterion</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ServletModifyClassification</servlet-name>
         <url-pattern>/ModifyClassification</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ServletDeleteClassification</servlet-name>
         <url-pattern>/DeleteClassification</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ServletDeleteCriterion</servlet-name>
         <url-pattern>/DeleteCriterion</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetTableChildServlet</servlet-name>
         <url-pattern>/GetTableChildServlet</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>InsertRequestTimeServlet</servlet-name>
         <url-pattern>/InsertRequestTime</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetTimeServiceRequestsTableParentServlet</servlet-name>
         <url-pattern>/GetTimeServiceRequestsTableParent</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>InsertSurveyServlet</servlet-name>
         <url-pattern>/InsertSurvey</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>RemoveSurveyServlet</servlet-name>
         <url-pattern>/RemoveSurvey</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetCompiledSurveyServlet</servlet-name>
         <url-pattern>/GetCompiledSurvey</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetSurveyServlet</servlet-name>
         <url-pattern>/GetSurvey</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>SurveyFormServlet</servlet-name>
         <url-pattern>/SurveyFormServlet</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>InsertCompiledSurveyServlet</servlet-name>
         <url-pattern>/InsertCompiledSurvey</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>InsertCanteenMenuServlet</servlet-name>
         <url-pattern>/InsertCanteenMenu</url-pattern>
-    </servlet-mapping><servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetAssociatedMenuTableServlet</servlet-name>
         <url-pattern>/GetAssociatedMenuTableServlet</url-pattern>
     </servlet-mapping>
@@ -636,8 +853,23 @@
         <servlet-name>UpdateTimeServiceRequestServlet</servlet-name>
         <url-pattern>/UpdateTimeServiceRequest</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetAssociatedMenuServlet</servlet-name>
+        <url-pattern>/GetAssociatedMenu</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetDailyMenuTableServlet</servlet-name>
+        <url-pattern>/GetDailyMenuTable</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertDailyMenuServlet</servlet-name>
+        <url-pattern>/InsertDailyMenu</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetMealRequestsTableServlet</servlet-name>
+        <url-pattern>/GetMealRequestsTable</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
-
-    </web-app>
+</web-app>

@@ -21,6 +21,14 @@ function initializeCanteenPage() {
         resizable: false,
         width: 400
     });
+    $("#onlyLastAssMenu").change(function() {
+        if ($("#onlyLastAssMenu").attr('checked') == true) {
+            $("#menuDate").attr('disabled', true);
+        }
+        else {
+            $("#menuDate").attr('disabled', false);
+        }
+    });
     
     
     TableTools.DEFAULTS.aButtons = [];
@@ -32,9 +40,23 @@ function initializeCanteenPage() {
     });
     buildAssociatedMenusTable();
     
+    $("#dailyMenuDate").datepicker({
+        dateFormat: "yy-mm-dd",
+        changeYear: true
+    });
+    $("#onlyLastDailyMenu").change(function() {
+        if ($("#onlyLastDailyMenu").attr('checked') == true) {
+            $("#dailyMenuDate").attr('disabled', true);
+        }
+        else {
+            $("#dailyMenuDate").attr('disabled', false);
+        }
+    });
     buildDailyMenusTable();
     
     $("#modifyDailyMenuButton").button();
+    
+    buildMealRequestsTable();
 }
 
 function buildClassTable(){
@@ -124,7 +146,7 @@ function buildChildrenTable(classId){
     });
 }
 
-function buildAssociatedMenusTable(){
+function buildAssociatedMenusTable() {
     $("#showAssociatedMenusTable").dataTable({
         "bJQueryUI": true,
         "bServerSide": true,
@@ -138,6 +160,10 @@ function buildAssociatedMenusTable(){
             {
                 "name" : "menuDate", 
                 "value" : $("#menuDate").val()
+            },
+            {
+                "name" : "onlyLastAssMenu",
+                "value" : $("#onlyLastAssMenu").val()
             }
             );
      
@@ -172,7 +198,7 @@ function buildAssociatedMenusTable(){
     });
 }
 
-function buildDailyMenusTable(){
+function buildDailyMenusTable() {
     $("#showDailyMenusTable").dataTable({
         "bJQueryUI": true,
         "bServerSide": true,
@@ -186,6 +212,10 @@ function buildDailyMenusTable(){
             {
                 "name" : "dailyMenuDate", 
                 "value" : $("#dailyMenuDate").val()
+            },
+            {
+                "name" : "onlyLastDailyMenu",
+                "value" : $("#onlyLastDailyMenu").val()
             }
             );
      
@@ -198,9 +228,9 @@ function buildDailyMenusTable(){
         "oLanguage": {
             "sProcessing":   "Caricamento...",
             "sLengthMenu":   "Visualizza _MENU_ link",
-            "sZeroRecords":  "Nessun pagamento da convalidare.",
-            "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Pagamenti",
-            "sInfoEmpty":    "Vista da 0 a 0 di 0 Pagamenti",
+            "sZeroRecords":  "Nessun men&ugrave; giornaliero trovato.",
+            "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ men&ugrave; giornalieri",
+            "sInfoEmpty":    "Vista da 0 a 0 di 0 men&ugrave; giornalieri",
             "sInfoFiltered": "(filtrati da _MAX_ link totali)",
             "sInfoPostFix":  "",
             "oPaginate": {
@@ -209,12 +239,46 @@ function buildDailyMenusTable(){
                 "sNext":     ">",
                 "sLast":     ">>"
             }
-        },
-        "sDom": '<"H"Tfr>t<"F"ip>',
-        "oTableTools": {
-            "sRowSelect": "single",
-            "fnRowSelected": function(nodes) {
-            //doValidatePayment(nodes[0]);
+        }
+    });
+}
+
+function buildMealRequestsTable() {
+    $("#showDailyMenusTable").dataTable({
+        "bJQueryUI": true,
+        "bServerSide": true,
+        "bProcessing": true,
+        "sAjaxSource": "GetMealRequestsTable",
+        "bPaginate": true,
+        "bLengthChange": false,
+        "bFilter": false,
+        /*"fnServerParams": function ( aoData ) {
+            aoData.push(
+            {
+                "name" : "dailyMenuDate", 
+                "value" : $("#dailyMenuDate").val()
+            }
+            );
+     
+        },*/
+        "bSort": false,
+        "bDestroy": true,
+        "bInfo": true,
+        "bAutoWidth": true,
+        "sPaginationType": "full_numbers",
+        "oLanguage": {
+            "sProcessing":   "Caricamento...",
+            "sLengthMenu":   "Visualizza _MENU_ link",
+            "sZeroRecords":  "Nessuna richiesta pasto trovata.",
+            "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ richieste pasti",
+            "sInfoEmpty":    "Vista da 0 a 0 di 0 richieste pasti",
+            "sInfoFiltered": "(filtrati da _MAX_ link totali)",
+            "sInfoPostFix":  "",
+            "oPaginate": {
+                "sFirst":    "<<",
+                "sPrevious": "<",
+                "sNext":     ">",
+                "sLast":     ">>"
             }
         }
     });
@@ -248,7 +312,7 @@ function doAssociatedMenuSelection(assMenuData) {
     // do $.post to get menu data
     $.post("GetAssociatedMenu",
     {
-        childId: assMenuData.id
+        menuId: assMenuData.id
     },
     function(jsonData, status) {
         $("#associatedDate").val(jsonData.date);
