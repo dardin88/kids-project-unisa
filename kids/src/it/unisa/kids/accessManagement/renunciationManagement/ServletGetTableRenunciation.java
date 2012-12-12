@@ -25,7 +25,7 @@ import org.json.JSONObject;
  *
  * @author MIKI
  */
-public class InsertTableRenunciationServlet extends HttpServlet {
+public class ServletGetTableRenunciation extends HttpServlet {
 
     private IRenunciationManager renunciationManager;
 
@@ -107,7 +107,7 @@ public class InsertTableRenunciationServlet extends HttpServlet {
 
                     JSONArray ja = new JSONArray();
 
-                    ja.put(clas.getIdBambino());
+                    ja.put(clas.getRegistrationChildId());
                     String operazioni = "<input class='tableImage' type='image' src='img/trash.png' onclick='DeleteClassBean(\"" + clas.getId() + "\")'/> <input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/lente.gif' onclick='showAccount(\"" + clas.getId() + "\")'/>";
                     ja.put(operazioni);
                     array.put(ja);
@@ -123,7 +123,7 @@ public class InsertTableRenunciationServlet extends HttpServlet {
             response.setHeader("Pragma", "no-cache");
             out.print(result);
         } catch (SQLException ex) {
-            Logger.getLogger(InsertTableRenunciationServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletGetTableRenunciation.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

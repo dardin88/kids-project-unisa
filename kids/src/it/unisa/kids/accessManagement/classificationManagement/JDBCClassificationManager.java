@@ -1,6 +1,7 @@
 package it.unisa.kids.accessManagement.classificationManagement;
 
 import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
+import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 import java.sql.*;
@@ -10,7 +11,7 @@ import java.util.List;
 
 /**
  * 
- * @author Michele Nappo, Lauri Giuseppe Giovanni
+ * @author Lauri Giuseppe Giovanni
  *
  */
 public class JDBCClassificationManager implements IClassificationManager {
@@ -277,8 +278,7 @@ public class JDBCClassificationManager implements IClassificationManager {
                 //getting Date from ResultSet and converting it to GregorianCalendar
                 GregorianCalendar dateToSet;
                 if(resultSet.getDate(DBNames.ATT_CLASSIFICATION_DATA) != null) {
-                    dateToSet = new GregorianCalendar();
-                    dateToSet.setTime(resultSet.getDate(DBNames.ATT_CLASSIFICATION_DATA));
+                    dateToSet = CommonMethod.parseGregorianCalendar(resultSet.getDate(DBNames.ATT_CLASSIFICATION_DATA));
                 } else {
                     dateToSet = null;
                 }

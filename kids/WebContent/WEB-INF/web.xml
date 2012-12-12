@@ -130,8 +130,12 @@
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.ModifyAccountServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>InsertTableRenunciation</servlet-name>
-        <servlet-class>it.unisa.kids.accessManagement.renunciationManagement.InsertTableRenunciationServlet</servlet-class>
+        <servlet-name>ServletGetTableRenunciation</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.renunciationManagement.ServletGetTableRenunciation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletGetTablePossibleRenunciation</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.renunciationManagement.ServletGetTablePossibleRenunciation</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
@@ -450,6 +454,18 @@
         <servlet-class>it.unisa.kids.serviceManagement.timeServiceManagement.InsertRequestModifyTimeServiceServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ServletInsertRenunciation</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.renunciationManagement.ServletInsertRenunciation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletConfirmRenunciation</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.renunciationManagement.ServletConfirmRenunciation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletDeleteRenunciation</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.renunciationManagement.ServletDeleteRenunciation</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>GetModifyTimeServiceRequestServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.timeServiceManagement.GetRequestModifyTimeServiceServlet</servlet-class>
     </servlet>
@@ -714,8 +730,12 @@
         <url-pattern>/ModifyTraineeActivity</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>InsertTableRenunciation</servlet-name>
-        <url-pattern>/InsertTableRenunciationServlet</url-pattern>
+        <servlet-name>ServletGetTableRenunciation</servlet-name>
+        <url-pattern>/GetTableRenunciation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletGetTablePossibleRenunciation</servlet-name>
+        <url-pattern>/GetTablePossibleRenunciation</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddCommunicationServlet</servlet-name>
@@ -896,6 +916,18 @@
     <servlet-mapping>
         <servlet-name>InsertRequestModifyTimeServiceServlet</servlet-name>
         <url-pattern>/InsertRequestModifyTimeService</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletInsertRenunciation</servlet-name>
+        <url-pattern>/InsertRenunciation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletConfirmRenunciation</servlet-name>
+        <url-pattern>/ConfirmRenunciation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletDeleteRenunciation</servlet-name>
+        <url-pattern>/DeleteRenunciation</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetModifyTimeServiceRequestServlet</servlet-name>
