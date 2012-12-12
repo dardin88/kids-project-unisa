@@ -126,14 +126,14 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
 
             // constructing query string
             query = "UPDATE " + DBNames.TABLE_TIMESERV_REQUEST + " SET ";
-                   
-          int i = 0;
+
+            int i = 0;
             if (pTimeServReq.getDayRequested() != null) {
 
                 query += DBNames.ATT_TIMESERVREQ_DAYREQ + "=?";
                 i++;
             }
-            if (pTimeServReq.getServiceType()!= null) {
+            if (pTimeServReq.getServiceType() != null) {
                 if (i == 0) {
                     query += DBNames.ATT_TIMESERVREQ_SERVTYPE + "=?";
                 } else {
@@ -141,7 +141,7 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
                 }
                 i++;
             }
-            if (pTimeServReq.getParentId() >0) {
+            if (pTimeServReq.getParentId() > 0) {
                 if (i == 0) {
                     query += DBNames.ATT_TIMESERVREQ_PARENTID + "=?";
                 } else {
@@ -149,12 +149,12 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
                 }
                 i++;
             }
-            if(i==0){
-                query+=DBNames.ATT_TIMESERVREQ_CONFIRMED+"=?";
+            if (i == 0) {
+                query += DBNames.ATT_TIMESERVREQ_CONFIRMED + "=?";
+            } else {
+                query += "," + DBNames.ATT_TIMESERVREQ_CONFIRMED + "=?";
             }
-            else
-                query+=","+DBNames.ATT_TIMESERVREQ_CONFIRMED+"=?";
-            
+
             query += " WHERE " + DBNames.ATT_TIMESERVREQ_ID + "=?";
             i = 0;
             pstmt = con.prepareStatement(query);
@@ -164,24 +164,24 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
                 i++;
                 pstmt.setString(i, pTimeServReq.getDayRequested());
             }
-            if (pTimeServReq.getServiceType()!= null) {
+            if (pTimeServReq.getServiceType() != null) {
 
                 i++;
                 pstmt.setString(i, pTimeServReq.getServiceType());
             }
-            if (pTimeServReq.getParentId() >0) {
+            if (pTimeServReq.getParentId() > 0) {
 
                 i++;
                 pstmt.setInt(i, pTimeServReq.getParentId());
             }
-            
+
 
             i++;
-            pstmt.setInt(i,pTimeServReq.getConfirmed());
+            pstmt.setInt(i, pTimeServReq.getConfirmed());
             i++;
             pstmt.setInt(i, pTimeServReq.getId());
 
-            
+
             pstmt.executeUpdate();
             con.commit();
         } finally {
@@ -189,7 +189,6 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
             DBConnectionPool.releaseConnection(con);
         }
     }
-            
 
     public void delete(TimeServiceRequest pTimeServReq) throws SQLException {
         Connection con = null;
@@ -245,11 +244,11 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
                 query += useAnd(andState) + DBNames.ATT_TIMESERVREQ_SERVTYPE + " = ?";
                 andState = true;
             }
-            
-            
 
 
-            
+
+
+
 
             if (pTimeServReq.getParentId() > 0) {		// or >= 0 ???
                 query += useAnd(andState) + DBNames.ATT_TIMESERVREQ_PARENTID + " = ?";
@@ -277,7 +276,7 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
 
 
 
-            
+
 
             if (pTimeServReq.getParentId() > 0) {
                 pstmt.setInt(i, pTimeServReq.getParentId());
@@ -365,9 +364,9 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
         return timeServReqs;
 
     }
-    
-    public void insert(ModifyTimeServiceRequest pModifyTimeServiceRequest) throws SQLException{
-         Connection con = null;
+
+    public void insert(ModifyTimeServiceRequest pModifyTimeServiceRequest) throws SQLException {
+        Connection con = null;
         PreparedStatement pstmt = null;
         String query;
 
@@ -378,17 +377,17 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
             query = "INSERT INTO " + DBNames.TABLE_MODIFYTIMESERVICEREQUEST + " ("
                     + DBNames.ATT_MODIFYTIMESERVICEREQUEST_CHILDID + ", "
                     + DBNames.ATT_MODIFYTIMESERVICEREQUEST_MOTIVATION + ", "
-                    + DBNames.ATT_MODIFYTIMESERVICEREQUEST_PARENTID+","
-                    +DBNames.ATT_MODIFYTIMESERVICEREQUEST_RANGEUSER
+                    + DBNames.ATT_MODIFYTIMESERVICEREQUEST_PARENTID + ","
+                    + DBNames.ATT_MODIFYTIMESERVICEREQUEST_RANGEUSER
                     + ") VALUES(?, ?, ?,?)";
 
             pstmt = con.prepareStatement(query);
 
             //setting pstmt's parameters
-            pstmt.setInt(1,pModifyTimeServiceRequest.getIdChild());
-            pstmt.setString(2,pModifyTimeServiceRequest.getMotivation());
+            pstmt.setInt(1, pModifyTimeServiceRequest.getIdChild());
+            pstmt.setString(2, pModifyTimeServiceRequest.getMotivation());
             pstmt.setInt(3, pModifyTimeServiceRequest.getIdParent());
-            pstmt.setString(4,pModifyTimeServiceRequest.getUserRange());
+            pstmt.setString(4, pModifyTimeServiceRequest.getUserRange());
 
             pstmt.executeUpdate();
             con.commit();
@@ -400,5 +399,110 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
                 DBConnectionPool.releaseConnection(con);
             }
         }
+    }
+
+    public List<ModifyTimeServiceRequest> search(ModifyTimeServiceRequest pModifyTimeServiceRequest) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String query = null;
+        List<ModifyTimeServiceRequest> modifyTimeServiceRequests = null;
+
+        boolean andState = false;
+
+        try {
+            con = DBConnectionPool.getConnection();
+
+            // constructing search query string
+            query = "SELECT * FROM " + DBNames.TABLE_MODIFYTIMESERVICEREQUEST + " WHERE";
+            if (pModifyTimeServiceRequest.getId() > 0) {		// or >= 0 ???
+                query += " " + DBNames.ATT_MODIFYTIMESERVICEREQUEST_ID + " = ?";
+                andState = true;
+            }
+
+            if (pModifyTimeServiceRequest.getIdChild() > 0) {
+                query += useAnd(andState) + DBNames.ATT_MODIFYTIMESERVICEREQUEST_CHILDID + " = ?";
+                andState = true;
+            }
+
+            if (pModifyTimeServiceRequest.getIdParent() > 0) {
+                query += useAnd(andState) + DBNames.ATT_MODIFYTIMESERVICEREQUEST_PARENTID + " = ?";
+                andState = true;
+            }
+
+            if (pModifyTimeServiceRequest.getMotivation() != null) {
+                query += useAnd(andState) + DBNames.ATT_MODIFYTIMESERVICEREQUEST_MOTIVATION + " = ?";
+                andState = true;
+            }
+            if (pModifyTimeServiceRequest.getUserRange() != null) {
+                query += useAnd(andState) + DBNames.ATT_MODIFYTIMESERVICEREQUEST_RANGEUSER + " = ?";
+                andState = true;
+            }
+            if (pModifyTimeServiceRequest.getState() != null) {
+                query += useAnd(andState) + DBNames.ATT_MODIFYTIMESERVICEREQUEST_STATE + " = ?";
+                andState = true;
+            }
+
+            pstmt = con.prepareStatement(query);
+
+            // setting pstmt's parameters
+            int i = 1;		// index of pstmt first argument
+            if (pModifyTimeServiceRequest.getId() > 0) {		// or >= 0 ???
+                pstmt.setInt(i, pModifyTimeServiceRequest.getId());
+                i++;
+            }
+
+            if (pModifyTimeServiceRequest.getIdChild() > 0) {
+                pstmt.setInt(i, pModifyTimeServiceRequest.getIdChild());
+                i++;
+            }
+
+            if (pModifyTimeServiceRequest.getIdParent() > 0) {
+                pstmt.setInt(i, pModifyTimeServiceRequest.getIdParent());
+                i++;
+            }
+
+            if (pModifyTimeServiceRequest.getMotivation() != null) {
+                pstmt.setString(i, pModifyTimeServiceRequest.getMotivation());
+                i++;
+            }
+            if (pModifyTimeServiceRequest.getUserRange() != null) {
+                pstmt.setString(i, pModifyTimeServiceRequest.getUserRange());
+                i++;
+            }
+            if (pModifyTimeServiceRequest.getState() != null) {
+                pstmt.setString(i, pModifyTimeServiceRequest.getState());
+                i++;
+            }
+
+
+            // executing select query
+            rs = pstmt.executeQuery();
+            con.commit();
+
+            // constructing timeServReq list
+            modifyTimeServiceRequests= new ArrayList<ModifyTimeServiceRequest>();
+            while (rs.next()) {
+                ModifyTimeServiceRequest mtsr = new ModifyTimeServiceRequest();
+                mtsr.setId(rs.getInt(DBNames.ATT_MODIFYTIMESERVICEREQUEST_ID));
+                mtsr.setIdChild(rs.getInt(DBNames.ATT_MODIFYTIMESERVICEREQUEST_CHILDID));
+                mtsr.setIdParent(rs.getInt(DBNames.ATT_MODIFYTIMESERVICEREQUEST_PARENTID));
+                mtsr.setMotivation(rs.getString(DBNames.ATT_MODIFYTIMESERVICEREQUEST_MOTIVATION));
+                mtsr.setState(rs.getString(DBNames.ATT_MODIFYTIMESERVICEREQUEST_STATE));
+                mtsr.setUserRange(rs.getString(DBNames.ATT_MODIFYTIMESERVICEREQUEST_RANGEUSER));
+                modifyTimeServiceRequests.add(mtsr);
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
+            if (con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+        return modifyTimeServiceRequests;
     }
 }

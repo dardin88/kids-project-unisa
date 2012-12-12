@@ -449,6 +449,14 @@
         <servlet-name>InsertRequestModifyTimeServiceServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.timeServiceManagement.InsertRequestModifyTimeServiceServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetModifyTimeServiceRequestServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.timeServiceManagement.GetRequestModifyTimeServiceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetRequestModifyTimeServiceServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.timeServiceManagement.GetRequestModifyTimeServiceServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
@@ -884,6 +892,14 @@
     <servlet-mapping>
         <servlet-name>InsertRequestModifyTimeServiceServlet</servlet-name>
         <url-pattern>/InsertRequestModifyTimeService</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetModifyTimeServiceRequestServlet</servlet-name>
+        <url-pattern>/GetModifyTimeServiceRequest</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetRequestModifyTimeServiceServlet</servlet-name>
+        <url-pattern>/GetRequestModifyTimeService</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

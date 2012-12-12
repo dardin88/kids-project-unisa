@@ -14,7 +14,14 @@ public class ModifyTimeServiceRequest {
     private String userRange;
     private int idChild;
     private int idParent;
+    private String state;
 
+    public String getState(){
+        return state;
+    }
+    public void setState(String pState){
+        state=pState;
+    }
     public int getId() {
         return id;
     }
