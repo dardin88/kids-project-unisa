@@ -79,10 +79,11 @@
                     <div>
                         <p>
                             <label>Nome</label>
-                            <input type="text" id="classificationAddWindowNome" name="classificationAddWindowNome" />
+                            <input type="text" id="classificationAddWindowNome" name="classificationAddWindowNome"  maxlength="30"/>
+                            <label class="error" style="display:inline;" id="classificationAddWindowNomeError" name="classificationAddWindowNomeError"></label>
                         </p>
                         <p>
-                            <input type="submit" id="classificationAddWindowSave" onClick="saveNewGraduatoria();" value="Crea" />
+                            <input type="button" id="classificationAddWindowSave" onClick="saveNewGraduatoria();" value="Crea" />
                             <input type="button" id="classificationAddWindowUndo" value="Annulla" />
                         </p>
                     </div>
@@ -109,10 +110,11 @@
                         </p>
                         <p>
                             <label>Nome</label>
-                            <input type="text" id="classificationModifyWindowNome" name="classificationModifyWindowNome" />
+                            <input type="text" id="classificationModifyWindowNome" name="classificationModifyWindowNome" maxlength="30"/>
+                            <label class="error" style="display:inline;" id="classificationModifyWindowNomeError"></label>
                         </p>
                         <p>
-                            <input type="submit" id="classificationModifyWindowSave" onClick="saveModifyGraduatoria();" value="Salva Moifiche" />
+                            <input type="button" id="classificationModifyWindowSave" onClick="saveModifyGraduatoria();" value="Salva Moifiche" />
                             <input type="button" id="classificationModifyWindowUndo" value="Annulla" />
                         </p>
                     </div>
@@ -143,7 +145,7 @@
 <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
                 <input type="button" id="classificationAggiornaResultButton" name="classificationAggiornaResultButton" onClick="updateResultClassification();" value="Ricalcola esiti" />
 </c:if>
-                <input type="button" id="classificationCloseDetailsButton" name="classificationCloseDetailsButton" onClick="closeDetailsClassification();" value="Chiudi dettaglio" />
+                <input type="button" id="classificationCloseDetailsButton" name="classificationCloseDetailsButton" onClick="closeDetailsClassification();" value="Torna all'elenco delle grauatorie" />
             </div>
             <div id="classificationDisplayResultTable">
                 <table id="classificationResultTable">
@@ -213,13 +215,15 @@
                     <div>
                         <h3>Descrizione:</h3>
                         <p>
-                            <input type="text" id="classificationNewCriterionDescrizione" name="classificationNewCriterionDescrizione" />
+                            <input type="text" id="classificationNewCriterionDescrizione" name="classificationNewCriterionDescrizione" maxlength="20"/>
+                            <label class="error" style="display:inline;" id="classificationNewCriterionDescrizioneError"></label>
                         </p>
                         <h3>Campo:</h3>
                         <p>
                             <select id="classificationNewCriterionCampo" name="classificationNewCriterionCampo">
                                 <option id="selectCampoEmpty" value="">--Seleziona operando--</option>
                             </select>
+                            <label class="error" style="display:inline;" id="classificationNewCriterionCampoError"></label>
                         </p>
                         <h3>Operando:</h3>
                         <p>
@@ -232,14 +236,17 @@
                                 <option id="selectOperando\>" value=">">maggiore (>)</option>
                                 <option id="selectOperando\!\=" value="!=">diverso (!=)</option>
                             </select>
+                            <label class="error" style="display:inline;" id="classificationNewCriterionOperandoError"></label>
                         </p>
                         <h3>Condizione:</h3>
                         <p>
-                            <input type="text" id="classificationNewCriterionCondizione" name="classificationNewCriterionCondizione" />
+                            <input type="text" id="classificationNewCriterionCondizione" name="classificationNewCriterionCondizione" maxlength="20"/>
+                            <label class="error" style="display:inline;" id="classificationNewCriterionCondizioneError"></label>
                         </p>
                         <h3>Peso</h3>
                         <p>
                             <input type="text" id="classificationNewCriterionPeso" name="classificationNewCriterionPeso" />
+                            <label class="error" style="display:inline;" id="classificationNewCriterionPesoError"></label>
                         </p>
                         <p>
                             <input type="button" id="classificationAddCriterionSubmit" onClick="addCriterion();" value="Inserisci" />

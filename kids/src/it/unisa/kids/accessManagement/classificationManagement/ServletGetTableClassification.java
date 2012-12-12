@@ -5,8 +5,6 @@
 package it.unisa.kids.accessManagement.classificationManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
-import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
-import it.unisa.kids.accessManagement.registrationChildManagement.ServletGetTableRegistrationChild;
 import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
@@ -150,7 +148,7 @@ public class ServletGetTableClassification extends HttpServlet {
             response.setHeader("Pragma", "no-cache");
             out.print(result);
         } catch(SQLException ex) {
-            Logger.getLogger(ServletGetTableRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletGetTableClassification.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
         }

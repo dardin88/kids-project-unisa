@@ -4,7 +4,8 @@
  */
 package it.unisa.kids.accessManagement.classificationManagement;
 
-import it.unisa.kids.accessManagement.registrationChildManagement.ServletGetRegistrationChild;
+import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationChildManager;
+import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
@@ -50,44 +51,65 @@ public class ServletModifyClassification extends HttpServlet {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
-        boolean isSuccess = true;
+        boolean isSuccess;
         String errorMsg = new String();
         
         try {
             Classification tmpClassification = new Classification();
-            
             // campi necessari per prelevare le informazioni
-            if(!request.getParameter(DBNames.ATT_REGISTRATIONCHILD_ID).equals("")) {
+            if(!request.getParameter(DBNames.ATT_CLASSIFICATION_ID).equals("")) {
                 int id = Integer.parseInt(request.getParameter(DBNames.ATT_CLASSIFICATION_ID));
-                GregorianCalendar data = CommonMethod.parseGregorianCalendar(request.getParameter(DBNames.ATT_CLASSIFICATION_DATA));
-                String nome = request.getParameter(DBNames.ATT_CLASSIFICATION_NAME);
-                String stato = request.getParameter(DBNames.ATT_CLASSIFICATION_STATUS);
-                
                 tmpClassification.setId(id);
-                tmpClassification.setDate(data);
-                tmpClassification.setStatus(stato);
-                tmpClassification.setName(nome);
+                System.out.println("L'id è: " + id);
                 
+                if(request.getParameter(DBNames.ATT_CLASSIFICATION_DATA) != null) {
+                    GregorianCalendar data = CommonMethod.parseGregorianCalendar(request.getParameter(DBNames.ATT_CLASSIFICATION_DATA));
+                    tmpClassification.setDate(data);
+                }
+                String nome = request.getParameter(DBNames.ATT_CLASSIFICATION_NAME);
+                if(nome != null) {
+                    tmpClassification.setName(nome);
+                }
+                String stato = request.getParameter(DBNames.ATT_CLASSIFICATION_STATUS);
+                if(stato != null) {
+                    tmpClassification.setStatus(stato);
+                    if(stato.equals(DBNames.ATT_CLASSIFICATION_STATUS_DEFINITIVA)) {
+                        // Si rendono Accettate le domande di iscrizione che hanno esito positivo (fase di notify (Observe design patter) al RegistrationChildManager
+                        // Prendo l'elenco dei risultati
+                        Result resultToSearch = new Result();
+                        resultToSearch.setClassificationId(id);
+                        List<Result> risultati = classificationManager.searchResult(resultToSearch);
+                        RefinedAbstractManager refinedAbstractRegistrationChildManager = RefinedAbstractManager.getInstance();
+                        IRegistrationChildManager registrationChildManager = (IRegistrationChildManager) refinedAbstractRegistrationChildManager.getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
+                        RegistrationChild tmpChild = new RegistrationChild();
+                        for(Result tmpResult : risultati) {
+                            if(tmpResult.getResult()) {
+                                tmpChild.setId(tmpResult.getRegistrationChildId());
+                                registrationChildManager.acceptRegistrationChild(tmpChild);
+                            }
+                        }
+                    }
+                }
                 isSuccess = classificationManager.update(tmpClassification);
-                
             } else {
                 isSuccess = false;
                 errorMsg = "Errore nella passaggio dei parametri";
             }
             
-        } catch (SQLException ex) {
-            Logger.getLogger(ServletGetRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
+        } catch(SQLException ex) {
+            Logger.getLogger(ServletModifyClassification.class.getName()).log(Level.SEVERE, null, ex);
             isSuccess = false;
             errorMsg = ex.getMessage();
-        } finally {
-            System.out.println("Risultato della ModifyClassification: " + json.toString());
-            
-            json.put("IsSuccess", isSuccess);
-            json.put("ErrorMsg", errorMsg);
-            
-            out.write(json.toString());
-            out.close();
         }
+        
+        json.put("IsSuccess", "" + isSuccess);
+        json.put("ErrorMsg", errorMsg);
+
+        System.out.println("Risultato della ModifyClassification: " + json.toString());
+
+        out.write(json.toString());
+        out.close();
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

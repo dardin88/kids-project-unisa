@@ -441,6 +441,10 @@
         <servlet-name>GetMealRequestsTableServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.canteenManagement.servlet.GetMealRequestsTableServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletChangeResult</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.classificationManagement.ServletChangeResult</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
@@ -868,6 +872,10 @@
     <servlet-mapping>
         <servlet-name>GetMealRequestsTableServlet</servlet-name>
         <url-pattern>/GetMealRequestsTable</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletChangeResult</servlet-name>
+        <url-pattern>/ChangeResult</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

@@ -682,6 +682,14 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
         return toReturn;
     }
     
+    public synchronized List<RegistrationChild> getReceptedRegistrationChild() throws SQLException {
+        RegistrationChild tmpChild = new RegistrationChild();
+        tmpChild.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_RECEIPT);
+        List<RegistrationChild> toReturn = search(tmpChild);
+        
+        return toReturn;
+    }
+    
     private synchronized boolean changeRegistrationPhase(RegistrationChild child, String phase) throws SQLException {
         boolean toReturn;
         Connection con = null;

@@ -94,48 +94,67 @@ public class JDBCClassificationManager implements IClassificationManager {
     public synchronized boolean update(Classification classification) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
-        String query;
+        StringBuffer query = new StringBuffer();
         int numEditedRow;
         boolean toReturn = false;
         
         try {
             con = DBConnectionPool.getConnection();
-
+            boolean useSeparator = false;
             // constructing query string
-            query = "UPDATE " + DBNames.TABLE_CLASSIFICATION + " " +
-                    "SET " +
-                        DBNames.ATT_CLASSIFICATION_NAME + "=?, " +
-                        DBNames.ATT_CLASSIFICATION_DATA + "=?, " +
-                        DBNames.ATT_CLASSIFICATION_STATUS + "=? " +
-                    "WHERE " + DBNames.ATT_CLASSIFICATION_ID + "=?;";
-
-            pstmt = con.prepareStatement(query);
-
-            // setting pstmt's parameters
-
-            pstmt.setString(1, classification.getName());
-            Date dateToSet;
+            query.append("UPDATE " + DBNames.TABLE_CLASSIFICATION + " SET ");
+            if(classification.getName() != null) {
+                query.append(DBNames.ATT_CLASSIFICATION_NAME + "=? ");
+                useSeparator = true;
+            }
             if(classification.getDate() != null) {
-                dateToSet = new Date(classification.getDate().getTimeInMillis());
-            } else {
-                dateToSet = null;
+                query.append(useSeparator(useSeparator) + DBNames.ATT_CLASSIFICATION_DATA + "=? ");
+                useSeparator = true;
             }
-            pstmt.setDate(2, dateToSet);
-            
-            pstmt.setString(3, classification.getStatus());
-            pstmt.setInt(4, classification.getId());
+            if(classification.getStatus() != null) {
+                query.append(useSeparator(useSeparator) + DBNames.ATT_CLASSIFICATION_STATUS + "=? ");
+                useSeparator = true;
+            }
+            query.append("WHERE " + DBNames.ATT_CLASSIFICATION_ID + "=?;");
 
-            numEditedRow = pstmt.executeUpdate();
-            con.commit();
-            
-            if(numEditedRow > 0) {
-                toReturn = true;
-            }
-            // aggiornamento dei risultati
-            List<Result> listResult = classification.getResults();
-            for(Result tmpResult : listResult) {
-                if(!updateResult(tmpResult)) {
-                    toReturn &= insertResult(tmpResult);
+            if(useSeparator) { // non è inizializzato nessun campo
+                pstmt = con.prepareStatement(query.toString());
+
+                // setting pstmt's parameters
+                int count = 1;
+                if(classification.getName() != null) {
+                    pstmt.setString(count, classification.getName());
+                    count++;
+                }
+                
+                if(classification.getDate() != null) {
+                    Date dateToSet;
+                    dateToSet = new Date(classification.getDate().getTimeInMillis());
+                    pstmt.setDate(count, dateToSet);
+                    count++;
+                }
+                
+                if(classification.getStatus() != null) {
+                    pstmt.setString(count, classification.getStatus());
+                    count++;
+                }
+                
+                pstmt.setInt(count, classification.getId());
+
+                numEditedRow = pstmt.executeUpdate();
+                con.commit();
+
+                if(numEditedRow > 0) {
+                    toReturn = true;
+                }
+                // aggiornamento dei risultati
+                List<Result> listResult = classification.getResults();
+                if(listResult != null) {
+                    for(Result tmpResult : listResult) {
+                        if(!updateResult(tmpResult)) {
+                            toReturn &= insertResult(tmpResult);
+                        }
+                    }
                 }
             }
         } finally {
@@ -331,28 +350,46 @@ public class JDBCClassificationManager implements IClassificationManager {
     public synchronized boolean updateResult(Result result) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
-        String query;
+        StringBuffer query = new StringBuffer();
         boolean toReturn = false;
         int numEditedRow;
+        boolean useSep = false;
         
         try {
             con = DBConnectionPool.getConnection();
-            query = "UPDATE" + DBNames.TABLE_RESULT + " " +
-                    "SET " +
-                        DBNames.ATT_RESULT_SCORE + "=?, " +
-                        DBNames.ATT_RESULT_RESULT + "=? " +
-                    "WHERE " + DBNames.ATT_RESULT_REGISTRATIONCHILDID + "=? AND " +
-                    DBNames.ATT_RESULT_CLASSIFICATIONID + "=?;";
-            pstmt = con.prepareStatement(query);
+            query.append("UPDATE " + DBNames.TABLE_RESULT + " SET ");
+            if(result.getScore() >= 0) {
+                query.append(DBNames.ATT_RESULT_SCORE + "=? ");
+                useSep = true;
+            }
+            if(result.isSetResult()) {
+                query.append(useSeparator(useSep) + DBNames.ATT_RESULT_RESULT + "=? ");
+                useSep = true;
+            }
+            query.append("WHERE " + DBNames.ATT_RESULT_REGISTRATIONCHILDID + "=? AND " +
+                    DBNames.ATT_RESULT_CLASSIFICATIONID + "=?;");
+            
+            if(useSep) {
+                pstmt = con.prepareStatement(query.toString());
 
-            pstmt.setDouble(1, result.getScore());
-            pstmt.setBoolean(2, result.getResult());
-            pstmt.setInt(3, result.getRegistrationChildId());
-            pstmt.setInt(4, result.getClassificationId());
+                int count = 1;
+                if(result.getScore() >= 0) {
+                    pstmt.setDouble(count, result.getScore());
+                    count++;
+                }
+                if(result.isSetResult()) { 
+                    pstmt.setBoolean(count, result.getResult());
+                    count++;
+                }
+                pstmt.setInt(count, result.getRegistrationChildId());
+                count++;
+                pstmt.setInt(count, result.getClassificationId());
 
-            numEditedRow = pstmt.executeUpdate();
-            if(numEditedRow > 0) {
-                toReturn = true;
+                numEditedRow = pstmt.executeUpdate();
+                con.commit();
+                if(numEditedRow > 0) {
+                    toReturn = true;
+                }
             }
         } finally {
             if(pstmt != null) {
@@ -803,8 +840,21 @@ public class JDBCClassificationManager implements IClassificationManager {
         return search(classification);
     }
     
+    public int calculateScore(Result result, List<Criterion> listCriteria) {
+        int score = 0;
+        
+        /*
+         * NOT IMPLEMENTED
+         */
+        
+        return score;
+    }
+    
     private String useAnd(boolean pEnableAnd) {
             return pEnableAnd ? " AND " : " ";
     }
 
+    private String useSeparator(boolean pEnableAnd) {
+            return pEnableAnd ? ", " : " ";
+    }
 }

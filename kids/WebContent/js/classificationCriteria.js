@@ -48,12 +48,6 @@ function createTableCriteria() {
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
-        "fnServerParams": function (aoData) {
-//        aoData.push({
-//            
-//        });
-        },
-
         "bSort": false,
         "bDestroy": true,
         "bInfo": true,
@@ -62,11 +56,12 @@ function createTableCriteria() {
         "oLanguage": {
             "sProcessing":   "Caricamento...",
             "sLengthMenu":   "Visualizza _MENU_ link",
-            "sZeroRecords":  "La ricerca non ha portato alcun risultato.",
+            "sZeroRecords":  "Non sono presenti criteri di valutazione.",
             "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Criteri",
             "sInfoEmpty":    "Vista da 0 a 0 di 0 Criteri",
             "sInfoFiltered": "(filtrati da _MAX_ link totali)",
             "sInfoPostFix":  "",
+            "sSearch":       "Cerca criterio:",
             "oPaginate": {
                 "sFirst":    "<<",
                 "sPrevious": "<",
@@ -74,24 +69,30 @@ function createTableCriteria() {
                 "sLast":     ">>"
             }
         },
-
-        "oTableTools":{
-            "aButtons":[
-            "Elimina", "Modifica","Visualizza"
-            ]
-        },
         "aoColumns": [
         {
-            "sWidth": "65%"
+            "sWidth": "65%",
+            "sClass": "center"
         },
         {
-            "sWidth": "25%"
+            "sWidth": "25%",
+            "sClass": "center"
         },
         {
-            "sWidth": "10%"
+            "sWidth": "10%",
+            "sClass": "center"
         }],
          "fnServerData": function (sSource, aoData, fnCallback){ 
             $.post(sSource,aoData,fnCallback,"json");
         }
     });  
+}
+function modifyCriteriaWindow(id) {
+    
+}
+function deleteCriteriaWindow(id) {
+    
+}
+function changeCriterionActive(id, isActive) {
+    
 }
