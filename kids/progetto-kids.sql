@@ -290,7 +290,7 @@ CREATE TABLE IF NOT EXISTS `menu_mensa` (
   `Secondo` varchar(200) DEFAULT NULL,
   `Contorno` varchar(200) DEFAULT NULL,
   `Frutta` varchar(200) DEFAULT NULL,
-  `IscrizioneBambinoId` int(11) NOT NULL,
+  `IscrizioneBambinoId` int(11) DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -467,6 +467,7 @@ CREATE TABLE IF NOT EXISTS `richiesta_orari_servizio` (
 CREATE TABLE IF NOT EXISTS `richiesta_pasto` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Data` date NOT NULL,
+  `Soddisfatta` tinyint(1) NOT NULL DEFAULT '0',
   `AccountGenitore` int(11) NOT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
