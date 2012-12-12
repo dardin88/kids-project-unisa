@@ -22,7 +22,7 @@ function initializeCanteenPage() {
         width: 400
     });
     $("#onlyLastAssMenu").change(function() {
-        if ($("#onlyLastAssMenu").attr('checked') == true) {
+        if ($("#onlyLastAssMenu").attr('checked') == 'checked') {
             $("#menuDate").attr('disabled', true);
         }
         else {
@@ -45,7 +45,7 @@ function initializeCanteenPage() {
         changeYear: true
     });
     $("#onlyLastDailyMenu").change(function() {
-        if ($("#onlyLastDailyMenu").attr('checked') == true) {
+        if ($("#onlyLastDailyMenu").attr('checked') == 'checked') {
             $("#dailyMenuDate").attr('disabled', true);
         }
         else {
@@ -244,7 +244,7 @@ function buildDailyMenusTable() {
 }
 
 function buildMealRequestsTable() {
-    $("#showDailyMenusTable").dataTable({
+    $("#showMealRequestsTable").dataTable({
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
