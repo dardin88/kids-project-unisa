@@ -57,12 +57,8 @@ public class ServletAddClassification extends HttpServlet {
             GregorianCalendar creationDate = new GregorianCalendar();
             creationDate.setTime(new Date(System.currentTimeMillis()));
 
-            /* TEST DELLA RICHIESTA ALLA SERVLET
-            System.out.println("Sono nella CreateServlet ed il cognome è: " + 
-                        request.getParameter(DBNames.ATT_REGISTRATIONCHILD_SURNAME) + "ora: " + CommonMethod.parseString(registrationDate));
-            //*/
             
-            // Creo la domanda di iscrizione bambino
+            // Creo la graduatoria
             Classification newClassification = new Classification();
             newClassification.setName(name);
             newClassification.setDate(creationDate);

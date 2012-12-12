@@ -7,6 +7,13 @@ import java.util.List;
 
 public interface IClassificationManager extends IManager {
     public boolean insert(Classification classification) throws SQLException;
+    /**
+     * Aggiorna il database con i dati inizializzati nell'oggetto Classification.
+     * Il metodo aggiorna esclusivamente gli attributi diversi da null
+     * @param classification Graduatoria da modificare nel database
+     * @return true se la modifica è avvenuta, false altrimenti
+     * @throws SQLException in caso di un SQLException
+     */
     public boolean update(Classification classification) throws SQLException;
     public boolean delete(Classification classification) throws SQLException;
     public List<Classification> search(Classification classification) throws SQLException;
@@ -29,5 +36,12 @@ public interface IClassificationManager extends IManager {
     public List<Criterion> searchCriterion(Criterion criterion) throws SQLException;
     
     public List<Criterion> getAllCriteria() throws SQLException;
-        
+    /**
+     * Calculate the score attributed with the criterialist
+     * 
+     * @param result result
+     * @param listCriteria list of criteria to use as valutation
+     * @return the score of the result
+     */
+    public int calculateScore(Result result, List<Criterion> listCriteria);
 }

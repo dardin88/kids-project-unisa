@@ -234,7 +234,7 @@ CREATE TABLE IF NOT EXISTS `esito` (
 
 CREATE TABLE IF NOT EXISTS `graduatoria` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Nome` varchar(20) DEFAULT NULL,
+  `Nome` varchar(30) DEFAULT NULL,
   `Data` date NOT NULL,
   `Stato` enum('bozza','provvisoria','definitiva') DEFAULT 'bozza',
   PRIMARY KEY (`Id`)

@@ -4,8 +4,8 @@
  */
 package it.unisa.kids.accessManagement.classificationManagement;
 
-import it.unisa.kids.accessManagement.registrationChildManagement.ServletGetRegistrationChild;
-import it.unisa.kids.common.CommonMethod;
+import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationChildManager;
+import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
@@ -25,7 +25,7 @@ import org.json.JSONObject;
  *
  * @author Lauri Giuseppe Giovanni
  */
-public class ServletGetClassification extends HttpServlet {
+public class ServletChangeResult extends HttpServlet {
     private IClassificationManager classificationManager;
 
     public void init(ServletConfig config) {
@@ -49,53 +49,45 @@ public class ServletGetClassification extends HttpServlet {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
-        boolean isSuccess = true;
         String errorMsg = new String();
+        boolean isSuccess;
         
         try {
-            Classification tmpClassification = new Classification();
             
+            String sClassId = request.getParameter("ClassificationId");
+            String sRegChildId = request.getParameter("RegistrationChildId");
+            String sNewResult = request.getParameter("Result");
             // campi necessari per prelevare le informazioni
-            if(!request.getParameter(DBNames.ATT_REGISTRATIONCHILD_ID).equals("")) {
-                int id = Integer.parseInt(request.getParameter(DBNames.ATT_REGISTRATIONCHILD_ID));
-                tmpClassification.setId(id);
-                //System.out.println("Sono nella servlet con l'id: " + id);
-                // ricerco
-                List<Classification> listResult = classificationManager.search(tmpClassification);
-                if(listResult.size() > 0) {
-                    
-                    // prelevo il risultato (dovrebbe essere unico
-                    tmpClassification = listResult.get(0);
-
-                    // costruisco l'output
-                    
-                    json.put(DBNames.ATT_CLASSIFICATION_ID, tmpClassification.getId());
-                    json.put(DBNames.ATT_CLASSIFICATION_NAME, tmpClassification.getName());
-                    json.put(DBNames.ATT_CLASSIFICATION_DATA, CommonMethod.parseString(tmpClassification.getDate()));
-                    json.put(DBNames.ATT_CLASSIFICATION_STATUS, tmpClassification.getStatus());
-                    
-                } else {
-                    isSuccess = false;
-                    errorMsg = "Errore nella prelevazione dell'ID: " + id;
-                }
+            if(sClassId != null && !sClassId.equals("") && sRegChildId != null && !sRegChildId.equals("") && sNewResult != null && !sNewResult.equals("")) {
+                int classificationId = Integer.parseInt(sClassId);
+                int registrationChildId = Integer.parseInt(sRegChildId);
+                boolean newResult = Boolean.parseBoolean(sNewResult);
+                
+                Result toUpdate = new Result();
+                toUpdate.setClassificationId(classificationId);
+                toUpdate.setRegistrationChildId(registrationChildId);
+                toUpdate.setResult(newResult);
+                
+                isSuccess = classificationManager.updateResult(toUpdate);
+                
             } else {
                 isSuccess = false;
                 errorMsg = "Errore nella passaggio dei parametri";
             }
             
-        } catch (SQLException ex) {
-            Logger.getLogger(ServletGetClassification.class.getName()).log(Level.SEVERE, null, ex);
+        } catch(SQLException ex) {
+            Logger.getLogger(ServletChangeResult.class.getName()).log(Level.SEVERE, null, ex);
             isSuccess = false;
             errorMsg = ex.getMessage();
         }
-        System.out.println("Risultato della GetClassification: " + json.toString());
-
+        
         json.put("IsSuccess", "" + isSuccess);
         json.put("ErrorMsg", errorMsg);
+        
+        System.out.println("Risultato della ChangeResult: " + json.toString());
 
         out.write(json.toString());
         out.close();
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

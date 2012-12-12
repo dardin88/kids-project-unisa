@@ -5,8 +5,6 @@
 package it.unisa.kids.accessManagement.classificationManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
-import it.unisa.kids.accessManagement.registrationChildManagement.ServletGetTableRegistrationChild;
-import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
@@ -57,6 +55,8 @@ public class ServletGetTableResult extends HttpServlet {
             JSONArray array = new JSONArray();
             
             String requestClassificationId = request.getParameter(DBNames.ATT_CLASSIFICATION_ID);
+            String requestClassificationStatus = request.getParameter(DBNames.ATT_CLASSIFICATION_STATUS);
+            
             if(requestClassificationId != null) {
                 int classificationId = Integer.parseInt(requestClassificationId);
                 Result toSearch = new Result();
@@ -103,15 +103,24 @@ public class ServletGetTableResult extends HttpServlet {
                 
                 // CREAZIONE DELL'OUTPUT DELLA TABELLA - POPOLAMENTO
                 int posizione = 1;
+                double previousScore = 0;
                 for (Result resultElement : paginateClassificationRequestSet) {
                     JSONArray ja = new JSONArray();
+                    if(resultElement.getScore() < previousScore) { // la lista è ordinata in modo decrescente del punteggio
+                        posizione++;
+                    }
                     ja.put(posizione);
+                    previousScore = resultElement.getScore();
+                    
                     ja.put(resultElement.getRegistrationChildFiscalCode());
                     ja.put(resultElement.getRegistrationChildSurname());
                     ja.put(resultElement.getRegistrationChildName());
                     ja.put(resultElement.getScore());
-                    if(account.getAccountType().equals("Segreteria")) {
-                        String htmlResult = "<input type=\"checkbox\" onChange=\"aggiornaRisultatoResult(" + resultElement.getClassificationId() + ", " + resultElement.getRegistrationChildId() + ");\" ";
+                    
+                    
+                    if(account.getAccountType().equals("Segreteria") && !requestClassificationStatus.equals(DBNames.ATT_CLASSIFICATION_STATUS_DEFINITIVA)) {
+                        String htmlResult = "<input type=\"checkbox\" onChange=\"aggiornaRisultatoResult(" + 
+                                resultElement.getClassificationId() + ", " + resultElement.getRegistrationChildId() + ", " + resultElement.getResult() + ");\" ";
                         if(resultElement.getResult()) {
                             htmlResult += "checked=\"checked\"";
                         }
@@ -137,7 +146,7 @@ public class ServletGetTableResult extends HttpServlet {
             response.setHeader("Pragma", "no-cache");
             out.print(result);
         } catch(SQLException ex) {
-            Logger.getLogger(ServletGetTableRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletGetTableResult.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
         }

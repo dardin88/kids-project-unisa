@@ -26,16 +26,6 @@ function createTableRegistrationChild() {
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
-        "fnServerParams": function (aoData) {
-//           aoData.push(// Parametri di ricerca aggiuntivi
-//            {
-//                "name" : "FaseDellIscrizione", 
-//                "value" : $('#FaseDellIscrizione').val()
-//            }
-//            );
-//     
-        },
-
         "bSort": false,
         "bDestroy": true,
         "bInfo": true,
@@ -44,7 +34,7 @@ function createTableRegistrationChild() {
         "oLanguage": {
             "sProcessing":   "Caricamento...",
             "sLengthMenu":   "Visualizza _MENU_ link",
-            "sZeroRecords":  "La ricerca non ha portato alcun risultato.",
+            "sZeroRecords":  "Non sono presenti domande di iscrizione",
             "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Domande d'iscrizione",
             "sInfoEmpty":    "Vista da 0 a 0 di 0 Domande d'iscrizione",
             "sInfoFiltered": "(filtrati da _MAX_ link totali)",
@@ -55,12 +45,6 @@ function createTableRegistrationChild() {
                 "sNext":     ">",
                 "sLast":     ">>"
             }
-        },
-
-        "oTableTools":{
-            "aButtons":[
-            "Elimina", "Modifica","Visualizza"
-            ]
         },
         "aoColumns": [
         {
@@ -76,7 +60,8 @@ function createTableRegistrationChild() {
             "sWidth": "16%"
         },
         {
-            "sWidth":"15%"
+            "sWidth":"15%",
+            "sClass": "center"
         }
         ],
          "fnServerData": function (sSource, aoData, fnCallback){ 
@@ -89,6 +74,7 @@ function search(){
 //    var oTable = $("#traineesTable").dataTable();
 //    oTable.fnDraw();
 }
+
 // FUNZIONI UTILIZZATE DAI PULSANTI DELLA FORM-WINDOW
 function createNewDraftRegistrationChildAction() {
         $("#registrationChildFormWindowForm").validate({

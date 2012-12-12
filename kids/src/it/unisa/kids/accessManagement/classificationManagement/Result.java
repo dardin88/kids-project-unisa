@@ -14,8 +14,10 @@ public class Result {
     private String registrationChildSurname;
     private String registrationChildName;
     private int classificationId;
+    
     private double score;
     private boolean result;
+    private boolean isSetResult;
 
     public Result() {
         this.score = -1;    // valore null dello score, in quanto il punteggio può essere solo positivo o al minimo 0
@@ -47,6 +49,7 @@ public class Result {
 
     public void setResult(boolean result) {
         this.result = result;
+        this.isSetResult = true;
     }
 
     public int getRegistrationChildId() {
@@ -65,8 +68,8 @@ public class Result {
         return registrationChildName;
     }
 
-    public boolean isResult() {
-        return result;
+    public boolean isSetResult() {
+        return isSetResult;
     }
 
     public int getClassificationId() {

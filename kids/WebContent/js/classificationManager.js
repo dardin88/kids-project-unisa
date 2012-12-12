@@ -3,15 +3,6 @@ function initClassificationPage() {
         cache: false
     });
     
-    $.validator.setDefaults({
-        highlight: function(input){
-            $(input).addClass("ui-state-highlight");
-        },
-        unhighlight: function(input){
-            $(input).removeClass("ui-state-highlight");
-        }
-    });
-    
     $("#classificationButtonOpenWindowCreateNew").button();
     
     $("#classificationAddWindow").dialog({
@@ -59,10 +50,10 @@ function initClassificationPage() {
         autoOpen: false,
         modal: true,
         resizable: false,
-        width: 600,
-        stack: true
+        width: 600
     });
     $("#classificationConfirmWindowConfirmButton").button();
+    $("#classificationConfirmWindowUndoButton").button();
     $("#classificationConfirmWindowUndoButton").click(function() {
         setWindowVisibility("classificationConfirmWindow", false);
         // Rimuovo l'evento dal pulsante di conferma
@@ -70,6 +61,7 @@ function initClassificationPage() {
         // Svuoto il testo
         getElement("classificationConfirmWindowText").HTML = "";
     });
+    
 }
 // FINE INIZIALIZZAZIONE DELLA PAGINA
 // -----------------------------------------------------------------------------
@@ -140,13 +132,13 @@ function openClassificationAlertWindow(newTitle, text) {
     $("#classificationAlertWindow").dialog({title: newTitle});
     getElement("classificationAlertWindowText").innerHTML = text;
     
-    setWindowVisibility("registrationChildAlertWindow", true);
+    setWindowVisibility("classificationAlertWindow", true);
 }
 function openClassificationConfirmWindow(newTitle, text, actionOnConfirm) {
     $("#classificationConfirmWindow").dialog({title: newTitle});
     getElement("classificationConfirmWindowText").innerHTML = text;
     
-    $("#classificationAlertWindowOkButton").click(function() {
+    $("#classificationConfirmWindowConfirmButton").click(function() {
         if(actionOnConfirm != null) {
             actionOnConfirm();
         }
@@ -154,6 +146,21 @@ function openClassificationConfirmWindow(newTitle, text, actionOnConfirm) {
     });
     
     setWindowVisibility("classificationConfirmWindow", true);
+}
+function valida(identificatori) {
+    var areValid = true;
+    var i = 0;
+    while(identificatori[i] != null) {
+        
+        if(getValue(identificatori[i]) == "") {
+            getElement(identificatori[i] + "Error").innerHTML = "Inserire il campo";
+            areValid &= false;
+        } else {
+            getElement(identificatori[i] + "Error").innerHTML = "";
+        }
+        i++;
+    }
+    return areValid;
 }
 function newLine() {
     return "<br>";
@@ -194,9 +201,16 @@ function viewDetailsClassification(id) {
                 getElement("classificationDisplayStatus").value = jsonObject.Stato;
                 getElement("classificationDisplayNome").value = jsonObject.Nome;
                 createTableResult(id);
+                // Nascondo la tabella delle graduatorie e mostro la visuale in dettaglio
+                if(jsonObject.Stato != "definitiva") {
+                    setVisibility("classificationAggiornaResultButton", true);
+                } else {
+                    setVisibility("classificationAggiornaResultButton", false);
+                }
+                setVisibility("classificationContentPage", false);
                 setVisibility("classificationDisplay", true);
             } else {
-                openRegistrationChildAlertWindow("Errore nel caricamento delle informazioni", jsonObject.ErrorMsg);
+                openClassificationAlertWindow("Errore nel caricamento delle informazioni", jsonObject.ErrorMsg);
             }
         }
     );
@@ -221,7 +235,7 @@ function openWindowModifyClassification(id) {
                 getElement("classificationModifyWindowNome").value = jsonObject.Nome;
                 setWindowVisibility("classificationModifyWindow", true);
             } else {
-                openRegistrationChildAlertWindow("Errore nel caricamento delle informazioni", jsonObject.ErrorMsg);
+                openClassificationAlertWindow("Errore nel caricamento delle informazioni", jsonObject.ErrorMsg);
             }
         }
     );
@@ -231,19 +245,66 @@ function openWindowModifyClassification(id) {
  * dato un ID
  */
 function openWindowDeleteClassification(id) {
-    
+    var actionOnConfirm = function() {
+        comunicaConServlet(
+        "DeleteClassification", 
+        {
+            Id:id
+        }, 
+        function(jsonObject) {
+            if(jsonObject.IsSuccess) {
+                updateClassificationTable();
+                openClassificationAlertWindow("Operazione riuscita", "La graduatoria è stata eliminata!")
+            } else {
+                openClassificationAlertWindow("Errore nell'eliminazione", jsonObject.ErrorMsg);
+            }
+        });
+    }
+    openClassificationConfirmWindow("Conferma operazione", "Sei sicuro di voler eliminare la graduatoria?", actionOnConfirm)
 }
 /*
  * Apre la finestra di richiesta di conferma di trasformazione in provvisoria
  */
 function openWindowToProvvisoriaClassification(id) {
-    
+    var actionOnConfirm = function() {
+        comunicaConServlet(
+        "ModifyClassification", 
+        {
+            Id:id,
+            Stato:"provvisoria"
+        }, 
+        function(jsonObject) {
+            if(jsonObject.IsSuccess) {
+                updateClassificationTable();
+                openClassificationAlertWindow("Operazione riuscita", "La graduatoria è stata resa provvisoria!")
+            } else {
+                openClassificationAlertWindow("Errore nel cambiamento di stato della graduatoria", jsonObject.ErrorMsg);
+            }
+        });
+    }
+    openClassificationConfirmWindow("Conferma operazione", "Sei sicuro di voler rendere la graduatoria provvisoria?", actionOnConfirm)
 }
 /*
  * Apre la finestra di richiesta di conferma di trasformazione in definitiva
  */
 function openWindowToDefinitivaClassification(id) {
-    
+    var actionOnConfirm = function() {
+        comunicaConServlet(
+        "ModifyClassification", 
+        {
+            Id:id,
+            Stato:"definitiva"
+        }, 
+        function(jsonObject) {
+            if(jsonObject.IsSuccess) {
+                updateClassificationTable();
+                openClassificationAlertWindow("Operazione riuscita", "La graduatoria è stata resa definitiva!")
+            } else {
+                openClassificationAlertWindow("Errore nel cambiamento di stato della definitiva", jsonObject.ErrorMsg);
+            }
+        });
+    }
+    openClassificationConfirmWindow("Conferma operazione", "Sei sicuro di voler rendere la graduatoria definitiva?", actionOnConfirm)
 }
 // -----------------------------------------------------------------------------
 // FUNZIONI PER LA VISUALE DI CREAZIONE DI UNA GRADUATORIA
@@ -255,18 +316,13 @@ function closeClassificationAddWindow() {
  * Salva le modifiche apportate alla graduatoria nella ModifyWindow
  */
 function saveNewGraduatoria() {
-    $("#classificationAddWindowForm").validate({
-        rules: {
-            classificationAddWindowNome : true
-        },
-        messages: {
-            classificationAddWindowNome : "Inserire il nome"
-        },
-        submitHandler: function() {
-            comunicaConServlet("AddClassification", {
+    var param = ["classificationAddWindowNome"];
+    if(valida(param)) {
+        comunicaConServlet("AddClassification", {
                     Nome: getValue("classificationAddWindowNome")
                 }, function(result) {
                     if(result.IsSuccess) {
+                        updateClassificationTable();
                         openClassificationAlertWindow("Operazione completata", "La graduatoria è stata inserita");
                     } else {
                         openClassificationAlertWindow("Operazione non riuscita", "Si è verificato il seguente errore:" + newLine() +
@@ -275,8 +331,9 @@ function saveNewGraduatoria() {
                     closeClassificationAddWindow();
                 }
             );
-        }
-    });
+    } else {
+        //openClassificationAlertWindow("Campi mancanti", "Compilare il campo nome!");
+    }
 }
 // -----------------------------------------------------------------------------
 // FUNZIONI PER LA VISUALE DI MODIFICA DELLA GRADUATORIA
@@ -292,43 +349,48 @@ function closeClassificationModifyWindow() {
  * Salva le modifiche apportate alla graduatoria nella ModifyWindow
  */
 function saveModifyGraduatoria() {
-    $("#classificationModifyForm").validate({
-        rules: {
-            classificationModifyWindowNome : true
-        },
-        messages: {
-            classificationModifyWindowNome : "Inserire il nome"
-        },
-        invalidHanler: function() {
-            openClassificationAlertWindow("Operazione non riuscita", "Si è verificato un errore nella validazione");
-        },
-        submitHandler: function() {
-            comunicaConServlet("ModifyClassification", {
-                    Id: getValue("classificationModifyWindowId"),
-                    Data: getValue("classificationModifyWindowData"),
-                    Stato: getValue("classificationModifyWindowStatus"),
-                    Nome: getValue("classificationModifyWindowNome")
-                }, function(result) {
-                    closeClassificationModifyWindow();
-                    if(result.IsSuccess) {
-                        openClassificationAlertWindow("Operazione completata", "La graduatoria è stata modificata");
-                    } else {
-                        openClassificationAlertWindow("Operazione non riuscita", "Si è verificato il seguente errore:" + newLine() +
-                                result.ErrorMsg);
-                    }
-                }
-            );
-        }
-    });
+    var param = ["classificationModifyWindowNome"];
+    if(valida(param)) {
+        comunicaConServlet("ModifyClassification", {
+                 Id: getValue("classificationModifyWindowId"),
+                 Nome: getValue("classificationModifyWindowNome")
+             }, function(result) {
+                 closeClassificationModifyWindow();
+                 if(result.IsSuccess) {
+                    updateClassificationTable();
+                    openClassificationAlertWindow("Operazione completata", "La graduatoria è stata modificata");
+                 } else {
+                     openClassificationAlertWindow("Operazione non riuscita", "Si è verificato il seguente errore:" + newLine() +
+                             result.ErrorMsg);
+                 }
+             }
+         );
+    } else {
+        //openClassificationAlertWindow("Campi mancanti", "Compilare il campo nome!");
+    }
 }
 // -----------------------------------------------------------------------------
 // FUNZIONI ASSOCIATE ALLA VISUALE IN DETTAGLIO DELLA GRADUATORIA
 /*
  * Ricontrolla l'elenco delle RegistrationChild che sono nella fase "Ricevuta" 
- * e crea un elemento Result per quella registrazione se non è già esistente
+ * e crea un elemento Result per quella registrazione se non è già esistente,
+ * e associa il Result alla graduatoria che si sta visualizzando in dettaglio
  */
 function updateResultClassification() {
-    
+    comunicaConServlet("UpdateResult", {
+            Id: getValue("classificationDisplayId")
+        }, function(result) {
+            if(result.IsSuccess) {
+               updateResultTable();
+               openClassificationAlertWindow("Operazione completata", "L'elenco dei risultati è stato aggiornato." + newLine() +
+                    "Inseriti: " + result.NumInsert + newLine() +
+                    "Aggiornati: " + result.NumUpdate);
+            } else {
+                openClassificationAlertWindow("Operazione non riuscita", "Si è verificato il seguente errore:" + newLine() +
+                        result.ErrorMsg);
+            }
+        }
+    );
 }
 /*
  * Chiude la visuale di dettaglio della graduatoria
@@ -340,12 +402,28 @@ function closeDetailsClassification() {
     getElement("classificationDisplayData").value = "";
     getElement("classificationDisplayNome").value = "";
     getElement("classificationDisplayStatus").value = "";
+    // Riapertura della tabella delle graduatorie
+    setVisibility("classificationContentPage", true);
 }
 // FUNZIONI PER LA GESTIONE DEI RESULT
 /*
  * Funzione visibile nella tabella dei risultati, aggiorna il risultato nel
  * database
  */
-function aggiornaRisultatoResult(classificationId, registrationChildId) {
-    
+function aggiornaRisultatoResult(classificationId, registrationChildId, result) {
+    var newResult = !result;
+    comunicaConServlet("ChangeResult", {
+            ClassificationId: classificationId,
+            RegistrationChildId: registrationChildId,
+            Result: newResult
+        }, function(result) {
+            if(result.IsSuccess) {
+               updateResultTable();
+               //openClassificationAlertWindow("Operazione completata", "Il risultato è stato aggiornato");
+            } else {
+                openClassificationAlertWindow("Operazione non riuscita", "Si è verificato il seguente errore:" + newLine() +
+                        result.ErrorMsg);
+            }
+        }
+    );
 }
