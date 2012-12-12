@@ -463,9 +463,9 @@ public class JDBCClassificationManager implements IClassificationManager {
                 query.append("1");
             }
             // ordinamento
-            query.append(" ORDER BY " + DBNames.ATT_RESULT_SCORE + ", " + 
+            query.append(" ORDER BY " + DBNames.ATT_RESULT_RESULT + " DESC, " + DBNames.ATT_RESULT_SCORE + " DESC, " + 
                         DBNames.ATT_RESULT_CLASSIFICATIONID + ", " + 
-                        DBNames.ATT_RESULT_REGISTRATIONCHILDID + " DESC;");
+                        DBNames.ATT_RESULT_REGISTRATIONCHILDID + ";");
             
             //System.out.println(query);
             pstmt = con.prepareStatement(query.toString());
@@ -576,6 +576,36 @@ public class JDBCClassificationManager implements IClassificationManager {
             }
         }
         return toReturn;
+    }
+    
+    public synchronized int deleteAllResultFromDifferentClassification(int registrationChildId, int classificationId) throws SQLException {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        String query;
+        int numEditedRow;
+        
+        try {
+            con = DBConnectionPool.getConnection();
+
+            // constructing query string for classification
+            query = "DELETE FROM " + DBNames.TABLE_RESULT + " " +
+                            "WHERE " + DBNames.ATT_RESULT_REGISTRATIONCHILDID + "=? AND " + DBNames.ATT_RESULT_CLASSIFICATIONID + "<>?;";
+
+            stmt = con.prepareStatement(query);
+            stmt.setInt(1, registrationChildId);
+            stmt.setInt(2, classificationId);
+            
+            numEditedRow = stmt.executeUpdate();
+            con.commit();
+        } finally {
+            if(stmt != null) {
+                stmt.close();
+            }
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+        return numEditedRow;
     }
     
     // metodo utilizzato dal registrationchildmanager in caso di eliminazione di una domanda di iscrizione

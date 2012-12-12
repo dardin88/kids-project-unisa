@@ -6,7 +6,9 @@ function initCriteriaWindow() {
         resizable: false,
         width: 600
     });
-    $("#classificationOpenCriteriaWindow").button();
+    if(getValue("user") == "Segreteria") {  // il pulsante è da inizializzare solo se l'utente è 'Segreteria'
+        $("#classificationOpenCriteriaWindow").button();
+    }
     
     $("#classificationAddCriterionWindow").dialog({
         autoOpen: false,
@@ -40,7 +42,7 @@ function addCriterion() {
     
 }
 function createTableCriteria() {
-        $('#classificationTable').dataTable({
+        $('#classificationCriteriaTable').dataTable({
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
@@ -71,21 +73,41 @@ function createTableCriteria() {
         },
         "aoColumns": [
         {
-            "sWidth": "65%",
+            "sWidth": "20%",
             "sClass": "center"
         },
         {
-            "sWidth": "25%",
+            "sWidth": "15%",
             "sClass": "center"
         },
         {
-            "sWidth": "10%",
+            "sWidth": "7%",
+            "sClass": "center"
+        },
+        {
+            "sWidth": "20%",
+            "sClass": "center"
+        },
+        {
+            "sWidth": "15%",
+            "sClass": "center"
+        },
+        {
+            "sWidth": "15%",
+            "sClass": "center"
+        },
+        {
+            "sWidth": "8%",
             "sClass": "center"
         }],
          "fnServerData": function (sSource, aoData, fnCallback){ 
             $.post(sSource,aoData,fnCallback,"json");
         }
     });  
+}
+function updateCriteriaTable() {
+    var oTable = $("#classificationCriteriaTable").dataTable();
+    oTable.fnDraw();
 }
 function modifyCriteriaWindow(id) {
     

@@ -28,6 +28,7 @@
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/registrationChildManager.js"></script>
+        
         <title>Registration's Child Management</title>
     </head>
     <script type="text/javascript">
