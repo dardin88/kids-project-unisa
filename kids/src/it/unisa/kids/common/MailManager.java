@@ -44,10 +44,10 @@ public class MailManager implements Observer {
             props.put("mail.smtp.user", from);
             props.put("mail.smtp.password", password);
             props.put("mail.smtp.host", smtpServer);
-            props.put("mail.smtp.port", 465);
+            props.put("mail.smtp.port", 587);
             props.put("mail.smtp.auth", "true");
             props.put("mail.smtp.starttls.enable", "true");
-            props.put("mail.smtp.EnableSSL.enable", "false");
+            props.put("mail.smtp.EnableSSL.enable", "true");
 
             Session session = Session.getInstance(props, null);
 
