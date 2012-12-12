@@ -27,7 +27,16 @@ public interface IClassificationManager extends IManager {
     
     public boolean deleteAllResult(Classification classification) throws SQLException;
     public boolean deleteAllResult(RegistrationChild child) throws SQLException;
-
+    
+    /**
+     * Remove all result of the registrationChildId from other classification that the classificationId
+     * 
+     * @param registrationChildId id of the registrationchild of which remove result
+     * @param classificationId id of the classification of the result to conserve
+     * @return number of removed result
+     * @throws SQLException if occured an SQLException
+     */
+    public int deleteAllResultFromDifferentClassification(int registrationChildId, int classificationId) throws SQLException;
     public boolean unapproveResult(RegistrationChild registrationChildId) throws SQLException;
 
     public boolean insertCriterion(Criterion criterion) throws SQLException;

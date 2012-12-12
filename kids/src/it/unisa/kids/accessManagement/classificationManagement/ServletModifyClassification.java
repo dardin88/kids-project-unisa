@@ -58,9 +58,9 @@ public class ServletModifyClassification extends HttpServlet {
             Classification tmpClassification = new Classification();
             // campi necessari per prelevare le informazioni
             if(!request.getParameter(DBNames.ATT_CLASSIFICATION_ID).equals("")) {
-                int id = Integer.parseInt(request.getParameter(DBNames.ATT_CLASSIFICATION_ID));
-                tmpClassification.setId(id);
-                System.out.println("L'id è: " + id);
+                int classificationId = Integer.parseInt(request.getParameter(DBNames.ATT_CLASSIFICATION_ID));
+                tmpClassification.setId(classificationId);
+                System.out.println("L'id è: " + classificationId);
                 
                 if(request.getParameter(DBNames.ATT_CLASSIFICATION_DATA) != null) {
                     GregorianCalendar data = CommonMethod.parseGregorianCalendar(request.getParameter(DBNames.ATT_CLASSIFICATION_DATA));
@@ -77,15 +77,17 @@ public class ServletModifyClassification extends HttpServlet {
                         // Si rendono Accettate le domande di iscrizione che hanno esito positivo (fase di notify (Observe design patter) al RegistrationChildManager
                         // Prendo l'elenco dei risultati
                         Result resultToSearch = new Result();
-                        resultToSearch.setClassificationId(id);
+                        resultToSearch.setClassificationId(classificationId);
                         List<Result> risultati = classificationManager.searchResult(resultToSearch);
                         RefinedAbstractManager refinedAbstractRegistrationChildManager = RefinedAbstractManager.getInstance();
                         IRegistrationChildManager registrationChildManager = (IRegistrationChildManager) refinedAbstractRegistrationChildManager.getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
                         RegistrationChild tmpChild = new RegistrationChild();
                         for(Result tmpResult : risultati) {
-                            if(tmpResult.getResult()) {
+                            if(tmpResult.getResult()) { // Se la domanda di iscrizione è stata accettata
                                 tmpChild.setId(tmpResult.getRegistrationChildId());
+                                // la si imposta come 'accettata'
                                 registrationChildManager.acceptRegistrationChild(tmpChild);
+                                classificationManager.deleteAllResultFromDifferentClassification(tmpResult.getRegistrationChildId(), classificationId);
                             }
                         }
                     }

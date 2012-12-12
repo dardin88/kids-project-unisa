@@ -52,6 +52,7 @@
             <h2>Graduatorie disponibili:</h2>
             <div id="classificationSubmit">
                 <input type="hidden" id="classificationSelectedId" />
+                <input type="hidden" id="user" value="${sessionScope.user.getAccountType()}"/>
 <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
                 <input type="button" id="classificationButtonOpenWindowCreateNew" onClick="openAddClassificationWindow();" value="Crea una nuova graduatoria" />
                 <%--<input type="button" id="classificationOpenCriteriaWindow" onClick="openCriteriaWindow();" value="Gestisci criteri" />--%>
@@ -143,7 +144,9 @@
             <div id="classificationDisplaySubmit">
                 <input id="classificationDisplayId" name="classificationDisplayId" type="hidden">
 <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
-                <input type="button" id="classificationAggiornaResultButton" name="classificationAggiornaResultButton" onClick="updateResultClassification();" value="Ricalcola esiti" />
+                <input type="button" id="classificationAggiornaResultsButton" name="classificationAggiornaResultsButton" onClick="updateResultClassification();" value="Ricalcola esiti" />
+                <input type="button" id="classificationRendiProvvisoriaButton" name="classificationRendiProvvisoriaButton" onClick="openWindowToProvvisoriaFromDetails();" value="Rendi provvisoria" />
+                <input type="button" id="classificationRendiDefinitivaButton" name="classificationRendiDefinitivaButton" onClick="openWindowToDefinitivaFromDetails();" value="Rendi definitiva" />
 </c:if>
                 <input type="button" id="classificationCloseDetailsButton" name="classificationCloseDetailsButton" onClick="closeDetailsClassification();" value="Torna all'elenco delle grauatorie" />
             </div>
@@ -201,6 +204,7 @@
                         <th>Operando</th>
                         <th>Condizione</th>
                         <th>Peso</th>
+                        <th>Attivo</th>
                         <th>Operazioni</th>
                     </thead>
                     <tbody>

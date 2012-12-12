@@ -3,7 +3,9 @@ function initClassificationPage() {
         cache: false
     });
     
-    $("#classificationButtonOpenWindowCreateNew").button();
+    if(getValue("user") == "Segreteria") {
+        $("#classificationButtonOpenWindowCreateNew").button();
+    }
     
     $("#classificationAddWindow").dialog({
         autoOpen: false,
@@ -29,10 +31,14 @@ function initClassificationPage() {
         closeClassificationModifyWindow();
     });
     
-    $("#classificationAggiornaResultButton").button();
+    if(getValue("user") == "Segreteria") {
+        $("#classificationAggiornaResultsButton").button();
+        $("#classificationRendiProvvisoriaButton").button();
+        $("#classificationRendiDefinitivaButton").button();
+    }
     $("#classificationCloseDetailsButton").button();
     
-    // ALERT WINDOW
+    // INIZIALIZZAZIONE ALERT WINDOW
     $("#classificationAlertWindow").dialog({
         autoOpen: false,
         modal: true,
@@ -44,8 +50,9 @@ function initClassificationPage() {
     $("#classificationAlertWindowOkButton").click(function() {
         setWindowVisibility("classificationAlertWindow", false);
     });
-    
-    // CONFIRM WINDOW
+    // FINE INIZIALIZZAZIONE ALERT WINDOW
+
+    // INIZIALIZZAZIONE CONFIRM WINDOW
     $("#classificationConfirmWindow").dialog({
         autoOpen: false,
         modal: true,
@@ -61,6 +68,7 @@ function initClassificationPage() {
         // Svuoto il testo
         getElement("classificationConfirmWindowText").HTML = "";
     });
+    // FINE INIZIALIZZAZIONE CONFIRM WINDOW
     
 }
 // FINE INIZIALIZZAZIONE DELLA PAGINA
@@ -202,10 +210,22 @@ function viewDetailsClassification(id) {
                 getElement("classificationDisplayNome").value = jsonObject.Nome;
                 createTableResult(id);
                 // Nascondo la tabella delle graduatorie e mostro la visuale in dettaglio
-                if(jsonObject.Stato != "definitiva") {
-                    setVisibility("classificationAggiornaResultButton", true);
-                } else {
-                    setVisibility("classificationAggiornaResultButton", false);
+                if(getValue("user") == "Segreteria") {
+                    if(jsonObject.Stato == "bozza") {
+                        setVisibility("classificationRendiProvvisoriaButton", true);
+                    } else {
+                        setVisibility("classificationRendiProvvisoriaButton", false);
+                    }
+                    if(jsonObject.Stato == "provvisoria") {
+                        setVisibility("classificationRendiDefinitivaButton", true);
+                    } else {
+                        setVisibility("classificationRendiDefinitivaButton", false);
+                    }
+                    if(jsonObject.Stato != "definitiva") {
+                        setVisibility("classificationAggiornaResultsButton", true);
+                    } else {
+                        setVisibility("classificationAggiornaResultsButton", false);
+                    }
                 }
                 setVisibility("classificationContentPage", false);
                 setVisibility("classificationDisplay", true);
@@ -265,7 +285,7 @@ function openWindowDeleteClassification(id) {
 /*
  * Apre la finestra di richiesta di conferma di trasformazione in provvisoria
  */
-function openWindowToProvvisoriaClassification(id) {
+function openWindowToProvvisoriaClassification(id, isDetailsOpen) {
     var actionOnConfirm = function() {
         comunicaConServlet(
         "ModifyClassification", 
@@ -276,18 +296,22 @@ function openWindowToProvvisoriaClassification(id) {
         function(jsonObject) {
             if(jsonObject.IsSuccess) {
                 updateClassificationTable();
-                openClassificationAlertWindow("Operazione riuscita", "La graduatoria è stata resa provvisoria!")
+                if(isDetailsOpen) {
+                    viewDetailsClassification(id);
+                }
+                openClassificationAlertWindow("Operazione riuscita", "La graduatoria è stata resa provvisoria!");
             } else {
                 openClassificationAlertWindow("Errore nel cambiamento di stato della graduatoria", jsonObject.ErrorMsg);
             }
         });
     }
-    openClassificationConfirmWindow("Conferma operazione", "Sei sicuro di voler rendere la graduatoria provvisoria?", actionOnConfirm)
+    openClassificationConfirmWindow("Conferma operazione", "Sei sicuro di voler rendere la graduatoria provvisoria?" + newLine() + 
+                "La graduatoria non sarà più eliminabile dopo essere stata pubblicata come provvisoria!", actionOnConfirm);
 }
 /*
  * Apre la finestra di richiesta di conferma di trasformazione in definitiva
  */
-function openWindowToDefinitivaClassification(id) {
+function openWindowToDefinitivaClassification(id, isDetailsOpen) {
     var actionOnConfirm = function() {
         comunicaConServlet(
         "ModifyClassification", 
@@ -298,13 +322,17 @@ function openWindowToDefinitivaClassification(id) {
         function(jsonObject) {
             if(jsonObject.IsSuccess) {
                 updateClassificationTable();
+                if(isDetailsOpen) {
+                    viewDetailsClassification(id);
+                }
                 openClassificationAlertWindow("Operazione riuscita", "La graduatoria è stata resa definitiva!")
             } else {
                 openClassificationAlertWindow("Errore nel cambiamento di stato della definitiva", jsonObject.ErrorMsg);
             }
         });
     }
-    openClassificationConfirmWindow("Conferma operazione", "Sei sicuro di voler rendere la graduatoria definitiva?", actionOnConfirm)
+    openClassificationConfirmWindow("Conferma operazione", "Sei sicuro di voler rendere la graduatoria definitiva?" + newLine() + 
+                "La graduatoria non sarà più modificabile dopo essere stata pubblicata come definitiva!", actionOnConfirm)
 }
 // -----------------------------------------------------------------------------
 // FUNZIONI PER LA VISUALE DI CREAZIONE DI UNA GRADUATORIA
@@ -404,6 +432,12 @@ function closeDetailsClassification() {
     getElement("classificationDisplayStatus").value = "";
     // Riapertura della tabella delle graduatorie
     setVisibility("classificationContentPage", true);
+}
+function openWindowToProvvisoriaFromDetails() {
+    openWindowToProvvisoriaClassification(getValue("classificationDisplayId"), true);
+}
+function openWindowToDefinitivaFromDetails() {
+    openWindowToDefinitivaClassification(getValue("classificationDisplayId"), true);
 }
 // FUNZIONI PER LA GESTIONE DEI RESULT
 /*

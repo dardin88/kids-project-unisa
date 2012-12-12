@@ -287,7 +287,7 @@ function confirmCompletingDraftRegistrationChildAction() {
                         // Funzione eseguita se la richiesta alla servlet è eseguita con successo
                         setWindowVisibility("registrationChildFormWindow", false);
                         if(jsonObject.IsSuccess) {
-                            openRegistrationChildAlertWindow("Operazione eseguita correttamente", "La domanda di iscrizione è stata confermata");
+                            openRegistrationChildAlertWindow("Operazione eseguita correttamente", "La domanda di iscrizione è stata validata");
                         } else {
                             openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
                         }
