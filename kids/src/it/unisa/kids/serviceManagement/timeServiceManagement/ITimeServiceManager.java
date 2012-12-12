@@ -7,10 +7,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface ITimeServiceManager extends IManager {
-    
+
     public void insert(ModifyTimeServiceRequest pModifyTimeServiceRequest) throws SQLException;
-    
+
     public List<ModifyTimeServiceRequest> search(ModifyTimeServiceRequest pModifyTimeServiceRequest) throws SQLException;
+
+    public List<ModifyTimeServiceRequest> getRequestModifyTimeServiceList() throws SQLException;
+
     public void insert(News pTimeServ) throws SQLException;
 
     public void update(News pTimeServ) throws SQLException;

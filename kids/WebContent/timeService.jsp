@@ -47,6 +47,7 @@
                 buildRequestTimeServiceSecretaryTable();
                 buildTableChild();
                 tableRequestModifyTimeService();
+                tableRequestModifyTimeServiceSecretary();
             });
         </script>
     </head>
@@ -169,6 +170,8 @@
                 <ul>
                     <li><a href="#InsertTime"><span class="TimeTab">Orari di servizio</span></a></li>
                     <li><a href="#notifyTimeService"><span class="TimeTab">Richiesta orari di servizio</span></a></li>
+                    <li><a href="#RequestModifyTimeServiceSecretary"><span class="TimeTab">Richiesta Modifica Orari di servizio</span></a></li>
+
                 </ul>
                 <div id="InsertTime">
                     <form id="InsertTimeForm" method="post" action="UpdateTimeService">
@@ -192,6 +195,20 @@
 
                         <tbody>
                         </tbody>
+                    </table>
+                </div>
+                <div id="RequestModifyTimeServiceSecretary">
+                    <table id="TableRequestModifyTimeServiceSecretary">
+                        <thead>
+                            <tr>
+                                <th>Genitore</th>
+                                <th>Richiesta</th>
+                                <th>Stato</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+
                     </table>
                 </div>
             </div> 
