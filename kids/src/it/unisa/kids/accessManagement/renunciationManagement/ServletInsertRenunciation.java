@@ -1,22 +1,32 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unisa.kids.accessManagement.renunciationManagement;
 
+import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONObject;
 
 /**
  *
- * @author PC
+ * @author Lauri Giuseppe Giovanni
  */
 public class ServletInsertRenunciation extends HttpServlet {
+    private IRenunciationManager renunciationManager;
 
+    public void init(ServletConfig config) {
+        RefinedAbstractManager refinedAbstractRenunciationManager = RefinedAbstractManager.getInstance();
+        renunciationManager = (IRenunciationManager) refinedAbstractRenunciationManager.getInstance().getManagerImplementor(DBNames.TABLE_RENUNCIATION);
+    }
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -29,21 +39,45 @@ public class ServletInsertRenunciation extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        
+        response.setContentType("application/json");
         PrintWriter out = response.getWriter();
+        JSONObject json = new JSONObject();
+        boolean isSuccess = true;
+        String errorMsg = new String();
+        
         try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServletInsertRenunciation</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServletInsertRenunciation at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {            
-            out.close();
+            // Prelevo i dati necessari
+            GregorianCalendar creationDate = new GregorianCalendar();
+            creationDate.setTime(new Date(System.currentTimeMillis()));
+
+            String motivo = request.getParameter(DBNames.ATT_RENUNCIATION_REASON);
+            String sRegistrationChildId = request.getParameter(DBNames.ATT_RENUNCIATION_REGISTRATIONCHILDID);
+            
+            if(motivo != null && !motivo.equals("") && sRegistrationChildId != null && !sRegistrationChildId.equals("")) {
+                // Creo la domanda di rinuncia
+                Renunciation newRenunciation = new Renunciation();
+                newRenunciation.setDate(creationDate);
+                newRenunciation.setReason(motivo);
+                newRenunciation.setIsConfirmed(false);
+                newRenunciation.setRegistrationChildId(Integer.parseInt(sRegistrationChildId));
+                
+                // La inserisco nel db
+                isSuccess = renunciationManager.insert(newRenunciation);
+            } else {
+                errorMsg = "Errore nel passaggio dei parametri";
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServletInsertRenunciation.class.getName()).log(Level.SEVERE, "SQL-Error: " + ex.getMessage(), ex);
+            isSuccess = false;
+            errorMsg = ex.getMessage();
         }
+        json.put("IsSuccess", "" + isSuccess);
+        json.put("ErrorMsg", errorMsg);
+
+        System.out.println("Risultato della InsertRenunciation: " + isSuccess + " JSON: " + json.toString());
+        out.write(json.toString());
+        out.close();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

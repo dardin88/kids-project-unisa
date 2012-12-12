@@ -471,7 +471,7 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
      * @throws SQLException
      */
     public boolean confirmRegistrationChild(RegistrationChild child) throws SQLException {
-        return changeRegistrationPhase(child, DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_RECEIPT);
+        return changeRegistrationPhase(child, DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_RECEIPT);
     }
 
     /**
@@ -482,21 +482,21 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
      * @throws SQLException
      */
     public boolean submitRegistrationChild(RegistrationChild child) throws SQLException {
-        return changeRegistrationPhase(child, DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED);
+        return changeRegistrationPhase(child, DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_SUBMITTED);
     }
 
     public boolean removeRegistrationChild(RegistrationChild child) throws SQLException {
         // fase di notify (Observe Pattern) alla graduatoria
         JDBCClassificationManager.getInstance().unapproveResult(child);
-        return changeRegistrationPhase(child, DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DELETED);
+        return changeRegistrationPhase(child, DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_DELETED);
     }
 
     public boolean acceptRegistrationChild(RegistrationChild child) throws SQLException {
-        return changeRegistrationPhase(child, DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_ACCEPTED);
+        return changeRegistrationPhase(child, DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_ACCEPTED);
     }
 
     public boolean renounceRegistrationChild(RegistrationChild child) throws SQLException {
-        return changeRegistrationPhase(child, DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_RENOUNCED);
+        return changeRegistrationPhase(child, DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_RENOUNCED);
     }
 
     public synchronized boolean completeRegistrationChild(RegistrationChild child) throws SQLException {
@@ -521,7 +521,7 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             pstmt.setString(1, child.getSickness());
             pstmt.setString(2, child.getVaccinations());
             pstmt.setString(3, child.getPrivacyStatement());
-            pstmt.setString(4, DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_COMPLETED);
+            pstmt.setString(4, DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_COMPLETED);
             pstmt.setInt(5, child.getId());
 
             /* Test della query
@@ -685,7 +685,7 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
 
     public synchronized List<RegistrationChild> getReceptedRegistrationChild() throws SQLException {
         RegistrationChild tmpChild = new RegistrationChild();
-        tmpChild.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_RECEIPT);
+        tmpChild.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_RECEIPT);
         List<RegistrationChild> toReturn = search(tmpChild);
         
         return toReturn;

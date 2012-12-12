@@ -83,9 +83,9 @@ public class ServletGetTableRegistrationChild extends HttpServlet {
                     break;
                 case "Segreteria":
                     // La segreteria potrà vedere solo le richieste sottomesse dai genitori, che dovrà andare a confermare
-                    child.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED);
+                    child.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_SUBMITTED);
                     listChildRequest = registrationChildManager.search(child);
-                    child.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_COMPLETED);
+                    child.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_COMPLETED);
                     listChildRequest.addAll(registrationChildManager.search(child));
                     break;
                 default:
@@ -122,24 +122,24 @@ public class ServletGetTableRegistrationChild extends HttpServlet {
                     
                     if(account.getAccountType().equals("Genitore")) {
                         // solo il genitore può eliminarla o modificarla
-                        if(regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DRAFT)) {
+                        if(regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_DRAFT)) {
                             operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Modifica\" alt=\"Modifica\" src='img/edit.gif' onclick='openModifyRegistrationChildWindow(\""+regChildRequest.getId()+"\")'/>");
                         }
-                        if(regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_DRAFT) || regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED) || 
-                                    regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_RECEIPT)) {
+                        if(regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_DRAFT) || regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_SUBMITTED) || 
+                                    regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_RECEIPT)) {
                             operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Elimina\" alt=\"Elimina\" src='img/trash.png' onclick='openDeleteRegistrationChildWindow(\"" + regChildRequest.getId() + "\")'/>");
                         }
-                        if(regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_ACCEPTED)) {
+                        if(regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_ACCEPTED)) {
                             operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Completa\" alt=\"Completa\" src='img/tocomplete.png' onclick='openCompleteRegistrationChildWindow(\"" + regChildRequest.getId() + "\")'/>");
                         }
                     }
                     if(account.getAccountType().equals("Segreteria")) {
                         // solo la segreteria può confermare
-                        if(regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_SUBMITTED)) {
+                        if(regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_SUBMITTED)) {
                             operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Conferma ricezione\" alt=\"Conferma ricezione\" src='img/accept.png' onclick='confirmReceivingRegistrationChildWindow(\"" + regChildRequest.getId() + "\")'/>");
                         }
                         // e confermare il completamento
-                        if(regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_COMPLETED)) {
+                        if(regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_COMPLETED)) {
                             operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Conferma completamento\" alt=\"Conferma completamento\" src='img/accept.png' onclick='openComfirmCompletingRegistrationChildWindow(\"" + regChildRequest.getId() + "\")'/>");
                         }
                     }

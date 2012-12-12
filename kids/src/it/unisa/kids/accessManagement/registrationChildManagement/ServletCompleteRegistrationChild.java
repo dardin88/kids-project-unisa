@@ -64,7 +64,7 @@ public class ServletCompleteRegistrationChild extends HttpServlet {
             registrationChild.setSickness(malattie);
             registrationChild.setVaccinations(vaccinazioni);
             registrationChild.setPrivacyStatement(privacy);
-            registrationChild.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_ENUM_REGISTRATIONPHASE_COMPLETED);
+            registrationChild.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_COMPLETED);
             
             // La inserisco nel db
             isSuccess = registrationChildManager.update(registrationChild);

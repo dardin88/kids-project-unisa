@@ -1,22 +1,33 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unisa.kids.accessManagement.renunciationManagement;
 
+import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationChildManager;
+import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
+import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONObject;
 
 /**
  *
- * @author PC
+ * @author Lauri Giuseppe Giovanni
  */
 public class ServletConfirmRenunciation extends HttpServlet {
+    private IRenunciationManager classificationManager;
 
+    public void init(ServletConfig config) {
+        RefinedAbstractManager refinedAbstractRegistrationChildManager = RefinedAbstractManager.getInstance();
+        classificationManager = (IRenunciationManager) refinedAbstractRegistrationChildManager.getManagerImplementor(DBNames.TABLE_RENUNCIATION);
+    }
+    
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -29,21 +40,52 @@ public class ServletConfirmRenunciation extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        
+        response.setContentType("application/json");
         PrintWriter out = response.getWriter();
+        JSONObject json = new JSONObject();
+        boolean isSuccess = true;
+        String errorMsg = new String();
+        
         try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServletConfirmRenunciation</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServletConfirmRenunciation at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {            
-            out.close();
+            Renunciation tmpRenunciation = new Renunciation();
+            
+            String sId = request.getParameter(DBNames.ATT_RENUNCIATION_ID);
+            String sRegChildId = request.getParameter(DBNames.ATT_RENUNCIATION_REGISTRATIONCHILDID);
+            // campi necessari per prelevare le informazioni
+            if(sId != null && !sId.equals("") && sRegChildId != null && !sRegChildId.equals("")) {
+                int id = Integer.parseInt(sId);
+                int regChildId = Integer.parseInt(sRegChildId);
+                tmpRenunciation.setId(id);
+                tmpRenunciation.setIsConfirmed(true);
+                
+                isSuccess = classificationManager.update(tmpRenunciation);
+                
+                // notifica al RegistrationChildManager
+                RefinedAbstractManager refinedAbstractRegistrationChildManager = RefinedAbstractManager.getInstance();
+                IRegistrationChildManager registrationChildManager = (IRegistrationChildManager) refinedAbstractRegistrationChildManager.getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
+                
+                RegistrationChild tmpRegistrationChild = new RegistrationChild();
+                tmpRegistrationChild.setId(regChildId);
+                isSuccess &= registrationChildManager.renounceRegistrationChild(tmpRegistrationChild);
+            } else {
+                isSuccess = false;
+                errorMsg = "Errore nella passaggio dei parametri";
+            }
+            
+        } catch(SQLException ex) {
+            Logger.getLogger(ServletConfirmRenunciation.class.getName()).log(Level.SEVERE, null, ex);
+            isSuccess = false;
+            errorMsg = ex.getMessage();
         }
+        
+        json.put("IsSuccess", "" + isSuccess);
+        json.put("ErrorMsg", errorMsg);
+        
+        System.out.println("Risultato della ConfirmRenunciation: " + json.toString());
+
+        out.write(json.toString());
+        out.close();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

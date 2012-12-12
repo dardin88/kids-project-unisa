@@ -1,14 +1,12 @@
 package it.unisa.kids.accessManagement.renunciationManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
-import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationChildManager;
-import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
-import it.unisa.kids.accessManagement.registrationChildManagement.*;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,17 +21,14 @@ import org.json.JSONObject;
 
 /**
  *
- * @author MIKI
+ * @author Lauri Giuseppe Giovanni
  */
 public class ServletGetTableRenunciation extends HttpServlet {
-
     private IRenunciationManager renunciationManager;
 
     public void init(ServletConfig config) {
         RefinedAbstractManager refinedAbstractRenunciationManager = RefinedAbstractManager.getInstance();
         renunciationManager = (IRenunciationManager) refinedAbstractRenunciationManager.getInstance().getManagerImplementor(DBNames.TABLE_RENUNCIATION);
-        
-        
     }
 
     /**
@@ -48,13 +43,31 @@ public class ServletGetTableRenunciation extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        
         Renunciation[] pageRenunciation = null;
-        List<Renunciation> listRenunciation = null;
+        List<Renunciation> listRenunciation;
         try {
             JSONArray array = new JSONArray();
             JSONObject result = new JSONObject();
+            
+            // L'output è in base alla tipologia dell'account
+            HttpSession session = request.getSession();
+            Account account = (Account) session.getAttribute("user");
+            
+            switch(account.getAccountType()) {
+                case "Genitore" :
+                    listRenunciation = renunciationManager.getListFromParent(account.getId());
+                    break;
+                case "Segreteria" :
+                    Renunciation tmp = new Renunciation();
+                    tmp.setIsConfirmed(false);
+                    listRenunciation = renunciationManager.search(tmp);
+                    break;
+                default :
+                    listRenunciation = new ArrayList<Renunciation>();
+            }
+            
             int start = 0;
             int amount = 10;
             String sStart = request.getParameter("iDisplayStart");
@@ -73,23 +86,6 @@ public class ServletGetTableRenunciation extends HttpServlet {
                 }
             }
 
-            HttpSession session = request.getSession();
-            Account user = (Account) session.getAttribute("user");
-            int idGenitore = user.getId();
-
-            RefinedAbstractManager refinedAbstractRegistrationChildManager = RefinedAbstractManager.getInstance();
-            IRegistrationChildManager registrationChildManager = (IRegistrationChildManager) refinedAbstractRegistrationChildManager.getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
-
-            RegistrationChild tmpChild = new RegistrationChild();
-            tmpChild.setParentId(idGenitore);
-
-            registrationChildManager.search(tmpChild);
-            registrationChildManager.search(null);
-
-            Renunciation pRenunciation = new Renunciation();
-            pRenunciation.setId(idGenitore);
-
-            listRenunciation = renunciationManager.search(pRenunciation);
             int linksNumber = listRenunciation.size();
             if (linksNumber < amount) {
                 amount = linksNumber;
@@ -103,12 +99,22 @@ public class ServletGetTableRenunciation extends HttpServlet {
                     pageRenunciation = new Renunciation[toShow];
                     System.arraycopy(listRenunciation.toArray(), start, pageRenunciation, 0, toShow);
                 }
-                for (Renunciation clas : pageRenunciation) {
+                for (Renunciation rinuncia : pageRenunciation) {
 
                     JSONArray ja = new JSONArray();
 
-                    ja.put(clas.getRegistrationChildId());
-                    String operazioni = "<input class='tableImage' type='image' src='img/trash.png' onclick='DeleteClassBean(\"" + clas.getId() + "\")'/> <input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/lente.gif' onclick='showAccount(\"" + clas.getId() + "\")'/>";
+                    ja.put(rinuncia.getDate());
+                    ja.put(rinuncia.getRegistrationChildFiscalCode());
+                    ja.put(rinuncia.getRegistrationChildSurname());
+                    ja.put(rinuncia.getRegistrationChildName());
+                    
+                    String operazioni = "<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Visualizza Dettagli\" alt=\"Dettagli\" src='img/lente.gif' onclick='opernViewDetailsRenunciationWindow(\"" + rinuncia.getId() + "\")'/>";
+                    if(account.getAccountType().equals("Genitore")) {
+                         operazioni += "<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Elimina\" alt=\"Elimina\" src='img/trash.png' onclick='openDeleteRenunciationWindow(\"" + rinuncia.getId() + "\")'/>";
+                    }
+                    if(account.getAccountType().equals("Segreteria")) {
+                         operazioni += "<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Convalida rinuncia\" alt=\"Convalida rinuncia\" src='img/accept.png' onclick='openConfirmRenunciationWindow(\"" + rinuncia.getId() + "\", \"" + rinuncia.getRegistrationChildId() + "\")'/>";
+                    }
                     ja.put(operazioni);
                     array.put(ja);
                 }
@@ -124,6 +130,8 @@ public class ServletGetTableRenunciation extends HttpServlet {
             out.print(result);
         } catch (SQLException ex) {
             Logger.getLogger(ServletGetTableRenunciation.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            out.close();
         }
     }
 
