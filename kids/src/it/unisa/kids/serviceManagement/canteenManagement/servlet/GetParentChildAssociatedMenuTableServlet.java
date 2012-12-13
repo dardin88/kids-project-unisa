@@ -83,7 +83,6 @@ public class GetParentChildAssociatedMenuTableServlet extends HttpServlet {
             try {
                 childId = Integer.parseInt(request.getParameter("childId"));
             } catch (NumberFormatException e) {
-                sendMessageRedirect(request, response, "Errore: bambino selezionato non corretto");
                 return;
             }
             
@@ -96,11 +95,9 @@ public class GetParentChildAssociatedMenuTableServlet extends HttpServlet {
                     searchMenu.setChildInscriptionId(childId);
                     menuList = canteenManager.search(searchMenu);
                 } catch (ParseException e) {
-                    sendMessageRedirect(request, response, "Errore: data inserita non valida");
                     return;
                 }
             } else {
-                sendMessageRedirect(request, response, "Errore: impossibile recuperare la lista dei men&ugrave;");
                 return;
             }
             
@@ -148,12 +145,6 @@ public class GetParentChildAssociatedMenuTableServlet extends HttpServlet {
         } finally {
             out.close();
         }
-    }
-
-    private void sendMessageRedirect(HttpServletRequest request, HttpServletResponse response, String msg)
-            throws ServletException, IOException {
-        request.setAttribute("message", msg);
-        request.getRequestDispatcher("/canteenParent.jsp").forward(request, response);
     }
 
     private void checkAddToJSON(JSONObject jObj, String key, Object value) {

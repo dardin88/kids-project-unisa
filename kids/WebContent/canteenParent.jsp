@@ -108,7 +108,7 @@
                                 <label for="menuDate">Data:&nbsp;</label>
                                 <input type="text" name="menuDate" id="menuDate">
                                 <label for="childSelect">Seleziona bambino:&nbsp;</label>
-                                <select name="childSelect" id="childSelect" onchange="buildChildrenSelect('#childSelect');"></select>
+                                <select name="childSelect" id="childSelect"></select>
                             </fieldset>
                         </form>
                         <table id="showAssociatedMenuTable" style="width:100%">
@@ -134,7 +134,7 @@
                                 <tr>
                                     <td>
                                         <label for="childSelectModSick">Seleziona bambino:&nbsp;</label>
-                                        <select name="childSelectModSick" id="childSelectModSick" onchange="buildChildrenSelect('#childSelectModSick');"></select>
+                                        <select name="childSelectModSick" id="childSelectModSick"></select>
                                     </td>
                                 </tr>
                                 <tr>
