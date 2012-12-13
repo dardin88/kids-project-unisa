@@ -28,51 +28,136 @@
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/renunciationManager.js"></script>
         <script type="text/javascript" src="js/renunciationTables.js"></script>
+        <script type="text/javascript" src="js/renunciationPrint.js"></script>
         
-        <title>Classification Management</title>
+        <title>Renunciation Management</title>
     </head>
     <script type="text/javascript">
         $(document).ready(function() {
             activePage();
             initRenunciationPage();
             
-            createTableRenunciation();
+            <%--initRenunciationPrintComponent();--%>
+                    
+<c:if test="${sessionScope.user.getAccountType()=='Genitore'}">
+            createTablePossibleRenunciation();
+</c:if>
+            createTableSubmittedRenunciation();
         });
         
     </script>
     
     <body>
         <%@include file="header.jsp" %>
-         <br>
-        <div id="renunciationManagement">
-            <div id="renunciationContent">
-                <h1 style="font-size: 35px;text-align: center;">Gestione Domande d'Iscrizione</h1>
-
-                <%--
-                <c:if test="${sessionScope.user.getAccountType()=='Genitore'}">
-                    <div>
-                        <input type="button" id="newRegistrationChildButton" value="Inserisci Domanda di Iscrizione"/>
-                    </div>
-                </c:if>
-                --%>
-
-
-                <table id="showRenunciationTable">
-                    <thead>
-                        <tr>
+        
+        <%-- CONTENUTO PRINCIPALE DELLA PAGINA --%>
+        <div id="renunciationContentPage">
+            
+            <%-- INFORMAZIONI GENERALI DELLA PAGINA UTILIZZATE NEI FILE JS --%>
+            <div id="renunciationGeneralInfo" style="display: none;">
+                <input type="hidden" id="user" value="${sessionScope.user.getAccountType()}" />
+            </div>
+            <%-- INFORMAZIONI GENERALI DELLA PAGINA UTILIZZATE NEI FILE JS --%>
+        
+<c:if test="${sessionScope.user.getAccountType()=='Genitore'}">
+            <%-- VISUALE DELLE POSSIBILI ISCRIZIONI PER CUI E' POSSIBILE PRESENTARE UNA RINUNCIA --%>
+            <div id="renunciationPossibleDisplay" style="display: block;">
+                <h2 id="renunciationPossibleDisplayTitle">Iscrizioni per le quali è possibile presentare domanda di rinuncia</h2>
+                <div id="renunciationPossibleResultTable">
+                    <table id="renunciationPossibleTable">
+                        <thead>
+                            <th>Codice Fiscale</th>
+                            <th>Cognome</th>
+                            <th>Nome</th>
+                            <th>Fase dell'iscrizione</th>
+                            <th>Operazioni</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <%-- FINE VISUALE DELLE POSSIBILI ISCRIZIONI PER CUI E' POSSIBILE PRESENTARE UNA RINUNCIA --%>
+</c:if>
+        
+            <%-- VISUALE DELLE DOMANDE DI RINUNCIA PRESENTATE --%>
+            <div id="renunciationSubmittedDisplay" style="display: block;">
+                <h2 id="renunciationSubmittedDisplayTitle">Domande di rinuncia presentate:</h2>
+                <div id="renunciationSubmittedResultTable">
+                    <table id="renunciationSubmittedTable">
+                        <thead>
+                            <th>Data inserimento</th>
+                            <th>Codice Fiscale</th>
                             <th>Cognome</th>
                             <th>Nome</th>
                             <th>Operazioni</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>    
-
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <%-- FINE VISUALE DELLE DOMANDE DI RINUNCIA PRESENTATE --%>
+        
+        </div>
+        <%-- FINE CONTENUTO PRINCIPALE DELLA PAGINA --%>
+        
+        <%-- FINESTRA DI INSERIMENTO DI UNA NUOVA DOMANDA DI RINUNCIA --%>
+        <div id="renunciationAddWindow" name="renunciationAddWindow" title="Compila una nuova domanda di rinuncia" style="display: inline">
+            <form id="renunciationAddWindowForm" name="renunciationAddWindowForm" class="cmxform" method="post" action="">
+                <fieldset>
+                    <div>
+                        <p>
+                            <label>Motivo</label>
+                            <input type="text" id="renunciationAddWindowMotivo" name="renunciationAddWindowMotivo"  maxlength="50"/>
+                            <label class="error" style="display:inline;" id="renunciationAddWindowMotivoError" name="renunciationAddWindowMotivoError"></label>
+                        </p>
+                        <p>
+                            <input type="hidden" id="renunciationAddWindowId" name="renunciationAddWindowId" />
+                            <input type="button" id="renunciationAddWindowMotivoSave" onClick="saveNewRenunciation();" value="Sottometti" />
+                            <input type="button" id="renunciationAddWindowMotivoUndo" value="Annulla" />
+                        </p>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <%-- FINE FINESTRA DI INSERIMENTO DI UNA NUOVA GRADUATORIA --%>
+        
+        <%-- FINESTRA DI VISUALE DEI DETTAGLIO DI UNA DOMANDA DI RINUNCIA --%>
+        <div id="renunciationViewDetailsWindow" name="renunciationViewDetailsWindow" title="Visualizza domanda di rinuncia" style="display: inline">
+            <h3>Dettagli della domanda di rinuncia sottomessa</h3>
+            <p id="renunciationViewDetailsText"></p>
+            <p>
+                <input type="hidden" id="renunciationViewDetailsWindowId" name="renunciationViewDetailsWindowId" />
+                <%--<input type="button" id="renunciationViewDetailsWindowPrint" onClick="printRenunciation();" value="Stampa Domanda" />--%>
+                <input type="button" id="renunciationViewDetailsWindowUndo" value="Chiudi" />
+            </p>
+        </div>
+        <%-- FINE FINESTRA VISUALE DEI DETTAGLI DI UNA DOMANDA DI RINUNCIA --%>
+        
+        <%-- FINESTRA DI RICHIESTA DI CONFERMA --%>
+        <div id="renunciationConfirmWindow" name="renunciationConfirmWindow" title="Conferma operazione" style="display: inline">
+            <div>
+                <h3 id="renunciationConfirmWindowText" name="renunciationConfirmWindowText"></h3>
+                <p>
+                    <input type="button" id="renunciationConfirmWindowConfirmButton" value="Conferma" />
+                    <input type="button" id="renunciationConfirmWindowUndoButton" value="Annulla" />
+                </p>
             </div>
         </div>
+        <%-- FINESTRA DI RICHIESTA DI CONFERMA --%>
 
-        <%@include file="footer.jsp" %>
+        <%-- FINESTRA DI AVVISO (ALERT) --%>
+        <div id="renunciationAlertWindow" name="renunciationAlertWindow" title="" style="display: inline">
+            <div>
+                <h3 id="renunciationAlertWindowText" name="renunciationAlertWindowText"></h3>
+                <p>
+                    <input type="button" id="renunciationAlertWindowOkButton" value="OK" />
+                </p>
+            </div>
+        </div>
+        <%-- FINE FINESTRA DI AVVISO (ALERT) --%>
+        
+    <%@include file="footer.jsp" %>
     </body>
-
 </html>

@@ -339,6 +339,7 @@ function openWindowToDefinitivaClassification(id, isDetailsOpen) {
 function closeClassificationAddWindow() {
     setWindowVisibility("classificationAddWindow", false);
     getElement("classificationAddWindowNome").value = "";
+    getElement("classificationAddWindowNomeError").innerHTML = "";
 }
 /*
  * Salva le modifiche apportate alla graduatoria nella ModifyWindow

@@ -68,10 +68,10 @@ CREATE TABLE IF NOT EXISTS `account` (
 --
 
 INSERT INTO `account` (`Id`, `Nickname`, `Password`, `Cognome`, `Nome`, `Email`, `Telefono`, `Cellulare`, `Fax`, `DataNascita`, `ComuneNascita`, `CodiceFiscale`, `Cittadinanza`, `ResidenzaIndirizzo`, `ResidenzaComune`, `ResidenzaProvincia`, `ResidenzaCap`, `DomicilioIndirizzo`, `DomicilioComune`, `DomicilioProvincia`, `DomicilioCap`, `TitoloStudio`, `SituazioneFamiliare`, `Reddito`, `TipologiaGenitore`, `DataScadenzaContratto`, `Facolta`, `DataRegistrazione`, `TipologiaAccount`, `Matricola`, `Stato`) VALUES
-(1, 'segreteria', 'segreteria', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Segreteria', NULL, NULL),
+(1, 's', 's', 'Super', 'Sajan', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Segreteria', NULL, NULL),
 (2, 'admin', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Admin', NULL, NULL),
-(4, 'genitore', 'genitore', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Genitore', NULL, NULL),
-(5, 'gen2', 'gen2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Genitore', NULL, NULL);
+(4, 'g', 'g', 'Landi', 'Pierluigi', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Genitore', NULL, NULL),
+(5, 'g2', 'g2', 'Poni', 'Carmela', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Genitore', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -226,6 +226,16 @@ CREATE TABLE IF NOT EXISTS `esito` (
   PRIMARY KEY (`Iscrizione`,`Graduatoria`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dump dei dati per la tabella `esito`
+--
+
+INSERT INTO `esito` (`Graduatoria`, `Iscrizione`, `Punteggio`, `Esito`) VALUES
+(9, 1, 0, 1),
+(10, 2, 0, 1),
+(9, 3, 0, 0),
+(10, 3, 0, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -239,6 +249,14 @@ CREATE TABLE IF NOT EXISTS `graduatoria` (
   `Stato` enum('bozza','provvisoria','definitiva') DEFAULT 'bozza',
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dump dei dati per la tabella `graduatoria`
+--
+
+INSERT INTO `graduatoria` (`Id`, `Nome`, `Data`, `Stato`) VALUES
+(9, 'modificata', '2012-12-12', 'definitiva'),
+(10, 'senior', '2012-12-12', 'definitiva');
 
 -- --------------------------------------------------------
 
@@ -274,7 +292,10 @@ CREATE TABLE IF NOT EXISTS `iscrizionebambino` (
 --
 
 INSERT INTO `iscrizionebambino` (`Id`, `AccountGenitore`, `DataIscrizione`, `FaseDellIscrizione`, `Cognome`, `Nome`, `DataNascita`, `ComuneNascita`, `CodiceFiscale`, `Cittadinanza`, `FasciaUtenza`, `Malattie`, `Vaccinazioni`, `DichiarazioneDellaPrivacy`, `NoteAggiuntive`, `IsSetMalattie`, `IsSetVaccinazioni`, `IsSetDichiarazioneDellaPrivacy`, `Classe`) VALUES
-(1, 0, '0000-00-00', 'bozza', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'no', 'no', 'no', NULL);
+(1, 4, '2012-12-12', 'validata', 'Landi', 'Giovanni', '2011-07-14', 'Baronissi', 'nonloso', 'Italiana', 'full_time', '', '', 'si', NULL, 'no', 'no', 'si', 0),
+(2, 4, '2012-12-12', 'validata', 'Landi', 'Veronica', '2010-06-07', 'Baronissi', 'nonsocalcolarlo', 'Italiana', 'part_time_mattutina', '', 'Tetano', 'si', NULL, 'in_parte', 'si', 'si', 0),
+(3, 5, '2012-12-12', 'ricevuta', 'Poni', 'Little', '2011-12-18', 'Fisciano', 'ponilittle180120', 'Italiana', 'part_time_pomeridiana', '', '', '', NULL, NULL, NULL, NULL, 0),
+(4, 5, '2012-12-12', 'accettata', 'Poni', 'Conny', '2009-08-16', 'Fisciano', '20090916poniconn', 'Italiana', 'part_time_pomeridiana', '', '', '', NULL, NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
