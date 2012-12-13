@@ -54,11 +54,9 @@ public class GetParentChildrenServlet extends HttpServlet {
             try {
                 parentId = Integer.parseInt(request.getParameter("parentId"));
             } catch (NumberFormatException e) {
-                sendMessageRedirect(request, response, "Errore: genitore non corretto");
                 return;
             }
             if (parentId <= 0) {
-                sendMessageRedirect(request, response, "Errore: genitore non corretto");
                 return;
             }
             
@@ -88,12 +86,6 @@ public class GetParentChildrenServlet extends HttpServlet {
         } finally {
             out.close();
         }
-    }
-    
-    private void sendMessageRedirect(HttpServletRequest request, HttpServletResponse response, String msg)
-            throws ServletException, IOException {
-        request.setAttribute("message", msg);
-        request.getRequestDispatcher("/canteenParent.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -55,7 +55,6 @@ public class GetAssociatedMenuServlet extends HttpServlet {
             try {
                 menuId = Integer.parseInt(request.getParameter("menuId"));
             } catch (NumberFormatException e) {
-                sendMessageRedirect(request, response, "Errore: menu selezionato non corretto");
                 return;
             }
             MenuBean searchMenu = new MenuBean();
@@ -81,12 +80,6 @@ public class GetAssociatedMenuServlet extends HttpServlet {
         } finally {
             out.close();
         }
-    }
-    
-    private void sendMessageRedirect(HttpServletRequest request, HttpServletResponse response, String msg)
-            throws ServletException, IOException {
-        request.setAttribute("message", msg);
-        request.getRequestDispatcher("/canteenManagement.jsp").forward(request, response);
     }
 
     private void checkAddToJSON(JSONObject jObj, String key, Object value) {

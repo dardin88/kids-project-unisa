@@ -53,8 +53,7 @@ public class GetParentDailyMenuServlet extends HttpServlet {
             JSONObject result = new JSONObject();
             
             List<MenuBean> menuList = canteenManager.getLastMenu(1, MenuBean.DAILY_MENU, true);
-            if (menuList.size() == 0) {
-                sendMessageRedirect(request, response, "Nessun men&ugrave; giornaliero disponibile");
+            if (menuList.isEmpty()) {
                 return;
             }
             
@@ -77,12 +76,6 @@ public class GetParentDailyMenuServlet extends HttpServlet {
         } finally {
             out.close();
         }
-    }
-    
-    private void sendMessageRedirect(HttpServletRequest request, HttpServletResponse response, String msg)
-            throws ServletException, IOException {
-        request.setAttribute("message", msg);
-        request.getRequestDispatcher("/canteenParent.jsp").forward(request, response);
     }
 
     private void checkAddToJSON(JSONObject jObj, String key, Object value) {
