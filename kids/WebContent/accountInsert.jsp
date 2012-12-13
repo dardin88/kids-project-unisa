@@ -1,7 +1,7 @@
 <%-- 
-    Document   : account
+    Document   : accountInser
     Created on : 6-dic-2012
-    Author     : Pasquale Caldarese
+    Author     : Gianmarco
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

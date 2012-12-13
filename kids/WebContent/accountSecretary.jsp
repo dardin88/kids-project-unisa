@@ -22,7 +22,7 @@
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/account.js"></script>
-        <title>Gestione News "Visualizza News"- Kids Project</title>
+        <title>Accounts - Kids Project</title>
         <script type="text/javascript">
             $(document).ready(function() {
                 activePage();

@@ -1,7 +1,7 @@
 <%-- 
-    Document   : account
+    Document   : accountInsertParent
     Created on : 23-nov-2012, 14.57.05
-    Author     : tonino ft. gianma
+    Author     : Gianmarco
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
