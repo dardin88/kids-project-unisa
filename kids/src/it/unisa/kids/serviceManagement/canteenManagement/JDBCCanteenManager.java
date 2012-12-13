@@ -27,6 +27,7 @@ public class JDBCCanteenManager implements ICanteenManager {
     }
     // end of Singleton Design Pattern's implementation
 
+    @Override
     public synchronized void insert(MenuBean pMenu) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -71,35 +72,94 @@ public class JDBCCanteenManager implements ICanteenManager {
         }
     }
 
-    // update da sistemare, per ora non dovrebbe servire
+    @Override
     public synchronized void update(MenuBean pMenu) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
         String query = null;
 
+        boolean commaState = false;
+
         try {
             con = DBConnectionPool.getConnection();
 
             // constructing query string
-            query = "UPDATE " + DBNames.TABLE_MENU + " SET "
-                    + DBNames.ATT_MENU_TYPE + " = ?, "
-                    + DBNames.ATT_MENU_FIRST + " = ?, "
-                    + DBNames.ATT_MENU_SECOND + " = ?, "
-                    + DBNames.ATT_MENU_SIDEDISH + " = ?, "
-                    + DBNames.ATT_MENU_FRUIT + " = ?, "
-                    + DBNames.ATT_MENU_CHILDINSCID + " = ? "
-                    + "WHERE " + DBNames.ATT_MENU_ID + " = ?";
+            query = "UPDATE " + DBNames.TABLE_MENU + " SET ";
+            if (pMenu.getType() != null) {
+                query += DBNames.ATT_MENU_TYPE + " = ?";
+                commaState = true;
+            }
+            
+            if (pMenu.getDate() != null) {
+                query += DBNames.ATT_MENU_DATE + " = ?";
+                commaState = true;
+            }
 
+            if (pMenu.getFirst() != null) {
+                query += useComma(commaState) + DBNames.ATT_MENU_FIRST + " = ?";
+                commaState = true;
+            }
+            
+            if (pMenu.getSecond() != null) {
+                query += useComma(commaState) + DBNames.ATT_MENU_SECOND + " = ?";
+                commaState = true;
+            }
+            
+            if (pMenu.getSideDish() != null) {
+                query += useComma(commaState) + DBNames.ATT_MENU_SIDEDISH + " = ?";
+                commaState = true;
+            }
+            
+            if (pMenu.getFruit() != null) {
+                query += useComma(commaState) + DBNames.ATT_MENU_FRUIT + " = ?";
+                commaState = true;
+            }
+
+            if (pMenu.getChildInscriptionId() >= 0) {
+                query += useComma(commaState) + DBNames.ATT_MENU_CHILDINSCID + " = ?";
+                commaState = true;
+            }
+            query += " WHERE " + DBNames.ATT_MENU_ID + " = ?";
             pstmt = con.prepareStatement(query);
 
             // setting pstmt's parameters
-            pstmt.setString(1, pMenu.getType());
-            pstmt.setString(2, pMenu.getFirst());
-            pstmt.setString(3, pMenu.getSecond());
-            pstmt.setString(4, pMenu.getSideDish());
-            pstmt.setString(5, pMenu.getFruit());
-            pstmt.setInt(6, pMenu.getChildInscriptionId());
-            pstmt.setInt(7, pMenu.getId());
+            int i = 1;		// index of pstmt first argument
+            
+            if (pMenu.getType() != null) {
+                pstmt.setString(i, pMenu.getType());
+                i++;
+            }
+            if (pMenu.getDate() != null) {
+                pstmt.setDate(i, new java.sql.Date(pMenu.getDate().getTimeInMillis()));
+                i++;
+            }
+
+            if (pMenu.getFirst() != null) {
+                pstmt.setString(i, pMenu.getFirst());
+                i++;
+            }
+            
+            if (pMenu.getSecond() != null) {
+                pstmt.setString(i, pMenu.getSecond());
+                i++;
+            }
+            
+            if (pMenu.getSideDish() != null) {
+                pstmt.setString(i, pMenu.getSideDish());
+                i++;
+            }
+            
+            if (pMenu.getFruit() != null) {
+                pstmt.setString(i, pMenu.getFruit());
+                i++;
+            }
+
+            if (pMenu.getChildInscriptionId() >= 0) {
+                pstmt.setInt(i, pMenu.getChildInscriptionId());
+                i++;
+            }
+
+            pstmt.setInt(i, pMenu.getId());
 
             pstmt.executeUpdate();
             con.commit();
@@ -139,7 +199,7 @@ public class JDBCCanteenManager implements ICanteenManager {
         }
     }
 
-    public synchronized List<MenuBean> search(MenuBean pMenu, boolean pOnlyDaily)
+    public synchronized List<MenuBean> search(MenuBean pMenu)
             throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -154,14 +214,8 @@ public class JDBCCanteenManager implements ICanteenManager {
 
             // constructing search query string
             query = "SELECT * FROM " + DBNames.TABLE_MENU + " WHERE";
-            if (pOnlyDaily) {
-                query += " " + DBNames.ATT_MENU_ID + " IS NULL";
-                andState = true;
-            } else if (pMenu.getId() > 0) {
+            if (pMenu.getId() > 0) {
                 query += " " + DBNames.ATT_MENU_ID + " = ?";
-                andState = true;
-            } else {
-                query += " " + DBNames.ATT_MENU_ID + " IS NOT NULL";
                 andState = true;
             }
 
@@ -195,7 +249,7 @@ public class JDBCCanteenManager implements ICanteenManager {
                 andState = true;
             }
 
-            if (pMenu.getChildInscriptionId() > 0) {
+            if (pMenu.getChildInscriptionId() >= 0) {  // il valore 0 identifica i menu giornalieri
                 query += useAnd(andState) + DBNames.ATT_MENU_CHILDINSCID + " = ?";
                 andState = true;
             }
@@ -204,7 +258,7 @@ public class JDBCCanteenManager implements ICanteenManager {
 
             // setting pstmt's parameters
             int i = 1;		// index of pstmt first argument
-            if (!pOnlyDaily && pMenu.getId() > 0) {
+            if (pMenu.getId() > 0) {
                 pstmt.setInt(i, pMenu.getId());
                 i++;
             }
@@ -239,7 +293,7 @@ public class JDBCCanteenManager implements ICanteenManager {
                 i++;
             }
 
-            if (pMenu.getChildInscriptionId() > 0) {
+            if (pMenu.getChildInscriptionId() >= 0) {  // il valore 0 identifica i menu giornalieri
                 pstmt.setInt(i, pMenu.getChildInscriptionId());
                 i++;
             }
@@ -306,7 +360,9 @@ public class JDBCCanteenManager implements ICanteenManager {
             }
 
             if (pOnlyDaily) {
-                query += " AND " + DBNames.ATT_MENU_CHILDINSCID + " IS NULL";
+                query += " AND " + DBNames.ATT_MENU_CHILDINSCID + " = 0";
+            } else {
+                query += " AND " + DBNames.ATT_MENU_CHILDINSCID + " > 0";
             }
             query += " ORDER BY " + DBNames.ATT_MENU_ID + " desc" + " LIMIT " + pNumOfMenu;
 

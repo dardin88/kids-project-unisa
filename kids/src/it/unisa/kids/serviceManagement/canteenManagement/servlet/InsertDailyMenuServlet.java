@@ -62,7 +62,7 @@ public class InsertDailyMenuServlet extends HttpServlet {
         try {
             MenuBean menu = new MenuBean();
 
-            menu.setChildInscriptionId(-1);
+            menu.setChildInscriptionId(0);
             menu.setType(MenuBean.DAILY_MENU);
             menu.setDate(new GregorianCalendar());  // setto la data corrente
 
@@ -93,8 +93,18 @@ public class InsertDailyMenuServlet extends HttpServlet {
                 return;
             }
             menu.setFruit(fruit);
-
-            canteenManager.insert(menu);
+            
+            MenuBean searchMenu = new MenuBean();
+            searchMenu.setChildInscriptionId(0);
+            searchMenu.setDate(menu.getDate());
+            List<MenuBean> dailyMenuList = canteenManager.search(searchMenu);
+            if (dailyMenuList.size() > 0) {
+                menu.setDate(null);
+                menu.setId(dailyMenuList.get(0).getId());
+                canteenManager.update(menu);
+            } else {
+                canteenManager.insert(menu);
+            }
 
             // creo l'associazione bambino --- menu giornaliero per tutti i bambini attualmente iscritti
             List<ClassBean> classList = accessFacade.getClasses();

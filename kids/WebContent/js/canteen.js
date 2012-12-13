@@ -38,12 +38,14 @@ function initializeCanteenPage() {
         dateFormat: "yy-mm-dd",
         changeYear: true
     });
+    $("#menuDate").datepicker("setDate", new Date());
     buildAssociatedMenusTable();
     
     $("#dailyMenuDate").datepicker({
         dateFormat: "yy-mm-dd",
         changeYear: true
     });
+    $("#dailyMenuDate").datepicker("setDate", new Date());
     $("#onlyLastDailyMenu").change(function() {
         if ($("#onlyLastDailyMenu").attr('checked') == 'checked') {
             $("#dailyMenuDate").attr('disabled', true);
@@ -159,11 +161,11 @@ function buildAssociatedMenusTable() {
             aoData.push(
             {
                 "name" : "menuDate", 
-                "value" : $("#menuDate").val()
+                "value" : ($("#menuDate").attr('disabled') == 'disabled') ? ('') : ($("#menuDate").val())
             },
             {
                 "name" : "onlyLastAssMenu",
-                "value" : $("#onlyLastAssMenu").val()
+                "value" : ($("#onlyLastAssMenu").attr('checked') == 'checked') ? ('ok') : ('')
             }
             );
      
@@ -211,11 +213,11 @@ function buildDailyMenusTable() {
             aoData.push(
             {
                 "name" : "dailyMenuDate", 
-                "value" : $("#dailyMenuDate").val()
+                "value" : ($("#dailyMenuDate").attr('disabled') == 'disabled') ? ('') : ($("#dailyMenuDate").val())
             },
             {
                 "name" : "onlyLastDailyMenu",
-                "value" : $("#onlyLastDailyMenu").val()
+                "value" : ($("#onlyLastDailyMenu").attr('checked') == 'checked') ? ('ok') : ('')
             }
             );
      
