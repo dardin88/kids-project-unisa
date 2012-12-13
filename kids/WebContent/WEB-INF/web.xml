@@ -895,7 +895,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetAssociatedMenuTableServlet</servlet-name>
-        <url-pattern>/GetAssociatedMenuTableServlet</url-pattern>
+        <url-pattern>/GetAssociatedMenuTable</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RemoveTimeServiceRequestServlet</servlet-name>
