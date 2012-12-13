@@ -6,7 +6,6 @@ package it.unisa.kids.serviceManagement.timeServiceManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.accessManagement.accountManagement.IAccountManager;
-import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationChildManager;
 import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
@@ -31,15 +30,16 @@ import org.json.JSONObject;
  *
  * @author marco
  */
-@WebServlet(name = "GetRegistrationChildTableServlet", urlPatterns = {"/GetRegistrationChildTable"})
+@WebServlet(name = "GetRequestModifyTimeServiceTableServlet", urlPatterns = {"/GetRequestModifyTimeServiceTable"})
+public class GeRequestModifyTimeServiceTableServlet extends HttpServlet {
 
-public class GetRegistrationChildTableServlet extends HttpServlet {
-
-    private IRegistrationChildManager registrationChildManager;
+    private ITimeServiceManager timeServiceManager;
+    private IAccountManager accountManager;
 
     public void init(ServletConfig config) {
-        RefinedAbstractManager refinedAbstractRegistrationChildManager = RefinedAbstractManager.getInstance();
-        registrationChildManager = (IRegistrationChildManager) refinedAbstractRegistrationChildManager.getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
+        RefinedAbstractManager refinedAbstractTimeServiceManager = RefinedAbstractManager.getInstance();
+        timeServiceManager = (ITimeServiceManager) refinedAbstractTimeServiceManager.getManagerImplementor(DBNames.TABLE_TIMESERVICE);
+        accountManager = (IAccountManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACCOUNT);
 
     }
 
@@ -58,8 +58,8 @@ public class GetRegistrationChildTableServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         PrintWriter out = response.getWriter();
-        RegistrationChild[] registrationChild;
-        List<RegistrationChild> listRegistrationChild;
+        ModifyTimeServiceRequest[] requestModifiTimeService;
+        List<ModifyTimeServiceRequest> listRequestModifyTimeService;
         try {
 
             out = response.getWriter();
@@ -82,10 +82,7 @@ public class GetRegistrationChildTableServlet extends HttpServlet {
                     amount = 10;
                 }
             }
-            RegistrationChild regChild = new RegistrationChild();
-            HttpSession session = request.getSession();
 
-            regChild.setParentId(((Account) session.getAttribute("user")).getId());
             /* if (!request.getParameter("Data").equals("")) {
              String date=request.getParameter("Data");
              String[] dateArray=date.split("-");
@@ -93,30 +90,48 @@ public class GetRegistrationChildTableServlet extends HttpServlet {
              tr.setDate(new GregorianCalendar(Integer.parseInt(dateArray[2]),Integer.parseInt(dateArray[1]),Integer.parseInt(dateArray[0])));
              listTraineeRequest = trainingManager.search(tr);
              } else {*/
-            listRegistrationChild = registrationChildManager.search(regChild);
+            ModifyTimeServiceRequest modTimeSerReq = new ModifyTimeServiceRequest();
+
+            HttpSession session = request.getSession();
+            if (((Account) session.getAttribute("user")).getAccountType().equals("Responsabile Asilo")) {
+                modTimeSerReq.setState("Sottomessa");
+            } else {
+                modTimeSerReq.setState("Validata");
+            }
+            listRequestModifyTimeService = timeServiceManager.search(modTimeSerReq);
             //}
 
-            int linksNumber = listRegistrationChild.size();
+            int linksNumber = listRequestModifyTimeService.size();
             if (linksNumber < amount) {
                 amount = linksNumber;
             }
             if (linksNumber != 0) {
                 int toShow = linksNumber - start;
                 if (toShow > 10) {
-                    registrationChild = new RegistrationChild[amount];
-                    System.arraycopy(listRegistrationChild.toArray(), start, registrationChild, 0, amount);
+                    requestModifiTimeService = new ModifyTimeServiceRequest[amount];
+                    System.arraycopy(listRequestModifyTimeService.toArray(), start, requestModifiTimeService, 0, amount);
                 } else {
-                    registrationChild = new RegistrationChild[toShow];
-                    System.arraycopy(listRegistrationChild.toArray(), start, registrationChild, 0, toShow);
+                    requestModifiTimeService = new ModifyTimeServiceRequest[toShow];
+                    System.arraycopy(listRequestModifyTimeService.toArray(), start, requestModifiTimeService, 0, toShow);
                 }
-                for (RegistrationChild rc : registrationChild) {
+                Account parent = new Account();
+                RegistrationChild registrationChild = new RegistrationChild();
+                for (ModifyTimeServiceRequest mtsr : requestModifiTimeService) {
+                    parent.setId(mtsr.getIdParent());
                     JSONArray ja = new JSONArray();
-                    String operazioni = "<input id=\"childSelected\" onchange=\"changeUserRange('" + rc.getUserRange() + "')\" type=\"radio\" name=\"bambino\" value=\"" + rc.getId() + "\">";
+                    List<Account> list = accountManager.search(parent);
+                    ja.put(list.get(0).getNameUser() + " " + list.get(0).getSurnameUser());
+                    ja.put(mtsr.getUserRange());
+                    ja.put(mtsr.getState());
+                    String operazioni = "";
+                    if (((Account) session.getAttribute("user")).getAccountType().equals("Responsabile Asilo")) {
+                        operazioni = "<input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/lente.gif' onclick='loadInformationRequestModifyTimeServiceAsylumResponsible(\"" + mtsr.getId() + "\")'/>";
+                    } else {
+                        operazioni = "<input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/lente.gif' onclick='loadInformationRequestModifyTimeServiceRectorDelegate(\"" + mtsr.getId() + "\")'/>";
+                    }
+
                     ja.put(operazioni);
 
-                    ja.put(rc.getName());
-                    ja.put(rc.getSurname());
-                    ja.put(rc.getUserRange());
 
 
                     array.put(ja);
@@ -137,8 +152,8 @@ public class GetRegistrationChildTableServlet extends HttpServlet {
             out.close();
         }
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
     /**
      * Handles the HTTP
      * <code>GET</code> method.

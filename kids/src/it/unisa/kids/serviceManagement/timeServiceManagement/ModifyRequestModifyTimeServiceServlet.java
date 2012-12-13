@@ -4,9 +4,12 @@
  */
 package it.unisa.kids.serviceManagement.timeServiceManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.accessManagement.accountManagement.IAccountManager;
+import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
-import it.unisa.kids.communicationManagement.newsManagement.News;
+import it.unisa.kids.serviceManagement.trainingManagement.GetTraineesServletTable;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -19,19 +22,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
  * @author marco
  */
-@WebServlet(name = "GetTimeServiceServlet", urlPatterns = {"/GetTimeService"})
+@WebServlet(name = "ModifyRequestModifyTimeServiceServlet", urlPatterns = {"/ModifyRequestModifyTimeService"})
 
-public class GetTimeServiceServlet extends HttpServlet {
-private ITimeServiceManager timeServiceManager;
+public class ModifyRequestModifyTimeServiceServlet extends HttpServlet {
+    private ITimeServiceManager timeServiceManager;
 
     public void init(ServletConfig config) {
         RefinedAbstractManager refinedAbstractTimeServiceManager = RefinedAbstractManager.getInstance();
         timeServiceManager = (ITimeServiceManager) refinedAbstractTimeServiceManager.getManagerImplementor(DBNames.TABLE_TIMESERVICE);
+
     }
     /**
      * Processes requests for both HTTP
@@ -45,19 +52,27 @@ private ITimeServiceManager timeServiceManager;
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PrintWriter out=null;
         try {
-            out=response.getWriter();
-            News timeServiceNews=new News();
-            timeServiceNews.setType("OrarioDiServizio");
-            List<News> list=timeServiceManager.search(timeServiceNews);
-            out.print(list.get(0).getDescription()+","+list.get(0).getId());
-        } 
-        catch (SQLException ex) {
-            Logger.getLogger(GetTimeServiceServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }    }
-
+            int id=Integer.parseInt(request.getParameter("idRichiesta"));
+            ModifyTimeServiceRequest modifyTimeServiceRequest=new ModifyTimeServiceRequest();
+            modifyTimeServiceRequest.setId(id);
+            String state=request.getParameter("Stato");
+            HttpSession session=request.getSession();
+            Account account=(Account) session.getAttribute("user");
+            if(account.getAccountType().equals("Responsabile Asilo"))
+                modifyTimeServiceRequest.setOpinion(request.getParameter("valutazione"));
+            modifyTimeServiceRequest.setState(state);
+            timeServiceManager.update(modifyTimeServiceRequest);
+            request.setAttribute("message",
+                    "Richiesta modificata con successo");
+            request.getServletContext().getRequestDispatcher("/rectorDelegatePage.jsp").forward(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ModifyRequestModifyTimeServiceServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
     /**
      * Handles the HTTP
      * <code>GET</code> method.

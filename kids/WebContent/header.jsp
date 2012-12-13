@@ -12,7 +12,7 @@
     <span id="title"></span>
     <span id="userMenu">
         <b class="userMenuEl"> Benvenuto ${sessionScope.user.getNameUser()}</b> 
-        <u class="userMenuEl" id="logout" onclick="logout()" onmouseover="this.style.cursor='pointer';">Logout</u>
+        <u class="userMenuEl" id="logout" onclick="logout()" onmouseover="this.style.cursor = 'pointer';">Logout</u>
     </span>
 </div>
 <div id="navigation">
@@ -127,7 +127,7 @@
             <div class="div">
                 <li id="canteenManagementMenuEl"><a href="canteenParent.jsp">Gestione Mensa</a></li>
             </div>
-            
+
             <div class="div">
                 <li id="paymentManagementMenuEl"><a href="paymentParent.jsp">Gestione Pagamenti</a></li>
             </div>
@@ -173,9 +173,22 @@
         </c:if>
         <c:if test="${sessionScope.user.getAccountType()=='Responsabile Scientifico'}">
             <div class="div">
-                
+
                 <li id="newsShowTable"><a href="accountInformationAll.jsp">Gestione Account</a></li>
             </div> 
         </c:if>
-    </ul>
-</div>
+        <c:if test="${sessionScope.user.getAccountType()=='Delegato del rettore'}">
+            <div class="div">
+
+                <li id="TimeServiceMenuEL"><a href="timeService.jsp">Richieste modifica orari di servizio</a></li>
+            </div> 
+        </c:if>
+        <c:if test="${sessionScope.user.getAccountType()=='Responsabile Asilo'}">
+            <div class="div">
+
+                <li id="TimeServiceMenuEL"><a href="timeService.jsp">Richieste modifica orari di servizio</a></li>
+            </div> 
+        </c:if>
+
+        </ul>
+    </div>

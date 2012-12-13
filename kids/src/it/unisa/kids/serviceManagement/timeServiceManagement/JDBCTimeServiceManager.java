@@ -442,6 +442,10 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
                 query += useAnd(andState) + DBNames.ATT_MODIFYTIMESERVICEREQUEST_STATE + " = ?";
                 andState = true;
             }
+            if (pModifyTimeServiceRequest.getOpinion() != null) {
+                query += useAnd(andState) + DBNames.ATT_MODIFYTIMESERVICEREQUEST_OPINION + " = ?";
+                andState = true;
+            }
 
             pstmt = con.prepareStatement(query);
 
@@ -474,6 +478,10 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
                 pstmt.setString(i, pModifyTimeServiceRequest.getState());
                 i++;
             }
+            if (pModifyTimeServiceRequest.getOpinion() != null) {
+                pstmt.setString(i, pModifyTimeServiceRequest.getOpinion());
+                i++;
+            }
 
 
             // executing select query
@@ -481,7 +489,7 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
             con.commit();
 
             // constructing timeServReq list
-            modifyTimeServiceRequests= new ArrayList<ModifyTimeServiceRequest>();
+            modifyTimeServiceRequests = new ArrayList<ModifyTimeServiceRequest>();
             while (rs.next()) {
                 ModifyTimeServiceRequest mtsr = new ModifyTimeServiceRequest();
                 mtsr.setId(rs.getInt(DBNames.ATT_MODIFYTIMESERVICEREQUEST_ID));
@@ -490,6 +498,8 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
                 mtsr.setMotivation(rs.getString(DBNames.ATT_MODIFYTIMESERVICEREQUEST_MOTIVATION));
                 mtsr.setState(rs.getString(DBNames.ATT_MODIFYTIMESERVICEREQUEST_STATE));
                 mtsr.setUserRange(rs.getString(DBNames.ATT_MODIFYTIMESERVICEREQUEST_RANGEUSER));
+                mtsr.setOpinion(rs.getString(DBNames.ATT_MODIFYTIMESERVICEREQUEST_OPINION));
+
                 modifyTimeServiceRequests.add(mtsr);
             }
         } finally {
@@ -505,9 +515,9 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
         }
         return modifyTimeServiceRequests;
     }
-    
-        public List<ModifyTimeServiceRequest> getRequestModifyTimeServiceList() throws SQLException{
-            Connection con = null;
+
+    public List<ModifyTimeServiceRequest> getRequestModifyTimeServiceList() throws SQLException {
+        Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         String query = null;
@@ -519,16 +529,16 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
             con = DBConnectionPool.getConnection();
 
             // constructing search query string
-            query = "SELECT * FROM " + DBNames.TABLE_MODIFYTIMESERVICEREQUEST ;
+            query = "SELECT * FROM " + DBNames.TABLE_MODIFYTIMESERVICEREQUEST;
 
             pstmt = con.prepareStatement(query);
 
-            
+
             rs = pstmt.executeQuery();
             con.commit();
 
             // constructing timeServReq list
-            modifyTimeServiceRequests= new ArrayList<ModifyTimeServiceRequest>();
+            modifyTimeServiceRequests = new ArrayList<ModifyTimeServiceRequest>();
             while (rs.next()) {
                 ModifyTimeServiceRequest mtsr = new ModifyTimeServiceRequest();
                 mtsr.setId(rs.getInt(DBNames.ATT_MODIFYTIMESERVICEREQUEST_ID));
@@ -537,6 +547,7 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
                 mtsr.setMotivation(rs.getString(DBNames.ATT_MODIFYTIMESERVICEREQUEST_MOTIVATION));
                 mtsr.setState(rs.getString(DBNames.ATT_MODIFYTIMESERVICEREQUEST_STATE));
                 mtsr.setUserRange(rs.getString(DBNames.ATT_MODIFYTIMESERVICEREQUEST_RANGEUSER));
+                mtsr.setOpinion(rs.getString(DBNames.ATT_MODIFYTIMESERVICEREQUEST_OPINION));
                 modifyTimeServiceRequests.add(mtsr);
             }
         } finally {
@@ -551,6 +562,114 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
             }
         }
         return modifyTimeServiceRequests;
-        }
+    }
 
+    public void update(ModifyTimeServiceRequest pModifyTimeServiceRequest) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        String query = null;
+
+        try {
+            con = DBConnectionPool.getConnection();
+
+            // constructing query string
+            query = "UPDATE " + DBNames.TABLE_MODIFYTIMESERVICEREQUEST + " SET ";
+
+            int i = 0;
+            if (pModifyTimeServiceRequest.getMotivation() != null) {
+
+                query += DBNames.ATT_MODIFYTIMESERVICEREQUEST_MOTIVATION + "=?";
+                i++;
+            }
+            if (pModifyTimeServiceRequest.getState() != null) {
+                if (i == 0) {
+                    query += DBNames.ATT_MODIFYTIMESERVICEREQUEST_STATE + "=?";
+                } else {
+                    query += "," + DBNames.ATT_MODIFYTIMESERVICEREQUEST_STATE + "=?";
+                }
+                i++;
+            }
+            if (pModifyTimeServiceRequest.getIdChild() > 0) {
+                if (i == 0) {
+                    query += DBNames.ATT_MODIFYTIMESERVICEREQUEST_CHILDID + "=?";
+                } else {
+                    query += "," + DBNames.ATT_MODIFYTIMESERVICEREQUEST_CHILDID + "=?";
+                }
+                i++;
+            }
+            if (pModifyTimeServiceRequest.getIdParent() > 0) {
+                if (i == 0) {
+                    query += DBNames.ATT_MODIFYTIMESERVICEREQUEST_PARENTID + "=?";
+                } else {
+                    query += "," + DBNames.ATT_MODIFYTIMESERVICEREQUEST_PARENTID + "=?";
+                }
+                i++;
+            }
+            if (pModifyTimeServiceRequest.getUserRange() != null) {
+                if (i == 0) {
+                    query += DBNames.ATT_MODIFYTIMESERVICEREQUEST_RANGEUSER + "=?";
+                } else {
+                    query += "," + DBNames.ATT_MODIFYTIMESERVICEREQUEST_RANGEUSER + "=?";
+                }
+                i++;
+            }
+            if (pModifyTimeServiceRequest.getOpinion()!= null) {
+                if (i == 0) {
+                    query += DBNames.ATT_MODIFYTIMESERVICEREQUEST_OPINION + "=?";
+                } else {
+                    query += "," + DBNames.ATT_MODIFYTIMESERVICEREQUEST_OPINION + "=?";
+                }
+                i++;
+            }
+
+
+            query += " WHERE " + DBNames.ATT_MODIFYTIMESERVICEREQUEST_ID + "=?";
+            i = 0;
+            pstmt = con.prepareStatement(query);
+            if (pModifyTimeServiceRequest.getMotivation() != null) {
+
+
+                i++;
+                pstmt.setString(i, pModifyTimeServiceRequest.getMotivation());
+            }
+            if (pModifyTimeServiceRequest.getState() != null) {
+
+                i++;
+                pstmt.setString(i, pModifyTimeServiceRequest.getState());
+            }
+            if (pModifyTimeServiceRequest.getIdChild() > 0) {
+
+                i++;
+                pstmt.setInt(i, pModifyTimeServiceRequest.getIdChild());
+            }
+            if (pModifyTimeServiceRequest.getIdParent() > 0) {
+
+                i++;
+                pstmt.setInt(i, pModifyTimeServiceRequest.getIdParent());
+            }
+            if (pModifyTimeServiceRequest.getUserRange() != null) {
+
+                i++;
+                pstmt.setString(i, pModifyTimeServiceRequest.getUserRange());
+            }
+            if (pModifyTimeServiceRequest.getOpinion()!= null) {
+
+                i++;
+                pstmt.setString(i, pModifyTimeServiceRequest.getOpinion());
+            }
+
+
+
+
+            i++;
+            pstmt.setInt(i, pModifyTimeServiceRequest.getId());
+
+
+            pstmt.executeUpdate();
+            con.commit();
+        } finally {
+            pstmt.close();
+            DBConnectionPool.releaseConnection(con);
+        }
+    }
 }

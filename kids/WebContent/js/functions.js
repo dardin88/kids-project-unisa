@@ -132,6 +132,7 @@ function activePage(){
             $("#canteenManagementMenuEl").css("color", "#FFFFFF");
             $("#title").html("Gestione Mensa");
             break;
+       
     }
 }
 

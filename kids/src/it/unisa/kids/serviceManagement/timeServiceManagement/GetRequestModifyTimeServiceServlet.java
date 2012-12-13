@@ -5,6 +5,7 @@
 package it.unisa.kids.serviceManagement.timeServiceManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.accessManagement.accountManagement.IAccountManager;
 import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationChildManager;
 import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.DBNames;
@@ -18,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,16 +31,21 @@ import org.json.JSONObject;
  *
  * @author marco
  */
+@WebServlet(name = "GetRequestModifyTimeServiceServlet", urlPatterns = {"/GetRequestModifyTimeService"})
+
 public class GetRequestModifyTimeServiceServlet extends HttpServlet {
 
     private ITimeServiceManager timeServiceManager;
     private IRegistrationChildManager registrationChildManager;
+    private IAccountManager accountManager;
 
     public void init(ServletConfig config) {
         RefinedAbstractManager refinedAbstractTimeServiceManager = RefinedAbstractManager.getInstance();
         timeServiceManager = (ITimeServiceManager) refinedAbstractTimeServiceManager.getManagerImplementor(DBNames.TABLE_TIMESERVICE);
         RefinedAbstractManager refinedAbstractRegistrationChildManager = RefinedAbstractManager.getInstance();
         registrationChildManager = (IRegistrationChildManager) refinedAbstractRegistrationChildManager.getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
+        accountManager = (IAccountManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACCOUNT);
+
     }
 
     /**
@@ -53,88 +60,32 @@ public class GetRequestModifyTimeServiceServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-
-        PrintWriter out = response.getWriter();
-        ModifyTimeServiceRequest[] requestModifiTimeService;
-        List<ModifyTimeServiceRequest> listRequestModifyTimeService;
         try {
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out=response.getWriter();
+            int id = Integer.parseInt(request.getParameter("id"));
+            ModifyTimeServiceRequest modifyTimeServiceRequest = new ModifyTimeServiceRequest();
+            modifyTimeServiceRequest.setId(id);
+            List<ModifyTimeServiceRequest> listModifyTimeServiceRequest = timeServiceManager.search(modifyTimeServiceRequest);
+            RegistrationChild registrationChild = new RegistrationChild();
+            registrationChild.setId(listModifyTimeServiceRequest.get(0).getIdChild());
+            List<RegistrationChild> listChild = registrationChildManager.search(registrationChild);
+            Account parent = new Account();
+            parent.setId(listModifyTimeServiceRequest.get(0).getIdParent());
 
-            out = response.getWriter();
-            JSONObject result = new JSONObject();
-            JSONArray array = new JSONArray();
-            int start = 0;
-            int amount = 10;
-            String sStart = request.getParameter("iDisplayStart");
-            String sAmount = request.getParameter("sAmount");
-            String sEcho = request.getParameter("sEcho");
-            if (sStart != null) {
-                start = Integer.parseInt(sStart);
-                if (start < 0) {
-                    start = 0;
-                }
+            List<Account> listAccount =accountManager.search(parent);
+            String toJsp="";
+            if(listModifyTimeServiceRequest.get(0).getMotivation()!=null){
+                toJsp+=listChild.get(0).getName()+","+listChild.get(0).getSurname()+","+listAccount.get(0).getNameUser()+","+listAccount.get(0).getSurnameUser()+","+listModifyTimeServiceRequest.get(0).getUserRange()+","+listModifyTimeServiceRequest.get(0).getMotivation()+","+listModifyTimeServiceRequest.get(0).getState()+","+listModifyTimeServiceRequest.get(0).getId()+","+listModifyTimeServiceRequest.get(0).getOpinion();
+
             }
-            if (sAmount != null) {
-                amount = Integer.parseInt(sAmount);
-                if (amount < 10) {
-                    amount = 10;
-                }
+            else{
+                toJsp+=listChild.get(0).getName()+","+listChild.get(0).getSurname()+","+listAccount.get(0).getNameUser()+","+listAccount.get(0).getSurnameUser()+","+listModifyTimeServiceRequest.get(0).getUserRange()+", ,"+listModifyTimeServiceRequest.get(0).getState()+","+listModifyTimeServiceRequest.get(0).getId()+","+listModifyTimeServiceRequest.get(0).getOpinion();
             }
-            ModifyTimeServiceRequest modTimeServiceReq = new ModifyTimeServiceRequest();
-            HttpSession session = request.getSession();
-
-            modTimeServiceReq.setIdParent(((Account) session.getAttribute("user")).getId());
-            /* if (!request.getParameter("Data").equals("")) {
-             String date=request.getParameter("Data");
-             String[] dateArray=date.split("-");
-             TraineeRequest tr = new TraineeRequest();
-             tr.setDate(new GregorianCalendar(Integer.parseInt(dateArray[2]),Integer.parseInt(dateArray[1]),Integer.parseInt(dateArray[0])));
-             listTraineeRequest = trainingManager.search(tr);
-             } else {*/
-
-            listRequestModifyTimeService = timeServiceManager.search(modTimeServiceReq);
-            //}
-
-            int linksNumber = listRequestModifyTimeService.size();
-            if (linksNumber < amount) {
-                amount = linksNumber;
-            }
-            if (linksNumber != 0) {
-                int toShow = linksNumber - start;
-                if (toShow > 10) {
-                    requestModifiTimeService = new ModifyTimeServiceRequest[amount];
-                    System.arraycopy(listRequestModifyTimeService.toArray(), start, requestModifiTimeService, 0, amount);
-                } else {
-                    requestModifiTimeService = new ModifyTimeServiceRequest[toShow];
-                    System.arraycopy(listRequestModifyTimeService.toArray(), start, requestModifiTimeService, 0, toShow);
-                }
-                RegistrationChild registrationChild=new RegistrationChild();
-                for (ModifyTimeServiceRequest mtsr : requestModifiTimeService) {
-                    JSONArray ja = new JSONArray();
-                    registrationChild.setId(mtsr.getIdChild());
-                    ja.put(registrationChildManager.search(registrationChild).get(0).getName());
-                    ja.put(mtsr.getUserRange());
-                    ja.put(mtsr.getState());
-                    String operazioni = "";
-                    ja.put(operazioni);
-
-
-                    array.put(ja);
-                }
-            }
-            result.put("sEcho", sEcho);
-            result.put("iTotalRecords", linksNumber);
-            result.put("iTotalDisplayRecords", linksNumber);
-            result.put("aaData", array);
-            response.setContentType("application/json");
-            response.setHeader("Cache-Control",
-                    "private, no-store, no-cache, must-revalidate");
-            response.setHeader("Pragma", "no-cache");
-            out.print(result);
+            out.print(toJsp);
+            
         } catch (SQLException ex) {
-            Logger.getLogger(GetTraineesServletTable.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            out.close();
+            Logger.getLogger(GetRequestModifyTimeServiceServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

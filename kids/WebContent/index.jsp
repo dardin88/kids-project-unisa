@@ -37,6 +37,12 @@
     <c:if test="${sessionScope.user.getAccountType()=='Coordinatore Psicopedagogico'}"> 
         <c:redirect url="CoordinatorePsico.jsp" />
     </c:if>
+    <c:if test="${sessionScope.user.getAccountType()=='Delegato del rettore'}"> 
+        <c:redirect url="rectorDelegatePage.jsp" />
+    </c:if>
+    <c:if test="${sessionScope.user.getAccountType()=='Responsabile Asilo'}"> 
+        <c:redirect url="responsibleAsylumPage.jsp" />
+    </c:if>
 
 </c:if>
 <!DOCTYPE html>
