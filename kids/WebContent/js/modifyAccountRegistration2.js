@@ -184,7 +184,7 @@ function initializeModifyRegistrationFields(){
                 
                
                 var id= document.getElementById('id').value;
-                location.href=("./accountInformationParent.jsp?id="+id);
+                location.href=("./accountInformationParent.jsp");
             }
             if(count==1){
                 //alert("ci sono");
