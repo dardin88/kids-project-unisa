@@ -55,16 +55,20 @@ public class AddClassBeanServlet extends HttpServlet {
             clasMan.insert(clas);
             List<ClassBean> searchedClass = clasMan.search(clas);
             String[] childChecked = request.getParameterValues("childRow");
-            for (int i = 0; i < childChecked.length; i++) {
-                RegistrationChild tmpRegChild = new RegistrationChild();
-                tmpRegChild.setId(Integer.parseInt(childChecked[i]));
-                regMan.setSectionRegistrationChild(tmpRegChild, searchedClass.get(0).getIdClasse());
+            if (childChecked != null) {
+                for (int i = 0; i < childChecked.length; i++) {
+                    RegistrationChild tmpRegChild = new RegistrationChild();
+                    tmpRegChild.setId(Integer.parseInt(childChecked[i]));
+                    regMan.setSectionRegistrationChild(tmpRegChild, searchedClass.get(0).getIdClasse());
+                }
             }
             String[] educatorChecked = request.getParameterValues("educatorRow");
-            for (int i = 0; i < educatorChecked.length; i++) {
-                Account tmpEdu = new Account();
-                tmpEdu.setId(Integer.parseInt(educatorChecked[i]));
-                accMan.assignEducatorToClass(tmpEdu, searchedClass.get(0));
+            if (educatorChecked != null) {
+                for (int i = 0; i < educatorChecked.length; i++) {
+                    Account tmpEdu = new Account();
+                    tmpEdu.setId(Integer.parseInt(educatorChecked[i]));
+                    accMan.assignEducatorToClass(tmpEdu, searchedClass.get(0));
+                }
             }
             response.sendRedirect("class.jsp");
         } catch (SQLException exception) {

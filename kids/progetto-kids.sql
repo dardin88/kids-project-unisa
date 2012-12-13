@@ -140,6 +140,7 @@ CREATE TABLE IF NOT EXISTS `attivita_tirocinante` (
 CREATE TABLE IF NOT EXISTS `classe` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Nome` varchar(15) NOT NULL,
+  `Stato` enum('bozza','sottomessa','accettata','revisione') DEFAULT 'bozza',
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 

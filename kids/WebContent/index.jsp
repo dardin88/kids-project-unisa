@@ -16,9 +16,14 @@
     </c:if>
     <%-- Da rimuovere dato che ora si chiama 'Segreteria' ??? --%>
     <c:if test="${sessionScope.user.getAccountType()=='Delegato Ufficio'}">
-        <c:redirect url="newsDelegatoPage.jsp" />
+        <c:redirect url="newsShowTable.jsp" />
     </c:if>
-
+    <c:if test="${sessionScope.user.getAccountType()=='Delegato del rettore'}">
+        <c:redirect url="newsShowTable.jsp" />
+    </c:if>
+    <c:if test="${sessionScope.user.getAccountType()=='Responsabile Asilo'}">
+        <c:redirect url="newsShowTable.jsp" />
+    </c:if>
     <c:if test="${sessionScope.user.getAccountType()=='Tirocinante'}">
         <c:redirect url="traineePage.jsp" />
     </c:if>

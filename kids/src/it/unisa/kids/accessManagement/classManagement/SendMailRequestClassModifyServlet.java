@@ -1,14 +1,8 @@
 package it.unisa.kids.accessManagement.classManagement;
 
-import it.unisa.kids.common.DBNames;
-import it.unisa.kids.common.RefinedAbstractManager;
+import it.unisa.kids.common.Mail;
+import it.unisa.kids.common.MailManager;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,14 +12,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author tonino
  */
-public class GetClass extends HttpServlet {
-
-    private IClassManager classManager;
-
-    @Override
-    public void init(ServletConfig config) {
-        classManager = (IClassManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_CLASS);
-    }
+public class SendMailRequestClassModifyServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -37,20 +24,14 @@ public class GetClass extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            int id = Integer.parseInt(request.getParameter("id"));
-            ClassBean clas = new ClassBean();
-            clas.setIdClasse(id);
-            List<ClassBean> list = classManager.search(clas);
-            request.setAttribute("id", list.get(0).getIdClasse());
-            request.setAttribute("Nome", list.get(0).getClassName());
-            request.setAttribute("Stato", list.get(0).getState());
-    } catch (SQLException ex) {
-            Logger.getLogger(GetClass.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Mail m = new Mail();
+        MailManager mm = new MailManager();
+        m.setTo("a.porcelli90@gmail.com");
+        m.setSubject("Richiesta modifica classe "+request.getParameter("nomeClasse"));
+        m.setBody(request.getParameter("messaggio"));
+        mm.sendMail(m);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

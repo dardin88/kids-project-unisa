@@ -1,14 +1,14 @@
 <%-- 
-Document   : classe
+Document   : class
 Created on : 3-dic-2012, 13.07.01
 Author     : tonino
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%--<c:if test="${sessionScope.user==null}">
+<c:if test="${sessionScope.user.getAccountType()!='Responsabile Asilo' && sessionScope.user.getAccountType()!='Delegato del rettore'}">
     <c:redirect url="index.jsp" />
-</c:if>--%>
+</c:if>
 <!DOCTYPE html>
 <html>
     <head>
@@ -35,9 +35,7 @@ Author     : tonino
     </head>
     <body>
         <%@include file="header.jsp"%>
-        <h1 align="center">Classi</h1>
         <div id="linksManagement">
-            <h1 style="font-size: 35px;text-align: center;"> Classi </h1>
             <div id="classFilter">
                 <label>Nome</label>
                 <input type="text" id="className"  name="className"/>
@@ -61,9 +59,11 @@ Author     : tonino
                 <tbody>
                 </tbody>
             </table>
-            <form name="insertClass" method="post" action="classInsert.jsp" >
-                <input type="submit" id="addLinkButton" value="Inserisci Classe" />
-            </form>
+            <c:if test="${sessionScope.user.getAccountType()=='Responsabile Asilo'}">
+                <form name="insertClass" method="post" action="classInsert.jsp" >
+                    <input type="submit" id="addClassButton" value="Inserisci Classe" />
+                </form>
+            </c:if>
         </div>
         <div id="removeClassWindow" title="Rimuovi Classe" style="display: inline">
             <form id="removeClassForm" class="cmxform" method="post" action="">
