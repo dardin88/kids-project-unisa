@@ -4,15 +4,20 @@
  */
 package it.unisa.kids.serviceManagement.canteenManagement.servlet;
 
+import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.kids.common.facade.AccessFacade;
 import it.unisa.kids.common.facade.IAccessFacade;
 import it.unisa.kids.serviceManagement.canteenManagement.ICanteenManager;
+import it.unisa.kids.serviceManagement.canteenManagement.MealRequestBean;
 import it.unisa.kids.serviceManagement.canteenManagement.MenuBean;
+import it.unisa.kids.serviceManagement.paymentManagement.servlet.InsertPaymentServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -20,18 +25,18 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONObject;
 
 /**
  *
  * @author navi
  */
-public class GetAssociatedMenuServlet extends HttpServlet {
+public class ModifySicknessServlet extends HttpServlet {
     
-    private ICanteenManager canteenManager;
+    private static final int MAXLENGTH = 200;
+    private IAccessFacade accessFacade;
 
     public void init(ServletConfig config) {
-        this.canteenManager = (ICanteenManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_MENU);
+        this.accessFacade = new AccessFacade();
     }
 
     /**
@@ -46,66 +51,47 @@ public class GetAssociatedMenuServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+        response.setContentType("text/html;charset=UTF-8");
 
         try {
-            out = response.getWriter();
-            JSONObject result = new JSONObject();
-            
-            int menuId;
-            try {
-                menuId = Integer.parseInt(request.getParameter("menuId"));
-            } catch (NumberFormatException e) {
-                sendMessageRedirect(request, response, "Errore: menu selezionato non corretto");
+            int childId = Integer.parseInt(request.getParameter("childSelectModSick"));
+            if (childId <= 0) {
+                sendMessageRedirect(request, response, "Errore: bambino selezionato non corretto - " + childId);
                 return;
             }
-            MenuBean searchMenu = new MenuBean();
-            searchMenu.setId(menuId);
-            MenuBean menu = canteenManager.search(searchMenu, false).get(0);
-            
-            checkAddToJSON(result, "date", unparseGregorianCalendar(menu.getDate()));
-            checkAddToJSON(result, "first", menu.getFirst());
-            checkAddToJSON(result, "second", menu.getSecond());
-            checkAddToJSON(result, "sideDish", menu.getSideDish());
-            checkAddToJSON(result, "fruit", menu.getFruit());
-            checkAddToJSON(result, "type", menu.getType());
-            
-            response.setContentType("application/json");
-            response.setHeader("Cache-Control",
-                    "private, no-store, no-cache, must-revalidate");
-            response.setHeader("Pragma", "no-cache");
-            out.print(result);
-            Logger.getLogger(GetAssociatedMenuServlet.class.getName()).log(Level.INFO, "Query result(JSONObject): " + result.toString());
-        } catch (Exception ex) {
-            Logger.getLogger(GetAssociatedMenuServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            out.close();
+
+            String sickness = request.getParameter("sicknessArea").trim();
+            if (sickness.length() > MAXLENGTH) {
+                sendMessageRedirect(request, response, "Errore: campo malattie troppo lungo.");
+                return;
+            }
+
+            String note = request.getParameter("noteArea").trim();
+            if (note.length() > MAXLENGTH) {
+                sendMessageRedirect(request, response, "Errore: campo note troppo lungo.");
+                return;
+            }
+
+            accessFacade.modifySickness(childId, sickness);
+            accessFacade.modifyAdditionalNotes(childId, note);
+
+            sendMessageRedirect(request, response, "Dati inseriti con successo.");
+
+        } catch (SQLException e) {
+            sendMessageRedirect(request, response, "Verfica i campi");
+            Logger.getLogger(InsertPaymentServlet.class.getName()).log(Level.SEVERE, null, e);
+
+        } catch (NumberFormatException e) {
+            sendMessageRedirect(request, response, "Verfica i campi");
+            Logger.getLogger(InsertPaymentServlet.class.getName()).log(Level.SEVERE, null, e);
+
         }
     }
-    
+
     private void sendMessageRedirect(HttpServletRequest request, HttpServletResponse response, String msg)
             throws ServletException, IOException {
         request.setAttribute("message", msg);
-        request.getRequestDispatcher("/canteenManagement.jsp").forward(request, response);
-    }
-
-    private void checkAddToJSON(JSONObject jObj, String key, Object value) {
-        if (value != null) {
-            jObj.put(key, value);
-        } else {
-            jObj.put(key, "");
-        }
-    }
-    
-    private String unparseGregorianCalendar(GregorianCalendar pDate) {
-        if (pDate != null) {
-            return pDate.get(GregorianCalendar.YEAR) + "-"
-                    + (pDate.get(GregorianCalendar.MONTH) + 1) + "-"
-                    + pDate.get(GregorianCalendar.DAY_OF_MONTH);
-        } else {
-            return null;
-        }
+        request.getRequestDispatcher("/canteenParent.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

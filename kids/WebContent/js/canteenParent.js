@@ -8,6 +8,8 @@ function initializeCanteenPage() {
     
     TableTools.DEFAULTS.aButtons = [];
     getDailyMenu();
+    
+    buildChildrenSelect("#childSelect");
     buildAssociatedMenusTable();
     
     $("#menuDate").datepicker({
@@ -20,19 +22,47 @@ function initializeCanteenPage() {
         changeYear: true
     });
     
+    buildChildrenSelect("#childSelectModSick");
+    getSicknessData();
     $("#modifySicknessButton").button();
     $("#requestMealButton").button();
+    
+    buildParentChildrenTable();
 }
 
 function getDailyMenu() {
     // do $.post to get menu data
     $.post("GetParentDailyMenu",
+        function(jsonData, status) {
+            $("#dailyMenuDate").val(jsonData.date);
+            $("#dailyMenuFirst").val(jsonData.first);
+            $("#dailyMenuSecond").val(jsonData.second);
+            $("#dailyMenuSideDish").val(jsonData.sideDish);
+            $("#dailyMenuFruit").val(jsonData.fruit);
+        });
+}
+
+function getSicknessData() {
+    $.post("GetSicknessData",
+    {
+        childId: $("#childSelectModSick").val()
+    },
     function(jsonData, status) {
-        $("#dailyMenuDate").val(jsonData.date);
-        $("#dailyMenuFirst").val(jsonData.first);
-        $("#dailyMenuSecond").val(jsonData.second);
-        $("#dailyMenuSideDish").val(jsonData.sideDish);
-        $("#dailyMenuFruit").val(jsonData.fruit);
+        $("#sicknessArea").val(jsonData.sickness);
+        $("#noteArea").val(jsonData.note);
+    });
+}
+
+function buildChildrenSelect(selector) {
+    $.post("GetParentChildren",
+    {
+        parentId: $("#hiddenParentId").val()
+    },
+    function(jsonData, status) {
+        for (var i = 0; i < jsonData.length; i++) {
+            var childArray = jsonData[i];
+            $(selector).append('<option value="' + childArray[0] + '">' + childArray[1] + ' ' + childArray[2]);
+        }
     });
 }
 
@@ -41,21 +71,21 @@ function buildAssociatedMenusTable(){
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": "GetParentAssociatedMenuTable",
+        "sAjaxSource": "GetParentChildAssociatedMenuTable",
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
         "fnServerParams": function ( aoData ) {
             aoData.push(
             {
-                "name" : "parentId", 
-                "value" : $("#hiddenParentId").val()
+                "name" : "childId", 
+                "value" : $("#childSelect").val()
             },
             {
                 "name" : "menuDate", 
                 "value" : $("#menuDate").val()
             }
-        );
+            );
      
         },
         "bSort": false,

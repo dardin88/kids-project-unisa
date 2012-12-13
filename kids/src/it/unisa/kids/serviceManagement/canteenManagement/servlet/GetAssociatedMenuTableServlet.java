@@ -87,7 +87,7 @@ public class GetAssociatedMenuTableServlet extends HttpServlet {
                 try {
                     MenuBean searchMenu = new MenuBean();
                     searchMenu.setDate(parseGregorianCalendar(menuDateStr));
-                    menuList = canteenManager.search(searchMenu);
+                    menuList = canteenManager.search(searchMenu, false);
                 } catch (ParseException e) {
                     sendMessageRedirect(request, response, "Errore: data inserita non valida");
                     return;

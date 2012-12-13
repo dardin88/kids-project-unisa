@@ -4,8 +4,12 @@
  */
 package it.unisa.kids.serviceManagement.canteenManagement.servlet;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
+import it.unisa.kids.common.facade.AccessFacade;
+import it.unisa.kids.common.facade.IAccessFacade;
 import it.unisa.kids.serviceManagement.canteenManagement.ICanteenManager;
 import it.unisa.kids.serviceManagement.canteenManagement.MenuBean;
 import java.io.IOException;
@@ -30,11 +34,13 @@ import org.json.JSONObject;
  *
  * @author navi
  */
-public class GetDailyMenuTableServlet extends HttpServlet {
+public class GetParentChildAssociatedMenuTableServlet extends HttpServlet {
     
+    private IAccessFacade accessFacade;
     private ICanteenManager canteenManager;
 
     public void init(ServletConfig config) {
+        this.accessFacade = new AccessFacade();     // si dovrebbe implementare il singleton anche qui?
         this.canteenManager = (ICanteenManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_MENU);
     }
 
@@ -75,20 +81,26 @@ public class GetDailyMenuTableServlet extends HttpServlet {
                 }
             }
             
+            int childId = 0;
+            try {
+                childId = Integer.parseInt(request.getParameter("childId"));
+            } catch (NumberFormatException e) {
+                sendMessageRedirect(request, response, "Errore: bambino selezionato non corretto");
+                return;
+            }
+            
             List<MenuBean> menuList;
-            String dailyMenuDateStr = request.getParameter("dailyMenuDate");
-            if (dailyMenuDateStr != null && !dailyMenuDateStr.trim().equals("")) {
+            String menuDateStr = request.getParameter("menuDate");
+            if (menuDateStr != null && !menuDateStr.trim().equals("")) {
                 try {
                     MenuBean searchMenu = new MenuBean();
-                    searchMenu.setDate(parseGregorianCalendar(dailyMenuDateStr));
-                    searchMenu.setType(MenuBean.DAILY_MENU);
-                    menuList = canteenManager.search(searchMenu, true);
+                    searchMenu.setDate(parseGregorianCalendar(menuDateStr));
+                    searchMenu.setChildInscriptionId(childId);
+                    menuList = canteenManager.search(searchMenu, false);
                 } catch (ParseException e) {
                     sendMessageRedirect(request, response, "Errore: data inserita non valida");
                     return;
                 }
-            } else if (request.getParameter("onlyLastDailyMenu") != null) {
-                menuList = canteenManager.getLastMenu(10, MenuBean.DAILY_MENU, true);
             } else {
                 sendMessageRedirect(request, response, "Errore: impossibile recuperare la lista dei men&ugrave;");
                 return;
@@ -108,20 +120,22 @@ public class GetDailyMenuTableServlet extends HttpServlet {
                     paginateMenuSet = new MenuBean[toShow];
                     System.arraycopy(menuList.toArray(), start, paginateMenuSet, 0, toShow);
                 }
-                
+
                 for (MenuBean menu : paginateMenuSet) {
-                    if (menu.getChildInscriptionId() > 0) {
+                    if (menu.getChildInscriptionId() <= 0) {
                         continue;
                     }
                     
                     JSONObject jObj = new JSONObject();
-                    
+
                     checkAddToJSON(jObj, "0", unparseGregorianCalendar(menu.getDate()));
                     checkAddToJSON(jObj, "1", menu.getFirst());
                     checkAddToJSON(jObj, "2", menu.getSecond());
                     checkAddToJSON(jObj, "3", menu.getSideDish());
                     checkAddToJSON(jObj, "4", menu.getFruit());
+                    checkAddToJSON(jObj, "5", menu.getType());
 
+                    //jObj.put("DT_RowId", "" + menu.getId());
                     array.put(jObj);
                 }
             }
@@ -134,18 +148,18 @@ public class GetDailyMenuTableServlet extends HttpServlet {
                     "private, no-store, no-cache, must-revalidate");
             response.setHeader("Pragma", "no-cache");
             out.print(result);
-            Logger.getLogger(GetDailyMenuTableServlet.class.getName()).log(Level.INFO, "Query result(JSONObject): " + result.toString());
+            Logger.getLogger(GetParentChildAssociatedMenuTableServlet.class.getName()).log(Level.INFO, "Query result(JSONObject): " + result.toString());
         } catch (Exception ex) {
-            Logger.getLogger(GetDailyMenuTableServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GetParentChildAssociatedMenuTableServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
         }
     }
-    
+
     private void sendMessageRedirect(HttpServletRequest request, HttpServletResponse response, String msg)
             throws ServletException, IOException {
         request.setAttribute("message", msg);
-        request.getRequestDispatcher("/canteenManagement.jsp").forward(request, response);
+        request.getRequestDispatcher("/canteenParent.jsp").forward(request, response);
     }
 
     private void checkAddToJSON(JSONObject jObj, String key, Object value) {
@@ -163,7 +177,7 @@ public class GetDailyMenuTableServlet extends HttpServlet {
         date.setTime(parsed);
         return date;
     }
-    
+
     private String unparseGregorianCalendar(GregorianCalendar pDate) {
         if (pDate != null) {
             return pDate.get(GregorianCalendar.YEAR) + "-"
