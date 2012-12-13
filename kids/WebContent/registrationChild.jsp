@@ -114,9 +114,9 @@
                                 <legend><h3>Fascia di utenza:</h3></legend>
                                 <select id="registrationChildFormWindowFasciaUtenza" name="registrationChildFormWindowFasciaUtenza" class="details">
                                     <option id="registrationChildSelectUserRangeEmpty" value="">--Selezionare la fascia di utenza--</option>
-                                    <option id="registrationChildSelectUserRangeFullTime" value="<%= DBNames.ATT_REGISTRATIONCHILD_ENUM_USERRANGE_FULLTIME %>">Servizio a tempo pieno</option>
-                                    <option id="registrationChildSelectUserRangePartTimeAM" value="<%= DBNames.ATT_REGISTRATIONCHILD_ENUM_USERRANGE_PARTTIMEAM %>">Servizio a tempo ridotto (solo Mattina)</option>
-                                    <option id="registrationChildSelectUserRangePartTimePM" value="<%= DBNames.ATT_REGISTRATIONCHILD_ENUM_USERRANGE_PARTTIMEPM %>">Servizio a tempo ridotto (solo Pomeriggio)</option>
+                                    <option id="registrationChildSelectUserRangeFullTime" value="<%= DBNames.ATT_REGISTRATIONCHILD_USERRANGE_FULLTIME %>">Servizio a tempo pieno</option>
+                                    <option id="registrationChildSelectUserRangePartTimeAM" value="<%= DBNames.ATT_REGISTRATIONCHILD_USERRANGE_PARTTIMEAM %>">Servizio a tempo ridotto (solo Mattina)</option>
+                                    <option id="registrationChildSelectUserRangePartTimePM" value="<%= DBNames.ATT_REGISTRATIONCHILD_USERRANGE_PARTTIMEPM %>">Servizio a tempo ridotto (solo Pomeriggio)</option>
                                 </select>
                             </p>
                         </div>

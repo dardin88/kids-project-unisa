@@ -1,6 +1,7 @@
 package it.unisa.kids.accessManagement.renunciationManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
@@ -27,8 +28,7 @@ public class ServletGetTableRenunciation extends HttpServlet {
     private IRenunciationManager renunciationManager;
 
     public void init(ServletConfig config) {
-        RefinedAbstractManager refinedAbstractRenunciationManager = RefinedAbstractManager.getInstance();
-        renunciationManager = (IRenunciationManager) refinedAbstractRenunciationManager.getInstance().getManagerImplementor(DBNames.TABLE_RENUNCIATION);
+        renunciationManager = (IRenunciationManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_RENUNCIATION);
     }
 
     /**
@@ -67,7 +67,6 @@ public class ServletGetTableRenunciation extends HttpServlet {
                 default :
                     listRenunciation = new ArrayList<Renunciation>();
             }
-            
             int start = 0;
             int amount = 10;
             String sStart = request.getParameter("iDisplayStart");
@@ -99,17 +98,17 @@ public class ServletGetTableRenunciation extends HttpServlet {
                     pageRenunciation = new Renunciation[toShow];
                     System.arraycopy(listRenunciation.toArray(), start, pageRenunciation, 0, toShow);
                 }
-                for (Renunciation rinuncia : pageRenunciation) {
+                for(Renunciation rinuncia : pageRenunciation) {
 
                     JSONArray ja = new JSONArray();
 
-                    ja.put(rinuncia.getDate());
+                    ja.put(CommonMethod.parseString(rinuncia.getDate()));
                     ja.put(rinuncia.getRegistrationChildFiscalCode());
                     ja.put(rinuncia.getRegistrationChildSurname());
                     ja.put(rinuncia.getRegistrationChildName());
                     
-                    String operazioni = "<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Visualizza Dettagli\" alt=\"Dettagli\" src='img/lente.gif' onclick='opernViewDetailsRenunciationWindow(\"" + rinuncia.getId() + "\")'/>";
-                    if(account.getAccountType().equals("Genitore")) {
+                    String operazioni = "<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Visualizza Dettagli\" alt=\"Dettagli\" src='img/lente.gif' onclick='openViewDetailsRenunciationWindow(\"" + rinuncia.getId() + "\")'/>";
+                    if(account.getAccountType().equals("Genitore") && !rinuncia.getIsConfirmed()) {
                          operazioni += "<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Elimina\" alt=\"Elimina\" src='img/trash.png' onclick='openDeleteRenunciationWindow(\"" + rinuncia.getId() + "\")'/>";
                     }
                     if(account.getAccountType().equals("Segreteria")) {

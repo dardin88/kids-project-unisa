@@ -194,9 +194,9 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
     public synchronized boolean delete(RegistrationChild child) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
-        String query = "DELETE "
-                + "FROM " + DBNames.TABLE_REGISTRATIONCHILD + " "
-                + "WHERE " + DBNames.ATT_REGISTRATIONCHILD_ID + "=?;";
+        String query = "DELETE " +
+                    "FROM " + DBNames.TABLE_REGISTRATIONCHILD + " " +
+                    "WHERE " + DBNames.ATT_REGISTRATIONCHILD_ID + "=?;";
         boolean toReturn = false;
         int numEditedRow;
 
@@ -308,7 +308,8 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
         query.append(" ORDER BY " + DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE + ", "
                 + DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + ";");
         // Test della query
-        System.out.println("Query ricerca: " + query);
+        //
+        // System.out.println("Query ricerca: " + query);
 
         try {
             con = DBConnectionPool.getConnection();

@@ -478,6 +478,10 @@
         <servlet-class>it.unisa.kids.serviceManagement.timeServiceManagement.GetRequestModifyTimeServiceSecretaryServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ServletGetRenunciation</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.renunciationManagement.ServletGetRenunciation</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>GetParentDailyMenuServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.canteenManagement.servlet.GetParentDailyMenuServlet</servlet-class>
     </servlet>
@@ -968,6 +972,10 @@
     <servlet-mapping>
         <servlet-name>GetRequestModifyTimeServiceSecretaryServlet</servlet-name>
         <url-pattern>/GetRequestModifyTimeServiceSecretary</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletGetRenunciation</servlet-name>
+        <url-pattern>/GetRenunciation</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetParentDailyMenuServlet</servlet-name>

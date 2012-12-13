@@ -24,8 +24,7 @@ public class ServletInsertRenunciation extends HttpServlet {
     private IRenunciationManager renunciationManager;
 
     public void init(ServletConfig config) {
-        RefinedAbstractManager refinedAbstractRenunciationManager = RefinedAbstractManager.getInstance();
-        renunciationManager = (IRenunciationManager) refinedAbstractRenunciationManager.getInstance().getManagerImplementor(DBNames.TABLE_RENUNCIATION);
+        renunciationManager = (IRenunciationManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_RENUNCIATION);
     }
     /**
      * Processes requests for both HTTP

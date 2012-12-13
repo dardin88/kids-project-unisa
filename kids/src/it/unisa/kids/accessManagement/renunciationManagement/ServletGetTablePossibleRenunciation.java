@@ -26,10 +26,12 @@ import org.json.JSONObject;
  */
 public class ServletGetTablePossibleRenunciation extends HttpServlet {
     private IRegistrationChildManager registrationChildManager;
+    private IRenunciationManager renunciationManager;
 
     public void init(ServletConfig config) {
         RefinedAbstractManager refinedAbstractRenunciationManager = RefinedAbstractManager.getInstance();
         registrationChildManager = (IRegistrationChildManager) refinedAbstractRenunciationManager.getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
+        renunciationManager = (IRenunciationManager) refinedAbstractRenunciationManager.getManagerImplementor(DBNames.TABLE_RENUNCIATION);
     }
 
     /**
@@ -70,6 +72,8 @@ public class ServletGetTablePossibleRenunciation extends HttpServlet {
             tmp.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_VALIDATED);
             listPossibleRenunciation.addAll(registrationChildManager.search(tmp));
             
+            List<Renunciation> listToNotDisplay = renunciationManager.getListFromParent(account.getId());
+            
             int start = 0;
             int amount = 10;
             String sStart = request.getParameter("iDisplayStart");
@@ -101,21 +105,37 @@ public class ServletGetTablePossibleRenunciation extends HttpServlet {
                     pageRenunciation = new RegistrationChild[toShow];
                     System.arraycopy(listPossibleRenunciation.toArray(), start, pageRenunciation, 0, toShow);
                 }
-                for (RegistrationChild possibileRinuncia : pageRenunciation) {
-
+                for(RegistrationChild possibileRinuncia : pageRenunciation) {
                     JSONArray ja = new JSONArray();
+                    
+                    // si escludono dalla possibilità le iscrizioni che ne hanno già presentata una
+                    int i = 0;
+                    int size = listToNotDisplay.size();
+                    boolean ithas = false;
+                    while(i < size && !ithas) {
+                        if(possibileRinuncia.getId() == listToNotDisplay.get(i).getRegistrationChildId()) {
+                            ithas = true;
+                            
+                            // ogni iscrizione ne può avere solo una di rinuncia, quindi se è stata trovata
+                            // può essere rimossa dalla lista
+                            listToNotDisplay.remove(i);
+                        } else {
+                            i++;
+                        }
+                    }
+                    if(i == size) {
+                        ja.put(possibileRinuncia.getFiscalCode());
+                        ja.put(possibileRinuncia.getSurname());
+                        ja.put(possibileRinuncia.getName());
+                        ja.put(possibileRinuncia.getRegistrationPhase());
 
-                    ja.put(possibileRinuncia.getFiscalCode());
-                    ja.put(possibileRinuncia.getSurname());
-                    ja.put(possibileRinuncia.getName());
-                    ja.put(possibileRinuncia.getRegistrationPhase());
-                    
-                    String operazioni = "<input class='tableImage' type='image' style=\"width:20px;height:20px\" " +
-                                        "title=\"Presenta domanda di rinuncia\" alt=\"Presenta domanda di rinuncia\" " +
-                                        "src='img/accept.png' onclick='openInsertRenunciationWindow(\"" + possibileRinuncia.getId() + "\")'/>";
-                    
-                    ja.put(operazioni);
-                    array.put(ja);
+                        String operazioni = "<input class='tableImage' type='image' style=\"width:20px;height:20px\" " +
+                                            "title=\"Presenta domanda di rinuncia\" alt=\"Presenta domanda di rinuncia\" " +
+                                            "src='img/accept.png' onclick='openInsertRenunciationWindow(\"" + possibileRinuncia.getId() + "\")'/>";
+
+                        ja.put(operazioni);
+                        array.put(ja);
+                    }
                 }
             }
             result.put("sEcho", sEcho);

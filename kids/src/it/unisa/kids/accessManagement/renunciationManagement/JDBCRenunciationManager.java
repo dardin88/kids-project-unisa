@@ -46,17 +46,16 @@ public class JDBCRenunciationManager implements IRenunciationManager {
                     + DBNames.ATT_RENUNCIATION_DATE + ", "
                     + DBNames.ATT_RENUNCIATION_REGISTRATIONCHILDID + ", "
                     + DBNames.ATT_RENUNCIATION_REASON + ", "
-                    + DBNames.ATT_RENUNCIATION_ISCONFIRMED + ", "
-                    + ") VALUES(?, ?, ?, ?)";
+                    + DBNames.ATT_RENUNCIATION_ISCONFIRMED + " "
+                    + ") VALUES(NULL, ?, ?, ?, ?)";
 
             pstmt = con.prepareStatement(query);
 
             //setting pstmt's parameters
-            pstmt.setInt(1, renunciation.getId());
-            pstmt.setDate(2, CommonMethod.parseDate(renunciation.getDate()));
-            pstmt.setInt(3, renunciation.getRegistrationChildId());
-            pstmt.setString(4, renunciation.getReason());
-            pstmt.setBoolean(5, renunciation.getIsConfirmed());
+            pstmt.setDate(1, CommonMethod.parseDate(renunciation.getDate()));
+            pstmt.setInt(2, renunciation.getRegistrationChildId());
+            pstmt.setString(3, renunciation.getReason());
+            pstmt.setBoolean(4, renunciation.getIsConfirmed());
 
             numEditedRow = pstmt.executeUpdate();
             con.commit();
@@ -82,13 +81,15 @@ public class JDBCRenunciationManager implements IRenunciationManager {
         
         try {
             con = DBConnectionPool.getConnection();
-            String query = "DELETE FROM " + DBNames.TABLE_RENUNCIATION + " " +
+            
+            String query = "DELETE " +
+                            "FROM " + DBNames.TABLE_RENUNCIATION + " " +
                             "WHERE " + DBNames.ATT_RENUNCIATION_ID + "=?;";
 
             pstmt = con.prepareStatement(query);
             pstmt.setInt(1, renunciation.getId());
             
-            numEditedRow = pstmt.executeUpdate(query);
+            numEditedRow = pstmt.executeUpdate();
             con.commit();
             if(numEditedRow > 0) {
                 toReturn = true;
@@ -114,35 +115,34 @@ public class JDBCRenunciationManager implements IRenunciationManager {
         try {
             con = DBConnectionPool.getConnection();
             
-            query.append("SELECT * " +
-                            "FROM " + DBNames.TABLE_RENUNCIATION + " " +
-                            "WHERE ");
+            query.append("SELECT RE.*, RC." + DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + ", RC." + 
+                    DBNames.ATT_REGISTRATIONCHILD_SURNAME + ", RC." + DBNames.ATT_REGISTRATIONCHILD_NAME + " " +
+                            "FROM " + DBNames.TABLE_RENUNCIATION + " AS RE, " + DBNames.TABLE_REGISTRATIONCHILD + " AS RC " +
+                            "WHERE RE." + DBNames.ATT_RENUNCIATION_REGISTRATIONCHILDID + "=RC." + DBNames.ATT_REGISTRATIONCHILD_ID + " ");
 
-            boolean andState = false;
+            boolean andState = true;
 
             if (renunciation.getId() > 0) {
-                query.append(useAnd(andState) + DBNames.ATT_RENUNCIATION_ID + "=?");
+                query.append(useAnd(andState) + " RE." + DBNames.ATT_RENUNCIATION_ID + "=?");
                 andState = true;
             }
             if (renunciation.getDate() != null) {
-                query.append(useAnd(andState) + DBNames.ATT_RENUNCIATION_DATE + "=?");
+                query.append(useAnd(andState) + " RE." + DBNames.ATT_RENUNCIATION_DATE + "=?");
                 andState = true;
             }
-            if (renunciation.getRegistrationChildId() >= 0) {
-                query.append(useAnd(andState) + DBNames.ATT_RENUNCIATION_REGISTRATIONCHILDID + "=?");
+            if (renunciation.getRegistrationChildId() > 0) {
+                query.append(useAnd(andState) + " RE." + DBNames.ATT_RENUNCIATION_REGISTRATIONCHILDID + "=?");
                 andState = true;
             }
             if (renunciation.isSetConfirmed()) {
-                query.append(useAnd(andState) + DBNames.ATT_RENUNCIATION_ISCONFIRMED + "=? ");
+                query.append(useAnd(andState) + " RE." + DBNames.ATT_RENUNCIATION_ISCONFIRMED + "=? ");
                 andState = true;
             }
             if (renunciation.getReason() != null) {
-                query.append(useAnd(andState) + DBNames.ATT_RENUNCIATION_REASON + "=? ");
+                query.append(useAnd(andState) + " RE." + DBNames.ATT_RENUNCIATION_REASON + "=? ");
                 andState = true;
             }
-            if (!andState) {  // nel caso tutti i parametri sono null
-                query.append("1");
-            }
+            
             query.append(";");
             
             pstmt = con.prepareStatement(query.toString());
@@ -187,6 +187,11 @@ public class JDBCRenunciationManager implements IRenunciationManager {
                 p.setIsConfirmed(result.getBoolean(DBNames.ATT_RENUNCIATION_ISCONFIRMED));
                 p.setRegistrationChildId(result.getInt(DBNames.ATT_RENUNCIATION_REGISTRATIONCHILDID));
                 p.setReason(result.getString(DBNames.ATT_RENUNCIATION_REASON));
+                
+                p.setRegistrationChildFiscalCode(result.getString(DBNames.ATT_REGISTRATIONCHILD_FISCALCODE));
+                p.setRegistrationChildSurname(result.getString(DBNames.ATT_REGISTRATIONCHILD_SURNAME));
+                p.setRegistrationChildName(result.getString(DBNames.ATT_REGISTRATIONCHILD_NAME));
+                
                 listRenunciation.add(p);
             }
         } finally {
@@ -254,27 +259,24 @@ public class JDBCRenunciationManager implements IRenunciationManager {
                 // setting pstmt's parameters
                 int i = 1;		// index of pstmt first argument
 
-                if (pRenunciation.getRegistrationChildId() > 0) {
+                if(pRenunciation.getRegistrationChildId() > 0) {
                     pstmt.setInt(i, pRenunciation.getRegistrationChildId());
                     i++;
                 }
-                if (pRenunciation.getDate() != null) {
+                if(pRenunciation.getDate() != null) {
                     pstmt.setDate(i, CommonMethod.parseDate(pRenunciation.getDate()));
                     i++;
                 }
-                if (pRenunciation.getReason() != null) {
+                if(pRenunciation.getReason() != null) {
                     pstmt.setString(i, pRenunciation.getReason());
                     i++;
                 }
-                if (pRenunciation.isSetConfirmed()) {
+                if(pRenunciation.isSetConfirmed()) {
                     pstmt.setBoolean(i, pRenunciation.getIsConfirmed());
                     i++;
                 }
                 pstmt.setInt(i, pRenunciation.getId());
-                i++;
-
-                pstmt.setInt(i, pRenunciation.getId());
-
+                
                 // executing update query
                 numEditedRow = pstmt.executeUpdate();
                 con.commit();
@@ -298,7 +300,7 @@ public class JDBCRenunciationManager implements IRenunciationManager {
         PreparedStatement pstmt = null;
         ResultSet result = null;
         List<Renunciation> listRenunciation = new ArrayList<Renunciation>();
-        StringBuffer query = new StringBuffer();
+        StringBuilder query = new StringBuilder();
 
         try {
             con = DBConnectionPool.getConnection();
@@ -328,6 +330,11 @@ public class JDBCRenunciationManager implements IRenunciationManager {
                 p.setIsConfirmed(result.getBoolean(DBNames.ATT_RENUNCIATION_ISCONFIRMED));
                 p.setRegistrationChildId(result.getInt(DBNames.ATT_RENUNCIATION_REGISTRATIONCHILDID));
                 p.setReason(result.getString(DBNames.ATT_RENUNCIATION_REASON));
+                
+                p.setRegistrationChildFiscalCode(result.getString(DBNames.ATT_REGISTRATIONCHILD_FISCALCODE));
+                p.setRegistrationChildSurname(result.getString(DBNames.ATT_REGISTRATIONCHILD_SURNAME));
+                p.setRegistrationChildName(result.getString(DBNames.ATT_REGISTRATIONCHILD_NAME));
+                
                 listRenunciation.add(p);
             }
         } finally {

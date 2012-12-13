@@ -44,7 +44,7 @@ public class ServletConfirmRenunciation extends HttpServlet {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
-        boolean isSuccess = true;
+        boolean isSuccess = false;
         String errorMsg = new String();
         
         try {
@@ -69,13 +69,11 @@ public class ServletConfirmRenunciation extends HttpServlet {
                 tmpRegistrationChild.setId(regChildId);
                 isSuccess &= registrationChildManager.renounceRegistrationChild(tmpRegistrationChild);
             } else {
-                isSuccess = false;
                 errorMsg = "Errore nella passaggio dei parametri";
             }
             
         } catch(SQLException ex) {
             Logger.getLogger(ServletConfirmRenunciation.class.getName()).log(Level.SEVERE, null, ex);
-            isSuccess = false;
             errorMsg = ex.getMessage();
         }
         

@@ -182,7 +182,7 @@
         <%-- FINESTRA DI AVVISO (ALERT) --%>
         <div id="classificationAlertWindow" name="classificationAlertWindow" title="" style="display: inline">
             <div>
-                <h3 id="classificationAlertWindowText" name="classificationAlertWindowTitle"></h3>
+                <h3 id="classificationAlertWindowText" name="classificationAlertWindowText"></h3>
                 <p>
                     <input type="button" id="classificationAlertWindowOkButton" value="OK" />
                 </p>
