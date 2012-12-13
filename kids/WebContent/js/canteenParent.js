@@ -27,7 +27,9 @@ function initializeCanteenPage() {
     $("#modifySicknessButton").button();
     $("#requestMealButton").button();
     
-    buildParentChildrenTable();
+    $("#childSelectModSick").change(function() {
+        getSicknessData();
+    });
 }
 
 function getDailyMenu() {

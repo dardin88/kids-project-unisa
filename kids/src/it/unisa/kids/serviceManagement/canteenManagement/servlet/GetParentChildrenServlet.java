@@ -68,7 +68,6 @@ public class GetParentChildrenServlet extends HttpServlet {
             
             int i = 0;
             for (RegistrationChild rc : regChildList) {
-                Logger.getLogger(GetParentChildrenServlet.class.getName()).log(Level.SEVERE, rc.getName() + " " + rc.getSurname() + " " + rc.getId());
                 JSONArray array = new JSONArray();
                 array.put(0, rc.getId());
                 array.put(1, rc.getName());
