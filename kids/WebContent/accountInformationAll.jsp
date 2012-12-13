@@ -1,7 +1,7 @@
 <%-- 
-    Document   : modifyRegistration
-    Created on : 7-dic-2012, 23.11.51
-    Author     : Pasquale
+    Document   : accountInformationAll
+    Created on : 7-dic-2012, 21.21.44
+    Author     : Gianmarco
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -24,7 +24,7 @@
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/modifyAccountRegistration.js"></script>
           <script type="text/javascript" src="js/account.js"></script>
-        <title>Registrazione Account - Kids Project</title>
+        <title>Visualizzazione Account - Kids Project</title>
         <jsp:include page="/GetAccountParent" /> 
         <script type="text/javascript">
             $(document).ready(function() {

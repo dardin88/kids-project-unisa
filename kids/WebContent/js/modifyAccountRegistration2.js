@@ -32,7 +32,7 @@ function initializeModifyRegistrationFields(){
     $("#notModifyButton1").button();
     $("#notModifyButton1").click(function(){
         if(count!=0) count--;
-        location.href=("http://localhost:8080/kids/");
+        location.href="./accountInformationParent.jsp";
     });
     
     $("#notModifyButton2").button();
