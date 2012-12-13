@@ -108,7 +108,7 @@
                                 <label for="menuDate">Data:&nbsp;</label>
                                 <input type="text" name="menuDate" id="menuDate">
                                 <label for="childSelect">Seleziona bambino:&nbsp;</label>
-                                <select name="childSelect" id="childSelect"></select>
+                                <select name="childSelect" id="childSelect"><option>Seleziona</select>
                             </fieldset>
                         </form>
                         <table id="showAssociatedMenuTable" style="width:100%">

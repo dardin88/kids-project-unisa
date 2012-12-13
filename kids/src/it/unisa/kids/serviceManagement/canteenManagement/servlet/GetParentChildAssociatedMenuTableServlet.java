@@ -33,7 +33,7 @@ import org.json.JSONObject;
  * @author navi
  */
 public class GetParentChildAssociatedMenuTableServlet extends HttpServlet {
-    
+
     private IAccessFacade accessFacade;
     private ICanteenManager canteenManager;
 
@@ -78,14 +78,15 @@ public class GetParentChildAssociatedMenuTableServlet extends HttpServlet {
                     amount = 10;
                 }
             }
-            
+
             int childId = 0;
             try {
                 childId = Integer.parseInt(request.getParameter("childId"));
             } catch (NumberFormatException e) {
+                doExit(result, sEcho, array, response, out);
                 return;
             }
-            
+
             List<MenuBean> menuList;
             String menuDateStr = request.getParameter("menuDate");
             if (menuDateStr != null && !menuDateStr.trim().equals("")) {
@@ -95,12 +96,14 @@ public class GetParentChildAssociatedMenuTableServlet extends HttpServlet {
                     searchMenu.setChildInscriptionId(childId);
                     menuList = canteenManager.search(searchMenu);
                 } catch (ParseException e) {
+                    doExit(result, sEcho, array, response, out);
                     return;
                 }
             } else {
+                doExit(result, sEcho, array, response, out);
                 return;
             }
-            
+
             MenuBean[] paginateMenuSet;
             int linksNumber = menuList.size();
             if (linksNumber < amount) {
@@ -213,4 +216,16 @@ public class GetParentChildAssociatedMenuTableServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void doExit(JSONObject result, String sEcho, JSONArray array, HttpServletResponse response, PrintWriter out) throws NullPointerException {
+        result.put("sEcho", sEcho);
+        result.put("iTotalRecords", 0);
+        result.put("iTotalDisplayRecords", 0);
+        result.put("aaData", array);
+        response.setContentType("application/json");
+        response.setHeader("Cache-Control",
+                "private, no-store, no-cache, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        out.print(result);
+    }
 }

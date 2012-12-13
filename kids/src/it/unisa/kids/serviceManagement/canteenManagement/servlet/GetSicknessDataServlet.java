@@ -54,7 +54,7 @@ public class GetSicknessDataServlet extends HttpServlet {
             RegistrationChild searchRegChild = new RegistrationChild();
             searchRegChild.setId(childId);
             List<RegistrationChild> regChildList = accessFacade.search(searchRegChild);
-            if (regChildList.size() == 0) {
+            if (regChildList.isEmpty()) {
                 return;
             }
             RegistrationChild rc = regChildList.get(0);
