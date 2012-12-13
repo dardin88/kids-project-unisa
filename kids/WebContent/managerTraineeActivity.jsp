@@ -68,7 +68,7 @@
                 <tr><td>Attivit&agrave</td><td><input type="text" id="TraineeActivity" name="Attivita" value="" disabled size="30"></td></tr>
                 <tr><td>Data</td><td><input type="text" id="DateActivity"name="Data" value="" disabled size="30"></td></tr>
                 <tr><td>Descrizione</td><td><textarea  id="Description"name="Descrizione" value="" disabled resizable="false" cols="29" rows="6" style="resize: none"></textarea></td></tr>
-                <tr><td>Ora di inzio</td><td><input type="text" id="StartTimeActivity"name="OraInizio" value="" disabled size="30"></td></tr>
+                <tr><td>Ora di inizio</td><td><input type="text" id="StartTimeActivity"name="OraInizio" value="" disabled size="30"></td></tr>
                 <tr><td>Ora di fine</td><td><input type="text" id="EndTimeActivity"name="OraFine" value="" disabled size="30"></td></tr> 
                 <tr><td>Giudizio</td><td><textarea id="Opinion" name="Giudizio" value="" disabled cols="29" rows="6" style="resize: none"></textarea></td></tr>
 

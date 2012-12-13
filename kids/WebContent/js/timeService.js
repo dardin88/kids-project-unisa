@@ -239,7 +239,7 @@ function removeTimeServiceRequest(id) {
     });
     var oTable = $("#requestTimeServiceParentTable").dataTable();
     oTable.fnDraw();
-    //location.reload(true)
+   // location.reload(true);
 }
 
 function updateTimeServiceRequest(id, check) {
@@ -546,10 +546,19 @@ function loadInformationRequestModifyTimeServiceSecretary(id) {
         var select = document.getElementById("state");
         select.options.length = 0;
         select.options[select.options.length] = new Option(info[6], info[6], false, false);
-        document.getElementById("save").style.visibility="hidden";
+        document.getElementById("save").style.visibility = "hidden";
 
     }, "text");
-    
 
 
+
+}
+
+function removeRequestModifyTimeService(id) {
+    $.post("RemoveRequestModifyTimeService", {
+        id: id
+    });
+    var oTable = $("#TableRequestModifyTimeServiceParent").dataTable();
+    oTable.fnDraw();
+    //location.reload(true);
 }

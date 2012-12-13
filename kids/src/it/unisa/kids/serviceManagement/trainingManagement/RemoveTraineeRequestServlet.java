@@ -12,14 +12,17 @@ import java.sql.SQLException;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author utente
+ * @author marco
  */
+@WebServlet(name = "RemoveTraineeRequestServlet", urlPatterns = {"/RemoveTraineeRequest"})
+
 
 public class RemoveTraineeRequestServlet extends HttpServlet {
     private static Logger logger = Logger.getLogger("global");

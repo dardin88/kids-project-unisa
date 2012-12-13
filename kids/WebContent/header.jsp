@@ -191,14 +191,22 @@
             <div class="div">
 
                 <li id="TimeServiceMenuEL"><a href="timeService.jsp">Richieste modifica orari di servizio</a></li>
+
             </div> 
+            <div class="div">
+                <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
+            </div>
         </c:if>
         <c:if test="${sessionScope.user.getAccountType()=='Responsabile Asilo'}">
             <div class="div">
 
                 <li id="TimeServiceMenuEL"><a href="timeService.jsp">Richieste modifica orari di servizio</a></li>
+
             </div> 
+           <div class="div">
+                <li id="newsShowTable"><a href="newsShowTable.jsp">Gestione News</a></li>
+            </div>
         </c:if>
 
-        </ul>
-    </div>
+    </ul>
+</div>
