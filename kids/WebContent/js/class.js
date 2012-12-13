@@ -6,7 +6,7 @@ function initializeClassFields() {
     $("#backClassButton").button();
     $("#modifyClassButton").button();
     $("#deleteClassButton").button();
-    $("#addLinkButton").button();
+    $("#addClassButton").button();
     $("#removeClassWindow").dialog({
         autoOpen: false,
         modal: true,
@@ -16,20 +16,15 @@ function initializeClassFields() {
     buildClassTable();
 }
 
-function initializeChildrenInformationFields() {
-    $("#ricerca").button();
-    $("#ricerca").click(function() {
-        $("#ricerca").submit();
-    });
+function initializeClassInformationFields() {
     $("#backClassButton").button();
-    $("#modifyClassButton").button();
-    $("#deleteClassButton").button();
-    $("#addLinkButton").button();
-    $("#removeClassWindow").dialog({
+    $("#requestModifyClassButton").button();
+    $("#acceptedClassButton").button();
+    $("#requestModifyClassWindow").dialog({
         autoOpen: false,
         modal: true,
         resizable: false,
-        width: 400
+        width: 335
     });
     buildChildrenTable();
     buildEducatorTable();
@@ -231,4 +226,22 @@ function showClass(id){
 
 function modifyClass(id){
     window.location.href="classModify.jsp?id="+id;
+}
+
+function requestClassModify(){
+    $("#requestModifyClassWindow").dialog("open");
+    $("#requestModifyClassButton2").button();
+    $("#requestModifyClassButton2").click(function(){
+        $.post("UpdateClassBean",{
+            classId: $("#classId").val(),
+            className: $("#className").val(),
+            isRequestModify: true
+        });
+        $.post("SendMailRequestClassModify",{
+            nomeClasse: $("#className"),
+            messaggio: $("#artefactMessaggio")
+        });
+        $("#requestModifyClassWindow").dialog("close");
+        window.location.href="class.jsp";
+    });
 }

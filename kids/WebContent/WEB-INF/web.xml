@@ -505,6 +505,10 @@
         <servlet-name>AccountModifyServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.AccountModifyServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SendMailRequestClassModifyServlet</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.classManagement.SendMailRequestClassModifyServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
@@ -993,13 +997,17 @@
         <servlet-name>InsertMealRequestServlet</servlet-name>
         <url-pattern>/InsertMealRequest</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AccountModifyServlet</servlet-name>
         <url-pattern>/AccountModify</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetTableEducatorServlet</servlet-name>
         <url-pattern>/GetTableEducator</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendMailRequestClassModifyServlet</servlet-name>
+        <url-pattern>/SendMailRequestClassModify</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

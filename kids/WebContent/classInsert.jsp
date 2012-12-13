@@ -9,9 +9,9 @@
 <%@page import="java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%--<c:if test="${sessionScope.user==null}">
+<c:if test="${sessionScope.user.getAccountType()!='Responsabile Asilo'}">
     <c:redirect url="index.jsp" />
-</c:if>--%>
+</c:if>
 <c:if test="${sessionScope.id >=0}">
     <c:if test="${sessionScope.user.getAccountType()=='Genitore'}"> 
         <c:redirect url="newsGenitorePage.jsp" />
@@ -49,7 +49,6 @@
 
         <form id="insertClassForm" class="cmxform"  action="AddClassBean" method="post">
             <div id="artefactsManagement">
-                <h1  style="font-weight: bold; font-size: 30pt"id="titleReg" align="center">Form di Creazione Classe</h1><br>
                 <div>
                     <label>Nome</label>
                     <input id="name" class="classNameField" type="text" name="Nome">

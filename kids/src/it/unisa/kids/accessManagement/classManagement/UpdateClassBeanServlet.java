@@ -55,12 +55,15 @@ public class UpdateClassBeanServlet extends HttpServlet {
                 clas.setState("bozza");
             } else if (request.getParameter("submitClassButton") != null) {
                 clas.setState("sottomessa");
+            } else if (request.getParameter("isRequestModify") != null) {
+                clas.setState("revisione");
+            } else if (request.getParameter("acceptedClassButton") != null) {
+                clas.setState("accettata");
             }
             clasMan.update(clas);
             ClassBean oldClas = new ClassBean();
             oldClas.setIdClasse(Integer.parseInt(request.getParameter("classId")));
             oldClas = clasMan.search(oldClas).get(0);
-            System.out.println(oldClas.getBambini());
             List<RegistrationChild> oldChildren = oldClas.getBambini();
             String[] childrenChecked = request.getParameterValues("childRow");
             for (RegistrationChild c1 : oldChildren) {
@@ -85,7 +88,9 @@ public class UpdateClassBeanServlet extends HttpServlet {
                     accMan.assignEducatorToClass(educator, clas);
                 }
             }
-            response.sendRedirect("class.jsp");
+            if (request.getParameter("submitClassButton") == null) {
+                response.sendRedirect("class.jsp");
+            }
         } catch (SQLException ex) {
             Logger.getLogger(UpdateClassBeanServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -112,27 +112,46 @@ function activePage(){
             $("#classificationME").css("color", "#FFFFFF");
             $("#title").html("Gestione Graduatorie");
             break;
-       case 'secretarySurveyPage.jsp':
+        case 'secretarySurveyPage.jsp':
             $("#surveyManagementME").css("background-color", "#444");
             $("#surveyManagementME").css("color", "#FFFFFF");
             $("#title").html("Gestione Questionari Valutazione");
             break;
-       case 'surveyShowTable.jsp':
+        case 'surveyShowTable.jsp':
             $("#surveyShowTableME").css("background-color", "#444");
             $("#surveyShowTableME").css("color", "#FFFFFF");
             $("#title").html("Questionari Valutazione");
             break;
-       case 'renunciation.jsp':
+        case 'renunciation.jsp':
             $("#renunciationManagementME").css("background-color", "#444");
             $("#renunciationManagementME").css("color", "#FFFFFF");
             $("#title").html("Gestione rinunce");
             break;
-       case 'canteenParent.jsp':
+        case 'canteenParent.jsp':
             $("#canteenManagementMenuEl").css("background-color", "#444");
             $("#canteenManagementMenuEl").css("color", "#FFFFFF");
             $("#title").html("Gestione Mensa");
             break;
-       
+        case 'class.jsp':
+            $("#classMenuEl").css("background-color", "#444");
+            $("#classMenuEl").css("color", "#FFFFFF");
+            $("#title").html("Gestione Classi");
+            break;
+        case 'classInformation.jsp':
+            $("#classMenuEl").css("background-color", "#444");
+            $("#classMenuEl").css("color", "#FFFFFF");
+            $("#title").html("Gestione Classi");
+            break;
+        case 'classInsert.jsp':
+            $("#classMenuEl").css("background-color", "#444");
+            $("#classMenuEl").css("color", "#FFFFFF");
+            $("#title").html("Gestione Classi");
+            break;
+        case 'classModify.jsp':
+            $("#classMenuEl").css("background-color", "#444");
+            $("#classMenuEl").css("color", "#FFFFFF");
+            $("#title").html("Gestione Classi");
+            break;
     }
 }
 

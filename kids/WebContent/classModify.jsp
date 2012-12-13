@@ -6,9 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%--<c:if test="${sessionScope.user==null}">
+<c:if test="${sessionScope.user.getAccountType()!='Responsabile Asilo'}">
     <c:redirect url="index.jsp" />
-</c:if>--%>
+</c:if>
 <!DOCTYPE html>
 <html>
     <head>
@@ -42,8 +42,6 @@
             String cercamiNeiSogni = "modify";
             session.setAttribute("cercamiNeiSogni", cercamiNeiSogni);
         %>
-
-        <h1  id="titleReg" align="center">Modifica Classe</h1>
         <form id="modifyClassForm" class="cmxform"  action="UpdateClassBean" method="post">
             <div id="artefactsManagement">
                 <div id="modifyClassName">
@@ -83,10 +81,6 @@
                 <input type="submit" id="draftClassButton" name="draftClassButton" class="classButton" value="Salva bozza" />
             </c:if>
             <input type="submit" id="submitClassButton" name="submitClassButton" class="classButton" value="Sottometti" />
-            <c:if test="${requestScope.Stato == 'sottomessa'}">
-                <input type="submit" id="requestModifyClassButton" name="requestModifyClassButton" class="classButton" value="Richiedi modifica" />
-                <input type="submit" id="acceptedClassButton" name="acceptedClassButton" class="classButton" value="Accetta classe" />
-            </c:if>
         </form>
         <%@include file="footer.jsp" %>
     </body>

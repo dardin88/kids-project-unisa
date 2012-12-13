@@ -175,7 +175,17 @@
             <div class="div">
 
                 <li id="newsShowTable"><a href="accountInformationAll.jsp">Gestione Account</a></li>
-            </div> 
+            </div>
+        </c:if>
+        <c:if test="${sessionScope.user.getAccountType()=='Responsabile Asilo'}">
+            <div class="div">
+                <li id="classMenuEl"><a href="class.jsp">Gestione Classi</a></li>
+            </div>
+        </c:if>
+        <c:if test="${sessionScope.user.getAccountType()=='Delegato del rettore'}">
+            <div class="div">
+                <li id="classMenuEl"><a href="class.jsp">Gestione Classi</a></li>
+            </div>
         </c:if>
         <c:if test="${sessionScope.user.getAccountType()=='Delegato del rettore'}">
             <div class="div">

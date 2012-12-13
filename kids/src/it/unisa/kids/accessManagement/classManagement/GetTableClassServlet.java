@@ -1,5 +1,6 @@
 package it.unisa.kids.accessManagement.classManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
@@ -24,6 +25,7 @@ public class GetTableClassServlet extends HttpServlet {
 
     private IClassManager classManager;
 
+    @Override
     public void init(ServletConfig config) {
         classManager = (IClassManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_CLASS);
     }
@@ -41,9 +43,10 @@ public class GetTableClassServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        Account a1 = (Account) request.getSession().getAttribute("user");
         PrintWriter out = response.getWriter();
-        ClassBean[] pageClassBean = null;
-        List<ClassBean> listClassBean = null;
+        ClassBean[] pageClassBean;
+        List<ClassBean> listClassBean;
         try {
             JSONArray array = new JSONArray();
             JSONObject result = new JSONObject();
@@ -97,7 +100,11 @@ public class GetTableClassServlet extends HttpServlet {
 
                     ja.put(clas.getClassName());
                     ja.put(clas.getState());
-                    String operazioni = " <input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/lente.gif' onclick='showClass(\"" + clas.getIdClasse() + "\")'/><input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/edit.gif' onclick='modifyClass(\"" + clas.getIdClasse() + "\")'/><input class='tableImage' type='image' src='img/trash.png' onclick='removeClass(\"" + clas.getIdClasse() + "\")'/>";
+                    String operazioni = " <input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/lente.gif' onclick='showClass(\"" + clas.getIdClasse() + "\")'/>";
+                    if (a1.getAccountType().equals("Responsabile Asilo")) {
+                        operazioni += "<input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/edit.gif' onclick='modifyClass(\"" + clas.getIdClasse() + "\")'/>";
+                        operazioni += "<input class='tableImage' type='image' src='img/trash.png' onclick='removeClass(\"" + clas.getIdClasse() + "\")'/>";
+                    }
                     ja.put(operazioni);
                     array.put(ja);
                 }

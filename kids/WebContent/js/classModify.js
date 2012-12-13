@@ -5,8 +5,6 @@ function initializeModifyClassFields(){
     $("#backClassButton").button();
     $("#draftClassButton").button();
     $("#submitClassButton").button();
-    $("#requestModifyClassButton").button();
-    $("#acceptedClassButton").button();
     $.validator.setDefaults({
         highlight: function(input){
             $(input).addClass("ui-state-highlight");

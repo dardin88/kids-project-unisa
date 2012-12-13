@@ -2,12 +2,11 @@
     Document   : classe
     Created on : 27-nov-2012, 16.08.07
     Author     : tonino
-
+--%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:if test="${sessionScope.user==null}">
+<c:if test="${sessionScope.user.getAccountType()!='Responsabile Asilo' && sessionScope.user.getAccountType()!='Delegato del rettore'}">
     <c:redirect url="index.jsp" />
 </c:if>
---%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -29,32 +28,41 @@
         <jsp:include page="/GetClass"/> 
         <script type="text/javascript">
             $(document).ready(function() {
-                initializeChildrenInformationFields();
+                initializeClassInformationFields();
             });
         </script>
     </head>
-    <div id="removeClassWindow" title="Rimuovi Classe" style="display: inline">
-        <form id="removeClassForm" class="cmxform" method="post" action="">
-            <fieldset>
-                <p class="formp">
-                    <label class="requirementLabel">Sei sicuro di voler eliminare questa classe?</label>
-                </p>
-                <p class="formp">
-                    <input type="button" class="confirmRemoveButton" id="confirmRemoveLinkButton" value="Si"/>
-                    <input type="button" class="notConfirmRemoveButton" id="notConfirmRemoveLinkButton" value="No"/>
-                </p>
-            </fieldset>
+    <div id="requestModifyClassWindow" title="Richiedi modifica classe" style="display: inline">
+        <form id="requestModifyForm" class="cmxform" method="post" action="">
+            <table>
+                <tr>
+                <p style="text-align: left;" class="formp">
+                <td style="text-align: center">
+                    <label class="artefactLabel" for="artefactMessaggio">Messaggio </label>
+                </td>
+                </tr>
+                <tr>
+                    <td>
+                        <textarea id="artefactMessaggio"rows="5" cols="50" name="artefactMessaggio"></textarea>
+                    </td>
+                    </p>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" class="windowButton" id="requestModifyClassButton2" value="Invia richiesta"/>
+                    </td>
+                </tr>
+            </table>
         </form>
-    </div>
+    </div> 
     <%@include file="header.jsp" %>
     <body id="bodyRegistration">
         <%
             String cercamiNeiSogni = "information";
             session.setAttribute("cercamiNeiSogni", cercamiNeiSogni);
         %>
-        <input type="hidden" id="classId" name="classId" value="${id}" >
         <div  id="artefactsManagement" >
-            <h1  style="text-align: center; font-size: 30pt; margin-bottom: 5%" >Dati Classe</h1>  
+            <input type="hidden" id="classId" name="classId" value="${id}" >
             <div class="classInformationDiv">
                 <label class="classInformationTitle">Nome classe: </label>
                 <label class="classInformationLabel">${Nome}</label>
@@ -88,8 +96,17 @@
                 </table>
             </div>
         </div>
-        <input class="classButton" type="button" value="Indietro" id="backClassButton" onclick="window.location.replace('class.jsp');"/>
+        <form id="modifyClassForm" class="cmxform"  action="UpdateClassBean" method="post">
+            <input class="classButton" type="button" value="Indietro" id="backClassButton" onclick="window.location.replace('class.jsp');"/>
+            <c:if test="${sessionScope.user.getAccountType()=='Delegato del rettore'}">
+                <c:if test="${Stato == 'sottomessa'}">
+                    <input type="hidden" id="classId" name="classId" value="${id}" >
+                    <input type="hidden" id="className"  name="className" value="${Nome}"/>
+                    <input type="button" id="requestModifyClassButton" name="requestModifyClassButton" class="classButton" value="Richiedi modifica" onclick="requestClassModify()" />
+                    <input type="submit" id="acceptedClassButton" name="acceptedClassButton" class="classButton" value="Accetta classe" />
+                </c:if>
+            </c:if>
+        </form>
         <%@include file="footer.jsp" %>
-
     </body>
 </html>
