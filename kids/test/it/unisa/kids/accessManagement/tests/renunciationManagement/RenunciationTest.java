@@ -11,13 +11,13 @@ public class RenunciationTest extends TestCase {
      @Override
     public void setUp(){
         this.renunciation=new Renunciation();
-        this.renunciation.setIsConfirmed(1);
+        this.renunciation.setIsConfirmed(true);
         this.renunciation.setId(1);
     }
     
     @Override
     public void tearDown(){
-        this.renunciation.setIsConfirmed(1);
+        this.renunciation.setIsConfirmed(true);
         this.renunciation.setId(1);
     }
     
@@ -35,15 +35,15 @@ public class RenunciationTest extends TestCase {
     } 
     
     public void testGetConfirmation(){
-        assertEquals(1, this.renunciation.getIsConfirmed());
+        assertEquals(true, this.renunciation.getIsConfirmed());
     }
     
-    private void testGetConfirmation(int pOracle){
-        assertEquals(1, this.renunciation.getIsConfirmed());
+    private void testGetConfirmation(boolean pOracle){
+        assertEquals(true, this.renunciation.getIsConfirmed());
     }
     
     public void testSetCharge(){
-        this.renunciation.setIsConfirmed(1);
-        this.testGetConfirmation(1);
+        this.renunciation.setIsConfirmed(true);
+        this.testGetConfirmation(true);
     }
 }
