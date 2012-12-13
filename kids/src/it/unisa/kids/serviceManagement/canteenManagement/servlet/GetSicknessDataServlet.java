@@ -24,7 +24,7 @@ import org.json.JSONObject;
  * @author navi
  */
 public class GetSicknessDataServlet extends HttpServlet {
-    
+
     private IAccessFacade accessFacade;
 
     public void init(ServletConfig config) {
@@ -50,13 +50,7 @@ public class GetSicknessDataServlet extends HttpServlet {
             out = response.getWriter();
             JSONObject result = new JSONObject();
             
-            int childId = 0;
-            try {
-                childId = Integer.parseInt(request.getParameter("childId"));
-            } catch (NumberFormatException e) {
-                return;
-            }
-            
+            int childId = Integer.parseInt(request.getParameter("childId"));
             RegistrationChild searchRegChild = new RegistrationChild();
             searchRegChild.setId(childId);
             List<RegistrationChild> regChildList = accessFacade.search(searchRegChild);
@@ -64,10 +58,10 @@ public class GetSicknessDataServlet extends HttpServlet {
                 return;
             }
             RegistrationChild rc = regChildList.get(0);
-            
+
             checkAddToJSON(result, "sickness", rc.getSickness());
             checkAddToJSON(result, "note", rc.getAdditionalNotes());
-            
+
             response.setContentType("application/json");
             response.setHeader("Cache-Control",
                     "private, no-store, no-cache, must-revalidate");

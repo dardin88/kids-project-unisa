@@ -134,7 +134,7 @@
                                 <tr>
                                     <td>
                                         <label for="childSelectModSick">Seleziona bambino:&nbsp;</label>
-                                        <select name="childSelectModSick" id="childSelectModSick"></select>
+                                        <select name="childSelectModSick" id="childSelectModSick"><option>Seleziona</select>
                                     </td>
                                 </tr>
                                 <tr>
