@@ -103,7 +103,7 @@
 
                     <div id="showAssociatedMenu">
                         <h2>Ricerca men&ugrave; associato</h2>
-                        <form style="padding-bottom: 20px" onchange="searchAssociatedMenus();">
+                        <form id="associatedMenuForm" style="padding-bottom: 20px">
                             <fieldset>
                                 <label for="menuDate">Data:&nbsp;</label>
                                 <input type="text" name="menuDate" id="menuDate">
@@ -128,7 +128,7 @@
                     </div>
 
                     <div id="modifySickness">
-                        <h3>Modifica malattie/Inserisci note</h3>
+                        <h2>Modifica malattie/Inserisci note</h2>
                         <form id="modifySicknessForm" class="cmxform" method="post" action="ModifySickness">
                             <table>
                                 <tr>

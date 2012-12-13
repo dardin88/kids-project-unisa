@@ -93,7 +93,7 @@ public class JDBCCanteenManager implements ICanteenManager {
             }
             
             if (pMenu.getDate() != null) {
-                query += DBNames.ATT_MENU_DATE + " = ?";
+                query += useComma(commaState) + DBNames.ATT_MENU_DATE + " = ?";
                 commaState = true;
             }
 

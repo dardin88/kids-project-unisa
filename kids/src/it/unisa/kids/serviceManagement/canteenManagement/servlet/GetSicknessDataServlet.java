@@ -49,8 +49,13 @@ public class GetSicknessDataServlet extends HttpServlet {
         try {
             out = response.getWriter();
             JSONObject result = new JSONObject();
-            
-            int childId = Integer.parseInt(request.getParameter("childId"));
+
+            int childId = 0;
+            try {
+                childId = Integer.parseInt(request.getParameter("childId"));
+            } catch (NumberFormatException e) {
+                return;
+            }
             RegistrationChild searchRegChild = new RegistrationChild();
             searchRegChild.setId(childId);
             List<RegistrationChild> regChildList = accessFacade.search(searchRegChild);

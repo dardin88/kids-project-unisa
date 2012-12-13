@@ -16,11 +16,13 @@ function initializeCanteenPage() {
         dateFormat: "yy-mm-dd",
         changeYear: true
     });
+    $("#menuDate").datepicker("setDate", new Date());
     
     $("#requestDate").datepicker({
         dateFormat: "yy-mm-dd",
         changeYear: true
     });
+    $("#requestDate").datepicker("setDate", +1);
     
     buildChildrenSelect("#childSelectModSick");
     getSicknessData();
@@ -29,6 +31,9 @@ function initializeCanteenPage() {
     
     $("#childSelectModSick").change(function() {
         getSicknessData();
+    });
+    $("#associatedMenuForm").change(function() {
+        searchAssociatedMenus();
     });
 }
 
