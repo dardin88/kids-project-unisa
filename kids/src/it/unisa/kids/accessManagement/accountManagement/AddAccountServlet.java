@@ -123,14 +123,14 @@ public class AddAccountServlet extends HttpServlet {
             Account acc=new Account();
             acc = man.insert(account);
             
-//            System.out.println("Invio email...");
-//            MailManager mailManager = new MailManager();
-//            Mail mail = new Mail();
-//
-//            mail.setBody("Registrazione a Kids completata! \n Nickname: " + account.getNickName() + "; \nPassword: " + account.getPassword() + ";");
-//            mail.setSubject("Registrazione Kids");
-//            mail.setTo(account.getEmail());
-//            mailManager.sendMail(mail);
+            System.out.println("Invio email...");
+            MailManager mailManager = new MailManager();
+            Mail mail = new Mail();
+
+            mail.setBody("Registrazione a Kids completata! \n Nickname: " + acc.getNickName() + "; \nPassword: " + acc.getPassword() + ";");
+            mail.setSubject("Registrazione Kids");
+            mail.setTo(account.getEmail());
+            mailManager.sendMail(mail);
 
             //request.getSession().setAttribute("id", account.getId());
 System.out.println(acc.getNickName()+","+account.getPassword());

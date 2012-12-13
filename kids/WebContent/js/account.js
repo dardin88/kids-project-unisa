@@ -211,7 +211,7 @@ function showAccount(id){
 
 function modifyAccount(id){
    
-    window.open("accountModifyParent.jsp?id="+id);
+    location.href="./accountModifyParent.jsp?id="+id;
      
      
 }
@@ -219,7 +219,7 @@ function modifyAccount(id){
 function modifyAccount2(id){
     
 
-    window.open("accountModify.jsp?id="+id);
+    location.href="./accountModify.jsp?id="+id;
      
      
 }

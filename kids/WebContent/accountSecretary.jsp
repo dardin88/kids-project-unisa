@@ -69,9 +69,9 @@
                     </td>
                     <td style="width: 190px">
                         <select id="type" name="type" class="adminSearchButton" style="width: 180px">
-                            <OPTION value="Nothing" name="Nothing" > Scegli 
-                            <OPTION value="Genitore" name="Genitore" selected> Genitore 
-                            <OPTION value="Delegato Ufficio" name="DelegatoUfficio"> Segreteria 
+                            <OPTION value="" name="Nothing" selected > Scegli 
+                            <OPTION value="Genitore" name="Genitore"> Genitore 
+                            <OPTION value="Segreteria" name="DelegatoUfficio"> Segreteria 
                             <OPTION value="Delegato scienze della formazione" name="ScienzeFormazione"> Delegato Scienze della Formazione 
                             <OPTION value="Educatore" name="Educatore"> Educatore 
                             <OPTION value="Coordinatore Psicopedagogico" name="CoordinatorePsicopedagogico"> Coordinatore Psicopedagogico 

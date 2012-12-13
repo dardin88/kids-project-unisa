@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Gianmarco Del Pozzo
  */
-public class ModifyAccountServlet extends HttpServlet {
+public class AccountModifyServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -43,7 +43,7 @@ public class ModifyAccountServlet extends HttpServlet {
         Account account2=new Account();
         List<Account> list;
         try {
-
+                System.out.println("Sono qui!!!!");
             response.setContentType("text/html;charset=UTF-8");
 
             int id=Integer.parseInt(request.getParameter("id"));
@@ -96,7 +96,7 @@ public class ModifyAccountServlet extends HttpServlet {
             Account account = new Account();
             account=list.get(0);
             account.setId(id);
-            account.setRegister("");
+            
             account.setNameUser(name);
             account.setSurnameUser(surname);
             account.setDataOfBirth(birth);
