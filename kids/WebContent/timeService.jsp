@@ -54,20 +54,27 @@
     </head>
     <body>
         <div id="informationRequestModifyTimeServiceRectorDelegate">
+            <c:if test="${sessionScope.user.getAccountType()=='Responsabile Asilo'}">
+                <p style="float:left"><b>Inserisci valutazione e convalida o rifiuta la richiesta</b></p>
+            </c:if>
+            <c:if test="${sessionScope.user.getAccountType()=='Delegato del rettore'}">
+                <p style="float:left"><b>Accetta o rifiuta la richiesta</b></p>
+            </c:if>
             <form method="post" action="ModifyRequestModifyTimeService">
-            <table>
-                <input type="hidden" name="idRichiesta" id="idRequest">
-                
-                <tr><td>Nome bambino</td><td><input type="text" id="childName"  disabled></td></tr>
-                <tr><td>Cognome bambino</td><td><input type="text" id="childSurname" disabled></td></tr>
-                <tr><td>Nome genitore</td><td><input type="text" id="parentName" disabled></td></tr>
-                <tr><td>Cognome genitore</td><td><input type="text" id="parentSurname" disabled></td></tr>
-                <tr><td>Fascia utenza richiesta</td><td><input type="text" id="rangeUser" disabled></td></tr>
-                <tr><td>Motivazione</td><td><textarea id="motivation" name="motivazione"style="resize: none" cols="40" rows="10" disabled></textarea></td></tr>
-                <tr><td>Stato</td><td><select id="state" name="Stato"></select></td></tr>
-                <tr><td>Valutazione</td><td><textarea id="opinion" name="valutazione"style="resize: none" cols="40" rows="10" disabled></textarea></td></tr> 
-            </table>
-            <input type="submit" value="Salva" id="save">
+                <table>
+                    <input type="hidden" name="idRichiesta" id="idRequest">
+
+                    <tr><td>Nome bambino</td><td><input type="text" id="childName"  disabled></td></tr>
+                    <tr><td>Cognome bambino</td><td><input type="text" id="childSurname" disabled></td></tr>
+                    <tr><td>Nome genitore</td><td><input type="text" id="parentName" disabled></td></tr>
+                    <tr><td>Cognome genitore</td><td><input type="text" id="parentSurname" disabled></td></tr>
+                    <tr><td>Fascia utenza richiesta</td><td><input type="text" id="rangeUser" disabled></td></tr>
+                    <tr><td>Motivazione</td><td><textarea id="motivation" name="motivazione"style="resize: none" cols="40" rows="10" disabled></textarea></td></tr>
+                    <tr><td>Valutazione</td><td><textarea id="opinion" name="valutazione"style="resize: none" cols="40" rows="10" disabled></textarea></td></tr> 
+                    <tr><td>Stato</td><td><select id="state" name="Stato" disabled></select></td></tr>
+
+                </table>
+                <input type="submit" value="Salva" id="save">
             </form>
         </div>
         <%@include file="header.jsp" %>
@@ -142,6 +149,8 @@
                         <div id="requestModifyTimeService">
                             <input type="button" id="insertRequestModifyTimeService" value="Inserisci richiesta di modifica orario di servizio" onclick="openInsertModifyTimeServiceRequestDialog()">
                             <div id="insertRequestModifyTimeServiceDialog">
+                                <p style="float:left"><br><b>Seleziona prima il bambino e poi compila gli altri campi</b></p>
+
                                 <form id="" class="cmxform" method="post" action="InsertRequestModifyTimeService">
                                     <table id="TableChild">
                                         <thead>
@@ -196,6 +205,7 @@
                             <h1>Orario di servizio</h1>
                             <input type="hidden" id="idNews" name="idNews">
                             <textarea name="orarioDiServizio" rows="20" cols="100" id="TextAreaTimeService" style="resize:none;display:block"></textarea>
+
                             <input type="submit" name="Insert" value="Salva" id="InsertTimeServiceButton">
                         </form>
                     </div>
@@ -222,18 +232,22 @@
                                     <th>Genitore</th>
                                     <th>Richiesta</th>
                                     <th>Stato</th>
+                                    <th>Operazioni</th>
                                 </tr>
                             </thead>
                             <tbody>
                             </tbody>
 
                         </table>
+                        <p style="float:left"><br><b>l'icona <img style="width:20px;height:20px"src="img/lente.gif"> permette di visualizzare e modificare(se si &egrave abilitati) gli elementi della tabella</b></p>
+
                     </div>
                 </div> 
             </c:if>
 
             <c:if test="${sessionScope.user.getAccountType()=='Delegato del rettore' || sessionScope.user.getAccountType()=='Responsabile Asilo'}"> 
                 <div id="RequestModifyTimeService">
+
                     <table id="TableRequestModifyTimeServiceTable">
                         <thead>
                             <tr>
@@ -247,6 +261,8 @@
                         </tbody>
 
                     </table>
+                    <p style="float:left"><br><b>l'icona <img style="width:20px;height:20px"src="img/lente.gif"> permette di visualizzare e modificare(se si &egrave abilitati) gli elementi della tabella</b></p>
+
                 </div>
             </c:if>
         </div>

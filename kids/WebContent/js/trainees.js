@@ -157,6 +157,8 @@ function loadInformationTraineePage(id) {
         $("#EmailInf").val(result[9]);
         $("#QualificationInf").val(result[10]);
         $("#IdInf").val(result[11]);
+        $("#nicknameInf").val(result[12]);
+        $("#passwordInf").val(result[13]);
     }, "text");
 
 }
