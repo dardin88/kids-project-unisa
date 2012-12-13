@@ -28,11 +28,12 @@ function initializeInsertFields(){
             }
         });
     });
-    buildClassTable();
+    buildChildrenTable();
+    buildEducatorTable();
 }
 
-function buildClassTable(){
-    $('#classTable').dataTable({
+function buildChildrenTable(){
+    $('#childrenTable').dataTable({
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
@@ -72,8 +73,63 @@ function buildClassTable(){
         }
         ]
     });
-    var oTable = $("#classTable").dataTable();
+    var oTable = $("#childrenTable").dataTable();
     if (oTable.length > 0) {
-        $("#classTable").css("width", "100%");
+        $("#childrenTable").css("width", "100%");
+    }
+}
+
+function buildEducatorTable(){
+    $('#educatorTable').dataTable({
+        "bJQueryUI": true,
+        "bServerSide": true,
+        "bProcessing": true,
+        "sAjaxSource": "GetTableEducator", 
+        "bPaginate": true,
+        "bLengthChange": false,
+        "bFilter": false,
+        "fnServerParams": function ( aoData ) {
+            aoData.push(
+            {
+                "name" : "classId", 
+                "value" : $('#classId').val()
+            }
+            );
+        },
+        "bSort": false,
+        "bDestroy": true,
+        "bInfo": true,
+        "bAutoWidth": true,
+        "sPaginationType": "full_numbers",
+        "oLanguage": {
+            "sProcessing":   "Caricamento...",
+            "sLengthMenu":   "Visualizza _MENU_ Educatori",
+            "sZeroRecords":  "La ricerca non ha portato alcun risultato.",
+            "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Educatori",
+            "sInfoEmpty":    "Vista da 0 a 0 di 0 Educatori",
+            "sInfoFiltered": "(filtrati da _MAX_ Educatori totali)",
+            "sInfoPostFix":  "",
+            "oPaginate": {
+                "sFirst":    "<<",
+                "sPrevious": "<",
+                "sNext":     ">",
+                "sLast":     ">>"
+            }
+        },
+        "aoColumns": [
+        {
+            "sWidth": "40%"
+        },
+        {
+            "sWidth": "40%"
+        },
+        {
+            "sWidth": "20%"
+        }
+        ]
+    });
+    var oTable = $("#educatorTable").dataTable();
+    if (oTable.length > 0) {
+        $("#educatorTable").css("width", "100%");
     }
 }

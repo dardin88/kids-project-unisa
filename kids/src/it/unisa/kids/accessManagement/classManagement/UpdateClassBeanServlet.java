@@ -1,12 +1,15 @@
 package it.unisa.kids.accessManagement.classManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.accessManagement.accountManagement.Educator;
+import it.unisa.kids.accessManagement.accountManagement.IAccountManager;
 import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationChildManager;
 import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -23,10 +26,13 @@ public class UpdateClassBeanServlet extends HttpServlet {
 
     private IClassManager clasMan;
     private IRegistrationChildManager regMan;
+    private IAccountManager accMan;
 
+    @Override
     public void init(ServletConfig config) {
         clasMan = (IClassManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_CLASS);
         regMan = (IRegistrationChildManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
+        accMan = (IAccountManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACCOUNT);
     }
 
     /**
@@ -41,23 +47,45 @@ public class UpdateClassBeanServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-
         try {
             ClassBean clas = new ClassBean();
-            clas.setIdClasse(Integer.parseInt(request.getParameter("id")));
-            clas.setClassName(request.getParameter(DBNames.ATT_CLASS_NAME));
-            clas.setState("sottomessa");
-            clasMan.update(clas);
-            String[] childChecked = request.getParameterValues("childRow");
-            for (int i = 0; i < childChecked.length; i++) {
-                Logger.getLogger(UpdateClassBeanServlet.class.getName()).log(Level.SEVERE, "childChecked[" + i + "] = " + childChecked[i]);
-                RegistrationChild tmpRegChild = new RegistrationChild();
-                tmpRegChild.setId(Integer.parseInt(childChecked[i]));
-                regMan.setSectionRegistrationChild(tmpRegChild, Integer.parseInt(request.getParameter("id")));
+            clas.setIdClasse(Integer.parseInt(request.getParameter("classId")));
+            clas.setClassName(request.getParameter("className"));
+            if (request.getParameter("draftClassButton") != null) {
+                clas.setState("bozza");
+            } else if (request.getParameter("submitClassButton") != null) {
+                clas.setState("sottomessa");
             }
-
-            response.sendRedirect("classe.jsp");
+            clasMan.update(clas);
+            ClassBean oldClas = new ClassBean();
+            oldClas.setIdClasse(Integer.parseInt(request.getParameter("classId")));
+            oldClas = clasMan.search(oldClas).get(0);
+            System.out.println(oldClas.getBambini());
+            List<RegistrationChild> oldChildren = oldClas.getBambini();
+            String[] childrenChecked = request.getParameterValues("childRow");
+            for (RegistrationChild c1 : oldChildren) {
+                regMan.setSectionRegistrationChild(c1, 0);
+            }
+            if (childrenChecked != null) {
+                for (int i = 0; i < childrenChecked.length; i++) {
+                    RegistrationChild tmpRegChild = new RegistrationChild();
+                    tmpRegChild.setId(Integer.parseInt(childrenChecked[i]));
+                    regMan.setSectionRegistrationChild(tmpRegChild, clas.getIdClasse());
+                }
+            }
+            List<Account> oldEducators = accMan.searchEducatorByClass(clas);
+            String[] educatorChecked = request.getParameterValues("educatorRow");
+            for (Account a1 : oldEducators) {
+                accMan.unassignEducatorToClass(a1, clas);
+            }
+            if (educatorChecked != null) {
+                for (int i = 0; i < educatorChecked.length; i++) {
+                    Account educator = new Educator();
+                    educator.setId(Integer.parseInt(educatorChecked[i]));
+                    accMan.assignEducatorToClass(educator, clas);
+                }
+            }
+            response.sendRedirect("class.jsp");
         } catch (SQLException ex) {
             Logger.getLogger(UpdateClassBeanServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

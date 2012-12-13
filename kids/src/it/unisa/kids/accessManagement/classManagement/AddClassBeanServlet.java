@@ -1,5 +1,7 @@
 package it.unisa.kids.accessManagement.classManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.accessManagement.accountManagement.IAccountManager;
 import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationChildManager;
 import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.DBNames;
@@ -23,9 +25,12 @@ import javax.servlet.http.HttpServletResponse;
 public class AddClassBeanServlet extends HttpServlet {
 
     private IRegistrationChildManager regMan;
+    private IAccountManager accMan;
 
+    @Override
     public void init(ServletConfig config) {
         regMan = (IRegistrationChildManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
+        accMan = (IAccountManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACCOUNT);
     }
 
     /**
@@ -51,15 +56,20 @@ public class AddClassBeanServlet extends HttpServlet {
             List<ClassBean> searchedClass = clasMan.search(clas);
             String[] childChecked = request.getParameterValues("childRow");
             for (int i = 0; i < childChecked.length; i++) {
-                System.out.println(childChecked[i]);
                 RegistrationChild tmpRegChild = new RegistrationChild();
                 tmpRegChild.setId(Integer.parseInt(childChecked[i]));
                 regMan.setSectionRegistrationChild(tmpRegChild, searchedClass.get(0).getIdClasse());
             }
-            response.sendRedirect("classe.jsp");
-        } catch (SQLException exeption) {
+            String[] educatorChecked = request.getParameterValues("educatorRow");
+            for (int i = 0; i < educatorChecked.length; i++) {
+                Account tmpEdu = new Account();
+                tmpEdu.setId(Integer.parseInt(educatorChecked[i]));
+                accMan.assignEducatorToClass(tmpEdu, searchedClass.get(0));
+            }
+            response.sendRedirect("class.jsp");
+        } catch (SQLException exception) {
             request.setAttribute("message", "Verfica i campi");
-            request.getServletContext().getRequestDispatcher("/classe.jsp").forward(request, response);
+            request.getServletContext().getRequestDispatcher("/class.jsp").forward(request, response);
         } finally {
             out.close();
         }

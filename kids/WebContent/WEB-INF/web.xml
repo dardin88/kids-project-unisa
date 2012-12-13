@@ -22,6 +22,10 @@
         <servlet-class>it.unisa.kids.communicationManagement.surveyManagement.InsertSurveyServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>GetTableEducatorServlet</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.classManagement.GetTableEducatorServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>GetCompiledSurveyServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.surveyManagement.GetCompiledSurveyServlet</servlet-class>
     </servlet>
@@ -992,6 +996,10 @@
      <servlet-mapping>
         <servlet-name>AccountModifyServlet</servlet-name>
         <url-pattern>/AccountModify</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetTableEducatorServlet</servlet-name>
+        <url-pattern>/GetTableEducator</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

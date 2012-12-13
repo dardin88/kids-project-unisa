@@ -729,6 +729,14 @@ Gestione bambini
     text-align: center;
 }
 
+#educatorTableId{
+    margin-top: 30px;
+}
+
+#educatorTable{
+    text-align: center;
+}
+
 #classFilter{
     margin-bottom: 20px;
 }

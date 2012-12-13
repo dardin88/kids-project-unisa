@@ -1,21 +1,20 @@
 package it.unisa.kids.accessManagement.classManagement;
 
-import it.unisa.kids.accessManagement.accountManagement.Educator;
+import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClassBean {
 	private int idClasse;
 	private String className;
-	private List<Educator> educatori;				
+	private List<Account> educatori;				
 	private List<RegistrationChild> bambini;
         private String state;
 
 	public ClassBean()  {   }        
         
-        public ClassBean(String name,ArrayList<Educator> educa,ArrayList<RegistrationChild> bamb)
+        public ClassBean(String name,ArrayList<Account> educa,ArrayList<RegistrationChild> bamb)
 	{
 		className=name;
 		this.educatori=educa;
@@ -38,11 +37,11 @@ public class ClassBean {
 		this.className = className;
 	}
 
-	public List<Educator> getEducatori() {
+	public List<Account> getEducatori() {
 		return educatori;
 	}
 
-	public void setEducatori(List<Educator> educatori) {
+	public void setEducatori(List<Account> educatori) {
 		this.educatori = educatori;
 	}
 

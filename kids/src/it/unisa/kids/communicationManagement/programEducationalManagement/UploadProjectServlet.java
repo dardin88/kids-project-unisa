@@ -15,7 +15,6 @@ import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +24,6 @@ import javax.servlet.http.Part;
  *
  * @author francesco
  */
-@MultipartConfig
 public class UploadProjectServlet extends HttpServlet {
 
         private static final Logger LOGGER = Logger.getLogger(UploadFileServlet.class.getCanonicalName());

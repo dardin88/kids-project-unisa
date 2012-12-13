@@ -14,7 +14,7 @@ public final class DBNames {
     public static final String TABLE_RECOURSE = "ricorso";
     public static final String TABLE_RENUNCIATION = "rinunce";
     public static final String TABLE_CLASS = "classe";
-    public static final String TABLE_ASSIGNATION = "assignazione";  // associazione tra classe e tirocinante
+    public static final String TABLE_ASSIGNATION = "assegnazione";  // associazione tra classe e tirocinante
     public static final String TABLE_MEAL_REQUEST = "richiesta_pasto";
     public static final String TABLE_TIMESERV_REQUEST = "richiesta_orari_servizio";
     public static final String TABLE_MENU = "menu_mensa";

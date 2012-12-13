@@ -1,9 +1,12 @@
 package it.unisa.kids.accessManagement.classManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.accessManagement.accountManagement.IAccountManager;
+import it.unisa.kids.accessManagement.accountManagement.JDBCAccountManager;
+import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationChildManager;
 import it.unisa.kids.accessManagement.registrationChildManagement.JDBCRegistrationChildManager;
 import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -32,25 +35,27 @@ public class DeleteClassBeanServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
         try {
-            JDBCClassManager clasMan = JDBCClassManager.getInstance();
-            JDBCRegistrationChildManager regman = JDBCRegistrationChildManager.getInstance();
+            IClassManager clasMan = JDBCClassManager.getInstance();
+            IRegistrationChildManager regMan = JDBCRegistrationChildManager.getInstance();
+            IAccountManager accMan = JDBCAccountManager.getInstance();
             int classId = Integer.parseInt(request.getParameter("id"));
             ClassBean clas = new ClassBean();
             clas.setIdClasse(classId);
             clasMan.delete(clas);
             RegistrationChild rc = new RegistrationChild();
             rc.setSectionId(classId);
-            List<RegistrationChild> searchedChild = regman.search(rc);
+            List<RegistrationChild> searchedChild = regMan.search(rc);
             for (RegistrationChild child : searchedChild){
                 child.setSectionId(0);
-                regman.update(child);
+                regMan.update(child);
+            }
+            List<Account> educators = accMan.searchEducatorByClass(clas);
+            for (Account ed : educators){
+                accMan.unassignEducatorToClass(ed, clas);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DeleteClassBeanServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            out.close();
         }
     }
 
