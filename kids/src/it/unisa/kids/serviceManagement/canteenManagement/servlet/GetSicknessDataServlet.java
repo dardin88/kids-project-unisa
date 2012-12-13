@@ -54,7 +54,6 @@ public class GetSicknessDataServlet extends HttpServlet {
             try {
                 childId = Integer.parseInt(request.getParameter("childId"));
             } catch (NumberFormatException e) {
-                sendMessageRedirect(request, response, "Errore: bambino selezionato non corretto");
                 return;
             }
             
@@ -62,7 +61,6 @@ public class GetSicknessDataServlet extends HttpServlet {
             searchRegChild.setId(childId);
             List<RegistrationChild> regChildList = accessFacade.search(searchRegChild);
             if (regChildList.size() == 0) {
-                sendMessageRedirect(request, response, "Errore: nessun bambino trovato");
                 return;
             }
             RegistrationChild rc = regChildList.get(0);
@@ -81,12 +79,6 @@ public class GetSicknessDataServlet extends HttpServlet {
         } finally {
             out.close();
         }
-    }
-    
-    private void sendMessageRedirect(HttpServletRequest request, HttpServletResponse response, String msg)
-            throws ServletException, IOException {
-        request.setAttribute("message", msg);
-        request.getRequestDispatcher("/canteenParent.jsp").forward(request, response);
     }
 
     private void checkAddToJSON(JSONObject jObj, String key, Object value) {

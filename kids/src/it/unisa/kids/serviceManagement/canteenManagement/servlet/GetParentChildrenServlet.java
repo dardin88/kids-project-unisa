@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 /**
  *
@@ -50,7 +49,6 @@ public class GetParentChildrenServlet extends HttpServlet {
         try {
             out = response.getWriter();
             JSONArray result = new JSONArray();
-            JSONArray array = new JSONArray();
             
             int parentId = 0;
             try {
@@ -70,6 +68,8 @@ public class GetParentChildrenServlet extends HttpServlet {
             
             int i = 0;
             for (RegistrationChild rc : regChildList) {
+                Logger.getLogger(GetParentChildrenServlet.class.getName()).log(Level.SEVERE, rc.getName() + " " + rc.getSurname() + " " + rc.getId());
+                JSONArray array = new JSONArray();
                 array.put(0, rc.getId());
                 array.put(1, rc.getName());
                 array.put(2, rc.getSurname());
