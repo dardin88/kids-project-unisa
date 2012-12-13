@@ -151,7 +151,6 @@ function initializeModifyRegistrationFields(){
         submitHandler:function() {
             //alert("Registrazione ok. count: "+count);
             if(count==2){
-                alert(count);
                 count=0;
                 $.post("AccountModify",{
                     id:$("#id").val(),
