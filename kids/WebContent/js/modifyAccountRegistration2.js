@@ -182,7 +182,7 @@ function initializeModifyRegistrationFields(){
                     facolta:$("#modifyFaculty").val()
                 })
                 
-                alert("Modifica Effettuata fare qualcosa");
+               
                 var id= document.getElementById('id').value;
                 location.href=("./accountInformationParent.jsp?id="+id);
             }
