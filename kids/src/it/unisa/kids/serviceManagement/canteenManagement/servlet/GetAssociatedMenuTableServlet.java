@@ -35,7 +35,7 @@ import org.json.JSONObject;
  * @author navi
  */
 public class GetAssociatedMenuTableServlet extends HttpServlet {
-    
+
     private IAccessFacade accessFacade;
     private ICanteenManager canteenManager;
 
@@ -80,25 +80,23 @@ public class GetAssociatedMenuTableServlet extends HttpServlet {
                     amount = 10;
                 }
             }
-            
-            List<MenuBean> menuList;
+
+            List<MenuBean> menuList = null;
             String menuDateStr = request.getParameter("menuDate");
+            String onlyLast = request.getParameter("onlyLastAssMenu");
             if (menuDateStr != null && !menuDateStr.trim().equals("")) {
                 try {
                     MenuBean searchMenu = new MenuBean();
                     searchMenu.setDate(parseGregorianCalendar(menuDateStr));
-                    menuList = canteenManager.search(searchMenu, false);
+                    searchMenu.setChildInscriptionId(-1);
+                    menuList = canteenManager.search(searchMenu);
                 } catch (ParseException e) {
-                    sendMessageRedirect(request, response, "Errore: data inserita non valida");
                     return;
                 }
-            } else if (request.getParameter("onlyLastAssMenu") != null) {
+            } else if (onlyLast != null && !onlyLast.trim().equals("")) {
                 menuList = canteenManager.getLastMenu(10, null, false);
-            } else {
-                sendMessageRedirect(request, response, "Errore: impossibile recuperare la lista dei men&ugrave;");
-                return;
             }
-            
+
             MenuBean[] paginateMenuSet;
             int linksNumber = menuList.size();
             if (linksNumber < amount) {
@@ -118,7 +116,7 @@ public class GetAssociatedMenuTableServlet extends HttpServlet {
                     if (menu.getChildInscriptionId() <= 0) {
                         continue;
                     }
-                    
+
                     JSONObject jObj = new JSONObject();
 
                     // ottengo i dati del bambino
@@ -155,12 +153,6 @@ public class GetAssociatedMenuTableServlet extends HttpServlet {
         } finally {
             out.close();
         }
-    }
-
-    private void sendMessageRedirect(HttpServletRequest request, HttpServletResponse response, String msg)
-            throws ServletException, IOException {
-        request.setAttribute("message", msg);
-        request.getRequestDispatcher("/canteenManagement.jsp").forward(request, response);
     }
 
     private void checkAddToJSON(JSONObject jObj, String key, Object value) {

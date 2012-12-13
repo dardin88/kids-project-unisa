@@ -136,12 +136,12 @@
 
                     <div id="showAssociatedMenus">
                         <h2>Ricerca men&ugrave; associato</h2>
-                        <form style="padding-bottom: 20px" onkeyup="searchAssociatedMenus();">
+                        <form style="padding-bottom: 20px" onchange="searchAssociatedMenus();">
                             <fieldset>
                                 <label for="menuDate">Data:&nbsp;</label>
                                 <input type="text" name="menuDate" id="menuDate">
                                 <label for="onlyLastAssMenu">Mostra solo gli ultimi men&ugrave; inseriti:&nbsp;</label>
-                                <input type="checkbox" name="onlyLastAssMenu" id="onlyLastAssMenu" value="">
+                                <input type="checkbox" name="onlyLastAssMenu" id="onlyLastAssMenu" value="ok">
                             </fieldset>
                         </form>
                         <h3>Selezionare un menu per visualizzare i dettagli sui pasti</h3>
@@ -189,12 +189,12 @@
 
                     <div id="showDailyMenus">
                         <h2>Ricerca men&ugrave; giornaliero</h2>
-                        <form style="padding-bottom: 20px" onkeyup="searchDailyMenus();">
+                        <form style="padding-bottom: 20px" onchange="searchDailyMenus();">
                             <fieldset>
                                 <label for="dailyMenuDate">Data:&nbsp;</label>
                                 <input type="text" name="dailyMenuDate" id="dailyMenuDate">
                                 <label for="onlyLastDailyMenu">Mostra solo gli ultimi men&ugrave; inseriti:&nbsp;</label>
-                                <input type="checkbox" name="onlyLastDailyMenu" id="onlyLastDailyMenu" value="">
+                                <input type="checkbox" name="onlyLastDailyMenu" id="onlyLastDailyMenu" value="ok">
                             </fieldset>
                         </form>
                         <h3>Lista dei men&ugrave; giornalieri</h3>

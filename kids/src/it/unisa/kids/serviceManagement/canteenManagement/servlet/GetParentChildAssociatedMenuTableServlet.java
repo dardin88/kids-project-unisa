@@ -4,8 +4,6 @@
  */
 package it.unisa.kids.serviceManagement.canteenManagement.servlet;
 
-import it.unisa.kids.accessManagement.accountManagement.Account;
-import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.kids.common.facade.AccessFacade;
@@ -96,7 +94,7 @@ public class GetParentChildAssociatedMenuTableServlet extends HttpServlet {
                     MenuBean searchMenu = new MenuBean();
                     searchMenu.setDate(parseGregorianCalendar(menuDateStr));
                     searchMenu.setChildInscriptionId(childId);
-                    menuList = canteenManager.search(searchMenu, false);
+                    menuList = canteenManager.search(searchMenu);
                 } catch (ParseException e) {
                     sendMessageRedirect(request, response, "Errore: data inserita non valida");
                     return;
@@ -122,10 +120,6 @@ public class GetParentChildAssociatedMenuTableServlet extends HttpServlet {
                 }
 
                 for (MenuBean menu : paginateMenuSet) {
-                    if (menu.getChildInscriptionId() <= 0) {
-                        continue;
-                    }
-                    
                     JSONObject jObj = new JSONObject();
 
                     checkAddToJSON(jObj, "0", unparseGregorianCalendar(menu.getDate()));

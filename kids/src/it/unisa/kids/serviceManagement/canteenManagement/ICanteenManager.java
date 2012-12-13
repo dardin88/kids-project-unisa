@@ -11,7 +11,7 @@ public interface ICanteenManager extends IManager {
 	public void update(MenuBean pMenu) throws SQLException;
 	public void delete(MenuBean pMenu) throws SQLException;
 	
-	public List<MenuBean> search(MenuBean pMenu, boolean pOnlyDaily) throws SQLException;
+	public List<MenuBean> search(MenuBean pMenu) throws SQLException;
         public List<MenuBean> getLastMenu(int pNumOfMenu, String pMenuType, boolean pOnlyDaily) throws SQLException;
 	
 	

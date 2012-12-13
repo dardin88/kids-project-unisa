@@ -31,7 +31,7 @@ import org.json.JSONObject;
  * @author navi
  */
 public class GetDailyMenuTableServlet extends HttpServlet {
-    
+
     private ICanteenManager canteenManager;
 
     public void init(ServletConfig config) {
@@ -74,26 +74,24 @@ public class GetDailyMenuTableServlet extends HttpServlet {
                     amount = 10;
                 }
             }
-            
-            List<MenuBean> menuList;
+
+            List<MenuBean> menuList = null;
             String dailyMenuDateStr = request.getParameter("dailyMenuDate");
+            String onlyLast = request.getParameter("onlyLastDailyMenu");
             if (dailyMenuDateStr != null && !dailyMenuDateStr.trim().equals("")) {
                 try {
                     MenuBean searchMenu = new MenuBean();
                     searchMenu.setDate(parseGregorianCalendar(dailyMenuDateStr));
                     searchMenu.setType(MenuBean.DAILY_MENU);
-                    menuList = canteenManager.search(searchMenu, true);
+                    searchMenu.setChildInscriptionId(0);
+                    menuList = canteenManager.search(searchMenu);
                 } catch (ParseException e) {
-                    sendMessageRedirect(request, response, "Errore: data inserita non valida");
                     return;
                 }
-            } else if (request.getParameter("onlyLastDailyMenu") != null) {
+            } else if (onlyLast != null && !onlyLast.trim().equals("")) {
                 menuList = canteenManager.getLastMenu(10, MenuBean.DAILY_MENU, true);
-            } else {
-                sendMessageRedirect(request, response, "Errore: impossibile recuperare la lista dei men&ugrave;");
-                return;
             }
-            
+
             MenuBean[] paginateMenuSet;
             int linksNumber = menuList.size();
             if (linksNumber < amount) {
@@ -108,14 +106,14 @@ public class GetDailyMenuTableServlet extends HttpServlet {
                     paginateMenuSet = new MenuBean[toShow];
                     System.arraycopy(menuList.toArray(), start, paginateMenuSet, 0, toShow);
                 }
-                
+
                 for (MenuBean menu : paginateMenuSet) {
                     if (menu.getChildInscriptionId() > 0) {
                         continue;
                     }
-                    
+
                     JSONObject jObj = new JSONObject();
-                    
+
                     checkAddToJSON(jObj, "0", unparseGregorianCalendar(menu.getDate()));
                     checkAddToJSON(jObj, "1", menu.getFirst());
                     checkAddToJSON(jObj, "2", menu.getSecond());
@@ -141,12 +139,6 @@ public class GetDailyMenuTableServlet extends HttpServlet {
             out.close();
         }
     }
-    
-    private void sendMessageRedirect(HttpServletRequest request, HttpServletResponse response, String msg)
-            throws ServletException, IOException {
-        request.setAttribute("message", msg);
-        request.getRequestDispatcher("/canteenManagement.jsp").forward(request, response);
-    }
 
     private void checkAddToJSON(JSONObject jObj, String key, Object value) {
         if (value != null) {
@@ -163,7 +155,7 @@ public class GetDailyMenuTableServlet extends HttpServlet {
         date.setTime(parsed);
         return date;
     }
-    
+
     private String unparseGregorianCalendar(GregorianCalendar pDate) {
         if (pDate != null) {
             return pDate.get(GregorianCalendar.YEAR) + "-"

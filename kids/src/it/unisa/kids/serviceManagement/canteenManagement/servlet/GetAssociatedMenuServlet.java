@@ -6,8 +6,6 @@ package it.unisa.kids.serviceManagement.canteenManagement.servlet;
 
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
-import it.unisa.kids.common.facade.AccessFacade;
-import it.unisa.kids.common.facade.IAccessFacade;
 import it.unisa.kids.serviceManagement.canteenManagement.ICanteenManager;
 import it.unisa.kids.serviceManagement.canteenManagement.MenuBean;
 import java.io.IOException;
@@ -62,7 +60,8 @@ public class GetAssociatedMenuServlet extends HttpServlet {
             }
             MenuBean searchMenu = new MenuBean();
             searchMenu.setId(menuId);
-            MenuBean menu = canteenManager.search(searchMenu, false).get(0);
+            searchMenu.setChildInscriptionId(-1);
+            MenuBean menu = canteenManager.search(searchMenu).get(0);
             
             checkAddToJSON(result, "date", unparseGregorianCalendar(menu.getDate()));
             checkAddToJSON(result, "first", menu.getFirst());

@@ -311,7 +311,7 @@ CREATE TABLE IF NOT EXISTS `menu_mensa` (
   `Secondo` varchar(200) DEFAULT NULL,
   `Contorno` varchar(200) DEFAULT NULL,
   `Frutta` varchar(200) DEFAULT NULL,
-  `IscrizioneBambinoId` int(11) DEFAULT NULL,
+  `IscrizioneBambinoId` int(11) NOT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
