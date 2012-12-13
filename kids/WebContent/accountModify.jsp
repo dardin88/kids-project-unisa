@@ -44,9 +44,9 @@
                     <h1  style="font-weight: bold; font-size: 30pt"id="titleReg" align="center">Modifica Account</h1><br> <br>
 
                     <div id="modifyRegistration1">
-                        <input id="id" class="accountInput" type="hidden" name="id" size="50%" value="${id}" >
-                        <input id="typeAccount2" class="accountInput" type="hidden" name="Nome" size="50%" value="${TipoAccount}" >
-                        <input id="typeParent2" class="accountInput" type="hidden" name="Nome" size="50%" value="${TipoGenitore}" >
+                        <input id="id" class="accountInput" type="" name="id" size="50%" value="${id}" >
+                        <input id="typeAccount2" class="accountInput" type="" name="Nome" size="50%" value="${TipoAccount}" >
+                        <input id="typeParent2" class="accountInput" type="" name="Nome" size="50%" value="${TipoGenitore}" >
 
                         <div >
                             <label id="accountLabel">  Nome*: </label>
@@ -161,7 +161,7 @@
                             <select id="modifyTypeAccount" name="tipo" onchange="verificaAccount()">
                                 <OPTION value="Nothing" name="Scelta" selected> Scegli 
                                 <OPTION value="Genitore" name="Genitore"> Genitore 
-                                <OPTION value="Delegato Ufficio" name="DelegatoUfficio"> Segreteria 
+                                <OPTION value="Segreteria" name="DelegatoUfficio"> Segreteria 
                                 <OPTION value="Delegato scienze della formazione" name="ScienzeFormazione"> Delegato Scienze della Formazione 
                                 <OPTION value="Educatore" name="Educatore"> Educatore 
                                 <OPTION value="Coordinatore Psicopedagogico" name="CoordinatorePsicopedagogico"> Coordinatore Psicopedagogico 

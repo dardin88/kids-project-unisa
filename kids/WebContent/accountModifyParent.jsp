@@ -162,7 +162,7 @@
                             <select id="modifyTypeAccount" name="tipo" onchange="verificaAccount()" readonly="true"  style="visibility: hidden">
                                 <OPTION value="Nothing" name="Scelta"> Scegli 
                                 <OPTION value="Genitore" name="Genitore" selected> Genitore 
-                                <OPTION value="Delegato Ufficio" name="DelegatoUfficio"> Segreteria 
+                                <OPTION value="Segreteria" name="DelegatoUfficio"> Segreteria 
                                 <OPTION value="Delegato scienze della formazione" name="ScienzeFormazione"> Delegato Scienze della Formazione 
                                 <OPTION value="Educatore" name="Educatore"> Educatore 
                                 <OPTION value="Coordinatore Psicopedagogico" name="CoordinatorePsicopedagogico"> Coordinatore Psicopedagogico 

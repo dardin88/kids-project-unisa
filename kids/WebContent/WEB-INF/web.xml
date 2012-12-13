@@ -126,10 +126,6 @@
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.GetAccountServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ModifyAccountServlet</servlet-name>
-        <servlet-class>it.unisa.kids.accessManagement.accountManagement.ModifyAccountServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ServletGetTableRenunciation</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.renunciationManagement.ServletGetTableRenunciation</servlet-class>
     </servlet>
@@ -334,10 +330,6 @@
         <servlet-class>it.unisa.kids.communicationManagement.programEducationalManagement.UploadProjectServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ModifyAccountServlet4</servlet-name>
-        <servlet-class>it.unisa.kids.accessManagement.accountManagement.ModifyAccountServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ModifyAccountParentServlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagerment.accountManagement.ModifyAccountParentServlet</servlet-class>
     </servlet>
@@ -348,10 +340,6 @@
     <servlet>
         <servlet-name>AddAccount2Servlet</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.accountManagement.AddAccount2Servlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ModifyAccount2Servlet</servlet-name>
-        <servlet-class>it.unisa.kids.accessManagement.accountManagement.ModifyAccount2Servlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ServletGetTableClassification</servlet-name>
@@ -508,6 +496,10 @@
     <servlet>
         <servlet-name>InsertMealRequestServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.canteenManagement.servlet.InsertMealRequestServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AccountModifyServlet</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.accountManagement.AccountModifyServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
@@ -806,10 +798,6 @@
         <url-pattern>/UploadProject</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ModifyAccountServlet4</servlet-name>
-        <url-pattern>/ModifyAccount4</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ModifyAccountParentServlet</servlet-name>
         <url-pattern>/ModifyAccountParent</url-pattern>
     </servlet-mapping>
@@ -820,10 +808,6 @@
     <servlet-mapping>
         <servlet-name>AddAccount2Servlet</servlet-name>
         <url-pattern>/AddAccount2</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ModifyAccount2Servlet</servlet-name>
-        <url-pattern>/ModifyAccount2</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServletGetTableClassification</servlet-name>
@@ -1004,6 +988,10 @@
     <servlet-mapping>
         <servlet-name>InsertMealRequestServlet</servlet-name>
         <url-pattern>/InsertMealRequest</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>AccountModifyServlet</servlet-name>
+        <url-pattern>/AccountModify</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

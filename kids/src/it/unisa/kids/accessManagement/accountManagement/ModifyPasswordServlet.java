@@ -108,7 +108,7 @@ public class ModifyPasswordServlet extends HttpServlet {
        out.print(jObj);
        
         } catch (SQLException ex) {
-            Logger.getLogger(ModifyAccountServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ModifyPasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
         } 
        
     }
