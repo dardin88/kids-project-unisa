@@ -9,6 +9,8 @@ import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationC
 import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
+import it.unisa.kids.common.facade.IRegistrationChildFacade;
+import it.unisa.kids.common.facade.RegistrationChildFacade;
 import it.unisa.kids.serviceManagement.trainingManagement.GetTraineesServletTable;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -34,13 +36,13 @@ import org.json.JSONObject;
 
 public class GetRequestModifyTimeServiceParentServlet extends HttpServlet {
 private ITimeServiceManager timeServiceManager;
-    private IRegistrationChildManager registrationChildManager;
+    private IRegistrationChildFacade registrationChildManager;
 
     public void init(ServletConfig config) {
         RefinedAbstractManager refinedAbstractTimeServiceManager = RefinedAbstractManager.getInstance();
         timeServiceManager = (ITimeServiceManager) refinedAbstractTimeServiceManager.getManagerImplementor(DBNames.TABLE_TIMESERVICE);
-        RefinedAbstractManager refinedAbstractRegistrationChildManager = RefinedAbstractManager.getInstance();
-        registrationChildManager = (IRegistrationChildManager) refinedAbstractRegistrationChildManager.getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
+        registrationChildManager =new RegistrationChildFacade();
+
     }
 
     /**

@@ -9,6 +9,8 @@ import it.unisa.kids.accessManagement.accountManagement.IAccountManager;
 import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
+import it.unisa.kids.common.facade.AccountFacade;
+import it.unisa.kids.common.facade.IAccountFacade;
 import it.unisa.kids.serviceManagement.trainingManagement.GetTraineesServletTable;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -34,12 +36,12 @@ import org.json.JSONObject;
 public class GeRequestModifyTimeServiceTableServlet extends HttpServlet {
 
     private ITimeServiceManager timeServiceManager;
-    private IAccountManager accountManager;
+    private IAccountFacade accountManager;
 
     public void init(ServletConfig config) {
         RefinedAbstractManager refinedAbstractTimeServiceManager = RefinedAbstractManager.getInstance();
         timeServiceManager = (ITimeServiceManager) refinedAbstractTimeServiceManager.getManagerImplementor(DBNames.TABLE_TIMESERVICE);
-        accountManager = (IAccountManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACCOUNT);
+        accountManager = new AccountFacade();
 
     }
 
