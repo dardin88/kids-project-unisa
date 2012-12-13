@@ -128,6 +128,7 @@ CREATE TABLE IF NOT EXISTS `attivita_tirocinante` (
   `OraFine` time NOT NULL,
   `Delegato` int(11) NOT NULL,
   `Tirocinante` int(11) NOT NULL,
+  `Giudizio` varchar(200) ,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -462,6 +463,8 @@ CREATE TABLE IF NOT EXISTS `richiesta_modifica_orari_servizio` (
   `FasciaUtenza` enum('full_time','part_time_pomeridiana','part_time_mattutina') NOT NULL,
   `IdBambino` int(11) NOT NULL,
   `AccountGenitore` int(11) NOT NULL,
+  `Stato` enum('Sottomessa','Accettata','Rifiutata','Validata') DEFAULT 'Sottomessa',
+  `Valutazione` varchar(200) NOT NULL DEFAULT '',
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 

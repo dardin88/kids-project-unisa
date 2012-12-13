@@ -338,14 +338,12 @@ public class JDBCAccountManager implements IAccountManager {
                 pstmt.setString(i, pAccount.getRegister());
                 i++;
             }
-            System.out.println(query);
             rs = pstmt.executeQuery();
             con.commit();
 
             // constructing payment list
             account = new ArrayList<Account>();
             while (rs.next()) {
-
                 Account p = new Account();
                 p.setId(rs.getInt(DBNames.ATT_PAYMENT_ID));
                 p.setAccountType(rs.getString(DBNames.ATT_ACCOUNT_TYPEACCOUNT));

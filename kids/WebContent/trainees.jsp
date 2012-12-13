@@ -80,7 +80,7 @@
                 <tr><td>Città di residenza*</td><td><input type="text" name="CittaResidenza" id="CittaResidenza"></td></tr>
                 <tr><td>Indirizzo*</td><td><input type="text" name="Indirizzo" id="Indirizzo"></td></tr>
                 <tr><td>CAP*</td><td><input type="text" name="CAP" id="CAP"></td></tr>
-                <tr><td>Numero di telefono</td><td><input type="text" name="NumeroTelefonico" id="NumeroTelefonico"></td></tr>
+                <tr><td>Cellulare</td><td><input type="text" name="NumeroTelefonico" id="NumeroTelefonico"></td></tr>
                 <tr><td>Email*</td><td><input type="text" name="Email" id="Email"></td></tr>
                 <tr><td>Titolo Studio</td><td><input type="text" name="TitoloStudio" id=""></td><tr>
             </table>
@@ -92,7 +92,8 @@
         <form id="informationTrainee" class="cmxform" method="post" action="ModifyTrainee">
             <table>
                 <input type="hidden" name="IdInf" id="IdInf"  value="">
-
+                <input type="hidden" name="nicknameInf" id="nicknameInf" value="">
+                <input type="hidden" name="passwordInf" id="passwordInf" value="">
                 <tr><td>Matricola*</td><td><input id="RegisterInf" type="text" name="MatricolaInf" value=""  disabled="true"></td></tr>
                 <tr><td> Nome*</td><td><input type="text" name="NomeInf" id="NameInf" value="" disabled="true" ></td></tr>
                 <tr><td>Cognome*</td><td><input type="text" name="CognomeInf" id="SurnameInf" value=""disabled="true" ></td></tr>

@@ -65,6 +65,8 @@ public class ModifyTraineeServlet extends HttpServlet {
             trainee.setEmail(request.getParameter("EmailInf"));
             trainee.setSurnameUser(request.getParameter("CognomeInf"));
             trainee.setCellularNumber(request.getParameter("NumeroTelefonicoInf"));
+            trainee.setNickName(request.getParameter("nicknameInf"));
+            trainee.setPassword(request.getParameter("passwordInf"));
             if (!request.getParameter("DataNascitaInf").equals("")) {
                 trainee.setDataOfBirth(parseGregorianCalendar(request.getParameter("DataNascitaInf")));
             }

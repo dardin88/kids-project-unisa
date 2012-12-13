@@ -106,15 +106,17 @@ public class GetRequestModifyTimeServiceSecretaryServlet extends HttpServlet {
                     requestModifiTimeService = new ModifyTimeServiceRequest[toShow];
                     System.arraycopy(listRequestModifyTimeService.toArray(), start, requestModifiTimeService, 0, toShow);
                 }
-                Account parent=new Account();
+                Account parent = new Account();
                 RegistrationChild registrationChild = new RegistrationChild();
                 for (ModifyTimeServiceRequest mtsr : requestModifiTimeService) {
                     parent.setId(mtsr.getIdParent());
                     JSONArray ja = new JSONArray();
-                    List<Account> list=accountManager.search(parent);
-                    ja.put(list.get(0).getNameUser()+" "+list.get(0).getSurnameUser());
+                    List<Account> list = accountManager.search(parent);
+                    ja.put(list.get(0).getNameUser() + " " + list.get(0).getSurnameUser());
                     ja.put(mtsr.getUserRange());
                     ja.put(mtsr.getState());
+                    String operazioni = "<input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/lente.gif' onclick='loadInformationRequestModifyTimeServiceSecretary(\"" + mtsr.getId() + "\")'/>";
+                    ja.put(operazioni);
 
 
 

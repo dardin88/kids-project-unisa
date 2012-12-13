@@ -427,6 +427,9 @@ function tableRequestModifyTimeServiceSecretary() {
             },
             {
                 "sWidth": "25%"
+            },
+            {
+                "sWidth": "10%"
             }
         ]
     });
@@ -498,6 +501,7 @@ function loadInformationRequestModifyTimeServiceRectorDelegate(id) {
     select.options[select.options.length] = new Option("Accetta", "Accettata", false, false);
 
     select.options[select.options.length] = new Option("Rifiuta", "Rifiutata", false, false);
+    select.disabled = false;
 
 }
 function loadInformationRequestModifyTimeServiceAsylumResponsible(id) {
@@ -521,6 +525,31 @@ function loadInformationRequestModifyTimeServiceAsylumResponsible(id) {
     select.options[select.options.length] = new Option("Convalida", "Validata", false, false);
 
     select.options[select.options.length] = new Option("Rifiuta", "Rifiutata", false, false);
-    document.getElementById("opinion").disabled=false;
+    document.getElementById("opinion").disabled = false;
+    select.disabled = false;
+
+}
+function loadInformationRequestModifyTimeServiceSecretary(id) {
+    $("#informationRequestModifyTimeServiceRectorDelegate").dialog("open");
+    $.post("GetRequestModifyTimeService", {
+        id: id
+    }, function(data) {
+        var info = data.split(",");
+        $("#childName").val(info[0]);
+        $("#childSurname").val(info[1]);
+        $('#parentName').val(info[2]);
+        $('#parentSurname').val(info[3]);
+        $('#rangeUser').val(info[4]);
+        $('#motivation').val(info[5]);
+        $("#idRequest").val(info[7]);
+        $("#opinion").val(info[8]);
+        var select = document.getElementById("state");
+        select.options.length = 0;
+        select.options[select.options.length] = new Option(info[6], info[6], false, false);
+        document.getElementById("save").style.visibility="hidden";
+
+    }, "text");
+    
+
 
 }
