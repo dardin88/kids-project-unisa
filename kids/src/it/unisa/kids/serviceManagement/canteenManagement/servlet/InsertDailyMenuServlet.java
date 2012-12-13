@@ -99,13 +99,13 @@ public class InsertDailyMenuServlet extends HttpServlet {
             searchMenu.setDate(menu.getDate());
             List<MenuBean> dailyMenuList = canteenManager.search(searchMenu);
             if (dailyMenuList.size() > 0) {
-                menu.setDate(null);
                 menu.setId(dailyMenuList.get(0).getId());
                 canteenManager.update(menu);
             } else {
                 canteenManager.insert(menu);
             }
-
+            
+            menu.setId(0);
             // creo l'associazione bambino --- menu giornaliero per tutti i bambini attualmente iscritti
             List<ClassBean> classList = accessFacade.getClasses();
             for (ClassBean clas : classList) {

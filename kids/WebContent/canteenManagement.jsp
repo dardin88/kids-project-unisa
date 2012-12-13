@@ -104,7 +104,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div id="insertDiffMenuDialog">
+                        <div id="insertDiffMenuDialog" title="Inserisci men&ugrave; differenziato">
                             <form id="insertDiffMenuForm" class="cmxform" method="post" action="InsertCanteenMenu">
                                 <table>
                                     <tr>
@@ -157,7 +157,7 @@
                             <tbody>
                             </tbody>
                         </table>
-                        <div id="showAssociatedMenusDialog">
+                        <div id="showAssociatedMenusDialog" title="Dettagli men&ugrave;">
                             <table>
                                 <tr>
                                     <td><label for="associatedDate">Data:&nbsp;</label></td>
