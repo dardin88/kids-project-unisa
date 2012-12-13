@@ -90,7 +90,10 @@ public class ServletGetRenunciation extends HttpServlet {
                 html.append(bold("Dati della Domanda di Rinuncia:") + newLine());
                 html.append("Data di creazione: " + CommonMethod.parseString(tmpRenunciation.getDate()) + newLine());
                 html.append("Motivazione: " + tmpRenunciation.getReason() + newLine());
-                html.append(newLine() + newLine());
+                html.append(newLine());
+                if(tmpRenunciation.getIsConfirmed()) {
+                    html.append(bold("La domanda di rinuncia è stata ricevuta e confermata!"));
+                }
                 
                 isSuccess = true;
                 json.put("HTML", html.toString());
