@@ -4,15 +4,12 @@
  */
 package it.unisa.kids.serviceManagement.canteenManagement.servlet;
 
-import it.unisa.kids.common.DBNames;
-import it.unisa.kids.common.RefinedAbstractManager;
+import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.facade.AccessFacade;
 import it.unisa.kids.common.facade.IAccessFacade;
-import it.unisa.kids.serviceManagement.canteenManagement.ICanteenManager;
-import it.unisa.kids.serviceManagement.canteenManagement.MenuBean;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -26,12 +23,12 @@ import org.json.JSONObject;
  *
  * @author navi
  */
-public class GetAssociatedMenuServlet extends HttpServlet {
+public class GetSicknessDataServlet extends HttpServlet {
     
-    private ICanteenManager canteenManager;
+    private IAccessFacade accessFacade;
 
     public void init(ServletConfig config) {
-        this.canteenManager = (ICanteenManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_MENU);
+        this.accessFacade = new AccessFacade();
     }
 
     /**
@@ -53,32 +50,34 @@ public class GetAssociatedMenuServlet extends HttpServlet {
             out = response.getWriter();
             JSONObject result = new JSONObject();
             
-            int menuId;
+            int childId = 0;
             try {
-                menuId = Integer.parseInt(request.getParameter("menuId"));
+                childId = Integer.parseInt(request.getParameter("childId"));
             } catch (NumberFormatException e) {
-                sendMessageRedirect(request, response, "Errore: menu selezionato non corretto");
+                sendMessageRedirect(request, response, "Errore: bambino selezionato non corretto");
                 return;
             }
-            MenuBean searchMenu = new MenuBean();
-            searchMenu.setId(menuId);
-            MenuBean menu = canteenManager.search(searchMenu, false).get(0);
             
-            checkAddToJSON(result, "date", unparseGregorianCalendar(menu.getDate()));
-            checkAddToJSON(result, "first", menu.getFirst());
-            checkAddToJSON(result, "second", menu.getSecond());
-            checkAddToJSON(result, "sideDish", menu.getSideDish());
-            checkAddToJSON(result, "fruit", menu.getFruit());
-            checkAddToJSON(result, "type", menu.getType());
+            RegistrationChild searchRegChild = new RegistrationChild();
+            searchRegChild.setId(childId);
+            List<RegistrationChild> regChildList = accessFacade.search(searchRegChild);
+            if (regChildList.size() == 0) {
+                sendMessageRedirect(request, response, "Errore: nessun bambino trovato");
+                return;
+            }
+            RegistrationChild rc = regChildList.get(0);
+            
+            checkAddToJSON(result, "sickness", rc.getSickness());
+            checkAddToJSON(result, "note", rc.getAdditionalNotes());
             
             response.setContentType("application/json");
             response.setHeader("Cache-Control",
                     "private, no-store, no-cache, must-revalidate");
             response.setHeader("Pragma", "no-cache");
             out.print(result);
-            Logger.getLogger(GetAssociatedMenuServlet.class.getName()).log(Level.INFO, "Query result(JSONObject): " + result.toString());
+            Logger.getLogger(GetSicknessDataServlet.class.getName()).log(Level.INFO, "Query result(JSONObject): " + result.toString());
         } catch (Exception ex) {
-            Logger.getLogger(GetAssociatedMenuServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GetSicknessDataServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
         }
@@ -87,7 +86,7 @@ public class GetAssociatedMenuServlet extends HttpServlet {
     private void sendMessageRedirect(HttpServletRequest request, HttpServletResponse response, String msg)
             throws ServletException, IOException {
         request.setAttribute("message", msg);
-        request.getRequestDispatcher("/canteenManagement.jsp").forward(request, response);
+        request.getRequestDispatcher("/canteenParent.jsp").forward(request, response);
     }
 
     private void checkAddToJSON(JSONObject jObj, String key, Object value) {
@@ -95,16 +94,6 @@ public class GetAssociatedMenuServlet extends HttpServlet {
             jObj.put(key, value);
         } else {
             jObj.put(key, "");
-        }
-    }
-    
-    private String unparseGregorianCalendar(GregorianCalendar pDate) {
-        if (pDate != null) {
-            return pDate.get(GregorianCalendar.YEAR) + "-"
-                    + (pDate.get(GregorianCalendar.MONTH) + 1) + "-"
-                    + pDate.get(GregorianCalendar.DAY_OF_MONTH);
-        } else {
-            return null;
         }
     }
 

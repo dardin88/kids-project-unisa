@@ -477,6 +477,34 @@
         <servlet-name>GetRequestModifyTimeServiceSecretaryServlet</servlet-name>
         <servlet-class>it.unisa.kids.serviceManagement.timeServiceManagement.GetRequestModifyTimeServiceSecretaryServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetParentDailyMenuServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.canteenManagement.servlet.GetParentDailyMenuServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetParentChildrenServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.canteenManagement.servlet.GetParentChildrenServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetParentChildAssociatedMenuTableServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.canteenManagement.servlet.GetParentChildAssociatedMenuTableServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModifySicknessServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.canteenManagement.servlet.ModifySicknessServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetSicknessDataServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.canteenManagement.servlet.GetSicknessDataServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetParentChildrenTableServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.canteenManagement.servlet.GetParentChildrenTableServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InsertMealRequestServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.canteenManagement.servlet.InsertMealRequestServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
@@ -940,6 +968,34 @@
     <servlet-mapping>
         <servlet-name>GetRequestModifyTimeServiceSecretaryServlet</servlet-name>
         <url-pattern>/GetRequestModifyTimeServiceSecretary</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetParentDailyMenuServlet</servlet-name>
+        <url-pattern>/GetParentDailyMenu</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetParentChildrenServlet</servlet-name>
+        <url-pattern>/GetParentChildren</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetParentChildAssociatedMenuTableServlet</servlet-name>
+        <url-pattern>/GetParentChildAssociatedMenuTable</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModifySicknessServlet</servlet-name>
+        <url-pattern>/ModifySickness</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetSicknessDataServlet</servlet-name>
+        <url-pattern>/GetSicknessData</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetParentChildrenTableServlet</servlet-name>
+        <url-pattern>/GetParentChildrenTable</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertMealRequestServlet</servlet-name>
+        <url-pattern>/InsertMealRequest</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

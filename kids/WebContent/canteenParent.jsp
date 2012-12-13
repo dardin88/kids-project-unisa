@@ -48,7 +48,7 @@
 
         <c:if test="${requestScope.message != null}">
             <div id="confirm" title="Message" style="display: inline">
-                <form id="confirmForm" class="cmxform" method="post" action="canteenManagement.jsp">
+                <form id="confirmForm" class="cmxform" method="post" action="canteenParent.jsp">
                     <fieldset>
                         <p class="formp">
                             <label class="requirementLabel">${requestScope.message}</label>
@@ -64,6 +64,7 @@
         <div id="canteenManagement">
             <h1>Mensa</h1>
             <input type="hidden" name="hiddenParentId" id="hiddenParentId" value="${sessionScope.user.getId()}">
+
             <%-- blocco div delle varie funzioni della mensa --%>
             <div id="generalCanteenSection">
                 <div id="canteenTabGroup">
@@ -102,10 +103,12 @@
 
                     <div id="showAssociatedMenu">
                         <h2>Ricerca men&ugrave; associato</h2>
-                        <form style="padding-bottom: 20px" onkeyup="searchAssociatedMenus();">
+                        <form style="padding-bottom: 20px" onchange="searchAssociatedMenus();">
                             <fieldset>
                                 <label for="menuDate">Data:&nbsp;</label>
                                 <input type="text" name="menuDate" id="menuDate">
+                                <label for="childSelect">Seleziona bambino:&nbsp;</label>
+                                <select name="childSelect" id="childSelect" onchange="buildChildrenSelect('#childSelect');"></select>
                             </fieldset>
                         </form>
                         <table id="showAssociatedMenuTable" style="width:100%">
@@ -129,16 +132,21 @@
                         <form id="modifySicknessForm" class="cmxform" method="post" action="ModifySickness">
                             <table>
                                 <tr>
+                                    <td>
+                                        <label for="childSelectModSick">Seleziona bambino:&nbsp;</label>
+                                        <select name="childSelectModSick" id="childSelectModSick" onchange="buildChildrenSelect('#childSelectModSick');"></select>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td><label for="sicknessArea">Malattie:&nbsp;</label></td>
-                                    <td><textarea rows="5" cols="20" maxlength="400" name="sicknessArea" id="sicknessArea"></textarea></td>
+                                    <td><textarea rows="10" cols="50" maxlength="400" name="sicknessArea" id="sicknessArea"></textarea></td>
                                 </tr>
                                 <tr>
                                     <td><label for="noteArea">Note:&nbsp;</label></td>
-                                    <td><textarea rows="5" cols="20" maxlength="400" name="noteArea" id="noteArea"></textarea></td>
+                                    <td><textarea rows="10" cols="50" maxlength="400" name="noteArea" id="noteArea"></textarea></td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <input type="hidden" name="hiddenParentIdSickness" id="hiddenParentIdSickness" value="${sessionScope.user.getId()}">
                                         <input class="confirmButton" type="submit" name="modifySicknessButton" id="modifySicknessButton" value="Invia dati">
                                     </td>
                                 </tr>
@@ -148,7 +156,7 @@
 
                     <div id="mealRequest">
                         <h2>Richiedi pasto</h2>
-                        <h3>Selezionare la data della richiesta del pasto</h3>
+                        <h3>Selezionare il giorno della richiesta del pasto</h3>
                         <form id="mealRequestForm" class="cmxform" method="post" action="InsertMealRequest">
                             <table>
                                 <tr>
