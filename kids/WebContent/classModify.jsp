@@ -47,24 +47,46 @@
         <form id="modifyClassForm" class="cmxform"  action="UpdateClassBean" method="post">
             <div id="artefactsManagement">
                 <div id="modifyClassName">
-                    <input type="hidden" id="id" name="id"  value="${id}">
+                    <input type="hidden" id="classId" name="classId"  value="${id}">
                     <label>Nome classe</label>
                     <input type="text" id="className"  name="className" value="${Nome}"/>
                 </div>
-                <table id="childrenTable" style="width:95%;">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Cognome</th>
-                            <th>Operazione</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+                <div id="childrenTableId">
+                    <table id="childrenTable" style="width:95%;">
+                        <thead>
+                            <tr>
+                                <th>Nome bambino</th>
+                                <th>Cognome bambino</th>
+                                <th>Operazione</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="educatorTableId">
+                    <table id="educatorTable" style="width:95%;">
+                        <thead>
+                            <tr>
+                                <th>Nome educatore</th>
+                                <th>Cognome educatore</th>
+                                <th>Operazione</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <input class="classButton" type="button" value="Indietro" id="backClassButton" onclick="window.location.replace('class.jsp');"/>
-            <input type="submit" id="modifyClassButton" class="biggerClassButton" value="Modifica classe" />
+            <c:if test="${requestScope.Stato == 'bozza'}">
+                <input type="submit" id="draftClassButton" name="draftClassButton" class="classButton" value="Salva bozza" />
+            </c:if>
+            <input type="submit" id="submitClassButton" name="submitClassButton" class="classButton" value="Sottometti" />
+            <c:if test="${requestScope.Stato == 'sottomessa'}">
+                <input type="submit" id="requestModifyClassButton" name="requestModifyClassButton" class="classButton" value="Richiedi modifica" />
+                <input type="submit" id="acceptedClassButton" name="acceptedClassButton" class="classButton" value="Accetta classe" />
+            </c:if>
         </form>
         <%@include file="footer.jsp" %>
     </body>

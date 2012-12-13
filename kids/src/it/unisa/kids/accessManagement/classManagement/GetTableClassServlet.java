@@ -1,13 +1,10 @@
 package it.unisa.kids.accessManagement.classManagement;
 
-import it.unisa.kids.accessManagement.accountManagement.Account;
-import it.unisa.kids.accessManagement.accountManagement.IAccountManager;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -74,7 +71,7 @@ public class GetTableClassServlet extends HttpServlet {
             ClassBean pClassBean = new ClassBean();
             pClassBean.setState(stato);
             pClassBean.setClassName(nome);
-            
+
             if (!pClassBean.getClassName().equals("") || !pClassBean.getState().equals("")) {
                 listClassBean = classManager.search(pClassBean);
             } else {
@@ -114,37 +111,6 @@ public class GetTableClassServlet extends HttpServlet {
                     "private, no-store, no-cache, must-revalidate");
             response.setHeader("Pragma", "no-cache");
             out.print(result);
-
-
-
-            //dopo devo cancellarlo
-
-            List<Account> listaacc = new ArrayList<Account>();
-
-            IAccountManager account = (IAccountManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACCOUNT);
-            Account acc = new Account();
-            acc.setAccountType("Educatore");
-            listaacc = account.search(acc);
-
-            request.getSession().setAttribute("ListaDoc", listaacc);
-
-
-//            questo non serve proprio devo fare la tabella, però serve per creare la query quindi lo conservo 
-
-//            List<RegistrationChild> listareg = new ArrayList<RegistrationChild>();
-//
-//            IRegistrationChildManager childman = (IRegistrationChildManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
-//            RegistrationChild regchild = new RegistrationChild();
-//            regchild.setRegistrationPhase("confermata");
-//            regchild.setSectionId(0);
-//            System.out.println("Sto per chiamare la search del bambino");
-//            listareg = childman.search(regchild);
-//            System.out.println("Chiamata la search "+listareg.size());
-//
-//            request.getSession().setAttribute("ListaBamb", listaacc);
-
-            //cancellare fino a qui
-
         } catch (SQLException ex) {
             Logger.getLogger(GetTableClassServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

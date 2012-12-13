@@ -42,11 +42,11 @@
     </head>
     <%@include file="header.jsp"%>
     <body id="bodyRegistration">
-        
+
         <% String cercamiNeiSogni = "insert";
             session.setAttribute("cercamiNeiSogni", cercamiNeiSogni);
         %>
-        
+
         <form id="insertClassForm" class="cmxform"  action="AddClassBean" method="post">
             <div id="artefactsManagement">
                 <h1  style="font-weight: bold; font-size: 30pt"id="titleReg" align="center">Form di Creazione Classe</h1><br>
@@ -55,17 +55,32 @@
                     <input id="name" class="classNameField" type="text" name="Nome">
                 </div>
                 <input id="state" type="hidden" name="Stato"  value="bozza">
-                <table id="classTable">
-                    <thead>
-                        <tr>
-                            <th>Nome bambino</th>
-                            <th>Cognome bambino</th>
-                            <th>Operazione</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+                <div id="childrenTableId">
+                    <table id="childrenTable">
+                        <thead>
+                            <tr>
+                                <th>Nome bambino</th>
+                                <th>Cognome bambino</th>
+                                <th>Operazione</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="educatorTableId">
+                    <table id="educatorTable">
+                        <thead>
+                            <tr>
+                                <th>Nome educatore</th>
+                                <th>Cognome educatore</th>
+                                <th>Operazione</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <input class="classButton" type="button" value="Indietro" id="backClassButton" onclick="window.location.replace('class.jsp');"/>
             <input type="submit" name="saveClassButton" id="saveClassButton" class="biggerClassButton" value="Salva Bozza" />

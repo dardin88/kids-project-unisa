@@ -52,7 +52,7 @@
             String cercamiNeiSogni = "information";
             session.setAttribute("cercamiNeiSogni", cercamiNeiSogni);
         %>
-        <input type="hidden" id="id" name="id" value="${id}" >
+        <input type="hidden" id="classId" name="classId" value="${id}" >
         <div  id="artefactsManagement" >
             <h1  style="text-align: center; font-size: 30pt; margin-bottom: 5%" >Dati Classe</h1>  
             <div class="classInformationDiv">
@@ -63,16 +63,30 @@
                 <label class="classInformationTitle">Stato classe: </label>
                 <label class="classInformationLabel">${Stato}</label>
             </div>
-            <table id="childrenTable" style="width:95%;">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Cognome</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+            <div id="childrenTableId">
+                <table id="childrenTable" style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th>Nome bambino</th>
+                            <th>Cognome bambino</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div id="educatorTableId">
+                <table id="educatorTable" style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th>Nome educatore</th>
+                            <th>Cognome educatore</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <input class="classButton" type="button" value="Indietro" id="backClassButton" onclick="window.location.replace('class.jsp');"/>
         <%@include file="footer.jsp" %>

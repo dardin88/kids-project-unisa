@@ -1,7 +1,7 @@
 package it.unisa.kids.accessManagement.classManagement;
 
-import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationChildManager;
-import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
+import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.accessManagement.accountManagement.IAccountManager;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
@@ -22,12 +22,13 @@ import org.json.JSONObject;
  *
  * @author tonino
  */
-public class GetTableChildServlet extends HttpServlet {
+public class GetTableEducatorServlet extends HttpServlet {
 
-    private IRegistrationChildManager childManager;
+    private IAccountManager educatorManager;
 
+    @Override
     public void init(ServletConfig config) {
-        childManager = (IRegistrationChildManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
+        educatorManager = (IAccountManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACCOUNT);
     }
 
     /**
@@ -40,18 +41,24 @@ public class GetTableChildServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-
-        RegistrationChild[] pageRegistrationChild = null;
-        List<RegistrationChild> listRegistrationChild = null;
-
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         try {
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = response.getWriter();
+
+            Account[] pageAccount;
+            List<Account> listAccount = null;
+            List<Account> otherListAccount = null;
+
             JSONArray array = new JSONArray();
             JSONObject result = new JSONObject();
             int start = 0;
             int amount = 10;
+            int classId = 0;
+            if (!request.getParameter("classId").equals("")) {
+                classId = Integer.parseInt(request.getParameter("classId"));
+            }
             String sStart = request.getParameter("iDisplayStart");
             String sAmount = request.getParameter("sAmount");
             String sEcho = request.getParameter("sEcho");
@@ -69,79 +76,80 @@ public class GetTableChildServlet extends HttpServlet {
             }
 
             if (request.getSession().getAttribute("cercamiNeiSogni").equals("modify")) {
-                //metto un account vuoto perchè quando si richiede la modifica deve visualizzare tutti i bambini
-                int idclasse = Integer.parseInt(request.getParameter("classId"));
-                RegistrationChild tmp = new RegistrationChild();
-                tmp.setSectionId(idclasse);
-                listRegistrationChild = childManager.search(tmp);
-                tmp.setSectionId(0);
-                listRegistrationChild.addAll(childManager.searchSectionId(tmp));
-            } else if (request.getSession().getAttribute("cercamiNeiSogni").equals("information")) {
-                //ho messo un oggetto con l'id classe perchè deve visualizzare solo le informazioni della classe selezionata
-                int idclasse = Integer.parseInt(request.getParameter("classId"));
-                RegistrationChild tmp = new RegistrationChild();
-                tmp.setSectionId(idclasse);
-                listRegistrationChild = childManager.searchSectionId(tmp);
+                //metto un account vuoto perchè quando si richiede la modifica deve visualizzare tutti gli educatori
+                Account tmp = new Account();
+                ClassBean clas = new ClassBean();
+                clas.setIdClasse(classId);
+                listAccount = educatorManager.searchEducatorByClass(clas);
+                tmp.setAccountType("Educatore");
+                otherListAccount = educatorManager.search(tmp);
+                for (Account edu : otherListAccount) {
+                    if (!listAccount.contains(edu)) {
+                        listAccount.add(edu);
+                    }
+                }
             } else if (request.getSession().getAttribute("cercamiNeiSogni").equals("insert")) {
-                //deve trovare tutti i bambini senza classe
-                RegistrationChild tmp = new RegistrationChild();
-                tmp.setSectionId(0);
-                listRegistrationChild = childManager.searchSectionId(tmp);
+                Account tmp = new Account();
+                tmp.setAccountType("Educatore");
+                listAccount = educatorManager.search(tmp);
+            } else if (request.getSession().getAttribute("cercamiNeiSogni").equals("information")) {
+                //metto un account vuoto perchè quando si richiede la modifica deve visualizzare tutti gli educatori
+                ClassBean clas = new ClassBean();
+                clas.setIdClasse(Integer.parseInt(request.getParameter("classId")));
+                listAccount = educatorManager.searchEducatorByClass(clas);
             }
 
-
-            int linksNumber = listRegistrationChild.size();
+            int linksNumber = listAccount.size();
             if (linksNumber < amount) {
                 amount = linksNumber;
             }
             if (linksNumber != 0) {
                 int toShow = linksNumber - start;
                 if (toShow > 10) {
-                    pageRegistrationChild = new RegistrationChild[amount];
-                    System.arraycopy(listRegistrationChild.toArray(), start, pageRegistrationChild, 0, amount);
+                    pageAccount = new Account[amount];
+                    System.arraycopy(listAccount.toArray(), start, pageAccount, 0, amount);
                 } else {
-                    pageRegistrationChild = new RegistrationChild[toShow];
-                    System.arraycopy(listRegistrationChild.toArray(), start, pageRegistrationChild, 0, toShow);
+                    pageAccount = new Account[toShow];
+                    System.arraycopy(listAccount.toArray(), start, pageAccount, 0, toShow);
                 }
-                for (RegistrationChild childreg : pageRegistrationChild) {
+                for (Account educator : pageAccount) {
                     JSONArray ja = new JSONArray();
 
-                    ja.put(childreg.getName());
-                    ja.put(childreg.getSurname());
+                    ja.put(educator.getNameUser());
+                    ja.put(educator.getSurnameUser());
                     String operazioni;
                     if (request.getSession().getAttribute("cercamiNeiSogni").equals("modify")) {
-                        RegistrationChild tmpreg = new RegistrationChild();
-                        tmpreg.setSectionId(Integer.parseInt(request.getParameter("classId")));
-                        List<RegistrationChild> checkedChildren = childManager.searchSectionId(tmpreg);
-                        operazioni = "<input type='checkbox' id='childRow' name='childRow' value='" + childreg.getId() + "' >";
-                        for (RegistrationChild c2 : checkedChildren) {
-                            if (childreg.getId() == c2.getId()) {
-                                operazioni = "<input type='checkbox' id='childRow' name='childRow' value='" + childreg.getId() + "' checked=\'true\'>";
+                        ClassBean tmpClassBean = new ClassBean();
+                        tmpClassBean.setIdClasse(classId);
+                        List<Account> checkedEducator = educatorManager.searchEducatorByClass(tmpClassBean);
+                        operazioni = "<input type='checkbox' id='educatorRow' name='educatorRow' value='" + educator.getId() + "' >";
+                        for (Account c2 : checkedEducator) {
+                            if (educator.getId() == c2.getId()) {
+                                operazioni = "<input type='checkbox' id='educatorRow' name='educatorRow' value='" + educator.getId() + "' checked=\'true\'>";
                             }
                         }
                     } else {
-                        operazioni = "<input type='checkbox' id='childRow' name='childRow' value='" + childreg.getId() + "' >";
+                        operazioni = "<input type='checkbox' id='educatorRow' name='educatorRow' value='" + educator.getId() + "' >";
                     }
                     ja.put(operazioni);
                     array.put(ja);
                 }
             }
             result.put("sEcho", sEcho);
-            result.put("iTotalRecords", listRegistrationChild.size());
-            result.put("iTotalDisplayRecords", listRegistrationChild.size());
+            result.put("iTotalRecords", listAccount.size());
+            result.put("iTotalDisplayRecords", listAccount.size());
             result.put("aaData", array);
             response.setContentType("application/json");
             response.setHeader("Cache-Control",
                     "private, no-store, no-cache, must-revalidate");
             response.setHeader("Pragma", "no-cache");
             out.print(result);
-
         } catch (SQLException ex) {
-            Logger.getLogger(GetTableClassServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GetTableEducatorServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP
      * <code>GET</code> method.
