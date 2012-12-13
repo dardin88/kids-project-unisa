@@ -70,7 +70,7 @@
                     <ul>
                         <li><a href="#diffMenus"><span class="canteenTab">Men&ugrave; differenziati</span></a></li>
                         <li><a href="#showAssociatedMenus"><span class="canteenTab">Visualizza men&ugrave; associati</span></a></li>
-                        <li><a href="#showDailyMenus"><span class="canteenTab">Visualizza i men&ugrave; giornalieri</span></a></li>
+                        <li><a href="#showDailyMenus"><span class="canteenTab">Visualizza men&ugrave; giornalieri</span></a></li>
                         <li><a href="#modifyDailyMenu"><span class="canteenTab">Modifica men&ugrave; giornaliero</span></a></li>
                         <li><a href="#showMealRequests"><span class="canteenTab">Visualizza richieste pasti</span></a></li>
                     </ul>
@@ -136,7 +136,7 @@
 
                     <div id="showAssociatedMenus">
                         <h2>Ricerca men&ugrave; associato</h2>
-                        <form style="padding-bottom: 20px" onchange="searchAssociatedMenus();">
+                        <form id="associatedMenusForm" style="padding-bottom: 20px">
                             <fieldset>
                                 <label for="menuDate">Data:&nbsp;</label>
                                 <input type="text" name="menuDate" id="menuDate">
@@ -189,7 +189,7 @@
 
                     <div id="showDailyMenus">
                         <h2>Ricerca men&ugrave; giornaliero</h2>
-                        <form style="padding-bottom: 20px" onchange="searchDailyMenus();">
+                        <form id="dailyForm" style="padding-bottom: 20px">
                             <fieldset>
                                 <label for="dailyMenuDate">Data:&nbsp;</label>
                                 <input type="text" name="dailyMenuDate" id="dailyMenuDate">

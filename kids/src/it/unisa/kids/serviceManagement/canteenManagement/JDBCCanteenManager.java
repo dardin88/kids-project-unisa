@@ -10,6 +10,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class JDBCCanteenManager implements ICanteenManager {
 
@@ -347,6 +349,9 @@ public class JDBCCanteenManager implements ICanteenManager {
         ResultSet rs = null;
         String query = null;
         List<MenuBean> menus = null;
+        
+        boolean andState = false;
+        boolean whereState = true;
 
         try {
             con = DBConnectionPool.getConnection();
@@ -355,16 +360,22 @@ public class JDBCCanteenManager implements ICanteenManager {
             query = "SELECT * FROM " + DBNames.TABLE_MENU;
             if (pMenuType != null && pMenuType.equals(MenuBean.DIFF_MENU)) {
                 query += " WHERE " + DBNames.ATT_MENU_TYPE + " = '" + MenuBean.DIFF_MENU + "'";
+                andState = true;
+                whereState = false;
             } else if (pMenuType != null && pMenuType.equals(MenuBean.DAILY_MENU)) {
                 query += " WHERE " + DBNames.ATT_MENU_TYPE + " = '" + MenuBean.DAILY_MENU + "'";
+                andState = true;
+                whereState = false;
             }
 
             if (pOnlyDaily) {
-                query += " AND " + DBNames.ATT_MENU_CHILDINSCID + " = 0";
+                query += (whereState ? " WHERE " : " ") + useAnd(andState) + DBNames.ATT_MENU_CHILDINSCID + " = 0";
             } else {
-                query += " AND " + DBNames.ATT_MENU_CHILDINSCID + " > 0";
+                query += (whereState ? " WHERE " : " ") + useAnd(andState) + DBNames.ATT_MENU_CHILDINSCID + " > 0";
             }
             query += " ORDER BY " + DBNames.ATT_MENU_ID + " desc" + " LIMIT " + pNumOfMenu;
+            
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "SQL_getMenuLast = " + query);
 
             stmt = con.createStatement();
             rs = stmt.executeQuery(query);

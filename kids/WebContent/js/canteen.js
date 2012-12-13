@@ -29,6 +29,9 @@ function initializeCanteenPage() {
             $("#menuDate").attr('disabled', false);
         }
     });
+    $("#associatedMenusForm").change(function() {
+        searchAssociatedMenus();
+    });
     
     
     TableTools.DEFAULTS.aButtons = [];
@@ -53,6 +56,9 @@ function initializeCanteenPage() {
         else {
             $("#dailyMenuDate").attr('disabled', false);
         }
+    });
+    $("#dailyForm").change(function() {
+        searchDailyMenus();
     });
     buildDailyMenusTable();
     
