@@ -672,4 +672,31 @@ public class JDBCTimeServiceManager implements ITimeServiceManager {
             DBConnectionPool.releaseConnection(con);
         }
     }
+
+    @Override
+    public void delete(ModifyTimeServiceRequest pModifyTimeServiceRequest) throws SQLException {
+    Connection con = null;
+        Statement stmt = null;
+        String query = null;
+
+        try {
+            con = DBConnectionPool.getConnection();
+
+            // constructing query string
+            query = "DELETE FROM " + DBNames.TABLE_MODIFYTIMESERVICEREQUEST
+                    + " WHERE " + DBNames.ATT_MODIFYTIMESERVICEREQUEST_ID + " = " + pModifyTimeServiceRequest.getId();
+
+            stmt = con.createStatement();
+            stmt.executeUpdate(query);
+            con.commit();
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+    
+    }
 }

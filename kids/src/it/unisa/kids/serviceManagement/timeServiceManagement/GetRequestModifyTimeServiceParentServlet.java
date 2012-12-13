@@ -117,7 +117,7 @@ private ITimeServiceManager timeServiceManager;
                     ja.put(registrationChildManager.search(registrationChild).get(0).getName());
                     ja.put(mtsr.getUserRange());
                     ja.put(mtsr.getState());
-                    String operazioni = "";
+                    String operazioni = "<input class='tableImage' type='image' src='img/trash.png' onclick='removeRequestModifyTimeService(\"" + mtsr.getId() + "\")'/>";
                     ja.put(operazioni);
 
 

@@ -9,6 +9,7 @@ package it.unisa.kids.serviceManagement.timeServiceManagement;
  * @author marco
  */
 public class ModifyTimeServiceRequest {
+
     private int id;
     private String motivation;
     private String userRange;
@@ -16,21 +17,23 @@ public class ModifyTimeServiceRequest {
     private int idParent;
     private String state;
     private String opinion;
-    
-    public String getOpinion(){
+
+    public String getOpinion() {
         return opinion;
     }
-    
-    public void setOpinion(String pOpinion){
-        opinion=pOpinion;
+
+    public void setOpinion(String pOpinion) {
+        opinion = pOpinion;
     }
 
-    public String getState(){
+    public String getState() {
         return state;
     }
-    public void setState(String pState){
-        state=pState;
+
+    public void setState(String pState) {
+        state = pState;
     }
+
     public int getId() {
         return id;
     }
@@ -70,6 +73,4 @@ public class ModifyTimeServiceRequest {
     public void setUserRange(String pUserRange) {
         this.userRange = pUserRange;
     }
-    
-    
 }
