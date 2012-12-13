@@ -5,7 +5,6 @@
 package it.unisa.kids.serviceManagement.timeServiceManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
-import it.unisa.kids.accessManagement.accountManagement.IAccountManager;
 import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationChildManager;
 import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.DBNames;
@@ -31,16 +30,17 @@ import org.json.JSONObject;
  *
  * @author marco
  */
-@WebServlet(name = "GetRegistrationChildTableServlet", urlPatterns = {"/GetRegistrationChildTable"})
+@WebServlet(name = "GetRequestModifyTimeServiceParentServlet", urlPatterns = {"/GetRequestModifyTimeServiceParent"})
 
-public class GetRegistrationChildTableServlet extends HttpServlet {
-
+public class GetRequestModifyTimeServiceParentServlet extends HttpServlet {
+private ITimeServiceManager timeServiceManager;
     private IRegistrationChildManager registrationChildManager;
 
     public void init(ServletConfig config) {
+        RefinedAbstractManager refinedAbstractTimeServiceManager = RefinedAbstractManager.getInstance();
+        timeServiceManager = (ITimeServiceManager) refinedAbstractTimeServiceManager.getManagerImplementor(DBNames.TABLE_TIMESERVICE);
         RefinedAbstractManager refinedAbstractRegistrationChildManager = RefinedAbstractManager.getInstance();
         registrationChildManager = (IRegistrationChildManager) refinedAbstractRegistrationChildManager.getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
-
     }
 
     /**
@@ -58,8 +58,8 @@ public class GetRegistrationChildTableServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         PrintWriter out = response.getWriter();
-        RegistrationChild[] registrationChild;
-        List<RegistrationChild> listRegistrationChild;
+        ModifyTimeServiceRequest[] requestModifiTimeService;
+        List<ModifyTimeServiceRequest> listRequestModifyTimeService;
         try {
 
             out = response.getWriter();
@@ -82,10 +82,10 @@ public class GetRegistrationChildTableServlet extends HttpServlet {
                     amount = 10;
                 }
             }
-            RegistrationChild regChild = new RegistrationChild();
+            ModifyTimeServiceRequest modTimeServiceReq = new ModifyTimeServiceRequest();
             HttpSession session = request.getSession();
 
-            regChild.setParentId(((Account) session.getAttribute("user")).getId());
+            modTimeServiceReq.setIdParent(((Account) session.getAttribute("user")).getId());
             /* if (!request.getParameter("Data").equals("")) {
              String date=request.getParameter("Data");
              String[] dateArray=date.split("-");
@@ -93,30 +93,32 @@ public class GetRegistrationChildTableServlet extends HttpServlet {
              tr.setDate(new GregorianCalendar(Integer.parseInt(dateArray[2]),Integer.parseInt(dateArray[1]),Integer.parseInt(dateArray[0])));
              listTraineeRequest = trainingManager.search(tr);
              } else {*/
-            listRegistrationChild = registrationChildManager.search(regChild);
+
+            listRequestModifyTimeService = timeServiceManager.search(modTimeServiceReq);
             //}
 
-            int linksNumber = listRegistrationChild.size();
+            int linksNumber = listRequestModifyTimeService.size();
             if (linksNumber < amount) {
                 amount = linksNumber;
             }
             if (linksNumber != 0) {
                 int toShow = linksNumber - start;
                 if (toShow > 10) {
-                    registrationChild = new RegistrationChild[amount];
-                    System.arraycopy(listRegistrationChild.toArray(), start, registrationChild, 0, amount);
+                    requestModifiTimeService = new ModifyTimeServiceRequest[amount];
+                    System.arraycopy(listRequestModifyTimeService.toArray(), start, requestModifiTimeService, 0, amount);
                 } else {
-                    registrationChild = new RegistrationChild[toShow];
-                    System.arraycopy(listRegistrationChild.toArray(), start, registrationChild, 0, toShow);
+                    requestModifiTimeService = new ModifyTimeServiceRequest[toShow];
+                    System.arraycopy(listRequestModifyTimeService.toArray(), start, requestModifiTimeService, 0, toShow);
                 }
-                for (RegistrationChild rc : registrationChild) {
+                RegistrationChild registrationChild=new RegistrationChild();
+                for (ModifyTimeServiceRequest mtsr : requestModifiTimeService) {
                     JSONArray ja = new JSONArray();
-                    String operazioni = "<input id=\"childSelected\" onchange=\"changeUserRange('" + rc.getUserRange() + "')\" type=\"radio\" name=\"bambino\" value=\"" + rc.getId() + "\">";
+                    registrationChild.setId(mtsr.getIdChild());
+                    ja.put(registrationChildManager.search(registrationChild).get(0).getName());
+                    ja.put(mtsr.getUserRange());
+                    ja.put(mtsr.getState());
+                    String operazioni = "";
                     ja.put(operazioni);
-
-                    ja.put(rc.getName());
-                    ja.put(rc.getSurname());
-                    ja.put(rc.getUserRange());
 
 
                     array.put(ja);

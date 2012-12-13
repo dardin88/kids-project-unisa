@@ -9,7 +9,7 @@
 <c:if test="${sessionScope.user==null}">
     <c:redirect url="index.jsp" />
 </c:if>
-<c:if test="${sessionScope.user.getAccountType()!='Genitore' && sessionScope.user.getAccountType()!='Segreteria'}">
+<c:if test="${sessionScope.user.getAccountType()!='Genitore' && sessionScope.user.getAccountType()!='Segreteria' && sessionScope.user.getAccountType()!='Delegato del rettore' && sessionScope.user.getAccountType()!='Responsabile Asilo'}">
     <c:redirect url="index.jsp" />
 </c:if>
 <!DOCTYPE html>
@@ -46,12 +46,30 @@
                 buildRequestTimeServiceParentTable();
                 buildRequestTimeServiceSecretaryTable();
                 buildTableChild();
-                tableRequestModifyTimeService();
+                tableRequestModifyTimeServiceParent();
                 tableRequestModifyTimeServiceSecretary();
+                tableRequestModifyTimeService();
             });
         </script>
     </head>
     <body>
+        <div id="informationRequestModifyTimeServiceRectorDelegate">
+            <form method="post" action="ModifyRequestModifyTimeService">
+            <table>
+                <input type="hidden" name="idRichiesta" id="idRequest">
+                
+                <tr><td>Nome bambino</td><td><input type="text" id="childName"  disabled></td></tr>
+                <tr><td>Cognome bambino</td><td><input type="text" id="childSurname" disabled></td></tr>
+                <tr><td>Nome genitore</td><td><input type="text" id="parentName" disabled></td></tr>
+                <tr><td>Cognome genitore</td><td><input type="text" id="parentSurname" disabled></td></tr>
+                <tr><td>Fascia utenza richiesta</td><td><input type="text" id="rangeUser" disabled></td></tr>
+                <tr><td>Motivazione</td><td><textarea id="motivation" name="motivazione"style="resize: none" cols="40" rows="10" disabled></textarea></td></tr>
+                <tr><td>Stato</td><td><select id="state" name="Stato"></select></td></tr>
+                <tr><td>Valutazione</td><td><textarea id="opinion" name="valutazione"style="resize: none" cols="40" rows="10" disabled></textarea></td></tr> 
+            </table>
+            <input type="submit" value="Salva" id="save">
+            </form>
+        </div>
         <%@include file="header.jsp" %>
         <c:if test="${requestScope.message != null}">
             <div id="confirm" title="Message" style="display: inline">
@@ -147,7 +165,7 @@
 
                                 </form>
                             </div>
-                            <table id="TableRequestModifyTimeService">
+                            <table id="TableRequestModifyTimeServiceParent">
                                 <thead>
                                     <tr>
                                         <th>Nome</th>
@@ -163,47 +181,66 @@
                         </div>
                     </div>
                 </div>
-            </div> <%--chiusura div per jquery Genitore --%>   
-        </c:if>   
-        <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}"> 
-            <div id="timeserviceTab">      <%--div tab jQuery--%>
-                <ul>
-                    <li><a href="#InsertTime"><span class="TimeTab">Orari di servizio</span></a></li>
-                    <li><a href="#notifyTimeService"><span class="TimeTab">Richiesta orari di servizio</span></a></li>
-                    <li><a href="#RequestModifyTimeServiceSecretary"><span class="TimeTab">Richiesta Modifica Orari di servizio</span></a></li>
+                <%--chiusura div per jquery Genitore --%>   
+            </c:if>   
+            <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}"> 
+                <div id="timeserviceTab">      <%--div tab jQuery--%>
+                    <ul>
+                        <li><a href="#InsertTime"><span class="TimeTab">Orari di servizio</span></a></li>
+                        <li><a href="#notifyTimeService"><span class="TimeTab">Richiesta orari di servizio</span></a></li>
+                        <li><a href="#RequestModifyTimeServiceSecretary"><span class="TimeTab">Richiesta Modifica Orari di servizio</span></a></li>
 
-                </ul>
-                <div id="InsertTime">
-                    <form id="InsertTimeForm" method="post" action="UpdateTimeService">
-                        <h1>Orario di servizio</h1>
-                        <input type="hidden" id="idNews" name="idNews">
-                        <textarea name="orarioDiServizio" rows="20" cols="100" id="TextAreaTimeService" style="resize:none;display:block"></textarea>
-                        <input type="submit" name="Insert" value="Salva" id="InsertTimeServiceButton">
-                    </form>
-                </div>
+                    </ul>
+                    <div id="InsertTime">
+                        <form id="InsertTimeForm" method="post" action="UpdateTimeService">
+                            <h1>Orario di servizio</h1>
+                            <input type="hidden" id="idNews" name="idNews">
+                            <textarea name="orarioDiServizio" rows="20" cols="100" id="TextAreaTimeService" style="resize:none;display:block"></textarea>
+                            <input type="submit" name="Insert" value="Salva" id="InsertTimeServiceButton">
+                        </form>
+                    </div>
 
-                <div id="notifyTimeService">
-                    <table id="notifyTable">
-                        <thead>
-                            <tr>
-                                <th>Genitore</th>
-                                <th>Servizio</th>
-                                <th>Giorno</th>
-                                <th>Operazioni</th>
-                            </tr>
-                        </thead>
+                    <div id="notifyTimeService">
+                        <table id="notifyTable">
+                            <thead>
+                                <tr>
+                                    <th>Genitore</th>
+                                    <th>Servizio</th>
+                                    <th>Giorno</th>
+                                    <th>Operazioni</th>
+                                </tr>
+                            </thead>
 
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-                <div id="RequestModifyTimeServiceSecretary">
-                    <table id="TableRequestModifyTimeServiceSecretary">
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="RequestModifyTimeServiceSecretary">
+                        <table id="TableRequestModifyTimeServiceSecretary">
+                            <thead>
+                                <tr>
+                                    <th>Genitore</th>
+                                    <th>Richiesta</th>
+                                    <th>Stato</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div> 
+            </c:if>
+
+            <c:if test="${sessionScope.user.getAccountType()=='Delegato del rettore' || sessionScope.user.getAccountType()=='Responsabile Asilo'}"> 
+                <div id="RequestModifyTimeService">
+                    <table id="TableRequestModifyTimeServiceTable">
                         <thead>
                             <tr>
                                 <th>Genitore</th>
                                 <th>Richiesta</th>
                                 <th>Stato</th>
+                                <th>Operazioni</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -211,10 +248,8 @@
 
                     </table>
                 </div>
-            </div> 
-        </c:if>
-    </div> 
-
-    <%@include file="footer.jsp" %>
-</body>
+            </c:if>
+        </div>
+        <%@include file="footer.jsp" %>
+    </body>
 </html>

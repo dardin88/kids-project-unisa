@@ -14,6 +14,8 @@ public interface ITimeServiceManager extends IManager {
 
     public List<ModifyTimeServiceRequest> getRequestModifyTimeServiceList() throws SQLException;
 
+    public void update(ModifyTimeServiceRequest pModifyTimeServiceRequest) throws SQLException;
+
     public void insert(News pTimeServ) throws SQLException;
 
     public void update(News pTimeServ) throws SQLException;

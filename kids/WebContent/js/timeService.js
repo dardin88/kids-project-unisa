@@ -9,6 +9,7 @@ function initializetimeServicePage() {
     $("#timeserviceTab").tabs();
     $("#insertRequestTime").button();
     $("#sendRequestModifyTimeService").button();
+    $("#save").button();
     $("#insertRequestTimeDialog").dialog({
         autoOpen: false
     });
@@ -38,6 +39,10 @@ function initializetimeServicePage() {
         width: 700,
         autoOpen: false
     });
+    $("#informationRequestModifyTimeServiceRectorDelegate").dialog({
+        autoOpen: false,
+        width: 600
+    })
 }
 
 function buildnotifyTable() {
@@ -330,20 +335,20 @@ function changeUserRange(userRange) {
         select.options[select.options.length] = new Option(partTimeP, "part_time_pomeridiana", false, false);
     }
     select.disabled = false;
-    document.getElementById("motivation").disabled=false;
+    document.getElementById("motivation").disabled = false;
 
 
 }
 function strcmp(str1, str2) {
-    
+
     return ((str1 == str2) ? 0 : ((str1 > str2) ? 1 : -1));
 }
-function tableRequestModifyTimeService() {
-    $('#TableRequestModifyTimeService').dataTable({
+function tableRequestModifyTimeServiceParent() {
+    $('#TableRequestModifyTimeServiceParent').dataTable({
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": "GetRequestModifyTimeService",
+        "sAjaxSource": "GetRequestModifyTimeServiceParent",
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
@@ -425,4 +430,97 @@ function tableRequestModifyTimeServiceSecretary() {
             }
         ]
     });
+}
+
+function tableRequestModifyTimeService() {
+    $('#TableRequestModifyTimeServiceTable').dataTable({
+        "bJQueryUI": true,
+        "bServerSide": true,
+        "bProcessing": true,
+        "sAjaxSource": "GetRequestModifyTimeServiceTable",
+        "bPaginate": true,
+        "bLengthChange": false,
+        "bFilter": false,
+        "bSort": false,
+        "bDestroy": true,
+        "bInfo": true,
+        "bAutoWidth": true,
+        "sPaginationType": "full_numbers",
+        "oLanguage": {
+            "sProcessing": "Caricamento...",
+            "sLengthMenu": "Visualizza _MENU_ link",
+            "sZeroRecords": "La ricerca non ha portato alcun risultato.",
+            "sInfo": "Vista da _START_ a _END_ di _TOTAL_ Richieste",
+            "sInfoEmpty": "Vista da 0 a 0 di 0 Richieste",
+            "sInfoFiltered": "(filtrati da _MAX_ link totali)",
+            "sInfoPostFix": "",
+            "oPaginate": {
+                "sFirst": "<<",
+                "sPrevious": "<",
+                "sNext": ">",
+                "sLast": ">>"
+            }
+        },
+        "aoColumns": [
+            {
+                "sWidth": "25%"
+            },
+            {
+                "sWidth": "25%"
+            },
+            {
+                "sWidth": "25%"
+            },
+            {
+                "sWidth": "10%"
+            }
+        ]
+    });
+}
+
+function loadInformationRequestModifyTimeServiceRectorDelegate(id) {
+    $("#informationRequestModifyTimeServiceRectorDelegate").dialog("open");
+    $.post("GetRequestModifyTimeService", {
+        id: id
+    }, function(data) {
+        var info = data.split(",");
+        $("#childName").val(info[0]);
+        $("#childSurname").val(info[1]);
+        $('#parentName').val(info[2]);
+        $('#parentSurname').val(info[3]);
+        $('#rangeUser').val(info[4]);
+        $('#motivation').val(info[5]);
+        $("#idRequest").val(info[7]);
+        $("#opinion").val(info[8]);
+    }, "text");
+    var select = document.getElementById("state");
+    select.options.length = 0;
+    select.options[select.options.length] = new Option("Accetta", "Accettata", false, false);
+
+    select.options[select.options.length] = new Option("Rifiuta", "Rifiutata", false, false);
+
+}
+function loadInformationRequestModifyTimeServiceAsylumResponsible(id) {
+    $("#informationRequestModifyTimeServiceRectorDelegate").dialog("open");
+    $.post("GetRequestModifyTimeService", {
+        id: id
+    }, function(data) {
+        var info = data.split(",");
+        $("#childName").val(info[0]);
+        $("#childSurname").val(info[1]);
+        $('#parentName').val(info[2]);
+        $('#parentSurname').val(info[3]);
+        $('#rangeUser').val(info[4]);
+        $('#motivation').val(info[5]);
+        $("#idRequest").val(info[7]);
+        $("#opinion").val(info[8]);
+
+    }, "text");
+    var select = document.getElementById("state");
+    select.options.length = 0;
+    select.options[select.options.length] = new Option("Convalida", "Validata", false, false);
+
+    select.options[select.options.length] = new Option("Rifiuta", "Rifiutata", false, false);
+    document.getElementById("opinion").disabled=false;
+
 }

@@ -15,6 +15,15 @@ public class ModifyTimeServiceRequest {
     private int idChild;
     private int idParent;
     private String state;
+    private String opinion;
+    
+    public String getOpinion(){
+        return opinion;
+    }
+    
+    public void setOpinion(String pOpinion){
+        opinion=pOpinion;
+    }
 
     public String getState(){
         return state;
