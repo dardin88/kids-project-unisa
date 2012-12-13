@@ -36,51 +36,6 @@ public class AccessFacade implements IAccessFacade {
         return child.getParentId();
     }
 
-    // Questo metodo deve essere trasferito nel ClassManager non appena quest'ultimo è stato corretto
-    public int getNumberOfChildren(int parentId) throws SQLException {
-        Connection con = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        String query = null;
-        int num = 0;
-
-        try {
-            con = DBConnectionPool.getConnection();
-            // constructing query string
-            query = "SELECT count(*) as NumberOfChild"
-                    + "FROM" + DBNames.TABLE_REGISTRATIONCHILD + ","
-                    + "WHERE" + DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID + "=?;";
-
-            stmt = con.prepareStatement(query);
-            stmt.setInt(1, parentId);
-
-            rs = stmt.executeQuery();
-            con.commit();
-
-            while (rs.next()) {
-                num = rs.getInt("NumberOfChild");
-            }
-        } finally {
-            if (stmt != null) {
-                stmt.close();
-            }
-            if (con != null) {
-                DBConnectionPool.releaseConnection(con);
-            }
-        }
-        return num;
-    }
-
-    public boolean isSick(RegistrationChild c) {
-        boolean toReturn;
-        if (c.getSickness() != null) {
-            toReturn = true;
-        } else {
-            toReturn = false;
-        }
-        return toReturn;
-    }
-
     public Account insert(Account pAccount) {
         RefinedAbstractManager refinedAbstractAccountManager = RefinedAbstractManager.getInstance();
         IAccountManager accountManager = (IAccountManager) refinedAbstractAccountManager.getManagerImplementor(DBNames.TABLE_ACCOUNT);
@@ -152,5 +107,23 @@ public class AccessFacade implements IAccessFacade {
         IRegistrationChildManager regChildManager = (IRegistrationChildManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
         
         return regChildManager.search(pRegistrationChild);
+    }
+
+    @Override
+    public boolean modifySickness(int pRegistrationChildId, String pSickness) throws SQLException {
+        IRegistrationChildManager regChildManager = (IRegistrationChildManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
+        return regChildManager.modifySickness(pRegistrationChildId, pSickness);
+    }
+
+    @Override
+    public boolean modifyVaccination(int pRegistrationChildId, String pVaccination) throws SQLException {
+        IRegistrationChildManager regChildManager = (IRegistrationChildManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
+        return regChildManager.modifyVaccination(pRegistrationChildId, pVaccination);
+    }
+
+    @Override
+    public boolean modifyAdditionalNotes(int pRegistrationChildId, String pAdditionalNotes) throws SQLException {
+        IRegistrationChildManager regChildManager = (IRegistrationChildManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
+        return regChildManager.modifyAdditionalNotes(pRegistrationChildId, pAdditionalNotes);
     }
 }

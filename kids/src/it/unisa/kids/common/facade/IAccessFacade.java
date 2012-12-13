@@ -11,10 +11,6 @@ public interface IAccessFacade {
 
     public int getParentId(int childId);
 
-    public int getNumberOfChildren(int parentId) throws SQLException;
-
-    public boolean isSick(RegistrationChild c);
-
     public Account insert(Account pAccount);
 
     public Account update(Account pAccount);
@@ -24,8 +20,14 @@ public interface IAccessFacade {
     public Account delete(Account pAccount);
 
     public Account getParentById(int pParentId) throws SQLException;
-    
+
     public List<ClassBean> getClasses() throws SQLException;
-    
+
     public List<RegistrationChild> search(RegistrationChild pRegistrationChild) throws SQLException;
+
+    public boolean modifySickness(int registrationChildId, String sickness) throws SQLException;
+
+    public boolean modifyVaccination(int registrationChildId, String vaccination) throws SQLException;
+
+    public boolean modifyAdditionalNotes(int registrationChildId, String additionalNotes) throws SQLException;
 }
