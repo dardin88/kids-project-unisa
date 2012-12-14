@@ -11,7 +11,7 @@ function initializeCanteenPage() {
         autoOpen: false,
         modal: true,
         resizable: false,
-        width: 400
+        width: 450
     });
     $("#insertDiffMenuButton").button();
     

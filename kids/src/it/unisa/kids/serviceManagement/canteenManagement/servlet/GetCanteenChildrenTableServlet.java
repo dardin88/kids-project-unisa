@@ -31,7 +31,8 @@ public class GetCanteenChildrenTableServlet extends HttpServlet {
 
     private IAccessFacade accessFacade;
 
-    public void init(ServletConfig config) {
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
         this.accessFacade = new AccessFacade();     // si dovrebbe implementare il singleton anche qui?
     }
 
@@ -71,10 +72,10 @@ public class GetCanteenChildrenTableServlet extends HttpServlet {
                 }
             }
 
-            ServletContext getCanteenTableContext = getServletContext().getContext("/GetCanteenClassTable");
-            Map<Integer, List<Integer>> classChildMap = (Map<Integer, List<Integer>>) getCanteenTableContext.getAttribute("classChildMap");
+            Map<Integer, List<Integer>> classChildMap = (Map<Integer, List<Integer>>) getServletContext().getAttribute("classChildMap");
+            System.out.println("classChildMap = " + classChildMap);
             List<Integer> childIdsSelectedList = classChildMap.get(Integer.parseInt(request.getParameter("classId")));
-            int[] paginateChildIdSet;
+            Integer[] paginateChildIdSet;
 
 
             int linksNumber = childIdsSelectedList.size();
@@ -84,10 +85,10 @@ public class GetCanteenChildrenTableServlet extends HttpServlet {
             if (linksNumber != 0) {
                 int toShow = linksNumber - start;
                 if (toShow > 10) {
-                    paginateChildIdSet = new int[amount];
+                    paginateChildIdSet = new Integer[amount];
                     System.arraycopy(childIdsSelectedList.toArray(), start, paginateChildIdSet, 0, amount);
                 } else {
-                    paginateChildIdSet = new int[toShow];
+                    paginateChildIdSet = new Integer[toShow];
                     System.arraycopy(childIdsSelectedList.toArray(), start, paginateChildIdSet, 0, toShow);
                 }
                 for (int childId : paginateChildIdSet) {

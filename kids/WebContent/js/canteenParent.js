@@ -14,13 +14,14 @@ function initializeCanteenPage() {
     
     $("#menuDate").datepicker({
         dateFormat: "yy-mm-dd",
-        changeYear: true
+        changeYear: false
     });
     $("#menuDate").datepicker("setDate", new Date());
     
     $("#requestDate").datepicker({
         dateFormat: "yy-mm-dd",
-        changeYear: true
+        changeYear: false,
+        minDate: +1
     });
     $("#requestDate").datepicker("setDate", +1);
     
