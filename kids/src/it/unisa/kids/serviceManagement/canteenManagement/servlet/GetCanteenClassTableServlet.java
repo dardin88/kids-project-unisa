@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -42,10 +43,15 @@ public class GetCanteenClassTableServlet extends HttpServlet {
     public static final String PART_TIME_P = "part_time_pomeridiana";
     private IAccessFacade accessFacade;
     private ICanteenManager canteenManager;
-
-    public void init(ServletConfig config) {
+    
+    private ServletContext servContext;
+    
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
         this.accessFacade = new AccessFacade();     // si dovrebbe implementare il singleton anche qui?
         this.canteenManager = (ICanteenManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_MENU);
+        
+        servContext = config.getServletContext();
     }
 
     /**
@@ -133,7 +139,7 @@ public class GetCanteenClassTableServlet extends HttpServlet {
 
                     // salvo la mappa costruita in questa ServletContext da prelevare nella GetChildrenTableServlet
                     classChildMap.put(clas.getIdClasse(), childIds);
-                    getServletContext().setAttribute("classChildMap", classChildMap);
+                    servContext.setAttribute("classChildMap", classChildMap);
                 }
             }
             result.put("sEcho", sEcho);
