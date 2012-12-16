@@ -95,10 +95,10 @@ public class InsertDailyMenuServlet extends HttpServlet {
             menu.setFruit(fruit);
             
             MenuBean searchMenu = new MenuBean();
-            searchMenu.setChildInscriptionId(0);
-            searchMenu.setDate(menu.getDate());
+            searchMenu.setChildInscriptionId(0);    // == 0 per ottenere il menù giornaliero generico
+            searchMenu.setDate(menu.getDate());     // cerco solo il menù giornaliero della data corrente
             List<MenuBean> dailyMenuList = canteenManager.search(searchMenu);
-            if (dailyMenuList.size() > 0) {
+            if (!dailyMenuList.isEmpty()) {
                 menu.setId(dailyMenuList.get(0).getId());
                 canteenManager.update(menu);
             } else {
@@ -113,7 +113,16 @@ public class InsertDailyMenuServlet extends HttpServlet {
                 for (RegistrationChild rc : regChildList) {
                     if (needsLunch(rc) && !needsDiffMenu(rc)) {
                         menu.setChildInscriptionId(rc.getId());
-                        canteenManager.insert(menu);
+                        
+                        // controllo se l'associazione bambino --- menu esiste già per il giorno attuale e se esiste effettuo update sulla voce già inserita
+                        searchMenu.setChildInscriptionId(rc.getId());
+                        List<MenuBean> childDailyMenuList = canteenManager.search(searchMenu);
+                        if (!childDailyMenuList.isEmpty()) {
+                            menu.setId(childDailyMenuList.get(0).getId());
+                            canteenManager.update(menu);
+                        } else {
+                            canteenManager.insert(menu);
+                        }
 
                         if (!rc.getUserRange().equals(FULL_TIME)) {
                             // setting meal request to fulfilled
@@ -160,7 +169,7 @@ public class InsertDailyMenuServlet extends HttpServlet {
         MealRequestBean mr = new MealRequestBean();
         mr.setParentId(rc.getParentId());
         mr.setDate(new GregorianCalendar());    // setto la data corrente per verificare solo le richieste per il giorno corrente
-        mr.setFulfilledUsable(true);
+        //mr.setFulfilledUsable(true);
         List<MealRequestBean> mealReqList = canteenManager.search(mr);
 
         if (mealReqList.size() > 0) {

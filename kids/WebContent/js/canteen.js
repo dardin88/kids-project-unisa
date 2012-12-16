@@ -313,6 +313,12 @@ function doClassSelection(classData) {
 function doInsertDiffMenu(childData) {
     $("#hiddenChildIdInsDiff").val(childData.id);
     
+    if (childData.cells[2].innerHTML.indexOf("accept.png") >= 0) {
+        $("#insertDiffMenuDialog").dialog("option", "title", "Modifica men&ugrave; differenziato");
+    } else {
+        $("#insertDiffMenuDialog").dialog("option", "title", "Inserisci men&ugrave; differenziato");
+    }
+    
     $("#insertDiffMenuDialog").dialog("open");
 }
 

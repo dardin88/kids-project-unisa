@@ -95,17 +95,28 @@ public class InsertCanteenMenuServlet extends HttpServlet {
             }
             menu.setFruit(fruit);
 
-            canteenManager.insert(menu);
-            
+            // controllo se l'associazione bambino --- menu esiste già per il giorno attuale e se esiste effettuo update sulla voce già inserita
+            MenuBean searchMenu = new MenuBean();
+            searchMenu.setDate(menu.getDate());
+            searchMenu.setChildInscriptionId(childId);
+            searchMenu.setType(MenuBean.DIFF_MENU);
+            List<MenuBean> childDiffMenuList = canteenManager.search(searchMenu);
+            if (!childDiffMenuList.isEmpty()) {
+                menu.setId(childDiffMenuList.get(0).getId());
+                canteenManager.update(menu);
+            } else {
+                canteenManager.insert(menu);
+            }
+
             // setting meal request to fulfilled
             RegistrationChild regChildSearch = new RegistrationChild();
             regChildSearch.setId(childId);
             RegistrationChild regChild = accessFacade.search(regChildSearch).get(0);
-            
+
             MealRequestBean mealReqSearch = new MealRequestBean();
             mealReqSearch.setParentId(regChild.getParentId());
-            mealReqSearch.setDate(new GregorianCalendar());
-            
+            mealReqSearch.setDate(menu.getDate());
+
             // ottengo la lista delle richieste odierne, per sicurezza le aggiorno tutte dato che potrebbe capitare di effettuare piu' di una richiesta odierna
             List<MealRequestBean> mealReqList = canteenManager.search(mealReqSearch);
             for (MealRequestBean mr : mealReqList) {
