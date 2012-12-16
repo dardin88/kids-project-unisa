@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author navi
  */
-public class InsertCanteenMenuServlet extends HttpServlet {
+public class InsertDiffMenuServlet extends HttpServlet {
 
     private static final int MEAL_MAXLENGTH = 200;
     private ICanteenManager canteenManager;

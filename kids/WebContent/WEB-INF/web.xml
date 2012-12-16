@@ -2,9 +2,9 @@
 <web-app id="WebApp_ID" version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <display-name>kids</display-name>
     <context-param>
-        <param-name>attachedFileFolder</param-name>
-        <param-value>/home/marco/attached</param-value>
-    </context-param>
+            <param-name>attachedFileFolder</param-name>
+            <param-value>/home/marco/attached</param-value>
+        </context-param>
     <context-param>
         <param-name>projectFileFolder</param-name>
         <param-value>/home/francesco/projectEducative</param-value>
@@ -398,8 +398,8 @@
         <servlet-class>it.unisa.kids.serviceManagement.timeServiceManagement.GetTimeServiceRequestsTableParentServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>InsertCanteenMenuServlet</servlet-name>
-        <servlet-class>it.unisa.kids.serviceManagement.canteenManagement.servlet.InsertCanteenMenuServlet</servlet-class>
+        <servlet-name>InsertDiffMenuServlet</servlet-name>
+        <servlet-class>it.unisa.kids.serviceManagement.canteenManagement.servlet.InsertDiffMenuServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetAssociatedMenuTableServlet</servlet-name>
@@ -894,8 +894,8 @@
         <url-pattern>/InsertCompiledSurvey</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>InsertCanteenMenuServlet</servlet-name>
-        <url-pattern>/InsertCanteenMenu</url-pattern>
+        <servlet-name>InsertDiffMenuServlet</servlet-name>
+        <url-pattern>/InsertDiffMenu</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetAssociatedMenuTableServlet</servlet-name>
@@ -1012,4 +1012,10 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+
+
+
+
+
+
 </web-app>
