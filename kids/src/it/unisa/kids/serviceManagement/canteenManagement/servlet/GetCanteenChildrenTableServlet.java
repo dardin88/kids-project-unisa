@@ -6,16 +6,20 @@ package it.unisa.kids.serviceManagement.canteenManagement.servlet;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
+import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.kids.common.facade.AccessFacade;
 import it.unisa.kids.common.facade.IAccessFacade;
+import it.unisa.kids.serviceManagement.canteenManagement.ICanteenManager;
+import it.unisa.kids.serviceManagement.canteenManagement.MenuBean;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,10 +34,12 @@ import org.json.JSONObject;
 public class GetCanteenChildrenTableServlet extends HttpServlet {
 
     private IAccessFacade accessFacade;
+    private ICanteenManager canteenManager;
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         this.accessFacade = new AccessFacade();     // si dovrebbe implementare il singleton anche qui?
+        this.canteenManager = (ICanteenManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_MENU);
     }
 
     /**
@@ -73,7 +79,6 @@ public class GetCanteenChildrenTableServlet extends HttpServlet {
             }
 
             Map<Integer, List<Integer>> classChildMap = (Map<Integer, List<Integer>>) getServletContext().getAttribute("classChildMap");
-            System.out.println("classChildMap = " + classChildMap);
             List<Integer> childIdsSelectedList = classChildMap.get(Integer.parseInt(request.getParameter("classId")));
             Integer[] paginateChildIdSet;
 
@@ -104,8 +109,23 @@ public class GetCanteenChildrenTableServlet extends HttpServlet {
                     searchAccount.setId(regChild.getParentId());
                     Account parent = accessFacade.search(searchAccount).get(0);
 
+                    // controllo se l'associazione bambino --- menu esiste già per il giorno attuale
+                    boolean childHasDiffMenu = false;
+                    MenuBean searchMenu = new MenuBean();
+                    searchMenu.setChildInscriptionId(regChild.getId());
+                    searchMenu.setDate(new GregorianCalendar());
+                    searchMenu.setType(MenuBean.DIFF_MENU);
+                    List<MenuBean> childDiffMenuList = canteenManager.search(searchMenu);
+                    if (!childDiffMenuList.isEmpty()) {
+                        childHasDiffMenu = true;
+                    }
+
                     checkAddToJSON(jObj, "0", regChild.getName() + " " + regChild.getSurname());
                     checkAddToJSON(jObj, "1", parent.getNameUser() + " " + parent.getSurnameUser());
+
+                    String acceptImage = "<img class=\"tableImage\" style=\"width:20px;height:20px\" title=\"Si\" alt=\"Si\" src=\"img/accept.png\" />";
+                    String negateImage = "<img class=\"tableImage\" style=\"width:20px; height:20px;\" title=\"No\" alt=\"No\" src=\"img/negate.png\" />";
+                    jObj.put("2", childHasDiffMenu ? acceptImage : negateImage);
 
                     jObj.put("DT_RowId", "" + regChild.getId());
                     array.put(jObj);

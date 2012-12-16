@@ -98,13 +98,14 @@
                                     <tr>
                                         <th>Bambino</th>
                                         <th>Genitore</th>
+                                        <th>Inserito/non inserito</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 </tbody>
                             </table>
                         </div>
-                        <div id="insertDiffMenuDialog" title="Inserisci men&ugrave; differenziato">
+                        <div id="insertDiffMenuDialog">
                             <form id="insertDiffMenuForm" class="cmxform" method="post" action="InsertCanteenMenu">
                                 <table>
                                     <tr>
@@ -126,7 +127,7 @@
                                     <tr>
                                         <td>
                                             <input type="hidden" name="hiddenChildIdInsDiff" id="hiddenChildIdInsDiff" value="-1">
-                                            <input class="confirmButton" type="submit" name="insertDiffMenuButton" id="insertDiffMenuButton" value="Inserisci men&ugrave; differenziato">
+                                            <input class="confirmButton" type="submit" name="insertDiffMenuButton" id="insertDiffMenuButton" value="Conferma">
                                         </td>
                                     </tr>
                                 </table>
