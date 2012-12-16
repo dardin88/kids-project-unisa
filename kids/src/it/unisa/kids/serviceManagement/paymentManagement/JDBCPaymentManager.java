@@ -88,10 +88,15 @@ public class JDBCPaymentManager extends Observable implements IPaymentManager {
         // invio dell'email usando l'Observer Pattern
         IAccessFacade accessFacade = new AccessFacade();
         Account parentAccount = accessFacade.getParentById(pPayment.getParentId());
+        
+        String parentEmail = parentAccount.getEmail();      // questa condizione d'errore credo andrebbe gestita nel MailManager
+        if (parentEmail == null) {
+            return;
+        }
 
         double amountDue = pPayment.getAmount() - (pPayment.getAmount() * pPayment.getDiscount() / 100);
         GregorianCalendar expDate = pPayment.getExpDate();
-
+        
         Mail mail = new Mail();
         String body = "Gentile " + parentAccount.getNameUser() + " " + parentAccount.getSurnameUser()
                 + ",<br><br>La informiamo che le &egrave; stato addebitato il seguente pagamento:"
@@ -103,7 +108,7 @@ public class JDBCPaymentManager extends Observable implements IPaymentManager {
                 + "<br><br>Per ulteriori dettagli consultare la sezione Pagamenti di Unisa - Kids.";
         mail.setBody(body);
         mail.setSubject("Unisa - Kids: Nuovo pagamento");
-        mail.setTo(parentAccount.getEmail());
+        mail.setTo(parentEmail);
         super.setChanged();
         super.notifyObservers(mail);
     }
