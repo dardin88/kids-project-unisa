@@ -4,13 +4,13 @@
  */
 package it.unisa.kids.serviceManagement.canteenManagement.servlet;
 
+import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.kids.serviceManagement.canteenManagement.ICanteenManager;
 import it.unisa.kids.serviceManagement.canteenManagement.MenuBean;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -25,7 +25,7 @@ import org.json.JSONObject;
  * @author navi
  */
 public class GetAssociatedMenuServlet extends HttpServlet {
-    
+
     private ICanteenManager canteenManager;
 
     public void init(ServletConfig config) {
@@ -50,7 +50,7 @@ public class GetAssociatedMenuServlet extends HttpServlet {
         try {
             out = response.getWriter();
             JSONObject result = new JSONObject();
-            
+
             int menuId;
             try {
                 menuId = Integer.parseInt(request.getParameter("menuId"));
@@ -61,14 +61,14 @@ public class GetAssociatedMenuServlet extends HttpServlet {
             searchMenu.setId(menuId);
             searchMenu.setChildInscriptionId(-1);
             MenuBean menu = canteenManager.search(searchMenu).get(0);
-            
-            checkAddToJSON(result, "date", unparseGregorianCalendar(menu.getDate()));
-            checkAddToJSON(result, "first", menu.getFirst());
-            checkAddToJSON(result, "second", menu.getSecond());
-            checkAddToJSON(result, "sideDish", menu.getSideDish());
-            checkAddToJSON(result, "fruit", menu.getFruit());
-            checkAddToJSON(result, "type", menu.getType());
-            
+
+            CommonMethod.checkAddToJSON(result, "date", CommonMethod.parseString(menu.getDate()));
+            CommonMethod.checkAddToJSON(result, "first", menu.getFirst());
+            CommonMethod.checkAddToJSON(result, "second", menu.getSecond());
+            CommonMethod.checkAddToJSON(result, "sideDish", menu.getSideDish());
+            CommonMethod.checkAddToJSON(result, "fruit", menu.getFruit());
+            CommonMethod.checkAddToJSON(result, "type", menu.getType());
+
             response.setContentType("application/json");
             response.setHeader("Cache-Control",
                     "private, no-store, no-cache, must-revalidate");
@@ -79,24 +79,6 @@ public class GetAssociatedMenuServlet extends HttpServlet {
             Logger.getLogger(GetAssociatedMenuServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
-        }
-    }
-
-    private void checkAddToJSON(JSONObject jObj, String key, Object value) {
-        if (value != null) {
-            jObj.put(key, value);
-        } else {
-            jObj.put(key, "");
-        }
-    }
-    
-    private String unparseGregorianCalendar(GregorianCalendar pDate) {
-        if (pDate != null) {
-            return pDate.get(GregorianCalendar.YEAR) + "-"
-                    + (pDate.get(GregorianCalendar.MONTH) + 1) + "-"
-                    + pDate.get(GregorianCalendar.DAY_OF_MONTH);
-        } else {
-            return null;
         }
     }
 

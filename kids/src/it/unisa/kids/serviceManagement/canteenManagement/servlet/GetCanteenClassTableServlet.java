@@ -6,17 +6,12 @@ package it.unisa.kids.serviceManagement.canteenManagement.servlet;
 
 import it.unisa.kids.accessManagement.classManagement.ClassBean;
 import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
-import it.unisa.kids.common.DBNames;
-import it.unisa.kids.common.RefinedAbstractManager;
+import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.facade.AccessFacade;
 import it.unisa.kids.common.facade.IAccessFacade;
-import it.unisa.kids.serviceManagement.canteenManagement.ICanteenManager;
-import it.unisa.kids.serviceManagement.canteenManagement.MealRequestBean;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,17 +31,11 @@ import org.json.JSONObject;
  */
 public class GetCanteenClassTableServlet extends HttpServlet {
 
-    // questi attributi dovrebbero essere presenti nella classe it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild
-    public static final String FULL_TIME = "full_time";
-    public static final String PART_TIME_M = "part_time_mattutina";
-    public static final String PART_TIME_P = "part_time_pomeridiana";
     private IAccessFacade accessFacade;
-    private ICanteenManager canteenManager;
-    
+
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         this.accessFacade = new AccessFacade();     // si dovrebbe implementare il singleton anche qui?
-        this.canteenManager = (ICanteenManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_MENU);
     }
 
     /**
@@ -113,17 +102,17 @@ public class GetCanteenClassTableServlet extends HttpServlet {
                     int mealCount = 0;
                     boolean classHasDiffMenu = false;
                     for (RegistrationChild rc : regChildList) {
-                        if (needsLunch(rc)) {
+                        if (CanteenUtilities.needsLunch(rc)) {
                             mealCount++;
-                            if (!classHasDiffMenu && needsDiffMenu(rc)) {
+                            if (!classHasDiffMenu && CanteenUtilities.needsDiffMenu(rc)) {
                                 classHasDiffMenu = true;
                                 childIds.add(rc.getId());
                             }
                         }
                     }
 
-                    checkAddToJSON(jObj, "0", clas.getClassName());
-                    checkAddToJSON(jObj, "1", mealCount);
+                    CommonMethod.checkAddToJSON(jObj, "0", clas.getClassName());
+                    CommonMethod.checkAddToJSON(jObj, "1", mealCount);
 
                     String acceptImage = "<img class=\"tableImage\" style=\"width:20px;height:20px\" title=\"Si\" alt=\"Si\" src=\"img/accept.png\" />";
                     String negateImage = "<img class=\"tableImage\" style=\"width:20px; height:20px;\" title=\"No\" alt=\"No\" src=\"img/negate.png\" />";
@@ -152,42 +141,6 @@ public class GetCanteenClassTableServlet extends HttpServlet {
         } finally {
             out.close();
         }
-    }
-
-    private void checkAddToJSON(JSONObject jObj, String key, Object value) {
-        if (value != null) {
-            jObj.put(key, value);
-        } else {
-            jObj.put(key, "");
-        }
-    }
-
-    private boolean needsLunch(RegistrationChild rc) throws SQLException {
-        if (rc.getUserRange().equals(FULL_TIME)) {
-            return true;
-        }
-
-        MealRequestBean mr = new MealRequestBean();
-        mr.setParentId(rc.getParentId());
-        mr.setDate(new GregorianCalendar());    // setto la data corrente per verificare solo le richieste per il giorno corrente
-        //mr.setFulfilledUsable(true);
-        List<MealRequestBean> mealReqList = canteenManager.search(mr);
-
-        if (mealReqList.size() > 0) {
-            return true;
-        }
-
-        return false;
-    }
-
-    private boolean needsDiffMenu(RegistrationChild rc) {
-        if (rc.getSickness() != null && !rc.getSickness().trim().equals("")) {
-            return true;
-        }
-        if (rc.getAdditionalNotes() != null && !rc.getAdditionalNotes().trim().equals("")) {
-            return true;
-        }
-        return false;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

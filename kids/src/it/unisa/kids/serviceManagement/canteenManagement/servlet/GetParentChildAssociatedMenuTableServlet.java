@@ -119,12 +119,12 @@ public class GetParentChildAssociatedMenuTableServlet extends HttpServlet {
                 for (MenuBean menu : paginateMenuSet) {
                     JSONObject jObj = new JSONObject();
 
-                    checkAddToJSON(jObj, "0", CommonMethod.parseString(menu.getDate()));
-                    checkAddToJSON(jObj, "1", menu.getFirst());
-                    checkAddToJSON(jObj, "2", menu.getSecond());
-                    checkAddToJSON(jObj, "3", menu.getSideDish());
-                    checkAddToJSON(jObj, "4", menu.getFruit());
-                    checkAddToJSON(jObj, "5", menu.getType());
+                    CommonMethod.checkAddToJSON(jObj, "0", CommonMethod.parseString(menu.getDate()));
+                    CommonMethod.checkAddToJSON(jObj, "1", menu.getFirst());
+                    CommonMethod.checkAddToJSON(jObj, "2", menu.getSecond());
+                    CommonMethod.checkAddToJSON(jObj, "3", menu.getSideDish());
+                    CommonMethod.checkAddToJSON(jObj, "4", menu.getFruit());
+                    CommonMethod.checkAddToJSON(jObj, "5", menu.getType());
 
                     //jObj.put("DT_RowId", "" + menu.getId());
                     array.put(jObj);
@@ -146,32 +146,18 @@ public class GetParentChildAssociatedMenuTableServlet extends HttpServlet {
             out.close();
         }
     }
-
-    private void checkAddToJSON(JSONObject jObj, String key, Object value) {
-        if (value != null) {
-            jObj.put(key, value);
-        } else {
-            jObj.put(key, "");
-        }
+    
+    private void doExit(JSONObject result, String sEcho, JSONArray array, HttpServletResponse response, PrintWriter out) {
+        result.put("sEcho", sEcho);
+        result.put("iTotalRecords", 0);
+        result.put("iTotalDisplayRecords", 0);
+        result.put("aaData", array);
+        response.setContentType("application/json");
+        response.setHeader("Cache-Control",
+                "private, no-store, no-cache, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        out.print(result);
     }
-
-    /*private GregorianCalendar parseGregorianCalendar(String pDate) throws ParseException {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        Date parsed = df.parse(pDate);
-        GregorianCalendar date = new GregorianCalendar();
-        date.setTime(parsed);
-        return date;
-    }*/
-
-    /*private String unparseGregorianCalendar(GregorianCalendar pDate) {
-        if (pDate != null) {
-            return pDate.get(GregorianCalendar.YEAR) + "-"
-                    + (pDate.get(GregorianCalendar.MONTH) + 1) + "-"
-                    + pDate.get(GregorianCalendar.DAY_OF_MONTH);
-        } else {
-            return null;
-        }
-    }*/
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -213,16 +199,4 @@ public class GetParentChildAssociatedMenuTableServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private void doExit(JSONObject result, String sEcho, JSONArray array, HttpServletResponse response, PrintWriter out) throws NullPointerException {
-        result.put("sEcho", sEcho);
-        result.put("iTotalRecords", 0);
-        result.put("iTotalDisplayRecords", 0);
-        result.put("aaData", array);
-        response.setContentType("application/json");
-        response.setHeader("Cache-Control",
-                "private, no-store, no-cache, must-revalidate");
-        response.setHeader("Pragma", "no-cache");
-        out.print(result);
-    }
 }

@@ -4,13 +4,13 @@
  */
 package it.unisa.kids.serviceManagement.paymentManagement.servlet;
 
+import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.kids.serviceManagement.paymentManagement.IPaymentManager;
 import it.unisa.kids.serviceManagement.paymentManagement.PaymentBean;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -100,7 +100,7 @@ public class GetPaymentsTableServlet extends HttpServlet {
                     } else {
                         jObj = createShowPaymentJSON(payment);
                     }
-                    
+
                     array.put(jObj);
                 }
             }
@@ -140,67 +140,49 @@ public class GetPaymentsTableServlet extends HttpServlet {
         return payment;
     }
 
-    private String unparseGregorianCalendar(GregorianCalendar pDate) {
-        if (pDate != null) {
-            return pDate.get(GregorianCalendar.YEAR) + "-"
-                    + (pDate.get(GregorianCalendar.MONTH) + 1) + "-"
-                    + pDate.get(GregorianCalendar.DAY_OF_MONTH);
-        } else {
-            return null;
-        }
-    }
-
-    private void checkAddToJSON(JSONObject jObj, String key, Object value) {
-        if (value != null) {
-            jObj.put(key, value);
-        } else {
-            jObj.put(key, "");
-        }
-    }
-
     private JSONObject createShowPaymentJSON(PaymentBean payment) throws NullPointerException {
         JSONObject jObj = new JSONObject();
-        
+
         double amountPayment = payment.getAmount();
         double discountPayment = payment.getDiscount();
         double amountDuePayment = amountPayment - (amountPayment * discountPayment / 100);
 
-        jObj.put("0", unparseGregorianCalendar(payment.getExpDate()));
-        checkAddToJSON(jObj, "1", payment.getPaymentDescription());
+        jObj.put("0", CommonMethod.parseString(payment.getExpDate()));
+        CommonMethod.checkAddToJSON(jObj, "1", payment.getPaymentDescription());
         jObj.put("2", amountPayment);
         jObj.put("3", discountPayment);
-        checkAddToJSON(jObj, "4", payment.getDiscountDescription());
+        CommonMethod.checkAddToJSON(jObj, "4", payment.getDiscountDescription());
         jObj.put("5", amountDuePayment);
-        checkAddToJSON(jObj, "6", payment.getOriginAccount());
-        checkAddToJSON(jObj, "7", payment.getPayee());
-        checkAddToJSON(jObj, "8", payment.getReceiptCode());
-        
+        CommonMethod.checkAddToJSON(jObj, "6", payment.getOriginAccount());
+        CommonMethod.checkAddToJSON(jObj, "7", payment.getPayee());
+        CommonMethod.checkAddToJSON(jObj, "8", payment.getReceiptCode());
+
         String acceptImage = "<img class=\"tableImage\" style=\"width:20px;height:20px\" title=\"Si\" alt=\"Si\" src=\"img/accept.png\" />";
         String negateImage = "<img class=\"tableImage\" style=\"width:20px; height:20px;\" title=\"No\" alt=\"No\" src=\"img/negate.png\" />";
         jObj.put("9", payment.isPaid() ? acceptImage : negateImage);
 
         jObj.put("DT_RowId", "" + payment.getId());
-        
+
         return jObj;
     }
-    
+
     private JSONObject createValidatePaymentJSON(PaymentBean payment) throws NullPointerException {
         JSONObject jObj = new JSONObject();
-        
+
         double amountPayment = payment.getAmount();
         double discountPayment = payment.getDiscount();
         double amountDuePayment = amountPayment - (amountPayment * discountPayment / 100);
 
-        jObj.put("0", unparseGregorianCalendar(payment.getExpDate()));
-        checkAddToJSON(jObj, "1", payment.getPaymentDescription());
+        jObj.put("0", CommonMethod.parseString(payment.getExpDate()));
+        CommonMethod.checkAddToJSON(jObj, "1", payment.getPaymentDescription());
         jObj.put("2", amountPayment);
         jObj.put("3", discountPayment);
-        checkAddToJSON(jObj, "4", payment.getDiscountDescription());
+        CommonMethod.checkAddToJSON(jObj, "4", payment.getDiscountDescription());
         jObj.put("5", amountDuePayment);
-        checkAddToJSON(jObj, "6", payment.getPayee());
+        CommonMethod.checkAddToJSON(jObj, "6", payment.getPayee());
 
         jObj.put("DT_RowId", "" + payment.getId());
-        
+
         return jObj;
     }
 

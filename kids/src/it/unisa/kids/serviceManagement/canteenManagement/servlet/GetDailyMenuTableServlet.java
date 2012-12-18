@@ -4,17 +4,13 @@
  */
 package it.unisa.kids.serviceManagement.canteenManagement.servlet;
 
+import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.kids.serviceManagement.canteenManagement.ICanteenManager;
 import it.unisa.kids.serviceManagement.canteenManagement.MenuBean;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -81,11 +77,11 @@ public class GetDailyMenuTableServlet extends HttpServlet {
             if (dailyMenuDateStr != null && !dailyMenuDateStr.trim().equals("")) {
                 try {
                     MenuBean searchMenu = new MenuBean();
-                    searchMenu.setDate(parseGregorianCalendar(dailyMenuDateStr));
+                    searchMenu.setDate(CommonMethod.parseGregorianCalendar(dailyMenuDateStr));
                     searchMenu.setType(MenuBean.DAILY_MENU);
                     searchMenu.setChildInscriptionId(0);
                     menuList = canteenManager.search(searchMenu);
-                } catch (ParseException e) {
+                } catch (Exception e) {
                     return;
                 }
             } else if (onlyLast != null && !onlyLast.trim().equals("")) {
@@ -114,11 +110,11 @@ public class GetDailyMenuTableServlet extends HttpServlet {
 
                     JSONObject jObj = new JSONObject();
 
-                    checkAddToJSON(jObj, "0", unparseGregorianCalendar(menu.getDate()));
-                    checkAddToJSON(jObj, "1", menu.getFirst());
-                    checkAddToJSON(jObj, "2", menu.getSecond());
-                    checkAddToJSON(jObj, "3", menu.getSideDish());
-                    checkAddToJSON(jObj, "4", menu.getFruit());
+                    CommonMethod.checkAddToJSON(jObj, "0", CommonMethod.parseString(menu.getDate()));
+                    CommonMethod.checkAddToJSON(jObj, "1", menu.getFirst());
+                    CommonMethod.checkAddToJSON(jObj, "2", menu.getSecond());
+                    CommonMethod.checkAddToJSON(jObj, "3", menu.getSideDish());
+                    CommonMethod.checkAddToJSON(jObj, "4", menu.getFruit());
 
                     array.put(jObj);
                 }
@@ -137,32 +133,6 @@ public class GetDailyMenuTableServlet extends HttpServlet {
             Logger.getLogger(GetDailyMenuTableServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
-        }
-    }
-
-    private void checkAddToJSON(JSONObject jObj, String key, Object value) {
-        if (value != null) {
-            jObj.put(key, value);
-        } else {
-            jObj.put(key, "");
-        }
-    }
-
-    private GregorianCalendar parseGregorianCalendar(String pDate) throws ParseException {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        Date parsed = df.parse(pDate);
-        GregorianCalendar date = new GregorianCalendar();
-        date.setTime(parsed);
-        return date;
-    }
-
-    private String unparseGregorianCalendar(GregorianCalendar pDate) {
-        if (pDate != null) {
-            return pDate.get(GregorianCalendar.YEAR) + "-"
-                    + (pDate.get(GregorianCalendar.MONTH) + 1) + "-"
-                    + pDate.get(GregorianCalendar.DAY_OF_MONTH);
-        } else {
-            return null;
         }
     }
 

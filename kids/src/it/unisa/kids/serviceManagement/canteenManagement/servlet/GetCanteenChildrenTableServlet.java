@@ -6,6 +6,7 @@ package it.unisa.kids.serviceManagement.canteenManagement.servlet;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
+import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.kids.common.facade.AccessFacade;
@@ -120,8 +121,8 @@ public class GetCanteenChildrenTableServlet extends HttpServlet {
                         childHasDiffMenu = true;
                     }
 
-                    checkAddToJSON(jObj, "0", regChild.getName() + " " + regChild.getSurname());
-                    checkAddToJSON(jObj, "1", parent.getNameUser() + " " + parent.getSurnameUser());
+                    CommonMethod.checkAddToJSON(jObj, "0", regChild.getName() + " " + regChild.getSurname());
+                    CommonMethod.checkAddToJSON(jObj, "1", parent.getNameUser() + " " + parent.getSurnameUser());
 
                     String acceptImage = "<img class=\"tableImage\" style=\"width:20px;height:20px\" title=\"Si\" alt=\"Si\" src=\"img/accept.png\" />";
                     String negateImage = "<img class=\"tableImage\" style=\"width:20px; height:20px;\" title=\"No\" alt=\"No\" src=\"img/negate.png\" />";
@@ -145,14 +146,6 @@ public class GetCanteenChildrenTableServlet extends HttpServlet {
             Logger.getLogger(GetCanteenChildrenTableServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
-        }
-    }
-
-    private void checkAddToJSON(JSONObject jObj, String key, Object value) {
-        if (value != null) {
-            jObj.put(key, value);
-        } else {
-            jObj.put(key, "");
         }
     }
 

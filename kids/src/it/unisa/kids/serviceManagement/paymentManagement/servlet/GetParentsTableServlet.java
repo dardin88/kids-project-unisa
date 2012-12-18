@@ -5,6 +5,7 @@
 package it.unisa.kids.serviceManagement.paymentManagement.servlet;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.facade.AccessFacade;
 import it.unisa.kids.common.facade.IAccessFacade;
 import java.io.IOException;
@@ -89,11 +90,11 @@ public class GetParentsTableServlet extends HttpServlet {
                 }
                 for (Account parent : paginateParentSet) {
                     JSONObject jObj = new JSONObject();
-                    
-                    checkAddToJSON(jObj, "0", parent.getNameUser());
-                    checkAddToJSON(jObj, "1", parent.getSurnameUser());
-                    checkAddToJSON(jObj, "2", parent.getTaxCode());
-                    
+
+                    CommonMethod.checkAddToJSON(jObj, "0", parent.getNameUser());
+                    CommonMethod.checkAddToJSON(jObj, "1", parent.getSurnameUser());
+                    CommonMethod.checkAddToJSON(jObj, "2", parent.getTaxCode());
+
                     jObj.put("DT_RowId", "" + parent.getId());
                     array.put(jObj);
                 }
@@ -132,14 +133,6 @@ public class GetParentsTableServlet extends HttpServlet {
         }
 
         return acc;
-    }
-    
-    private void checkAddToJSON(JSONObject jObj, String key, Object value) {
-        if (value != null) {
-            jObj.put(key, value);
-        } else {
-            jObj.put(key, "");
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -4,6 +4,7 @@
  */
 package it.unisa.kids.serviceManagement.paymentManagement.servlet;
 
+import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.kids.serviceManagement.paymentManagement.IPaymentManager;
@@ -94,7 +95,7 @@ public class GetRefundsTableServlet extends HttpServlet {
                 for (RefundBean refund : paginateRefundSet) {
                     JSONObject jObj = new JSONObject();
 
-                    checkAddToJSON(jObj, "0", refund.getDescription());
+                    CommonMethod.checkAddToJSON(jObj, "0", refund.getDescription());
                     jObj.put("1", refund.getAmount());
 
                     String acceptImage = "<img class=\"tableImage\" style=\"width:20px;height:20px\" title=\"Si\" alt=\"Si\" src=\"img/accept.png\" />";
@@ -136,14 +137,6 @@ public class GetRefundsTableServlet extends HttpServlet {
 
         refund.setParentId(parentId);
         return refund;
-    }
-
-    private void checkAddToJSON(JSONObject jObj, String key, Object value) {
-        if (value != null) {
-            jObj.put(key, value);
-        } else {
-            jObj.put(key, "");
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

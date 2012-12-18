@@ -4,17 +4,13 @@
  */
 package it.unisa.kids.serviceManagement.paymentManagement.servlet;
 
+import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.kids.serviceManagement.paymentManagement.IPaymentManager;
 import it.unisa.kids.serviceManagement.paymentManagement.PaymentBean;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -28,9 +24,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author utente
  */
 public class InsertPaymentServlet extends HttpServlet {
-    
-    private static final int DESCRIPTION_MAXLENGTH = 200;
 
+    private static final int DESCRIPTION_MAXLENGTH = 200;
     private IPaymentManager paymentManager;
 
     public void init(ServletConfig config) {
@@ -51,83 +46,66 @@ public class InsertPaymentServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             PaymentBean payment = new PaymentBean();
-            
+
             int parentId = Integer.parseInt(request.getParameter("hiddenParentIdInsPayment"));
             if (parentId <= 0) {
-                sendMessageRedirect(request, response, "Errore: genitore selezionato non corretto - " + parentId);
+                CommonMethod.sendMessageRedirect(request, response, "Errore: genitore selezionato non corretto - " + parentId, "/paymentManagement.jsp");
                 return;
             }
             payment.setParentId(parentId);
-            
+
             String paymentDescription = request.getParameter("paymentDescription").trim();
             if (paymentDescription.length() > DESCRIPTION_MAXLENGTH) {
-                sendMessageRedirect(request, response, "Errore: descrizione pagamento troppo lunga.");
+                CommonMethod.sendMessageRedirect(request, response, "Errore: descrizione pagamento troppo lunga.", "/paymentManagement.jsp");
                 return;
             }
             payment.setPaymentDescription(paymentDescription);
-            
+
             double amount = Double.parseDouble(request.getParameter("amount").trim());
             if (amount < 0) {
-                sendMessageRedirect(request, response, "Errore: importo negativo non consentito.");
+                CommonMethod.sendMessageRedirect(request, response, "Errore: importo negativo non consentito.", "/paymentManagement.jsp");
                 return;
             }
             payment.setAmount(amount);
-            
+
             payment.setPayee(request.getParameter("payee").trim());
-            
+
             double discount = Double.parseDouble(request.getParameter("discount").trim());
             if (discount < 0 || discount > 100) {
-                sendMessageRedirect(request, response, "Errore: valore sconto non consentito.");
+                CommonMethod.sendMessageRedirect(request, response, "Errore: valore sconto non consentito.", "/paymentManagement.jsp");
                 return;
             }
             payment.setDiscount(discount);
-            
+
             String discountDescription = request.getParameter("discountDescription").trim();
             if (discountDescription.length() > DESCRIPTION_MAXLENGTH) {
-                sendMessageRedirect(request, response, "Errore: descrizione sconto troppo lunga.");
+                CommonMethod.sendMessageRedirect(request, response, "Errore: descrizione sconto troppo lunga.", "/paymentManagement.jsp");
                 return;
             }
             payment.setDiscountDescription(discountDescription);
-            
+
             String expDate = request.getParameter("expDate");
             if (expDate == null) {
-                sendMessageRedirect(request, response, "Errore: data di scadenza non specificata.");
+                CommonMethod.sendMessageRedirect(request, response, "Errore: data di scadenza non specificata.", "/paymentManagement.jsp");
                 return;
             }
-            payment.setExpDate(parseGregorianCalendar(expDate));
-            
+            payment.setExpDate(CommonMethod.parseGregorianCalendar(expDate));
+
             payment.setPaid(false);
-            
+
             paymentManager.insert(payment);
-            
-            sendMessageRedirect(request, response, "Pagamento inserito con successo.");
+
+            CommonMethod.sendMessageRedirect(request, response, "Pagamento inserito con successo.", "/paymentManagement.jsp");
 
         } catch (SQLException e) {
-            sendMessageRedirect(request, response, "Verfica i campi");
+            CommonMethod.sendMessageRedirect(request, response, "Verfica i campi", "/paymentManagement.jsp");
             Logger.getLogger(InsertPaymentServlet.class.getName()).log(Level.SEVERE, null, e);
-        
-        } catch (NumberFormatException e) {
-            sendMessageRedirect(request, response, "Verfica i campi");
-            Logger.getLogger(InsertPaymentServlet.class.getName()).log(Level.SEVERE, null, e);
-        
-        } catch (ParseException e) {
-            sendMessageRedirect(request, response, "Errore: data non corretta.");
-            Logger.getLogger(InsertPaymentServlet.class.getName()).log(Level.SEVERE, null, e);
-        } 
-    }
 
-    private GregorianCalendar parseGregorianCalendar(String pDate) throws ParseException {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        Date parsed = df.parse(pDate);
-        GregorianCalendar date = new GregorianCalendar();
-        date.setTime(parsed);
-        return date;
-    }
-    
-    private void sendMessageRedirect(HttpServletRequest request, HttpServletResponse response, String msg)
-            throws ServletException, IOException {
-        request.setAttribute("message", msg);
-        request.getRequestDispatcher("/paymentManagement.jsp").forward(request, response);
+        } catch (NumberFormatException e) {
+            CommonMethod.sendMessageRedirect(request, response, "Verfica i campi", "/paymentManagement.jsp");
+            Logger.getLogger(InsertPaymentServlet.class.getName()).log(Level.SEVERE, null, e);
+
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -5,6 +5,7 @@
 package it.unisa.kids.serviceManagement.canteenManagement.servlet;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.kids.common.facade.AccessFacade;
@@ -13,7 +14,6 @@ import it.unisa.kids.serviceManagement.canteenManagement.ICanteenManager;
 import it.unisa.kids.serviceManagement.canteenManagement.MealRequestBean;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -103,10 +103,10 @@ public class GetMealRequestsTableServlet extends HttpServlet {
                     String acceptImage = "<img class=\"tableImage\" style=\"width:20px;height:20px\" title=\"Si\" alt=\"Si\" src=\"img/accept.png\" />";
                     String negateImage = "<img class=\"tableImage\" style=\"width:20px; height:20px;\" title=\"No\" alt=\"No\" src=\"img/negate.png\" />";
 
-                    checkAddToJSON(jObj, "0", unparseGregorianCalendar(mealReq.getDate()));
-                    checkAddToJSON(jObj, "1", parent.getNameUser() + " " + parent.getSurnameUser());
+                    CommonMethod.checkAddToJSON(jObj, "0", CommonMethod.parseString(mealReq.getDate()));
+                    CommonMethod.checkAddToJSON(jObj, "1", parent.getNameUser() + " " + parent.getSurnameUser());
                     jObj.put("2", mealReq.isFulfilled() ? acceptImage : negateImage);
-                    
+
                     array.put(jObj);
                 }
             }
@@ -124,24 +124,6 @@ public class GetMealRequestsTableServlet extends HttpServlet {
             Logger.getLogger(GetMealRequestsTableServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
-        }
-    }
-
-    private void checkAddToJSON(JSONObject jObj, String key, Object value) {
-        if (value != null) {
-            jObj.put(key, value);
-        } else {
-            jObj.put(key, "");
-        }
-    }
-
-    private String unparseGregorianCalendar(GregorianCalendar pDate) {
-        if (pDate != null) {
-            return pDate.get(GregorianCalendar.YEAR) + "-"
-                    + (pDate.get(GregorianCalendar.MONTH) + 1) + "-"
-                    + pDate.get(GregorianCalendar.DAY_OF_MONTH);
-        } else {
-            return null;
         }
     }
 
