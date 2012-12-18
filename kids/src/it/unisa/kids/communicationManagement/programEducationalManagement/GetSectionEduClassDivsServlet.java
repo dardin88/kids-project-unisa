@@ -4,8 +4,16 @@
  */
 package it.unisa.kids.communicationManagement.programEducationalManagement;
 
+import it.unisa.kids.accessManagement.classManagement.ClassBean;
+import it.unisa.kids.common.facade.AccessFacade;
+import it.unisa.kids.common.facade.IAccessFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +24,12 @@ import javax.servlet.http.HttpServletResponse;
  * @author navi
  */
 public class GetSectionEduClassDivsServlet extends HttpServlet {
+
+    private IAccessFacade accessFacade;
+
+    public void init(ServletConfig config) {
+        this.accessFacade = new AccessFacade();     // si dovrebbe implementare il singleton anche qui?
+    }
 
     /**
      * Processes requests for both HTTP
@@ -32,17 +46,31 @@ public class GetSectionEduClassDivsServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet GetSectionEduClassDivsServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet GetSectionEduClassDivsServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {            
-            out.close();
+            List<ClassBean> classList = accessFacade.getClasses();
+            for (ClassBean clas : classList) {
+                out.println("<div id=\"" + clas.getIdClasse() + "\">"
+                        + "<table id=\"table" + clas.getIdClasse() + "\">"
+                        + "     <thead>"
+                        + "         <tr>"
+                        + "             <th>Attivit&agrave;</th>"
+                        + "             <th>Descrizione</th>"
+                        + "             <th>Data inizio</th>"
+                        + "             <th>Data fine</th>"
+                        + "             <th>Operazioni</th>"
+                        + "         </tr>"
+                        + "     </thead>"
+                        + "     <tbody>"
+                        + "     </tbody>"
+                        + "</table>"
+                        + "</div>");
+                out.println("<script type=\"text/javascript\">"
+                        + "     buildClassTable(" + clas.getIdClasse() + ")"
+                        + "</script>");
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(GetClassTabsServlet.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            //out.close();
         }
     }
 

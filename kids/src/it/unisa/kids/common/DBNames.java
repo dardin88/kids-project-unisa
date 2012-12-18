@@ -250,7 +250,7 @@ public final class DBNames {
     public static final String ATT_ACTIVITY_ENDDATE = "DataFine";
     public static final String ATT_ACTIVITY_NAME = "Nome";
     public static final String ATT_ACTIVITY_DESCRIPTION = "Contenuto";
-    public static final String ATT_ACTIVITY_IDCLASS="IdClasse";
+    public static final String ATT_ACTIVITY_IDCLASS = "IdClasse";
     //Activity Section Daily
     public static final String ATT_ACTIVITYSECTTIONDAILY_ID = "Id";
     public static final String ATT_ACTIVITYSECTTIONDAILY_IDACTITIVTY = "IdAttivita";
