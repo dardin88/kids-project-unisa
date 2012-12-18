@@ -16,21 +16,21 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-        <script type="text/javascript" src="js/jquery.ui.timepicker.js"></script>
-        <script type='text/javascript' src='calendario/fullcalendar/fullcalendar.min.js'></script>
+        <link rel="stylesheet" type="text/css" href="css/template.css" >
+        <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
+        <link rel="stylesheet" type="text/css" href="css/jquery.ui.timepicker.css">
+        <link rel="stylesheet" type="text/css" href="calendario/fullcalendar/fullcalendar.css" /> 
+
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/jquery-1.8.2.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.js"></script>   
         <script type="text/javascript" src="js/managerTraineeRequest.js"></script>
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
-
-        <link rel="stylesheet" type="text/css" href="css/jquery.ui.timepicker.css">
-        <link rel='stylesheet' type='text/css' href='calendario/fullcalendar/fullcalendar.css' />
-        <link rel="stylesheet" type="text/css" href="css/template.css" >
-        <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
+        <script type="text/javascript" src="calendario/fullcalendar/fullcalendar.min.js"></script>
+        <script type="text/javascript" src="js/jquery.ui.timepicker.js"></script>
 
         <title>Kids</title>
 
@@ -92,8 +92,7 @@
         <%@include file="header.jsp" %>
         <div id="traineeRequestManagement" >
             <input type="button" value="Inserisci richiesta di tirocinanti" id="InsertTraineeRequest" onClick="openInsertTraineeRequestDialog()">
-            <div id="calendar" style="margin-top: 3%;">
-            </div>
+            <div id="calendar" style="margin-top: 3%" ></div>
         </div>
         <%@include file="footer.jsp" %>
     </body>
