@@ -258,7 +258,7 @@ public final class DBNames {
     public static final String ATT_ACTIVITYSECTTIONDAILY_IDEDUCATORE = "IdEducatore";
     public static final String ATT_ACTIVITYSECTTIONDAILY_DATE = "Data";
     public static final String ATT_ACTIVITYSECTTIONDAILY_NOTES = "Note";
-    public static final String ATT_ACTIVITYSECTTIONDAILY_SECTIONID = "IdSezione";
+    public static final String ATT_ACTIVITYSECTTIONDAILY_SECTIONID = "IdClasse";
     //Child Partecipant attributes
     public static final String ATT_CHILDPARTECIPANT_IDCHILD = "IdBambino";
     public static final String ATT_CHILDPARTECIPANT_IDACTIVITYDAILY = "IdAttivitaGiornaliera";

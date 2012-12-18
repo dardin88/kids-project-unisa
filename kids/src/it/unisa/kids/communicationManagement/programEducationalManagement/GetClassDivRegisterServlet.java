@@ -62,11 +62,10 @@ public class GetClassDivRegisterServlet extends HttpServlet {
                         + "                </tbody>\n"
                         + "            </table>");
                 out.println("</div>");
-            }
-            for (ClassBean clas : classList) {
-                out.println("<script text=\"text/javascipt\">buildTable(\""+clas.getIdClasse()+"\");</script>");
+                out.println("<script text=\"text/javascipt\">buildTable(\"" + clas.getIdClasse() + "\");</script>");
 
             }
+            
 
         } catch (SQLException ex) {
             Logger.getLogger(GetClassTabsServlet.class.getName()).log(Level.SEVERE, null, ex);
