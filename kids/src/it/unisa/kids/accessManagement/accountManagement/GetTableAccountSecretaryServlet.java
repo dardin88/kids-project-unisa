@@ -30,7 +30,7 @@ public class GetTableAccountSecretaryServlet extends HttpServlet {
     private IAccountManager accountManager;
 
     public void init(ServletConfig config) {
-    accountManager =(IAccountManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACCOUNT);
+        accountManager = (IAccountManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACCOUNT);
     }
 
     /**
@@ -44,13 +44,12 @@ public class GetTableAccountSecretaryServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-             throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        Account[] pageAccount=null;
-        List<Account> listAccount=null;
+        Account[] pageAccount = null;
+        List<Account> listAccount = null;
         try {
-            System.out.println("ehiii");
             JSONArray array = new JSONArray();
             JSONObject result = new JSONObject();
             int start = 0;
@@ -70,54 +69,52 @@ public class GetTableAccountSecretaryServlet extends HttpServlet {
                     amount = 10;
                 }
             }
-                   
-            String nome= request.getParameter("name");
-            String cognome= request.getParameter("surname");
-            String codFisc= request.getParameter("taxCode");
-            String nomeAcc= request.getParameter("nickname");
-            String tipo= request.getParameter("type");
-            System.out.print(nome+"rr");
-            Account account=new Account();
+
+            String nome = request.getParameter("name");
+            String cognome = request.getParameter("surname");
+            String codFisc = request.getParameter("taxCode");
+            String nomeAcc = request.getParameter("nickname");
+            String tipo = request.getParameter("type");
+
+            Account account = new Account();
             account.setNameUser(nome);
             account.setSurnameUser(cognome);
             account.setTaxCode(codFisc);
             account.setAccountType(tipo);
             account.setNickName(nomeAcc);
-            
-            if((!account.getNameUser().equals(""))||(!account.getSurnameUser().equals(""))||(!account.getTaxCode().equals(""))|| (!account.getAccountType().equals(""))|| (!account.getNickName().equals(""))){
-            listAccount= accountManager.search(account);
+
+            if ((!account.getNameUser().equals("")) || (!account.getSurnameUser().equals("")) || (!account.getTaxCode().equals("")) || (!account.getAccountType().equals("")) || (!account.getNickName().equals(""))) {
+                listAccount = accountManager.search(account);
+            } else {
+                listAccount = accountManager.getAllAccount();
             }
-            else{
-                listAccount=accountManager.getAllAccount();
-            }
-            
+
             int linksNumber = listAccount.size();
             if (linksNumber < amount) {
                 amount = linksNumber;
             }
             if (linksNumber != 0) {
                 int toShow = linksNumber - start;
-                 if (toShow > 10) {
-                    pageAccount= new Account[amount];
-            System.arraycopy(listAccount.toArray(), start, pageAccount, 0, amount);
-                 }
-                 else{         
-            pageAccount= new Account[toShow];
-            System.arraycopy(listAccount.toArray(), start, pageAccount, 0, toShow);
-                 }            
-            for (Account acc : pageAccount) {
-                    
+                if (toShow > 10) {
+                    pageAccount = new Account[amount];
+                    System.arraycopy(listAccount.toArray(), start, pageAccount, 0, amount);
+                } else {
+                    pageAccount = new Account[toShow];
+                    System.arraycopy(listAccount.toArray(), start, pageAccount, 0, toShow);
+                }
+                for (Account acc : pageAccount) {
+
                     JSONArray ja = new JSONArray();
-                    
+
                     ja.put(acc.getNickName());
                     ja.put(acc.getNameUser());
                     ja.put(acc.getSurnameUser());
                     ja.put(acc.getTaxCode());
                     ja.put(acc.getAccountType());
-                    String operazioni ="<input class='tableImage' type='image' src='img/trash.png' onclick='removeAccount(\"" + acc.getId() + "\")'/> <input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/lente.gif' onclick='showAccount(\""+acc.getId()+"\")'/>";
+                    String operazioni = "<input class='tableImage' type='image' src='img/trash.png' onclick='removeAccount(\"" + acc.getId() + "\")'/> <input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/lente.gif' onclick='showAccount(\"" + acc.getId() + "\")'/>";
                     ja.put(operazioni);
                     array.put(ja);
-                    }
+                }
             }
             result.put("sEcho", sEcho);
             result.put("iTotalRecords", listAccount.size());
@@ -128,11 +125,9 @@ public class GetTableAccountSecretaryServlet extends HttpServlet {
                     "private, no-store, no-cache, must-revalidate");
             response.setHeader("Pragma", "no-cache");
             out.print(result);
-            }
-            
-            catch (SQLException ex) {
-            Logger.getLogger(GetTableAccountSecretaryServlet.class.getName()).log(Level.SEVERE, null, ex);           
-          
+        } catch (SQLException ex) {
+            Logger.getLogger(GetTableAccountSecretaryServlet.class.getName()).log(Level.SEVERE, null, ex);
+
         }
     }
 

@@ -5,9 +5,11 @@
 package it.unisa.kids.accessManagement.accountManagement;
 
 import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,25 +31,30 @@ public class LoginServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private IAccountManager mn;
+
+    public void init(ServletConfig config) {
+        mn = (IAccountManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACCOUNT);
+    }
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         try {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
-            System.out.println(password);
             JDBCAccountManager mn = JDBCAccountManager.getInstance();
             Account user = mn.authenticate(username, password);
             if (user != null) {
-                request.getSession().setAttribute("id",user.getId());
+                request.getSession().setAttribute("id", user.getId());
                 request.getSession().setAttribute("user", user);
             } else {
                 request.setAttribute("error", "Verifica nome utente e password.");
             }
             request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE,null, ex);
-        } 
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -63,8 +70,8 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       processRequest(request, response);
-       
+        processRequest(request, response);
+
     }
 
     /**

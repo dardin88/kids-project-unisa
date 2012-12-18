@@ -45,12 +45,10 @@ public class DeleteAccountServlet extends HttpServlet {
         int id;
         try {
             id=Integer.parseInt(request.getParameter("id"));
-            System.out.println("CANCELLAZIONE");
             
             Account account= new Account();
             account.setId(id);
             accountManager.delete(account);
-            System.out.println(account.getNameUser());
             
         }  catch (SQLException ex) {
             Logger.getLogger(DeleteAccountServlet.class.getName()).log(Level.SEVERE, null, ex);

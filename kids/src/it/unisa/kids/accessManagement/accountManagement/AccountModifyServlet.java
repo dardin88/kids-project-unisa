@@ -4,6 +4,8 @@
  */
 package it.unisa.kids.accessManagement.accountManagement;
 
+import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -15,6 +17,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -36,21 +39,24 @@ public class AccountModifyServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private IAccountManager man;
+
+    public void init(ServletConfig config) {
+        man = (IAccountManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACCOUNT);
+    }
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        Account account2=new Account();
+        Account account2 = new Account();
         List<Account> list;
         try {
-                System.out.println("Sono qui!!!!");
             response.setContentType("text/html;charset=UTF-8");
 
-            int id=Integer.parseInt(request.getParameter("id"));
-            System.out.println("QUESTO è l'id 2: "+id);
-            JDBCAccountManager man = JDBCAccountManager.getInstance();
+            int id = Integer.parseInt(request.getParameter("id"));
             account2.setId(id);
-            list=man.search(account2);
+            list = man.search(account2);
             String name = request.getParameter("nomeAccount");
             String surname = request.getParameter("cognomeAccount");
             String birthdate = request.getParameter("dataNascitaAccount");
@@ -94,9 +100,9 @@ public class AccountModifyServlet extends HttpServlet {
             }
 
             Account account = new Account();
-            account=list.get(0);
+            account = list.get(0);
             account.setId(id);
-            
+
             account.setNameUser(name);
             account.setSurnameUser(surname);
             account.setDataOfBirth(birth);
@@ -126,7 +132,7 @@ public class AccountModifyServlet extends HttpServlet {
 
             account = man.update(account);
 
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(AddAccountServlet.class.getName()).log(Level.SEVERE, "SQL-Error: " + ex.getMessage(), ex);
         }

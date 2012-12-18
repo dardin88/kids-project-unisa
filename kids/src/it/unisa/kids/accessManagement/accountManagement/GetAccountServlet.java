@@ -48,9 +48,7 @@ public class GetAccountServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            System.out.println("null??:" + request.getParameter("id"));
             int id = Integer.parseInt(request.getParameter("id"));
-            System.out.println("Questo è l'id " + id);
             Account account = new Account();
             account.setId(id);
             List<Account> list = accountManager.search(account);

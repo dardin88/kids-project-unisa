@@ -52,7 +52,6 @@ public class GetAccountParentServlet extends HttpServlet {
 
             HttpSession rs = request.getSession();
             int id = (Integer) rs.getAttribute("id");
-            System.out.println("Questo è l'id " + id);
             Account account = new Account();
             account.setId(id);
             List<Account> list = accountManager.search(account);
