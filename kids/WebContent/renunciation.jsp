@@ -37,7 +37,7 @@
             activePage();
             initRenunciationPage();
             
-            <%--initRenunciationPrintComponent();--%>
+            initRenunciationPrintComponent();
                     
 <c:if test="${sessionScope.user.getAccountType()=='Genitore'}">
             createTablePossibleRenunciation();
@@ -129,7 +129,7 @@
             <p id="renunciationViewDetailsText"></p>
             <p>
                 <input type="hidden" id="renunciationViewDetailsWindowId" name="renunciationViewDetailsWindowId" />
-                <%--<input type="button" id="renunciationViewDetailsWindowPrint" onClick="printRenunciation();" value="Stampa Domanda" />--%>
+                <input type="button" id="renunciationViewDetailsWindowPrint" onClick="printRenunciation();" value="Stampa Domanda" />
                 <input type="button" id="renunciationViewDetailsWindowUndo" value="Chiudi" />
             </p>
         </div>
