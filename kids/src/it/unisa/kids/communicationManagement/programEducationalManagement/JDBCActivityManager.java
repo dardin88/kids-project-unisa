@@ -7,6 +7,7 @@ package it.unisa.kids.communicationManagement.programEducationalManagement;
 import it.unisa.kids.common.DBNames;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -46,19 +47,23 @@ public class JDBCActivityManager implements IActivityManager {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         String query = null;
-        List<DailyActivitySection> toReturn = null;
-        query = "SELECT * FROM " + DBNames.TABLE_DAILY_SECTION_ACT + " WHERE '"   + DBNames.ATT_ACTIVITYSECTTIONDAILY_SECTIONID + "='" + pDailyActivitySection.getId()+"'";
+        List<DailyActivitySection> toReturn = new ArrayList<DailyActivitySection>();
+        query = "SELECT * FROM " + DBNames.TABLE_DAILY_SECTION_ACT + " WHERE "   + DBNames.ATT_ACTIVITYSECTTIONDAILY_SECTIONID + "='" + pDailyActivitySection.getId()+"'";
         con = DBConnectionPool.getConnection();
         pstmt = con.prepareStatement(query);
         rs = pstmt.executeQuery();
         while (rs.next()) {
             DailyActivitySection dailyActivitySection=new DailyActivitySection();
+            Date dateSql=rs.getDate(DBNames.ATT_ACTIVITYSECTTIONDAILY_DATE);
+            GregorianCalendar date=new GregorianCalendar();
+            date.setTime(dateSql);
+            dailyActivitySection.setData(date);
             dailyActivitySection.setId(rs.getInt(DBNames.ATT_ACTIVITYSECTTIONDAILY_ID));
             dailyActivitySection.setIdActivity(rs.getInt(DBNames.ATT_ACTIVITYSECTTIONDAILY_IDACTITIVTY));
             dailyActivitySection.setIdEducator(rs.getInt(DBNames.ATT_ACTIVITYSECTTIONDAILY_IDEDUCATORE));
             dailyActivitySection.setNotes(rs.getString(DBNames.ATT_ACTIVITYSECTTIONDAILY_NOTES));
             dailyActivitySection.setIdSection(rs.getInt(DBNames.ATT_ACTIVITYSECTTIONDAILY_SECTIONID));
-
+            toReturn.add(dailyActivitySection);
         }
         return toReturn;
     }

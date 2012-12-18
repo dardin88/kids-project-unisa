@@ -49,11 +49,14 @@ public class GetClassDivRegisterServlet extends HttpServlet {
         try {
             List<ClassBean> classList = accessFacade.getClasses();
             for (ClassBean clas : classList) {
-                out.println("<div id=\"" + clas.getIdClasse() + "\">");
+                out.println("<div id=\"" + clas.getIdClasse() + "\" style=\"width:97%\">");
+                out.println("<input type=\"button\" id=\"insertActivityButton"+clas.getIdClasse()+"\" value=\"Inserisci Attivit&agrave\" onclick=\"openInsertActivity('"+clas.getIdClasse()+"')\">");
                 out.println("<table id=\"table" + clas.getIdClasse() + "\">\n"
                         + "                <thead>\n"
                         + "                    <tr>\n"
+                        +"                         <th>Giorno</th>\n  "
                         + "                        <th>Nome Attvit&agrave</th>\n"
+                        +"                         <th>Educatore</th>\n"
                         + "                        <th>Operazioni</th>\n"
                         + "\n"
                         + "                    </tr>\n"
@@ -62,7 +65,7 @@ public class GetClassDivRegisterServlet extends HttpServlet {
                         + "                </tbody>\n"
                         + "            </table>");
                 out.println("</div>");
-                out.println("<script text=\"text/javascipt\">buildTable(\"" + clas.getIdClasse() + "\");</script>");
+                out.println("<script text=\"text/javascipt\">buildTable(\"" + clas.getIdClasse() + "\");buildInsertButton(\""+clas.getIdClasse()+"\");</script>");
 
             }
             
@@ -70,7 +73,7 @@ public class GetClassDivRegisterServlet extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(GetClassTabsServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            out.close();
+           // out.close();
         }
     }
 

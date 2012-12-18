@@ -25,10 +25,27 @@
         <script text="text/javascript">
             $(document).ready(function() {
                 initializeLinksManager();
+                buildTableActivity();
 
             });
         </script>
     </head>
+    <div id="insertActivityWindow">
+        <table id="tableActivity">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Data Inizio</th>
+                        <th>Data Fine</th>
+                        <th></th>
+                        <th>Operazioni</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+    </div>
     <body>
         <%@include file="header.jsp" %>
 
