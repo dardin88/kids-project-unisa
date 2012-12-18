@@ -38,8 +38,12 @@
                 <ul>
                     <jsp:include page="/GetClassTabs"></jsp:include>
                     </ul>
+                    
+                <jsp:include page="/GetClassDivRegister"></jsp:include>
+
                 </div>
             </div>
+
         <%@include file="footer.jsp" %>
 
 

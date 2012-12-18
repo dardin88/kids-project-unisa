@@ -4,10 +4,15 @@
  */
 package it.unisa.kids.communicationManagement.programEducationalManagement;
 
+import it.unisa.kids.accessManagement.classManagement.ClassBean;
 import it.unisa.kids.common.facade.AccessFacade;
 import it.unisa.kids.common.facade.IAccessFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -40,16 +45,17 @@ public class GetClassDivRegisterServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+
         try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet GetClassDivRegisterServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet GetClassDivRegisterServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            List<ClassBean> classList = accessFacade.getClasses();
+            for (ClassBean clas : classList) {
+                out.println("<div id=\""+clas.getIdClasse()+"\">");
+                out.println("");
+                out.println("</div>");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(GetClassTabsServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
         }
