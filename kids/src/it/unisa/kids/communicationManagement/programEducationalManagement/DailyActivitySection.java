@@ -24,25 +24,8 @@ public class DailyActivitySection extends AnnualProjectSection {
     private GregorianCalendar data;
     private String notes;
     private int idSection;
-    Map<String, Value> childrenList;
-    private JDBCDailyActivity db;
 
-    public DailyActivitySection(GregorianCalendar data, int idSection) throws SQLException {
-        db = new JDBCDailyActivity();
-        DailyActivitySection temp = db.showDailyActivitySection(data, idSection);
-        if (temp != null) {
-            this.id = temp.getId();
-            this.idActivity = temp.getIdActivity();
-            this.idEducator = temp.getIdEducator();
-            this.notes = temp.getNotes();
-        }
-        this.idSection = idSection;
-        this.data = data;
-
-
-
-
-    }
+    
 
     public int getIdSection() {
         return idSection;
@@ -66,13 +49,6 @@ public class DailyActivitySection extends AnnualProjectSection {
         this.idActivity = idActivity;
     }
 
-    public synchronized void setChildrenList() throws SQLException {
-        this.childrenList = db.showRegister(this.data, this.idSection);
-    }
-
-    public synchronized Map getChildrenList() {
-        return this.childrenList;
-    }
 
     /**
      * this method return the idEducatore of the activity section daily
