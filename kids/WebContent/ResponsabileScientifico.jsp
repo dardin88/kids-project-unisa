@@ -9,6 +9,7 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="css/template.css" >  
+        <script type="text/javascript" src="js/functions.js"></script>
         <title>Kids</title>
     </head>
     <body>

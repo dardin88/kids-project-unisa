@@ -50,25 +50,13 @@ public class ShowProjectServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             PrintWriter out = response.getWriter();
-            AnnualProject[] paginateAnnualProjectSet;
             ArrayList<AnnualProject> listAnnualProject=programEducationalManager.show();
         //    ArrayList<AnnualProject> listAnnualProject=JDBCProgramEducational.getInstance().show();
             JSONObject result = new JSONObject();
             JSONArray array = new JSONArray();
             for(AnnualProject a: listAnnualProject){
-//                JSONArray ja = new JSONArray();
-//                ja.put(a.getPath());
-//                ja.put(a.getState());
-//                array.put(ja);
                 out.println(a.getPath()+","+a.getState());
             }
-           
-//            result.put("aaData", array);
-//            response.setContentType("application/json");
-//            response.setHeader("Cache-Control",
-//                    "private, no-store, no-cache, must-revalidate");
-//            response.setHeader("Pragma", "no-cache");
-//            out.println(result);
         }
         catch (SQLException ex) {
             Logger.getLogger(ShowProjectServlet.class.getName()).log(Level.SEVERE, null, ex);
