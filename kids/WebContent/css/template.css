@@ -791,10 +791,23 @@ Gestione bambini
     margin-left: 5px;
 }
 
+/*
+ * RegisterEduManagement
+ */
+
 #registerManagement{
     float: left;
     padding: 2%;
     padding-top: 1%;
     width: 80%;
+}
 
+/*
+ * SecionEduManagement
+ */
+#sectionEduManagement {
+    float: left;
+    padding: 2%;
+    padding-top: 1%;
+    width: 80%;
 }

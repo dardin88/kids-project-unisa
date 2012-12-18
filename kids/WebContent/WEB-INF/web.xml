@@ -14,6 +14,10 @@
         <servlet-class>it.unisa.kids.communicationManagement.surveyManagement.SurveyFormServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>GetSectionEduClassDivsServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.programEducationalManagement.GetSectionEduClassDivsServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>InsertCompiledSurveyServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.surveyManagement.InsertCompiledSurveyServlet</servlet-class>
     </servlet>
@@ -1024,6 +1028,10 @@
     <servlet-mapping>
         <servlet-name>GetClassDivRegisterServlet</servlet-name>
         <url-pattern>/GetClassDivRegister</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetSectionEduClassDivsServlet</servlet-name>
+        <url-pattern>/GetSectionEduClassDivs</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
