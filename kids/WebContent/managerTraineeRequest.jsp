@@ -16,20 +16,24 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="css/template.css" >
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
+
+        <script type="text/javascript" src="js/jquery.ui.timepicker.js"></script>
+        <script type='text/javascript' src='calendario/fullcalendar/fullcalendar.min.js'></script>
         <script type="text/javascript" src="js/functions.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
         <script type="text/javascript" src="js/jquery-1.8.2.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.js"></script>   
         <script type="text/javascript" src="js/managerTraineeRequest.js"></script>
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/jquery.ui.timepicker.css">
-        <script type="text/javascript" src="js/fullcalendar.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/fullcalendar.css">
 
-        <script type="text/javascript" src="js/jquery.ui.timepicker.js"></script>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/jquery.ui.timepicker.css">
+        <link rel='stylesheet' type='text/css' href='calendario/fullcalendar/fullcalendar.css' />
+        <link rel="stylesheet" type="text/css" href="css/template.css" >
+        <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
+
+        <title>Kids</title>
+
         <script type="text/javascript">
             $(document).ready(function() {
 
@@ -39,7 +43,7 @@
                 
             });
         </script>
-        <title>Inserisci richiesta di tirocinanti</title>
+
     </head>
     <c:if test="${requestScope.message!=null}">
         <div id="confirm" title="Message" style="display: inline">
@@ -88,7 +92,7 @@
         <%@include file="header.jsp" %>
         <div id="traineeRequestManagement" >
             <input type="button" value="Inserisci richiesta di tirocinanti" id="InsertTraineeRequest" onClick="openInsertTraineeRequestDialog()">
-            <div id="calendar" style="height:500px ;width: 600px;padding-top: 20px;">
+            <div id="calendar" style="margin-top: 3%;">
             </div>
         </div>
         <%@include file="footer.jsp" %>

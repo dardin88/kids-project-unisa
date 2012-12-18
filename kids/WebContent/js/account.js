@@ -1,5 +1,7 @@
 function initializeLinksManager2(){
     
+    
+    
     $("#avantiButton").button();
     $("#modifyButton").button();
     $("#eliminaButton").button();

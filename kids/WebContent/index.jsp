@@ -1,7 +1,7 @@
 <%-- 
     Document   : index
-    Created on : 13-nov-2012, 14.15.12
-    Author     : dario
+    Created on : 01-dic-2012
+    Author     : Pasquale Caldarese
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -11,33 +11,39 @@
     <c:if test="${sessionScope.user.getAccountType()=='Genitore'}"> 
         <c:redirect url="newsGenitorePage.jsp" />
     </c:if>
+
     <c:if test="${sessionScope.user.getAccountType()=='Educatore'}"> 
         <c:redirect url="healthCommunicationTable.jsp" />
     </c:if>
-    
-    
-    
+
     <c:if test="${sessionScope.user.getAccountType()=='Tirocinante'}">
         <c:redirect url="traineePage.jsp" />
     </c:if>
+
     <c:if test="${sessionScope.user.getAccountType()=='Delegato scienze della formazione'}">
         <c:redirect url="formationSciencePage.jsp" />
     </c:if>
+
     <c:if test="${sessionScope.user.getAccountType()=='Responsabile Mensa'}">
         <c:redirect url="canteenManagement.jsp" />
     </c:if>
+
     <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
         <c:redirect url="secretaryPage.jsp" />
     </c:if>
+
     <c:if test="${sessionScope.user.getAccountType()=='Admin'}"> 
         <c:redirect url="meetingCalendar.jsp" />
     </c:if>
+
     <c:if test="${sessionScope.user.getAccountType()=='Coordinatore Psicopedagogico'}"> 
         <c:redirect url="CoordinatorePsico.jsp" />
     </c:if>
+
     <c:if test="${sessionScope.user.getAccountType()=='Delegato del rettore'}"> 
         <c:redirect url="rectorDelegatePage.jsp" />
     </c:if>
+
     <c:if test="${sessionScope.user.getAccountType()=='Responsabile Asilo'}"> 
         <c:redirect url="responsibleAsylumPage.jsp" />
     </c:if>

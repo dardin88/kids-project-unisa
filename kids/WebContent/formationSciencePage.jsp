@@ -11,14 +11,13 @@
     <c:redirect url="index.jsp" />
 </c:if>
 <c:if test="${sessionScope.user.getAccountType()!='Delegato scienze della formazione'}">
-        <c:redirect url="index.jsp" />
+    <c:redirect url="index.jsp" />
 </c:if>
 <!DOCTYPE html>
 <html>
-    <head>      
-        <link rel="stylesheet" type="text/css" href="css/template.css" >
-        <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
-        
+    <head>    
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
         <script type="text/javascript" src="js/jquery-1.8.2.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.js"></script>
@@ -26,8 +25,12 @@
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/formationSciencePage.js"></script>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Ufficio Scienze della Formazione</title>
+
+        <link rel="stylesheet" type="text/css" href="css/template.css" >
+        <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
+
+        <title>Kids</title>
+
         <script type="text/javascript">
             $(document).ready(function() {
                 messageDialog();

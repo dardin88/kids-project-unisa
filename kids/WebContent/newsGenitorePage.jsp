@@ -1,7 +1,7 @@
 <%-- 
     Document   : newsGenitorePage
     Created on : 26-nov-2012, 18.25.29
-    Author     : francesco
+    Author     : Francesco Di Lorenzo
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -10,22 +10,23 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="css/template.css" >       
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/newsGenitorePage.js"></script> 
-         <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
         <script type="text/javascript" src="js/jquery-1.8.2.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.js"></script>   
 
-        <title>Gestione News - Kids Project</title>
+        <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
+        <link rel="stylesheet" type="text/css" href="css/template.css" >       
+
+        <title>Kids</title>
+
         <script type="text/javascript">
             $(document).ready(function() {
                 activePage();
                 initializeLinksManager();
             });
         </script>
-        <title>Visualizza News</title>
     </head>
     <c:if test="${requestScope.message != null}">
         <div id="confirm" title="Message" style="display: inline">

@@ -1,7 +1,7 @@
 <%-- 
     Document   : paymentParent
     Created on : 8-dic-2012, 1.21.59
-    Author     : navipar
+    Author     : Antonio Panariello
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -31,7 +31,7 @@
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/paymentsParent.js"></script>
 
-        <title>Pagamenti - Kids</title>
+        <title>Kids</title>
 
         <script type="text/javascript">
             $(document).ready(function() {
@@ -60,7 +60,6 @@
         </c:if>
 
         <div id="paymentsManagement">
-            <h1>Pagamenti</h1>
             <input type="hidden" name="hiddenParentId" id="hiddenParentId" value="${sessionScope.user.getId()}">
             <%-- blocco div delle varie funzioni dei pagamenti --%>
             <div id="generalPaymentSection">
@@ -104,7 +103,7 @@
                             </tbody>
                         </table>
                     </div>
-                    
+
                 </div>
             </div>
             <%-- fine blocco div funzioni pagamenti --%>

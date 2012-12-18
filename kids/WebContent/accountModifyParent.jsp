@@ -1,7 +1,7 @@
 <%-- 
     Document   : accoutnModifyParent
     Created on : 7-dic-2012, 23.11.51
-    Author     : Gianmarco
+    Author     : Gianmarco Del Pozzo
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,21 +14,26 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css" />
         <link rel="stylesheet" type="text/css" href="css/template.css">
         <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
+
         <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/modifyAccountRegistration2.js"></script>
-        <title>Modifica Account - Kids Project</title>
+
+        <title>Kids</title>
+
         <jsp:include page="/GetAccountParent" /> 
         <script type="text/javascript">
             $(document).ready(function() {
+                activePage();
                 initializeModifyRegistrationFields();
-                
+                $("#title").html("Gestione Account - Modifica");
                 update();
                 $("#modifyDateOfBirth, #modifyContractExpirationDate, #modifyRegistrationDate").datepicker({dateFormat:'yy-mm-dd'});
             });
@@ -37,13 +42,9 @@
     <%@include file="header.jsp"%>
     <body id="bodyRegistration">
 
-
         <form id="modifyForm" class="cmxform"  action="" method="post">
-
             <fieldset id="modifyFieldSet">
                 <div id="artefactsManagement">
-                    <h1  style="font-weight: bold; font-size: 30pt"id="titleReg" align="center">Modifica Account</h1><br> <br>
-
                     <div id="modifyRegistration1">
                         <input id="id" class="accountInput" type="hidden" name="id" size="50%" value="${id}" readonly="true">
                         <input id="typeAccount2" class="accountInput" type="hidden" name="Nome" size="50%" value="${TipoAccount}" >
@@ -168,6 +169,8 @@
                                 <OPTION value="Coordinatore Psicopedagogico" name="CoordinatorePsicopedagogico"> Coordinatore Psicopedagogico 
                                 <OPTION value="Responsabile Scientifico" name="ResponsabileScientifico"> Responsabile Scientifico 
                                 <OPTION value="Responsabile Asilo" name="ResponsabileAsilo"> Responsabile Asilo
+                                <OPTION value="Delegato del Rettore" name="DelegatoDelRettore"> Delegato del Rettore
+                                <OPTION value="Responsabile Mensa" name="ResponsabileMensa"> Responsabile Mensa
                             </select>
                         </div>
 

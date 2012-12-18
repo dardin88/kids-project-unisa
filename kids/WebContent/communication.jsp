@@ -1,7 +1,7 @@
 <%-- 
     Document   : communication
     Created on : 24-nov-2012, 20.00.18
-    Author     : Elena
+    Author     : Elena Sollai
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,14 +12,18 @@
 <!DOCTYPE html>
 <html>
     <head>
+        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/template.css">
         <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
+        
         <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/registrationManager.js"></script>
-        <title>Comunicazione Bambini - Kids Project</title>
+        
+        <title>Kids</title>
+        
         <script type="text/javascript">
             $(document).ready(function() {
                 initializeCommunicationManager();

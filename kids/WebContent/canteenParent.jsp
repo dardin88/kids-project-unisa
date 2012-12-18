@@ -1,7 +1,7 @@
 <%-- 
     Document   : canteenParent
     Created on : 9-dic-2012, 3.46.11
-    Author     : navipar
+    Author     : Antonio Panariello
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -33,7 +33,7 @@
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/canteenParent.js"></script>
 
-        <title>Mensa - Kids</title>
+        <title>Kids</title>
 
         <script type="text/javascript">
             $(document).ready(function() {

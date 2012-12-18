@@ -1,7 +1,7 @@
 <%-- 
     Document   : secretarySurveyManagement
     Created on : 7-dic-2012, 17.58.34 
-    Author     : felice
+    Author     : Felice D'Avino
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -30,7 +30,9 @@
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/surveyShowTable.js"></script>
+
         <title>Kids</title>
+
         <script type="text/javascript">
             $(document).ready(function() {
                 initializeLinksManager();

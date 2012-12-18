@@ -1,7 +1,7 @@
 <%-- 
     Document   : footer
-    Created on : 30-apr-2010, 16.11.22
-    Author     : Dario
+    Created on : 01-dic-2012
+    Author     : Pasquale Caldarese 
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

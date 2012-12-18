@@ -1,7 +1,7 @@
 <%-- 
     Document   : meetingCalendar.jsp
     Created on : 21-nov-2012
-    Author     : Pasquale
+    Author     : Pasquale Caldarese
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,9 +14,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
             <link rel="stylesheet" type="text/css" href="css/template.css" />
             <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css" />
             <link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css" />
+            <link rel='stylesheet' type='text/css' href='calendario/fullcalendar/fullcalendar.css' /> 
+
             <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
             <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
             <script type="text/javascript" src="js/jquery.validate.min.js"></script>
@@ -25,16 +28,17 @@
             <script type="text/javascript" src="js/functions.js"></script>
             <script type="text/javascript" src="js/meetingManager.js"></script>
             <script type="text/javascript" src="js/jquery.ui.timepicker.js"></script>
-            <link rel='stylesheet' type='text/css' href='calendario/fullcalendar/fullcalendar.css' /> 
+
             <title>Kids</title>
+
             <script type="text/javascript">
                 $(document).ready(function() {
                     activePage();
                     initializeMeetingManager();
-                <c:if test="${sessionScope.user.getAccountType()=='Admin'||sessionScope.user.getAccountType()=='Segreteria'||sessionScope.user.getAccountType()=='Responsabile Asilo'}">                               
+                <c:if test="${sessionScope.user.getAccountType()=='Admin'||sessionScope.user.getAccountType()=='Segreteria'||sessionScope.user.getAccountType()=='Responsabile Asilo'||sessionScope.user.getAccountType()=='Delegato del rettore'}">                               
                         CalendarEditable();
                 </c:if>
-                <c:if test="${sessionScope.user.getAccountType()!='Admin' && sessionScope.user.getAccountType() != 'Segreteria' && sessionScope.user.getAccountType() != 'Responsabile Asilo'}">                               
+                <c:if test="${sessionScope.user.getAccountType()!='Admin' && sessionScope.user.getAccountType() != 'Segreteria' && sessionScope.user.getAccountType() != 'Responsabile Asilo' && sessionScope.user.getAccountType()!='Delegato del rettore'}">                               
                         CalendarNotEditable();
                 </c:if> 
                         $("#dataMeeting,#modifyDataMeeting").datepicker({dateFormat:'yy-mm-dd'});
@@ -140,7 +144,8 @@
                                             <label style="margin-left: 2%;" id="showTypeMeeting" name="showTypeMeeting"></label> <br> <br>
                                                     </p>
                                                     <p style="width: 480px">
-                                                        <c:if test="${sessionScope.user.getAccountType()=='Admin'||sessionScope.user.getAccountType()=='Segreteria'||sessionScope.user.getAccountType()=='Responsabile Asilo'}">                                                            <input type="button" id="modifyMeetingButton" value="Modifica Riunione" />
+                                                        <c:if test="${sessionScope.user.getAccountType()=='Admin'||sessionScope.user.getAccountType()=='Segreteria'||sessionScope.user.getAccountType()=='Responsabile Asilo'||sessionScope.user.getAccountType()=='Delegato del rettore'}">                                                           
+                                                            <input type="button" id="modifyMeetingButton" value="Modifica Riunione" />
                                                             <input type="button" id="deleteMeetingButton" value="Elimina Riunione" />
                                                         </c:if>
                                                         <input style="width: 140px" type="button" id="notMeetingButton" value="Annulla" />
@@ -158,18 +163,18 @@
                                                             <fieldset>
                                                                 <div id="artefactsManagement">
                                                                     <p class="formp">
-                                                                        <label ><h3> Titolo: </h3></label> <br>
+                                                                        <label ><h3> Titolo *: </h3></label> <br>
                                                                             <input id="titleMeeting" name="Titolo" type="text" size=50% style="margin-right: 2%"> </input> <br> <br>
                                                                                     </p>
                                                                                     <p class="formp">
-                                                                                        <label ><h3> Descrizione: </h3></label> <br>
+                                                                                        <label ><h3> Descrizione *: </h3></label> <br>
                                                                                             <textarea id="descriptionMeeting" name="Descrizione" class="textarea" rows="5" cols=100%> 
                                                                                             </textarea> <br> 
                                                                                                 </p>
                                                                                                 <p class="formp">
-                                                                                                    <label><h3 style="float: left"> Data </h3></label> 
+                                                                                                    <label><h3 style="float: left"> Data * </h3></label> 
 
-                                                                                                    <label class="hourLabel" style="float: left"><h3> Ora </h3></label> <br> <br>
+                                                                                                    <label class="hourLabel" style="float: left"><h3> Ora * </h3></label> <br> <br>
                                                                                                             <input type="text" id="dataMeeting" name="Data" style="margin-right: 2%">   </input>
                                                                                                             <label> Inizio: </label>
                                                                                                             <input type="text" name="OraInizio" id="startTime">
@@ -177,7 +182,7 @@
                                                                                                                 <input type="text"  name="OraFine"  id="endTime" >
                                                                                                                     </p>
                                                                                                                     <p class="formp"> 
-                                                                                                                        <legend> <h3> Tipologia: </h3></legend> <br>
+                                                                                                                        <legend> <h3> Tipologia *: </h3></legend> <br>
                                                                                                                             <ul >
                                                                                                                                 <input type="radio" id="typeMeetingComitato" name="Tipo" value="Comitato" checked > Riunione Comitato      
                                                                                                                                     <input type="radio" id="typeMeetingGestione" name="Tipo" value="Consiglio Gestione" > Riunione Consiglio Di Gestione  
@@ -270,7 +275,7 @@
 
                                                                                                                                                                                                         <body>
                                                                                                                                                                                                         <%@include file="header.jsp" %>
-                                                                                                                                                                                                        <c:if test="${sessionScope.user.getAccountType()=='Admin'||sessionScope.user.getAccountType()=='Segreteria'||sessionScope.user.getAccountType()=='Responsabile Asilo'}"> 
+                                                                                                                                                                                                        <c:if test="${sessionScope.user.getAccountType()=='Admin'||sessionScope.user.getAccountType()=='Segreteria'||sessionScope.user.getAccountType()=='Responsabile Asilo'||sessionScope.user.getAccountType()=='Delegato del rettore'}"> 
                                                                                                                                                                                                         <input type="button"  id="newMeetingButton" style="position: absolute; left: 15%" value="Inserisci Riunione"/> 
                                                                                                                                                                                                         </c:if>
                                                                                                                                                                                                         <div id="meetingCalendar" style="width: 60%"></div>

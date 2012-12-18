@@ -1,7 +1,7 @@
 <%-- 
     Document   : accountSecretary
     Created on : 29-nov-2012, 9.01.50
-    Author     : Gianmarco
+    Author     : Gianmarco  Del Pozzo
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -11,10 +11,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
         <link rel="stylesheet" type="text/css" href="css/template.css" >
         <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css">
+
         <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
         <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
@@ -22,7 +24,9 @@
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/account.js"></script>
-        <title>Accounts - Kids Project</title>
+
+        <title>Kids</title>
+
         <script type="text/javascript">
             $(document).ready(function() {
                 activePage();
@@ -77,7 +81,10 @@
                             <OPTION value="Coordinatore Psicopedagogico" name="CoordinatorePsicopedagogico"> Coordinatore Psicopedagogico 
                             <OPTION value="Responsabile Scientifico" name="ResponsabileScientifico"> Responsabile Scentifico 
                             <OPTION value="Responsabile Asilo" name="ResponsabileAsilo"> Responsabile Asilo
-                        </select>                    </td>
+                            <OPTION value="Delegato del Rettore" name="DelegatoDelRettore"> Delegato del Rettore
+                            <OPTION value="Responsabile Mensa" name="ResponsabileMensa"> Responsabile Mensa
+                        </select>             
+                    </td>
                     <td colspan="2">
                         <input type="button" name="ricarica" id="ricarica" value="Ricerca" onclick="search()"style="width: 100%"/>
                     </td>
@@ -88,7 +95,7 @@
             <form name="insertAccount" method="post" action="accountInsert.jsp" >
                 <input type="submit" id="addLinkButton" value="Inserisci Account" />
             </form>
-            
+
             <table id="accountsTable" style="width:100%;">
                 <thead>
                     <tr>
@@ -103,7 +110,7 @@
                 <tbody>
                 </tbody>
             </table>
-            
+
 
 
         </div>

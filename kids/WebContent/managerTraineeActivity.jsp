@@ -16,24 +16,27 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
         <script type="text/javascript" src="js/jquery-1.8.2.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
-        <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
-        <link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css">
+        <script type="text/javascript" src="js/jquery.ui.timepicker.js"></script>
         <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" src="js/fullcalendar.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/fullcalendar.css">
+        <script type='text/javascript' src='calendario/fullcalendar/fullcalendar.min.js'></script>
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/managerTraineeActivity.js"></script>
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+
         <link rel="stylesheet" type="text/css" href="css/template.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.ui.timepicker.css">
-        <script type="text/javascript" src="js/jquery.ui.timepicker.js"></script>
-        <script type="text/javascript" src="js/functions.js"></script>
+        <link rel='stylesheet' type='text/css' href='calendario/fullcalendar/fullcalendar.css' /> 
+        <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
+        <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
+        <link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css">
 
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Kids</title>
+
         <script type="text/javascript">
             $(document).ready(function() {
                 createCalendar();
@@ -43,7 +46,6 @@
                 
             });
         </script>
-        <title>Inserisci Attività</title>
     </head>
     <c:if test="${requestScope.message!=null}">
         <div id="confirm" title="Message" style="display: inline">
@@ -114,7 +116,7 @@
         <%@include file="header.jsp" %>
         <div id="traineesManagement">
             <input type="button" style=""id="insertTraineeActivityButton" name="InsertTraineeActivityButton" value="Inserisci Attivit&agrave" onclick="openDialogInsertTraineeActivity()">
-            <div id="calendar" style="width:760px;padding-left: 50px;padding-top: 50px;" ></div>
+            <div id="calendar" style="margin-top: 3%" ></div>
 
         </div>
         <%@include file="footer.jsp" %>
