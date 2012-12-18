@@ -98,10 +98,6 @@ public class GetActivityTableServlet extends HttpServlet {
                 for (Activity act : paginateActivitySet) {
                     JSONArray ja = new JSONArray();
                     if (act.getStartDate().getTimeInMillis() > currentDate.getTimeInMillis() || act.getEndDate().getTimeInMillis() < currentDate.getTimeInMillis()) {
-                        System.out.println(act.getStartDate().getTimeInMillis());
-                        System.out.println(act.getEndDate().getTimeInMillis());
-                        System.out.println(currentDate.getTimeInMillis());
-
                         continue;
                     }
                     ja.put("bla");

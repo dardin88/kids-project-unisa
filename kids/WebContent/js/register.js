@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
+var idClass;
 function initializeLinksManager() {
     $("#registerTab").tabs();
     $("#insertActivityWindow").dialog({
@@ -13,8 +13,8 @@ function initializeLinksManager() {
     });
 
 }
-function buildTable(id){
-    $('#table'+id).dataTable({
+function buildTable(id) {
+    $('#table' + id).dataTable({
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
@@ -24,11 +24,10 @@ function buildTable(id){
         "bFilter": false,
         "fnServerParams": function(aoData) {
             aoData.push(
-                    
-            {
-                "name": "id",
-                "value": id
-            }
+                    {
+                        "name": "id",
+                        "value": id
+                    }
             );
 
         },
@@ -69,65 +68,18 @@ function buildTable(id){
     });
 }
 
-function buildInsertButton(id){
-    $("#insertActivityButton"+id).button()
-;}
-
-function buildTableActivity(id){
-    $('#tableActivity').dataTable({
-        "bJQueryUI": true,
-        "bServerSide": true,
-        "bProcessing": true,
-        "sAjaxSource": "GetActivityTable",
-        "bPaginate": true,
-        "bLengthChange": false,
-        "bFilter": false,
-        "fnServerParams": function(aoData) {
-            aoData.push(
-                    
-            {
-                "name": "id",
-                "value": id
-            }
-            );
-
-        },
-        "bSort": false,
-        "bDestroy": true,
-        "bInfo": true,
-        "bAutoWidth": true,
-        "sPaginationType": "full_numbers",
-        "oLanguage": {
-            "sProcessing": "Caricamento...",
-            "sLengthMenu": "Visualizza _MENU_ link",
-            "sZeroRecords": "La ricerca non ha portato alcun risultato.",
-            "sInfo": "Vista da _START_ a _END_ di _TOTAL_ Attivita",
-            "sInfoEmpty": "Vista da 0 a 0 di 0 Attivita",
-            "sInfoFiltered": "(filtrati da _MAX_ link totali)",
-            "sInfoPostFix": "",
-            "oPaginate": {
-                "sFirst": "<<",
-                "sPrevious": "<",
-                "sNext": ">",
-                "sLast": ">>"
-            }
-        },
-        "aoColumns": [
-            {
-                "sWidth": "5%"
-            },
-            {
-                "sWidth": "25%"
-            },
-            {
-                "sWidth": "85%"
-            }
-        ]
-    });
+function buildInsertButton(id) {
+    $("#insertActivityButton" + id).button()
+            ;
 }
 
-function openInsertActivity(id){
-    $("#insertActivityWindow").dialog("open");
-    buildTableActivity(id);
-    
-    }
+
+   
+
+
+function openInsertActivity(id) {
+    $("#insertActivityWindow"+id).dialog("open");
+    idClass = id;
+    var oTable = $("#tableActivity"+id).dataTable();
+    oTable.fnDraw();
+}
