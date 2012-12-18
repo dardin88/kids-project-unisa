@@ -1,8 +1,18 @@
 package it.unisa.kids.accessManagement.classManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.accessManagement.accountManagement.IAccountManager;
+import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.Mail;
 import it.unisa.kids.common.MailManager;
+import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +23,13 @@ import javax.servlet.http.HttpServletResponse;
  * @author tonino
  */
 public class SendMailRequestClassModifyServlet extends HttpServlet {
+
+    private IAccountManager accMan;
+
+    @Override
+    public void init(ServletConfig config) {
+        accMan = (IAccountManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACCOUNT);
+    }
 
     /**
      * Processes requests for both HTTP
@@ -26,12 +43,24 @@ public class SendMailRequestClassModifyServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Mail m = new Mail();
-        MailManager mm = new MailManager();
-        m.setTo("a.porcelli90@gmail.com");
-        m.setSubject("Richiesta modifica classe "+request.getParameter("nomeClasse"));
-        m.setBody(request.getParameter("messaggio"));
-        mm.sendMail(m);
+        try {
+            MailManager mailManager = new MailManager();
+            Mail mail = new Mail();
+            mail.setBody(request.getParameter("messaggio"));
+            mail.setSubject("Richiesta modifica classe \"" + request.getParameter("nomeClasse") + "\"");
+            Account pAccount = new Account();
+            pAccount.setAccountType("Responsabile Asilo");
+            List<Account> searchedAccount = accMan.search(pAccount);
+            ArrayList<String> email=new ArrayList<>();
+            for (Account e : searchedAccount) {
+                email.add(e.getEmail());
+            }
+            mail.setTo(email);
+            mailManager.sendMail(mail);
+            response.sendRedirect("class.jsp");
+        } catch (SQLException ex) {
+            Logger.getLogger(SendMailRequestClassModifyServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

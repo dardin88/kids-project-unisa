@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,11 +24,13 @@ public class AddClassBeanServlet extends HttpServlet {
 
     private IRegistrationChildManager regMan;
     private IAccountManager accMan;
+    private IClassManager clasMan;
 
     @Override
     public void init(ServletConfig config) {
         regMan = (IRegistrationChildManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
         accMan = (IAccountManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACCOUNT);
+        clasMan = (IClassManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_CLASS);
     }
 
     /**
@@ -47,7 +47,6 @@ public class AddClassBeanServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            JDBCClassManager clasMan = JDBCClassManager.getInstance();
             ClassBean clas = new ClassBean();
             clas.setIdClasse(0);
             clas.setClassName(request.getParameter(DBNames.ATT_CLASS_NAME));
