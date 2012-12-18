@@ -5,12 +5,14 @@
 package it.unisa.kids.accessManagement.accountManagement;
 
 import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,89 +37,90 @@ public class ModifyPasswordServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private IAccountManager man;
+
+    public void init(ServletConfig config) {
+        man = (IAccountManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACCOUNT);
+    }
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/json"); 
+        response.setContentType("application/json");
         JSONObject jObj = new JSONObject();
         PrintWriter out = response.getWriter();
-        Account account2=new Account();
+        Account account2 = new Account();
         List<Account> list;
-           try {
-           JDBCAccountManager man= JDBCAccountManager.getInstance();
-           
-           int id=Integer.parseInt(request.getParameter("id"));
-            System.out.println("Questo è l'id Password: "+id);
-           account2.setId(id);
-           list=man.search(account2);
-                      
-           String old = request.getParameter("old");
-           String newPass = request.getParameter("newPass");
-           String newPass2 = request.getParameter("newPass2");
-           System.out.println("Parametri passati : "+old+","+newPass+","+newPass2);
-           
-           Account account=list.get(0);
-           
-       
-       if((!newPass.equals(newPass2))||(!old.equals(account.getPassword()))){
-           System.out.println("ho effettuato il controllo esito positivo...invio messaggio");
-           jObj.put("message", "NO");
-            
-           }else{
-       System.out.println("ho effettuato il controllo esito negativo");
-       jObj.put("message", "OK");
-          
-           account.setPassword(newPass);
+        try {
+
+            int id = Integer.parseInt(request.getParameter("id"));
+            account2.setId(id);
+            list = man.search(account2);
+
+            String old = request.getParameter("old");
+            String newPass = request.getParameter("newPass");
+            String newPass2 = request.getParameter("newPass2");
+
+            Account account = list.get(0);
+
+            if ((!newPass.equals(newPass2)) || (!old.equals(account.getPassword()))) {
+                jObj.put("message", "NO");
+
+            } else {
+                jObj.put("message", "OK");
+
+                account.setPassword(newPass);
             }
-       
-           account.setId(account.getId());
-           account.setRegister(account.getRegister());
-           account.setAccountType(account.getAccountType());
-           account.setCapDomicile(account.getCapDomicile());
-           account.setCapResidence(account.getCapResidence());
-           account.setCellularNumber(account.getCellularNumber());
-           account.setCitizenship(account.getCitizenship());
-           account.setContractExpirationDate(account.getContractExpirationDate());
-           account.setDataOfBirth(account.getDataOfBirth());
-           account.setEmail(account.getEmail());
-           account.setFaculty(account.getFaculty());
-           account.setFamilySituation(account.getFamilySituation());
-           account.setFax(account.getFax());
-           account.setIncome(account.getIncome());
-           account.setMunicipalityDomicile(account.getMunicipalityDomicile());
-           account.setMunicipalityResidence(account.getMunicipalityResidence());
-           account.setNameUser(account.getNameUser());
-           account.setPlaceofBirth(account.getPlaceOfBirth());
-           account.setProvinceDomicile(account.getProvinceDomicile());
-           account.setProvinceResidence(account.getProvinceResidence());
-           account.setQualification(account.getQualification());
-           account.setRegistrationDate(account.getRegistrationDate());
-           account.setSurnameUser(account.getSurnameUser());
-           account.setTaxCode(account.getTaxCode());
-           account.setTelephoneNumber(account.getTelephoneNumber());
-           account.setCapDomicile(account.getCapDomicile());   
-           account.setMunicipalityDomicile(account.getMunicipalityDomicile());     
-           account.setProvinceDomicile(account.getProvinceDomicile());
-           account.setProvinceResidence(account.getProvinceResidence());
-           account.setViaResidence(account.getViaResidence());
-           account.setViaDomicile(account.getViaDomicile());
-           account.setState(account.getState());
-           account.setTypeParent(account.getTypeParent());
-       
-       man.update(account);
-       System.out.printf("inviato!");
-       out.print(jObj);
-       
+
+            account.setId(account.getId());
+            account.setRegister(account.getRegister());
+            account.setAccountType(account.getAccountType());
+            account.setCapDomicile(account.getCapDomicile());
+            account.setCapResidence(account.getCapResidence());
+            account.setCellularNumber(account.getCellularNumber());
+            account.setCitizenship(account.getCitizenship());
+            account.setContractExpirationDate(account.getContractExpirationDate());
+            account.setDataOfBirth(account.getDataOfBirth());
+            account.setEmail(account.getEmail());
+            account.setFaculty(account.getFaculty());
+            account.setFamilySituation(account.getFamilySituation());
+            account.setFax(account.getFax());
+            account.setIncome(account.getIncome());
+            account.setMunicipalityDomicile(account.getMunicipalityDomicile());
+            account.setMunicipalityResidence(account.getMunicipalityResidence());
+            account.setNameUser(account.getNameUser());
+            account.setPlaceofBirth(account.getPlaceOfBirth());
+            account.setProvinceDomicile(account.getProvinceDomicile());
+            account.setProvinceResidence(account.getProvinceResidence());
+            account.setQualification(account.getQualification());
+            account.setRegistrationDate(account.getRegistrationDate());
+            account.setSurnameUser(account.getSurnameUser());
+            account.setTaxCode(account.getTaxCode());
+            account.setTelephoneNumber(account.getTelephoneNumber());
+            account.setCapDomicile(account.getCapDomicile());
+            account.setMunicipalityDomicile(account.getMunicipalityDomicile());
+            account.setProvinceDomicile(account.getProvinceDomicile());
+            account.setProvinceResidence(account.getProvinceResidence());
+            account.setViaResidence(account.getViaResidence());
+            account.setViaDomicile(account.getViaDomicile());
+            account.setState(account.getState());
+            account.setTypeParent(account.getTypeParent());
+
+            man.update(account);
+            out.print(jObj);
+
         } catch (SQLException ex) {
             Logger.getLogger(ModifyPasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-       
+        }
+
     }
-     private void sendMessageRedirect(HttpServletRequest request, HttpServletResponse response, String msg,int id)
+
+    private void sendMessageRedirect(HttpServletRequest request, HttpServletResponse response, String msg, int id)
             throws ServletException, IOException {
         request.setAttribute("message", msg);
-        request.getRequestDispatcher("/accountInformation.jsp?id="+id).forward(request, response);
+        request.getRequestDispatcher("/accountInformation.jsp?id=" + id).forward(request, response);
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
     /**
      * Handles the HTTP
      * <code>GET</code> method.

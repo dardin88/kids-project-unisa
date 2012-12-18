@@ -4,8 +4,10 @@
  */
 package it.unisa.kids.accessManagement.accountManagement;
 
+import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.Mail;
 import it.unisa.kids.common.MailManager;
+import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -16,6 +18,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +41,12 @@ public class AddAccountServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private IAccountManager man;
+
+    public void init(ServletConfig config) {
+        man = (IAccountManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACCOUNT);
+    }
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
@@ -47,7 +56,6 @@ public class AddAccountServlet extends HttpServlet {
 
             response.setContentType("text/html;charset=UTF-8");
 
-            JDBCAccountManager man = JDBCAccountManager.getInstance();
             String name = request.getParameter("nomeAccount");
             String surname = request.getParameter("cognomeAccount");
             String birthdate = request.getParameter("dataNascitaAccount");
@@ -92,7 +100,7 @@ public class AddAccountServlet extends HttpServlet {
 
             Account account = new Account();
 
-            
+
             account.setNameUser(name);
             account.setSurnameUser(surname);
             account.setDataOfBirth(birth);
@@ -120,10 +128,9 @@ public class AddAccountServlet extends HttpServlet {
             account.setRegistrationDate(reg);
             account.setTypeParent(typeParent);
 
-            Account acc=new Account();
+            Account acc = new Account();
             acc = man.insert(account);
-            
-            System.out.println("Invio email...");
+
             MailManager mailManager = new MailManager();
             Mail mail = new Mail();
 
@@ -133,9 +140,7 @@ public class AddAccountServlet extends HttpServlet {
             mailManager.sendMail(mail);
 
             //request.getSession().setAttribute("id", account.getId());
-System.out.println(acc.getNickName()+","+account.getPassword());
             out.println(acc.getNickName() + "," + acc.getPassword());
-            System.out.println("inviato!" + account.getNickName() + "," + account.getPassword());
         } catch (SQLException ex) {
             Logger.getLogger(AddAccountServlet.class.getName()).log(Level.SEVERE, "SQL-Error: " + ex.getMessage(), ex);
         }
