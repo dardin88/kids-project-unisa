@@ -1,7 +1,7 @@
 <%-- 
     Document   : showTable
     Created on : 23-nov-2012, 17.38.35
-    Author     : francesco di lorenzo
+    Author     : Francesco Di Lorenzo
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -15,6 +15,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
         <link rel="stylesheet" type="text/css" href="css/template.css" >
         <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
@@ -30,7 +31,8 @@
         <script type="text/javascript" src="js/newsShowTable.js"></script>
         <script type="text/javascript" src="js/jquery.ui.timepicker.js"></script>
 
-        <title>Gestione News "Visualizza News"- Kids Project</title>
+        <title>Kids</title>
+
         <script type="text/javascript">
             $(document).ready(function() {
                 activePage();

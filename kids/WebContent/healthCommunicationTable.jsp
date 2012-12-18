@@ -1,7 +1,7 @@
 <%-- 
     Document   : healthCommunicationTable
     Created on : Nov 29, 2012, 1:22:36 PM
-    Author     : Elena
+    Author     : Elena Sollai
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,6 +14,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
         <link rel="stylesheet" type="text/css" href="css/template.css" >
         <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
@@ -29,7 +30,7 @@
         <script type="text/javascript" src="js/healthCommunicationTable.js"></script>
         <script type="text/javascript" src="js/jquery.ui.timepicker.js"></script>
 
-        <title>Gestione Bambini "Visualizza Comunicazioni Salute"- Kids Project</title>
+        <title>Kids</title>
         <script type="text/javascript">
             $(document).ready(function() {
                 activePage();
@@ -52,7 +53,7 @@
                         <input id="artefactName" type="text" name="name" ></input>                                         
                     </td>
                     </p>
-</tr>
+                    </tr>
                     <tr>
                     <p style="text-align: left;" class="formp">
                     <td>
@@ -62,7 +63,7 @@
                         <input id="artefactSurname" type="text" name="surname" ></input>                                         
                     </td>
                     </p>
-</tr>
+                    </tr>
                     <tr>
                     <p style="text-align: left;" class="formp">
                     <td>
@@ -73,7 +74,7 @@
                     </td>
                     </p>
                     </tr>
-                    
+
                     <tr>        
                     <p style="text-align: left;" class="formp">
                     <td>
@@ -94,98 +95,98 @@
             </fieldset>
         </form>
     </div> 
-<div id="showCommunicationWindow" title="Visualizza Comunicazione" style="display: inline">  
-    <fieldset>
-        <table style="width:100%;">
-            <tr>
-                <td colspan="4">       
-                    <label class="artefactLabel2">Id Comunicazione:</label>
-                </td>
-                <td colspan="4">                    
-                    <label class="artefactLabel" id="labelId"></label>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="4">       
-                    <label class="artefactLabel2">Tipo Comunicazione:</label>
-                </td>
-                <td colspan="4">                    
-                    <label class="artefactLabel" id="labelType"></label>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="4">       
-                    <label class="artefactLabel2">Id Educatore:</label>
-                </td>
-                <td colspan="4">                    
-                    <label class="artefactLabel" id="labelIdEducator"></label>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="4">                    
-                    <label class="artefactLabel2">Id Bambino:</label>
-                </td>
-                <td colspan="4">                    
-                    <label class="artefactLabel" id="labelIdChild"></label>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="4">       
-                    <label class="artefactLabel2">Nome Bambino:</label>
-                </td>
-                <td colspan="4">                    
-                    <label class="artefactLabel" id="labelName"></label>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="4">       
-                    <label class="artefactLabel2">Cognome Bambino:</label>
-                </td>
-                <td colspan="4">                    
-                    <label class="artefactLabel" id="labelSurname"></label>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="4">                    
-                    <label class="artefactLabel2">Descrizione:</label>
-                </td>
-                <td colspan="4">
-                    <label class="artefactLabel" id="labelDescription"></label>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="4">                    
-                    <label class="artefactLabel2">Data:</label>
-                </td>
-                <td colspan="4">                    
-                    <label class="artefactLabel" id="labelDate"></label> 
-                </td>
-            </tr>
-        </table>
-    </fieldset>
-</div>
-<body>
-    <%@include file="header.jsp" %>
-    <div id="linksManagement">
-        <c:if test="${sessionScope.user.getAccountType()=='Educatore'}" >
-            <input type="button" id="addLinkButton" value="Inserisci Comunicazione Salute" />               
-        </c:if>
-        <table id="linkTable" style="width:95%;">
-            <thead>
+    <div id="showCommunicationWindow" title="Visualizza Comunicazione" style="display: inline">  
+        <fieldset>
+            <table style="width:100%;">
                 <tr>
-                    <th>Id Bambino</th>
-                    <th>Nome Bambino</th>
-                    <th>Cognome Bambino</th>
-                    <th>Descrizione</th>
-                    <th>Data</th>
-                    <th>Operazioni</th>
+                    <td colspan="4">       
+                        <label class="artefactLabel2">Id Comunicazione:</label>
+                    </td>
+                    <td colspan="4">                    
+                        <label class="artefactLabel" id="labelId"></label>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+                <tr>
+                    <td colspan="4">       
+                        <label class="artefactLabel2">Tipo Comunicazione:</label>
+                    </td>
+                    <td colspan="4">                    
+                        <label class="artefactLabel" id="labelType"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">       
+                        <label class="artefactLabel2">Id Educatore:</label>
+                    </td>
+                    <td colspan="4">                    
+                        <label class="artefactLabel" id="labelIdEducator"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">                    
+                        <label class="artefactLabel2">Id Bambino:</label>
+                    </td>
+                    <td colspan="4">                    
+                        <label class="artefactLabel" id="labelIdChild"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">       
+                        <label class="artefactLabel2">Nome Bambino:</label>
+                    </td>
+                    <td colspan="4">                    
+                        <label class="artefactLabel" id="labelName"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">       
+                        <label class="artefactLabel2">Cognome Bambino:</label>
+                    </td>
+                    <td colspan="4">                    
+                        <label class="artefactLabel" id="labelSurname"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">                    
+                        <label class="artefactLabel2">Descrizione:</label>
+                    </td>
+                    <td colspan="4">
+                        <label class="artefactLabel" id="labelDescription"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">                    
+                        <label class="artefactLabel2">Data:</label>
+                    </td>
+                    <td colspan="4">                    
+                        <label class="artefactLabel" id="labelDate"></label> 
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
     </div>
+    <body>
+        <%@include file="header.jsp" %>
+        <div id="linksManagement">
+            <c:if test="${sessionScope.user.getAccountType()=='Educatore'}" >
+                <input type="button" id="addLinkButton" value="Inserisci Comunicazione Salute" />               
+            </c:if>
+            <table id="linkTable" style="width:95%;">
+                <thead>
+                    <tr>
+                        <th>Id Bambino</th>
+                        <th>Nome Bambino</th>
+                        <th>Cognome Bambino</th>
+                        <th>Descrizione</th>
+                        <th>Data</th>
+                        <th>Operazioni</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
 
-    <%@include file="footer.jsp" %>
-</body>
+        <%@include file="footer.jsp" %>
+    </body>
 </html>

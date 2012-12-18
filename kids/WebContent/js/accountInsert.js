@@ -25,6 +25,8 @@ function initializeRegistrationFields(){
         }
     });
     
+    $("#title").html("Form di registrazione");
+    
     $("#NickPassWindow").dialog({
         autoOpen: false,
         modal: true,
@@ -276,7 +278,7 @@ function verificaAccount(){
         document.getElementById('accountLabel5').style.display="none";
     }
     
-    if((string=='Delegato Ufficio')||(string=='Delegato scienze della formazione')||(string=='Educatore')||(string=='Coordinatore Psicopedagogico')||(string=='Responsabile Asilo')){
+    if((string=='Delegato Ufficio')||(string=='Delegato scienze della formazione')||(string=='Educatore')||(string=='Delegato del Rettore')||(string=='Responsabile Mensa')){
         document.getElementById('typeParent').style.display="none";
         document.getElementById('typeParent').options[0].selected=true;
         document.getElementById('accountLabel2').style.display="none";

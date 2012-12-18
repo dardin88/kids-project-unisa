@@ -1,7 +1,7 @@
 <%-- 
     Document   : accountInformationParent
     Created on : 7-dic-2012, 23.17.22
-    Author     : Gianmarco
+    Author     : Gianmarco Del Pozzo
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,20 +14,25 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css" />
         <link rel="stylesheet" type="text/css" href="css/template.css">
         <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
+
         <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/modifyAccountRegistration.js"></script>
-          <script type="text/javascript" src="js/account.js"></script>
-        <title>Visualizzazione Account - Kids Project</title>
+        <script type="text/javascript" src="js/account.js"></script>
+
+        <title>Kids</title>
+
         <jsp:include page="/GetAccountParent" /> 
         <script type="text/javascript">
             $(document).ready(function() {
+                activePage();
                 initializeModifyRegistrationFields();
                 initializeLinksManager2();
                 update();
@@ -37,18 +42,16 @@
     </head>
     <%@include file="header.jsp"%>
     <body id="bodyRegistration">
-        
+
 
         <form id="modifyForm" class="cmxform"  action="" method="post">
 
             <fieldset id="modifyFieldSet">
                 <div id="artefactsManagement">
-                    <h1  style="font-weight: bold; font-size: 30pt"id="titleReg" align="center">Modifica Account</h1><br> <br>
-
                     <div id="modifyRegistration1">
-                         <input id="id" class="accountInput" type="hidden" name="id" size="50%" value="${id}" readonly="true">
-                         <input id="typeAccount2" class="accountInput" type="hidden" name="Nome" size="50%" value="${TipoAccount}" readonly="true">
-                         <input id="typeParent2" class="accountInput" type="hidden" name="Nome" size="50%" value="${TipoGenitore}" readonly="true">
+                        <input id="id" class="accountInput" type="hidden" name="id" size="50%" value="${id}" readonly="true">
+                        <input id="typeAccount2" class="accountInput" type="hidden" name="Nome" size="50%" value="${TipoAccount}" readonly="true">
+                        <input id="typeParent2" class="accountInput" type="hidden" name="Nome" size="50%" value="${TipoGenitore}" readonly="true">
 
                         <div >
                             <label id="accountLabel">  Nome*: </label>
@@ -95,11 +98,8 @@
                             <input  id="modifyViaResidence" class="accountInput" type="text" name="IndirizzoResidenza" value="${ViaResidenza}" readonly="true">
                         </div>
 
-                        <input style="width: 200px; margin-left: 5%" type="submit" name="registrationButton1" id="modifyButton1" value="Avanti"/>
-                        <input style="width: 200px; margin-left: 2%" type="button" name="notRegistrationButton1" id="notModifyButton1" value="Indietro"/>
-                        <input style="width: 200px; margin-left: 0.5%" type="button" name="modify" id="modifyButton" value="Modifica" onclick="modifyAccount(document.getElementById('id').value)"/>
-                        <input style="width: 200px; margin-left: 0.5%" type="button" name="elimina" id="eliminaButton" value="Elimina" onclick="removeAccountParent(document.getElementById('id').value)"/>
-                        <input style="width: 200px; margin-left: 0.5%" type="button" name="password" id="modifyPassword" value="Modifica Password" onclick="modifyPassword2(document.getElementById('id').value)"/>
+                        <input style="width: 200px; margin-left: 5%" type="button" name="notRegistrationButton1" id="notModifyButton1" value="Indietro"/>
+                        <input style="width: 200px; margin-left: 2%" type="submit" name="registrationButton1" id="modifyButton1" value="Avanti"/>
                     </div>
 
                     <div id="modifyRegistration2">
@@ -144,8 +144,8 @@
                             <input id="modifyViaDomicile" class="accountInput" type="text" name="ViaDomicilio" value="${ViaDomicilio}" readonly="true">
                         </div>
 
-                        <input style="width: 200px; margin-left: 5%" type="submit" name="modifyButton2" id="modifyButton2" value="Avanti"/>
-                        <input style="width: 200px; margin-left: 2%" type="button" name="notModifyButton2" id="notModifyButton2" value="Indietro"/>
+                        <input style="width: 200px; margin-left: 5%" type="button" name="notModifyButton2" id="notModifyButton2" value="Indietro"/>
+                        <input style="width: 200px; margin-left: 2%" type="submit" name="modifyButton2" id="modifyButton2" value="Avanti"/>
                     </div>
 
                     <div id="modifyRegistration3">
@@ -172,6 +172,8 @@
                                 <OPTION value="Coordinatore Psicopedagogico" name="CoordinatorePsicopedagogico"> Coordinatore Psicopedagogico 
                                 <OPTION value="Responsabile Scientifico" name="ResponsabileScientifico"> Responsabile Scientifico 
                                 <OPTION value="Responsabile Asilo" name="ResponsabileAsilo"> Responsabile Asilo
+                                <OPTION value="Delegato del Rettore" name="DelegatoDelRettore"> Delegato del Rettore
+                                <OPTION value="Responsabile Mensa" name="ResponsabileMensa"> Responsabile Mensa
                             </select>
                         </div>
 
@@ -186,21 +188,21 @@
                         </div>
 
                         <div>
-                             
+
                             <label id="accountLabel"> Tipologia Genitore*: </label> 
-                         
+
                             <input id="typeParent" class="accountInput" type="text" name="TipoAccount" value="${TipoGenitore}" readonly="true"/>
-                            </div>
-                            <select id="modifyTypeParent" name="tipo" onchange="verificaGenitore()"  style="visibility: hidden">
-                                <OPTION value="Nothing" name="Scelta" > Scegli 
-                                <OPTION value="Studente" name="Studente"selected> Studente 
-                                <OPTION value="Tecnico amministrativo" name="TecnicoAmministrativo"> Tecnico Amministrativo 
-                                <OPTION value="Docente" name="Docente"> Docente 
-                                <OPTION value="Contratto Tempo Determinato" name="ContrattoTempoDeterminato"> Contratto Tempo Determinato 
-                                <OPTION value="Ricercatore" name="Ricercatore">Ricercatore 
-                                <OPTION value="Dottorando" name="Dottorando"> Dottorando 
-                            </select>
-                        
+                        </div>
+                        <select id="modifyTypeParent" name="tipo" onchange="verificaGenitore()"  style="visibility: hidden">
+                            <OPTION value="Nothing" name="Scelta" > Scegli 
+                            <OPTION value="Studente" name="Studente"selected> Studente 
+                            <OPTION value="Tecnico amministrativo" name="TecnicoAmministrativo"> Tecnico Amministrativo 
+                            <OPTION value="Docente" name="Docente"> Docente 
+                            <OPTION value="Contratto Tempo Determinato" name="ContrattoTempoDeterminato"> Contratto Tempo Determinato 
+                            <OPTION value="Ricercatore" name="Ricercatore">Ricercatore 
+                            <OPTION value="Dottorando" name="Dottorando"> Dottorando 
+                        </select>
+
 
                         <div>
                             <label id="accountLabel3" style="display: none"> Scadenza Contratto*: </label>
@@ -217,55 +219,57 @@
                             <input id="modifyRegistrationDate" class="accountInput" type="text" name="DataRegistrazione" value="${DataIscrizione}" style="display: none" readonly="true">
                         </div>
 
-                        
-                        <input style="width: 200px; margin-left: 2%" type="button" name="notModifyButton3" id="notModifyButton3" value="Indietro"/>
+
+                        <input style="width: 200px; margin-left: 5%" type="button" name="notModifyButton3" id="notModifyButton3" value="Indietro"/>
                     </div>
                 </div>
             </fieldset>
-                        
-                        <%--rimozione --%>
-          <div id="removeAccountWindow" title="Rimuovi Account" style="display: inline">
-            <form id="removeAccountForm" class="cmxform" method="post" action="">
-                <fieldset>
-                    <p class="formp">
-                        <label class="requirementLabel">Sei sicuro di voler eliminare questo Account?</label>
-                    </p>
-                    <p class="formp">
-                        <input type="button" class="confirmRemoveButton" id="confirmRemoveLinkButton" value="Si"/>
-                        <input type="button" class="notConfirmRemoveButton" id="notConfirmRemoveLinkButton" value="No"/>
-                    </p>
-                </fieldset>
-            </form>
-        </div>
-                        
-                        <%-- Modifica Password --%>
-                        
-           <div id="modifyPasswordWindow" title="Modifica Password" style="display: inline">
-            <form id="modifyPasswordForm" class="cmxform" method="post" action="">
-                <fieldset>
 
-                    <p class="formp">
-                        <label style="font-weight: bold; font-size: 10pt" class="requirementLabel">Inserisci vecchia password:</label>
-                        <input type="text" id="oldPass"/>
-                    </p><br>
+            <%--rimozione --%>
+            <div id="removeAccountWindow" title="Rimuovi Account" style="display: inline">
+                <form id="removeAccountForm" class="cmxform" method="post" action="">
+                    <fieldset>
+                        <p class="formp">
+                            <label class="requirementLabel">Sei sicuro di voler eliminare questo Account?</label>
+                        </p>
+                        <p class="formp">
+                            <input type="button" class="confirmRemoveButton" id="confirmRemoveLinkButton" value="Si"/>
+                            <input type="button" class="notConfirmRemoveButton" id="notConfirmRemoveLinkButton" value="No"/>
+                        </p>
+                    </fieldset>
+                </form>
+            </div>
 
-                    <p class="formp">
-                        <label style="font-weight: bold; font-size: 10pt; margin-right: 3%" class="requirementLabel">Inserisci nuova password: </label>
-                        <input type="text" id="newPass"/>
-                    </p>
-                    <p class="formp">
-                        <label style="font-weight: bold; font-size: 10pt" class="requirementLabel">Conferma nuova password:</label>
-                        <input type="text" id="confNewPass"/>
-                    </p><br>
+            <%-- Modifica Password --%>
 
-                    <p class="formp">
-                        <input type="button" id="confirmModifyButton" value="Modifica"/>
-                        <input type="button" id="notConfirmModifyButton" value="Annulla"/>
-                    </p>
-                </fieldset>
-            </form>
-        </div>
+            <div id="modifyPasswordWindow" title="Modifica Password" style="display: inline">
+                <form id="modifyPasswordForm" class="cmxform" method="post" action="">
+                    <fieldset>
 
+                        <p class="formp">
+                            <label style="font-weight: bold; font-size: 10pt" class="requirementLabel">Inserisci vecchia password:</label>
+                            <input type="text" id="oldPass"/>
+                        </p><br>
+
+                        <p class="formp">
+                            <label style="font-weight: bold; font-size: 10pt; margin-right: 3%" class="requirementLabel">Inserisci nuova password: </label>
+                            <input type="text" id="newPass"/>
+                        </p>
+                        <p class="formp">
+                            <label style="font-weight: bold; font-size: 10pt" class="requirementLabel">Conferma nuova password:</label>
+                            <input type="text" id="confNewPass"/>
+                        </p><br>
+
+                        <p class="formp">
+                            <input type="button" id="confirmModifyButton" value="Modifica"/>
+                            <input type="button" id="notConfirmModifyButton" value="Annulla"/>
+                        </p>
+                    </fieldset>
+                </form>
+            </div>
+            <input style="width: 200px; margin-left: 5%" type="button" name="modify" id="modifyButton" value="Modifica" onclick="modifyAccount(document.getElementById('id').value)"/>
+            <input style="width: 200px; margin-left: 2%" type="button" name="elimina" id="eliminaButton" value="Elimina" onclick="removeAccountParent(document.getElementById('id').value)"/>
+            <input style="width: 200px; margin-left: 2%" type="button" name="password" id="modifyPassword" value="Modifica Password" onclick="modifyPassword2(document.getElementById('id').value)"/>
 
         </form>
         <%@include file="footer.jsp" %>

@@ -1,7 +1,7 @@
 <%-- 
     Document   : accountInsertParent
     Created on : 23-nov-2012, 14.57.05
-    Author     : Gianmarco
+    Author     : Gianmarco Del Pozzo
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,19 +14,23 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css" />
         <link rel="stylesheet" type="text/css" href="css/template.css">
         <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
+
         <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/accountInsert.js"></script>
-        <title>Registrazione Account - Kids Project</title>
-     
+
+        <title>Kids</title>
+
         <script type="text/javascript">
             $(document).ready(function() {
+                activePage();
                 initializeRegistrationFields();
               
                 $("#dateOfBirth, #contractExpirationDate, #registrationDate").datepicker({dateFormat:'yy-mm-dd'});
@@ -35,27 +39,27 @@
     </head>
     <%@include file="header.jsp"%>
     <body id="bodyRegistration">
-        
-         <div id="NickPassWindow" title="Visualizza dati accesso" style="display: inline">
-        <form id="NickPassForm" class="cmxform" method="get" action="">
-            <fieldset><br>
-                <div >
-                    <label id="accountLabel">  Nickname: </label>
-                    <input id="accountNick" class="accountInput" type="text" name="Nick" size="50%" readonly="true" style="margin-left: 5%">
-                </div>
-                <div >
-                    <label id="accountLabel">  Password: </label>
-                    <input id="accountPass" class="accountInput" type="text" name="Nick" size="50%" readonly="true" style="margin-left: 5%">
-                </div>
 
-                <label style="margin-left: 5%">  N.B. Le verrà inviata una e-mail all'indirizzo da lei specificata </label>
-                <label style="margin-left: 5%"> con i relativi dati di accesso. </label><br>
-                <p class="formp">
-                    <input type="button" class="confirmAddButton" id="showNickPass" value="Ok"/>
-                </p>
-            </fieldset>
-        </form>
-    </div>
+        <div id="NickPassWindow" title="Visualizza dati accesso" style="display: inline">
+            <form id="NickPassForm" class="cmxform" method="get" action="">
+                <fieldset><br>
+                    <div >
+                        <label id="accountLabel">  Nickname: </label>
+                        <input id="accountNick" class="accountInput" type="text" name="Nick" size="50%" readonly="true" style="margin-left: 5%">
+                    </div>
+                    <div >
+                        <label id="accountLabel">  Password: </label>
+                        <input id="accountPass" class="accountInput" type="text" name="Nick" size="50%" readonly="true" style="margin-left: 5%">
+                    </div>
+
+                    <label style="margin-left: 5%">  N.B. Le verrà inviata una e-mail all'indirizzo da lei specificata </label>
+                    <label style="margin-left: 5%"> con i relativi dati di accesso. </label><br>
+                    <p class="formp">
+                        <input type="button" class="confirmAddButton" id="showNickPass" value="Ok"/>
+                    </p>
+                </fieldset>
+            </form>
+        </div>
 
         <form id="registrationForm" class="cmxform"  action="" method="post">
 
@@ -64,7 +68,7 @@
                     <h1  style="font-weight: bold; font-size: 30pt"id="titleReg" align="center">Form di Registrazione</h1><br> <br>
 
                     <div id="registration1">
-                        
+
 
                         <div >
                             <label id="accountLabel">  Nome*: </label>
@@ -183,6 +187,8 @@
                                 <OPTION value="Coordinatore Psicopedagogico" name="CoordinatorePsicopedagogico"> Coordinatore Psicopedagogico 
                                 <OPTION value="Responsabile Scientifico" name="ResponsabileScientifico"> Responsabile Scentifico 
                                 <OPTION value="Responsabile Asilo" name="ResponsabileAsilo"> Responsabile Asilo
+                                <OPTION value="Delegato del Rettore" name="DelegatoDelRettore"> Delegato del Rettore
+                                <OPTION value="Responsabile Mensa" name="ResponsabileMensa"> Responsabile Mensa
                             </select>
                         </div>
 

@@ -57,6 +57,23 @@ function activePage(){
             $("#meetingCalendarMenuEL").css("color","#FFFFFF");
             $("#title").html("Gestione Calendario");
             break;
+            
+        case 'accountInformationParent.jsp':
+            $("#accountInformationParentMenuEL").css("background-color","#444");
+            $("#accountInformationParentMenuEL").css("color","#FFFFFF");
+            $("#title").html("Gestione Account - Visualizza dati");
+            break;
+        case 'accountInformationAll.jsp':
+            $("#accountInformationAllMenuEL").css("background-color","#444");
+            $("#accountInformationAllMenuEL").css("color","#FFFFFF");
+            $("#title").html("Gestione Account - Visualizza dati");
+            break;
+        case 'accountSecretary.jsp':
+            $("#accountSecretaryMenuEL").css("background-color","#444");
+            $("#accountSecretaryMenuEL").css("color","#FFFFFF");
+            $("#title").html("Gestione Account - Visualizza dati");
+            break;
+            
         case 'managerTraineeActivity.jsp':
             $("#managementTraineeActivity").css("background-color","#444");
             $("#managementTraineeActivity").css("color","#FFFFFF");
@@ -70,12 +87,12 @@ function activePage(){
         case 'paymentManagement.jsp':
             $("#paymentManagementMenuEl").css("background-color", "#444");
             $("#paymentManagementMenuEl").css("color", "#FFFFFF");
-            $("#title").html("Gestione Pagamenti");
+            $("#title").html("Gestione Pagamenti - Ricerca genitore");
             break;
         case 'paymentParent.jsp':
             $("#paymentManagementMenuEl").css("background-color", "#444");
             $("#paymentManagementMenuEl").css("color", "#FFFFFF");
-            $("#title").html("Pagamenti");
+            $("#title").html("Gestione Pagamenti");
             break;
         case 'timeService.jsp':
             $("#TimeServiceMenuEL").css("background-color", "#444");

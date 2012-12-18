@@ -1,7 +1,7 @@
 <%-- 
     Document   : canteenManagement
     Created on : 9-dic-2012, 3.42.09
-    Author     : navipar
+    Author     : Antonio Panariello
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -33,7 +33,7 @@
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/canteen.js"></script>
 
-        <title>Gestione mensa - Kids</title>
+        <title>Kids</title>
 
         <script type="text/javascript">
             $(document).ready(function() {
@@ -62,7 +62,6 @@
         </c:if>
 
         <div id="canteenManagement">
-            <h1>Gestione mensa</h1>
             <%-- blocco div delle varie funzioni della gestione mensa --%>
             <div id="generalCanteenSection">
                 <h2>Operazioni</h2>

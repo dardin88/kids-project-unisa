@@ -10,6 +10,7 @@ function initializePaymentsPage() {
     $("#goToParentsSearchBtn").click(function() {
         $("#generalPaymentSection").hide();
         $("#searchParent").show();
+         $("#title").html("Gestione Pagamenti - Ricerca genitore");
         search();
     });
     
@@ -67,7 +68,7 @@ function doParentSelection(parentData) {
     buildPaymentsConvTable(parentData.id);
     $("#searchParent").hide();
     $("#generalPaymentSection").show();
-    
+    $("#title").html("Gestione Pagamenti - Operazioni");
     $("#showPaymentsTable").dataTable().fnDraw();
     $("#showRefundsTable").dataTable().fnDraw();
 }

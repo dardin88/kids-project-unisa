@@ -1,7 +1,7 @@
 <%-- 
     Document   : surveyShowTable
     Created on : Dec 9, 2012, 7:28:20 PM
-    Author     : felice
+    Author     : Felice D'Avino
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -29,7 +29,9 @@
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/compiledSurveyShowTable.js"></script>
+
         <title>Kids</title>
+
         <script type="text/javascript">
             $(document).ready(function() {
                 initializeLinksManager();

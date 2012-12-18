@@ -11,7 +11,7 @@ function initializeModifyRegistrationFields(){
         value =value.toUpperCase();
         return value. match(regex);  
     }, "Please insert a valid italian identification number");
-   
+    
     $.validator.setDefaults({
         highlight: function(input){
             $(input).addClass("ui-state-highlight");
@@ -20,11 +20,11 @@ function initializeModifyRegistrationFields(){
             $(input).removeClass("ui-state-highlight");
         }
     });
- 
+    
     $("#modifyRegistration1").show();
     $("#modifyRegistration2").hide();
     $("#modifyRegistration3").hide(); 
-   
+    
     $("#modifyButton1").button();
     $("#modifyButton2").button();
     $("#modifyButton3").button();
@@ -182,7 +182,7 @@ function initializeModifyRegistrationFields(){
                     facolta:$("#modifyFaculty").val()
                 })
                 
-           
+                
                 var id= document.getElementById('id').value;
                 location.href=("./accountInformation.jsp?id="+id);
             }
@@ -199,7 +199,7 @@ function initializeModifyRegistrationFields(){
                 $("#modifyRegistration2").show();
                 $("#modifyRegistration3").hide();
                 count++;
-                
+            
             }
         },
         invalidHandler:function() {
@@ -257,7 +257,7 @@ function verificaAccount(){
         document.getElementById('accountLabel5').style.display="none";
     }
     
-    if((string=='Delegato Ufficio')||(string=='Delegato scienze della formazione')||(string=='Educatore')||(string=='Coordinatore Psicopedagogico')||(string=='Responsabile Asilo')){
+    if((string=='Delegato Ufficio')||(string=='Delegato scienze della formazione')||(string=='Educatore')||(string=='Coordinatore Psicopedagogico')||(string=='Responsabile Asilo')||(string=='Delegato del Rettore')||(string=='Responsabile Mensa')){
         document.getElementById('modifyTypeParent').style.display="none";
         document.getElementById('accountLabel2').style.display="none";
         document.getElementById('accountLabel3').style.display="none";
@@ -268,7 +268,7 @@ function verificaAccount(){
         document.getElementById('accountLabel5').style.display="none";
     }
 }
- 
+
 function verificaGenitore(){
     var string=$('#modifyTypeParent option:selected').val();
     if(string=='Nothing'){
@@ -296,7 +296,7 @@ function verificaGenitore(){
         document.getElementById('modifyFaculty').style.display="inline";
         document.getElementById('accountLabel5').style.display="inline";
     }
-   
+    
     if((string=='Docente')||(string=='Tecnico amministrativo')){
         document.getElementById('accountLabel3').style.display="none";
         document.getElementById('accountLabel4').style.display="none";    
@@ -308,13 +308,13 @@ function verificaGenitore(){
 }
 
 function update(){
-              
-               var typeParent= document.getElementById('typeParent2').value;
-               var typeAccount= document.getElementById('typeAccount2').value;
-              
-             
-               
-     if(typeAccount=='Responsabile Scientifico'){
+    
+    var typeParent= document.getElementById('typeParent2').value;
+    var typeAccount= document.getElementById('typeAccount2').value;
+    
+    
+    
+    if(typeAccount=='Responsabile Scientifico'){
         document.getElementById('modifyTypeAccount').options[6].selected=true;
         document.getElementById('modifyTypeParent').style.display="none";
         document.getElementById('modifyAccountLabel2').style.display="none";
@@ -325,10 +325,10 @@ function update(){
         document.getElementById('modifyFaculty').style.display="none";
         document.getElementById('accountLabel5').style.display="none";
     }
-     
+    
     if(typeAccount=='Genitore'){
-       
-       document.getElementById('modifyTypeAccount').options[1].selected=true;
+        
+        document.getElementById('modifyTypeAccount').options[1].selected=true;
         document.getElementById('modifyTypeParent').style.display="inline";
         document.getElementById('accountLabel2').style.display="inline";
         document.getElementById('accountLabel3').style.display="none";
@@ -338,7 +338,7 @@ function update(){
         document.getElementById('modifyFaculty').style.display="none";
         document.getElementById('accountLabel5').style.display="none";
     }
-        if(typeParent=='Studente'){
+    if(typeParent=='Studente'){
         
         document.getElementById('modifyTypeParent').options[1].selected=true;
         document.getElementById('accountLabel3').style.display="none";
@@ -348,13 +348,13 @@ function update(){
         document.getElementById('modifyFaculty').style.display="inline";
         document.getElementById('accountLabel5').style.display="inline";
     }
-     if((typeParent=='Contratto Tempo Determinato')||(typeParent=='Dottorando')||(typeParent=='Ricercatore')){
+    if((typeParent=='Contratto Tempo Determinato')||(typeParent=='Dottorando')||(typeParent=='Ricercatore')){
         if(typeParent=='Contratto Tempo Determinato')
-             document.getElementById('modifyTypeParent').options[4].selected=true;
-            if(typeParent=='Dottorando')
-         document.getElementById('modifyTypeParent').options[6].selected=true;
+            document.getElementById('modifyTypeParent').options[4].selected=true;
+        if(typeParent=='Dottorando')
+            document.getElementById('modifyTypeParent').options[6].selected=true;
         if(typeParent=='Ricercatore')
-         document.getElementById('modifyTypeParent').options[5].selected=true;
+            document.getElementById('modifyTypeParent').options[5].selected=true;
         document.getElementById('accountLabel3').style.display="inline";
         document.getElementById('accountLabel4').style.display="none";    
         document.getElementById('modifyContractExpirationDate').style.display="inline";
@@ -363,16 +363,16 @@ function update(){
         document.getElementById('accountLabel5').style.display="none";
     }
     
-
+    
     
     if((typeParent=='Tecnico amministrativo')||(typeParent=='Docente')){
         
-         if(typeParent=='Docente')
-              document.getElementById('modifyTypeParent').options[3].selected=true;
-
-          if(typeParent=='Tecnico amministrativo')
-                       document.getElementById('modifyTypeParent').options[2].selected=true;
-          
+        if(typeParent=='Docente')
+            document.getElementById('modifyTypeParent').options[3].selected=true;
+        
+        if(typeParent=='Tecnico amministrativo')
+            document.getElementById('modifyTypeParent').options[2].selected=true;
+        
         document.getElementById('accountLabel3').style.display="none";
         document.getElementById('accountLabel4').style.display="none";    
         document.getElementById('modifyContractExpirationDate').style.display="none";
@@ -382,20 +382,24 @@ function update(){
     }
     
     
-    if((typeAccount=='Delegato Ufficio')||(typeAccount=='Delegato scienze della formazione')||(typeAccount=='Educatore')||(typeAccount=='Coordinatore Psicopedagogico')||(typeAccount=='Responsabile Asilo')){
+    if((typeAccount=='Delegato Ufficio')||(typeAccount=='Delegato scienze della formazione')||(typeAccount=='Educatore')||(typeAccount=='Coordinatore Psicopedagogico')||(typeAccount=='Responsabile Asilo')||(string=='Delegato del Rettore')||(string=='Responsabile Mensa')){
         if(typeAccount=='Delegato Ufficio')
-              document.getElementById('modifyTypeAccount').options[2].selected=true;
-          
+            document.getElementById('modifyTypeAccount').options[2].selected=true;
+        
         if(typeAccount=='Delegato scienze della formazione')
-              document.getElementById('modifyTypeAccount').options[3].selected=true;
-            if(typeAccount=='Educatore')
-                  document.getElementById('modifyTypeAccount').options[4].selected=true;
-         
-                if(typeAccount=='Coordinatore Psicopedagogico')
-                  document.getElementById('modifyTypeAccount').options[5].selected=true;
-             if(typeAccount=='Responsabile Asilo')
-                   document.getElementById('modifyTypeAccount').options[7].selected=true;
-               
+            document.getElementById('modifyTypeAccount').options[3].selected=true;
+        if(typeAccount=='Educatore')
+            document.getElementById('modifyTypeAccount').options[4].selected=true;
+        
+        if(typeAccount=='Coordinatore Psicopedagogico')
+            document.getElementById('modifyTypeAccount').options[5].selected=true;
+        if(typeAccount=='Responsabile Asilo')
+            document.getElementById('modifyTypeAccount').options[7].selected=true;
+        if(typeAccount=='Delegato del Rettore')
+            document.getElementById('modifyTypeAccount').options[8].selected=true;
+        if(typeAccount=='Responsabile Mensa')
+            document.getElementById('modifyTypeAccount').options[9].selected=true;
+        
         document.getElementById('modifyTypeParent').style.display="none";
         document.getElementById('accountLabel2').style.display="none";
         document.getElementById('accountLabel3').style.display="none";
@@ -406,13 +410,13 @@ function update(){
         document.getElementById('accountLabel5').style.display="none";
     }
 
- 
 
-    
-   
-   
-               
-   
+
+
+
+
+
+
 
 }
 

@@ -1,7 +1,7 @@
 <%-- 
     Document   : rectorDelegatePafe
     Created on : Dec 13, 2012, 11:27:35 AM
-    Author     : marco
+    Author     : Marco Moretti
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -16,6 +16,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
         <link rel="stylesheet" type="text/css" href="css/template.css" >
         <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
 
@@ -26,15 +28,13 @@
         <script type="text/javascript" src="js/additional-methods.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/rectorDelegatePage.js"></script>
-
         <script type="text/javascript" src="js/formationSciencePage.js"></script>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Responsabile Asilo</title>
+
+        <title>Kids</title>
+
         <script type="text/javascript">
             $(document).ready(function() {
-
                 initializeRectorDelegatePage();
-
             });
         </script>
     </head>

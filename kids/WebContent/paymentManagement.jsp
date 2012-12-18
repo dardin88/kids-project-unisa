@@ -1,7 +1,7 @@
 <%-- 
     Document   : paymentManagement
     Created on : 2-dic-2012, 5.50.41
-    Author     : navi
+    Author     : Antonio Panariello
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -33,7 +33,7 @@
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/payments.js"></script>
 
-        <title>Gestione pagamenti - Kids</title>
+        <title>Kids</title>
 
         <script type="text/javascript">
             $(document).ready(function() {
@@ -62,21 +62,34 @@
         </c:if>
 
         <div id="paymentsManagement">
-            <h1>Gestione pagamenti</h1>
 
             <%-- blocco div di ricerca del genitore --%>
             <div id="searchParent">
-                <h2>Ricerca genitore</h2>
                 <form style="padding-bottom: 20px" onkeyup="search();">
                     <fieldset>
-                        <label for="parentName">Nome:&nbsp;</label>
-                        <input type="text" name="parentName" id="parentName">
 
-                        <label for="parentSurname">Cognome:&nbsp;</label>
-                        <input type="text" name="parentSurname" id="parentSurname">
-
-                        <label for="parentFiscalCode">Codice fiscale:&nbsp;</label>
-                        <input type="text" name="parentFiscalCode" id="parentFiscalCode">
+                        <table>
+                            <tr>
+                                <td style="width: 100px">
+                                    <label for="parentName" style="font-size: 10pt; font-weight: bold" >Nome:</label>
+                                </td>
+                                <td style="width: 190px">
+                                    <input type="text" name="parentName" id="parentName" style="width: 170px; padding: 1.5%">
+                                </td>
+                                <td style="width: 100px">
+                                    <label for="parentSurname" style="font-size: 10pt; font-weight: bold">Cognome:</label>
+                                </td>
+                                <td style="width: 190px">
+                                    <input type="text" name="parentSurname" id="parentSurname" style="width: 170px; padding: 1.5%">
+                                </td>
+                                <td style="width: 100px">
+                                    <label for="parentFiscalCode" style="font-size: 10pt; font-weight: bold">Codice fiscale:</label>
+                                </td>
+                                <td style="width: 190px"> 
+                                    <input type="text" name="parentFiscalCode" id="parentFiscalCode" style="width: 170px; padding: 1.5%">
+                                </td>
+                            </tr>
+                        </table>
                     </fieldset>
                 </form>
 
@@ -97,9 +110,9 @@
 
             <%-- blocco div delle varie funzioni della gestione pagamenti --%>
             <div id="generalPaymentSection">
-                <h2>Operazioni</h2>
-                <span class="selectedParent">Genitore:&nbsp;<span id="selectedParentData"></span></span>
+                
                 <div id="paymentTabGroup">
+                    <span class="selectedParent">Genitore:&nbsp;<span id="selectedParentData"></span></span><br><br>
                     <ul>
                         <li><a href="#showPayments"><span class="paymentsTab">Visualizza pagamenti</span></a></li>
                         <li><a href="#showRefunds"><span class="paymentsTab">Visualizza rimborsi</span></a></li>

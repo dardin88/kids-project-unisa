@@ -1,7 +1,7 @@
 <%-- 
     Document   : accountInformation
     Created on : 5-dic-2012, 10.17.33
-    Author     : Gianmarco
+    Author     : Gianmarco Del Pozzo
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,9 +14,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css" />
         <link rel="stylesheet" type="text/css" href="css/template.css">
         <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
+
         <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
@@ -24,32 +26,32 @@
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/modifyAccountRegistration.js"></script>
         <script type="text/javascript" src="js/account.js"></script>
-        
-        <title>Visualizzazione Account - Kids Project</title>
+
+        <title>Kids</title>
+
         <jsp:include page="/GetAccount" /> 
         <script type="text/javascript">
             $(document).ready(function() {
+                activePage();
                 initializeModifyRegistrationFields();
                 initializeLinksManager2();
-                                update();
+                update();
                 $("#modifyDateOfBirth, #modifyContractExpirationDate, #modifyRegistrationDate").datepicker({dateFormat:'yy-mm-dd'});
             });
         </script>
     </head>
     <%@include file="header.jsp"%>
     <body id="bodyRegistration">
-        
+
 
         <form id="modifyForm" class="cmxform"  action="" method="post">
 
             <fieldset id="modifyFieldSet">
                 <div id="artefactsManagement">
-                    <h1  style="font-weight: bold; font-size: 30pt"id="titleReg" align="center">Modifica Account</h1><br> <br>
-
                     <div id="modifyRegistration1">
-                         <input id="id" class="accountInput" type="hidden" name="id" size="50%" value="${id}" readonly="true">
-                         <input id="typeAccount2" class="accountInput" type="hidden" name="Nome" size="50%" value="${TipoAccount}" readonly="true">
-                         <input id="typeParent2" class="accountInput" type="hidden" name="Nome" size="50%" value="${TipoGenitore}" readonly="true">
+                        <input id="id" class="accountInput" type="hidden" name="id" size="50%" value="${id}" readonly="true">
+                        <input id="typeAccount2" class="accountInput" type="hidden" name="Nome" size="50%" value="${TipoAccount}" readonly="true">
+                        <input id="typeParent2" class="accountInput" type="hidden" name="Nome" size="50%" value="${TipoGenitore}" readonly="true">
 
                         <div >
                             <label id="accountLabel">  Nome*: </label>
@@ -171,6 +173,8 @@
                                 <OPTION value="Coordinatore Psicopedagogico" name="CoordinatorePsicopedagogico"> Coordinatore Psicopedagogico 
                                 <OPTION value="Responsabile Scientifico" name="ResponsabileScientifico"> Responsabile Scientifico 
                                 <OPTION value="Responsabile Asilo" name="ResponsabileAsilo"> Responsabile Asilo
+                                <OPTION value="Delegato del Rettore" name="DelegatoDelRettore"> Delegato del Rettore
+                                <OPTION value="Responsabile Mensa" name="ResponsabileMensa"> Responsabile Mensa
                             </select>
                         </div>
 
@@ -185,8 +189,8 @@
                         </div>
 
                         <div>
-                             <c:if test="${requestScope.TipoGenitore!='Nothing'}"> 
-                            <label id="accountLabel2"> Tipologia Genitore*: </label> <input type="text" class="accountInput" value="${TipoGenitore}" readonly="true">
+                            <c:if test="${requestScope.TipoGenitore!='Nothing'}"> 
+                                <label id="accountLabel2"> Tipologia Genitore*: </label> <input type="text" class="accountInput" value="${TipoGenitore}" readonly="true">
                             </c:if>
                             <%--<input id="typeParent" class="accountInput" type="text" name="TipoAccount" />--%> 
                             <select id="modifyTypeParent" name="tipo" onchange="verificaGenitore()"  style="visibility: hidden">
@@ -215,7 +219,7 @@
                             <input id="modifyRegistrationDate" class="accountInput" type="text" name="DataRegistrazione" value="${DataIscrizione}" style="display: none" readonly="true">
                         </div>
 
-                        
+
                         <input style="width: 200px; margin-left: 2%" type="button" name="notModifyButton3" id="notModifyButton3" value="Indietro"/>
                     </div>
                 </div>
@@ -223,8 +227,8 @@
 
 
         </form>
-                        
-        
+
+
         <%@include file="footer.jsp" %>
     </body>
 </html>

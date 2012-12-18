@@ -1,7 +1,7 @@
 <%-- 
     Document   : surveyForm
     Created on : Dec 10, 2012, 3:59:47 PM
-    Author     : felice
+    Author     : Felice D'Avino
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -9,10 +9,13 @@
 <html>
     <header>
         <link rel="stylesheet" type="text/css" href="css/template.css" >
+
         <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/compiledSurveyShowTable.js"></script>
+
         <title>Kids</title>
+
         <script type="text/javascript">
             $(document).ready(function() {
                 addCompiledSurvey();

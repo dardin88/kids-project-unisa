@@ -10,17 +10,18 @@
     <c:redirect url="index.jsp" />
 </c:if>
 <c:if test="${sessionScope.user.getAccountType()!='Genitore'} && ${sessionScope.user.getAccountType()!='Segreteria'}">
-        <c:redirect url="index.jsp" />
+    <c:redirect url="index.jsp" />
 </c:if>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
         <link rel="stylesheet" type="text/css" href="css/template.css" />
         <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css" />
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css" />
-        
+
         <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
         <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
@@ -30,41 +31,39 @@
         <script type="text/javascript" src="js/classificationManager.js"></script>
         <script type="text/javascript" src="js/classificationTables.js"></script>
         <script type="text/javascript" src="js/classificationCriteria.js"></script>
-        
-        <title>Classification Management</title>
+
+        <title>Kids</title>
+
     </head>
     <script type="text/javascript">
         $(document).ready(function() {
             activePage();
             initClassificationPage();
             initCriteriaWindow();
-            
             createTableClassification();
         });
-        
     </script>
-    
+
     <body>
         <%@include file="header.jsp" %>
-        
+
         <%-- CORPO PRINCIPALE DELLA PAGINA: PULSANTI E TABELLA CON ELENCO DELLE GRADUATORIE --%>
         <div id="classificationContentPage">
-            <h2>Graduatorie disponibili:</h2>
             <div id="classificationSubmit">
                 <input type="hidden" id="classificationSelectedId" />
                 <input type="hidden" id="user" value="${sessionScope.user.getAccountType()}"/>
-<c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
-                <input type="button" id="classificationButtonOpenWindowCreateNew" onClick="openAddClassificationWindow();" value="Crea una nuova graduatoria" />
-                <%--<input type="button" id="classificationOpenCriteriaWindow" onClick="openCriteriaWindow();" value="Gestisci criteri" />--%>
-</c:if>
+                <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
+                    <input type="button" id="classificationButtonOpenWindowCreateNew" onClick="openAddClassificationWindow();" value="Crea una nuova graduatoria" />
+                    <%--<input type="button" id="classificationOpenCriteriaWindow" onClick="openCriteriaWindow();" value="Gestisci criteri" />--%>
+                </c:if>
             </div>
             <div id="classificationDisplayTable">
                 <table id="classificationTable">
                     <thead>
-                        <th>Data</th>
-                        <th>Nome</th>
-                        <th>Stato</th>
-                        <th>Operazioni</th>
+                    <th>Data</th>
+                    <th>Nome</th>
+                    <th>Stato</th>
+                    <th>Operazioni</th>
                     </thead>
                     <tbody>
                     </tbody>
@@ -72,7 +71,7 @@
             </div>
         </div>
         <%-- FINE CORPO PRINCIPALE DELLA PAGINA: PULSANTI E TABELLA CON ELENCO DELLE GRADUATORIE --%>
-        
+
         <%-- FINESTRA DI INSERIMENTO DI UNA NUOVA GRADUATORIA --%>
         <div id="classificationAddWindow" name="classificationAddWindow" title="Crea una nuova graduatoria" style="display: inline">
             <form id="classificationAddWindowForm" name="classificationAddWindowForm" class="cmxform" method="post" action="">
@@ -92,7 +91,7 @@
             </form>
         </div>
         <%-- FINE FINESTRA DI INSERIMENTO DI UNA NUOVA GRADUATORIA --%>
-        
+
         <%-- FINESTRA DI MODIFICA DI UNA GRADUATORIA --%>
         <div id="classificationModifyWindow" name="classificationModifyWindow" title="Modifica Graduatoria" style="display: inline">
             <form id="classificationModifyForm" name="classificationModifyForm" class="cmxform" method="post" action="">
@@ -123,42 +122,42 @@
             </form>
         </div>
         <%-- FINE FINESTRA DI MODIFICA DI UNA GRADUATORIA --%>
-        
+
         <%-- FINESTRA DI VISUALE IN DETTAGLIO DELLA GRADUATORIA E DEI SUOI RISULTATI --%>
         <div id="classificationDisplay" style="display: none;">
             <div id="classificationDisplayInfo" name="classificationFormWindowInfo">
                 <h2>Dettagli della graduatoria</h2>
                 <p class="formp"> 
-                    <legend><h3>Data Creazione:</h3></legend>
-                    <input id="classificationDisplayData" name="classificationDisplayData" disabled="disabled" type="text">
+                <legend><h3>Data Creazione:</h3></legend>
+                <input id="classificationDisplayData" name="classificationDisplayData" disabled="disabled" type="text">
                 </p>
                 <p class="formp"> 
-                    <legend><h3>Nome:</h3></legend>
-                    <input id="classificationDisplayNome" name="classificationDisplayNome" disabled="disabled" type="text">
+                <legend><h3>Nome:</h3></legend>
+                <input id="classificationDisplayNome" name="classificationDisplayNome" disabled="disabled" type="text">
                 </p>
                 <p class="formp"> 
-                    <legend><h3>Status:</h3></legend>
-                    <input id="classificationDisplayStatus" name="classificationDisplayStatus" disabled="disabled" type="text">
+                <legend><h3>Status:</h3></legend>
+                <input id="classificationDisplayStatus" name="classificationDisplayStatus" disabled="disabled" type="text">
                 </p>
             </div>
             <div id="classificationDisplaySubmit">
                 <input id="classificationDisplayId" name="classificationDisplayId" type="hidden">
-<c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
-                <input type="button" id="classificationAggiornaResultsButton" name="classificationAggiornaResultsButton" onClick="updateResultClassification();" value="Ricalcola esiti" />
-                <input type="button" id="classificationRendiProvvisoriaButton" name="classificationRendiProvvisoriaButton" onClick="openWindowToProvvisoriaFromDetails();" value="Rendi provvisoria" />
-                <input type="button" id="classificationRendiDefinitivaButton" name="classificationRendiDefinitivaButton" onClick="openWindowToDefinitivaFromDetails();" value="Rendi definitiva" />
-</c:if>
+                <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
+                    <input type="button" id="classificationAggiornaResultsButton" name="classificationAggiornaResultsButton" onClick="updateResultClassification();" value="Ricalcola esiti" />
+                    <input type="button" id="classificationRendiProvvisoriaButton" name="classificationRendiProvvisoriaButton" onClick="openWindowToProvvisoriaFromDetails();" value="Rendi provvisoria" />
+                    <input type="button" id="classificationRendiDefinitivaButton" name="classificationRendiDefinitivaButton" onClick="openWindowToDefinitivaFromDetails();" value="Rendi definitiva" />
+                </c:if>
                 <input type="button" id="classificationCloseDetailsButton" name="classificationCloseDetailsButton" onClick="closeDetailsClassification();" value="Torna all'elenco delle grauatorie" />
             </div>
             <div id="classificationDisplayResultTable">
                 <table id="classificationResultTable">
                     <thead>
-                        <th>Posizione</th>
-                        <th>Codice Fiscale</th>
-                        <th>Cognome</th>
-                        <th>Nome</th>
-                        <th>Punteggio</th>
-                        <th>Esito</th>
+                    <th>Posizione</th>
+                    <th>Codice Fiscale</th>
+                    <th>Cognome</th>
+                    <th>Nome</th>
+                    <th>Punteggio</th>
+                    <th>Esito</th>
                     </thead>
                     <tbody>
                     </tbody>
@@ -166,7 +165,7 @@
             </div>
         </div>
         <%-- FINE FINESTRA DI VISUALE IN DETTAGLIO DELLA GRADUATORIA E DEI SUOI RISULTATI --%>
-        
+
         <%-- FINESTRA DI RICHIESTA DI CONFERMA --%>
         <div id="classificationConfirmWindow" name="classificationConfirmWindow" title="Conferma operazione" style="display: inline">
             <div>
@@ -190,7 +189,7 @@
         </div>
         <%-- FINE FINESTRA DI AVVISO (ALERT) --%>
 
-        
+
         <%-- GESTIONE DEI CRITERI DI VALUTAZIONE DELLA GRADUATORIA --%>
         <div id="classificationCriteriaWindow" name="classificationCriteriaWindow" title="Criteri di valutazione della graduatoria" style="display: inline">
             <div>
@@ -199,13 +198,13 @@
             <div>
                 <table id="classificationCriteriaTable">
                     <thead>
-                        <th>Descrizione</th>
-                        <th>Campo</th>
-                        <th>Operando</th>
-                        <th>Condizione</th>
-                        <th>Peso</th>
-                        <th>Attivo</th>
-                        <th>Operazioni</th>
+                    <th>Descrizione</th>
+                    <th>Campo</th>
+                    <th>Operando</th>
+                    <th>Condizione</th>
+                    <th>Peso</th>
+                    <th>Attivo</th>
+                    <th>Operazioni</th>
                     </thead>
                     <tbody>
                     </tbody>
@@ -261,7 +260,7 @@
             </form>
         </div>
         <%-- FINE GESTIONE DEI CRITERI DI VALUTAZIONE DELLA GRADUATORIA --%>
-        
-    <%@include file="footer.jsp" %>
+
+        <%@include file="footer.jsp" %>
     </body>
 </html>
