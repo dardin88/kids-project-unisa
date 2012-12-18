@@ -31,6 +31,9 @@
                 <li id="renunciationManagementME"><a href="renunciation.jsp">Rinunce</a></li>
             </div>
             <div class="div">
+                <li id="recourseManagementME"><a href="recourse.jsp">Ricorsi</a></li>
+            </div>
+            <div class="div">
                 <li id="paymentManagementMenuEl"><a href="paymentManagement.jsp">Pagamenti</a></li>
             </div>
             <div class="div">
@@ -113,6 +116,9 @@
             </div>
             <div class="div">
                 <li id="renunciationManagementME"><a href="renunciation.jsp">Rinunce</a></li>
+            </div>
+            <div class="div">
+                <li id="recourseManagementME"><a href="recourse.jsp">Rinunce</a></li>
             </div>
             <div class="div">
                 <li id="paymentManagementMenuEl"><a href="paymentParent.jsp">Pagamenti</a></li>

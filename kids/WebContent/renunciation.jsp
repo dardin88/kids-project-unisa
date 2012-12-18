@@ -123,7 +123,7 @@
                 </fieldset>
             </form>
         </div>
-        <%-- FINE FINESTRA DI INSERIMENTO DI UNA NUOVA GRADUATORIA --%>
+        <%-- FINE FINESTRA DI INSERIMENTO DI UNA NUOVA DOMANDA DI RINUNCIA --%>
 
         <%-- FINESTRA DI VISUALE DEI DETTAGLIO DI UNA DOMANDA DI RINUNCIA --%>
         <div id="renunciationViewDetailsWindow" name="renunciationViewDetailsWindow" title="Visualizza domanda di rinuncia" style="display: inline">
