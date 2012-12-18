@@ -27,8 +27,8 @@ public final class DBNames {
     public static final String TABLE_ANNUAL_PROJ = "annual_proj";
     public static final String TABLE_SECTION_PROJ = "progetto_sezione";
     public static final String TABLE_COMMENT = "commento";
-    public static final String TABLE_ACT = "activity";
-    public static final String TABLE_DAILY_SECTION_ACT = "daily_section_act";
+    public static final String TABLE_ACT = "attivita";
+    public static final String TABLE_DAILY_SECTION_ACT = "attivita_giornaliera_per_sezione";
     public static final String TABLE_CHILD_PARTICIPATION = "child_participation";
     public static final String TABLE_TRAINEE = "tirocinante";
     public static final String TABLE_TRAINEECONVOCATION = "convocazione";
@@ -249,7 +249,8 @@ public final class DBNames {
     public static final String ATT_COMMENT_IDAUTHOR = "IdAutore";
     //Activity attributes
     public static final String ATT_ACTIVITY_ID = "Id";
-    public static final String ATT_ACTIVITY_PERIOD = "Periodo";
+    public static final String ATT_ACTIVITY_STARTDATE = "DataInizio";
+    public static final String ATT_ACTIVITY_ENDDATE = "DataFine";
     public static final String ATT_ACTIVITY_NAME = "Nome";
     public static final String ATT_ACTIVITY_DESCRIPTION = "Contenuto";
     //Activity Section Daily

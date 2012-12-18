@@ -4,14 +4,14 @@
  */
 package it.unisa.kids.communicationManagement.programEducationalManagement;
 
-import com.sun.org.apache.xerces.internal.impl.dv.xs.DayDV;
 import it.unisa.kids.common.DBNames;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -61,5 +61,113 @@ public class JDBCActivityManager implements IActivityManager {
 
         }
         return toReturn;
+    }
+
+    @Override
+    public List<Activity> search(Activity pActivity) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String query = null;
+        List<Activity> activities = null;
+
+        boolean andState = false;
+
+        try {
+            con = DBConnectionPool.getConnection();
+
+            // constructing search query string
+            query = "SELECT * FROM " + DBNames.TABLE_ACT + " WHERE";
+            if (pActivity.getId() > 0) {		// or >= 0 ???
+                query += " " + DBNames.ATT_ACTIVITY_ID + " = ?";
+                andState = true;
+            }
+
+            if (pActivity.getName() != null) {
+                query += useAnd(andState) + DBNames.ATT_ACTIVITY_NAME + " = ?";
+                andState = true;
+            }
+            
+            if (pActivity.getDescription() != null) {
+                query += useAnd(andState) + DBNames.ATT_ACTIVITY_DESCRIPTION + " = ?";
+                andState = true;
+            }
+
+            if (pActivity.getStartDate() != null) {
+                query += useAnd(andState) + DBNames.ATT_ACTIVITY_STARTDATE + "= ?";
+                andState = true;
+            }
+            
+            if (pActivity.getEndDate() != null) {
+                query += useAnd(andState) + DBNames.ATT_ACTIVITY_ENDDATE + "= ?";
+                andState = true;
+            }
+
+            pstmt = con.prepareStatement(query);
+
+            // setting pstmt's parameters
+            int i = 1;		// index of pstmt first argument
+            if (pActivity.getId() > 0) {		// >= 0 ??
+                pstmt.setInt(i, pActivity.getId());
+                i++;
+            }
+
+            if (pActivity.getName() != null) {
+                pstmt.setString(i, pActivity.getName());
+                i++;
+            }
+            
+            if (pActivity.getDescription() != null) {
+                pstmt.setString(i, pActivity.getDescription());
+                i++;
+            }
+            
+            if (pActivity.getStartDate() != null) {
+                pstmt.setDate(i, new java.sql.Date(pActivity.getStartDate().getTimeInMillis()));
+                i++;
+            }
+            
+            if (pActivity.getEndDate() != null) {
+                pstmt.setDate(i, new java.sql.Date(pActivity.getEndDate().getTimeInMillis()));
+                i++;
+            }
+
+            // executing select query
+            rs = pstmt.executeQuery();
+            con.commit();
+
+            // constructing mealReq list
+            activities = new ArrayList<Activity>();
+            while (rs.next()) {
+                Activity act = new Activity();
+                act.setId(rs.getInt(DBNames.ATT_ACTIVITY_ID));
+                act.setName(rs.getString(DBNames.ATT_ACTIVITY_NAME));
+                act.setDescription(rs.getString(DBNames.ATT_ACTIVITY_DESCRIPTION));
+
+                //getting Date from ResultSet and converting it to GregorianCalendar
+                GregorianCalendar actDate = new GregorianCalendar();
+                actDate.setTime(rs.getDate(DBNames.ATT_ACTIVITY_STARTDATE));
+                act.setStartDate(actDate);
+                actDate.setTime(rs.getDate(DBNames.ATT_ACTIVITY_ENDDATE));
+                act.setEndDate(actDate);
+
+                activities.add(act);
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
+            if (con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+        return activities;
+    }
+    
+    private String useAnd(boolean pEnableAnd) {
+        return pEnableAnd ? " AND " : " ";
     }
 }
