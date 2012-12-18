@@ -53,7 +53,7 @@
                 <input type="hidden" id="classificationSelectedId" />
                 <input type="hidden" id="user" value="${sessionScope.user.getAccountType()}"/>
                 <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
-                    <input type="button" id="classificationButtonOpenWindowCreateNew" onClick="openAddClassificationWindow();" value="Crea una nuova graduatoria" />
+                    <input type="button" id="classificationButtonOpenWindowCreateNew" onClick="openAddClassificationWindow();" value="Crea una nuova graduatoria" /><br><br>
                     <%--<input type="button" id="classificationOpenCriteriaWindow" onClick="openCriteriaWindow();" value="Gestisci criteri" />--%>
                 </c:if>
             </div>

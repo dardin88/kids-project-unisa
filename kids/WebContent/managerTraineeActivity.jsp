@@ -23,14 +23,14 @@
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.js"></script>
         <script type="text/javascript" src="js/jquery.ui.timepicker.js"></script>
         <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
-        <script type='text/javascript' src='calendario/fullcalendar/fullcalendar.min.js'></script>
+        <script type="text/javascript" src="calendario/fullcalendar/fullcalendar.min.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/managerTraineeActivity.js"></script>
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
 
         <link rel="stylesheet" type="text/css" href="css/template.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.ui.timepicker.css">
-        <link rel='stylesheet' type='text/css' href='calendario/fullcalendar/fullcalendar.css' /> 
+        <link rel="stylesheet" type="text/css" href="calendario/fullcalendar/fullcalendar.css" /> 
         <link rel="stylesheet" type="text/css" href="css/overcast/jquery-ui-1.9.1.custom.min.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css">
