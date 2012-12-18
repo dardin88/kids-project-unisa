@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -48,14 +49,14 @@ public class JDBCActivityManager implements IActivityManager {
         ResultSet rs = null;
         String query = null;
         List<DailyActivitySection> toReturn = new ArrayList<DailyActivitySection>();
-        query = "SELECT * FROM " + DBNames.TABLE_DAILY_SECTION_ACT + " WHERE "   + DBNames.ATT_ACTIVITYSECTTIONDAILY_SECTIONID + "='" + pDailyActivitySection.getId()+"'";
+        query = "SELECT * FROM " + DBNames.TABLE_DAILY_SECTION_ACT + " WHERE " + DBNames.ATT_ACTIVITYSECTTIONDAILY_SECTIONID + "='" + pDailyActivitySection.getId() + "'";
         con = DBConnectionPool.getConnection();
         pstmt = con.prepareStatement(query);
         rs = pstmt.executeQuery();
         while (rs.next()) {
-            DailyActivitySection dailyActivitySection=new DailyActivitySection();
-            Date dateSql=rs.getDate(DBNames.ATT_ACTIVITYSECTTIONDAILY_DATE);
-            GregorianCalendar date=new GregorianCalendar();
+            DailyActivitySection dailyActivitySection = new DailyActivitySection();
+            Date dateSql = rs.getDate(DBNames.ATT_ACTIVITYSECTTIONDAILY_DATE);
+            GregorianCalendar date = new GregorianCalendar();
             date.setTime(dateSql);
             dailyActivitySection.setData(date);
             dailyActivitySection.setId(rs.getInt(DBNames.ATT_ACTIVITYSECTTIONDAILY_ID));
@@ -92,7 +93,7 @@ public class JDBCActivityManager implements IActivityManager {
                 query += useAnd(andState) + DBNames.ATT_ACTIVITY_NAME + " = ?";
                 andState = true;
             }
-            
+
             if (pActivity.getDescription() != null) {
                 query += useAnd(andState) + DBNames.ATT_ACTIVITY_DESCRIPTION + " = ?";
                 andState = true;
@@ -102,12 +103,13 @@ public class JDBCActivityManager implements IActivityManager {
                 query += useAnd(andState) + DBNames.ATT_ACTIVITY_STARTDATE + "= ?";
                 andState = true;
             }
-            
+
             if (pActivity.getEndDate() != null) {
                 query += useAnd(andState) + DBNames.ATT_ACTIVITY_ENDDATE + "= ?";
                 andState = true;
             }
-            if (pActivity.getIdClass()>0) {
+
+            if (pActivity.getIdClass() > 0) {
                 query += useAnd(andState) + DBNames.ATT_ACTIVITY_IDCLASS + "= ?";
                 andState = true;
             }
@@ -125,25 +127,27 @@ public class JDBCActivityManager implements IActivityManager {
                 pstmt.setString(i, pActivity.getName());
                 i++;
             }
-            
+
             if (pActivity.getDescription() != null) {
                 pstmt.setString(i, pActivity.getDescription());
                 i++;
             }
-            
+
             if (pActivity.getStartDate() != null) {
                 pstmt.setDate(i, new java.sql.Date(pActivity.getStartDate().getTimeInMillis()));
                 i++;
             }
-            
+
             if (pActivity.getEndDate() != null) {
                 pstmt.setDate(i, new java.sql.Date(pActivity.getEndDate().getTimeInMillis()));
                 i++;
             }
-            if(pActivity.getIdClass()>0){
+
+            if (pActivity.getIdClass() > 0) {
                 pstmt.setInt(i, pActivity.getIdClass());
                 i++;
             }
+
             // executing select query
             rs = pstmt.executeQuery();
             con.commit();
@@ -178,8 +182,53 @@ public class JDBCActivityManager implements IActivityManager {
         }
         return activities;
     }
-    
+
     private String useAnd(boolean pEnableAnd) {
         return pEnableAnd ? " AND " : " ";
+    }
+
+    public synchronized List<Activity> getActivityList() throws SQLException {
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        String query = null;
+        List<Activity> activities = null;
+
+        try {
+            con = DBConnectionPool.getConnection();
+
+            query = "SELECT * FROM " + DBNames.TABLE_ACT;
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+
+            // constructing activities list
+            activities = new ArrayList<Activity>();
+            while (rs.next()) {
+                Activity act = new Activity();
+                act.setId(rs.getInt(DBNames.ATT_ACTIVITY_ID));
+                act.setName(rs.getString(DBNames.ATT_ACTIVITY_NAME));
+                act.setDescription(rs.getString(DBNames.ATT_ACTIVITY_DESCRIPTION));
+
+                //getting Date from ResultSet and converting it to GregorianCalendar
+                GregorianCalendar actDate = new GregorianCalendar();
+                actDate.setTime(rs.getDate(DBNames.ATT_ACTIVITY_STARTDATE));
+                act.setStartDate(actDate);
+                actDate.setTime(rs.getDate(DBNames.ATT_ACTIVITY_ENDDATE));
+                act.setEndDate(actDate);
+
+                activities.add(act);
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+        return activities;
     }
 }

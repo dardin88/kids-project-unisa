@@ -26,7 +26,7 @@
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/sectionEdu.js"></script>
 
-        <title>Gestione mensa - Kids</title>
+        <title>Gestione Programma Educativo Sezione - Kids</title>
 
         <script type="text/javascript">
             $(document).ready(function() {
@@ -45,6 +45,9 @@
                 <ul>
                     <jsp:include page="/GetClassTabs"></jsp:include>
                 </ul>
+
+                <jsp:include page="/GetSectionEduClassDivs"></jsp:include>
+                
             </div>
         </div>
 

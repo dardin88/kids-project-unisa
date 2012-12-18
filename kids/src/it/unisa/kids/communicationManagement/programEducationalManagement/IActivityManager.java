@@ -18,4 +18,5 @@ public interface IActivityManager extends IManager {
     public List<DailyActivitySection> getDailyActivitySectionList() throws SQLException;
     public List<DailyActivitySection> search(DailyActivitySection pDailyActivitySection) throws SQLException;
     public List<Activity> search(Activity pActivity) throws SQLException;
+    public List<Activity> getActivityList() throws SQLException;
 }

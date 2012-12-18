@@ -50,7 +50,6 @@ public class GetClassTabsServlet extends HttpServlet {
             for (ClassBean clas : classList) {
                 out.print("<li><a href=\"#" + clas.getIdClasse() + "\">" + clas.getClassName() + "</a></li>");
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(GetClassTabsServlet.class.getName()).log(Level.SEVERE, null, ex);
         } 
