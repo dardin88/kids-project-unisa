@@ -49,7 +49,7 @@ function createTableCriteria() {
         "sAjaxSource": "GetTableCriteria",
         "bPaginate": true,
         "bLengthChange": false,
-        "bFilter": false,
+        "bFilter": true,
         "bSort": false,
         "bDestroy": true,
         "bInfo": true,

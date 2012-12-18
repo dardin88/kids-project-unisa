@@ -25,7 +25,7 @@ function createTableRegistrationChild() {
         "sAjaxSource": "GetTableRegistrationChild",
         "bPaginate": true,
         "bLengthChange": false,
-        "bFilter": false,
+        "bFilter": true,
         "bSort": false,
         "bDestroy": true,
         "bInfo": true,
@@ -37,8 +37,9 @@ function createTableRegistrationChild() {
             "sZeroRecords":  "Non sono presenti domande di iscrizione",
             "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Domande d'iscrizione",
             "sInfoEmpty":    "Vista da 0 a 0 di 0 Domande d'iscrizione",
-            "sInfoFiltered": "(filtrati da _MAX_ link totali)",
+            "sInfoFiltered": "(filtrati da _MAX_ domande d'iscrizione totali)",
             "sInfoPostFix":  "",
+            "sSearch":       "Cerca domanda d'iscrizione:",
             "oPaginate": {
                 "sFirst":    "<<",
                 "sPrevious": "<",
@@ -203,6 +204,7 @@ function submitDraftRegistrationChildAction() {
                         setWindowVisibility("registrationChildFormWindow", false);
                         if(jsonObject.IsSuccess) {
                             openRegistrationChildAlertWindow("Operazione eseguita correttamente", "La domanda di iscrizione è stata sottomessa");
+                            location.href = "PdfRegistrationChild?Id=" + getValue("registrationChildFormWindowId");
                         } else {
                             openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
                         }
