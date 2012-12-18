@@ -14,7 +14,10 @@ import it.unisa.kids.serviceManagement.trainingManagement.GetTraineesServletTabl
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -55,84 +58,83 @@ public class GetDailyActivitySectionServlet extends HttpServlet {
             PrintWriter out = response.getWriter();
             DailyActivitySection[] paginateDailyActivitySectionSet;
             List<DailyActivitySection> listDailyActivitySections;
-            try {
 
-                out = response.getWriter();
-                JSONObject result = new JSONObject();
-                JSONArray array = new JSONArray();
-                int start = 0;
-                int amount = 10;
-                String sStart = request.getParameter("iDisplayStart");
-                String sAmount = request.getParameter("sAmount");
-                String sEcho = request.getParameter("sEcho");
-                if (sStart != null) {
-                    start = Integer.parseInt(sStart);
-                    if (start < 0) {
-                        start = 0;
-                    }
+
+            out = response.getWriter();
+            JSONObject result = new JSONObject();
+            JSONArray array = new JSONArray();
+            int start = 0;
+            int amount = 10;
+            String sStart = request.getParameter("iDisplayStart");
+            String sAmount = request.getParameter("sAmount");
+            String sEcho = request.getParameter("sEcho");
+            if (sStart != null) {
+                start = Integer.parseInt(sStart);
+                if (start < 0) {
+                    start = 0;
                 }
-                if (sAmount != null) {
-                    amount = Integer.parseInt(sAmount);
-                    if (amount < 10) {
-                        amount = 10;
-                    }
+            }
+            if (sAmount != null) {
+                amount = Integer.parseInt(sAmount);
+                if (amount < 10) {
+                    amount = 10;
                 }
-                int idSection = Integer.parseInt(request.getParameter("idSection"));
-                DailyActivitySection dailyActivitySection = new DailyActivitySection();
+            }
+            int idSection = Integer.parseInt(request.getParameter("id"));
+            DailyActivitySection dailyActivitySection = new DailyActivitySection();
+            dailyActivitySection.setId(idSection);
             listDailyActivitySections = manager.search(dailyActivitySection);
 
 
-                int linksNumber = listDailyActivitySections.size();
-                if (linksNumber < amount) {
-                    amount = linksNumber;
-                }
-                if (linksNumber != 0) {
-                    int toShow = linksNumber - start;
-                    if (toShow > 10) {
-                        paginateDailyActivitySectionSet = new DailyActivitySection[amount];
-                        System.arraycopy(listDailyActivitySections.toArray(), start, paginateDailyActivitySectionSet, 0, amount);
-                    } else {
-                        paginateDailyActivitySectionSet = new DailyActivitySection[toShow];
-                        System.arraycopy(listDailyActivitySections.toArray(), start, paginateDailyActivitySectionSet, 0, toShow);
-                    }
-                    for (DailyActivitySection das : paginateDailyActivitySectionSet) {
-                        JSONArray ja = new JSONArray();
-                        ja.put("Genitore");
-                        String type = ();
-                        ja.put(type);
-                        ja.put(timeService.getDayRequested());
-                        String operazioni = "Conferma?<input type=\"checkbox\" id=\"" + timeService.getId() + "\" onclick=\"updateTimeServiceRequest('" + timeService.getId() + "',this)\"";
-                        if (timeService.getConfirmed() == 1) {
-                            operazioni += "checked>";
-                        } else {
-                            operazioni += ">";
-                        }
-                        ja.put(operazioni);
-                        array.put(ja);
-                    }
-                }
-                result.put("sEcho", sEcho);
-                result.put("iTotalRecords", linksNumber);
-                result.put("iTotalDisplayRecords", linksNumber);
-                result.put("aaData", array);
-                response.setContentType("application/json");
-                response.setHeader("Cache-Control",
-                        "private, no-store, no-cache, must-revalidate");
-                response.setHeader("Pragma", "no-cache");
-                out.print(result);
-            } catch (SQLException ex) {
-                Logger.getLogger(GetTraineesServletTable.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
-                out.close();
+            int linksNumber = listDailyActivitySections.size();
+            if (linksNumber < amount) {
+                amount = linksNumber;
             }
-            
+            if (linksNumber != 0) {
+                int toShow = linksNumber - start;
+                if (toShow > 10) {
+                    paginateDailyActivitySectionSet = new DailyActivitySection[amount];
+                    System.arraycopy(listDailyActivitySections.toArray(), start, paginateDailyActivitySectionSet, 0, amount);
+                } else {
+                    paginateDailyActivitySectionSet = new DailyActivitySection[toShow];
+                    System.arraycopy(listDailyActivitySections.toArray(), start, paginateDailyActivitySectionSet, 0, toShow);
+                }
+                GregorianCalendar currentDate = null;
+                for (DailyActivitySection das : paginateDailyActivitySectionSet) {
+                    JSONArray ja = new JSONArray();
+                    if (das.getData() == currentDate) {
+                        ja.put("");
+                    } else {
+                        ja.put(das.getData().get(Calendar.YEAR) + "/" + (das.getData().get(Calendar.MONTH) + 1) + "/" + das.getData().get(Calendar.DAY_OF_MONTH));
+                    }
+                    Activity activity = new Activity();
+                    activity.setId(das.getIdActivity());
+                    List<Activity> listActivity = manager.search(activity);
+                    ja.put(listActivity.get(0).getName());
+                    ja.put(das.getIdEducator());
 
-        } catch (SQLException ex) {
-            Logger.getLogger(GetDailyActivitySectionServlet.class.getName()).log(Level.SEVERE, null, ex);
+
+                    //String operazioni = "Conferma?<input type=\"checkbox\" id=\"" + timeService.getId() + "\" onclick=\"updateTimeServiceRequest('" + timeService.getId() + "',this)\"";
+
+                    ja.put("");
+                    array.put(ja);
+                }
+            }
+            result.put("sEcho", sEcho);
+            result.put("iTotalRecords", linksNumber);
+            result.put("iTotalDisplayRecords", linksNumber);
+            result.put("aaData", array);
+            response.setContentType("application/json");
+            response.setHeader("Cache-Control",
+                    "private, no-store, no-cache, must-revalidate");
+            response.setHeader("Pragma", "no-cache");
+            out.print(result);
         }
-
+        catch (SQLException ex) {
+            Logger.getLogger(GetDailyActivitySectionServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }   
     }
-
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP
