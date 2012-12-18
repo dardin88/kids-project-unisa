@@ -164,6 +164,8 @@ public class JDBCActivityManager implements IActivityManager {
                 GregorianCalendar actDate = new GregorianCalendar();
                 actDate.setTime(rs.getDate(DBNames.ATT_ACTIVITY_STARTDATE));
                 act.setStartDate(actDate);
+
+                actDate = new GregorianCalendar();
                 actDate.setTime(rs.getDate(DBNames.ATT_ACTIVITY_ENDDATE));
                 act.setEndDate(actDate);
 
