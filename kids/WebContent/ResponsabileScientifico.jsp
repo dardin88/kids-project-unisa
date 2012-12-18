@@ -1,7 +1,7 @@
 <%-- 
-    Document   : CoordinatorePsico
-    Created on : 8-dic-2012, 13.16.36
-    Author     : Francesco Di Lorenzo
+    Document   : ResponsabileScientifico
+    Created on : 18-dic-2012, 22.12.50
+    Author     : francesco
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

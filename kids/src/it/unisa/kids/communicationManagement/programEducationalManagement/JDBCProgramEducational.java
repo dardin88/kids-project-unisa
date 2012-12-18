@@ -247,7 +247,7 @@ public class JDBCProgramEducational implements IProgramEducational {
     @Override
     public ArrayList<AnnualProject> show() throws SQLException {
        Connection  con = DBConnectionPool.getConnection();
-       ArrayList<AnnualProject> list=new ArrayList<>();
+       ArrayList<AnnualProject> list=new ArrayList<AnnualProject>();
        Statement stmt=null;
        ResultSet rs=null;
        String query="select * from "+DBNames.TABLE_ANNUAL_PROJ;

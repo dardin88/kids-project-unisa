@@ -12,6 +12,7 @@ import it.unisa.kids.accessManagement.registrationChildManagement.JDBCRegistrati
 import it.unisa.kids.accessManagement.renunciationManagement.JDBCRenunciationManager;
 import it.unisa.kids.communicationManagement.meeting.JDBCMeetingManager;
 import it.unisa.kids.communicationManagement.programEducationalManagement.JDBCActivityManager;
+import it.unisa.kids.communicationManagement.programEducationalManagement.JDBCProgramEducational;
 import it.unisa.kids.serviceManagement.canteenManagement.JDBCCanteenManager;
 import it.unisa.kids.serviceManagement.timeServiceManagement.JDBCTimeServiceManager;
 
@@ -60,6 +61,8 @@ public class RefinedAbstractManager extends AbstractManager<IManager> {
             this.imp = JDBCActivityManager.getInstance();
         }else if (pManagerType.equals(DBNames.TABLE_REUNION)) {
             this.imp = JDBCMeetingManager.getInstance();
+        }else if (pManagerType.equals(DBNames.TABLE_ANNUAL_PROJ)){
+            this.imp=JDBCProgramEducational.getInstance();
         }
         return this.imp;
     }

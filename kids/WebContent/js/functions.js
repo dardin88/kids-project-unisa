@@ -115,8 +115,8 @@ function activePage(){
             $("#title").html("Gestione bambini - Comunicazioni bisogni");
             break;
         case 'showProject.jsp':
-            $("#coordinatorePsico").css("background-color", "#444");
-            $("#coordinatorePsico").css("color", "#FFFFFF");
+            $("#annualProject").css("background-color", "#444");
+            $("#annualProject").css("color", "#FFFFFF");
             $("#title").html("Gestione Programma Educativo");
             break;
         case 'registrationChild.jsp':
@@ -168,6 +168,16 @@ function activePage(){
             $("#classMenuEl").css("background-color", "#444");
             $("#classMenuEl").css("color", "#FFFFFF");
             $("#title").html("Gestione Classi");
+            break;
+        case 'respAnnualProject.jsp':
+            $("#annualProject").css("background-color", "#444");
+            $("#annualProject").css("color", "#FFFFFF");
+            $("#title").html("Gestione Programma Educativo");
+            break;
+        case 'delRetAnnualProject.jsp':
+            $("#annualProject").css("background-color", "#444");
+            $("#annualProject").css("color", "#FFFFFF");
+            $("#title").html("Gestione Programma Educativo");
             break;
     }
 }
