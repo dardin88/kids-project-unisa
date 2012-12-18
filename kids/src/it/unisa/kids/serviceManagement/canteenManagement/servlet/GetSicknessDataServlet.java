@@ -5,6 +5,7 @@
 package it.unisa.kids.serviceManagement.canteenManagement.servlet;
 
 import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
+import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.facade.AccessFacade;
 import it.unisa.kids.common.facade.IAccessFacade;
 import java.io.IOException;
@@ -64,8 +65,8 @@ public class GetSicknessDataServlet extends HttpServlet {
             }
             RegistrationChild rc = regChildList.get(0);
 
-            checkAddToJSON(result, "sickness", rc.getSickness());
-            checkAddToJSON(result, "note", rc.getAdditionalNotes());
+            CommonMethod.checkAddToJSON(result, "sickness", rc.getSickness());
+            CommonMethod.checkAddToJSON(result, "note", rc.getAdditionalNotes());
 
             response.setContentType("application/json");
             response.setHeader("Cache-Control",
@@ -77,14 +78,6 @@ public class GetSicknessDataServlet extends HttpServlet {
             Logger.getLogger(GetSicknessDataServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
-        }
-    }
-
-    private void checkAddToJSON(JSONObject jObj, String key, Object value) {
-        if (value != null) {
-            jObj.put(key, value);
-        } else {
-            jObj.put(key, "");
         }
     }
 

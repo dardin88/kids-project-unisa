@@ -5,6 +5,7 @@
 package it.unisa.kids.serviceManagement.canteenManagement.servlet;
 
 import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
+import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.kids.common.facade.AccessFacade;
@@ -59,7 +60,7 @@ public class InsertDiffMenuServlet extends HttpServlet {
 
             int childId = Integer.parseInt(request.getParameter("hiddenChildIdInsDiff"));
             if (childId <= 0) {
-                sendMessageRedirect(request, response, "Errore: bambino selezionato non corretto - " + childId);
+                CommonMethod.sendMessageRedirect(request, response, "Errore: bambino selezionato non corretto - " + childId, "/canteenManagement.jsp");
                 return;
             }
             menu.setChildInscriptionId(childId);
@@ -69,28 +70,28 @@ public class InsertDiffMenuServlet extends HttpServlet {
 
             String first = request.getParameter("firstDiff").trim();
             if (first.length() > MEAL_MAXLENGTH) {
-                sendMessageRedirect(request, response, "Errore: campo menu troppo lungo.");
+                CommonMethod.sendMessageRedirect(request, response, "Errore: campo menu troppo lungo.", "/canteenManagement.jsp");
                 return;
             }
             menu.setFirst(first);
 
             String second = request.getParameter("secondDiff").trim();
             if (second.length() > MEAL_MAXLENGTH) {
-                sendMessageRedirect(request, response, "Errore: campo menu troppo lungo.");
+                CommonMethod.sendMessageRedirect(request, response, "Errore: campo menu troppo lungo.", "/canteenManagement.jsp");
                 return;
             }
             menu.setSecond(second);
 
             String sideDish = request.getParameter("sideDishDiff").trim();
             if (sideDish.length() > MEAL_MAXLENGTH) {
-                sendMessageRedirect(request, response, "Errore: campo menu troppo lungo.");
+                CommonMethod.sendMessageRedirect(request, response, "Errore: campo menu troppo lungo.", "/canteenManagement.jsp");
                 return;
             }
             menu.setSideDish(sideDish);
 
             String fruit = request.getParameter("fruitDiff").trim();
             if (fruit.length() > MEAL_MAXLENGTH) {
-                sendMessageRedirect(request, response, "Errore: campo menu troppo lungo.");
+                CommonMethod.sendMessageRedirect(request, response, "Errore: campo menu troppo lungo.", "/canteenManagement.jsp");
                 return;
             }
             menu.setFruit(fruit);
@@ -125,23 +126,17 @@ public class InsertDiffMenuServlet extends HttpServlet {
                 canteenManager.update(mr);
             }
 
-            sendMessageRedirect(request, response, "Men&ugrave; differenziato inserito con successo.");
+            CommonMethod.sendMessageRedirect(request, response, "Men&ugrave; differenziato inserito con successo.", "/canteenManagement.jsp");
 
         } catch (SQLException e) {
-            sendMessageRedirect(request, response, "Verfica i campi");
+            CommonMethod.sendMessageRedirect(request, response, "Verfica i campi", "/canteenManagement.jsp");
             Logger.getLogger(InsertPaymentServlet.class.getName()).log(Level.SEVERE, null, e);
 
         } catch (NumberFormatException e) {
-            sendMessageRedirect(request, response, "Verfica i campi");
+            CommonMethod.sendMessageRedirect(request, response, "Verfica i campi", "/canteenManagement.jsp");
             Logger.getLogger(InsertPaymentServlet.class.getName()).log(Level.SEVERE, null, e);
 
         }
-    }
-
-    private void sendMessageRedirect(HttpServletRequest request, HttpServletResponse response, String msg)
-            throws ServletException, IOException {
-        request.setAttribute("message", msg);
-        request.getRequestDispatcher("/canteenManagement.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

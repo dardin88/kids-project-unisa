@@ -4,6 +4,7 @@
  */
 package it.unisa.kids.serviceManagement.canteenManagement.servlet;
 
+import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.kids.serviceManagement.canteenManagement.ICanteenManager;
@@ -11,10 +12,6 @@ import it.unisa.kids.serviceManagement.canteenManagement.MealRequestBean;
 import it.unisa.kids.serviceManagement.paymentManagement.servlet.InsertPaymentServlet;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author navi
  */
 public class InsertMealRequestServlet extends HttpServlet {
-    
+
     private ICanteenManager canteenManager;
 
     public void init(ServletConfig config) {
@@ -55,48 +52,34 @@ public class InsertMealRequestServlet extends HttpServlet {
 
             int parentId = Integer.parseInt(request.getParameter("hiddenParentIdMealReq"));
             if (parentId <= 0) {
-                sendMessageRedirect(request, response, "Errore: genitore selezionato non corretto - " + parentId);
+                CommonMethod.sendMessageRedirect(request, response, "Errore: genitore selezionato non corretto - " + parentId, "/canteenParent.jsp");
                 return;
             }
             mealReq.setParentId(parentId);
-            
+
             String reqDateStr = request.getParameter("requestDate");
             GregorianCalendar reqDate;
             try {
-                reqDate = parseGregorianCalendar(reqDateStr);
-            } catch (ParseException e) {
-                sendMessageRedirect(request, response, "Errore: data inserita non corretta");
+                reqDate = CommonMethod.parseGregorianCalendar(reqDateStr);
+            } catch (Exception e) {
+                CommonMethod.sendMessageRedirect(request, response, "Errore: data inserita non corretta", "/canteenParent.jsp");
                 return;
             }
             mealReq.setDate(reqDate);
 
             canteenManager.insert(mealReq);
 
-            sendMessageRedirect(request, response, "Richiesta pasto inviata con successo.");
+            CommonMethod.sendMessageRedirect(request, response, "Richiesta pasto inviata con successo.", "/canteenParent.jsp");
 
         } catch (SQLException e) {
-            sendMessageRedirect(request, response, "Verfica i campi");
+            CommonMethod.sendMessageRedirect(request, response, "Verfica i campi", "/canteenParent.jsp");
             Logger.getLogger(InsertPaymentServlet.class.getName()).log(Level.SEVERE, null, e);
 
         } catch (NumberFormatException e) {
-            sendMessageRedirect(request, response, "Verfica i campi");
+            CommonMethod.sendMessageRedirect(request, response, "Verfica i campi", "/canteenParent.jsp");
             Logger.getLogger(InsertPaymentServlet.class.getName()).log(Level.SEVERE, null, e);
 
         }
-    }
-
-    private void sendMessageRedirect(HttpServletRequest request, HttpServletResponse response, String msg)
-            throws ServletException, IOException {
-        request.setAttribute("message", msg);
-        request.getRequestDispatcher("/canteenParent.jsp").forward(request, response);
-    }
-    
-    private GregorianCalendar parseGregorianCalendar(String pDate) throws ParseException {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        Date parsed = df.parse(pDate);
-        GregorianCalendar date = new GregorianCalendar();
-        date.setTime(parsed);
-        return date;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

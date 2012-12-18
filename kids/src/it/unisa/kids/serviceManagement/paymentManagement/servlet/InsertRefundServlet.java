@@ -4,6 +4,7 @@
  */
 package it.unisa.kids.serviceManagement.paymentManagement.servlet;
 
+import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.kids.serviceManagement.paymentManagement.IPaymentManager;
@@ -23,9 +24,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author utente
  */
 public class InsertRefundServlet extends HttpServlet {
-    
-    private static final int DESCRIPTION_MAXLENGTH = 200;
 
+    private static final int DESCRIPTION_MAXLENGTH = 200;
     private IPaymentManager paymentManager;
 
     public void init(ServletConfig config) {
@@ -46,47 +46,41 @@ public class InsertRefundServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             RefundBean refund = new RefundBean();
-            
+
             int parentId = Integer.parseInt(request.getParameter("hiddenParentIdInsRefund"));
             if (parentId <= 0) {
-                sendMessageRedirect(request, response, "Errore: genitore selezionato non corretto - " + parentId);
+                CommonMethod.sendMessageRedirect(request, response, "Errore: genitore selezionato non corretto - " + parentId, "/paymentManagement.jsp");
                 return;
             }
             refund.setParentId(parentId);
-            
+
             String refundDescription = request.getParameter("refundDescription").trim();
             if (refundDescription.length() > DESCRIPTION_MAXLENGTH) {
-                sendMessageRedirect(request, response, "Errore: descrizione rimborso troppo lunga.");
+                CommonMethod.sendMessageRedirect(request, response, "Errore: descrizione rimborso troppo lunga.", "/paymentManagement.jsp");
                 return;
             }
             refund.setDescription(refundDescription);
-            
+
             double amount = Double.parseDouble(request.getParameter("refundAmount").trim());
             if (amount < 0) {
-                sendMessageRedirect(request, response, "Errore: importo negativo non consentito.");
+                CommonMethod.sendMessageRedirect(request, response, "Errore: importo negativo non consentito.", "/paymentManagement.jsp");
                 return;
             }
             refund.setAmount(amount);
-            
+
             paymentManager.insert(refund);
-            
-            sendMessageRedirect(request, response, "Rimborso inserito con successo.");
+
+            CommonMethod.sendMessageRedirect(request, response, "Rimborso inserito con successo.", "/paymentManagement.jsp");
 
         } catch (SQLException e) {
-            sendMessageRedirect(request, response, "Verfica i campi");
+            CommonMethod.sendMessageRedirect(request, response, "Verfica i campi", "/paymentManagement.jsp");
             Logger.getLogger(InsertRefundServlet.class.getName()).log(Level.SEVERE, null, e);
-        
+
         } catch (NumberFormatException e) {
-            sendMessageRedirect(request, response, "Verfica i campi");
+            CommonMethod.sendMessageRedirect(request, response, "Verfica i campi", "/paymentManagement.jsp");
             Logger.getLogger(InsertRefundServlet.class.getName()).log(Level.SEVERE, null, e);
-        
+
         }
-    }
-    
-    private void sendMessageRedirect(HttpServletRequest request, HttpServletResponse response, String msg)
-            throws ServletException, IOException {
-        request.setAttribute("message", msg);
-        request.getRequestDispatcher("/paymentManagement.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
