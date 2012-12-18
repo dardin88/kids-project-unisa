@@ -602,6 +602,17 @@ div#navigation li{
     width: 80%;
 }
 
+/*
+*   Recourse
+*/
+
+#recourseManagement {
+    float: left;
+    padding: 2%;
+    padding-top: 1%;
+    width: 80%;
+}
+
 
 /*
 managerTraineeActivity
