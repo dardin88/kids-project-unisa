@@ -27,7 +27,9 @@ public class GetSectionEduClassDivsServlet extends HttpServlet {
 
     private IAccessFacade accessFacade;
 
-    public void init(ServletConfig config) {
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
         this.accessFacade = new AccessFacade();     // si dovrebbe implementare il singleton anche qui?
     }
 
@@ -48,24 +50,24 @@ public class GetSectionEduClassDivsServlet extends HttpServlet {
         try {
             List<ClassBean> classList = accessFacade.getClasses();
             for (ClassBean clas : classList) {
-                out.println("<div id=\"" + clas.getIdClasse() + "\">"
-                        + "<table id=\"table" + clas.getIdClasse() + "\">"
-                        + "     <thead>"
-                        + "         <tr>"
-                        + "             <th>Attivit&agrave;</th>"
-                        + "             <th>Descrizione</th>"
-                        + "             <th>Data inizio</th>"
-                        + "             <th>Data fine</th>"
-                        + "             <th>Operazioni</th>"
-                        + "         </tr>"
-                        + "     </thead>"
-                        + "     <tbody>"
-                        + "     </tbody>"
-                        + "</table>"
-                        + "</div>");
-                out.println("<script type=\"text/javascript\">"
-                        + "     buildClassTable(" + clas.getIdClasse() + ")"
-                        + "</script>");
+                out.println("<div id=\"" + clas.getIdClasse() + "\">\n"
+                        + "<table id=\"table" + clas.getIdClasse() + "\">\n"
+                        + "     <thead>\n"
+                        + "         <tr>\n"
+                        + "             <th>Attivit&agrave;</th>\n"
+                        + "             <th>Contenuto</th>\n"
+                        + "             <th>Data inizio</th>\n"
+                        + "             <th>Data fine</th>\n"
+                        + "             <th>Operazioni</th>\n"
+                        + "         </tr>\n"
+                        + "     </thead>\n"
+                        + "     <tbody>\n"
+                        + "     </tbody>\n"
+                        + "</table>\n"
+                        + "</div>\n");
+                out.println("<script type=\"text/javascript\">\n"
+                        + "     buildClassTable(" + clas.getIdClasse() + ");\n"
+                        + "</script>\n");
             }
         } catch (SQLException e) {
             Logger.getLogger(GetClassTabsServlet.class.getName()).log(Level.SEVERE, null, e);
