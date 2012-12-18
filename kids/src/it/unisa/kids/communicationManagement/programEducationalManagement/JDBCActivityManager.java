@@ -107,6 +107,10 @@ public class JDBCActivityManager implements IActivityManager {
                 query += useAnd(andState) + DBNames.ATT_ACTIVITY_ENDDATE + "= ?";
                 andState = true;
             }
+            if (pActivity.getIdClass()>0) {
+                query += useAnd(andState) + DBNames.ATT_ACTIVITY_IDCLASS + "= ?";
+                andState = true;
+            }
 
             pstmt = con.prepareStatement(query);
 
@@ -136,7 +140,10 @@ public class JDBCActivityManager implements IActivityManager {
                 pstmt.setDate(i, new java.sql.Date(pActivity.getEndDate().getTimeInMillis()));
                 i++;
             }
-
+            if(pActivity.getIdClass()>0){
+                pstmt.setInt(i, pActivity.getIdClass());
+                i++;
+            }
             // executing select query
             rs = pstmt.executeQuery();
             con.commit();
