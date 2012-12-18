@@ -181,13 +181,16 @@
                 <li id="accountInformationAllMenuEL"><a href="accountInformationAll.jsp">Account</a></li>
             </div>
             <div class="div">
-                <li id="coordinatorePsico"><a href="showProject.jsp">Programma Educativo</a></li>
+                <li id="annualProject"><a href="showProject.jsp">Programma Educativo</a></li>
             </div> 
         </c:if>
 
         <c:if test="${sessionScope.user.getAccountType()=='Responsabile Scientifico'}">
             <div class="div">
                 <li id="accountInformationAllMenuEL"><a href="accountInformationAll.jsp">Account</a></li>
+            </div>
+             <div class="div">
+                <li id="annualProject"><a href="respAnnualProject.jsp">Account</a></li>
             </div>
         </c:if>
 
@@ -206,6 +209,9 @@
             </div>
             <div class="div">
                 <li id="meetingCalendarMenuEL"><a href="meetingCalendar.jsp">Riunioni</a></li>
+            </div>
+             <div class="div">
+                <li id="annualProject"><a href="delRetAnnualProject.jsp">Account</a></li>
             </div>
         </c:if>
 

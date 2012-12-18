@@ -4,9 +4,14 @@
  */
 package it.unisa.kids.communicationManagement.programEducationalManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.common.Mail;
+import it.unisa.kids.common.MailManager;
+import it.unisa.kids.common.facade.AccountFacade;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -33,12 +38,37 @@ public class SubmitProjectServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            int id=Integer.parseInt(request.getParameter("idProgetto"));
-            IProgramEducational program=JDBCProgramEducational.getInstance();
-            AnnualProject project=new AnnualProject();
+            int id = Integer.parseInt(request.getParameter("idProgetto"));
+            IProgramEducational program = JDBCProgramEducational.getInstance();
+            AnnualProject project = new AnnualProject();
             project.setId(id);
             project.setState("Sottomesso");
             program.updateProgramEducational(project);
+
+            List<Account> respAccount = new ArrayList<Account>();
+            List<Account> delAccount = new ArrayList<Account>();
+            ArrayList<String> listaDestinatari=new ArrayList<String>();
+            Account resp = new Account();
+            resp.setAccountType("Responsabile Scientifico");
+            Account delegatoRettore = new Account();
+            delegatoRettore.setAccountType("Delegato del Rettore");
+            AccountFacade facade = new AccountFacade();
+            respAccount=facade.search(resp);
+            delAccount=facade.search(delegatoRettore);
+            for(Account n:respAccount){
+                listaDestinatari.add(n.getEmail());
+            }
+            for(Account n:delAccount){
+                listaDestinatari.add(n.getEmail());
+            }
+            
+
+            Mail m = new Mail();
+            m.setBody("programma sottomesso controllare alle ore ");
+            m.setSubject("sottomissione progetto annuale");
+            m.setTo(listaDestinatari);
+            MailManager mm = new MailManager();
+           mm.sendMail(m);
         } catch (SQLException ex) {
             Logger.getLogger(SubmitProjectServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
