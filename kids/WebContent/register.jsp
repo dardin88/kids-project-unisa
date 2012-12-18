@@ -29,24 +29,7 @@
             });
         </script>
     </head>
-    <div id="insertActivityWindow">
-        <table id="tableActivity">
-                <thead>
-                    <tr>
-                        <th>Seleziona</th>
-                        <th>Nome</th>
-                        <th>Contenuto</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        <table>
-            <tr><td> Note:</td><td><textarea id="note" rows="5" cols="20"></textarea></td></tr>
-
-        </table>
-    </div>
+   
     <body>
         <%@include file="header.jsp" %>
 

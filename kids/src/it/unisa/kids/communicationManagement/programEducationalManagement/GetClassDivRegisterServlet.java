@@ -49,14 +49,32 @@ public class GetClassDivRegisterServlet extends HttpServlet {
         try {
             List<ClassBean> classList = accessFacade.getClasses();
             for (ClassBean clas : classList) {
+                out.println(" <div id=\"insertActivityWindow" + clas.getIdClasse() + "\">\n"
+                        + "        <table id=\"tableActivity" + clas.getIdClasse() + "\">\n"
+                        + "                <thead>\n"
+                        + "                    <tr>\n"
+                        + "                        <th>Seleziona</th>\n"
+                        + "                        <th>Nome</th>\n"
+                        + "                        <th>Contenuto</th>\n"
+                        + "\n"
+                        + "                    </tr>\n"
+                        + "                </thead>\n"
+                        + "                <tbody>\n"
+                        + "                </tbody>\n"
+                        + "            </table>\n"
+                        + "        <table>\n"
+                        + "            <tr><td> Note:</td><td><textarea id=\"note\" rows=\"5\" cols=\"20\"></textarea></td></tr>\n"
+                        + "\n"
+                        + "        </table>\n"
+                        + "    </div>");
                 out.println("<div id=\"" + clas.getIdClasse() + "\" style=\"width:97%\">");
-                out.println("<input type=\"button\" id=\"insertActivityButton"+clas.getIdClasse()+"\" value=\"Inserisci Attivit&agrave\" onclick=\"openInsertActivity('"+clas.getIdClasse()+"')\">");
+                out.println("<input type=\"button\" id=\"insertActivityButton" + clas.getIdClasse() + "\" value=\"Inserisci Attivit&agrave\" onclick=\"openInsertActivity('" + clas.getIdClasse() + "')\">");
                 out.println("<table id=\"table" + clas.getIdClasse() + "\">\n"
                         + "                <thead>\n"
                         + "                    <tr>\n"
-                        +"                         <th>Giorno</th>\n  "
+                        + "                         <th>Giorno</th>\n  "
                         + "                        <th>Nome Attvit&agrave</th>\n"
-                        +"                         <th>Educatore</th>\n"
+                        + "                         <th>Educatore</th>\n"
                         + "                        <th>Operazioni</th>\n"
                         + "\n"
                         + "                    </tr>\n"
@@ -65,15 +83,72 @@ public class GetClassDivRegisterServlet extends HttpServlet {
                         + "                </tbody>\n"
                         + "            </table>");
                 out.println("</div>");
-                out.println("<script text=\"text/javascipt\">buildTable(\"" + clas.getIdClasse() + "\");buildInsertButton(\""+clas.getIdClasse()+"\");</script>");
+                out.println("<script text=\"text/javascipt\">"
+                        + "buildTable(\"" + clas.getIdClasse() + "\");"
+                        + "$(\"#insertActivityButton" + clas.getIdClasse() + "\").button();"
+                        + "$(\"#insertActivityWindow" + clas.getIdClasse() + "\").dialog({"
+                        + "autoOpen: false,"
+                        + " modal: true,"
+                        + " resizable: false,"
+                        + " width: 800"
+                        + "});");
+                out.println("$('#tableActivity"+clas.getIdClasse()+"').dataTable({\n"
+                        + "        \"bJQueryUI\": true,\n"
+                        + "        \"bServerSide\": true,\n"
+                        + "        \"bProcessing\": true,\n"
+                        + "        \"sAjaxSource\": \"GetActivityTable\",\n"
+                        + "        \"bPaginate\": true,\n"
+                        + "        \"bLengthChange\": false,\n"
+                        + "        \"bFilter\": false,\n"
+                        + "        \"fnServerParams\": function(aoData) {\n"
+                        + "            aoData.push(\n"
+                        + "                    {\n"
+                        + "                        \"name\": \"id\",\n"
+                        + "                        \"value\": "+clas.getIdClasse()+"\n"
+                        + "                    }\n"
+                        + "            );\n"
+                        + "\n"
+                        + "        },\n"
+                        + "        \"bSort\": false,\n"
+                        + "        \"bDestroy\": true,\n"
+                        + "        \"bInfo\": true,\n"
+                        + "        \"bAutoWidth\": true,\n"
+                        + "        \"sPaginationType\": \"full_numbers\",\n"
+                        + "        \"oLanguage\": {\n"
+                        + "            \"sProcessing\": \"Caricamento...\",\n"
+                        + "            \"sLengthMenu\": \"Visualizza _MENU_ link\",\n"
+                        + "            \"sZeroRecords\": \"La ricerca non ha portato alcun risultato.\",\n"
+                        + "            \"sInfo\": \"Vista da _START_ a _END_ di _TOTAL_ Attivita\",\n"
+                        + "            \"sInfoEmpty\": \"Vista da 0 a 0 di 0 Attivita\",\n"
+                        + "            \"sInfoFiltered\": \"(filtrati da _MAX_ link totali)\",\n"
+                        + "            \"sInfoPostFix\": \"\",\n"
+                        + "            \"oPaginate\": {\n"
+                        + "                \"sFirst\": \"<<\",\n"
+                        + "                \"sPrevious\": \"<\",\n"
+                        + "                \"sNext\": \">\",\n"
+                        + "                \"sLast\": \">>\"\n"
+                        + "            }\n"
+                        + "        },\n"
+                        + "        \"aoColumns\": [\n"
+                        + "            {\n"
+                        + "                \"sWidth\": \"5%\"\n"
+                        + "            },\n"
+                        + "            {\n"
+                        + "                \"sWidth\": \"25%\"\n"
+                        + "            },\n"
+                        + "            {\n"
+                        + "                \"sWidth\": \"85%\"\n"
+                        + "            }\n"
+                        + "        ]\n"
+                        + "    });</script>");
 
             }
-            
+
 
         } catch (SQLException ex) {
             Logger.getLogger(GetClassTabsServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-           // out.close();
+            // out.close();
         }
     }
 
