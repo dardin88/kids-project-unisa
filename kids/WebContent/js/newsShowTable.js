@@ -107,8 +107,8 @@ function updateNews(id,title,description,type,data,time,allegato){
                    
             },
             dataNews:{
-                required:true,
-                data:true
+                required:true//,
+                //data:true
             }
         },
         messages: {
@@ -217,8 +217,8 @@ function addNews(){
                    
                 },
                 dataNews:{
-                    required:true,
-                    data:true
+                    required:true//,
+                    //data:true
                 }
             },
             messages: {
@@ -241,8 +241,7 @@ function addNews(){
                 var attached=$("#addLinkButton2").val();
                 var str=attached.split("\\");
                 var s=str[str.length-1];  
-               
-                $.post("InsertNews", {
+               $.post("InsertNews", {
                     artefactTitolo: $("#artefactTitolo").val(),
                     artefactDescrizione: $("#artefactDescrizione").val(),
                     artefactTipo: $("#artefactTipo").val(),

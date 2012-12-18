@@ -43,19 +43,24 @@ public class UpdateNewsServlet extends HttpServlet {
             boolean flag = false;
             PrintWriter out = response.getWriter();
             String vecchioAllegato = request.getParameter("oldAllegato");
-            String vecchioTitolo=request.getParameter("oldTitolo");
+            String vecchioTitolo = request.getParameter("oldTitolo");
             INewsManager mn = JDBCNewsManager.getInstance();
             News n = new News();
-            n.setTitle(request.getParameter("artefactTitolo"));
+            String newTitle = request.getParameter("artefactTitolo");
+            n.setTitle(newTitle);
             n.setDescription(request.getParameter("artefactDescrizione"));
             String allegato = request.getParameter("artefactAllegato");
+            String path = (String) getServletContext().getInitParameter("attachedFileFolder");
+            File f = new File(path + "/" + vecchioTitolo + vecchioAllegato);
             if (!allegato.equals("")) {
-                String path = (String) getServletContext().getInitParameter("attachedFileFolder");
-                File f = new File(path + "/" + vecchioTitolo+vecchioAllegato);
                 f.delete();
                 n.setAttached(allegato);
-                flag=true;
-            }            
+                flag = true;
+            } else {
+                if (!newTitle.equalsIgnoreCase(vecchioTitolo)) {
+                    f.renameTo(new File(path + "/" + newTitle +vecchioAllegato));
+                }
+            }
             int id = Integer.parseInt(request.getParameter("idNews"));
             int scelta = Integer.parseInt(request.getParameter("artefactTipo"));
             switch (scelta) {
