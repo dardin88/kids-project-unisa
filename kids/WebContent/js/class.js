@@ -231,15 +231,18 @@ function modifyClass(id){
 function requestClassModify(){
     $("#requestModifyClassWindow").dialog("open");
     $("#requestModifyClassButton2").button();
+}
+
+function sendMail(){
     $("#requestModifyClassButton2").click(function(){
+        $.post("SendMailRequestClassModify",{
+            nomeClasse: $("#className").val(),
+            messaggio: $("#artefactMessaggio").val()
+        });
         $.post("UpdateClassBean",{
             classId: $("#classId").val(),
             className: $("#className").val(),
             isRequestModify: true
-        });
-        $.post("SendMailRequestClassModify",{
-            nomeClasse: $("#className"),
-            messaggio: $("#artefactMessaggio")
         });
         $("#requestModifyClassWindow").dialog("close");
         window.location.href="class.jsp";

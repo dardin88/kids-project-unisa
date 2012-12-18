@@ -49,7 +49,7 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <input type="submit" class="windowButton" id="requestModifyClassButton2" value="Invia richiesta"/>
+                        <input type="submit" class="windowButton" id="requestModifyClassButton2" value="Invia richiesta" onclick="sendMail()"/>
                     </td>
                 </tr>
             </table>

@@ -44,6 +44,7 @@ Author     : tonino
                     <option></option>
                     <option>bozza</option>
                     <option>confermata</option>
+                    <option>revisione</option>
                     <option>sottomessa</option>
                 </select>
                 <input type="button" name="ricerca" id="ricerca" value="Ricerca" onclick="search()"/>

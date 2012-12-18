@@ -2,15 +2,16 @@ package it.unisa.kids.accessManagement.classManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.accessManagement.accountManagement.IAccountManager;
-import it.unisa.kids.accessManagement.accountManagement.JDBCAccountManager;
 import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationChildManager;
-import it.unisa.kids.accessManagement.registrationChildManagement.JDBCRegistrationChildManager;
 import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
+import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,17 @@ import javax.servlet.http.HttpServletResponse;
  * @author tonino
  */
 public class DeleteClassBeanServlet extends HttpServlet {
+
+    private IAccountManager accMan;
+    private IRegistrationChildManager regMan;
+    private IClassManager clasMan;
+
+    @Override
+    public void init(ServletConfig config) {
+        accMan = (IAccountManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACCOUNT);
+        regMan = (IRegistrationChildManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
+        clasMan = (IClassManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_CLASS);
+    }
 
     /**
      * Processes requests for both HTTP
@@ -36,9 +48,6 @@ public class DeleteClassBeanServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            IClassManager clasMan = JDBCClassManager.getInstance();
-            IRegistrationChildManager regMan = JDBCRegistrationChildManager.getInstance();
-            IAccountManager accMan = JDBCAccountManager.getInstance();
             int classId = Integer.parseInt(request.getParameter("id"));
             ClassBean clas = new ClassBean();
             clas.setIdClasse(classId);
@@ -46,12 +55,12 @@ public class DeleteClassBeanServlet extends HttpServlet {
             RegistrationChild rc = new RegistrationChild();
             rc.setSectionId(classId);
             List<RegistrationChild> searchedChild = regMan.search(rc);
-            for (RegistrationChild child : searchedChild){
+            for (RegistrationChild child : searchedChild) {
                 child.setSectionId(0);
                 regMan.update(child);
             }
             List<Account> educators = accMan.searchEducatorByClass(clas);
-            for (Account ed : educators){
+            for (Account ed : educators) {
                 accMan.unassignEducatorToClass(ed, clas);
             }
         } catch (SQLException ex) {

@@ -48,6 +48,7 @@ public class UpdateClassBeanServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+            boolean flag = false; //questo flag è necessario perchè senza quando cliccavo su accetta o richiedi modifica mi svuotava la classe
             ClassBean clas = new ClassBean();
             clas.setIdClasse(Integer.parseInt(request.getParameter("classId")));
             clas.setClassName(request.getParameter("className"));
@@ -56,41 +57,43 @@ public class UpdateClassBeanServlet extends HttpServlet {
             } else if (request.getParameter("submitClassButton") != null) {
                 clas.setState("sottomessa");
             } else if (request.getParameter("isRequestModify") != null) {
+                flag = true;
                 clas.setState("revisione");
             } else if (request.getParameter("acceptedClassButton") != null) {
                 clas.setState("accettata");
+                flag = true;
             }
             clasMan.update(clas);
-            ClassBean oldClas = new ClassBean();
-            oldClas.setIdClasse(Integer.parseInt(request.getParameter("classId")));
-            oldClas = clasMan.search(oldClas).get(0);
-            List<RegistrationChild> oldChildren = oldClas.getBambini();
-            String[] childrenChecked = request.getParameterValues("childRow");
-            for (RegistrationChild c1 : oldChildren) {
-                regMan.setSectionRegistrationChild(c1, 0);
-            }
-            if (childrenChecked != null) {
-                for (int i = 0; i < childrenChecked.length; i++) {
-                    RegistrationChild tmpRegChild = new RegistrationChild();
-                    tmpRegChild.setId(Integer.parseInt(childrenChecked[i]));
-                    regMan.setSectionRegistrationChild(tmpRegChild, clas.getIdClasse());
+            if (flag == false) {
+                ClassBean oldClas = new ClassBean();
+                oldClas.setIdClasse(Integer.parseInt(request.getParameter("classId")));
+                oldClas = clasMan.search(oldClas).get(0);
+                List<RegistrationChild> oldChildren = oldClas.getBambini();
+                String[] childrenChecked = request.getParameterValues("childRow");
+                for (RegistrationChild c1 : oldChildren) {
+                    regMan.setSectionRegistrationChild(c1, 0);
+                }
+                if (childrenChecked != null) {
+                    for (int i = 0; i < childrenChecked.length; i++) {
+                        RegistrationChild tmpRegChild = new RegistrationChild();
+                        tmpRegChild.setId(Integer.parseInt(childrenChecked[i]));
+                        regMan.setSectionRegistrationChild(tmpRegChild, clas.getIdClasse());
+                    }
+                }
+                List<Account> oldEducators = accMan.searchEducatorByClass(clas);
+                String[] educatorChecked = request.getParameterValues("educatorRow");
+                for (Account a1 : oldEducators) {
+                    accMan.unassignEducatorToClass(a1, clas);
+                }
+                if (educatorChecked != null) {
+                    for (int i = 0; i < educatorChecked.length; i++) {
+                        Account educator = new Educator();
+                        educator.setId(Integer.parseInt(educatorChecked[i]));
+                        accMan.assignEducatorToClass(educator, clas);
+                    }
                 }
             }
-            List<Account> oldEducators = accMan.searchEducatorByClass(clas);
-            String[] educatorChecked = request.getParameterValues("educatorRow");
-            for (Account a1 : oldEducators) {
-                accMan.unassignEducatorToClass(a1, clas);
-            }
-            if (educatorChecked != null) {
-                for (int i = 0; i < educatorChecked.length; i++) {
-                    Account educator = new Educator();
-                    educator.setId(Integer.parseInt(educatorChecked[i]));
-                    accMan.assignEducatorToClass(educator, clas);
-                }
-            }
-            if (request.getParameter("submitClassButton") == null) {
-                response.sendRedirect("class.jsp");
-            }
+            response.sendRedirect("class.jsp");
         } catch (SQLException ex) {
             Logger.getLogger(UpdateClassBeanServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
