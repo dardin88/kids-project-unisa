@@ -68,7 +68,7 @@
                 <h2>Operazioni</h2>
                 <div id="canteenTabGroup">
                     <ul>
-                        <li><a href="#diffMenus"><span class="canteenTab">Men&ugrave; differenziati</span></a></li>
+                        <li><a href="#diffMenus"><span class="canteenTab">Inserimento men&ugrave; differenziati</span></a></li>
                         <li><a href="#showAssociatedMenus"><span class="canteenTab">Visualizza men&ugrave; associati</span></a></li>
                         <li><a href="#showDailyMenus"><span class="canteenTab">Visualizza men&ugrave; giornalieri</span></a></li>
                         <li><a href="#modifyDailyMenu"><span class="canteenTab">Modifica men&ugrave; giornaliero</span></a></li>
