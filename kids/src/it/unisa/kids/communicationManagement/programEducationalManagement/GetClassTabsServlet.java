@@ -53,9 +53,7 @@ public class GetClassTabsServlet extends HttpServlet {
 
         } catch (SQLException ex) {
             Logger.getLogger(GetClassTabsServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            out.close();
-        }
+        } 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
