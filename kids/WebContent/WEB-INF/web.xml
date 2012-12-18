@@ -7,7 +7,7 @@
     </context-param>
     <context-param>
         <param-name>projectFileFolder</param-name>
-        <param-value>/home/dario/programEducative</param-value>
+        <param-value>/home/francesco/programEducative</param-value>
     </context-param>
     <servlet>
         <servlet-name>SubmitProjectServlet</servlet-name>

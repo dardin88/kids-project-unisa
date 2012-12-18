@@ -190,7 +190,7 @@
                 <li id="accountInformationAllMenuEL"><a href="accountInformationAll.jsp">Account</a></li>
             </div>
              <div class="div">
-                <li id="annualProject"><a href="respAnnualProject.jsp">Account</a></li>
+                <li id="annualProject"><a href="showProject.jsp">Programma Educativo</a></li>
             </div>
         </c:if>
 
@@ -211,7 +211,7 @@
                 <li id="meetingCalendarMenuEL"><a href="meetingCalendar.jsp">Riunioni</a></li>
             </div>
              <div class="div">
-                <li id="annualProject"><a href="delRetAnnualProject.jsp">Account</a></li>
+                <li id="annualProject"><a href="showProject.jsp">Programma Educativo</a></li>
             </div>
         </c:if>
 

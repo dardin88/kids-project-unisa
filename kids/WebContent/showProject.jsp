@@ -12,7 +12,9 @@
     <c:redirect url="index.jsp" />
 </c:if>
 <c:if test="${sessionScope.user.getAccountType()!='Coordinatore Psicopedagogico'}">
-    <c:redirect url="index.jsp" />
+    <c:if test="${sessionScope.user.getAccountType()!='Responsabile Scientifico'}">
+        <c:redirect url="index.jsp" />
+    </c:if>
 </c:if>
 <html>
     <head>
@@ -55,6 +57,12 @@
                     <input type="button" style="margin-bottom: 5px;height: 40px" onclick="submit(${requestScope.Id})" id="confirmProjectAnnualButton" value="Sottometti" />
                 </div>
             </c:if>
+            <c:if test="${sessionScope.user.getAccountType()=='Responsabile Scientifico'}" >
+                <div style="text-align: center">
+                    <input type="button" style="margin-bottom: 5px;height: 40px" value="Sottometti al Delegato del Rettore" id="submitDaResp"></input>
+                    <input type="button" style="margin-bottom: 5px;height: 40px" value="Download Progetto" id="downloadProjettoDaResp"></input>
+                </div>
+            </c:if>
             <table width="95%" border="0" style="font-size: 18px">
                 <tr><th>Path</th><th>Stato</th></tr>
                 <tr style="text-align: center">  <td><label id="mostraPath"></label></td>
@@ -63,6 +71,9 @@
             <br />
             <h1 style="font-size: 24px">Possibili Commenti</h1>                
             <%@include file="commentEdu.jsp" %>
+            <c:if test="${sessionScope.user.getAccountType()=='Responsabile Scientifico'}" >
+                <input type="button" style="margin-bottom: 5px;height: 40px" id="insertCommentoDaResp" value="Inserisci Commento" />
+            </c:if>
         </div>
 
         <%@include file="footer.jsp" %>

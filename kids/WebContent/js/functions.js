@@ -169,16 +169,6 @@ function activePage(){
             $("#classMenuEl").css("color", "#FFFFFF");
             $("#title").html("Gestione Classi");
             break;
-        case 'respAnnualProject.jsp':
-            $("#annualProject").css("background-color", "#444");
-            $("#annualProject").css("color", "#FFFFFF");
-            $("#title").html("Gestione Programma Educativo");
-            break;
-        case 'delRetAnnualProject.jsp':
-            $("#annualProject").css("background-color", "#444");
-            $("#annualProject").css("color", "#FFFFFF");
-            $("#title").html("Gestione Programma Educativo");
-            break;
     }
 }
 
