@@ -49,9 +49,23 @@ public class GetClassDivRegisterServlet extends HttpServlet {
         try {
             List<ClassBean> classList = accessFacade.getClasses();
             for (ClassBean clas : classList) {
-                out.println("<div id=\""+clas.getIdClasse()+"\">");
-                out.println("");
+                out.println("<div id=\"" + clas.getIdClasse() + "\">");
+                out.println("<table id=\"table" + clas.getIdClasse() + "\">\n"
+                        + "                <thead>\n"
+                        + "                    <tr>\n"
+                        + "                        <th>Nome Attvit&agrave</th>\n"
+                        + "                        <th>Operazioni</th>\n"
+                        + "\n"
+                        + "                    </tr>\n"
+                        + "                </thead>\n"
+                        + "                <tbody>\n"
+                        + "                </tbody>\n"
+                        + "            </table>");
                 out.println("</div>");
+            }
+            for (ClassBean clas : classList) {
+                out.println("<script text=\"text/javascipt\">buildTable(\""+clas.getIdClasse()+"\");</script>");
+
             }
 
         } catch (SQLException ex) {
