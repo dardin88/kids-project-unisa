@@ -12,9 +12,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,9 +26,10 @@ import javax.servlet.http.Part;
  *
  * @author francesco
  */
+@MultipartConfig
 public class UploadProjectServlet extends HttpServlet {
 
-        private static final Logger LOGGER = Logger.getLogger(UploadFileServlet.class.getCanonicalName());
+    private static final Logger LOGGER = Logger.getLogger(UploadFileServlet.class.getCanonicalName());
 
     /**
      * Processes requests for both HTTP
@@ -46,7 +49,6 @@ public class UploadProjectServlet extends HttpServlet {
         OutputStream out = null;
         InputStream filecontent = null;
         final PrintWriter writer = response.getWriter();
-
         try {
             out = new FileOutputStream(new File(path + File.separator + fileName));
             filecontent = filePart.getInputStream();
@@ -57,18 +59,24 @@ public class UploadProjectServlet extends HttpServlet {
             while ((read = filecontent.read(bytes)) != -1) {
                 out.write(bytes, 0, read);
             }
-            LOGGER.log(Level.INFO, "File{0}being uploaded to {1}",new Object[]{fileName, path});
+            LOGGER.log(Level.INFO, "File{0}being uploaded to {1}", new Object[]{fileName, path});
+
+            IProgramEducational program = JDBCProgramEducational.getInstance();
+            AnnualProject project = new AnnualProject();
+            project.setPath(fileName);
+            project.setState("Bozza");
+            int id=program.insertPathProject(project);
+            request.setAttribute("Id", id);
+            request.getServletContext().getRequestDispatcher("/showProject.jsp").forward(request, response);
            
-         //   request.getServletContext().getRequestDispatcher("/newsShowTable.jsp").forward(request, response);
-
-            response.sendRedirect("/kids/newsShowTable.jsp");
-
+        } catch (SQLException ex) {
+            Logger.getLogger(UploadProjectServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (FileNotFoundException fne) {
             writer.println("You either did not specify a file to upload or are "
                     + "trying to upload a file to a protected or nonexistent location.");
             writer.println("<br/> ERROR: " + fne.getMessage());
 
-            LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}",new Object[]{fne.getMessage()});
+            LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}", new Object[]{fne.getMessage()});
         } finally {
             if (out != null) {
                 out.close();
@@ -97,7 +105,7 @@ public class UploadProjectServlet extends HttpServlet {
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP
-   
+     *
      * <code>GET</code> method.
      *
      * @param request servlet request
@@ -135,5 +143,4 @@ public class UploadProjectServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

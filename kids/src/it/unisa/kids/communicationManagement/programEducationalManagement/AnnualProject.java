@@ -1,108 +1,67 @@
 package it.unisa.kids.communicationManagement.programEducationalManagement;
 
-import it.unisa.kids.common.MailManager;
-import java.util.ArrayList;
-import java.util.Map.Entry;
-import it.unisa.kids.common.*;
-import it.unisa.kids.accessManagement.accountManagement.Account;
-
 /**
  * The class model the new entity ProjectAnnual
+ *
  * @author Francesco Di Lorenzo, Giuseppe Alfieri
  *
  */
-public class AnnualProject 
-{
-	private String name;
-	private String topic;
-	private String description;
-	private String applicationYear;
-        private String scadenza;
+public class AnnualProject {
 
-	private int id;
-       // private MailManager email;
-        
-        
-	public AnnualProject()
-	{	
-           
-	}
+    private String stato;
+    private String path;
+    private int id;
+    // private MailManager email;
 
-	/**
-	 * this method return the name of the project
-	 * @return String name
-	 */
-	public synchronized String getName() {
-		return name;
-	}
+    public AnnualProject() {
+    }
 
-	/**
-	 * this method set the name of the project
-	 * @param name
-	 */
-	public synchronized void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * this method return the state of the project
+     *
+     * @return String state
+     */
+    public synchronized String getState() {
+        return stato;
+    }
 
-	/**
-	 * this method return the tema of the project
-	 * @return String tema
-	 */
-	public synchronized String getTopic() {
-		return topic;
-	}
+    /**
+     * this method set the stato of the project
+     *
+     * @param pState
+     */
+    public synchronized void setState(String pState) {
+        this.stato = pState;
+    }
 
-	/**
-	 * this method set the topic of the project
-	 * @param topic
-	 */
-	public synchronized void setTopic(String topic) {
-		this.topic = topic;
-	}
-	
-	/**
-	 * this method return the description of the project
-	 * @return String description
-	 */
-	public synchronized String getDescription() {
-		return description;
-	}
+    /**
+     * this method return the path of the project
+     *
+     * @return String path
+     */
+    public synchronized String getPath() {
+        return path;
+    }
 
-	/**
-	 * this method set the description of the project
-	 * @param description
-	 */
-	public synchronized void setDescription(String description) {
-		this.description = description;
-	}
+    /**
+     * this method set the path of the project
+     *
+     * @param pPath
+     */
+    public synchronized void setPath(String pPath) {
+        this.path = pPath;
+    }
 
-	/**
-	 * this method return the applicationYear of the project
-	 * @return String applicationYear
-	 */
-	public synchronized String getApplicationYear() {
-		return applicationYear;
-	}
-	/**
-	 * this method set the applicationYear of the project
-	 * @param applicationYear
-	 */
-	public synchronized void setApplicationYear(String applicationYear) {
-		this.applicationYear = applicationYear;
-	}
-	/**
-	 * this method return the id of the project annual
-	 * @return int id
-	 */
-	public int getId(){
-		return id;
-	}
-        
-        public String getScadenza(){
-            return scadenza;
-        }
-        public void setScadenza(String pScadenza){
-            this.scadenza=pScadenza;
-        }
-	
+    /**
+     * this method return the id of the project annual
+     *
+     * @return int id
+     */
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int pId) {
+        this.id = pId;
+    }
 }

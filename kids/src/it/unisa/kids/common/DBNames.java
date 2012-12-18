@@ -24,7 +24,7 @@ public final class DBNames {
     public static final String TABLE_COMMUNICATION = "comunicazioni";
     public static final String TABLE_REUNION = "riunione";
     public static final String TABLE_NEWS = "news";
-    public static final String TABLE_ANNUAL_PROJ = "annual_proj";
+    public static final String TABLE_ANNUAL_PROJ = "progetto_annuale";
     public static final String TABLE_SECTION_PROJ = "progetto_sezione";
     public static final String TABLE_COMMENT = "commento";
     public static final String TABLE_ACT = "attivita";
@@ -228,11 +228,8 @@ public final class DBNames {
     public static final String ATT_COMMUNICATION_SOLVED = "Risolto";
     //Project Annual attributes
     public static final String ATT_PROJECTANNUAL_ID = "Id";
-    public static final String ATT_PROJECTANNUAL_NAME = "Nome";
-    public static final String ATT_PROJECTANNUAL_TOPIC = "Tema";
-    public static final String ATT_PROJECTANNUAL_DESCRIPTION = "Contenuto";
-    public static final String ATT_PROJECTANNUAL_APPLICATIONYEAR = "Anno applicazione";
-    public static final String ATT_PROJECTANNUALSECTION_ATTACHED = "attached";
+    public static final String ATT_PROJECTANNUAL_PATH = "Path";
+    public static final String ATT_PROJECTANNUAL_STATE = "Stato";
     //ProjectAnnualSection attributes
     public static final String ATT_PROJECTANNUALSECTION_ID = "Id";
     public static final String ATT_PROJECTANNUALSECTION_NAME = "Nome";
