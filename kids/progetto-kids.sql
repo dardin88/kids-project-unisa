@@ -93,11 +93,14 @@ CREATE TABLE IF NOT EXISTS `assegnazione` (
 
 CREATE TABLE IF NOT EXISTS `attivita` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Periodo` varchar(20) NOT NULL,
   `Nome` varchar(40) NOT NULL,
   `Contenuto` varchar(1500) NOT NULL,
+  `DataInizio` date NOT NULL,
+  `DataFine` date NOT NULL,
+  `IdClasse` int(11) NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
 
 -- --------------------------------------------------------
 
@@ -110,8 +113,11 @@ CREATE TABLE IF NOT EXISTS `attivita_giornaliera_per_sezione` (
   `IdAttivita` int(11) NOT NULL,
   `IdEducatore` int(11) NOT NULL,
   `Note` varchar(1500) DEFAULT NULL,
+  `IdClasse` int(11) NOT NULL,
+  `Data` date NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
 
 -- --------------------------------------------------------
 
