@@ -1,8 +1,13 @@
 package it.unisa.kids.common;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.json.JSONObject;
 
 /**
  * Classe creata per contenere tutti i metodi di utilizzo secondario,
@@ -78,10 +83,26 @@ public class CommonMethod {
     public static String parseString(GregorianCalendar gregorian) {
         String toReturn;
         if(gregorian != null) {
-            toReturn = gregorian.get(Calendar.YEAR) + "-" + gregorian.get(Calendar.MONTH) + "-" + gregorian.get(Calendar.DAY_OF_MONTH);
+            toReturn = gregorian.get(Calendar.YEAR)
+                    + "-" + (gregorian.get(Calendar.MONTH) + 1)
+                    + "-" + gregorian.get(Calendar.DAY_OF_MONTH);
         } else {
             toReturn = "";
         }
         return toReturn;
+    }
+    
+    public static void sendMessageRedirect(HttpServletRequest pRequest, HttpServletResponse pResponse, String pMsg, String pForwardTo)
+            throws ServletException, IOException {
+        pRequest.setAttribute("message", pMsg);
+        pRequest.getRequestDispatcher(pForwardTo).forward(pRequest, pResponse);
+    }
+    
+    public static void checkAddToJSON(JSONObject jObj, String key, Object value) {
+        if (value != null) {
+            jObj.put(key, value);
+        } else {
+            jObj.put(key, "");
+        }
     }
 }
