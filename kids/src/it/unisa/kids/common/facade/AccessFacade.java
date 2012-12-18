@@ -99,7 +99,9 @@ public class AccessFacade implements IAccessFacade {
     public List<ClassBean> getClasses() throws SQLException {
         IClassManager classManager = (IClassManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_CLASS);
         
-        return classManager.getAll();
+        ClassBean  searchClass = new ClassBean();
+        searchClass.setState("accettata");     // valore "accettata" andrebbe aggiunto come costante nella classe ClassBean
+        return classManager.search(searchClass);
     }
 
     @Override
