@@ -73,16 +73,25 @@ function buildInsertButton(id){
     $("#insertActivityButton"+id).button()
 ;}
 
-function buildTableActivity(){
+function buildTableActivity(id){
     $('#tableActivity').dataTable({
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": "GetDailyActivitySection",
+        "sAjaxSource": "GetActivityTable",
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
-        
+        "fnServerParams": function(aoData) {
+            aoData.push(
+                    
+            {
+                "name": "id",
+                "value": id
+            }
+            );
+
+        },
         "bSort": false,
         "bDestroy": true,
         "bInfo": true,
@@ -105,19 +114,13 @@ function buildTableActivity(){
         },
         "aoColumns": [
             {
-                "sWidth": "25%"
+                "sWidth": "5%"
             },
             {
                 "sWidth": "25%"
             },
             {
-                "sWidth": "25%"
-            },
-            {
-                "sWidth": "25%"
-            },
-            {
-                "sWidth": "10%"
+                "sWidth": "85%"
             }
         ]
     });
@@ -125,5 +128,6 @@ function buildTableActivity(){
 
 function openInsertActivity(id){
     $("#insertActivityWindow").dialog("open");
+    buildTableActivity(id);
     
     }

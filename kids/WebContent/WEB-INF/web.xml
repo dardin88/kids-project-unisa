@@ -537,6 +537,10 @@
         <servlet-name>ServletPdfRegistrationChild</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.registrationChildManagement.ServletPdfRegistrationChild</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetActivityTableServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.programEducationalManagement.GetActivityTableServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
@@ -1064,6 +1068,10 @@
     <servlet-mapping>
         <servlet-name>SubmitProjectServlet</servlet-name>
         <url-pattern>/SubmitProject</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetActivityTableServlet</servlet-name>
+        <url-pattern>/GetActivityTable</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

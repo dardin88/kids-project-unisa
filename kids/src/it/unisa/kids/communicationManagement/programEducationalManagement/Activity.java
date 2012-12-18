@@ -16,7 +16,15 @@ public class Activity {
     private String description;
     private GregorianCalendar startDate;
     private GregorianCalendar endDate;
+    private int idClass;
     
+    public int getIdClass(){
+        return idClass;
+    }
+    
+    public void setIdClass(int pIdClass){
+        idClass=pIdClass;
+    }
     public int getId() {
         return this.id;
     }
