@@ -14,4 +14,7 @@ public interface IProgramEducational extends IManager
         abstract AnnualProjectSection getProgramEducational(int SectionId) throws SQLException;
         abstract void insertProgramEducational(AnnualProjectSection pAnnual  ) throws SQLException;
         abstract void updateProgramEducational(AnnualProjectSection toUpdate) throws SQLException;
+        abstract void updateProgramEducational(AnnualProject pProject) throws SQLException;
+        abstract int insertPathProject(AnnualProject project) throws SQLException;
+        abstract ArrayList<AnnualProject> show() throws SQLException;
 }

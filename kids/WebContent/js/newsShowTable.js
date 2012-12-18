@@ -107,7 +107,8 @@ function updateNews(id,title,description,type,data,time,allegato){
                    
             },
             dataNews:{
-                required:true
+                required:true,
+                data:true
             }
         },
         messages: {
@@ -216,7 +217,8 @@ function addNews(){
                    
                 },
                 dataNews:{
-                    required:true
+                    required:true,
+                    data:true
                 }
             },
             messages: {

@@ -36,32 +36,33 @@
                 activePage();
                 initializeLinksManager();
                 buildShowTable();
-
             });
         </script>
-        <title>Visualizza Progetti</title>
+        <title>Carica Progetto</title>
     </head>
     <div id="uploadFileWindow" title="Sottometti Progetto" style="display: inline">
         <form id="uploadFileForm" class="cmxform" method="post" action="" enctype="multipart/form-data" >
             <label class="artefactLabel" for="file">File:</label>
             <input type="file"  id="scegliFile"  value="Scegli il file" name="scegliFile"></input>
-            <input type="submit" class="windowButton" id="sottometti" value="Ok"/></input>                 
+            <input type="submit" class="windowButton" id="sottometti" value="Salva Bozza"/>                 
         </form>
     </div>
     <body>
         <%@include file="header.jsp" %>
         <div id="linksManagement">
             <c:if test="${sessionScope.user.getAccountType()=='Coordinatore Psicopedagogico'}" >
-                <input type="button" style="margin-bottom: 5px;" onclick="uploadFile()" id="submitProjectAnnualButton" value="Sottometti Progetto Annuale" />               
+                <div style="float:left">
+                    <input type="button" style="margin-bottom: 5px;height: 40px" onclick="uploadFile()" id="submitProjectAnnualButton" value="Carica Progetto Annuale" />               
+                    <input type="button" style="margin-bottom: 5px;height: 40px" onclick="submit(${requestScope.Id})" id="confirmProjectAnnualButton" value="Sottometti" />
+                </div>
             </c:if>
+            <label style="font-weight: bold" id="mostraPath"></label><br />
+            <label style="font-weight: bold" id="mostraStato"></label>
             <table id="showProjectAnnualTable" style="width:95%;">
                 <thead>
                     <tr>
-                        <th>Nome</th>
-                        <th>Tema</th>
-                        <th>Anno Applicazione</th>
-                        <th>Scadenza</th>
-                        <th>Operazione</th>
+                        <th>Progetto</th>
+                        <th>Stato</th>
                     </tr>
                 </thead>
                 <tbody>

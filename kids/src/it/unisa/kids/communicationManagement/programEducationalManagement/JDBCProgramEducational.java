@@ -1,17 +1,17 @@
 package it.unisa.kids.communicationManagement.programEducationalManagement;
 
 import it.unisa.kids.common.DBNames;
-import it.unisa.kids.communicationManagement.newsManagement.INewsManager;
-import it.unisa.kids.communicationManagement.newsManagement.JDBCNewsManager;
 import it.unisa.storage.connectionPool.DBConnectionPool;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class JDBCProgramEducational implements IProgramEducational {
 
@@ -25,8 +25,6 @@ public class JDBCProgramEducational implements IProgramEducational {
         }
     }
 
-
-    
     public String approveProject(AnnualProject pProject) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -52,8 +50,8 @@ public class JDBCProgramEducational implements IProgramEducational {
     }
 
     public void insertComment(CommentoBean toAdd) throws SQLException {
-            Connection con = DBConnectionPool.getConnection();
-            PreparedStatement pstmt=null;       
+        Connection con = DBConnectionPool.getConnection();
+        PreparedStatement pstmt = null;
 
         try {
 
@@ -85,7 +83,7 @@ public class JDBCProgramEducational implements IProgramEducational {
 
     public ArrayList<CommentoBean> getComments(AnnualProjectSection toView) throws SQLException {
         ResultSet rs = null;
-        ArrayList<CommentoBean> toReturn=new ArrayList<CommentoBean>();
+        ArrayList<CommentoBean> toReturn = new ArrayList<CommentoBean>();
         String query = "SELECT * FROM " + DBNames.TABLE_COMMENT
                 + " WHERE " + DBNames.ATT_COMMENT_ID + " = " + toView.getId();
         PreparedStatement pstm;
@@ -93,11 +91,11 @@ public class JDBCProgramEducational implements IProgramEducational {
         con = DBConnectionPool.getConnection();
         pstm = con.prepareStatement(query);
         rs = pstm.executeQuery();
-        while(rs.next()){
-            CommentoBean toAdd=new CommentoBean();
-            GregorianCalendar todata=new GregorianCalendar();
+        while (rs.next()) {
+            CommentoBean toAdd = new CommentoBean();
+            GregorianCalendar todata = new GregorianCalendar();
             toAdd.setContenuto(rs.getString(DBNames.ATT_COMMENT_DESCRIPTION));
-                    todata.setTimeInMillis(rs.getDate(DBNames.ATT_COMMENT_DATE).getTime());
+            todata.setTimeInMillis(rs.getDate(DBNames.ATT_COMMENT_DATE).getTime());
             toAdd.setDate(todata);
             toAdd.setId(rs.getInt(DBNames.ATT_COMMENT_ID));
             toAdd.setIdAnnuale(rs.getInt(DBNames.ATT_COMMENT_IDYEAR));
@@ -105,7 +103,7 @@ public class JDBCProgramEducational implements IProgramEducational {
             toAdd.setIdSezione(rs.getInt(DBNames.ATT_COMMENT_IDSECTION));
             toAdd.setTipoModifica(rs.getString(DBNames.ATT_COMMENT_TYPEMODIFY));
             toReturn.add(toAdd);
-            
+
         }
         con.commit();
         return toReturn;
@@ -113,11 +111,11 @@ public class JDBCProgramEducational implements IProgramEducational {
 
     @Override
     public AnnualProjectSection getProgramEducational(int SectionId) throws SQLException {
-        AnnualProjectSection toReturn=new AnnualProjectSection();
+        AnnualProjectSection toReturn = new AnnualProjectSection();
         toReturn.setCommenti(this.getComments(toReturn));
         ResultSet rs;
-        GregorianCalendar data=new GregorianCalendar();
-        
+        GregorianCalendar data = new GregorianCalendar();
+
         String query = "SELECT * FROM " + DBNames.TABLE_SECTION_PROJ
                 + " WHERE " + DBNames.ATT_PROJECTANNUALSECTION_SECTION + " = " + SectionId + " AND "
                 + DBNames.ATT_PROJECTANNUALSECTION_IDYEAR + " LIKE ____%" + data.get(GregorianCalendar.YEAR);
@@ -126,8 +124,8 @@ public class JDBCProgramEducational implements IProgramEducational {
         con = DBConnectionPool.getConnection();
         pstm = con.prepareStatement(query);
         rs = pstm.executeQuery();
-        
-        while(rs.next()){
+
+        while (rs.next()) {
             toReturn.setId(rs.getInt(DBNames.ATT_PROJECTANNUALSECTION_ID));
             toReturn.setDescription(rs.getString(DBNames.ATT_PROJECTANNUALSECTION_DESCRIPTION));
             toReturn.setSection(rs.getInt(SectionId));
@@ -136,9 +134,53 @@ public class JDBCProgramEducational implements IProgramEducational {
         }
         DBConnectionPool.releaseConnection(con);
         return toReturn;
-        
+
     }
 
+    public int insertPathProject(AnnualProject project) throws SQLException {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        con = DBConnectionPool.getConnection();
+        String query = "Insert into " + DBNames.TABLE_ANNUAL_PROJ + " (" + DBNames.ATT_PROJECTANNUAL_PATH + "," + DBNames.ATT_PROJECTANNUAL_STATE + ") values (?,?)";
+        stmt = con.prepareStatement(query);
+        stmt.setString(1, project.getPath());
+        stmt.setString(2, project.getState());
+        stmt.executeUpdate();
+        con.commit();
+        return getProject(project);
+    }
+    public int getProject(AnnualProject project){
+        try {
+            Connection con= DBConnectionPool.getConnection();
+            Statement stmt=null;
+            ResultSet rs=null;
+            String query="select * from "+DBNames.TABLE_ANNUAL_PROJ + " where "+ DBNames.ATT_PROJECTANNUAL_PATH+"='"+project.getPath()+"' and "+DBNames.ATT_PROJECTANNUAL_STATE+"='"+project.getState()+"'";
+            stmt= con.createStatement();
+            rs=stmt.executeQuery(query);
+            while(rs.next())
+                return rs.getInt(DBNames.ATT_PROJECTANNUALSECTION_ID);
+            
+                
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCProgramEducational.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    
+    public void updateProgramEducational(AnnualProject pProject){
+        try {
+            Connection con=DBConnectionPool.getConnection();
+            Statement pstmt=null;
+            String query="Update "+DBNames.TABLE_ANNUAL_PROJ + " SET "+
+                    DBNames.ATT_PROJECTANNUAL_STATE+"='"+pProject.getState()+"' where "+DBNames.ATT_PROJECTANNUAL_ID+"="+pProject.getId();
+            pstmt=con.createStatement();
+            pstmt.executeUpdate(query);
+            con.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCProgramEducational.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void insertProgramEducational(AnnualProjectSection pAnnualProject) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -156,7 +198,7 @@ public class JDBCProgramEducational implements IProgramEducational {
             pstmt.setInt(1, pAnnualProject.getSection());
             pstmt.setInt(2, pAnnualProject.getIdYear());
             pstmt.setString(3, pAnnualProject.getName());
-            pstmt.setString(4, pAnnualProject.getDescription() );
+            pstmt.setString(4, pAnnualProject.getDescription());
             pstmt.executeUpdate();
             con.commit();
         } finally {
@@ -167,7 +209,7 @@ public class JDBCProgramEducational implements IProgramEducational {
                 DBConnectionPool.releaseConnection(con);
             }
         }
-    
+
     }
 
     @Override
@@ -200,5 +242,25 @@ public class JDBCProgramEducational implements IProgramEducational {
         DBConnectionPool.releaseConnection(con);
 
 
+    }
+
+    @Override
+    public ArrayList<AnnualProject> show() throws SQLException {
+       Connection  con = DBConnectionPool.getConnection();
+       ArrayList<AnnualProject> list=new ArrayList<>();
+       Statement stmt=null;
+       ResultSet rs=null;
+       String query="select * from "+DBNames.TABLE_ANNUAL_PROJ;
+       stmt=con.createStatement();
+       rs=stmt.executeQuery(query);
+       con.commit();
+       while(rs.next()){
+           AnnualProject a=new AnnualProject();
+           a.setId(rs.getInt(DBNames.ATT_PROJECTANNUAL_ID));
+           a.setPath(rs.getString(DBNames.ATT_PROJECTANNUAL_PATH));
+           a.setState(rs.getString(DBNames.ATT_PROJECTANNUAL_STATE));
+           list.add(a);
+       }
+       return list;
     }
 }

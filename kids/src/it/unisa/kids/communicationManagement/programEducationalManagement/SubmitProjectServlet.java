@@ -4,38 +4,22 @@
  */
 package it.unisa.kids.communicationManagement.programEducationalManagement;
 
-import it.unisa.kids.accessManagement.accountManagement.Account;
-import it.unisa.kids.common.DBNames;
-import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 /**
  *
- * @author francesco
+ * @author dario
  */
-public class ShowProjectServlet extends HttpServlet {
+public class SubmitProjectServlet extends HttpServlet {
 
-    
-       private IProgramEducational programEducationalManager;
-
-    public void init(ServletConfig config) {
-        RefinedAbstractManager refinedAbstractProgramEducationalManager = RefinedAbstractManager.getInstance();
-        programEducationalManager = (IProgramEducational) refinedAbstractProgramEducationalManager.getManagerImplementor(DBNames.TABLE_ANNUAL_PROJ);
-    }
-    
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -49,34 +33,18 @@ public class ShowProjectServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            PrintWriter out = response.getWriter();
-            AnnualProject[] paginateAnnualProjectSet;
-        //    ArrayList<AnnualProject> listAnnualProject=programEducationalManager.show();
-            ArrayList<AnnualProject> listAnnualProject=JDBCProgramEducational.getInstance().show();
-            JSONObject result = new JSONObject();
-            JSONArray array = new JSONArray();
-            for(AnnualProject a: listAnnualProject){
-                JSONArray ja = new JSONArray();
-                ja.put(a.getPath());
-                ja.put(a.getState());
-                array.put(ja);
-            }
-           
-            result.put("aaData", array);
-            response.setContentType("application/json");
-            response.setHeader("Cache-Control",
-                    "private, no-store, no-cache, must-revalidate");
-            response.setHeader("Pragma", "no-cache");
-            System.out.print(result);
-            out.println(result);
+            int id=Integer.parseInt(request.getParameter("idProgetto"));
+            IProgramEducational program=JDBCProgramEducational.getInstance();
+            AnnualProject project=new AnnualProject();
+            project.setId(id);
+            project.setState("Sottomesso");
+            program.updateProgramEducational(project);
+        } catch (SQLException ex) {
+            Logger.getLogger(SubmitProjectServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (SQLException ex) {
-            Logger.getLogger(ShowProjectServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
     }
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP
      * <code>GET</code> method.

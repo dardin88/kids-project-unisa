@@ -3,12 +3,16 @@
     <display-name>kids</display-name>
     <context-param>
         <param-name>attachedFileFolder</param-name>
-        <param-value>/home/marco/attached</param-value>
+        <param-value>/home/francesco/attached</param-value>
     </context-param>
     <context-param>
         <param-name>projectFileFolder</param-name>
-        <param-value>/home/francesco/projectEducative</param-value>
+        <param-value>/home/dario/programEducative</param-value>
     </context-param>
+    <servlet>
+        <servlet-name>SubmitProjectServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.programEducationalManagement.SubmitProjectServlet</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>SurveyFormServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.surveyManagement.SurveyFormServlet</servlet-class>
@@ -1056,6 +1060,10 @@
     <servlet-mapping>
         <servlet-name>ServletPdfRegistrationChild</servlet-name>
         <url-pattern>/PdfRegistrationChild</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubmitProjectServlet</servlet-name>
+        <url-pattern>/SubmitProject</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
