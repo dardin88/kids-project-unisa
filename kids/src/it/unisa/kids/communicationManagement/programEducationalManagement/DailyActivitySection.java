@@ -16,7 +16,7 @@ import java.util.HashMap;
  * @author Francesco Di Lorenzo, Giuseppe Alfieri
  *
  */
-public class DailyActivitySection extends AnnualProjectSection {
+public class DailyActivitySection  {
 
     private int id;
     private int idActivity;
@@ -115,5 +115,9 @@ public class DailyActivitySection extends AnnualProjectSection {
 
     public void setId(int aInt) {
         this.id = aInt;
+    }
+    
+    public void setIdSection(int pSectionId){
+        idSection=pSectionId;
     }
 }

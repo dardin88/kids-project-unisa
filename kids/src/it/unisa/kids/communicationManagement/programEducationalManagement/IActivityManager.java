@@ -6,6 +6,7 @@ package it.unisa.kids.communicationManagement.programEducationalManagement;
 
 import it.unisa.kids.common.IManager;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -13,5 +14,8 @@ import java.sql.SQLException;
  */
 public interface IActivityManager extends IManager {
 
-    public void insert(DailyActivitySection pProject) throws SQLException;
+    public void insert(DailyActivitySection pDailyActivitySection) throws SQLException;
+    public List<DailyActivitySection> getDailyActivitySectionList() throws SQLException;
+    public List<DailyActivitySection> search(DailyActivitySection pDailyActivitySection) throws SQLException;
+    public List<Activity> search(Activity pActivity) throws SQLException;
 }
