@@ -74,6 +74,7 @@ public class GetSectionEduClassDivsServlet extends HttpServlet {
                         + "             <thead>\n"
                         + "                 <tr>\n"
                         + "                     <th>Data</th>\n"
+                        + "                     <th>Ora</th>\n"
                         + "                     <th>Contenuto</th>\n"
                         + "                     <th>Autore</th>\n"
                         + "                     <th>Operazioni</th>\n"

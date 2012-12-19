@@ -56,6 +56,19 @@
             </div>
         </c:if>
 
+        <div id="postMessageDialog" title="Message">
+            <form id="confirmForm" class="cmxform" method="post" action="sectionEdu.jsp">
+                <fieldset>
+                    <p class="formp">
+                        <label id ="bodyMessage" class="requirementLabel"></label>
+                    </p>
+                    <p class="formp">
+                        <input type="submit" id="postConfirmButton" value="OK">
+                    </p>
+                </fieldset>
+            </form>
+        </div>
+
         <div id="sectionEduManagement">
             <div id="sectionEduTabs">
                 <ul>
@@ -73,7 +86,7 @@
                 <input type="button" id="acceptDocScientBtn" value="Accetta documento" onclick="acceptDocumentScient();">
             </div>
 
-            <div id="insertActivityDialog">
+            <div id="insertActivityDialog" title="Inserisci attivit&agrave;">
                 <form id="insertActivityForm" class="cmxform" method="post" action="InsertActivity">
                     <table>
                         <tr>
@@ -102,7 +115,7 @@
                 </form>
             </div>
 
-            <div id="updateActivityDialog">
+            <div id="updateActivityDialog" title="Modifica attivit&agrave;">
                 <form id="updateActivityForm" class="cmxform" method="post" action="UpdateActivity">
                     <table>
                         <tr>
@@ -123,7 +136,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <input type="hidden" name="hiddenActClassIdMod" id="hiddenActClassIdMod" value="-1">
+                                <input type="hidden" name="hiddenActIdMod" id="hiddenActIdMod" value="-1">
                                 <input class="confirmButton" type="submit" name="updateActivityBtn" id="updateActivityBtn" value="Invia">
                             </td>
                         </tr>
@@ -131,7 +144,7 @@
                 </form>
             </div>
 
-            <div id="insertCommentDialog">
+            <div id="insertCommentDialog" title="Inserisci commento">
                 <form id="insertCommentForm" class="cmxform" method="post" action="InsertComment">
                     <table>
                         <tr>

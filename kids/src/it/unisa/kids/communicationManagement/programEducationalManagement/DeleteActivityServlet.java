@@ -4,7 +4,7 @@
  */
 package it.unisa.kids.communicationManagement.programEducationalManagement;
 
-import it.unisa.kids.common.CommonMethod;
+import it.unisa.kids.accessManagement.classManagement.ClassBean;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
@@ -15,15 +15,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONObject;
 
 /**
  *
- * @author Antonio Panariello
+ * @author navi
  */
-public class UpdateActivityServlet extends HttpServlet {
-    
-    public static final int ACT_NAME_MAXLENGTH = 40;
-    public static final int ACT_CONTENT_MAXLENGTH = 1500;
+public class DeleteActivityServlet extends HttpServlet {
     
     private IActivityManager activityManager;
 
@@ -44,46 +42,21 @@ public class UpdateActivityServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/json");
         PrintWriter out = response.getWriter();
+        JSONObject jObj = new JSONObject();
         try {
-            int actId = Integer.parseInt(request.getParameter("hiddenActIdMod"));
-            if (actId <= 0) {
-                CommonMethod.sendMessageRedirect(request, response, "Errore: attivit&agrave; errata", "/sectionEdu.jsp");
-                return;
-            }
-            String activityName = request.getParameter("activityNameMod");
-            String startDate = request.getParameter("StartDateMod");
-            String endDate = request.getParameter("EndDateMod");
-            String activityContent = request.getParameter("activityContentMod");
-            
-            if (activityName.trim().length() > ACT_NAME_MAXLENGTH) {
-                CommonMethod.sendMessageRedirect(request, response, "Errore: nome troppo lungo", "/sectionEdu.jsp");
-                return;
-            }
-            
-            if (activityContent.trim().length() > ACT_CONTENT_MAXLENGTH) {
-                CommonMethod.sendMessageRedirect(request, response, "Errore: contenuto troppo lungo", "/sectionEdu.jsp");
-                return;
-            }
+            int activityId = Integer.parseInt(request.getParameter("activityId"));
             
             Activity removeActivity = new Activity();
-            int classId = removeActivity.getIdClass();
-            removeActivity.setId(actId);
+            removeActivity.setId(activityId);
             activityManager.delete(removeActivity);
             
-            Activity act = new Activity();
-            act.setName(activityName.trim());
-            act.setDescription(activityContent.trim());
-            act.setStartDate(CommonMethod.parseGregorianCalendar(startDate));
-            act.setEndDate(CommonMethod.parseGregorianCalendar(endDate));
-            act.setIdClass(classId);
             
-            activityManager.insert(act);
-        } catch (NumberFormatException e) {
-            CommonMethod.sendMessageRedirect(request, response, "Errore: attivit&agrave; errata", "/sectionEdu.jsp");
+            jObj.put("message", "Richiesta effettuata");
+            out.print(jObj);
         } catch (SQLException e) {
-            CommonMethod.sendMessageRedirect(request, response, "Errore: verifica campi", "/sectionEdu.jsp");
+            jObj.put("message", "Errore durante la richiesta");
         } finally {
             out.close();
         }
