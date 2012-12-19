@@ -247,8 +247,6 @@ public class JDBCAccountManager implements IAccountManager {
 
         List<Account> account = null;
         boolean andState = false;
-        System.out.println(pAccount.getId() + "," + pAccount.getNameUser() + "," + pAccount.getSurnameUser() + "," + pAccount.getNickName() + "," + pAccount.getAccountType());
-
         try {
             con = DBConnectionPool.getConnection();
 
