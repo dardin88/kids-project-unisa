@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -21,11 +22,11 @@ public class JDBCRecoursesManager implements IRecoursesManager {
     private JDBCRecoursesManager(){
     }
 
-    public static JDBCRecoursesManager getInstace() {
+    public static JDBCRecoursesManager getInstance() {
         if(manager != null) {
             return manager;
         } else {
-            return manager=new JDBCRecoursesManager();
+            return manager = new JDBCRecoursesManager();
         }
     }
 
@@ -67,7 +68,7 @@ public class JDBCRecoursesManager implements IRecoursesManager {
         return toReturn;
     }
 
-    public synchronized boolean modify(Recourse recourse) throws SQLException {
+    public synchronized boolean update(Recourse recourse) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt=null;
         StringBuffer query = new StringBuffer();
@@ -494,5 +495,68 @@ public class JDBCRecoursesManager implements IRecoursesManager {
             }
         }
         return toReturn;
+    }
+    
+    public List<Recourse> getListFromParent(int parentAccountId, String advanceStringToSearch) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet result = null;
+        List<Recourse> listRecourse = new ArrayList<Recourse>();
+        StringBuilder query = new StringBuilder();
+
+        try {
+            con = DBConnectionPool.getConnection();
+            
+            query.append("SELECT RE.*, RC." + DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + ", RC." + 
+                    DBNames.ATT_REGISTRATIONCHILD_SURNAME + ", RC." + DBNames.ATT_REGISTRATIONCHILD_NAME + " " +
+                            "FROM " + DBNames.TABLE_RECOURSE + " AS RE, " + DBNames.TABLE_REGISTRATIONCHILD + " AS RC " +
+                            "WHERE RE." + DBNames.ATT_RECOURSE_REGISTRATIONCHILDID + "=RC." + DBNames.ATT_REGISTRATIONCHILD_ID + " AND " +
+                            DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID + "=?");
+            if(advanceStringToSearch != null) {
+                    // ADVANCED FIELD SEARCH
+                query.append(" AND (RC." + DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + " LIKE '%" + advanceStringToSearch + "%' OR RC." + 
+                    DBNames.ATT_REGISTRATIONCHILD_SURNAME + " LIKE '%" + advanceStringToSearch + "%' OR RC." + 
+                    DBNames.ATT_REGISTRATIONCHILD_NAME + " LIKE '%" + advanceStringToSearch + "%')");
+            }
+            query.append(";");
+            pstmt = con.prepareStatement(query.toString());
+            
+            pstmt.setInt(1, parentAccountId);
+            result = pstmt.executeQuery();
+            con.commit();
+            
+            while(result.next()) {
+                Recourse p = new Recourse();
+                p.setId(result.getInt(DBNames.ATT_RECOURSE_ID));
+                GregorianCalendar date;
+                if(result.getDate(DBNames.ATT_RECOURSE_DATA) != null) {
+                    date = CommonMethod.parseGregorianCalendar(result.getDate(DBNames.ATT_RECOURSE_DATA));
+                } else {
+                    date = null;
+                }
+                p.setDate(date);
+                p.setValutation(result.getString(DBNames.ATT_RECOURSE_VALUTATION));
+                p.setRegistrationChildId(result.getInt(DBNames.ATT_RECOURSE_REGISTRATIONCHILDID));
+                p.setReason(result.getString(DBNames.ATT_RECOURSE_REASON));
+                
+                p.setRegistrationChildFiscalCode(result.getString(DBNames.ATT_REGISTRATIONCHILD_FISCALCODE));
+                p.setRegistrationChildSurname(result.getString(DBNames.ATT_REGISTRATIONCHILD_SURNAME));
+                p.setRegistrationChildName(result.getString(DBNames.ATT_REGISTRATIONCHILD_NAME));
+                
+                listRecourse.add(p);
+            }
+        } finally {
+            if(result != null) {
+                result.close();
+            }
+            if(pstmt != null) {
+                pstmt.close();
+            }
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+
+        return listRecourse;
     }
 }
