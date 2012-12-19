@@ -300,7 +300,7 @@ public class JDBCActivityManager implements IActivityManager {
             con = DBConnectionPool.getConnection();
 
             // constructing query string
-            query = "INSERT INTO " + DBNames.TABLE_ACTIVITYSECTIONDAILY + " ("
+            query = "INSERT INTO " + DBNames.TABLE_ACT + " ("
                     + DBNames.ATT_ACTIVITY_ID + ", "
                     + DBNames.ATT_ACTIVITY_NAME + ", "
                     + DBNames.ATT_ACTIVITY_DESCRIPTION + ", "
@@ -400,7 +400,7 @@ public class JDBCActivityManager implements IActivityManager {
             }
 
             if (pComment.getContent() != null) {
-                query += useAnd(andState) + DBNames.ATT_COMMENT_CONTENT + " = ?";
+                query += useAnd(andState) + DBNames.ATT_COMMENT_CONTENT + " LIKE CONCAT('%', ?, '%')";
                 andState = true;
             }
 
@@ -416,6 +416,11 @@ public class JDBCActivityManager implements IActivityManager {
 
             if (pComment.getAuthorId() > 0) {
                 query += useAnd(andState) + DBNames.ATT_COMMENT_AUTHORID + "= ?";
+                andState = true;
+            }
+            
+            if (pComment.getTime() != null) {
+                query += useAnd(andState) + DBNames.ATT_COMMENT_TIME + "= ?";
                 andState = true;
             }
 
@@ -514,6 +519,32 @@ public class JDBCActivityManager implements IActivityManager {
                 DBConnectionPool.releaseConnection(con);
             }
 
+        }
+    }
+
+    @Override
+    public void delete(Activity pActivity) throws SQLException {
+        Connection con = null;
+        Statement stmt = null;
+        String query = null;
+
+        try {
+            con = DBConnectionPool.getConnection();
+
+            // constructing query string
+            query = "DELETE FROM " + DBNames.TABLE_ACT
+                    + "WHERE " + DBNames.ATT_ACTIVITY_ID + " = " + pActivity.getId();
+
+            stmt = con.createStatement();
+            stmt.executeUpdate(query);
+            con.commit();
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
         }
     }
 }

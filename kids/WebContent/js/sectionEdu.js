@@ -7,6 +7,14 @@ function initializeSectionEduPage() {
     buildTabs();
     buildCommentEduTable();
     
+    $("#postMessageDialog").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 450
+    });
+    $("#postConfirmButton").button();
+    
     $("#insertCommentDialog").dialog({
         autoOpen: false,
         modal: true,
@@ -22,7 +30,34 @@ function initializeSectionEduPage() {
         width: 450
     });
     $("#insertActivityBtn").button();
-    //
+    $("#StartDate").datepicker({
+        dateFormat: "yy-mm-dd",
+        changeYear: true
+    });
+    $("#StartDate").datepicker("setDate", new Date());
+    $("#EndDate").datepicker({
+        dateFormat: "yy-mm-dd",
+        changeYear: true
+    });
+    $("#EndDate").datepicker("setDate", new Date());
+    
+    $("#updateActivityDialog").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 450
+    });
+    $("#updateActivityBtn").button();
+    $("#StartDateMod").datepicker({
+        dateFormat: "yy-mm-dd",
+        changeYear: true
+    });
+    $("#StartDateMod").datepicker("setDate", new Date());
+    $("#EndDateMod").datepicker({
+        dateFormat: "yy-mm-dd",
+        changeYear: true
+    });
+    $("#EndDateMod").datepicker("setDate", new Date());
     
     $("#saveDraftBtn").button();
     $("#submitBtn").button();
@@ -79,8 +114,8 @@ function buildClassTable(classId) {
 function buildActButton(classId) {
     $("#insAct" + classId).button();
     $("#insAct" + classId).click(function() {
-        $("#hiddenClassId").val(classId);
-        $("#insertCommentDialog").dialog("open");
+        $("#hiddenActClassId").val(classId);
+        $("#insertActivityDialog").dialog("open");
     });
 }
 
@@ -147,8 +182,10 @@ function saveSectionDraft() {
         classStatus: "Bozza"
     },
     function(jsonData, status) {
-        
-        });
+        var message = jsonData.message;
+        $("#bodyMessage").html(message);
+        $("#postMessageDialog").dialog("open");
+    });
 }
 
 function submitSectionProgram() {
@@ -161,8 +198,10 @@ function submitSectionProgram() {
         classStatus: "Sottomessa"
     },
     function(jsonData, status) {
-        
-        });
+        var message = jsonData.message;
+        $("#bodyMessage").html(message);
+        $("#postMessageDialog").dialog("open");
+    });
 }
 
 function requestModSectProg() {
@@ -175,8 +214,10 @@ function requestModSectProg() {
         classStatus: "RichiestaMod"
     },
     function(jsonData, status) {
-        
-        });
+        var message = jsonData.message;
+        $("#bodyMessage").html(message);
+        $("#postMessageDialog").dialog("open");
+    });
 }
 
 function acceptDocumentRect() {
@@ -189,8 +230,10 @@ function acceptDocumentRect() {
         classStatus: "AccettaRett"
     },
     function(jsonData, status) {
-        
-        });
+        var message = jsonData.message;
+        $("#bodyMessage").html(message);
+        $("#postMessageDialog").dialog("open");
+    });
 }
 
 function acceptDocumentScient() {
@@ -203,6 +246,25 @@ function acceptDocumentScient() {
         classStatus: "AccettaScient"
     },
     function(jsonData, status) {
-        
-        });
+        var message = jsonData.message;
+        $("#bodyMessage").html(message);
+        $("#postMessageDialog").dialog("open");
+    });
+}
+
+function updateActivity(activityId) {
+    $("#updateActivityDialog").dialog("open");
+    $("#hiddenActIdMod").val(activityId);
+}
+
+function removeActivity(activityId) {
+    $.post("DeleteActivity",
+    {
+        activityId: activityId
+    },
+    function(jsonData, status) {
+        var message = jsonData.message;
+        $("#bodyMessage").html(message);
+        $("#postMessageDialog").dialog("open");
+    });
 }

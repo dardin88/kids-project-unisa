@@ -15,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONObject;
 
 /**
  *
@@ -41,8 +42,9 @@ public class UpdateClassStatusServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/json");
         PrintWriter out = response.getWriter();
+        JSONObject jObj = new JSONObject();
         try {
             int classId = Integer.parseInt(request.getParameter("classId"));
             String classStatus = request.getParameter("classStatus");
@@ -63,8 +65,11 @@ public class UpdateClassStatusServlet extends HttpServlet {
             }
             
             accessFacade.update(classToUpdate);
+            
+            jObj.put("message", "Richiesta effettuata");
+            out.print(jObj);
         } catch (SQLException e) {
-            return;
+            jObj.put("message", "Errore durante la richiesta");
         } finally {
             out.close();
         }

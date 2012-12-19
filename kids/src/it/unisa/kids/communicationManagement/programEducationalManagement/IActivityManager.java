@@ -30,5 +30,7 @@ public interface IActivityManager extends IManager {
     
     public List<CommentBean> search(CommentBean pComment) throws SQLException;
     
+    public void delete(Activity pActivity) throws SQLException;
+    
     public void remove(DailyActivitySection pDailyActivitySection) throws SQLException;
 }

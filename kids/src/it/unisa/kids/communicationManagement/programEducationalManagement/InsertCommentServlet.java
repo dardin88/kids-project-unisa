@@ -9,6 +9,7 @@ import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
@@ -99,10 +100,12 @@ public class InsertCommentServlet extends HttpServlet {
             
             String commentContent = request.getParameter("commentContent");
             
-            insertComment.setDate(new GregorianCalendar());
+            GregorianCalendar g = new GregorianCalendar();
+            insertComment.setDate(g);
+            insertComment.setTime(new java.sql.Time(g.get(Calendar.HOUR),g.get(Calendar.MINUTE),g.get(Calendar.SECOND)));
             insertComment.setClassId(classId);
             insertComment.setAuthorId(authorId);
-            insertComment.setContent(commentContent);
+            insertComment.setContent(commentContent.trim());
             
         }
 
