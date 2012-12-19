@@ -5,12 +5,15 @@
 package it.unisa.kids.communicationManagement.newsManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +28,13 @@ import org.json.JSONObject;
  */
 public class GetNewsServlet extends HttpServlet {
 
+    private INewsManager newsManager;
+
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        RefinedAbstractManager refinedAbstractNewsManager = RefinedAbstractManager.getInstance();
+        newsManager = (INewsManager) refinedAbstractNewsManager.getManagerImplementor(DBNames.TABLE_NEWS);
+    }
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -44,7 +54,6 @@ public class GetNewsServlet extends HttpServlet {
             response.setContentType("text/html;charset=UTF-8");
             // Thread.sleep(5000);
             out = response.getWriter();
-            INewsManager am = JDBCNewsManager.getInstance();
             JSONObject result = new JSONObject();
             JSONArray array = new JSONArray();
             int start = 0;
@@ -69,7 +78,7 @@ public class GetNewsServlet extends HttpServlet {
             String nomeUtente = account.getAccountType();
             String searchTerm = "";
             searchTerm = request.getParameter("sSearch");
-            listNews = am.search(searchTerm);
+            listNews = newsManager.search(searchTerm);
             int linksNumber = listNews.size();
             if (linksNumber < amount) {
                 amount = linksNumber;

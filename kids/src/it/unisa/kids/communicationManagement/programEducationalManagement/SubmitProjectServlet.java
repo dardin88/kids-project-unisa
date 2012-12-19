@@ -5,8 +5,10 @@
 package it.unisa.kids.communicationManagement.programEducationalManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.Mail;
 import it.unisa.kids.common.MailManager;
+import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.kids.common.facade.AccountFacade;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +27,14 @@ import javax.servlet.http.HttpServletResponse;
  * @author dario
  */
 public class SubmitProjectServlet extends HttpServlet {
+
+    private IProgramEducational programEducationalManager;
+
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        RefinedAbstractManager refinedAbstractProgramEducationalManager = RefinedAbstractManager.getInstance();
+        programEducationalManager = (IProgramEducational) refinedAbstractProgramEducationalManager.getManagerImplementor(DBNames.TABLE_ANNUAL_PROJ);
+    }
 
     /**
      * Processes requests for both HTTP
@@ -38,37 +49,66 @@ public class SubmitProjectServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            int id = Integer.parseInt(request.getParameter("idProgetto"));
-            IProgramEducational program = JDBCProgramEducational.getInstance();
+            int id = programEducationalManager.show().get(0).getId();
+            String tipoAttore = request.getParameter("tipoAttore");
             AnnualProject project = new AnnualProject();
             project.setId(id);
-            project.setState("Sottomesso");
-            program.updateProgramEducational(project);
-
-            List<Account> respAccount = new ArrayList<Account>();
-            List<Account> delAccount = new ArrayList<Account>();
-            ArrayList<String> listaDestinatari=new ArrayList<String>();
-            Account resp = new Account();
-            resp.setAccountType("Responsabile Scientifico");
-            Account delegatoRettore = new Account();
-            delegatoRettore.setAccountType("Delegato del Rettore");
-            AccountFacade facade = new AccountFacade();
-            respAccount=facade.search(resp);
-            delAccount=facade.search(delegatoRettore);
-            for(Account n:respAccount){
-                listaDestinatari.add(n.getEmail());
-            }
-            for(Account n:delAccount){
-                listaDestinatari.add(n.getEmail());
-            }
-            
-
             Mail m = new Mail();
+            Account resp = new Account();
+            Account delegatoRettore = new Account();
+            Account coordinatore = new Account();
+            List<Account> respAccount = new ArrayList<>();
+            List<Account> delAccount = new ArrayList<>();
+            List<Account> coordinatoreAccount = new ArrayList<>();
+            ArrayList<String> listaDestinatari = new ArrayList<>();
+            resp.setAccountType("Responsabile Scientifico");
+            delegatoRettore.setAccountType("Delegato del Rettore");
+            coordinatore.setAccountType("Coordinatore Psicopedagogico");
+            AccountFacade facade = new AccountFacade();
+            respAccount = facade.search(resp);
+            delAccount = facade.search(delegatoRettore);
+            coordinatoreAccount = facade.search(coordinatore);            
+            if (request.getParameter("submitCoord") != null) {
+                project.setState("submitCoord");
+            } else if (request.getParameter("acceptCoord") != null) {
+                project.setState("acceptCoord");
+            } else if (request.getParameter("acceptResp") != null) {
+                project.setState("acceptResp");
+            } else if (request.getParameter("acceptDeleg") != null) {
+                project.setState("acceptDeleg");
+            } else if (request.getParameter("requestModify") != null) {
+                project.setState("requestModify");
+            }
+            if (tipoAttore.equalsIgnoreCase("Coordinatore Psicopedagogico")) {
+                for (Account n : respAccount) {
+                    listaDestinatari.add(n.getEmail());
+                }
+                for (Account n : delAccount) {
+                    listaDestinatari.add(n.getEmail());
+                }
+            } else if (tipoAttore.equalsIgnoreCase("Responsabile Scientifico")) {
+                for (Account n : coordinatoreAccount) {
+                    listaDestinatari.add(n.getEmail());
+                }
+                for (Account n : delAccount) {
+                    listaDestinatari.add(n.getEmail());
+                }
+            } else if (tipoAttore.equalsIgnoreCase("Delegato del Rettore")) {
+                for (Account n : respAccount) {
+                    listaDestinatari.add(n.getEmail());
+                }
+                for (Account n : coordinatoreAccount) {
+                    listaDestinatari.add(n.getEmail());
+                }
+            }
+            programEducationalManager.updateProgramEducational(project);
             m.setBody("programma sottomesso controllare alle ore ");
             m.setSubject("sottomissione progetto annuale");
             m.setTo(listaDestinatari);
             MailManager mm = new MailManager();
-           mm.sendMail(m);
+            mm.sendMail(m);
+            response.sendRedirect("/kids/showProject.jsp");
+          //  request.getServletContext().getRequestDispatcher("/showProject.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(SubmitProjectServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

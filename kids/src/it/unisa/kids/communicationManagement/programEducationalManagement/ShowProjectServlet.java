@@ -4,7 +4,6 @@
  */
 package it.unisa.kids.communicationManagement.programEducationalManagement;
 
-import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
@@ -18,9 +17,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 /**
  *
@@ -28,14 +24,14 @@ import org.json.JSONObject;
  */
 public class ShowProjectServlet extends HttpServlet {
 
-    
-       private IProgramEducational programEducationalManager;
+    private IProgramEducational programEducationalManager;
 
-    public void init(ServletConfig config) {
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
         RefinedAbstractManager refinedAbstractProgramEducationalManager = RefinedAbstractManager.getInstance();
         programEducationalManager = (IProgramEducational) refinedAbstractProgramEducationalManager.getManagerImplementor(DBNames.TABLE_ANNUAL_PROJ);
     }
-    
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -50,15 +46,12 @@ public class ShowProjectServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             PrintWriter out = response.getWriter();
-            ArrayList<AnnualProject> listAnnualProject=programEducationalManager.show();
-        //    ArrayList<AnnualProject> listAnnualProject=JDBCProgramEducational.getInstance().show();
-            JSONObject result = new JSONObject();
-            JSONArray array = new JSONArray();
-            for(AnnualProject a: listAnnualProject){
-                out.println(a.getPath()+","+a.getState());
+            ArrayList<AnnualProject> listAnnualProject = programEducationalManager.show();
+            //    ArrayList<AnnualProject> listAnnualProject=JDBCProgramEducational.getInstance().show();
+            for (AnnualProject a : listAnnualProject) {
+                out.print(a.getPath() + "," + a.getState());
             }
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(ShowProjectServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 

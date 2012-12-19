@@ -2,13 +2,17 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.unisa.kids.communicationManagement.newsManagement;
+package it.unisa.kids.communicationManagement.programEducationalManagement;
 
+import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.activation.MimetypesFileTypeMap;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
@@ -17,10 +21,16 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author francesco di lorenzo
+ * @author francesco
  */
-public class DownloadFileServlet extends HttpServlet {
+public class DownloadProjectServlet extends HttpServlet {
+     private IProgramEducational programEducationalManager;
 
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        RefinedAbstractManager refinedAbstractProgramEducationalManager = RefinedAbstractManager.getInstance();
+        programEducationalManager = (IProgramEducational) refinedAbstractProgramEducationalManager.getManagerImplementor(DBNames.TABLE_ANNUAL_PROJ);
+    }
     
     /**
      * Processes requests for both HTTP
@@ -34,12 +44,10 @@ public class DownloadFileServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-                    
-        String uri = (String) getServletContext().getInitParameter("attachedFileFolder");                    
+        
+        String uri = (String) getServletContext().getInitParameter("projectFileFolder");                    
         String fileName=request.getParameter("nameFile");
-        String titoloNews=request.getParameter("titoloNews");
-        uri+="/"+titoloNews+fileName;
+        uri+="/"+fileName;
         
         File file = new File(uri);
         FileInputStream fileInput = new FileInputStream(file);
@@ -66,7 +74,6 @@ public class DownloadFileServlet extends HttpServlet {
         return mime.getContentType(file);
 
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP
