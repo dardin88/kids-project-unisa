@@ -50,7 +50,7 @@ public class GetSectionEduClassDivsServlet extends HttpServlet {
         try {
             List<ClassBean> classList = accessFacade.getClasses();
             for (ClassBean clas : classList) {
-                out.println("<div id=\"" + clas.getIdClasse() + "\">\n"
+                out.println("<div id=\"" + clas.getIdClasse() + "\" class=\"sectionEduClass\">\n"
                         + "     <table id=\"table" + clas.getIdClasse() + "\">\n"
                         + "         <thead>\n"
                         + "             <tr>\n"

@@ -6,6 +6,11 @@
 function initializeSectionEduPage() {
     buildTabs();
     buildCommentEduTable();
+    $("#saveDraftBtn").button();
+    $("#submitBtn").button();
+    $("#requestModBtn").button();
+    $("#acceptDocRectBtn").button();
+    $("#acceptDocScientBtn").button();
 }
 
 function buildTabs() {
@@ -97,8 +102,76 @@ function buildCommentEduTable(classId) {
 function buildCommentButton(classId) {
     $("#insComm" + classId).button();
     $("#insComm" + classId).click(function() {
-        // do something
+        
     });
 }
 
+function saveSectionDraft() {
+    var active = $( "#sectionEduTabs" ).tabs( "option", "active" );
+    var classId = $(".sectionEduClass:eq(" + active + ")").attr('id');
+    
+    $.post("UpdateClassStatus",
+    {
+        classId: classId,
+        classStatus: "Bozza"
+    },
+    function(jsonData, status) {
+        
+        });
+}
 
+function submitSectionProgram() {
+    var active = $( "#sectionEduTabs" ).tabs( "option", "active" );
+    var classId = $(".sectionEduClass:eq(" + active + ")").attr('id');
+    
+    $.post("UpdateClassStatus",
+    {
+        classId: classId,
+        classStatus: "Sottomessa"
+    },
+    function(jsonData, status) {
+        
+        });
+}
+
+function requestModSectProg() {
+    var active = $( "#sectionEduTabs" ).tabs( "option", "active" );
+    var classId = $(".sectionEduClass:eq(" + active + ")").attr('id');
+    
+    $.post("UpdateClassStatus",
+    {
+        classId: classId,
+        classStatus: "RichiestaMod"
+    },
+    function(jsonData, status) {
+        
+        });
+}
+
+function acceptDocumentRect() {
+    var active = $( "#sectionEduTabs" ).tabs( "option", "active" );
+    var classId = $(".sectionEduClass:eq(" + active + ")").attr('id');
+    
+    $.post("UpdateClassStatus",
+    {
+        classId: classId,
+        classStatus: "AccettaRett"
+    },
+    function(jsonData, status) {
+        
+        });
+}
+
+function acceptDocumentScient() {
+    var active = $( "#sectionEduTabs" ).tabs( "option", "active" );
+    var classId = $(".sectionEduClass:eq(" + active + ")").attr('id');
+    
+    $.post("UpdateClassStatus",
+    {
+        classId: classId,
+        classStatus: "AccettaScient"
+    },
+    function(jsonData, status) {
+        
+        });
+}

@@ -49,6 +49,11 @@
                 <jsp:include page="/GetSectionEduClassDivs"></jsp:include>
 
             </div>
+            <input type="button" id="saveDraftBtn" value="Salva come bozza" onclick="saveSectionDraft();">
+            <input type="button" id="submitBtn" value="Sottometti" onclick="submitSectionProgram();">
+            <input type="button" id="requestModBtn" value="Richiedi modifiche" onclick="requestModSectProg();">
+            <input type="button" id="acceptDocRectBtn" value="Accetta documento" onclick="acceptDocumentRect();">
+            <input type="button" id="acceptDocScientBtn" value="Accetta documento" onclick="acceptDocumentScient();">
         </div>
 
         <%@include file="footer.jsp" %>

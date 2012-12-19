@@ -22,6 +22,10 @@ public interface IAccessFacade {
     public Account getParentById(int pParentId) throws SQLException;
 
     public List<ClassBean> getClasses() throws SQLException;
+    
+    public List<ClassBean> search(ClassBean pClass) throws SQLException;
+    
+    public void update(ClassBean pClass) throws SQLException;
 
     public List<RegistrationChild> search(RegistrationChild pRegistrationChild) throws SQLException;
 
