@@ -107,8 +107,8 @@ function updateNews(id,title,description,type,data,time,allegato){
                    
             },
             dataNews:{
-                required:true//,
-                //data:true
+                required:true,
+                date:true
             }
         },
         messages: {
@@ -123,7 +123,8 @@ function updateNews(id,title,description,type,data,time,allegato){
                 remote: "Non puoi selezionare il primo item."
             },
             dataNews:{
-                required:"Selezionare la data"
+                required:"Selezionare la data",
+                date:"Selezionare la data corretta"
             }
         },
         submitHandler: function() { 
@@ -142,14 +143,45 @@ function updateNews(id,title,description,type,data,time,allegato){
                 idNews:""+id               
             });
         
-            if(attached!="")
-            {
-                document.getElementById("updateNewsForm").action="UploadFile";
-                $("#updateNewsForm").submit();
-            }    
-            else
+            if(attached!="") {
+                $('form[name="updateNewsForm"]').on('submit', function(e) {
+                    e.preventDefault();
+                    $.ajax({
+                        type: 'POST',
+                        url: '/UploadFile',
+                        data: "scegliFile=" + $("#scegliFile") + "&nomeNews=" +  $("#artefactTitolo2").val(),
+                        cache: false,
+                        contentType: "multipart/form-data",
+                        processData: false,
+                        success: function(data){
+                            alert(data);
+                        },
+                          error: function()
+                    {
+                        alert("Chiamata fallita, si prega di riprovare...");
+                    }
+                    });
+                });
+//                $.ajax({
+//                    type: "POST",
+//                    url: "/kids/UploadFile",
+//                    data: "scegliFile=" + $("#scegliFile") + "&nomeNews=" +  $("#artefactTitolo2").val(),
+//                    dataType: "html",
+//                    contentType: 'multipart/form-data',
+//                    success: function(msg)
+//                    {
+//                        $("#risultato").html(msg);
+//                    },
+//                    error: function()
+//                    {
+//                        alert("Chiamata fallita, si prega di riprovare...");
+//                    }
+//                });
+            //  document.getElementById("updateNewsForm").action="UploadFile";
+            //$("#updateNewsForm").submit();
+            }else{
                 document.getElementById("updateNewsForm").action="";
-            
+            }
             $("#updateNewsWindow").dialog("close"); 
             //   var oTable = $("#linksTable").dataTable();
             //   oTable.fnDraw();
@@ -217,8 +249,8 @@ function addNews(){
                    
                 },
                 dataNews:{
-                    required:true//,
-                    //data:true
+                    required:true,
+                    date:true
                 }
             },
             messages: {
@@ -233,15 +265,16 @@ function addNews(){
                     remote: "Non puoi selezionare il primo item."
                 },
                 dataNews:{
-                    required:"Selezionare la data"
+                    required:"Selezionare la data",
+                    date:"Seleziona la data corretta"
                 }
                 
             },
             submitHandler: function() {
                 var attached=$("#addLinkButton2").val();
                 var str=attached.split("\\");
-                var s=str[str.length-1];  
-               $.post("InsertNews", {
+                var s=str[str.length-1];
+                $.post("InsertNews", {
                     artefactTitolo: $("#artefactTitolo").val(),
                     artefactDescrizione: $("#artefactDescrizione").val(),
                     artefactTipo: $("#artefactTipo").val(),
@@ -250,7 +283,7 @@ function addNews(){
                     attachedName:s
                 });
                 
-                 if(attached!="")
+                if(attached!="")
                     document.getElementById("addLinkForm").action="UploadFile";
                 else
                     document.getElementById("addLinkForm").action="";
