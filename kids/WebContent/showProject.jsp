@@ -38,6 +38,7 @@
             $(document).ready(function() {
                 activePage();
                 initializeLinksManager();
+                showComments();
             });
         </script>
         <title>Kids</title>
@@ -47,6 +48,39 @@
             <label class="artefactLabel" for="file">File:</label>
             <input type="file"  id="scegliFile"  value="Scegli il file" name="scegliFile"></input>
             <input type="submit" class="windowButton" id="sottometti" value="Salva Bozza"/>                 
+        </form>
+    </div>
+    <div id="insertCommentoWindow" title="Inserisci Commento" style="display: inline">
+        <form id="insertCommentoForm" class="cmxform" method="post" action="">
+            <fieldset>
+                <table>
+                    <tr>
+                    <p style="text-align: left;" class="formp">
+                    <td>
+                        <label class="artefactLabel" for="artefactTitolo">Data *</label>
+                    </td>
+                    <td>
+                        <input id="dataCommento" type="text" name="data" ></input>                                         
+                    </td>
+                    </p>
+                    </tr>
+                    <tr>
+                    <p style="text-align: left;" class="formp">
+                    <td>
+                        <label class="artefactLabel" for="artefactDescrizione">Contenuto *</label>
+                    </td>
+                    <td>  
+                        <textarea id="contenutoCommento"rows="5" cols="25" name="contenutoCommento"></textarea>
+                    </td>
+                    </p>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" class="windowButton" id="submitCommento" value="Ok"/>                 
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>  
         </form>
     </div>
     <body>
@@ -81,7 +115,10 @@
             </div>
             <h1 style="font-size: 24px">Possibili Commenti</h1>                
             <c:if test="${sessionScope.user.getAccountType()=='Responsabile Scientifico'}" >
-                <input type="button" style="margin-bottom: 5px;height: 30px" id="insertCommentoDaResp" value="Inserisci Commento" />
+                <input type="button" style="margin-bottom: 5px;height: 30px" id="insertCommento" onclick="insertCommento()"value="Inserisci Commento" />
+            </c:if>
+            <c:if test="${sessionScope.user.getAccountType()=='Delegato del rettore'}" >
+                <input type="button" style="margin-bottom: 5px;height: 30px" id="insertCommento" onclick="insertCommento()" value="Inserisci Commento" />
             </c:if>
             <%@include file="commentEdu.jsp" %>
         </div>
