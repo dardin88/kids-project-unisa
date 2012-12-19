@@ -87,7 +87,7 @@ public class GetDailyActivitySectionServlet extends HttpServlet {
             }
             int idSection = Integer.parseInt(request.getParameter("id"));
             DailyActivitySection dailyActivitySection = new DailyActivitySection();
-            dailyActivitySection.setId(idSection);
+            dailyActivitySection.setIdSection(idSection);
             listDailyActivitySections = manager.search(dailyActivitySection);
 
 
@@ -123,9 +123,9 @@ public class GetDailyActivitySectionServlet extends HttpServlet {
                     ja.put(list.get(0).getNameUser()+" "+list.get(0).getSurnameUser());
 
 
-                    //String operazioni = "Conferma?<input type=\"checkbox\" id=\"" + timeService.getId() + "\" onclick=\"updateTimeServiceRequest('" + timeService.getId() + "',this)\"";
+                   String operazioni = "<input class='tableImage' type='image' src='img/trash.png' onclick='removeDailyActivity(\"" + das.getId()+ "\",\""+das.getIdSection()+"\")'/><input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/lente.gif' onclick='loadInformationDailyActivity(\""+das.getId()+"\")'/>";
 
-                    ja.put("");
+                    ja.put(operazioni);
                     array.put(ja);
                 }
             }

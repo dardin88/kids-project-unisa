@@ -34,7 +34,7 @@ public class JDBCActivityManager implements IActivityManager {
 
     @Override
     public void insert(DailyActivitySection pProject) throws SQLException {
-         Connection con = null;
+        Connection con = null;
         PreparedStatement pstmt = null;
         String query;
 
@@ -81,10 +81,33 @@ public class JDBCActivityManager implements IActivityManager {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         String query = null;
+        boolean andState = false;
         List<DailyActivitySection> toReturn = new ArrayList<DailyActivitySection>();
-        query = "SELECT * FROM " + DBNames.TABLE_DAILY_SECTION_ACT + " WHERE " + DBNames.ATT_ACTIVITYSECTTIONDAILY_SECTIONID + "='" + pDailyActivitySection.getId() + "' ORDER BY "+DBNames.ATT_ACTIVITYSECTTIONDAILY_DATE;
+        query = "SELECT * FROM " + DBNames.TABLE_DAILY_SECTION_ACT + " WHERE";
+        if (pDailyActivitySection.getId() > 0) {
+            query += " " + useAnd(andState) + DBNames.ATT_ACTIVITYSECTTIONDAILY_ID + " = ?";
+            andState = true;
+        }
+        if (pDailyActivitySection.getIdSection() > 0) {
+            query += " " + useAnd(andState) + DBNames.ATT_ACTIVITYSECTTIONDAILY_SECTIONID + " = ?";
+            andState = true;
+        }
+        query += " ORDER BY " + DBNames.ATT_ACTIVITYSECTTIONDAILY_DATE;
+        System.out.println(query);
+
         con = DBConnectionPool.getConnection();
+
         pstmt = con.prepareStatement(query);
+        int i = 1;
+        if (pDailyActivitySection.getId() > 0) {		// >= 0 ??
+            pstmt.setInt(i, pDailyActivitySection.getId());
+            i++;
+        }
+
+        if (pDailyActivitySection.getIdSection() > 0) {		// >= 0 ??
+            pstmt.setInt(i, pDailyActivitySection.getIdSection());
+            i++;
+        }
         rs = pstmt.executeQuery();
         while (rs.next()) {
             DailyActivitySection dailyActivitySection = new DailyActivitySection();
@@ -461,5 +484,28 @@ public class JDBCActivityManager implements IActivityManager {
             }
         }
         return comments;
+    }
+
+    public void remove(DailyActivitySection pDailyActivitySection) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        String query = null;
+        try {
+            con = DBConnectionPool.getConnection();
+            query = "DELETE FROM " + DBNames.TABLE_ACTIVITYSECTIONDAILY + " WHERE " + DBNames.ATT_ACTIVITYSECTTIONDAILY_ID + "='" + pDailyActivitySection.getId()+"'";
+           System.out.println(query);
+            pstmt = con.prepareStatement(query);
+            pstmt.executeUpdate();
+            con.commit();
+        } finally {
+
+            if (pstmt != null) {
+                pstmt.close();
+            }
+            if (con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+
+        }
     }
 }

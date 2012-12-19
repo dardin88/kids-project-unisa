@@ -37,7 +37,20 @@
             });
         </script>
     </head>
-   
+    <div id="informationDailyActivityWindow" title="Informazioni Attivita" style="display: inline;">
+            <table>
+                
+                <tr><td>Nome</td><td><input id="Nome" type="text" name="Nome" value=""  disabled="true"></td></tr>
+                <tr><td>Data</td><td><input type="text" name="Data" id="Data" value="" disabled="true" ></td></tr>
+                <tr><td>Educatore</td><td><input type="text" name="Educatore" id="Educatore" value=""disabled="true" ></td></tr>
+                <tr><td>Note</td><td><textarea name="Note" id="Note" value=""disabled="true" cols="20" rows="5" style="resize: none" ></textarea></td></tr>
+                
+
+
+            </table>
+            
+    
+    </div>
     <body>
         <%@include file="header.jsp" %>
 
