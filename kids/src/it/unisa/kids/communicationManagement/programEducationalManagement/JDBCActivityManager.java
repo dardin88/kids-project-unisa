@@ -533,7 +533,7 @@ public class JDBCActivityManager implements IActivityManager {
 
             // constructing query string
             query = "DELETE FROM " + DBNames.TABLE_ACT
-                    + "WHERE " + DBNames.ATT_ACTIVITY_ID + " = " + pActivity.getId();
+                    + " WHERE " + DBNames.ATT_ACTIVITY_ID + " = " + pActivity.getId();
 
             stmt = con.createStatement();
             stmt.executeUpdate(query);

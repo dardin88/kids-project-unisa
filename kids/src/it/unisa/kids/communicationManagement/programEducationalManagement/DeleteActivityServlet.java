@@ -4,12 +4,13 @@
  */
 package it.unisa.kids.communicationManagement.programEducationalManagement;
 
-import it.unisa.kids.accessManagement.classManagement.ClassBean;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -52,11 +53,11 @@ public class DeleteActivityServlet extends HttpServlet {
             removeActivity.setId(activityId);
             activityManager.delete(removeActivity);
             
-            
-            jObj.put("message", "Richiesta effettuata");
+            jObj.put("message", "Attivit&agrave; eliminata");
             out.print(jObj);
         } catch (SQLException e) {
-            jObj.put("message", "Errore durante la richiesta");
+            e.printStackTrace();
+            jObj.put("message", "Errore durante l'eliminazione");
         } finally {
             out.close();
         }
