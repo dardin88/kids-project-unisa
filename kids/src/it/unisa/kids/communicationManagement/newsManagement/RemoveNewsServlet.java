@@ -4,12 +4,15 @@
  */
 package it.unisa.kids.communicationManagement.newsManagement;
 
+import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +24,13 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class RemoveNewsServlet extends HttpServlet {
 
+    private INewsManager newsManager;
+
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        RefinedAbstractManager refinedAbstractNewsManager = RefinedAbstractManager.getInstance();
+        newsManager = (INewsManager) refinedAbstractNewsManager.getManagerImplementor(DBNames.TABLE_NEWS);
+    }
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -36,7 +46,6 @@ public class RemoveNewsServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            INewsManager am = JDBCNewsManager.getInstance();
             String temp = request.getParameter("idNews");
             String allegato = request.getParameter("allegatoName");
             String titolo=request.getParameter("titoloFile");
@@ -49,7 +58,7 @@ public class RemoveNewsServlet extends HttpServlet {
             int id = Integer.parseInt(temp);
             News n = new News();
             n.setId(id);
-            am.delete(n);
+            newsManager.delete(n);
         } catch (SQLException ex) {
             Logger.getLogger(RemoveNewsServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

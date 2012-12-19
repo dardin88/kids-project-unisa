@@ -49,7 +49,7 @@ public class JDBCProgramEducational implements IProgramEducational {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public void insertComment(CommentoBean toAdd) throws SQLException {
+    public void insertComment(CommentBean toAdd) throws SQLException {
         Connection con = DBConnectionPool.getConnection();
         PreparedStatement pstmt = null;
 
@@ -81,9 +81,9 @@ public class JDBCProgramEducational implements IProgramEducational {
         }
     }
 
-    public ArrayList<CommentoBean> getComments(AnnualProjectSection toView) throws SQLException {
+    public ArrayList<CommentBean> getComments(AnnualProjectSection toView) throws SQLException {
         ResultSet rs = null;
-        ArrayList<CommentoBean> toReturn = new ArrayList<CommentoBean>();
+        ArrayList<CommentBean> toReturn = new ArrayList<CommentBean>();
         String query = "SELECT * FROM " + DBNames.TABLE_COMMENT
                 + " WHERE " + DBNames.ATT_COMMENT_ID + " = " + toView.getId();
         PreparedStatement pstm;
@@ -92,7 +92,7 @@ public class JDBCProgramEducational implements IProgramEducational {
         pstm = con.prepareStatement(query);
         rs = pstm.executeQuery();
         while (rs.next()) {
-            CommentoBean toAdd = new CommentoBean();
+            CommentBean toAdd = new CommentBean();
             GregorianCalendar todata = new GregorianCalendar();
             toAdd.setContenuto(rs.getString(DBNames.ATT_COMMENT_DESCRIPTION));
             todata.setTimeInMillis(rs.getDate(DBNames.ATT_COMMENT_DATE).getTime());
@@ -149,6 +149,7 @@ public class JDBCProgramEducational implements IProgramEducational {
         con.commit();
         return getProject(project);
     }
+    
     public int getProject(AnnualProject project){
         try {
             Connection con= DBConnectionPool.getConnection();
@@ -179,37 +180,6 @@ public class JDBCProgramEducational implements IProgramEducational {
         } catch (SQLException ex) {
             Logger.getLogger(JDBCProgramEducational.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    public void insertProgramEducational(AnnualProjectSection pAnnualProject) throws SQLException {
-        Connection con = null;
-        PreparedStatement pstmt = null;
-        try {
-            con = DBConnectionPool.getConnection();
-            String query = "INSERT INTO " + DBNames.TABLE_ACTIVITYSECTIONDAILY + " ("
-                    //+ DBNames.ATT_PROJECTANNUALSECTION_ID + ", "
-                    + DBNames.ATT_PROJECTANNUALSECTION_SECTION + ", "
-                    + DBNames.ATT_PROJECTANNUALSECTION_IDYEAR + ", "
-                    + DBNames.ATT_PROJECTANNUALSECTION_NAME + ", "
-                    + DBNames.ATT_PROJECTANNUALSECTION_DESCRIPTION + ", "
-                    + ") VALUES(?,?,?,?)";
-
-            pstmt = con.prepareStatement(query);
-            pstmt.setInt(1, pAnnualProject.getSection());
-            pstmt.setInt(2, pAnnualProject.getIdYear());
-            pstmt.setString(3, pAnnualProject.getName());
-            pstmt.setString(4, pAnnualProject.getDescription());
-            pstmt.executeUpdate();
-            con.commit();
-        } finally {
-            if (pstmt != null) {
-                pstmt.close();
-            }
-            if (con != null) {
-                DBConnectionPool.releaseConnection(con);
-            }
-        }
-
     }
 
     @Override
@@ -247,7 +217,7 @@ public class JDBCProgramEducational implements IProgramEducational {
     @Override
     public ArrayList<AnnualProject> show() throws SQLException {
        Connection  con = DBConnectionPool.getConnection();
-       ArrayList<AnnualProject> list=new ArrayList<AnnualProject>();
+       ArrayList<AnnualProject> list=new ArrayList<>();
        Statement stmt=null;
        ResultSet rs=null;
        String query="select * from "+DBNames.TABLE_ANNUAL_PROJ;
@@ -262,5 +232,10 @@ public class JDBCProgramEducational implements IProgramEducational {
            list.add(a);
        }
        return list;
+    }
+
+    @Override
+    public void insertProgramEducational(AnnualProjectSection pAnnual) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

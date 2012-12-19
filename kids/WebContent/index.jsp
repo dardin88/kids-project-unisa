@@ -41,7 +41,7 @@
     </c:if>
 
     <c:if test="${sessionScope.user.getAccountType()=='Delegato del rettore'}"> 
-        <c:redirect url="rectorDelegatePage.jsp" />
+        <c:redirect url="DelegatoRettore.jsp" />
     </c:if>
 
     <c:if test="${sessionScope.user.getAccountType()=='Responsabile Asilo'}"> 

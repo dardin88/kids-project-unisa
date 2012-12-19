@@ -1,7 +1,3 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 function initializeLinksManager(){
     $.ajaxSetup({
         cache: false
@@ -14,8 +10,12 @@ function initializeLinksManager(){
         width: 400
     });
     
-    $("#submitProjectAnnualButton").button();
-    $("#confirmProjectAnnualButton").button();
+    $("#draftCoord").button();
+    $("#submitCoord").button();
+    $("#acceptResp").button();
+    $("#acceptDeleg").button();
+    $("#requestModify").button();
+    buildShowTable();
 
 }
 
@@ -34,29 +34,16 @@ function uploadFile(){
     }));
 }
 
-function submit(id){
-    if(id!=null){
-        $.post("SubmitProject",{
-            idProgetto:id
-        });
-        alert("Progetto Sottomesso!");
-        buildShowTable();
-    }else{
-        alert("Effettuare prima il caricamento della bozza");
-    }
-}
-
 function buildShowTable(){
     $.post("ShowProject", 
         function (data){ 
             var result=data.split(",");
-            alert(result[1]);
-            if(result[1]=="Sottomesso"){
-                $("#submitProjectAnnualButton").attr("disabled", "disabled");
-                $("#confirmProjectAnnualButton").attr("disabled","disabled");
-            }
-            $("#mostraPath").html(result[0]);
-            $("#mostraStato").html(result[1]);
+//            if(result[1]=="Sottomesso"){
+//                $("#submitProjectAnnualButton").attr("disabled", "disabled");
+//                $("#confirmProjectAnnualButton").attr("disabled","disabled");
+//            }
+          $("#mostraPath").html("<a style=\"color:black;background:none;\" href=\"DownloadProject?nameFile="+result[0]+"\">"+result[0]+"</a>");
+          $("#mostraStato").html(result[1]);
         },"text");
 }
 

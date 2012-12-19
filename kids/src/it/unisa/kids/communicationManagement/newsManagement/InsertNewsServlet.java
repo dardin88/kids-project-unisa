@@ -5,6 +5,8 @@
 package it.unisa.kids.communicationManagement.newsManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -14,6 +16,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +30,13 @@ import javax.servlet.http.HttpSession;
 public class InsertNewsServlet extends HttpServlet {
     private PrintWriter out;
 
-  
+  private INewsManager newsManager;
+
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        RefinedAbstractManager refinedAbstractNewsManager = RefinedAbstractManager.getInstance();
+        newsManager = (INewsManager) refinedAbstractNewsManager.getManagerImplementor(DBNames.TABLE_NEWS);
+    }
 
     /**
      * Processes requests for both HTTP
@@ -43,7 +52,6 @@ public class InsertNewsServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             out=response.getWriter();
-            INewsManager mn=JDBCNewsManager.getInstance();
             News n=new News();
             n.setTitle(request.getParameter("artefactTitolo"));
             n.setDescription(request.getParameter("artefactDescrizione"));
@@ -80,7 +88,7 @@ public class InsertNewsServlet extends HttpServlet {
                 Time t = new Time(0, 0, 0);
                 n.setTime(t);
             }
-            mn.insert(n);
+            newsManager.insert(n);
         } catch (SQLException ex) {
             Logger.getLogger(InsertNewsServlet.class.getName()).log(Level.SEVERE, null, ex);
         } 

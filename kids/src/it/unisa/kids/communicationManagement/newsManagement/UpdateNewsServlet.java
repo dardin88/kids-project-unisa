@@ -6,6 +6,9 @@
 package it.unisa.kids.communicationManagement.newsManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.RefinedAbstractManager;
+import it.unisa.kids.communicationManagement.programEducationalManagement.IProgramEducational;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,6 +17,7 @@ import java.sql.Time;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +29,15 @@ import javax.servlet.http.HttpSession;
  * @author francesco
  */
 public class UpdateNewsServlet extends HttpServlet {
+
+    
+    private INewsManager newsManager;
+
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        RefinedAbstractManager refinedAbstractNewsManager = RefinedAbstractManager.getInstance();
+        newsManager = (INewsManager) refinedAbstractNewsManager.getManagerImplementor(DBNames.TABLE_NEWS);
+    }
 
     /**
      * Processes requests for both HTTP
@@ -44,7 +57,6 @@ public class UpdateNewsServlet extends HttpServlet {
             PrintWriter out = response.getWriter();
             String vecchioAllegato = request.getParameter("oldAllegato");
             String vecchioTitolo = request.getParameter("oldTitolo");
-            INewsManager mn = JDBCNewsManager.getInstance();
             News n = new News();
             String newTitle = request.getParameter("artefactTitolo");
             n.setTitle(newTitle);
@@ -91,7 +103,7 @@ public class UpdateNewsServlet extends HttpServlet {
                 Time t = new Time(0, 0, 0);
                 n.setTime(t);
             }
-            mn.update(n, flag);
+            newsManager.update(n, flag);
         } catch (SQLException ex) {
             Logger.getLogger(InsertNewsServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

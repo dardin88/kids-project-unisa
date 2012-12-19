@@ -3,7 +3,7 @@
     <display-name>kids</display-name>
     <context-param>
         <param-name>attachedFileFolder</param-name>
-        <param-value>C:\Users\Gianmarco\Documents\kids_attached</param-value>
+        <param-value>/home/francesco/attached</param-value>
     </context-param>
     <context-param>
         <param-name>projectFileFolder</param-name>
@@ -585,6 +585,10 @@
         <servlet-name>RemoveDailyActivitySectionServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.programEducationalManagement.RemoveDailyActivitySectionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DownloadProjectServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.programEducationalManagement.DownloadProjectServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
@@ -1164,6 +1168,10 @@
     <servlet-mapping>
         <servlet-name>RemoveDailyActivitySectionServlet</servlet-name>
         <url-pattern>/RemoveDailyActivitySection</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>DownloadProjectServlet</servlet-name>
+        <url-pattern>/DownloadProject</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

@@ -1,12 +1,11 @@
 package it.unisa.kids.accessManagement.accountManagement;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 import it.unisa.kids.communicationManagement.programEducationalManagement.AnnualProject;
 import it.unisa.kids.communicationManagement.programEducationalManagement.AnnualProjectSection;
 import it.unisa.kids.communicationManagement.programEducationalManagement.CommentoBean;
 import it.unisa.kids.communicationManagement.programEducationalManagement.IProgramEducational;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ScientificResponsable extends Account implements IProgramEducational {
 
@@ -76,6 +75,21 @@ public class ScientificResponsable extends Account implements IProgramEducationa
 
     @Override
     public void updateProgramEducational(AnnualProjectSection toUpdate) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void updateProgramEducational(AnnualProject pProject) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public int insertPathProject(AnnualProject project) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public ArrayList<AnnualProject> show() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
