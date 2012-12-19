@@ -76,15 +76,15 @@
         <div id="classificationAddWindow" name="classificationAddWindow" title="Crea una nuova graduatoria" style="display: inline">
             <form id="classificationAddWindowForm" name="classificationAddWindowForm" class="cmxform" method="post" action="">
                 <fieldset>
-                    <div>
+                    <div><br>
                         <p>
                             <label>Nome</label>
                             <input type="text" id="classificationAddWindowNome" name="classificationAddWindowNome"  maxlength="30"/>
                             <label class="error" style="display:inline;" id="classificationAddWindowNomeError" name="classificationAddWindowNomeError"></label>
-                        </p>
+                        </p><br>
                         <p>
-                            <input type="button" id="classificationAddWindowSave" onClick="saveNewGraduatoria();" value="Crea" />
-                            <input type="button" id="classificationAddWindowUndo" value="Annulla" />
+                            <input style="width: 200px" type="button" id="classificationAddWindowSave" onClick="saveNewGraduatoria();" value="Crea" />
+                            <input style="width: 200px" type="button" id="classificationAddWindowUndo" value="Annulla" />
                         </p>
                     </div>
                 </fieldset>
@@ -126,20 +126,19 @@
         <%-- FINESTRA DI VISUALE IN DETTAGLIO DELLA GRADUATORIA E DEI SUOI RISULTATI --%>
         <div id="classificationDisplay" style="display: none;">
             <div id="classificationDisplayInfo" name="classificationFormWindowInfo">
-                <h2>Dettagli della graduatoria</h2>
                 <p class="formp"> 
-                <legend><h3>Data Creazione:</h3></legend>
+                <legend><h3 style="float: left; margin-right: 2%">Data Creazione:</h3></legend>
                 <input id="classificationDisplayData" name="classificationDisplayData" disabled="disabled" type="text">
                 </p>
                 <p class="formp"> 
-                <legend><h3>Nome:</h3></legend>
+                <legend><h3 style="float: left; margin-right: 2%">Nome:</h3></legend>
                 <input id="classificationDisplayNome" name="classificationDisplayNome" disabled="disabled" type="text">
                 </p>
                 <p class="formp"> 
-                <legend><h3>Status:</h3></legend>
+                <legend><h3 style="float: left; margin-right: 2%">Status:</h3></legend>
                 <input id="classificationDisplayStatus" name="classificationDisplayStatus" disabled="disabled" type="text">
                 </p>
-            </div>
+            </div><br>
             <div id="classificationDisplaySubmit">
                 <input id="classificationDisplayId" name="classificationDisplayId" type="hidden">
                 <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
@@ -148,7 +147,7 @@
                     <input type="button" id="classificationRendiDefinitivaButton" name="classificationRendiDefinitivaButton" onClick="openWindowToDefinitivaFromDetails();" value="Rendi definitiva" />
                 </c:if>
                 <input type="button" id="classificationCloseDetailsButton" name="classificationCloseDetailsButton" onClick="closeDetailsClassification();" value="Torna all'elenco delle grauatorie" />
-            </div>
+            </div><br>
             <div id="classificationDisplayResultTable">
                 <table id="classificationResultTable">
                     <thead>

@@ -36,15 +36,6 @@ function CalendarNotEditable() {
                 $("#showSecondTimeMeeting").html(result[5]);
                 $("#showTypeMeeting").html(result[6]);
                 
-                var firstHour = result[4].split(":");
-                var secondHour = result[5].split(":");
-                $("#modifyIdMeeting").val(event.id);
-                $("#modifyTitleMeeting").val(result[1]);
-                $("#modifyDescriptionMeeting").html(result[2]);
-                $("#modifyDataMeeting").val(result[3]);
-                $("#modifyStartTime").val(firstHour[0]+":"+firstHour[1]);
-                $("#modifyEndTime").val(secondHour[0]+":"+secondHour[1]);
-                setModifyValue(result[6]);
             })
         }
         
@@ -88,6 +79,7 @@ function CalendarEditable() {
                 $("#showFirstTimeMeeting").html(result[4]);
                 $("#showSecondTimeMeeting").html(result[5]);
                 $("#showTypeMeeting").html(result[6]);
+                $("#showStateMeeting").html(result[7]);
                 
                 var firstHour = result[4].split(":");
                 var secondHour = result[5].split(":");
@@ -98,6 +90,7 @@ function CalendarEditable() {
                 $("#modifyStartTime").val(firstHour[0]+":"+firstHour[1]);
                 $("#modifyEndTime").val(secondHour[0]+":"+secondHour[1]);
                 setModifyValue(result[6]);
+                setModifyState(result[7]);
             },"text")
         }
         
@@ -187,7 +180,8 @@ function addMeetingManager(){
             meetingData: $("#dataMeeting").val(),
             meetingOraInizio: $("#startTime").val()+":00",
             meetingOraFine: $("#endTime").val()+":00",
-            meetingTipo: getTypeValue()
+            meetingTipo: getTypeValue(),
+            meetingStato: $("#state").val()
         });
         $("#addMeetingWindow").dialog("close");
         location.href = "./meetingCalendar.jsp";
@@ -255,7 +249,9 @@ function modifyMeetingManager(){
             modifyData: $("#modifyDataMeeting").val(),
             modifyOraInizio: $("#modifyStartTime").val()+":00",
             modifyOraFine: $("#modifyEndTime").val()+":00",
-            modifyTipo: getModifyTypeValue()
+            modifyTipo: getModifyTypeValue(),
+            modifyStato: $("#modifyState").val()
+
         });
         $("#modifyMeetingWindow").dialog("close");
         location.href = "./meetingCalendar.jsp";
@@ -453,3 +449,11 @@ function setModifyValue(valore) {
     if (valore.substr(0, 15)=='Scuola-Famiglia') indice = 2
     document.forms["modifyForm"].Tipo[indice].checked=true; 
 } 
+
+function setModifyState(valore) { 
+    var indice=0; 
+    if (valore.substr(0, 14)=='Non Confermato') 
+        document.getElementById('modifyState').options[0].selected=true;
+    if (valore.substr(0, 10)=='Confermato')
+        document.getElementById('modifyState').options[1].selected=true;
+        } 

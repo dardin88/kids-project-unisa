@@ -109,15 +109,15 @@
             <form id="renunciationAddWindowForm" name="renunciationAddWindowForm" class="cmxform" method="post" action="">
                 <fieldset>
                     <div>
-                        <p>
+                        <p><br>
                             <label>Motivo</label>
                             <input type="text" id="renunciationAddWindowMotivo" name="renunciationAddWindowMotivo"  maxlength="50"/>
                             <label class="error" style="display:inline;" id="renunciationAddWindowMotivoError" name="renunciationAddWindowMotivoError"></label>
-                        </p>
+                        </p><br>
                         <p>
                             <input type="hidden" id="renunciationAddWindowId" name="renunciationAddWindowId" />
-                            <input type="button" id="renunciationAddWindowMotivoSave" onClick="saveNewRenunciation();" value="Sottometti" />
-                            <input type="button" id="renunciationAddWindowMotivoUndo" value="Annulla" />
+                            <input style="width: 200px" type="button" id="renunciationAddWindowMotivoSave" onClick="saveNewRenunciation();" value="Sottometti" />
+                            <input style="width: 200px" type="button" id="renunciationAddWindowMotivoUndo" value="Annulla" />
                         </p>
                     </div>
                 </fieldset>

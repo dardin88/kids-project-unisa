@@ -116,7 +116,7 @@
     </head>
 
 
-
+    <%-- Blocco div per visualizzare una riunione --%>
     <div id="showMeetingWindow" title="Visualizza Riunione" style="display: inline">
 
         <form id="showMeetingForm" class="cmxform" method="post" action="">
@@ -138,84 +138,103 @@
                                     <label style="float: left; margin-left: 2%;" id="showFirstTimeMeeting" name="showFirstTimeMeeting"></label>
                                     <label class="hourLabel" style="float: left"><h3> Ora Fine: </h3></label>
                                     <label style="margin-left: 2%;"id="showSecondTimeMeeting" name="showSecondTimeMeeting"></label> <br>  
-                                        </p>
-                                        <p class="formp"> 
-                                            <label> <h3 style="float: left"> Tipologia: </h3></label>
-                                            <label style="margin-left: 2%;" id="showTypeMeeting" name="showTypeMeeting"></label> <br> <br>
-                                                    </p>
-                                                    <p style="width: 480px">
-                                                        <c:if test="${sessionScope.user.getAccountType()=='Admin'||sessionScope.user.getAccountType()=='Segreteria'||sessionScope.user.getAccountType()=='Responsabile Asilo'||sessionScope.user.getAccountType()=='Delegato del rettore'}">                                                           
-                                                            <input type="button" id="modifyMeetingButton" value="Modifica Riunione" />
-                                                            <input type="button" id="deleteMeetingButton" value="Elimina Riunione" />
-                                                        </c:if>
-                                                        <input style="width: 140px" type="button" id="notMeetingButton" value="Annulla" />
-                                                    </p>
-                                                    </div>
-                                                    </fieldset>
-                                                    </form>
-                                                    </div>
+                                        </p><br>
+                                            <p class="formp"> 
+                                                <label> <h3 style="float: left"> Tipologia: </h3></label>
+                                                <label style="margin-left: 2%;" id="showTypeMeeting" name="showTypeMeeting"></label> 
+                                            </p><br> 
+                                                <c:if test="${sessionScope.user.getAccountType()=='Admin'||sessionScope.user.getAccountType()=='Segreteria'||sessionScope.user.getAccountType()=='Responsabile Asilo'||sessionScope.user.getAccountType()=='Delegato del rettore'}"> 
+                                                    <p class="formp"> 
+                                                        <label> <h3 style="float: left"> Stato: </h3></label>
+                                                        <label style="margin-left: 2%;" id="showStateMeeting" name="showStateMeeting"></label> <br> <br>
+                                                                </p><br> 
+                                                                </c:if>
+                                                                    <p style="width: 480px">
+                                                                        <c:if test="${sessionScope.user.getAccountType()=='Admin'||sessionScope.user.getAccountType()=='Segreteria'||sessionScope.user.getAccountType()=='Responsabile Asilo'||sessionScope.user.getAccountType()=='Delegato del rettore'}">                                                           
+                                                                            <input type="button" id="modifyMeetingButton" value="Modifica Riunione" />
+                                                                            <input type="button" id="deleteMeetingButton" value="Elimina Riunione" />
+                                                                        </c:if>
+                                                                        <input style="width: 140px" type="button" id="notMeetingButton" value="Annulla" />
+                                                                    </p>
+                                                                    </div>
+                                                                    </fieldset>
+                                                                    </form>
+                                                                    </div>
+
+                                                                    <%-- Fine blocco div per visualizzare una riunione --%>
 
 
+                                                                    <%-- Blocco div per inserire una riunione --%>
 
-                                                    <div id="newMeetingWindow" title="Inserisci Riunione" style="display: inline">
+                                                                    <div id="newMeetingWindow" title="Inserisci Riunione" style="display: inline">
 
-                                                        <form id="newMeetingForm" name="insertForm" class="cmxform" method="post" action="">
-                                                            <fieldset>
-                                                                <div id="artefactsManagement">
-                                                                    <p class="formp">
-                                                                        <label ><h3> Titolo *: </h3></label> <br>
-                                                                            <input id="titleMeeting" name="Titolo" type="text" size=50% style="margin-right: 2%"> </input> <br> <br>
-                                                                                    </p>
+                                                                        <form id="newMeetingForm" name="insertForm" class="cmxform" method="post" action="">
+                                                                            <fieldset>
+                                                                                <div id="artefactsManagement">
                                                                                     <p class="formp">
-                                                                                        <label ><h3> Descrizione *: </h3></label> <br>
-                                                                                            <textarea id="descriptionMeeting" name="Descrizione" class="textarea" rows="5" cols=100%> 
-                                                                                            </textarea> <br> 
-                                                                                                </p>
-                                                                                                <p class="formp">
-                                                                                                    <label><h3 style="float: left"> Data * </h3></label> 
+                                                                                        <label ><h3> Titolo *: </h3></label> <br>
+                                                                                            <input id="titleMeeting" name="Titolo" type="text" size=50% style="margin-right: 2%"> </input> <br> <br>
+                                                                                                    </p>
+                                                                                                    <p class="formp">
+                                                                                                        <label ><h3> Descrizione *: </h3></label> <br>
+                                                                                                            <textarea id="descriptionMeeting" name="Descrizione" class="textarea" rows="5" cols=100%> 
+                                                                                                            </textarea> <br> 
+                                                                                                                </p>
+                                                                                                                <p class="formp">
+                                                                                                                    <label><h3 style="float: left"> Data * </h3></label> 
 
-                                                                                                    <label class="hourLabel" style="float: left"><h3> Ora * </h3></label> <br> <br>
-                                                                                                            <input type="text" id="dataMeeting" name="Data" style="margin-right: 2%">   </input>
-                                                                                                            <label> Inizio: </label>
-                                                                                                            <input type="text" name="OraInizio" id="startTime">
-                                                                                                                <label> Fine: </label>
-                                                                                                                <input type="text"  name="OraFine"  id="endTime" >
-                                                                                                                    </p>
-                                                                                                                    <p class="formp"> 
-                                                                                                                        <legend> <h3> Tipologia *: </h3></legend> <br>
-                                                                                                                            <ul >
-                                                                                                                                <input type="radio" id="typeMeetingComitato" name="Tipo" value="Comitato" checked > Riunione Comitato      
-                                                                                                                                    <input type="radio" id="typeMeetingGestione" name="Tipo" value="Consiglio Gestione" > Riunione Consiglio Di Gestione  
-                                                                                                                                        <input type="radio" id="typeMeetingScuola" name="Tipo" value="Scuola-Famiglia"> Riunione Scuola-Famiglia   
-                                                                                                                                            </ul> <br>
-                                                                                                                                                </p>
-                                                                                                                                                <p>
-                                                                                                                                                    <input type="submit" id="addMeetingButton" value="Inserisci Riunione" > </input>
-                                                                                                                                                    <input type="button" id="notAddMeetingButton" value="Annulla" > </input>
-                                                                                                                                                </p>
-                                                                                                                                                </div>
-                                                                                                                                                </fieldset>
-                                                                                                                                                </form>
-                                                                                                                                                </div>
+                                                                                                                    <label class="hourLabel" style="float: left"><h3> Ora * </h3></label> <br> <br>
+                                                                                                                            <input type="text" id="dataMeeting" name="Data" style="margin-right: 2%">   </input>
+                                                                                                                            <label> Inizio: </label>
+                                                                                                                            <input type="text" name="OraInizio" id="startTime">
+                                                                                                                                <label> Fine: </label>
+                                                                                                                                <input type="text"  name="OraFine"  id="endTime" >
+                                                                                                                                    </p>
+                                                                                                                                    <p class="formp"> 
+                                                                                                                                        <legend> <h3> Tipologia *: </h3></legend> <br>
+                                                                                                                                            <ul >
+                                                                                                                                                <input type="radio" id="typeMeetingComitato" name="Tipo" value="Comitato" checked > Riunione Comitato      
+                                                                                                                                                    <input type="radio" id="typeMeetingGestione" name="Tipo" value="Consiglio Gestione" > Riunione Consiglio Di Gestione  
+                                                                                                                                                        <input type="radio" id="typeMeetingScuola" name="Tipo" value="Scuola-Famiglia"> Riunione Scuola-Famiglia   
+                                                                                                                                                            </ul> <br>
+                                                                                                                                                                </p>
+                                                                                                                                                                <p class="formp"> 
+                                                                                                                                                                    <legend> <h3 style="float: left; margin-right: 2%"> Stato *: </h3></legend>
+                                                                                                                                                                    <select id="state">
+                                                                                                                                                                        <option value="Non confermato">Non confermato </option>
+                                                                                                                                                                        <option value="Confermato">Confermato </option>
+                                                                                                                                                                    </select>
+                                                                                                                                                                </p>
+                                                                                                                                                                <p>
+                                                                                                                                                                    <input type="submit" id="addMeetingButton" value="Inserisci Riunione" > </input>
+                                                                                                                                                                    <input type="button" id="notAddMeetingButton" value="Annulla" > </input>
+                                                                                                                                                                </p>
+                                                                                                                                                                </div>
+                                                                                                                                                                </fieldset>
+                                                                                                                                                                </form>
+                                                                                                                                                                </div>
+
+                                                                                                                                                                <%-- Fine blocco div per inserire una riunione --%>
 
 
+                                                                                                                                                                <%-- Blocco div per modificare una riunione --%>
 
-                                                                                                                                                <div id="modifyMeetingWindow" title="Modifica Riunione" style="display: inline">
+                                                                                                                                                                <div id="modifyMeetingWindow" title="Modifica Riunione" style="display: inline">
 
-                                                                                                                                                    <form id="modifyMeetingForm" name="modifyForm" class="cmxform" method="post" action="addMeetingServlet">
-                                                                                                                                                        <fieldset>
-                                                                                                                                                            <div id="artefactsManagement">
-                                                                                                                                                                <p class="formp">
-                                                                                                                                                                    <input id="modifyIdMeeting" name="Id" type="hidden" size=50%>
-                                                                                                                                                                        <label ><h3> Titolo: </h3></label> <br>
-                                                                                                                                                                            <input id="modifyTitleMeeting" name="Titolo" type="text" size=50%> <br> <br>
-                                                                                                                                                                                        </p>
-                                                                                                                                                                                        <p class="formp">
-                                                                                                                                                                                            <label ><h3> Descrizione: </h3></label> <br>
-                                                                                                                                                                                                <textarea id="modifyDescriptionMeeting" name="Descrizione" class="textarea" rows="5" cols=100%> 
-                                                                                                                                                                                                </textarea> <br> 
-                                                                                                                                                                                                    </p>
-                                                                                                                                                                                                    <p class="formp">
+                                                                                                                                                                    <form id="modifyMeetingForm" name="modifyForm" class="cmxform" method="post" action="addMeetingServlet">
+                                                                                                                                                                        <fieldset>
+                                                                                                                                                                            <div id="artefactsManagement">
+                                                                                                                                                                                <p class="formp">
+                                                                                                                                                                                    <input id="modifyIdMeeting" name="Id" type="hidden" size=50%>
+                                                                                                                                                                                        <label ><h3> Titolo: </h3></label> <br>
+                                                                                                                                                                                            <input id="modifyTitleMeeting" name="Titolo" type="text" size=50%> <br> <br>
+                                                                                                                                                                                                        </p>
+                                                                                                                                                                                                        <p class="formp">
+                                                                                                                                                                                                        <label ><h3> Descrizione: </h3></label> <br>
+                                                                                                                                                                                                        <textarea id="modifyDescriptionMeeting" name="Descrizione" class="textarea" rows="5" cols=100%> 
+                                                                                                                                                                                                        </textarea> <br> 
+                                                                                                                                                                                                        </p>
+                                                                                                                                                                                                        <p class="formp">
                                                                                                                                                                                                         <label><h3 style="float: left"> Data </h3></label> 
                                                                                                                                                                                                         <label class="hourLabel" style="float: left"><h3> Ora </h3></label> <br> <br>
                                                                                                                                                                                                         <input type="text" id="modifyDataMeeting" name="Data">  
@@ -230,8 +249,15 @@
                                                                                                                                                                                                         <input type="radio" id="modifyTypeMeetingComitato" name="Tipo" value="Comitato" > Riunione Comitato     
                                                                                                                                                                                                         <input type="radio" id="modifyTypeMeetingGestione" name="Tipo" value="Consiglio Gestione"> Riunione Consiglio Di Gestione  
                                                                                                                                                                                                         <input type="radio" id="modifyTypeMeetingScuola" name="Tipo" value="Scuola-Famiglia"> Riunione Scuola-Famiglia   
-                                                                                                                                                                                                        </ul> <br>
+                                                                                                                                                                                                        </ul> 
                                                                                                                                                                                                         </p>
+                                                                                                                                                                                                        <p class="formp"> 
+                                                                                                                                                                                                        <legend> <h3 style="float: left; margin-right: 2%"> Stato *: </h3></legend>
+                                                                                                                                                                                                        <select id="modifyState">
+                                                                                                                                                                                                        <option name="Stato" value="Non confermato">Non confermato </option>
+                                                                                                                                                                                                        <option name="Stato" value="Confermato">Confermato </option>
+                                                                                                                                                                                                        </select>
+                                                                                                                                                                                                        </p><br>
                                                                                                                                                                                                         <p style="width: 650px">
                                                                                                                                                                                                         <input type="submit" id="acceptModifyMeetingButton" value="Modifica Riunione" />
                                                                                                                                                                                                         <input style="width: 140px" type="button" id="notAcceptModifyMeetingButton" value="Annulla" />
@@ -241,8 +267,9 @@
                                                                                                                                                                                                         </form>
                                                                                                                                                                                                         </div>
 
+                                                                                                                                                                                                        <%-- Fine blocco div per visualizzare una riunione --%>
 
-
+                                                                                                                                                                                                        <%-- Blocco div per confermare l'inserimento di una riunione --%>
 
                                                                                                                                                                                                         <div id="addMeetingWindow" title="Inserisci Riunione" style="display: inline">
                                                                                                                                                                                                         <form id="addMeetingForm" class="cmxform" method="get" action="">
@@ -258,6 +285,9 @@
                                                                                                                                                                                                         </form>
                                                                                                                                                                                                         </div>
 
+                                                                                                                                                                                                        <%-- Fine blocco div per confermare l'inserimento di una riunione --%>
+
+                                                                                                                                                                                                        <%-- Blocco div per confermare la modifica di una riunione --%>
 
                                                                                                                                                                                                         <div id="acceptModifyMeetingWindow" title="Modifica Riunione" style="display: inline">
                                                                                                                                                                                                         <form id="acceptModityMeetingForm" class="cmxform" method="get" action="">
@@ -272,6 +302,8 @@
                                                                                                                                                                                                         </fieldset>
                                                                                                                                                                                                         </form>
                                                                                                                                                                                                         </div>
+
+                                                                                                                                                                                                        <%-- Fine blocco div per confermare la modifica di una riunione --%>
 
                                                                                                                                                                                                         <body>
                                                                                                                                                                                                         <%@include file="header.jsp" %>

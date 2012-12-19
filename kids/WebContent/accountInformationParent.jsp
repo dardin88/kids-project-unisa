@@ -228,10 +228,10 @@
             <%--rimozione --%>
             <div id="removeAccountWindow" title="Rimuovi Account" style="display: inline">
                 <form id="removeAccountForm" class="cmxform" method="post" action="">
-                    <fieldset>
+                    <fieldset><br>
                         <p class="formp">
                             <label class="requirementLabel">Sei sicuro di voler eliminare questo Account?</label>
-                        </p>
+                        </p><br>
                         <p class="formp">
                             <input type="button" class="confirmRemoveButton" id="confirmRemoveLinkButton" value="Si"/>
                             <input type="button" class="notConfirmRemoveButton" id="notConfirmRemoveLinkButton" value="No"/>
@@ -261,8 +261,8 @@
                         </p><br>
 
                         <p class="formp">
-                            <input type="button" id="confirmModifyButton" value="Modifica"/>
-                            <input type="button" id="notConfirmModifyButton" value="Annulla"/>
+                            <input style="width: 150px" type="button" id="confirmModifyButton" value="Modifica"/>
+                            <input style="width: 150px" type="button" id="notConfirmModifyButton" value="Annulla"/>
                         </p>
                     </fieldset>
                 </form>

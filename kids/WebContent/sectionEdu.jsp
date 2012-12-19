@@ -1,7 +1,7 @@
 <%-- 
     Document   : sectionEdu
     Created on : 18-dic-2012, 10.09.30
-    Author     : navi
+    Author     : Antonio Panariello
 --%>
 
 <%@page import="it.unisa.kids.communicationManagement.programEducationalManagement.CommentBean"%>
@@ -27,7 +27,7 @@
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/sectionEdu.js"></script>
 
-        <title>Gestione Programma Educativo Sezione - Kids</title>
+        <title>Kids</title>
 
         <script type="text/javascript">
             $(document).ready(function() {

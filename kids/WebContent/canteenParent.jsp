@@ -62,7 +62,6 @@
         </c:if>
 
         <div id="canteenManagement">
-            <h1>Mensa</h1>
             <input type="hidden" name="hiddenParentId" id="hiddenParentId" value="${sessionScope.user.getId()}">
 
             <%-- blocco div delle varie funzioni della mensa --%>
@@ -145,12 +144,14 @@
                                     <td><label for="noteArea">Note:&nbsp;</label></td>
                                     <td><textarea rows="10" cols="50" maxlength="400" name="noteArea" id="noteArea"></textarea></td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <input class="confirmButton" type="submit" name="modifySicknessButton" id="modifySicknessButton" value="Invia dati">
-                                    </td>
-                                </tr>
+                                
+                                       
+                                    
+                                
                             </table>
+                            <p style="text-align: center">
+                                <input style="width: 250px" class="confirmButton" type="submit" name="modifySicknessButton" id="modifySicknessButton" value="Invia dati">
+                            </p>
                         </form>
                     </div>
 

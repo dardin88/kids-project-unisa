@@ -98,8 +98,8 @@
                             <input  id="modifyViaResidence" class="accountInput" type="text" name="IndirizzoResidenza" value="${ViaResidenza}" readonly="true">
                         </div>
 
-                        <input style="width: 200px; margin-left: 5%" type="submit" name="registrationButton1" id="modifyButton1" value="Avanti"/>
-                        <input style="width: 200px; margin-left: 2%" type="button" name="notRegistrationButton1" id="notModifyButton1" value="Indietro"/>
+                        <input style="width: 200px; margin-left: 5%" type="button" name="notRegistrationButton1" id="notModifyButton1" value="Indietro"/>
+                        <input style="width: 200px; margin-left: 2%" type="submit" name="registrationButton1" id="modifyButton1" value="Avanti"/>
                         <input style="width: 200px; margin-left: 0.5%" type="button" name="modify" id="modifyButton" value="Modifica" onclick="modifyAccount2(document.getElementById('id').value)"/>
                     </div>
 
@@ -145,8 +145,8 @@
                             <input id="modifyViaDomicile" class="accountInput" type="text" name="ViaDomicilio" value="${ViaDomicilio}" readonly="true">
                         </div>
 
-                        <input style="width: 200px; margin-left: 5%" type="submit" name="modifyButton2" id="modifyButton2" value="Avanti"/>
-                        <input style="width: 200px; margin-left: 2%" type="button" name="notModifyButton2" id="notModifyButton2" value="Indietro"/>
+                        <input style="width: 200px; margin-left: 5%" type="button" name="notModifyButton2" id="notModifyButton2" value="Indietro"/>
+                        <input style="width: 200px; margin-left: 2%" type="submit" name="modifyButton2" id="modifyButton2" value="Avanti"/>
                     </div>
 
                     <div id="modifyRegistration3">

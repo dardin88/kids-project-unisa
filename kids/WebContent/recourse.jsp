@@ -29,7 +29,7 @@
         <script type="text/javascript" src="js/recourseManager.js"></script>
         <script type="text/javascript" src="js/recourseTables.js"></script>
         
-        <title>Recourse Management</title>
+        <title>Kids</title>
     </head>
     <script type="text/javascript">
         $(document).ready(function() {

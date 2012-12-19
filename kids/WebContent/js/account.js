@@ -1,6 +1,6 @@
 function initializeLinksManager2(){
     
-    
+    $("#title").html("Visualizza dati");
     
     $("#avantiButton").button();
     $("#modifyButton").button();

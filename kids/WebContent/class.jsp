@@ -41,17 +41,24 @@ Author     : Antonio Porcelli
         <%@include file="header.jsp"%>
         <div id="linksManagement">
             <div id="classFilter">
-                <label>Nome</label>
-                <input type="text" id="className"  name="className"/>
-                <label>Stato</label>
-                <select id="classState" name="classState">
-                    <option></option>
-                    <option>bozza</option>
-                    <option>confermata</option>
-                    <option>revisione</option>
-                    <option>sottomessa</option>
-                </select>
-                <input type="button" name="ricerca" id="ricerca" value="Ricerca" onclick="search()"/>
+
+                <div style="float: left; margin-right: 2%">
+                    <label style="font-size: 10pt; font-weight: bold">Nome</label>
+                    <input type="text" id="className"  name="className"/>
+                </div>
+
+                <div style="float: left">
+                    <label style="font-size: 10pt; font-weight: bold">Stato</label>
+                    <select id="classState" name="classState">
+                        <option></option>
+                        <option>bozza</option>
+                        <option>confermata</option>
+                        <option>revisione</option>
+                        <option>sottomessa</option>
+                    </select>               
+                </div>
+
+                <input style="width: 150px; margin-left: 2%" type="button" name="ricerca" id="ricerca" value="Ricerca" onclick="search()"/>
             </div>
             <table id="classTable" style="width:95%;">
                 <thead>

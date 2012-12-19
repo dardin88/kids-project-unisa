@@ -9,46 +9,47 @@
 
 <c:if test="${sessionScope.user!=null}">
     <c:if test="${sessionScope.user.getAccountType()=='Genitore'}"> 
-        <c:redirect url="newsGenitorePage.jsp" />
+        <c:redirect url="newsShowTable.jsp" />
     </c:if>
 
     <c:if test="${sessionScope.user.getAccountType()=='Educatore'}"> 
-        <c:redirect url="educatorPage.jsp" />
+        <c:redirect url="newsShowTable.jsp" />
     </c:if>
 
     <c:if test="${sessionScope.user.getAccountType()=='Tirocinante'}">
-        <c:redirect url="traineePage.jsp" />
+        <c:redirect url="newsShowTable.jsp" />
     </c:if>
 
     <c:if test="${sessionScope.user.getAccountType()=='Delegato scienze della formazione'}">
-        <c:redirect url="formationSciencePage.jsp" />
+        <c:redirect url="newsShowTable.jsp" />
     </c:if>
 
     <c:if test="${sessionScope.user.getAccountType()=='Responsabile Mensa'}">
-        <c:redirect url="canteenManagement.jsp" />
+        <c:redirect url="newsShowTable.jsp" />
     </c:if>
 
     <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
-        <c:redirect url="secretaryPage.jsp" />
+        <c:redirect url="newsShowTable.jsp" />
     </c:if>
 
     <c:if test="${sessionScope.user.getAccountType()=='Admin'}"> 
-        <c:redirect url="meetingCalendar.jsp" />
+        <c:redirect url="newsShowTable.jsp" />
     </c:if>
 
     <c:if test="${sessionScope.user.getAccountType()=='Coordinatore Psicopedagogico'}"> 
-        <c:redirect url="CoordinatorePsico.jsp" />
+        <c:redirect url="newsShowTable.jsp" />
     </c:if>
 
     <c:if test="${sessionScope.user.getAccountType()=='Delegato del rettore'}"> 
-        <c:redirect url="DelegatoRettore.jsp" />
+        <c:redirect url="newsShowTable.jsp" />
     </c:if>
 
     <c:if test="${sessionScope.user.getAccountType()=='Responsabile Asilo'}"> 
-        <c:redirect url="responsibleAsylumPage.jsp" />
+        <c:redirect url="newsShowTable.jsp" />
     </c:if>
+
     <c:if test="${sessionScope.user.getAccountType()=='Responsabile Scientifico'}"> 
-        <c:redirect url="ResponsabileScientifico.jsp" />
+        <c:redirect url="newsShowTable.jsp" />
     </c:if>
 
 </c:if>

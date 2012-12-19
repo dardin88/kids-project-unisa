@@ -45,53 +45,41 @@
             <fieldset>
                 <table>
                     <tr>
-                    <p style="text-align: left;" class="formp">
-                    <td>
-                        <label class="artefactLabel" for="artefactSurname">Nome Bambino *</label>
-                    </td>
-                    <td>
-                        <input id="artefactName" type="text" name="name" ></input>                                         
-                    </td>
-                    </p>
+                        <td style="width: 150px">
+                            <label class="artefactLabel" for="artefactSurname">Nome Bambino *</label>
+                        </td>
+                        <td style="width: 150px">
+                            <input id="artefactName" type="text" name="name" ></input>                                         
+                        </td>
                     </tr>
                     <tr>
-                    <p style="text-align: left;" class="formp">
-                    <td>
-                        <label class="artefactLabel" for="artefactSurname">Cognome Bambino *</label>
-                    </td>
-                    <td>
-                        <input id="artefactSurname" type="text" name="surname" ></input>                                         
-                    </td>
-                    </p>
+                        <td style="width: 150px">
+                            <label class="artefactLabel" for="artefactSurname">Cognome Bambino *</label>
+                        </td>
+                        <td style="width: 150px">
+                            <input id="artefactSurname" type="text" name="surname" ></input>                                         
+                        </td>
                     </tr>
-                    <tr>
-                    <p style="text-align: left;" class="formp">
-                    <td>
-                        <label class="artefactLabel" for="artefactDescription">Descrizione *</label>
-                    </td>
-                    <td>  
-                        <textarea id="artefactDescription"rows="5" cols="25" name="description"></textarea>
-                    </td>
-                    </p>
+                    <tr style="width: 150px">
+                        <td style="width: 150px">
+                            <label class="artefactLabel" for="artefactDescription">Descrizione *</label>
+                        </td>
+                        <td style="width: 150px">  
+                            <textarea id="artefactDescription"rows="5" cols="25" name="description"></textarea>
+                        </td>
                     </tr>
-
                     <tr>        
-                    <p style="text-align: left;" class="formp">
-                    <td>
-
-                        <label class="artefactLabel" for="artefactData">Data *</label>
-                    </td>
-                    <td>
-                        <input id="artefactDate"  type="text" name="date"></input>
-                    </td>
-                    </p>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <input type="submit" class="windowButton" id="addLinkButton3" value="Ok"/>                 
+                        <td style="width: 150px">
+                            <label class="artefactLabel" for="artefactData">Data *</label>
+                        </td>
+                        <td style="width: 150px">
+                            <input id="artefactDate"  type="text" name="date"></input>
                         </td>
                     </tr>
                 </table>
+                <p style="text-align: center">
+                    <input type="submit" class="windowButton" id="addLinkButton3" value="Ok"/>                 
+                </p>
             </fieldset>
         </form>
     </div> 

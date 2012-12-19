@@ -39,7 +39,6 @@
     <body>
 
         <div id="linksManagement">
-            <h1 style="font-size: 35px;text-align: center;"> Account </h1>
             <table>
                 <tr>
                     <td style="width: 110px">
