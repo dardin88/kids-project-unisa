@@ -76,7 +76,7 @@ public final class DBNames {
     public static final String ATT_ASSEGNATION_CLASSID = "Classe";
     public static final String ATT_ASSEGNATION_EDUCATORACCOUNTID = "Educatore";
     //ClassTable's attributes
-    public static final String ATT_CLASS_ID = "Id";
+    public static final String ATT_CLASS_ID =  "Id";
     public static final String ATT_CLASS_NAME = "Nome";
     public static final String ATT_CLASS_STATE = "Stato";
     public static final String ATT_CLASS_PROJECTSTATE = "StatoProgetto";
