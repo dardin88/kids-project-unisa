@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="11.5.1">
-  <zoom_level>7</zoom_level>
+  <zoom_level>6</zoom_level>
   <element>
     <type>com.umlet.element.Package</type>
     <coordinates>
-      <x>133</x>
-      <y>105</y>
-      <w>1001</w>
-      <h>546</h>
+      <x>114</x>
+      <y>72</y>
+      <w>858</w>
+      <h>540</h>
     </coordinates>
     <panel_attributes>CanteenManagament</panel_attributes>
     <additional_attributes/>
@@ -15,201 +15,216 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>140</x>
-      <y>140</y>
-      <w>252</w>
-      <h>56</h>
+      <x>120</x>
+      <y>102</y>
+      <w>216</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>*AbstractManager*
 --
 #Imp: T
 --
-/+getManagerImplementor(pManagerType: String): T/</panel_attributes>
++ getManagerImplementor(String): T</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>371</x>
-      <y>126</y>
-      <w>83</w>
-      <h>34</h>
+      <x>318</x>
+      <y>90</y>
+      <w>72</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>21;21;70;21</additional_attributes>
+    <additional_attributes>18;18;60;18</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>441</x>
-      <y>140</y>
-      <w>322</w>
-      <h>147</h>
+      <x>378</x>
+      <y>102</y>
+      <w>276</w>
+      <h>126</h>
     </coordinates>
-    <panel_attributes>*ICanteenManager*
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+*ICanteenManager*
 --
-/+insert(pDiffMenu: DifferentiatedMenuBean): Void/
-/+update(pDiffMenu: DifferentiatedMenuBean): Void/
-/+delete(pDiffMenu: DifferentiatedMenuBean): Void/
-/+insert(pMenu: MenuBean): Void/
-/+update(pMenu: MenuBean): Void/
-/+delete(pMenu: MenuBean): Void/
-/+search(pDiffMenu: DifferentiatedMenuBean): List&lt;DifferentiatedMenuBean&gt;/
-/+getDiffMenuList(): List&lt;DifferentiatedMenuBean&gt;/
-/+search(pMenu: MenuBean): List&lt;MenuBean&gt;/
-/+getMenuList(): List&lt;MenuBean&gt;/
-/+getMenuList(pMenuType: String): List&lt;MenuBean&gt;/
-
-</panel_attributes>
++ insert(MenuBean): Void
++ update(MenuBean): Void
++ delete(MenuBean): Void
++ insert(MealRequestBean): Void
++ update(MealRequestBean): Void
++ delete(MealRequestBean): Void
++ search(MenuBean): List&lt;MenuBean&gt;
++ search(MealRequestBean): List&lt;MealRequestBean&gt;
++ getMealReqList(): List&lt;MealRequestBean&gt;
++ getLastMenu(int, String, boolean): List&lt;MenuBean&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>140</x>
-      <y>224</y>
-      <w>252</w>
-      <h>49</h>
+      <x>120</x>
+      <y>174</y>
+      <w>216</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>*RefinedAbstractManager*
 --
-/+getManagerImplementor(PManagerType: String): T/</panel_attributes>
++ getManagerImplementor(String): T</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>238</x>
-      <y>175</y>
-      <w>34</w>
-      <h>62</h>
+      <x>204</x>
+      <y>132</y>
+      <w>30</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>21;21;21;49</additional_attributes>
+    <additional_attributes>18;18;18;42</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>441</x>
-      <y>315</y>
-      <w>322</w>
-      <h>175</h>
+      <x>708</x>
+      <y>366</y>
+      <w>216</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>*JDBCCanteenManager*
 --
--Manager: JDBCCanteenManager
+- Manager: JDBCCanteenManager
 --
-/+getIstance(): JDBCCanteenManager/
-/+insert(pDiffMenu: DifferentiatedMenuBean): Void/
-/+update(pDiffMenu: DifferentiatedMenuBean): Void/
-/+delete(pDiffMenu: DifferentiatedMenuBean): Void/
-/+insert(pMenu: MenuBean): Void/
-/+update(pMenu: MenuBean): Void/
-/+delete(pMenu: MenuBean): Void/
-/+search(pDiffMenu: DifferentiatedMenuBean): List&lt;DifferentiatedMenuBean&gt;/
-/+getDiffMenuList(): List&lt;DifferentiatedMenuBean&gt;/
-/+search(pMenu: MenuBean): List&lt;MenuBean&gt;/
-/+getMenuList(): List&lt;MenuBean&gt;/
-/+getMenuList(pMenuType: String): List&lt;MenuBean&gt;/
-</panel_attributes>
+- JDBCCanteenManager()
++ getIstance(): JDBCCanteenManager
++ insert(MenuBean): Void
++ update(MenuBean): Void
++ delete(MenuBean): Void
++ search(MenuBean): List&lt;MenuBean&gt;
+- useAnd(boolean): String
++ getLastMenu(int, String, boolean): List&lt;MenuBean&gt;
++ insert(MealRequestBean): Void
++ update(MealRequestBean): Void
+- useComma(boolean): Void
++ delete(MealRequestBean): Void 
++ search(MealRequestBean): List&lt;MealRequestBean&gt; 
++ getMealReqList(): List&lt;MealRequestBean&gt;</panel_attributes>
     <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>553</x>
-      <y>266</y>
-      <w>34</w>
-      <h>62</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>21;21;21;49</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>826</x>
-      <y>140</y>
-      <w>294</w>
-      <h>273</h>
+      <x>708</x>
+      <y>102</y>
+      <w>252</w>
+      <h>198</h>
     </coordinates>
-    <panel_attributes>*DifferentiatedMenuBean*
+    <panel_attributes>*MealRequestBean*
 --
--id: Int
--motivation: String
--first: String
--second: String
--sideDish: String
--fruit: String
--childInscriptionId: Int
++ PRICE_MEALREQ: Double
+- id: Int
+- date: GregorianCalendar 
+- fulfilled: boolean 
+- fulfilledUsable: boolean 
+- parentId: Int
 --
-/+getId(): Int/
-/+setId(pId: Int): Void/
-/+getMotivation(): String/
-/+setMotivation(pMotivation: String): Void/
-/+getFirst(): String/
-/+setFirst(pFirst: String): Void/
-/+getSecond(): String/
-/+setSecond(pSecond: String): Void/
-/+getSideDish(): String/
-/+setSideDish(pSideDish: String): Void/
-/+getFruit(): String/
-/+setFruit(pFruit: String): Void/
-/+getChildInscriptionId(): Int/
-/+setChildInscriptionId(pChildInscriptionId: Int): Void/
-
-</panel_attributes>
++ MealRequestBean()
++ getId(): int
++ setId(int) : void
++ getDate(): GregorianCalendar
++ setDate(GregorianCalendar): void
++ isFulfilled(): boolean
++ setFulfilled(boolean): void
++ isFulfilledUsable(): boolean
++ setFulfilledUsable(boolean): void
++ getParentId(): int
++ setParentId(int): void</panel_attributes>
     <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>742</x>
-      <y>182</y>
-      <w>97</w>
-      <h>34</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>21;21;84;21</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>826</x>
-      <y>441</y>
-      <w>259</w>
-      <h>196</h>
+      <x>402</x>
+      <y>258</y>
+      <w>222</w>
+      <h>294</h>
     </coordinates>
     <panel_attributes>*MenuBean*
 --
-+MAIN_MENU: String
-+ALTERNATIVE_MENU: String
-+DELIMITER: String
--first: String
--second: String
--sideDish: String
--fruit: String
++ DAILY_MENU: String
++ DIFF_MENU: String
+- id: int 
+- type: String
+- date: GregorianCalendar
+- first: String
+- second: String
+- sideDish: String
+- fruit: String
+- childInscriptionId: int
 --
-/+getFirst(): String/
-/+setFirst(pFirst: String): Void/
-/+getSecond(): String/
-/+setSecond(pSecond: String): Void/
-/+getSideDish(): String/
-/+setSideDish(pSideDish: String): Void/
-/+getFruit(): String/
-/+setFruit(pFruit: String): Void/
-</panel_attributes>
++ MenuBean()
++ getId(): int
++ setId(int): void
++ getType: String
++ setType(): void
++ getDate(): GregorianCalendar
++ setDate(): void
++ getFirst(): String
++ setFirst(String): Void
++ getSecond(): String
++ setSecond(String): Void
++ getSideDish(): String
++ setSideDish(String): Void
++ getFruit(): String
++ setFruit(String): Void
++ getChildInscriptionId(): int
++ setChildInscriptionId(): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>742</x>
-      <y>196</y>
-      <w>97</w>
-      <h>307</h>
+      <x>906</x>
+      <y>408</y>
+      <w>60</w>
+      <h>78</h>
     </coordinates>
-    <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>21;21;49;21;49;294;84;294</additional_attributes>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>18;18;48;18;48;66;18;66</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>636</x>
+      <y>192</y>
+      <w>84</w>
+      <h>258</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>18;18;42;18;42;246;72;246</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>498</x>
+      <y>210</y>
+      <w>30</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>18;48;18;18</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>636</x>
+      <y>138</y>
+      <w>84</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>72;18;18;18</additional_attributes>
   </element>
 </diagram>

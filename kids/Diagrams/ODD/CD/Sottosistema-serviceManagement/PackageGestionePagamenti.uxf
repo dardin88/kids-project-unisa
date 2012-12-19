@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="11.5.1">
-  <zoom_level>7</zoom_level>
+  <zoom_level>5</zoom_level>
   <element>
     <type>com.umlet.element.Package</type>
     <coordinates>
-      <x>84</x>
-      <y>7</y>
-      <w>1001</w>
-      <h>707</h>
+      <x>45</x>
+      <y>15</y>
+      <w>715</w>
+      <h>505</h>
     </coordinates>
     <panel_attributes>PaymentManagement</panel_attributes>
     <additional_attributes/>
@@ -15,49 +15,50 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>91</x>
-      <y>42</y>
-      <w>252</w>
-      <h>56</h>
+      <x>70</x>
+      <y>40</y>
+      <w>180</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>*AbstractManager*
 --
 #Imp: T
 --
-/+getManagerImplementor(pManagerType: String): T/</panel_attributes>
++ getManagerImplementor(String): T</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>322</x>
-      <y>28</y>
-      <w>132</w>
-      <h>34</h>
+      <x>235</x>
+      <y>30</y>
+      <w>69</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>21;21;119;21</additional_attributes>
+    <additional_attributes>15;15;60;15</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>441</x>
-      <y>42</y>
-      <w>259</w>
-      <h>140</h>
+      <x>295</x>
+      <y>40</y>
+      <w>185</w>
+      <h>110</h>
     </coordinates>
-    <panel_attributes>*IPaymentManager*
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+*IPaymentManager*
 --
-/+insert(pPayment: PaymentBean): Void/
-/+update(pPayment: PaymentBean): Void/
-/+delete(pPayment: PaymentBean): Void/
-/+insert(pRefund: RefundBean): Void/
-/+update(pRefund: RefundBean): Void/
-/+delete(pRefund: RefundBean): Void/
-/+search(pPayment: PaymentBean): List&lt;PaymentBean&gt;/
-/+getPaymentList(): List&lt;PaymentBean&gt;/
-/+search(pRefund: RefundBean): List&lt;RefundBean&gt;/
-/+getRefundList(): List&lt;RefundBean&gt;/
++ insert(PaymentBean): Void
++ update(PaymentBean): Void
++ delete(PaymentBean): Void
++ insert(RefundBean): Void
++ update(RefundBean): Void
++ delete(RefundBean): Void
++ search(PaymentBean): List&lt;PaymentBean&gt;
++ getPaymentList(): List&lt;PaymentBean&gt;
++ search(RefundBean): List&lt;RefundBean&gt;
++ getRefundList(): List&lt;RefundBean&gt;
 
 </panel_attributes>
     <additional_attributes/>
@@ -65,157 +66,181 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>91</x>
-      <y>126</y>
-      <w>252</w>
-      <h>49</h>
+      <x>70</x>
+      <y>100</y>
+      <w>180</w>
+      <h>35</h>
     </coordinates>
     <panel_attributes>*RefinedAbstractManager*
 --
-/+getManagerImplementor(PManagerType: String): T/</panel_attributes>
++ getManagerImplementor(String): T</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>189</x>
-      <y>77</y>
-      <w>34</w>
-      <h>62</h>
+      <x>140</x>
+      <y>65</y>
+      <w>24</w>
+      <h>44</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>21;21;21;49</additional_attributes>
+    <additional_attributes>15;15;15;35</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>441</x>
-      <y>217</y>
-      <w>259</w>
-      <h>168</h>
+      <x>290</x>
+      <y>365</y>
+      <w>185</w>
+      <h>145</h>
     </coordinates>
     <panel_attributes>*JDBCPaymentManager*
 --
--Manager: JDBCPaymentManager
+- manager: JDBCPaymentManager
 --
-/+getIstance(): JDBCPaymentManager/
-/+insert(pPayment: PaymentBean): Void/
-/+update(pPayment: PaymentBean): Void/
-/+delete(pPayment: PaymentBean): Void/
-/+search(pPayment: PaymentBean): List&lt;PaymentBean&gt;/
-/+gePaymentList(): List&lt;PaymentBean&gt;/
-/+insert(pRefund: RefundBean): Void/
-/+update(pRefund: RefundBean): Void/
-/+delete(pRefund: RefundBean): Void/
-/+search(pRefund: RefundBean): List&lt;RefundBean&gt;/
-/+getRefundList(): List&lt;RefundBean&gt;/</panel_attributes>
+- JDBCPaymentManager()
++ getIstance(): JDBCPaymentManager
++ insert(PaymentBean): Void
++ update(PaymentBean): Void
++ delete(PaymentBean): Void
++ insert(RefundBean): Void
++ update(RefundBean): Void
++ delete(RefundBean): Void
+- useComma(boolean): String
+- useAnd(boolean): String
++ search(PaymentBean): List&lt;PaymentBean&gt;
++ getPaymentList(): List&lt;PaymentBean&gt;
++ search(RefundBean): List&lt;RefundBean&gt;
++ getRefundList(): List&lt;RefundBean&gt;</panel_attributes>
     <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>553</x>
-      <y>161</y>
-      <w>34</w>
-      <h>69</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>21;21;21;56</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>777</x>
-      <y>42</y>
-      <w>294</w>
-      <h>434</h>
+      <x>535</x>
+      <y>40</y>
+      <w>210</w>
+      <h>345</h>
     </coordinates>
     <panel_attributes>*PaymentBean*
 --
--id: Int
--expDate: GregorianCalendar
--charge: Boolean
--paymentDescription: String
--amount: Double
--amountDue: Double
--paid: Boolean
--discount:String
--discountDescription: String
--originAccount: String
--payee: String
--parentId: Int
++ DEFAULT_PAYEE: String
+- id: Int
+- expDate: GregorianCalendar
+- paymentDescription: String
+- amount: Double
+- paid: Boolean
+- paidUsable: Boolean
+- discount: double
+- discountDescription: String
+- originAccount: String
+- payee: String
+- parentId: Int
+- receiptCode: String
 --
-/+getId(): Int/
-/+setId(pId: Int): Void/
-/+getExpDate(): GregorianCalendar/
-/+setExpData(pExpDate: GregorianCalendar): Void/
-/+isCharge(): Boolean/
-/+setCharge(pCharge: Boolean): Void/
-/+getPaymentDescription(): String/
-/+setPaymentDescription(pPaymentDescription: String): Void/
-/+getAmount(): Double/
-/+setAmount(pAmount: Double): Void/
-/+getAmountDue(): Double/
-/+setAmountDue(pAmountDue: Double): Void/
-/+isPaid(): Boolean/
-/+setPaid(pPaid: Boolean): Void/
-/+getDiscount(): String/
-/+setDiscount(pDiscount: String): Void/
-/+getDiscountDescription(): String/
-/+setDiscountDescription(pDiscountDescription: String): Void/
-/+getOriginAccount(): String/
-/+setOriginAccount(pOriginAccount: String): Void/
-/+getPayee(): String/
-/+setPayee(pPayee: String): Void/
-/+getParentId(): Int/
-/+setParentId(pParentId: Int): Void/</panel_attributes>
++ PaymentBean()
++ getId(): Int
++ setId(Int): Void
++ getExpDate(): GregorianCalendar
++ setExpData(GregorianCalendar): Void
++ getPaymentDescription(): String
++ setPaymentDescription(String): Void
++ getAmount(): Double
++ setAmount(Double): Void
++ isPaid(): Boolean
++ setPaid(Boolean): Void
++ isPaidUsable(boolean): void
++ setPaidUsable(boolean): void
++ getDiscount(): double
++ setDiscount(double): Void
++ getDiscountDescription(): String
++ setDiscountDescription(String): Void
++ getOriginAccount(): String
++ setOriginAccount(String): Void
++ getPayee(): String
++ setPayee(String): Void
++ getParentId(): Int
++ setParentId(Int): Void
++ getReceiptCode(): String
++ setReceiptCode(String): void</panel_attributes>
     <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>679</x>
-      <y>84</y>
-      <w>111</w>
-      <h>34</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>21;21;98;21</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>777</x>
-      <y>511</y>
-      <w>259</w>
-      <h>168</h>
+      <x>290</x>
+      <y>170</y>
+      <w>185</w>
+      <h>185</h>
     </coordinates>
     <panel_attributes>*RefundBean*
 --
--id: Int
--description: String
--amount: Double
--parentId: Int	
+- id: Int
+- description: String
+- amount: Double
+- parentId: Int
+- performed: boolean;
+- performedUsable: boolean; 
 --
-/+getId(): Int/
-/+setId(pId: Int): Void/
-/+getDescription:(): String/
-/+setDescription(pDescription: String): Void/
-/+getAmount(): Double/
-/+setAmount(pAmount: Double): Void/
-/+getParentId(): Int/
-/+setParentId(pParentId: Int): Void/</panel_attributes>
+RefundBean()
++ getId(): Int
++ setId(Int): Void
++ getDescription:(): String
++ setDescription(String): Void
++ getAmount(): Double
++ setAmount(Double): Void
++ getParentId(): Int
++ setParentId(Int): Void
++ isPerformed(): boolean
++ setPerformed(boolean) : void
++ isPerformedUsable(): boolean
++ setPerformedUsable(boolean): void
++ toString(): String</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>679</x>
-      <y>98</y>
-      <w>111</w>
-      <h>475</h>
+      <x>460</x>
+      <y>90</y>
+      <w>44</w>
+      <h>309</h>
     </coordinates>
-    <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>21;21;63;21;63;462;98;462</additional_attributes>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>20;15;35;15;35;300;15;300</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>460</x>
+      <y>395</y>
+      <w>44</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>15;15;35;15;35;55;15;55</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>370</x>
+      <y>135</y>
+      <w>24</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>15;35;15;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>465</x>
+      <y>65</y>
+      <w>79</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>15;15;70;15</additional_attributes>
   </element>
 </diagram>
