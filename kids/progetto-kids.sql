@@ -148,6 +148,7 @@ CREATE TABLE IF NOT EXISTS `classe` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Nome` varchar(15) NOT NULL,
   `Stato` enum('bozza','sottomessa','accettata','revisione') DEFAULT 'bozza',
+  `StatoProgetto` enum('Bozza','Sottomessa','RichiestaMod','AccettaRett', 'AccettaScient') DEFAULT 'Bozza',
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -577,6 +578,7 @@ CREATE TABLE IF NOT EXISTS `riunione` (
   `OraInizio` time DEFAULT NULL,
   `OraFine` time DEFAULT NULL,
   `Tipo` varchar(20) DEFAULT NULL,
+  `Stato` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 

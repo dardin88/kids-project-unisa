@@ -128,4 +128,17 @@ public class AccessFacade implements IAccessFacade {
         IRegistrationChildManager regChildManager = (IRegistrationChildManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
         return regChildManager.modifyAdditionalNotes(pRegistrationChildId, pAdditionalNotes);
     }
+
+    @Override
+    public List<ClassBean> search(ClassBean pClass) throws SQLException {
+        IClassManager classManager = (IClassManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_CLASS);
+        
+        return classManager.search(pClass);
+    }
+
+    @Override
+    public void update(ClassBean pClass) throws SQLException {
+        IClassManager classManager = (IClassManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_CLASS);
+        classManager.update(pClass);
+    }
 }

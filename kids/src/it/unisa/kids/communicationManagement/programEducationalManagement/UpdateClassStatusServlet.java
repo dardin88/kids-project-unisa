@@ -4,12 +4,12 @@
  */
 package it.unisa.kids.communicationManagement.programEducationalManagement;
 
-import it.unisa.kids.common.DBNames;
-import it.unisa.kids.common.RefinedAbstractManager;
+import it.unisa.kids.accessManagement.classManagement.ClassBean;
+import it.unisa.kids.common.facade.AccessFacade;
+import it.unisa.kids.common.facade.IAccessFacade;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,13 +20,13 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author navi
  */
-public class InsertCommentServlet extends HttpServlet {
-
-    private IActivityManager activityManager;
+public class UpdateClassStatusServlet extends HttpServlet {
+    
+    private IAccessFacade accessFacade;
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        this.activityManager = (IActivityManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACTIVITYSECTIONDAILY);
+        this.accessFacade = new AccessFacade();
     }
 
     /**
@@ -41,34 +41,33 @@ public class InsertCommentServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         try {
+            int classId = Integer.parseInt(request.getParameter("classId"));
+            String classStatus = request.getParameter("classStatus");
             
-            CommentBean insertComment = createInsertComment(request);
-
-            activityManager.insert(insertComment);
-
+            ClassBean searchClass = new ClassBean();
+            searchClass.setIdClasse(classId);
+            ClassBean classToUpdate = accessFacade.search(searchClass).get(0);
+            if (classStatus.equals("Bozza")) {
+                classToUpdate.setStatoProgetto("Bozza");
+            } else if (classStatus.equals("Sottomessa")) {
+                classToUpdate.setStatoProgetto("Sottomessa");
+            } else if (classStatus.equals("RichiestaMod")) {
+                classToUpdate.setStatoProgetto("RichiestaMod");
+            } else if (classStatus.equals("AccettaRett")) {
+                classToUpdate.setStatoProgetto("AccettaRett");
+            } else if (classStatus.equals("AccettaScient")) {
+                classToUpdate.setStatoProgetto("AccettaScient");
+            }
+            
+            accessFacade.update(classToUpdate);
         } catch (SQLException e) {
-            Logger.getLogger(InsertCommentServlet.class.getName()).log(Level.SEVERE, null, e);
-
-        } catch (NumberFormatException e) {
-            Logger.getLogger(InsertCommentServlet.class.getName()).log(Level.SEVERE, null, e);
-
+            return;
+        } finally {
+            out.close();
         }
-    }
-    
-    private CommentBean createInsertComment(HttpServletRequest request) {
-        String commentType = request.getParameter("commentType");
-        CommentBean insertComment = new CommentBean();
-        
-        if (commentType.equals(CommentBean.ANNUAL_COMMENT)) {
-            insertComment.setClassId(0);       // setto a 0 per inserire commento annuale
-            // altri set...
-        } else {
-            insertComment.setAnnualId(0);      // setto a 0 per inserire commento per classi
-            // altri set...
-        }
-
-        return insertComment;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
