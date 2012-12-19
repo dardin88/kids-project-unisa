@@ -254,6 +254,7 @@ public final class DBNames {
     public static final String ATT_COMMENT_ANNUALID = "IdAnnuale";
     public static final String ATT_COMMENT_CLASSID = "IdSezione";
     public static final String ATT_COMMENT_AUTHORID = "IdAutore";
+    public static final String ATT_COMMENT_TIME = "Ora";
     //Activity attributes
     public static final String ATT_ACTIVITY_ID = "Id";
     public static final String ATT_ACTIVITY_STARTDATE = "DataInizio";

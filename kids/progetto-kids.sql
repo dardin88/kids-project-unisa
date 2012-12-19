@@ -165,8 +165,9 @@ CREATE TABLE IF NOT EXISTS `commento` (
   `IdAnnuale` int(11) NOT NULL,
   `IdSezione` int(11) NOT NULL,
   `IdAutore` int(11) NOT NULL,
+  `Ora` time NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -395,14 +396,10 @@ CREATE TABLE IF NOT EXISTS `partecipazione` (
 
 CREATE TABLE IF NOT EXISTS `progetto_annuale` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Nome` varchar(40) NOT NULL,
-  `Tema` varchar(200) NOT NULL,
-  `Contenuto` varchar(1500) NOT NULL,
-  `AnnoApplicazione` varchar(10) NOT NULL,
-  `Scadenza` date DEFAULT NULL,
+  `Path` varchar(40) NOT NULL,
+  `Stato` varchar(50) NOT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
 -- --------------------------------------------------------
 
 --
