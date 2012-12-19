@@ -9,6 +9,12 @@ function initializeLinksManager(){
         resizable: false,
         width: 400
     });
+    $("#insertCommentoWindow").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 500
+    });
     
     $("#draftCoord").button();
     $("#submitCoord").button();
@@ -17,16 +23,38 @@ function initializeLinksManager(){
     $("#requestModify").button();
     $("#insertCommento").button();
     buildShowTable();
-
 }
 
-function insertCommento(){
-   
-    $("#insertCommentoWindow").dialog("open");
+function inserisciCommento(){
+    
+    
     $("#submitCommento").button();
-    if($("#insertCommento").click(function(){ 
-        })
-        );
+    $("#insertCommentoWindow").dialog("open");
+    $("#insertCommentoForm").validate({
+        rules: {              
+            contenutoCommento: {
+                required: true
+            }               
+        },
+        messages: {              
+            contenutoCommento: {
+                required: "Inserisci il contenuto."
+            }
+        },
+        submitHandler: function() {                
+            $.post("InsertComment", {
+                commentType:"annual_comm",
+                contenutoCommento:$("#contenutoCommento").val(),
+                idAutore:$("#idAutore").val()
+            });
+                $("#insertCommentoWindow").dialog("close");
+
+        }
+    });
+          // document.location.reload(true);
+    var oTable = $("#commentEduTable").dataTable();
+    oTable.fnDraw();
+    $("#contenutoCommento").val("");
 }
 
 function uploadFile(){

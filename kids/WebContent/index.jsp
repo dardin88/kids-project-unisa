@@ -62,7 +62,7 @@
 
         <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
-        <script type="text/javascript" src="js/functions.js"></script>
+       <!-- <script type="text/javascript" src="js/functions.js"></script>-->
         <script type="text/javascript" src="js/loginManager.js"></script>
 
         <title>Kids</title>

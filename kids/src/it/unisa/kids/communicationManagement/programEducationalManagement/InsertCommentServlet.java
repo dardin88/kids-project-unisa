@@ -9,6 +9,7 @@ import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -68,7 +69,11 @@ public class InsertCommentServlet extends HttpServlet {
         
         if (commentType.equals(CommentBean.ANNUAL_COMMENT)) {
             insertComment.setClassId(0);       // setto a 0 per inserire commento annuale
-            // altri set...
+            GregorianCalendar g=new GregorianCalendar();
+            insertComment.setDate(g);
+            insertComment.setAuthorId(Integer.parseInt(request.getParameter("idAutore")));
+            insertComment.setTime(new java.sql.Time(g.get(Calendar.HOUR),g.get(Calendar.MINUTE),g.get(Calendar.SECOND)));
+            insertComment.setContent(request.getParameter("contenutoCommento"));
         } else {
             insertComment.setAnnualId(0);      // setto a 0 per inserire commento per classi
             int classId = -1;

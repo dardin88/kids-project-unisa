@@ -347,8 +347,9 @@ public class JDBCActivityManager implements IActivityManager {
                     + DBNames.ATT_COMMENT_DATE + ", "
                     + DBNames.ATT_COMMENT_ANNUALID + ", "
                     + DBNames.ATT_COMMENT_CLASSID + ", "
-                    + DBNames.ATT_COMMENT_AUTHORID
-                    + ") VALUES(?, ?, ?, ?, ?, ?)";
+                    + DBNames.ATT_COMMENT_AUTHORID+", "
+                    + DBNames.ATT_COMMENT_TIME
+                    + ") VALUES(?, ?, ?, ?, ?, ?, ?)";
 
             pstmt = con.prepareStatement(query);
 
@@ -359,6 +360,7 @@ public class JDBCActivityManager implements IActivityManager {
             pstmt.setInt(4, pComment.getAnnualId());
             pstmt.setInt(5, pComment.getClassId());
             pstmt.setInt(6, pComment.getAuthorId());
+            pstmt.setTime(7, pComment.getTime());
 
             pstmt.executeUpdate();
             con.commit();

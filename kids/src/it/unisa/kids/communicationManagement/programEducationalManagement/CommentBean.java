@@ -4,6 +4,7 @@
  */
 package it.unisa.kids.communicationManagement.programEducationalManagement;
 
+import java.sql.Time;
 import java.util.GregorianCalendar;
 
 /**
@@ -20,6 +21,7 @@ public class CommentBean {
     private int annualId;
     private int classId;
     private int authorId;
+    private Time ora;
 
     public CommentBean() {
     }
@@ -70,5 +72,12 @@ public class CommentBean {
 
     public void setAuthorId(int pAuthorId) {
         this.authorId = pAuthorId;
+    }
+
+    public Time getTime() {
+        return ora;
+    }
+    public void setTime(Time pTime){
+        this.ora=pTime;
     }
 }
