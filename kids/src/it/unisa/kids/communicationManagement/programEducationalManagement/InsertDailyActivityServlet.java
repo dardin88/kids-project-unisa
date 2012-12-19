@@ -47,29 +47,29 @@ public class InsertDailyActivityServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       String note=request.getParameter("nota");
-       HttpSession session=request.getSession();
-       
-       int idClass=Integer.parseInt(request.getParameter("idClass"));
-              String[] attivita=request.getParameterValues("attivita"+idClass);
+        String note = request.getParameter("nota");
+        HttpSession session = request.getSession();
 
-       for(int i=0;i<attivita.length;i++){
-                    try {
-                        DailyActivitySection dailyActivitySection=new DailyActivitySection();
-                        dailyActivitySection.setData(new GregorianCalendar());
-                        dailyActivitySection.setIdActivity(Integer.parseInt(attivita[i]));
-                        dailyActivitySection.setNotes(note);
-                        dailyActivitySection.setIdSection(idClass);
-                        dailyActivitySection.setIdEducator(((Account)session.getAttribute("user")).getId());
-                        manager.insert(dailyActivitySection);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(InsertDailyActivityServlet.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-           
-       }
-       request.setAttribute("message",
-                    "Attivita inserite con successo");
-            request.getServletContext().getRequestDispatcher("/educatorPage.jsp").forward(request, response);
+        int idClass = Integer.parseInt(request.getParameter("idClass"));
+        String[] attivita = request.getParameterValues("attivita" + idClass);
+        System.out.println("Classe"+idClass);
+        for (int i = 0; i < attivita.length; i++) {
+            try {
+                DailyActivitySection dailyActivitySection = new DailyActivitySection();
+                dailyActivitySection.setData(new GregorianCalendar());
+                dailyActivitySection.setIdActivity(Integer.parseInt(attivita[i]));
+                dailyActivitySection.setNotes(note);
+                dailyActivitySection.setIdSection(idClass);
+                dailyActivitySection.setIdEducator(((Account) session.getAttribute("user")).getId());
+                manager.insert(dailyActivitySection);
+            } catch (SQLException ex) {
+                Logger.getLogger(InsertDailyActivityServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+        request.setAttribute("message",
+                "Attivita inserite con successo");
+        request.getServletContext().getRequestDispatcher("/educatorPage.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

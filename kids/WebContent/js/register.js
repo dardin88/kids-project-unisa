@@ -80,9 +80,10 @@ function buildInsertButton(id) {
 
 
 function openInsertActivity(id) {
+    quanti=0;
     $("#insertActivityWindow"+id).dialog("open");
     idClass = id;
-    document.getElementById("idClass").value=id;
+    document.getElementById("idClass"+id).value=id;
     var oTable = $("#tableActivity"+id).dataTable();
     oTable.fnDraw();
 }
@@ -100,10 +101,10 @@ function selezionati(elemento){
   }
 }
 
-function controlla(elemento){
+function controlla(elemento,id){
     if(quanti==0){
         alert("Selezionare almeno un attivita");
         return;
         }
-    document.getElementById("form").submit();
+    document.getElementById("form"+id).submit();
 }
