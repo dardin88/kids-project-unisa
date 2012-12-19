@@ -66,7 +66,7 @@ Author     : Antonio Porcelli
             </table>
             <c:if test="${sessionScope.user.getAccountType()=='Responsabile Asilo'}">
                 <form name="insertClass" method="post" action="classInsert.jsp" >
-                    <input type="submit" id="addClassButton" value="Inserisci Classe" />
+                    <input type="submit" id="addClassButton" value="Inserisci Sezione" />
                 </form>
             </c:if>
         </div>
@@ -74,7 +74,7 @@ Author     : Antonio Porcelli
             <form id="removeClassForm" class="cmxform" method="post" action="">
                 <fieldset>
                     <p class="formp">
-                        <label class="requirementLabel">Sei sicuro di voler eliminare questa classe?</label>
+                        <label class="requirementLabel">Sei sicuro di voler eliminare questa Sezione?</label>
                     </p>
                     <p class="formp">
                         <input type="button" class="confirmRemoveButton" id="confirmRemoveLinkButton" value="Si"/>

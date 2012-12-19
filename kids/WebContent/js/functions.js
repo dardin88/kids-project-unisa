@@ -152,22 +152,22 @@ function activePage() {
         case 'class.jsp':
             $("#classMenuEl").css("background-color", "#444");
             $("#classMenuEl").css("color", "#FFFFFF");
-            $("#title").html("Gestione Classi");
+            $("#title").html("Gestione Sezioni");
             break;
         case 'classInformation.jsp':
             $("#classMenuEl").css("background-color", "#444");
             $("#classMenuEl").css("color", "#FFFFFF");
-            $("#title").html("Gestione Classi");
+            $("#title").html("Gestione Sezioni");
             break;
         case 'classInsert.jsp':
             $("#classMenuEl").css("background-color", "#444");
             $("#classMenuEl").css("color", "#FFFFFF");
-            $("#title").html("Gestione Classi");
+            $("#title").html("Gestione Sezioni");
             break;
         case 'classModify.jsp':
             $("#classMenuEl").css("background-color", "#444");
             $("#classMenuEl").css("color", "#FFFFFF");
-            $("#title").html("Gestione Classi");
+            $("#title").html("Gestione Sezioni");
             break;
         case 'register.jsp':
             $("#register").css("background-color", "#444");

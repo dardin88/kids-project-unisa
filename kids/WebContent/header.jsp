@@ -202,7 +202,7 @@
                 <li id="accountSecretaryMenuEL"><a href="accountSecretary.jsp">Account</a></li>
             </div>
             <div class="div">
-                <li id="classMenuEl"><a href="class.jsp">Classi</a></li>
+                <li id="classMenuEl"><a href="class.jsp">Sezioni</a></li>
             </div>
             <div class="div">
                 <li id="TimeServiceMenuEL"><a href="timeService.jsp">Richieste modifica orari di servizio</a></li>
@@ -223,7 +223,7 @@
                 <li id="accountInformationAllMenuEL"><a href="accountInformationAll.jsp">Account</a></li>
             </div>
             <div class="div">
-                <li id="classMenuEl"><a href="class.jsp">Classi</a></li>
+                <li id="classMenuEl"><a href="class.jsp">Sezioni</a></li>
             </div>
             <div class="div">
                 <li id="TimeServiceMenuEL"><a href="timeService.jsp">Richieste modifica orari di servizio</a></li>

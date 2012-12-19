@@ -718,6 +718,10 @@ Gestione bambini
 * Classe
 */
 
+#addClassButton{
+    margin-top: 20px; 
+}
+
 #classTable{
     text-align: center;
 }
