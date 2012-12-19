@@ -47,7 +47,7 @@ public class JDBCClassManager implements IClassManager {
             query += ");";
         }
 
-        try {
+        try  {
             con = DBConnectionPool.getConnection();
             stmt = con.createStatement();
             stmt.executeUpdate(query);

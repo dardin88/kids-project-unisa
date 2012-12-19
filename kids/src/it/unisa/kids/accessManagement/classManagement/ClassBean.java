@@ -5,7 +5,7 @@ import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationCh
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClassBean {
+public class ClassBean  {
 
     private int idClasse;
     private String className;
