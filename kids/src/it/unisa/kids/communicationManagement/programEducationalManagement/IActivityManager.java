@@ -15,8 +15,18 @@ import java.util.List;
 public interface IActivityManager extends IManager {
 
     public void insert(DailyActivitySection pDailyActivitySection) throws SQLException;
+    
+    public void insert(Activity pActivity) throws SQLException;
+
     public List<DailyActivitySection> getDailyActivitySectionList() throws SQLException;
+
     public List<DailyActivitySection> search(DailyActivitySection pDailyActivitySection) throws SQLException;
+
     public List<Activity> search(Activity pActivity) throws SQLException;
+
     public List<Activity> getActivityList() throws SQLException;
+    
+    public void insert(CommentBean pComment) throws SQLException;
+    
+    public List<CommentBean> search(CommentBean pComment) throws SQLException;
 }

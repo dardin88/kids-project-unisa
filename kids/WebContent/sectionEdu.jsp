@@ -49,10 +49,6 @@
                 <jsp:include page="/GetSectionEduClassDivs"></jsp:include>
 
             </div>
-            <div style="padding-top: 20px;">
-                <h1>Commenti</h1>
-                <%@include file="commentEdu.jsp" %>
-            </div>
         </div>
 
         <%@include file="footer.jsp" %>

@@ -233,4 +233,200 @@ public class JDBCActivityManager implements IActivityManager {
         }
         return activities;
     }
+
+    @Override
+    public void insert(Activity pActivity) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        String query;
+
+        try {
+            con = DBConnectionPool.getConnection();
+
+            // constructing query string
+            query = "INSERT INTO " + DBNames.TABLE_ACTIVITYSECTIONDAILY + " ("
+                    + DBNames.ATT_ACTIVITY_ID + ", "
+                    + DBNames.ATT_ACTIVITY_NAME + ", "
+                    + DBNames.ATT_ACTIVITY_DESCRIPTION + ", "
+                    + DBNames.ATT_ACTIVITY_STARTDATE + ", "
+                    + DBNames.ATT_ACTIVITY_ENDDATE + ", "
+                    + DBNames.ATT_ACTIVITY_IDCLASS
+                    + ") VALUES(?, ?, ?, ?, ?, ?)";
+
+            pstmt = con.prepareStatement(query);
+
+            //setting pstmt's parameters
+            pstmt.setInt(1, pActivity.getId());
+            pstmt.setString(2, pActivity.getName());
+            pstmt.setString(3, pActivity.getDescription());
+            pstmt.setDate(4, new java.sql.Date(pActivity.getStartDate().getTimeInMillis()));
+            pstmt.setDate(5, new java.sql.Date(pActivity.getEndDate().getTimeInMillis()));
+            pstmt.setInt(6, pActivity.getIdClass());
+
+            pstmt.executeUpdate();
+            con.commit();
+        } finally {
+            if (pstmt != null) {
+                pstmt.close();
+            }
+            if (con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+    }
+
+    @Override
+    public void insert(CommentBean pComment) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        String query;
+
+        try {
+            con = DBConnectionPool.getConnection();
+
+            // constructing query string
+            query = "INSERT INTO " + DBNames.TABLE_COMMENT + " ("
+                    + DBNames.ATT_COMMENT_ID + ", "
+                    + DBNames.ATT_COMMENT_CONTENT + ", "
+                    + DBNames.ATT_COMMENT_DATE + ", "
+                    + DBNames.ATT_COMMENT_ANNUALID + ", "
+                    + DBNames.ATT_COMMENT_CLASSID + ", "
+                    + DBNames.ATT_COMMENT_AUTHORID
+                    + ") VALUES(?, ?, ?, ?, ?, ?)";
+
+            pstmt = con.prepareStatement(query);
+
+            //setting pstmt's parameters
+            pstmt.setInt(1, pComment.getId());
+            pstmt.setString(2, pComment.getContent());
+            pstmt.setDate(3, new java.sql.Date(pComment.getDate().getTimeInMillis()));
+            pstmt.setInt(4, pComment.getAnnualId());
+            pstmt.setInt(5, pComment.getClassId());
+            pstmt.setInt(6, pComment.getAuthorId());
+
+            pstmt.executeUpdate();
+            con.commit();
+        } finally {
+            if (pstmt != null) {
+                pstmt.close();
+            }
+            if (con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+    }
+
+    @Override
+    public List<CommentBean> search(CommentBean pComment) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String query = null;
+        List<CommentBean> comments = null;
+
+        boolean andState = false;
+
+        try {
+            con = DBConnectionPool.getConnection();
+
+            // constructing search query string
+            query = "SELECT * FROM " + DBNames.TABLE_COMMENT + " WHERE";
+            if (pComment.getId() > 0) {
+                query += " " + DBNames.ATT_COMMENT_ID + " = ?";
+                andState = true;
+            }
+
+            if (pComment.getDate() != null) {
+                query += useAnd(andState) + DBNames.ATT_COMMENT_DATE + " = ?";
+                andState = true;
+            }
+
+            if (pComment.getContent() != null) {
+                query += useAnd(andState) + DBNames.ATT_COMMENT_CONTENT + " = ?";
+                andState = true;
+            }
+
+            if (pComment.getAnnualId() >= 0) {
+                query += useAnd(andState) + DBNames.ATT_COMMENT_ANNUALID + "= ?";
+                andState = true;
+            }
+
+            if (pComment.getClassId() >= 0) {
+                query += useAnd(andState) + DBNames.ATT_COMMENT_CLASSID + "= ?";
+                andState = true;
+            }
+
+            if (pComment.getAuthorId() > 0) {
+                query += useAnd(andState) + DBNames.ATT_COMMENT_AUTHORID + "= ?";
+                andState = true;
+            }
+
+            pstmt = con.prepareStatement(query);
+
+            // setting pstmt's parameters
+            int i = 1;		// index of pstmt first argument
+            if (pComment.getId() > 0) {		// >= 0 ??
+                pstmt.setInt(i, pComment.getId());
+                i++;
+            }
+
+            if (pComment.getDate() != null) {
+                pstmt.setDate(i, new java.sql.Date(pComment.getDate().getTimeInMillis()));
+                i++;
+            }
+
+            if (pComment.getContent() != null) {
+                pstmt.setString(i, pComment.getContent());
+                i++;
+            }
+
+            if (pComment.getAnnualId() >= 0) {
+                pstmt.setInt(i, pComment.getAnnualId());
+                i++;
+            }
+
+            if (pComment.getClassId() >= 0) {
+                pstmt.setInt(i, pComment.getClassId());
+                i++;
+            }
+
+            if (pComment.getAuthorId() > 0) {
+                pstmt.setInt(i, pComment.getAuthorId());
+                i++;
+            }
+
+            // executing select query
+            rs = pstmt.executeQuery();
+            con.commit();
+
+            // constructing comment list
+            comments = new ArrayList<CommentBean>();
+            while (rs.next()) {
+                CommentBean comm = new CommentBean();
+                comm.setId(rs.getInt(DBNames.ATT_COMMENT_ID));
+                comm.setContent(rs.getString(DBNames.ATT_COMMENT_CONTENT));
+                comm.setAnnualId(rs.getInt(DBNames.ATT_COMMENT_ANNUALID));
+                comm.setClassId(rs.getInt(DBNames.ATT_COMMENT_CLASSID));
+                comm.setAuthorId(rs.getInt(DBNames.ATT_COMMENT_AUTHORID));
+
+                //getting Date from ResultSet and converting it to GregorianCalendar
+                GregorianCalendar commDate = new GregorianCalendar();
+                commDate.setTime(rs.getDate(DBNames.ATT_COMMENT_DATE));
+                comm.setDate(commDate);
+
+                comments.add(comm);
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
+            if (con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+        return comments;
+    }
 }
