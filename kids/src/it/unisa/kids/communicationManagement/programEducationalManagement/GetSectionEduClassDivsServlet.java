@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author navi
+ * @author Antonio Panariello
  */
 public class GetSectionEduClassDivsServlet extends HttpServlet {
 
@@ -63,8 +63,10 @@ public class GetSectionEduClassDivsServlet extends HttpServlet {
                         + "         </thead>\n"
                         + "         <tbody></tbody>\n"
                         + "     </table>\n"
+                        + "     <input type=\"button\" value=\"Inserisci Attivit&agrave;\" id=\"insAct" + clas.getIdClasse() + "\">\n"
                         + "     <script type=\"text/javascript\">\n"
                         + "         buildClassTable(" + clas.getIdClasse() + ");\n"
+                        + "         buildActButton(" + clas.getIdClasse() + ");\n"
                         + "     </script>\n"
                         + "     <div style=\"padding-top: 20px;\">\n"
                         + "         <h1>Commenti</h1>\n"

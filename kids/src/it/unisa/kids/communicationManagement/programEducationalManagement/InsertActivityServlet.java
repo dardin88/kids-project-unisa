@@ -4,13 +4,8 @@
  */
 package it.unisa.kids.communicationManagement.programEducationalManagement;
 
-import it.unisa.kids.accessManagement.classManagement.ClassBean;
-import it.unisa.kids.common.facade.AccessFacade;
-import it.unisa.kids.common.facade.IAccessFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,14 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Antonio Panariello
  */
-public class UpdateClassStatusServlet extends HttpServlet {
-    
-    private IAccessFacade accessFacade;
-
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        this.accessFacade = new AccessFacade();
-    }
+public class InsertActivityServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -44,28 +32,16 @@ public class UpdateClassStatusServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            int classId = Integer.parseInt(request.getParameter("classId"));
-            String classStatus = request.getParameter("classStatus");
-            
-            ClassBean searchClass = new ClassBean();
-            searchClass.setIdClasse(classId);
-            ClassBean classToUpdate = accessFacade.search(searchClass).get(0);
-            if (classStatus.equals("Bozza")) {
-                classToUpdate.setStatoProgetto("Bozza");
-            } else if (classStatus.equals("Sottomessa")) {
-                classToUpdate.setStatoProgetto("Sottomessa");
-            } else if (classStatus.equals("RichiestaMod")) {
-                classToUpdate.setStatoProgetto("RichiestaMod");
-            } else if (classStatus.equals("AccettaRett")) {
-                classToUpdate.setStatoProgetto("AccettaRett");
-            } else if (classStatus.equals("AccettaScient")) {
-                classToUpdate.setStatoProgetto("AccettaScient");
-            }
-            
-            accessFacade.update(classToUpdate);
-        } catch (SQLException e) {
-            return;
-        } finally {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet InsertActivityServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet InsertActivityServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        } finally {            
             out.close();
         }
     }

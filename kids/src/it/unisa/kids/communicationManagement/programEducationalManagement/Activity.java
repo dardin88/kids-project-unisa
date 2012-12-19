@@ -8,7 +8,7 @@ import java.util.GregorianCalendar;
 
 /**
  *
- * @author navi
+ * @author Antonio Panariello
  */
 public class Activity {
 

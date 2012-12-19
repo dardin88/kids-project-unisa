@@ -26,7 +26,7 @@ import org.json.JSONObject;
 
 /**
  *
- * @author navi
+ * @author Antonio Panariello
  */
 public class GetCommentTableServlet extends HttpServlet {
 
