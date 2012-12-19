@@ -1,87 +1,87 @@
-function logout(){
-    window.location='Logout';
+function logout() {
+    window.location = 'Logout';
 }
 
-function goToIndex(){
-    window.location.href="index.jsp";
+function goToIndex() {
+    window.location.href = "index.jsp";
 }
 
-function activePage(){
-    var url=document.URL;
-    urlArray=new Array();
-    urlArray=url.split('/');
-    currentPage=urlArray[urlArray.length-1];
-    switch(currentPage){
+function activePage() {
+    var url = document.URL;
+    urlArray = new Array();
+    urlArray = url.split('/');
+    currentPage = urlArray[urlArray.length - 1];
+    switch (currentPage) {
         case 'insertTrainee.jsp':
-            $("#insertTrainee").css("background-color","#444");
-            $("#insertTrainee").css("color","#FFFFFF");
+            $("#insertTrainee").css("background-color", "#444");
+            $("#insertTrainee").css("color", "#FFFFFF");
             $("#title").html("Gestione Tirocinante");
             break;
         case 'trainees.jsp':
-            $("#trainees").css("background-color","#444");
-            $("#trainees").css("color","#FFFFFF");
+            $("#trainees").css("background-color", "#444");
+            $("#trainees").css("color", "#FFFFFF");
             $("#title").html("Gestione Tirocinante");
             break;
         case 'formationScienceNotifications.jsp':
-            $("#notifications").css("background-color","#444");
-            $("#notifications").css("color","#FFFFFF");
+            $("#notifications").css("background-color", "#444");
+            $("#notifications").css("color", "#FFFFFF");
             $("#title").html("Gestione Tirocinante");
             break;
         case 'schedulerActivity.jsp':
-            $("#scheduler").css("background-color","#444");
-            $("#scheduler").css("color","#FFFFFF");
+            $("#scheduler").css("background-color", "#444");
+            $("#scheduler").css("color", "#FFFFFF");
             $("#title").html("Gestione Tirocinante");
             break;
         case 'insertTraineeActivity.jsp':
-            $("#insertTraineeActivity").css("background-color","#444");
-            $("#insertTraineeActivity").css("color","#FFFFFF");
+            $("#insertTraineeActivity").css("background-color", "#444");
+            $("#insertTraineeActivity").css("color", "#FFFFFF");
             $("#title").html("Gestione Tirocinante");
             break;
         case 'newsShowTable.jsp':
-            $("#newsShowTable").css("background-color","#444");
-            $("#newsShowTable").css("color","#FFFFFF");
+            $("#newsShowTable").css("background-color", "#444");
+            $("#newsShowTable").css("color", "#FFFFFF");
             $("#title").html("Gestione News");
             break;
         case 'traineeRegister.jsp':
-            $("#traineeRegister").css("background-color","#444");
-            $("#traineeRegister").css("color","#FFFFFF");
+            $("#traineeRegister").css("background-color", "#444");
+            $("#traineeRegister").css("color", "#FFFFFF");
             $("#title").html("Gestione Tirocinante");
             break;
         case 'traineeConvocation.jsp':
-            $("#traineeConvocation").css("background-color","#444");
-            $("#traineeConvocation").css("color","#FFFFFF");
+            $("#traineeConvocation").css("background-color", "#444");
+            $("#traineeConvocation").css("color", "#FFFFFF");
             $("#title").html("Gestione Tirocinante");
             break;
         case 'meetingCalendar.jsp':
-            $("#meetingCalendarMenuEL").css("background-color","#444");
-            $("#meetingCalendarMenuEL").css("color","#FFFFFF");
+            $("#meetingCalendarMenuEL").css("background-color", "#444");
+            $("#meetingCalendarMenuEL").css("color", "#FFFFFF");
             $("#title").html("Gestione Calendario");
             break;
-            
+
         case 'accountInformationParent.jsp':
-            $("#accountInformationParentMenuEL").css("background-color","#444");
-            $("#accountInformationParentMenuEL").css("color","#FFFFFF");
+            $("#accountInformationParentMenuEL").css("background-color", "#444");
+            $("#accountInformationParentMenuEL").css("color", "#FFFFFF");
             $("#title").html("Gestione Account - Visualizza dati");
             break;
         case 'accountInformationAll.jsp':
-            $("#accountInformationAllMenuEL").css("background-color","#444");
-            $("#accountInformationAllMenuEL").css("color","#FFFFFF");
+            $("#accountInformationAllMenuEL").css("background-color", "#444");
+            $("#accountInformationAllMenuEL").css("color", "#FFFFFF");
             $("#title").html("Gestione Account - Visualizza dati");
             break;
         case 'accountSecretary.jsp':
-            $("#accountSecretaryMenuEL").css("background-color","#444");
-            $("#accountSecretaryMenuEL").css("color","#FFFFFF");
+            $("#accountSecretaryMenuEL").css("background-color", "#444");
+            $("#accountSecretaryMenuEL").css("color", "#FFFFFF");
             $("#title").html("Gestione Account - Visualizza dati");
             break;
-            
+
         case 'managerTraineeActivity.jsp':
-            $("#managementTraineeActivity").css("background-color","#444");
-            $("#managementTraineeActivity").css("color","#FFFFFF");
+            $("#managementTraineeActivity").css("background-color", "#444");
+            $("#managementTraineeActivity").css("color", "#FFFFFF");
             $("#title").html("Gestione Tirocinante");
             break;
         case 'managerTraineeRequest.jsp':
-            $("#managementTraineeRequest").css("background-color","#444");
-            $("#managementTraineeRequest").css("color","#FFFFFF");
+            $("#managementTraineeRequest").css("background-color", "#444");
+            $("#managementTraineeRequest").css("color", "#FFFFFF");
             $("#title").html("Gestione Tirocinante");
             break;
         case 'paymentManagement.jsp':
@@ -169,10 +169,15 @@ function activePage(){
             $("#classMenuEl").css("color", "#FFFFFF");
             $("#title").html("Gestione Classi");
             break;
+        case 'register.jsp':
+            $("#register").css("background-color", "#444");
+            $("#register").css("color", "#FFFFFF");
+            $("#title").html("Registro Attivi&agrave");
+            break;
     }
 }
 
-function messageDialog(){
+function messageDialog() {
     $("#confirm").dialog({
         autoOpen: true,
         modal: true,

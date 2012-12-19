@@ -50,6 +50,8 @@ public class GetClassDivRegisterServlet extends HttpServlet {
             List<ClassBean> classList = accessFacade.getClasses();
             for (ClassBean clas : classList) {
                 out.println(" <div id=\"insertActivityWindow" + clas.getIdClasse() + "\">\n"
+                        +"    <form method=\"post\" action=\"InsertDailyActivity\" id=\"form\">"
+                        +"         <input id=\"idClass\" type=\"hidden\" name=\"idClass\" value=\"\">"
                         + "        <table id=\"tableActivity" + clas.getIdClasse() + "\">\n"
                         + "                <thead>\n"
                         + "                    <tr>\n"
@@ -63,9 +65,9 @@ public class GetClassDivRegisterServlet extends HttpServlet {
                         + "                </tbody>\n"
                         + "            </table>\n"
                         + "        <table>\n"
-                        + "            <tr><td> Note:</td><td><textarea id=\"note\" rows=\"5\" cols=\"20\"></textarea></td></tr>\n"
-                        + "\n"
+                        + "            <tr><td> Note:</td><td><textarea id=\"note\" name=\"nota\" rows=\"5\" cols=\"20\"></textarea></td></tr>\n"
                         + "        </table>\n"
+                        +"         <input type=\"button\" id=\"insert"+clas.getIdClasse()+"\" name=\"insert\" value=\"Inserisci\" onclick=\"controlla(this)\">"
                         + "    </div>");
                 out.println("<div id=\"" + clas.getIdClasse() + "\" style=\"width:97%\">");
                 out.println("<input type=\"button\" id=\"insertActivityButton" + clas.getIdClasse() + "\" value=\"Inserisci Attivit&agrave\" onclick=\"openInsertActivity('" + clas.getIdClasse() + "')\">");
@@ -81,7 +83,8 @@ public class GetClassDivRegisterServlet extends HttpServlet {
                         + "                </thead>\n"
                         + "                <tbody>\n"
                         + "                </tbody>\n"
-                        + "            </table>");
+                        + "            </table>"
+                        +"");
                 out.println("</div>");
                 out.println("<script text=\"text/javascipt\">"
                         + "buildTable(\"" + clas.getIdClasse() + "\");"
@@ -90,7 +93,7 @@ public class GetClassDivRegisterServlet extends HttpServlet {
                         + "autoOpen: false,"
                         + " modal: true,"
                         + " resizable: false,"
-                        + " width: 800"
+                        + " width: 900"
                         + "});");
                 out.println("$('#tableActivity"+clas.getIdClasse()+"').dataTable({\n"
                         + "        \"bJQueryUI\": true,\n"
@@ -131,16 +134,17 @@ public class GetClassDivRegisterServlet extends HttpServlet {
                         + "        },\n"
                         + "        \"aoColumns\": [\n"
                         + "            {\n"
-                        + "                \"sWidth\": \"5%\"\n"
+                        + "                \"sWidth\": \"1%\"\n"
                         + "            },\n"
                         + "            {\n"
-                        + "                \"sWidth\": \"25%\"\n"
+                        + "                \"sWidth\": \"10%\"\n"
                         + "            },\n"
                         + "            {\n"
-                        + "                \"sWidth\": \"85%\"\n"
+                        + "                \"sWidth\": \"89%\"\n"
                         + "            }\n"
                         + "        ]\n"
-                        + "    });</script>");
+                        + "    });"
+                        + "$(\"#insert"+clas.getIdClasse()+"\").button()</script>");
 
             }
 

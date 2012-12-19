@@ -162,6 +162,9 @@
             <div class="div">
                 <li id="needCommunicationTable"><a href="needCommunicationTable.jsp">Comunicazioni Bisogni</a></li>         
             </div>
+            <div class="div">
+                <li id="register"><a href="register.jsp">Registro Attivit&agrave</a></li>         
+            </div>
         </c:if>
 
         <c:if test="${sessionScope.user.getAccountType()=='Admin'}">  

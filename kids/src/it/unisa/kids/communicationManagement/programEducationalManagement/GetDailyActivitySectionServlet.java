@@ -4,10 +4,13 @@
  */
 package it.unisa.kids.communicationManagement.programEducationalManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.kids.common.facade.AccessFacade;
+import it.unisa.kids.common.facade.AccountFacade;
 import it.unisa.kids.common.facade.IAccessFacade;
+import it.unisa.kids.common.facade.IAccountFacade;
 import it.unisa.kids.serviceManagement.timeServiceManagement.ITimeServiceManager;
 import it.unisa.kids.serviceManagement.timeServiceManagement.TimeServiceRequest;
 import it.unisa.kids.serviceManagement.trainingManagement.GetTraineesServletTable;
@@ -35,10 +38,12 @@ import org.json.JSONObject;
 public class GetDailyActivitySectionServlet extends HttpServlet {
 
     private IActivityManager manager;
+    private IAccountFacade accountFacade;
 
     public void init(ServletConfig config) {
         RefinedAbstractManager refinedAbstractTimeServiceManager = RefinedAbstractManager.getInstance();
         manager = (IActivityManager) refinedAbstractTimeServiceManager.getManagerImplementor(DBNames.TABLE_ACTIVITYSECTIONDAILY);
+        accountFacade=new AccountFacade();
     }
 
     /**
@@ -99,19 +104,23 @@ public class GetDailyActivitySectionServlet extends HttpServlet {
                     paginateDailyActivitySectionSet = new DailyActivitySection[toShow];
                     System.arraycopy(listDailyActivitySections.toArray(), start, paginateDailyActivitySectionSet, 0, toShow);
                 }
-                GregorianCalendar currentDate = null;
+                GregorianCalendar currentDate = new GregorianCalendar(1978,01,02);
                 for (DailyActivitySection das : paginateDailyActivitySectionSet) {
                     JSONArray ja = new JSONArray();
-                    if (das.getData() == currentDate) {
+                    if (das.getData().getTimeInMillis() == currentDate.getTimeInMillis()) {
                         ja.put("");
                     } else {
+                        currentDate=das.getData();
                         ja.put(das.getData().get(Calendar.YEAR) + "/" + (das.getData().get(Calendar.MONTH) + 1) + "/" + das.getData().get(Calendar.DAY_OF_MONTH));
                     }
                     Activity activity = new Activity();
                     activity.setId(das.getIdActivity());
                     List<Activity> listActivity = manager.search(activity);
                     ja.put(listActivity.get(0).getName());
-                    ja.put(das.getIdEducator());
+                    Account account=new Account();
+                    account.setId(das.getIdEducator());
+                    List<Account> list=accountFacade.search(account);
+                    ja.put(list.get(0).getNameUser()+" "+list.get(0).getSurnameUser());
 
 
                     //String operazioni = "Conferma?<input type=\"checkbox\" id=\"" + timeService.getId() + "\" onclick=\"updateTimeServiceRequest('" + timeService.getId() + "',this)\"";
