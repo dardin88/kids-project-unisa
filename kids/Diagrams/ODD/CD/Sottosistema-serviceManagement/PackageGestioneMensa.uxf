@@ -4,39 +4,13 @@
   <element>
     <type>com.umlet.element.Package</type>
     <coordinates>
-      <x>114</x>
+      <x>366</x>
       <y>72</y>
-      <w>858</w>
+      <w>594</w>
       <h>540</h>
     </coordinates>
     <panel_attributes>CanteenManagament</panel_attributes>
     <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>120</x>
-      <y>102</y>
-      <w>216</w>
-      <h>48</h>
-    </coordinates>
-    <panel_attributes>*AbstractManager*
---
-#Imp: T
---
-+ getManagerImplementor(String): T</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>318</x>
-      <y>90</y>
-      <w>72</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>18;18;60;18</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
@@ -60,30 +34,6 @@
 + getMealReqList(): List&lt;MealRequestBean&gt;
 + getLastMenu(int, String, boolean): List&lt;MenuBean&gt;</panel_attributes>
     <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>120</x>
-      <y>174</y>
-      <w>216</w>
-      <h>42</h>
-    </coordinates>
-    <panel_attributes>*RefinedAbstractManager*
---
-+ getManagerImplementor(String): T</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>204</x>
-      <y>132</y>
-      <w>30</w>
-      <h>54</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>18;18;18;42</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>

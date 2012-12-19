@@ -4,32 +4,6 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>12</x>
-      <y>66</y>
-      <w>216</w>
-      <h>48</h>
-    </coordinates>
-    <panel_attributes>*AbstractManager*
---
-#Imp: T
---
-+ getManagerImplementor(String): T</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>210</x>
-      <y>54</y>
-      <w>72</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>18;18;60;18</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
       <x>270</x>
       <y>66</y>
       <w>318</w>
@@ -55,30 +29,6 @@
 + search(TimeServiceRequest): List&lt;TimeServiceRequest&gt;
 + getTimeServRequestList(): List&lt;TimeServiceRequest&gt;</panel_attributes>
     <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>12</x>
-      <y>138</y>
-      <w>216</w>
-      <h>42</h>
-    </coordinates>
-    <panel_attributes>*RefinedAbstractManager*
---
-+ getManagerImplementor(String): T</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>96</x>
-      <y>96</y>
-      <w>30</w>
-      <h>54</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>18;18;18;42</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
@@ -181,9 +131,9 @@
   <element>
     <type>com.umlet.element.Package</type>
     <coordinates>
-      <x>0</x>
+      <x>258</x>
       <y>36</y>
-      <w>912</w>
+      <w>654</w>
       <h>594</h>
     </coordinates>
     <panel_attributes>TimeServiceManagement</panel_attributes>

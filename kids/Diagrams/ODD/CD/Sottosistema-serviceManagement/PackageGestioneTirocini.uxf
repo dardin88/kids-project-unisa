@@ -4,9 +4,9 @@
   <element>
     <type>com.umlet.element.Package</type>
     <coordinates>
-      <x>160</x>
+      <x>320</x>
       <y>44</y>
-      <w>572</w>
+      <w>408</w>
       <h>464</h>
     </coordinates>
     <panel_attributes>TrainingManagement</panel_attributes>
@@ -15,33 +15,7 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>172</x>
-      <y>72</y>
-      <w>144</w>
-      <h>32</h>
-    </coordinates>
-    <panel_attributes>*AbstractManager*
---
-#Imp: T
---
-+ getManagerImplementor(String): T</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>304</x>
-      <y>64</y>
-      <w>76</w>
-      <h>20</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>12;12;68;12</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>372</x>
+      <x>368</x>
       <y>60</y>
       <w>148</w>
       <h>156</h>
@@ -74,31 +48,7 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>172</x>
-      <y>120</y>
-      <w>144</w>
-      <h>28</h>
-    </coordinates>
-    <panel_attributes>*RefinedAbstractTrainingManager*
---
-+ getManagerImplementor(): ITrainingManager</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>228</x>
-      <y>92</y>
-      <w>20</w>
-      <h>36</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>12;12;12;28</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>348</x>
+      <x>344</x>
       <y>252</y>
       <w>144</w>
       <h>176</h>
@@ -135,7 +85,7 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>564</x>
+      <x>560</x>
       <y>60</y>
       <w>168</w>
       <h>160</h>
@@ -170,7 +120,7 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>628</x>
+      <x>624</x>
       <y>228</y>
       <w>100</w>
       <h>208</h>
@@ -211,7 +161,7 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>508</x>
+      <x>504</x>
       <y>252</y>
       <w>108</w>
       <h>188</h>
@@ -249,7 +199,7 @@
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>420</x>
+      <x>416</x>
       <y>204</y>
       <w>20</w>
       <h>56</h>
@@ -260,7 +210,7 @@
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>320</x>
+      <x>316</x>
       <y>292</y>
       <w>36</w>
       <h>52</h>
@@ -271,7 +221,7 @@
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>508</x>
+      <x>504</x>
       <y>76</y>
       <w>64</w>
       <h>20</h>
@@ -282,7 +232,7 @@
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>508</x>
+      <x>504</x>
       <y>92</y>
       <w>128</w>
       <h>148</h>
@@ -293,7 +243,7 @@
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>508</x>
+      <x>504</x>
       <y>108</y>
       <w>36</w>
       <h>152</h>
