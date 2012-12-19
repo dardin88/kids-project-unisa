@@ -6,58 +6,68 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClassBean {
-	private int idClasse;
-	private String className;
-	private List<Account> educatori;				
-	private List<RegistrationChild> bambini;
-        private String state;
 
-	public ClassBean()  {   }        
-        
-        public ClassBean(String name,ArrayList<Account> educa,ArrayList<RegistrationChild> bamb)
-	{
-		className=name;
-		this.educatori=educa;
-		this.bambini=bamb;
-	}
+    private int idClasse;
+    private String className;
+    private List<Account> educatori;
+    private List<RegistrationChild> bambini;
+    private String state;
+    private String StatoProgetto;
 
-	public int getIdClasse() {
-		return idClasse;
-	}
+    public ClassBean() {
+    }
 
-	public void setIdClasse(int idClasse) {			
-		this.idClasse = idClasse;
-	}
+    public ClassBean(String name, ArrayList<Account> educa, ArrayList<RegistrationChild> bamb) {
+        className = name;
+        this.educatori = educa;
+        this.bambini = bamb;
+    }
 
-	public String getClassName() {
-		return className;
-	}
+    public int getIdClasse() {
+        return idClasse;
+    }
 
-	public void setClassName(String className) {
-		this.className = className;
-	}
+    public void setIdClasse(int idClasse) {
+        this.idClasse = idClasse;
+    }
 
-	public List<Account> getEducatori() {
-		return educatori;
-	}
+    public String getClassName() {
+        return className;
+    }
 
-	public void setEducatori(List<Account> educatori) {
-		this.educatori = educatori;
-	}
+    public void setClassName(String className) {
+        this.className = className;
+    }
 
-	public List<RegistrationChild> getBambini() {
-		return bambini;
-	}
+    public List<Account> getEducatori() {
+        return educatori;
+    }
 
-	public void setBambini(List<RegistrationChild> bambini) {
-		this.bambini = bambini;
-	}
-        
-        public void setState(String state) {
-            this.state = state;
-        }
+    public void setEducatori(List<Account> educatori) {
+        this.educatori = educatori;
+    }
 
-        public String getState() {
-            return state;
-        }
+    public List<RegistrationChild> getBambini() {
+        return bambini;
+    }
+
+    public void setBambini(List<RegistrationChild> bambini) {
+        this.bambini = bambini;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setStatoProgetto(String StatoProgetto) {
+        this.StatoProgetto = StatoProgetto;
+    }
+
+    public String getStatoProgetto() {
+        return StatoProgetto;
+    }
 }

@@ -79,8 +79,16 @@ public final class DBNames {
     public static final String ATT_CLASS_ID = "Id";
     public static final String ATT_CLASS_NAME = "Nome";
     public static final String ATT_CLASS_STATE = "Stato";
+    public static final String ATT_CLASS_PROJECTSTATE = "StatoProgetto";
+    public static final String ATT_CLASS_ENUM_PROJECTSTATE_DRAFT = "Bozza";
+    public static final String ATT_CLASS_ENUM_PROJECTSTATE_SUBMITTED = "Sottomessa";
+    public static final String ATT_CLASS_ENUM_PROJECTSTATE_REVISION = "RichiestaMod";
+    public static final String ATT_CLASS_ENUM_PROJECTSTATE_ACCEPTRET = "AccettaRett";
+    public static final String ATT_CLASS_ENUM_PROJECTSTATE_ACCEPTSCIENT = "AccettaScient";
     public static final String ATT_CLASS_ENUM_STATE_DRAFT = "bozza";
     public static final String ATT_CLASS_ENUM_STATE_SUBMITTED = "sottomessa";
+    public static final String ATT_CLASS_ENUM_STATE_ACCEPTED = "accettata";
+    public static final String ATT_CLASS_ENUM_STATE_REVISION = "revisione";
     //ClassificationTable's attributes
     public static final String ATT_CLASSIFICATION_ID = "Id";
     public static final String ATT_CLASSIFICATION_NAME = "Nome";
@@ -299,5 +307,5 @@ public final class DBNames {
     public static final String ATT_MODIFYTIMESERVICEREQUEST_CHILDID = "IdBambino";
     public static final String ATT_MODIFYTIMESERVICEREQUEST_RANGEUSER = "FasciaUtenza";
     public static final String ATT_MODIFYTIMESERVICEREQUEST_STATE = "Stato";
-    public static final String ATT_MODIFYTIMESERVICEREQUEST_OPINION="Valutazione";
+    public static final String ATT_MODIFYTIMESERVICEREQUEST_OPINION = "Valutazione";
 }

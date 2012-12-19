@@ -33,9 +33,20 @@ public class JDBCClassManager implements IClassManager {
     public synchronized ClassBean insert(ClassBean pClass) throws SQLException {
         Connection con = null;
         Statement stmt = null;
-        String query = "INSERT INTO " + DBNames.TABLE_CLASS + " (" + DBNames.ATT_CLASS_NAME + ", " + DBNames.ATT_CLASS_STATE + ") "
-                + "VALUES ('" + pClass.getClassName() + "', '"
-                + pClass.getState() + "');"; 			//come inserire educatori e bambini
+        String query = "INSERT INTO " + DBNames.TABLE_CLASS
+                + " (" + DBNames.ATT_CLASS_NAME + ", "
+                + DBNames.ATT_CLASS_STATE;
+        if (pClass.getStatoProgetto() != null) {       //controllo necessario altrimenti mi sballa le tabelle
+            query += ", " + DBNames.ATT_CLASS_PROJECTSTATE;
+        }
+        query += ")VALUES ('" + pClass.getClassName() + "', '"
+                + pClass.getState() + "'";
+        if (pClass.getStatoProgetto() != null) {       //controllo necessario altrimenti mi sballa le tabelle
+            query += ", '" + DBNames.ATT_CLASS_PROJECTSTATE + "');";
+        } else {                                      //nel caso in cui sia null deve solo chiudere la parentesi e mettere il ;
+            query += ");";
+        }
+
         try {
             con = DBConnectionPool.getConnection();
             stmt = con.createStatement();
@@ -95,6 +106,12 @@ public class JDBCClassManager implements IClassManager {
                 andState = true;
             }
         }
+        if (pClass.getStatoProgetto() != null) {                //adesso esegue la ricerca anche per questo nuovo campo
+            if (!pClass.getStatoProgetto().equals("")) {
+                query.append(useAnd(andState)).append(DBNames.ATT_CLASS_PROJECTSTATE + "=?");
+                andState = true;
+            }
+        }
         if (andState == false) {
             query.append("1");
         }
@@ -107,11 +124,15 @@ public class JDBCClassManager implements IClassManager {
                 stmt.setInt(paramNum, pClass.getIdClasse());
                 paramNum++;
             }
-            if (pClass.getState() != null) {
+            if (pClass.getState() != null) {                    //qui sette il campo per il PreparedStatement
                 if (!pClass.getState().equals("")) {
                     stmt.setString(paramNum, pClass.getState());
                     paramNum++;
                 }
+            }
+            if (pClass.getStatoProgetto() != null) {
+                stmt.setString(paramNum, pClass.getStatoProgetto());
+                paramNum++;
             }
             result = stmt.executeQuery();
             con.commit();
@@ -120,6 +141,7 @@ public class JDBCClassManager implements IClassManager {
                 tmpClassBean.setIdClasse(result.getInt(DBNames.ATT_CLASS_ID));
                 tmpClassBean.setClassName(result.getString(DBNames.ATT_CLASS_NAME));
                 tmpClassBean.setState(result.getString(DBNames.ATT_CLASS_STATE));
+                tmpClassBean.setStatoProgetto(result.getString(DBNames.ATT_CLASS_PROJECTSTATE));            //qui riempie il nuovo campo "StatoProgetto"
 
                 JDBCRegistrationChildManager regMan = JDBCRegistrationChildManager.getInstance();
                 RegistrationChild pRegChild = new RegistrationChild();
@@ -149,8 +171,11 @@ public class JDBCClassManager implements IClassManager {
         Statement stmt = null;
         String query = "UPDATE " + DBNames.TABLE_CLASS + " "
                 + "SET " + DBNames.ATT_CLASS_NAME + "='" + pClass.getClassName()
-                + "', " + DBNames.ATT_CLASS_STATE + "='" + pClass.getState()
-                + "' WHERE " + DBNames.ATT_CLASS_ID + "=" + pClass.getIdClasse() + ";";
+                + "', " + DBNames.ATT_CLASS_STATE + "='" + pClass.getState();
+        if (pClass.getStatoProgetto() != null) {                            //controllo necessario altrimenti mi sballa le tabelle
+            query += "', " + DBNames.ATT_CLASS_PROJECTSTATE + "='" + pClass.getStatoProgetto();
+        }
+        query += "' WHERE " + DBNames.ATT_CLASS_ID + "=" + pClass.getIdClasse() + ";";
 
         System.out.println(query);
         try {
