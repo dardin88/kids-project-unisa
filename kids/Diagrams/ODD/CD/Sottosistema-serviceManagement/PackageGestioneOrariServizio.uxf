@@ -1,64 +1,150 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="11.5.1">
-  <zoom_level>7</zoom_level>
-  <element>
-    <type>com.umlet.element.Package</type>
-    <coordinates>
-      <x>21</x>
-      <y>7</y>
-      <w>1064</w>
-      <h>707</h>
-    </coordinates>
-    <panel_attributes>TimeServiceManagement</panel_attributes>
-    <additional_attributes/>
-  </element>
+  <zoom_level>6</zoom_level>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>35</x>
-      <y>42</y>
-      <w>252</w>
-      <h>56</h>
+      <x>12</x>
+      <y>66</y>
+      <w>216</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>*AbstractManager*
 --
 #Imp: T
 --
-/+getManagerImplementor(pManagerType: String): T/</panel_attributes>
++ getManagerImplementor(String): T</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>266</x>
-      <y>28</y>
-      <w>83</w>
-      <h>34</h>
+      <x>210</x>
+      <y>54</y>
+      <w>72</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>21;21;70;21</additional_attributes>
+    <additional_attributes>18;18;60;18</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>336</x>
-      <y>42</y>
-      <w>371</w>
-      <h>154</h>
+      <x>270</x>
+      <y>66</y>
+      <w>318</w>
+      <h>204</h>
     </coordinates>
-    <panel_attributes>*ITimeService	Manager*
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+*ITimeServiceManager*
 --
-/+insert(pTimeServ: TimeServiceBean): Void/
-/+update(pTimeServ: TimeServiceBean): Void/
-/+delete(pTimeServ: TimeServiceBean): Void/
-/+insert(pTimeServReq: TimeServiceRequestBean): Void/
-/+update(pTimeServReq: TimeServiceRequestBean): Void/
-/+delete(pTimeServReq: TimeServiceRequestBean): Void/
-/+search(pTimeServ: TimeServiceBean): List&lt;TimeServiceBean&gt;/
-/+getTimeServiceList(): List&lt;TimeServiceBean&gt;/
-/+getTimeServiceList(pTimeServType: String): List&lt;TimeServiceBean&gt;/
-/+search(pTimeServReq: TimeServiceRequestBean): List&lt;TimeServiceRequestBean&gt;/
-/+getTimeServRequestList(): List&lt;TimeServiceRequestBean&gt;/
++ insert(ModifyTimeServiceRequest): Void
++ search(ModifyTimeServiceRequest): List&lt;ModifyTimeServiceRequest&gt;
++ getRequestModifyTimeServiceList(): List&lt;ModifyTimeServiceRequest&gt;
++ delete(ModifyTimeServiceRequest): Void
++ update(ModifyTimeServiceRequest): Void
++ insert(News): Void
++ update(News): Void
++ delete(News): Void
++ search(News): List&lt;News&gt;
++ getTimeServiceList(): List&lt;News&gt;
++ getTimeServiceList(String): List&lt;News&gt;
++ insert(TimeServiceRequest): void
++ update(TimeServiceRequest): void
++ delete(TimeServiceRequest): void
++ search(TimeServiceRequest): List&lt;TimeServiceRequest&gt;
++ getTimeServRequestList(): List&lt;TimeServiceRequest&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>12</x>
+      <y>138</y>
+      <w>216</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>*RefinedAbstractManager*
+--
++ getManagerImplementor(String): T</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>96</x>
+      <y>96</y>
+      <w>30</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>18;18;18;42</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>300</x>
+      <y>342</y>
+      <w>258</w>
+      <h>228</h>
+    </coordinates>
+    <panel_attributes>*JDBCTimeServiceManager*
+--
+- manager: JDBCTimeServiceManager
+--
+- JDBCTimeServiceManager()
++ getIstance(): JDBCTimeServiceManager
++ insert(News): Void
++ update(News): Void
++ delete(News): Void
++ search(News): List&lt;News&gt;
++ getTimeServiceList(): List&lt;News&gt;
++ getTimeServiceList(String): List&lt;News&gt;
++ insert(TimeServiceRequest): Void
++ update(TimeServiceRequest): Void
++ delete(TimeServiceRequest): Void
++ search(TimeServiceRequest): List&lt;TimeServiceRequest&gt;
++ insert(ModifyTimeServiceRequest): void
++ search(ModifyTimeServiceRequest): List&lt;ModifyTimeServiceRequest&gt;
++ getRequestModifyTimeServiceList(): List&lt;ModifyTimeServiceRequest&gt;
++ update(ModifyTimeServiceRequest): void
++ delete(ModifyTimeServiceRequest): void
++ getTimeServRequestList(): List&lt;TimeServiceRequest&gt;
+- useAnd(Boolean): String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>648</x>
+      <y>66</y>
+      <w>252</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>*ModifyTimeServiceRequest*
+--
+- id: Int
+- motivation: String
+- userRange: String
+- idChild: int
+- idParent: int
+- state: String
+- opinion: String
+--
++ getOpinion(): String
++ setOpinion(String): void
++ getState(): String
++ setState(String): void
++ getId(): Int
++ getIdChild(): int
++ getIdParent(): int
++ getMotivation(): String
++ getUserRange(): String
++ setId(Int): Void
++ setIdChild(int): void
++ setIdParent(int): void
++ setMotivation(String): void
++ setUserRange(String): void
 
 </panel_attributes>
     <additional_attributes/>
@@ -66,137 +152,85 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>35</x>
-      <y>126</y>
-      <w>252</w>
-      <h>49</h>
+      <x>648</x>
+      <y>372</y>
+      <w>222</w>
+      <h>204</h>
     </coordinates>
-    <panel_attributes>*RefinedAbstractManager*
+    <panel_attributes>*TimeServiceRequest*
 --
-/+getManagerImplementor(PManagerType: String): T/</panel_attributes>
+- id: int
+- dayRequested: String  
+- serviceType: String
+- parentId: int
+- confirmed: int
+--
++ TimeServiceRequest()
++ getId()
++ getConfirmed(): int
++ setConfirmed(int): void
++ setId(int): void
++ getDayRequested(): String
++ setDayRequested(String): void
++ getServiceType(): String
++ setServiceType(String): void
++ getParentId(): int
++ setParentId(int): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>0</x>
+      <y>36</y>
+      <w>912</w>
+      <h>594</h>
+    </coordinates>
+    <panel_attributes>TimeServiceManagement</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>133</x>
-      <y>77</y>
-      <w>34</w>
-      <h>62</h>
+      <x>540</x>
+      <y>402</y>
+      <w>48</w>
+      <h>78</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>21;21;21;49</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>336</x>
-      <y>245</y>
-      <w>378</w>
-      <h>203</h>
-    </coordinates>
-    <panel_attributes>*JDBCTimeServiceManager*
---
--Manager: JDBCTimeServiceManager
---
-/+getIstance(): JDBCTimeServiceManager/
-/+insert(pTimeServ: TimeServiceBean): Void/
-/+update(pTimeServ: TimeServiceBean): Void/
-/+delete(pTimeServ: TimeServiceBean): Void/
-/+insert(pTimeServReq: TimeServiceRequestBean): Void/
-/+update(pTimeServReq: TimeServiceRequestBean): Void/
-/+delete(pTimeServReq: TimeServiceRequestBean): Void/
-/+search(pTimeServ: TimeServiceBean): List&lt;TimeServiceBean&gt;/
-/+getTimeServiceList(): List&lt;TimeServiceBean&gt;/
-/+getTimeServiceList(pTimeServType: String): List&lt;TimeServiceBean&gt;/
-/+search(pTimeServReq: TimeServiceRequestBean): List&lt;TimeServiceRequestBean&gt;/
-/+getTimeServRequestList(): List&lt;TimeServiceRequestBean&gt;/
-/+useAnd(pEnableAnd: Boolean): String/</panel_attributes>
-    <additional_attributes/>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>18;18;36;18;36;66;18;66</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>448</x>
-      <y>175</y>
-      <w>34</w>
-      <h>83</h>
+      <x>414</x>
+      <y>252</y>
+      <w>30</w>
+      <h>102</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>21;21;21;70</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>777</x>
-      <y>42</y>
-      <w>294</w>
-      <h>322</h>
-    </coordinates>
-    <panel_attributes>*TimeServiceRequestBean*
---
--id: Int
--dayRequested: String
--serviceType: String
--date: GregorianCalendar
--parentId: Int
-+PRE_ACCEPTANCE_TIMESERV: String
-+POST_ACCEPTANCE_TIMESERV: String
-+EXTENDED_TIME_TIMESERV: String
-+AUGUST_OPENING_TIMESERV: String
-+MON: String
-+TUE: String
-+WED: String
-+THU: String
-+FRI: String
---
-/+getId(): Int/
-/+setId(pId: Int): Void/
-/+getDayRequest(): String/
-/+setDayRequest(pDayReq: String): Void/
-/+getServiceType(): String/
-/+setServiceType(pServType: String): Void/
-/+getDate(): GregorianCalendar/
-/+setDate(pDate: GregorianCalendar): Void/
-/+getParentId(): Int/
-/+setParentId(pParentId: Int): Void/
-</panel_attributes>
-    <additional_attributes/>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>18;18;18;90</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>686</x>
-      <y>84</y>
-      <w>104</w>
-      <h>34</h>
+      <x>570</x>
+      <y>102</y>
+      <w>90</w>
+      <h>30</h>
     </coordinates>
-    <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>21;21;91;21</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>777</x>
-      <y>413</y>
-      <w>259</w>
-      <h>77</h>
-    </coordinates>
-    <panel_attributes>*TimeServiceBean*
---
-+OPENING_TIMESERV: String
-+CLOSING_TIMESERV: String</panel_attributes>
-    <additional_attributes/>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>18;18;78;18</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>686</x>
-      <y>98</y>
-      <w>104</w>
-      <h>377</h>
+      <x>570</x>
+      <y>150</y>
+      <w>90</w>
+      <h>264</h>
     </coordinates>
-    <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>21;21;56;21;56;364;91;364</additional_attributes>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>18;18;48;18;48;252;78;252</additional_attributes>
   </element>
 </diagram>
