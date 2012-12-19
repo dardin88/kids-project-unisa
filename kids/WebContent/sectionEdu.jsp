@@ -73,8 +73,66 @@
                 <input type="button" id="acceptDocScientBtn" value="Accetta documento" onclick="acceptDocumentScient();">
             </div>
 
+            <div id="insertActivityDialog">
+                <form id="insertActivityForm" class="cmxform" method="post" action="InsertActivity">
+                    <table>
+                        <tr>
+                            <td><label for="activityName">Nome attivit&agrave;:&nbsp;</label></td>
+                            <td><input type="text" name="activityName" id="activityName"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="StartDate">Data inizio:&nbsp;</label></td>
+                            <td><input type="text" name="StartDate" id="StartDate"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="EndDate">Data fine:&nbsp;</label></td>
+                            <td><input type="text" name="EndDate" id="EndDate"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="activityContent">Descrizione attivit&agrave;:&nbsp;</label></td>
+                            <td><textarea rows="5" cols="25" name="activityContent" id="activityContent"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="hidden" name="hiddenActClassId" id="hiddenActClassId" value="-1">
+                                <input class="confirmButton" type="submit" name="insertActivityBtn" id="insertActivityBtn" value="Invia">
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+
+            <div id="updateActivityDialog">
+                <form id="updateActivityForm" class="cmxform" method="post" action="UpdateActivity">
+                    <table>
+                        <tr>
+                            <td><label for="activityNameMod">Nome attivit&agrave;:&nbsp;</label></td>
+                            <td><input type="text" name="activityNameMod" id="activityNameMod"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="StartDateMod">Data inizio:&nbsp;</label></td>
+                            <td><input type="text" name="StartDateMod" id="StartDateMod"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="EndDateMod">Data fine:&nbsp;</label></td>
+                            <td><input type="text" name="EndDateMod" id="EndDateMod"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="activityContentMod">Descrizione attivit&agrave;:&nbsp;</label></td>
+                            <td><textarea rows="5" cols="25" name="activityContentMod" id="activityContentMod"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="hidden" name="hiddenActClassIdMod" id="hiddenActClassIdMod" value="-1">
+                                <input class="confirmButton" type="submit" name="updateActivityBtn" id="updateActivityBtn" value="Invia">
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+
             <div id="insertCommentDialog">
-                <form id="insertDiffMenuForm" class="cmxform" method="post" action="InsertComment">
+                <form id="insertCommentForm" class="cmxform" method="post" action="InsertComment">
                     <table>
                         <tr>
                             <td><label for="commentContent">Commento:&nbsp;</label></td>
@@ -82,7 +140,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <input type="hidden" name="commentType" value="<%= CommentBean.CLASS_COMMENT %>">
+                                <input type="hidden" name="commentType" value="<%= CommentBean.CLASS_COMMENT%>">
                                 <input type="hidden" name="hiddenAccountId" id="hiddenAccountId" value="${sessionScope.user.getId()}">
                                 <input type="hidden" name="hiddenClassId" id="hiddenClassId" value="-1">
                                 <input class="confirmButton" type="submit" name="insertComentBtn" id="insertComentBtn" value="Invia">

@@ -15,6 +15,15 @@ function initializeSectionEduPage() {
     });
     $("#insertComentBtn").button();
     
+    $("#insertActivityDialog").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 450
+    });
+    $("#insertActivityBtn").button();
+    //
+    
     $("#saveDraftBtn").button();
     $("#submitBtn").button();
     $("#requestModBtn").button();
@@ -64,6 +73,14 @@ function buildClassTable(classId) {
                 "sLast":     ">>"
             }
         }
+    });
+}
+
+function buildActButton(classId) {
+    $("#insAct" + classId).button();
+    $("#insAct" + classId).click(function() {
+        $("#hiddenClassId").val(classId);
+        $("#insertCommentDialog").dialog("open");
     });
 }
 

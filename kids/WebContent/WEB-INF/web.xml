@@ -593,6 +593,14 @@
         <servlet-name>UpdateClassStatusServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.programEducationalManagement.UpdateClassStatusServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>InsertActivityServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.programEducationalManagement.InsertActivityServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateActivityServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.programEducationalManagement.UpdateActivityServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
@@ -1173,13 +1181,21 @@
         <servlet-name>RemoveDailyActivitySectionServlet</servlet-name>
         <url-pattern>/RemoveDailyActivitySection</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>DownloadProjectServlet</servlet-name>
         <url-pattern>/DownloadProject</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateClassStatusServlet</servlet-name>
         <url-pattern>/UpdateClassStatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertActivityServlet</servlet-name>
+        <url-pattern>/InsertActivity</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateActivityServlet</servlet-name>
+        <url-pattern>/UpdateActivity</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author navi
+ * @author Antonio Panariello
  */
 public class InsertCommentServlet extends HttpServlet {
 

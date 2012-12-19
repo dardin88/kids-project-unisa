@@ -23,7 +23,7 @@ import org.json.JSONObject;
 
 /**
  *
- * @author navi
+ * @author Antonio Panariello
  */
 public class GetSectionActivitiesTableServlet extends HttpServlet {
 
