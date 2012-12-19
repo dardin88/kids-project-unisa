@@ -50,8 +50,8 @@ public class GetClassDivRegisterServlet extends HttpServlet {
             List<ClassBean> classList = accessFacade.getClasses();
             for (ClassBean clas : classList) {
                 out.println(" <div id=\"insertActivityWindow" + clas.getIdClasse() + "\">\n"
-                        +"    <form method=\"post\" action=\"InsertDailyActivity\" id=\"form\">"
-                        +"         <input id=\"idClass\" type=\"hidden\" name=\"idClass\" value=\"\">"
+                        +"    <form method=\"post\" action=\"InsertDailyActivity\" id=\"form"+clas.getIdClasse()+"\">"
+                        +"         <input id=\"idClass"+clas.getIdClasse()+"\" type=\"hidden\" name=\"idClass\" value=\"\">"
                         + "        <table id=\"tableActivity" + clas.getIdClasse() + "\">\n"
                         + "                <thead>\n"
                         + "                    <tr>\n"
@@ -67,7 +67,8 @@ public class GetClassDivRegisterServlet extends HttpServlet {
                         + "        <table>\n"
                         + "            <tr><td> Note:</td><td><textarea id=\"note\" name=\"nota\" rows=\"5\" cols=\"20\"></textarea></td></tr>\n"
                         + "        </table>\n"
-                        +"         <input type=\"button\" id=\"insert"+clas.getIdClasse()+"\" name=\"insert\" value=\"Inserisci\" onclick=\"controlla(this)\">"
+                        +"         <input type=\"button\" id=\"insert"+clas.getIdClasse()+"\" name=\"insert\" value=\"Inserisci\" onclick=\"controlla(this,'"+clas.getIdClasse()+"')\">"
+                        +"         </form>"
                         + "    </div>");
                 out.println("<div id=\"" + clas.getIdClasse() + "\" style=\"width:97%\">");
                 out.println("<input type=\"button\" id=\"insertActivityButton" + clas.getIdClasse() + "\" value=\"Inserisci Attivit&agrave\" onclick=\"openInsertActivity('" + clas.getIdClasse() + "')\">");
