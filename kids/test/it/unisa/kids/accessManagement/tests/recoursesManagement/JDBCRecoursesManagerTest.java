@@ -16,7 +16,7 @@ public class JDBCRecoursesManagerTest extends TestCase {
     public void setUp() {
         this.bean = new Recourse();
         this.bean.setId(1);
-        this.bean.setId_registration(1);
+        this.bean.setRegistrationChildId(1);
         this.bean.setReason("ReasonTest");
         this.bean.setValutation(true);
         this.managerTest=JDBCRecoursesManager.getInstace();
@@ -47,7 +47,7 @@ public class JDBCRecoursesManagerTest extends TestCase {
     public void testInsert() {
         Recourse test=new Recourse();
         test.setId(2);
-        test.setId_registration(3);
+        test.setRegistrationChildId(3);
         test.setReason("NewReasonTest");
         test.setValutation(false);
         

@@ -178,8 +178,7 @@ function openInsertRenunciationWindow(id) {
     setWindowVisibility("renunciationAddWindow", true);
 }
 /*
- * Riempie i campi del dettaglio della graduatoria e gli esiti associati
- * alla graduatoria dato un ID
+ * Riempie i campi del dettaglio della domanda di rinuncia dato un ID
  */
 function openViewDetailsRenunciationWindow(id) {
     getElement("renunciationViewDetailsWindowId").value = id;
@@ -201,7 +200,7 @@ function openViewDetailsRenunciationWindow(id) {
     );
 }
 /*
- * Apre la finestra di richiesta di conferma di eliminare una graduatoria
+ * Apre la finestra di richiesta di conferma di eliminare una domanda di rinuncia
  * dato un ID
  */
 function openDeleteRenunciationWindow(id) {

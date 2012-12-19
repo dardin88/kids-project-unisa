@@ -110,7 +110,7 @@ public class JDBCRenunciationManager implements IRenunciationManager {
         PreparedStatement pstmt = null;
         ResultSet result = null;
         List<Renunciation> listRenunciation = new ArrayList<Renunciation>();
-        StringBuffer query = new StringBuffer();
+        StringBuilder query = new StringBuilder();
 
         try {
             con = DBConnectionPool.getConnection();
@@ -209,10 +209,140 @@ public class JDBCRenunciationManager implements IRenunciationManager {
         return listRenunciation;
     }
 
+    public List<Renunciation> search(Renunciation renunciation, String toSearch) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet result = null;
+        List<Renunciation> listRenunciation = new ArrayList<Renunciation>();
+        StringBuilder query = new StringBuilder();
+
+        try {
+            con = DBConnectionPool.getConnection();
+            
+            query.append("SELECT RE.*, RC." + DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + ", RC." + 
+                    DBNames.ATT_REGISTRATIONCHILD_SURNAME + ", RC." + DBNames.ATT_REGISTRATIONCHILD_NAME + " " +
+                            "FROM " + DBNames.TABLE_RENUNCIATION + " AS RE, " + DBNames.TABLE_REGISTRATIONCHILD + " AS RC " +
+                            "WHERE RE." + DBNames.ATT_RENUNCIATION_REGISTRATIONCHILDID + "=RC." + DBNames.ATT_REGISTRATIONCHILD_ID + " ");
+
+            boolean andState = true;
+
+            if(renunciation.getId() > 0) {
+                query.append(useAnd(andState) + " RE." + DBNames.ATT_RENUNCIATION_ID + "=?");
+                andState = true;
+            } 
+            if(renunciation.getDate() != null) {
+                query.append(useAnd(andState) + " RE." + DBNames.ATT_RENUNCIATION_DATE + "=?");
+                andState = true;
+            } 
+            if (renunciation.getRegistrationChildId() > 0) {
+                query.append(useAnd(andState) + " RE." + DBNames.ATT_RENUNCIATION_REGISTRATIONCHILDID + "=?");
+                andState = true;
+            } 
+            if (renunciation.isSetConfirmed()) {
+                query.append(useAnd(andState) + " RE." + DBNames.ATT_RENUNCIATION_ISCONFIRMED + "=? ");
+                andState = true;
+            } 
+            if (renunciation.getReason() != null) {
+                query.append(useAnd(andState) + " RE." + DBNames.ATT_RENUNCIATION_REASON + "=? ");
+                andState = true;
+            }
+            // Le condizioni else sono posizionate qui di seguito in modo da effettuare prima 
+            // tutti i controlli obbligatori (AND) e solo dopo gli or
+            if(renunciation.getId() <= 0) {
+                query.append(useOr(andState) + " RE." + DBNames.ATT_RENUNCIATION_ID + " LIKE '%" + toSearch + "%'");
+                andState = true;
+            }
+            if(renunciation.getDate() == null) {
+                query.append(useOr(andState) + " RE." + DBNames.ATT_RENUNCIATION_DATE + " LIKE '%" + toSearch + "%'");
+                andState = true;
+            }
+            if (renunciation.getRegistrationChildId() <= 0) {
+                query.append(useOr(andState) + " RE." + DBNames.ATT_RENUNCIATION_REGISTRATIONCHILDID + " LIKE '%" + toSearch + "%'");
+                andState = true;
+            }
+            if (!renunciation.isSetConfirmed()) {
+                query.append(useOr(andState) + " RE." + DBNames.ATT_RENUNCIATION_ISCONFIRMED + " LIKE '%" + toSearch + "%'");
+                andState = true;
+            }
+            if (renunciation.getReason() == null) {
+                query.append(useOr(andState) + " RE." + DBNames.ATT_RENUNCIATION_REASON + " LIKE '%" + toSearch + "%'");
+                andState = true;
+            }
+            
+            query.append(";");
+            
+            pstmt = con.prepareStatement(query.toString());
+
+            int paramNum = 1;
+
+            if(renunciation.getId() > 0) {
+                pstmt.setInt(paramNum, renunciation.getId());
+                paramNum++;
+            }
+
+            if(renunciation.getDate() != null) {
+                pstmt.setDate(paramNum, CommonMethod.parseDate(renunciation.getDate()));
+                paramNum++;
+            }
+
+            if(renunciation.getRegistrationChildId() > 0) {
+                pstmt.setInt(paramNum, renunciation.getRegistrationChildId());
+                paramNum++;
+            }
+            if(renunciation.isSetConfirmed()) {
+                pstmt.setBoolean(paramNum, renunciation.getIsConfirmed());
+                paramNum++;
+            }
+            if(renunciation.getReason() != null) {
+                pstmt.setString(paramNum, renunciation.getReason());
+                paramNum++;
+            }
+
+            result = pstmt.executeQuery();
+            con.commit();
+            while(result.next()) {
+                Renunciation p = new Renunciation();
+                p.setId(result.getInt(DBNames.ATT_RENUNCIATION_ID));
+                GregorianCalendar date;
+                if(result.getDate(DBNames.ATT_RENUNCIATION_DATE) != null) {
+                    date = CommonMethod.parseGregorianCalendar(result.getDate(DBNames.ATT_RENUNCIATION_DATE));
+                } else {
+                    date = null;
+                }
+                p.setDate(date);
+                p.setIsConfirmed(result.getBoolean(DBNames.ATT_RENUNCIATION_ISCONFIRMED));
+                p.setRegistrationChildId(result.getInt(DBNames.ATT_RENUNCIATION_REGISTRATIONCHILDID));
+                p.setReason(result.getString(DBNames.ATT_RENUNCIATION_REASON));
+                
+                p.setRegistrationChildFiscalCode(result.getString(DBNames.ATT_REGISTRATIONCHILD_FISCALCODE));
+                p.setRegistrationChildSurname(result.getString(DBNames.ATT_REGISTRATIONCHILD_SURNAME));
+                p.setRegistrationChildName(result.getString(DBNames.ATT_REGISTRATIONCHILD_NAME));
+                
+                listRenunciation.add(p);
+            }
+        } finally {
+            if(result != null) {
+                result.close();
+            }
+            if(pstmt != null) {
+                pstmt.close();
+            }
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+
+        return listRenunciation;
+    }
+
     private String useAnd(boolean pEnableAnd) {
         return pEnableAnd ? " AND " : " ";
     }
 
+    private String useOr(boolean pEnableAnd) {
+            return pEnableAnd ? " OR " : " ";
+    }
+    
     private String useSeparator(boolean useSeparator) {
         return useSeparator ? ", " : " ";
     }

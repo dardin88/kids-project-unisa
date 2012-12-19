@@ -1,60 +1,60 @@
-function initRenunciationPage() {
+function initRecoursePage() {
     $.ajaxSetup({
         cache: false
     });
     
-    $("#renunciationAddWindow").dialog({
+    $("#recourseAddWindow").dialog({
         autoOpen: false,
         modal: true,
         resizable: false,
         width: 600
     });
-    $("#renunciationAddWindowMotivoSave").button();
-    $("#renunciationAddWindowMotivoUndo").button();
-    $("#renunciationAddWindowMotivoUndo").click(function() {
-        closeRenunciationAddWindow();
+    $("#recourseAddWindowMotivoSave").button();
+    $("#recourseAddWindowMotivoUndo").button();
+    $("#recourseAddWindowMotivoUndo").click(function() {
+        closeRecourseAddWindow();
     });
     
-    $("#renunciationViewDetailsWindow").dialog({
+    $("#recourseViewDetailsWindow").dialog({
         autoOpen: false,
         modal: true,
         resizable: false,
         width: 600
     });
-    $("#renunciationViewDetailsWindowUndo").button();
-    $("#renunciationViewDetailsWindowUndo").click(function() {
-        closeRenunciationViewDetailsWindow();
+    $("#recourseViewDetailsWindowUndo").button();
+    $("#recourseViewDetailsWindowUndo").click(function() {
+        closeRecourseViewDetailsWindow();
     });
     
     // INIZIALIZZAZIONE ALERT WINDOW
-    $("#renunciationAlertWindow").dialog({
+    $("#recourseAlertWindow").dialog({
         autoOpen: false,
         modal: true,
         resizable: false,
         width: 600,
         stack: true
     });
-    $("#renunciationAlertWindowOkButton").button();
-    $("#renunciationAlertWindowOkButton").click(function() {
-        setWindowVisibility("renunciationAlertWindow", false);
+    $("#recourseAlertWindowOkButton").button();
+    $("#recourseAlertWindowOkButton").click(function() {
+        setWindowVisibility("recourseAlertWindow", false);
     });
     // FINE INIZIALIZZAZIONE ALERT WINDOW
 
     // INIZIALIZZAZIONE CONFIRM WINDOW
-    $("#renunciationConfirmWindow").dialog({
+    $("#recourseConfirmWindow").dialog({
         autoOpen: false,
         modal: true,
         resizable: false,
         width: 600
     });
-    $("#renunciationConfirmWindowConfirmButton").button();
-    $("#renunciationConfirmWindowUndoButton").button();
-    $("#renunciationConfirmWindowUndoButton").click(function() {
-        setWindowVisibility("renunciationConfirmWindow", false);
+    $("#recourseConfirmWindowConfirmButton").button();
+    $("#recourseConfirmWindowUndoButton").button();
+    $("#recourseConfirmWindowUndoButton").click(function() {
+        setWindowVisibility("recourseConfirmWindow", false);
         // Rimuovo l'evento dal pulsante di conferma
-        getElement("renunciationConfirmWindowConfirmButton").onClick = "";
+        getElement("recourseConfirmWindowConfirmButton").onClick = "";
         // Svuoto il testo
-        getElement("renunciationConfirmWindowText").innerHTML = "";
+        getElement("recourseConfirmWindowText").innerHTML = "";
     });
     // FINE INIZIALIZZAZIONE CONFIRM WINDOW
     
@@ -112,7 +112,7 @@ function comunicaConServlet(nomeServlet, parametri, executeIfSuccess) {
              */
             var errorMsg = "Errore nella richiesta alla Servlet (" + textStatus + "):" + newLine() 
                     + "HTTP error: " + errorThrown;
-            openRenunciationAlertWindow("Errore", errorMsg);
+            openRecourseAlertWindow("Errore", errorMsg);
         },
         complete : function(jqXHR, textStatus) {
             /*
@@ -124,24 +124,24 @@ function comunicaConServlet(nomeServlet, parametri, executeIfSuccess) {
         }
     });
 }
-function openRenunciationAlertWindow(newTitle, text) {
-    $("#renunciationAlertWindow").dialog({title: newTitle});
-    getElement("renunciationAlertWindowText").innerHTML = text;
+function openRecourseAlertWindow(newTitle, text) {
+    $("#recourseAlertWindow").dialog({title: newTitle});
+    getElement("recourseAlertWindowText").innerHTML = text;
     
-    setWindowVisibility("renunciationAlertWindow", true);
+    setWindowVisibility("recourseAlertWindow", true);
 }
-function openRenunciationConfirmWindow(newTitle, text, actionOnConfirm) {
-    $("#renunciationConfirmWindow").dialog({title: newTitle});
-    getElement("renunciationConfirmWindowText").innerHTML = text;
+function openRecourseConfirmWindow(newTitle, text, actionOnConfirm) {
+    $("#recourseConfirmWindow").dialog({title: newTitle});
+    getElement("recourseConfirmWindowText").innerHTML = text;
     
-    $("#renunciationConfirmWindowConfirmButton").click(function() {
+    $("#recourseConfirmWindowConfirmButton").click(function() {
         if(actionOnConfirm != null) {
             actionOnConfirm();
         }
-        setWindowVisibility("renunciationConfirmWindow", false);
+        setWindowVisibility("recourseConfirmWindow", false);
     });
     
-    setWindowVisibility("renunciationConfirmWindow", true);
+    setWindowVisibility("recourseConfirmWindow", true);
 }
 function valida(identificatori) {
     var areValid = true;
@@ -173,115 +173,137 @@ function getValue(id) {
 /*
  * Apre la finestra di aggiunta di una domanda di rinuncia
  */
-function openInsertRenunciationWindow(id) {
-    getElement("renunciationAddWindowId").value = id;
-    setWindowVisibility("renunciationAddWindow", true);
+function openInsertRecourseWindow(id) {
+    getElement("recourseAddWindowId").value = id;
+    setWindowVisibility("recourseAddWindow", true);
 }
 /*
- * Riempie i campi del dettaglio della graduatoria e gli esiti associati
- * alla graduatoria dato un ID
+ * Riempie i campi del dettaglio del ricorso
  */
-function openViewDetailsRenunciationWindow(id) {
-    getElement("renunciationViewDetailsWindowId").value = id;
+function openViewDetailsRecourseWindow(id) {
+    getElement("recourseViewDetailsWindowId").value = id;
     
     comunicaConServlet(
-        "GetRenunciation", 
+        "GetRecourse", 
         {
             Id: id
         }, 
         function(jsonObject) {
             if(jsonObject.IsSuccess) {
                 // riempio il contenuto della visuale dettagli
-                getElement("renunciationViewDetailsText").innerHTML = jsonObject.HTML;
-                setWindowVisibility("renunciationViewDetailsWindow", true);
+                getElement("recourseViewDetailsText").innerHTML = jsonObject.HTML;
+                setWindowVisibility("recourseViewDetailsWindow", true);
             } else {
-                openRenunciationAlertWindow("Errore nel caricamento delle informazioni", jsonObject.ErrorMsg);
+                openRecourseAlertWindow("Errore nel caricamento delle informazioni", jsonObject.ErrorMsg);
             }
         }
     );
 }
 /*
- * Apre la finestra di richiesta di conferma di eliminare una graduatoria
+ * Apre la finestra di richiesta di conferma di eliminare un ricorso
  * dato un ID
+ * !NON UTILIZZATO QUINDI LA SERVLET NON E' STATA IMPLEMENTATA PER ORA!
  */
-function openDeleteRenunciationWindow(id) {
+function openDeleteRecourseWindow(id) {
     var actionOnConfirm = function() {
         comunicaConServlet(
-        "DeleteRenunciation", 
+        "DeleteRecourse", 
         {
             Id:id
         }, 
         function(jsonObject) {
             if(jsonObject.IsSuccess) {
-                updateTableSubmittedRinunciation();
-                updateTablePossibleRinunciation();
-                openRenunciationAlertWindow("Operazione riuscita", "La domanda di rinuncia è stata eliminata!")
+                updateTableSubmittedRecourse();
+                updateTablePossibleRecourse();
+                openRecourseAlertWindow("Operazione riuscita", "Il ricorso è stata eliminato!")
             } else {
-                openRenunciationAlertWindow("Errore nell'eliminazione", jsonObject.ErrorMsg);
+                openRecourseAlertWindow("Errore nell'eliminazione", jsonObject.ErrorMsg);
             }
         });
     }
-    openRenunciationConfirmWindow("Conferma operazione", "Sei sicuro di voler eliminare la domanda di rinuncia?", actionOnConfirm)
+    openRecourseConfirmWindow("Conferma operazione", "Sei sicuro di voler eliminare il ricorso?", actionOnConfirm)
 }
 /*
- * Imposta la domanda di rinuncia come confermata
+ * Imposta il ricorso come accettato
  */
-function openConfirmRenunciationWindow(id, regChildId) {
+function openAcceptRecourseWindow(id) {
     var actionOnConfirm = function() {
         comunicaConServlet(
-        "ConfirmRenunciation", 
+        "ValutaRecourse", 
         {
             Id: id,
-            IdIscrizione: regChildId
+            Valutazione: "accetta"
         }, 
         function(jsonObject) {
             if(jsonObject.IsSuccess) {
-                updateTableSubmittedRinunciation();
-                openRenunciationAlertWindow("Operazione riuscita", "La domanda di rinuncia è stata confermata!")
+                updateTableSubmittedRecourse();
+                openRecourseAlertWindow("Operazione riuscita", "Il ricorso è stato accettato!")
             } else {
-                openRenunciationAlertWindow("Errore nella conferma", jsonObject.ErrorMsg);
+                openRecourseAlertWindow("Errore nell'accettazione", jsonObject.ErrorMsg);
             }
         });
     }
-    openRenunciationConfirmWindow("Conferma operazione", "Sei sicuro di voler confermare la domanda di rinuncia?", actionOnConfirm)
-}
-// -----------------------------------------------------------------------------
-// FUNZIONI PER LA VISUALE DI CREAZIONE DI UNA DOMANDA DI RINUNCIA
-function closeRenunciationAddWindow() {
-    setWindowVisibility("renunciationAddWindow", false);
-    getElement("renunciationAddWindowMotivo").value = "";
-    getElement("renunciationAddWindowMotivoError").innerHTML = "";
+    openRecourseConfirmWindow("Conferma operazione", "Sei sicuro di voler accettare il ricorso?", actionOnConfirm)
 }
 /*
- * Inserisce la nuova domanda di rinuncia
+ * Imposta il ricorso come rifiutato
  */
-function saveNewRenunciation() {
-    var param = ["renunciationAddWindowMotivo"];
+function openRifiutaRecourseWindow(id) {
+    var actionOnConfirm = function() {
+        comunicaConServlet(
+        "ValutaRecourse", 
+        {
+            Id: id,
+            Valutazione: "rifiuta"
+        }, 
+        function(jsonObject) {
+            if(jsonObject.IsSuccess) {
+                updateTableSubmittedRecourse();
+                openRecourseAlertWindow("Operazione riuscita", "Il ricorso è stato rifiutato!")
+            } else {
+                openRecourseAlertWindow("Errore nel rifiutamento", jsonObject.ErrorMsg);
+            }
+        });
+    }
+    openRecourseConfirmWindow("Conferma operazione", "Sei sicuro di voler rifiutare il ricorso?", actionOnConfirm)
+}
+// -----------------------------------------------------------------------------
+// FUNZIONI PER LA VISUALE DI CREAZIONE DI UN RICORSO
+function closeRecourseAddWindow() {
+    setWindowVisibility("recourseAddWindow", false);
+    getElement("recourseAddWindowMotivo").value = "";
+    getElement("recourseAddWindowMotivoError").innerHTML = "";
+}
+/*
+ * Inserisce il ricorso
+ */
+function saveNewRecourse() {
+    var param = ["recourseAddWindowMotivo"];
     if(valida(param)) {
-        comunicaConServlet("InsertRenunciation", {
-                    Motivazione: getValue("renunciationAddWindowMotivo"),
-                    IdIscrizione: getValue("renunciationAddWindowId")
+        comunicaConServlet("InsertRecourse", {
+                    Motivazione: getValue("recourseAddWindowMotivo"),
+                    IdIscrizione: getValue("recourseAddWindowId")
                 }, function(result) {
                     if(result.IsSuccess) {
-                        updateTableSubmittedRinunciation();
-                        updateTablePossibleRinunciation();
-                        openRenunciationAlertWindow("Operazione completata", "La domanda è stata sottomessa!");
+                        updateTableSubmittedRecourse();
+                        updateTablePossibleRecourse();
+                        openRecourseAlertWindow("Operazione completata", "Il ricorso è stato inserito!");
                     } else {
-                        openRenunciationAlertWindow("Operazione non riuscita", "Si è verificato il seguente errore:" + newLine() +
+                        openRecourseAlertWindow("Operazione non riuscita", "Si è verificato il seguente errore:" + newLine() +
                                 result.ErrorMsg);
                     }
-                    closeRenunciationAddWindow();
+                    closeRecourseAddWindow();
                 }
             );
     } else {
-        //openRenunciationAlertWindow("Campi mancanti", "Compilare il campo nome!");
+        //openRecourseAlertWindow("Campi mancanti", "Compilare il campo motivo!");
     }
 }
 // -----------------------------------------------------------------------------
-// FUNZIONI PER LA VISUALE DEI DETTAGLI DI UNA DOMANDA DI RINUNCIA
-function closeRenunciationViewDetailsWindow() {
-    setWindowVisibility("renunciationViewDetailsWindow", false);
+// FUNZIONI PER LA VISUALE DEI DETTAGLI DI UN RICORSO
+function closeRecourseViewDetailsWindow() {
+    setWindowVisibility("recourseViewDetailsWindow", false);
     // svuoto i campi della visuale dettagli
-    getElement("renunciationViewDetailsWindowId").value = "";
-    getElement("renunciationViewDetailsText").innerHTML = "";
+    getElement("recourseViewDetailsWindowId").value = "";
+    getElement("recourseViewDetailsText").innerHTML = "";
 }

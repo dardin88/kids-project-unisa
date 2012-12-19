@@ -15,6 +15,16 @@ public interface IRegistrationChildManager extends IManager {
     public boolean update(RegistrationChild childToUpdate) throws SQLException;
     public boolean delete(RegistrationChild childToDelete) throws SQLException;
     List<RegistrationChild> search(RegistrationChild childToSearch) throws SQLException;
+    /**
+     * Search registrationchild whith precision parameter setted in childToSearch or with
+     * similitudines with 'toSearch'
+     * 
+     * @param childToSearch precised parameter to search
+     * @param toSearch word to compare with database field
+     * @return a list of registrationchild
+     * @throws SQLException if occured an SQLException
+     */
+    List<RegistrationChild> search(RegistrationChild childToSearch, String toSearch) throws SQLException;
 
     /**
      * Set the registrationchild to submitted. 
@@ -25,11 +35,11 @@ public interface IRegistrationChildManager extends IManager {
      */
     public boolean submitRegistrationChild(RegistrationChild child) throws SQLException;
     /**
-     * Set the registrationchild to confirmed. 
-     * 
-     * @param child registrationchild
-     * @return true if the registrationchild was correctly confirmed, false otherweise
-     * @throws SQLException if occured an SQLException
+     * Set the registrationphase of the registrationchild to confirme
+     *
+     * @param registrationChildId registrationchild's id to confirm
+     * @return true if confirmed correctly, false otherwise
+     * @throws SQLException
      */
     public boolean confirmRegistrationChild(RegistrationChild child) throws SQLException;
     /**

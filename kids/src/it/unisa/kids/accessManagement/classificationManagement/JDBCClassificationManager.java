@@ -307,6 +307,124 @@ public class JDBCClassificationManager implements IClassificationManager {
         return classificationList;
     }
 
+    
+    public synchronized List<Classification> search(Classification classification, String toSearch) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+        StringBuilder query = new StringBuilder();
+        List<Classification> classificationList = null;
+        boolean andState = false;
+
+        try {
+            con = DBConnectionPool.getConnection();
+
+            // constructing search query string
+            query.append("SELECT * " +
+                            "FROM " + DBNames.TABLE_CLASSIFICATION + " " +
+                            "WHERE ");
+            if(classification.getId() > 0) {		
+                query.append(DBNames.ATT_CLASSIFICATION_ID + "=?");
+                andState = true;
+            }
+            if(classification.getName() != null) {
+                query.append(useAnd(andState) + DBNames.ATT_CLASSIFICATION_NAME + "=?");
+                andState = true;
+            } 
+            if(classification.getDate() != null) {
+                query.append(useAnd(andState) + DBNames.ATT_CLASSIFICATION_DATA + "=?");
+                andState = true;
+            } 
+            if(classification.getStatus() != null) {
+                query.append(useAnd(andState) + DBNames.ATT_CLASSIFICATION_STATUS + "=?");
+                andState = true;
+            }
+            // Le condizioni else sono posizionate qui di seguito in modo da effettuare prima 
+            // tutti i controlli obbligatori (AND) e solo dopo gli or
+            if(classification.getId() <= 0) {
+                query.append(useOr(andState) + DBNames.ATT_CLASSIFICATION_ID + " LIKE '%" + toSearch + "%'");
+                andState = true;
+            }
+            if(classification.getName() == null) {
+                query.append(useOr(andState) + DBNames.ATT_CLASSIFICATION_NAME + " LIKE '%" + toSearch + "%'");
+                andState = true;
+            }
+            if(classification.getDate() == null) {
+                query.append(useOr(andState) + DBNames.ATT_CLASSIFICATION_DATA + " LIKE '%" + toSearch + "%'");
+                andState = true;
+            }
+            if(classification.getStatus() == null) {
+                query.append(useOr(andState) + DBNames.ATT_CLASSIFICATION_STATUS + " LIKE '%" + toSearch + "%'");
+                andState = true;
+            }
+
+            // chiusura della query, le graduatorie vanno messe prima in ordine di stato bozza > provvisoria > definitiva
+            query.append(" ORDER BY " + DBNames.ATT_CLASSIFICATION_STATUS + ", " + DBNames.ATT_CLASSIFICATION_ID + ";");
+            
+            pstmt = con.prepareStatement(query.toString());
+
+            // setting pstmt's parameters
+            int i = 1;		// index of pstmt first argument
+            if(classification.getId() > 0) {
+                    pstmt.setInt(i, classification.getId());
+                    i++;
+            }
+            if(classification.getName() != null) {
+                    pstmt.setString(i, classification.getName());
+                    i++;
+            }
+            if(classification.getDate() != null) {
+                    pstmt.setDate(i, new Date(classification.getDate().getTimeInMillis()));
+                    i++;
+            }
+            if(classification.getStatus() != null) {
+                    pstmt.setString(i, classification.getStatus());
+                    i++;
+            }
+
+            // executing select query
+            resultSet = pstmt.executeQuery();
+            con.commit();
+
+            // constructing payment list
+            classificationList = new ArrayList<Classification>();
+            while(resultSet.next()) {
+                Classification tmpClassification =  new Classification();
+                tmpClassification.setId(resultSet.getInt(DBNames.ATT_CLASSIFICATION_ID));
+                tmpClassification.setName(resultSet.getString(DBNames.ATT_CLASSIFICATION_NAME));
+
+                //getting Date from ResultSet and converting it to GregorianCalendar
+                GregorianCalendar dateToSet;
+                if(resultSet.getDate(DBNames.ATT_CLASSIFICATION_DATA) != null) {
+                    dateToSet = CommonMethod.parseGregorianCalendar(resultSet.getDate(DBNames.ATT_CLASSIFICATION_DATA));
+                } else {
+                    dateToSet = null;
+                }
+                tmpClassification.setDate(dateToSet);
+                tmpClassification.setStatus(resultSet.getString(DBNames.ATT_CLASSIFICATION_STATUS));
+                
+                // ricerca dei risultati associati a questa graduatoria
+                Result tmpResult = new Result();
+                tmpResult.setClassificationId(tmpClassification.getId());
+                tmpClassification.setResults(searchResult(tmpResult));
+                
+                // Aggiungo nella lista di ritorno
+                classificationList.add(tmpClassification);
+            }
+        } finally {
+            if(resultSet != null) {
+                resultSet.close();
+            }
+            if(pstmt != null) {
+                pstmt.close();
+            }
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+        return classificationList;
+    }
+
     public synchronized boolean insertResult(Result result) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -462,6 +580,93 @@ public class JDBCClassificationManager implements IClassificationManager {
             if(andState != true) {
                 query.append("1");
             }
+            // ordinamento
+            query.append(" ORDER BY " + DBNames.ATT_RESULT_RESULT + " DESC, " + DBNames.ATT_RESULT_SCORE + " DESC, " + 
+                        DBNames.ATT_RESULT_CLASSIFICATIONID + ", " + 
+                        DBNames.ATT_RESULT_REGISTRATIONCHILDID + ";");
+            
+            //System.out.println(query);
+            pstmt = con.prepareStatement(query.toString());
+            int i = 1;
+            if(result.getClassificationId() > 0) {
+                pstmt.setInt(i, result.getClassificationId());
+                i++;
+            }
+            if(result.getRegistrationChildId() > 0) {
+                pstmt.setInt(i, result.getRegistrationChildId());
+                i++;
+            }
+            if(result.getScore() >= 0) {
+                pstmt.setDouble(i, result.getScore());
+                i++;
+            }
+            
+            resultSet = pstmt.executeQuery();
+
+            resultList = new ArrayList<Result>();
+            while(resultSet.next()) {
+                Result rTmp = new Result();
+                rTmp.setClassificationId(resultSet.getInt(DBNames.ATT_RESULT_CLASSIFICATIONID));
+                rTmp.setRegistrationChildId(resultSet.getInt(DBNames.ATT_RESULT_REGISTRATIONCHILDID));
+                
+                rTmp.setRegistrationChildFiscalCode(resultSet.getString(DBNames.ATT_REGISTRATIONCHILD_FISCALCODE));
+                rTmp.setRegistrationChildSurname(resultSet.getString(DBNames.ATT_REGISTRATIONCHILD_SURNAME));
+                rTmp.setRegistrationChildName(resultSet.getString(DBNames.ATT_REGISTRATIONCHILD_NAME));
+                
+                rTmp.setScore(resultSet.getDouble(DBNames.ATT_RESULT_SCORE));
+                rTmp.setResult(resultSet.getBoolean(DBNames.ATT_RESULT_RESULT));
+                resultList.add(rTmp);
+            }
+        } finally {
+            if(resultSet != null) {
+                resultSet.close();
+            }
+            if(pstmt != null) {
+                pstmt.close();
+            }
+            if(con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+        return resultList;
+    }
+    
+    public synchronized List<Result> searchResult(Result result, String toSearch) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+        StringBuffer query = new StringBuffer();
+        List<Result> resultList = null;
+        boolean andState = true;
+
+        try {
+            con = DBConnectionPool.getConnection();
+            query.append("SELECT R.*, RC." + DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + 
+                                    ", RC." + DBNames.ATT_REGISTRATIONCHILD_SURNAME + ", RC." + DBNames.ATT_REGISTRATIONCHILD_NAME + " " +
+                        "FROM " + DBNames.TABLE_RESULT + " AS R, " + DBNames.TABLE_REGISTRATIONCHILD + " AS RC " +
+                        "WHERE R." + DBNames.ATT_RESULT_REGISTRATIONCHILDID + "=RC." + DBNames.ATT_REGISTRATIONCHILD_ID);
+            if(result.getClassificationId() > 0) {
+                query.append(useAnd(andState) + DBNames.ATT_RESULT_CLASSIFICATIONID + "=?");
+                andState = true;
+            } else {
+                query.append(useOr(andState) + DBNames.ATT_RESULT_CLASSIFICATIONID + " LIKE '%" + toSearch + "%'");
+                andState = true;
+            }
+            if(result.getRegistrationChildId() > 0) {
+                query.append(useAnd(andState) + DBNames.ATT_RESULT_REGISTRATIONCHILDID + "=?");
+                andState = true;
+            } else {
+                query.append(useOr(andState) + DBNames.ATT_RESULT_REGISTRATIONCHILDID + " LIKE '%" + toSearch + "%'");
+                andState = true;
+            }
+            if(result.getScore() >= 0) {
+                query.append(useAnd(andState) + DBNames.ATT_RESULT_SCORE + "=?");
+                andState = true;
+            } else {
+                query.append(useOr(andState) + DBNames.ATT_RESULT_SCORE + " LIKE '%" + toSearch + "%'");
+                andState = true;
+            }
+            
             // ordinamento
             query.append(" ORDER BY " + DBNames.ATT_RESULT_RESULT + " DESC, " + DBNames.ATT_RESULT_SCORE + " DESC, " + 
                         DBNames.ATT_RESULT_CLASSIFICATIONID + ", " + 
@@ -764,7 +969,7 @@ public class JDBCClassificationManager implements IClassificationManager {
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
-        StringBuffer query = new StringBuffer();
+        StringBuilder query = new StringBuilder();
         List<Criterion> criteriaList = null;
         boolean andState = false;
 
@@ -884,6 +1089,10 @@ public class JDBCClassificationManager implements IClassificationManager {
             return pEnableAnd ? " AND " : " ";
     }
 
+    private String useOr(boolean pEnableAnd) {
+            return pEnableAnd ? " OR " : " ";
+    }
+      
     private String useSeparator(boolean pEnableAnd) {
             return pEnableAnd ? ", " : " ";
     }

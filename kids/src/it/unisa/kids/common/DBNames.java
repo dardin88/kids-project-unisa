@@ -138,6 +138,9 @@ public final class DBNames {
     public static final String ATT_RECOURSE_DATA = "Data";
     public static final String ATT_RECOURSE_REASON = "Motivo";
     public static final String ATT_RECOURSE_VALUTATION = "Valutazione";
+    public static final String ATT_RECOURSE_VALUTATION_TOEVALUATE = "davalutare";
+    public static final String ATT_RECOURSE_VALUTATION_ACCEPTED = "accettato";
+    public static final String ATT_RECOURSE_VALUTATION_REFUSED = "rifiutato";
     public static final String ATT_RECOURSE_REGISTRATIONCHILDID = "Iscrizione";
     //RinunciaTable's attributes
     public static final String ATT_RENUNCIATION_ID = "Id";

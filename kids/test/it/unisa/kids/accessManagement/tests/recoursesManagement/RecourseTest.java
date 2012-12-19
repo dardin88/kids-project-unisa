@@ -12,14 +12,14 @@ public class RecourseTest extends TestCase {
     public void setUp(){
         this.recourse=new Recourse();
         this.recourse.setReason("Reason");
-        this.recourse.setId_registration(1);
+        this.recourse.setRegistrationChildId(1);
         this.recourse.setId(1);
     }
     
     @Override
     public void tearDown(){
         this.recourse.setReason("Reason");
-        this.recourse.setId_registration(1);
+        this.recourse.setRegistrationChildId(1);
         this.recourse.setId(1);
     }
     
@@ -32,11 +32,11 @@ public class RecourseTest extends TestCase {
     }
    
      private void testGetRegistrationId(int pOracle){
-        assertEquals(pOracle, this.recourse.getId_registration());
+        assertEquals(pOracle, this.recourse.getRegistrationChildId());
     }
     
     public void testGetRegistrationId(){
-        assertEquals(1, this.recourse.getId_registration());
+        assertEquals(1, this.recourse.getRegistrationChildId());
     }
    
     private void testGetReason(String pOracle){
@@ -53,7 +53,7 @@ public class RecourseTest extends TestCase {
     } 
     
     public void testSetRegistrationId(){
-        this.recourse.setId_registration(2);
+        this.recourse.setRegistrationChildId(2);
         this.testGetRegistrationId(2);
     }
     
