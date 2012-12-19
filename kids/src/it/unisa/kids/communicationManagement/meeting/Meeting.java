@@ -15,6 +15,7 @@ public class Meeting {
     private String firstTime;
     private String secondTime;
     private String type;
+    private String state;
 
     /**
      * The constructor of the class Reunion
@@ -25,8 +26,9 @@ public class Meeting {
      * @param date
      * @param time
      * @param type
+     * @param state
      */
-    public Meeting(int id, String title, String description, String date, String firstTime, String secondTime, String type) {
+    public Meeting(int id, String title, String description, String date, String firstTime, String secondTime, String type, String state) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -34,6 +36,7 @@ public class Meeting {
         this.firstTime = firstTime;
         this.secondTime = secondTime;
         this.type = type;
+        this.state=state;
     }
 
     public Meeting() {
@@ -165,5 +168,23 @@ public class Meeting {
      */
     public void setType(String type) {
         this.type = type;
+    }
+    
+    /**
+     * this method returns the state of meeting
+     *
+     * @return String state
+     */
+    public String getState() {
+        return state;
+    }
+
+    /**
+     * this method sets the state of reunion
+     *
+     * @param String state
+     */
+    public void setState(String state) {
+        this.state = state;
     }
 }

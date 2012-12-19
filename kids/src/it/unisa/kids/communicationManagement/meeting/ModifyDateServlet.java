@@ -140,7 +140,6 @@ public class ModifyDateServlet extends HttpServlet {
                             meeting.setSecondTime(secondOra + ":" + secondMinuti + ":00");
                         }
 
-                        System.out.println(firstOra + ":" + firstMinuti + ":00");
                     } else {
                         meeting.setFirstTime(r.getFirstTime());
                         meeting.setSecondTime(r.getSecondTime());
@@ -150,6 +149,7 @@ public class ModifyDateServlet extends HttpServlet {
                     meeting.setTitle(r.getTitle());
                     meeting.setDescription(r.getDescription());
                     meeting.setType(r.getType());
+                    meeting.setState(r.getState());
                     am.update(meeting);
                     break;
                 }

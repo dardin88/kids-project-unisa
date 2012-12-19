@@ -49,6 +49,7 @@ public class AddMeetingServlet extends HttpServlet {
             meeting.setFirstTime(request.getParameter("meetingOraInizio"));
             meeting.setSecondTime(request.getParameter("meetingOraFine"));
             meeting.setType(request.getParameter("meetingTipo"));
+            meeting.setState(request.getParameter("meetingStato"));
             am.insert(meeting);
             request.getServletContext().getRequestDispatcher("/meetingCalendar.jsp").forward(request, response);
         } catch (Exception ex) {
