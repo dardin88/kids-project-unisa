@@ -17,11 +17,22 @@ public interface IClassificationManager extends IManager {
     public boolean update(Classification classification) throws SQLException;
     public boolean delete(Classification classification) throws SQLException;
     public List<Classification> search(Classification classification) throws SQLException;
+    /**
+     * Search classification whith precision parameter setted in classification or with
+     * similitudines with 'toSearch'
+     * 
+     * @param classification  precised parameter to search
+     * @param toSearch word to compare with database field
+     * @return a list of registrationchild
+     * @throws SQLException if occured an SQLException
+     */
+    public List<Classification> search(Classification classification, String toSearch) throws SQLException;
 
     public boolean insertResult(Result result) throws SQLException;
     public boolean updateResult(Result result) throws SQLException;
     public boolean deleteResult(Result result) throws SQLException;
     public List<Result> searchResult(Result result) throws SQLException;
+    public List<Result> searchResult(Result result, String toSearch) throws SQLException;
 
     public List<Classification> getAllClassification() throws SQLException;
     

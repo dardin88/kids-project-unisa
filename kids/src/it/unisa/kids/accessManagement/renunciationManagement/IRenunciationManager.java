@@ -9,6 +9,16 @@ public interface IRenunciationManager extends IManager{
 	public boolean update(Renunciation pRenunciation) throws SQLException;
 	public boolean delete(Renunciation pRenunciation) throws SQLException;
 	List<Renunciation> search(Renunciation pRenunciation) throws SQLException;
+	/**
+        * Search renunciation whith precision parameter setted in pRenunciation or with
+        * similitudines with 'toSearch'
+        * 
+        * @param pRenunciation  precised parameter to search
+        * @param toSearch word to compare with database field
+        * @return a list of renunciation
+        * @throws SQLException if occured an SQLException
+        */
+       List<Renunciation> search(Renunciation pRenunciation, String toSearch) throws SQLException;
         
         /**
          * Get the list of the Renunciation submitted from a parent

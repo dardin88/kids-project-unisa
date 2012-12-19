@@ -234,7 +234,7 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
         PreparedStatement pstmt = null;
         ResultSet result = null;
         List<RegistrationChild> listOfChildReg = new ArrayList<RegistrationChild>();
-        StringBuffer query = new StringBuffer("SELECT * "
+        StringBuilder query = new StringBuilder("SELECT * "
                 + "FROM " + DBNames.TABLE_REGISTRATIONCHILD + " "
                 + "WHERE ");
         boolean andState = false;   // Necessario per controllare se all'interno della query va inserito AND
@@ -427,6 +427,264 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
         return listOfChildReg;
     }
 
+    
+    public synchronized List<RegistrationChild> search(RegistrationChild child, String toSearch) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet result = null;
+        List<RegistrationChild> listOfChildReg = new ArrayList<RegistrationChild>();
+        StringBuilder query = new StringBuilder("SELECT * "
+                + "FROM " + DBNames.TABLE_REGISTRATIONCHILD + " "
+                + "WHERE ");
+        boolean andState = false;   // Necessario per controllare se all'interno della query va inserito AND
+
+        // PREPARAZIONE DELLA QUERY E DEI CAMPI CHE BISOGNA RICERCARE
+        if (child != null) {
+            if (child.getId() > 0) {
+                query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_ID + "=?");
+                andState = true;
+            } 
+            if (child.getParentId() > 0) {
+                query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID + "=?");
+                andState = true;
+            } 
+            if (child.getRegistrationDate() != null) {
+                query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONDATE + "=?");
+                andState = true;
+            } 
+            if (child.getRegistrationPhase() != null) {
+                query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE + "=?");
+                andState = true;
+            } 
+            if (child.getSurname() != null) {
+                query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_SURNAME + "=?");
+                andState = true;
+            } 
+            if (child.getName() != null) {
+                query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_NAME + "=?");
+                andState = true;
+            } 
+            if (child.getBirthDate() != null) {
+                query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE + "=?");
+                andState = true;
+            } 
+            if (child.getBirthPlace() != null) {
+                query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_BIRTHPLACE + "=?");
+                andState = true;
+            } 
+            if (child.getFiscalCode() != null) {
+                query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + "=?");
+                andState = true;
+            } 
+            if (child.getCitizenship() != null) {
+                query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_CITIZENSHIP + "=?");
+                andState = true;
+            } 
+            if (child.getUserRange() != null) {
+                query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_USERRANGE + "=?");
+                andState = true;
+            } 
+            if (child.getSectionId() > 0) {
+                query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_SECTIONID + "=?");
+                andState = true;
+            } 
+            if (child.getSickness() != null) {
+                query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_SICKNESS + "=?");
+                andState = true;
+            } 
+            if (child.getVaccinations() != null) {
+                query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_VACCINATIONS + "=?");
+                andState = true;
+            } 
+            if (child.getPrivacyStatement() != null) {
+                query.append(useAnd(andState) + DBNames.ATT_REGISTRATIONCHILD_PRIVACYSTATEMENT + "=?");
+                andState = true;
+            }
+            // Le condizioni else sono posizionate qui di seguito in modo da effettuare prima 
+            // tutti i controlli obbligatori (AND) e solo dopo gli or
+            if (child.getId() <= 0) {
+                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_ID + " LIKE '%" + toSearch + "%'");
+                andState = true;
+            }
+            if (child.getParentId() <= 0) {
+                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID + " LIKE '%" + toSearch + "%'");
+                andState = true;
+            }
+            if (child.getRegistrationDate() == null) {
+                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONDATE + " LIKE '%" + toSearch + "%'");
+                andState = true;
+            }
+            if (child.getRegistrationPhase() == null) {
+                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE + " LIKE '%" + toSearch + "%'");
+                andState = true;
+            }
+            if (child.getSurname() == null) {
+                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_SURNAME + " LIKE '%" + toSearch + "%'");
+                andState = true;
+            }
+            if (child.getName() == null) {
+                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_NAME + " LIKE '%" + toSearch + "%'");
+                andState = true;
+            }
+            if (child.getBirthDate() == null) {
+                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE + " LIKE '%" + toSearch + "%'");
+                andState = true;
+            }
+            if (child.getBirthPlace() == null) {
+                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_BIRTHPLACE + " LIKE '%" + toSearch + "%'");
+                andState = true;
+            }
+            if (child.getFiscalCode() == null) {
+                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + " LIKE '%" + toSearch + "%'");
+                andState = true;
+            }
+            if (child.getCitizenship() == null) {
+                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_CITIZENSHIP + " LIKE '%" + toSearch + "%'");
+                andState = true;
+            }
+            if (child.getUserRange() == null) {
+                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_USERRANGE + " LIKE '%" + toSearch + "%'");
+                andState = true;
+            }
+            if (child.getSectionId() <= 0) {
+                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_SECTIONID + " LIKE '%" + toSearch + "%'");
+                andState = true;
+            }
+            if (child.getSickness() == null) {
+                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_SICKNESS + " LIKE '%" + toSearch + "%'");
+                andState = true;
+            }
+            if (child.getVaccinations() == null) {
+                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_VACCINATIONS + " LIKE '%" + toSearch + "%'");
+                andState = true;
+            }
+            if (child.getPrivacyStatement() == null) {
+                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_PRIVACYSTATEMENT + " LIKE '%" + toSearch + "%'");
+                andState = true;
+            }
+        }
+        query.append(" ORDER BY " + DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE + ", "
+                + DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + ";");
+        // Test della query
+        //
+        // System.out.println("Query ricerca: " + query);
+
+        try {
+            con = DBConnectionPool.getConnection();
+            pstmt = con.prepareStatement(query.toString());
+
+            // INSERIMENTO DEI PARAMETRI
+            // E' IMPORTANTE NON MODIFICARE L'ORDINE, deve essere uguale alla prima fase di preparazione
+            int paramNum = 1;
+            if (child != null) {
+                if (child.getId() > 0) {
+                    pstmt.setInt(paramNum, child.getId());
+                    paramNum++;
+                }
+                if (child.getParentId() > 0) {
+                    pstmt.setInt(paramNum, child.getParentId());
+                    paramNum++;
+                }
+                if (child.getRegistrationDate() != null) {
+                    pstmt.setDate(paramNum, CommonMethod.parseDate(child.getRegistrationDate()));
+                    paramNum++;
+                }
+                if (child.getRegistrationPhase() != null) {
+                    pstmt.setString(paramNum, child.getRegistrationPhase());
+                    paramNum++;
+                }
+                if (child.getSurname() != null) {
+                    pstmt.setString(paramNum, child.getSurname());
+                    paramNum++;
+                }
+                if (child.getName() != null) {
+                    pstmt.setString(paramNum, child.getName());
+                    paramNum++;
+                }
+                if (child.getBirthDate() != null) {
+                    pstmt.setDate(paramNum, CommonMethod.parseDate(child.getBirthDate()));
+                    paramNum++;
+                }
+                if (child.getBirthPlace() != null) {
+                    pstmt.setString(paramNum, child.getBirthPlace());
+                    paramNum++;
+                }
+                if (child.getFiscalCode() != null) {
+                    pstmt.setString(paramNum, child.getFiscalCode());
+                    paramNum++;
+                }
+                if (child.getCitizenship() != null) {
+                    pstmt.setString(paramNum, child.getCitizenship());
+                }
+                if (child.getUserRange() != null) {
+                    pstmt.setString(paramNum, child.getUserRange());
+                    paramNum++;
+                }
+                if (child.getSectionId() > 0) {
+                    pstmt.setInt(paramNum, child.getSectionId());
+                    paramNum++;
+                }
+                if (child.getSickness() != null) {
+                    pstmt.setString(paramNum, child.getSickness());
+                    paramNum++;
+                }
+                if (child.getVaccinations() != null) {
+                    pstmt.setString(paramNum, child.getVaccinations());
+                    paramNum++;
+                }
+                if (child.getPrivacyStatement() != null) {
+                    pstmt.setString(paramNum, child.getPrivacyStatement());
+                    paramNum++;
+                }
+            }
+
+            result = pstmt.executeQuery();
+            con.commit();
+
+            while (result.next()) {
+                RegistrationChild tmpRegChild = new RegistrationChild();
+                tmpRegChild.setId(result.getInt(DBNames.ATT_REGISTRATIONCHILD_ID));
+                tmpRegChild.setParentId(result.getInt(DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID));
+
+                GregorianCalendar tmpRDGC = CommonMethod.parseGregorianCalendar(result.getDate(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONDATE));
+                tmpRegChild.setRegistrationDate(tmpRDGC);
+                tmpRegChild.setRegistrationPhase(result.getString(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE));
+
+                tmpRegChild.setSurname(result.getString(DBNames.ATT_REGISTRATIONCHILD_SURNAME));
+                tmpRegChild.setName(result.getString(DBNames.ATT_REGISTRATIONCHILD_NAME));
+
+                GregorianCalendar tmpBDGC = CommonMethod.parseGregorianCalendar(result.getDate(DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE));
+                tmpRegChild.setBirthDate(tmpBDGC);
+
+                tmpRegChild.setBirthPlace(result.getString(DBNames.ATT_REGISTRATIONCHILD_BIRTHPLACE));
+                tmpRegChild.setCitizenship(result.getString(DBNames.ATT_REGISTRATIONCHILD_CITIZENSHIP));
+                tmpRegChild.setFiscalCode(result.getString(DBNames.ATT_REGISTRATIONCHILD_FISCALCODE));
+                tmpRegChild.setUserRange(result.getString(DBNames.ATT_REGISTRATIONCHILD_USERRANGE));
+                tmpRegChild.setSickness(result.getString(DBNames.ATT_REGISTRATIONCHILD_SICKNESS));
+                tmpRegChild.setVaccinations(result.getString(DBNames.ATT_REGISTRATIONCHILD_VACCINATIONS));
+                tmpRegChild.setPrivacyStatement(result.getString(DBNames.ATT_REGISTRATIONCHILD_PRIVACYSTATEMENT));
+                tmpRegChild.setAdditionalNotes(result.getString(DBNames.ATT_REGISTRATIONCHILD_ADDITIONALNOTES));
+                tmpRegChild.setSectionId(result.getInt(DBNames.ATT_REGISTRATIONCHILD_SECTIONID));
+                tmpRegChild.setRegistrationPhase(result.getString(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE));
+                tmpRegChild.setIsSicknessSet(result.getString(DBNames.ATT_REGISTRATIONCHILD_ISSICKNESSSET));
+                tmpRegChild.setIsVaccinationsSet(result.getString(DBNames.ATT_REGISTRATIONCHILD_ISVACCINATIONSSET));
+                tmpRegChild.setIsPrivacyStatementSet(result.getString(DBNames.ATT_REGISTRATIONCHILD_ISPRIVACYSTATEMENTSET));
+                listOfChildReg.add(tmpRegChild);
+            }
+        } finally {
+            if (result != null) {
+                result.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
+            if (con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
+        return listOfChildReg;
+    }
+    
     public int getNumberChildren(int parentId) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -464,24 +722,10 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
         return num;
     }
 
-    /**
-     * Set the registrationphase of the registrationchild to confirme
-     *
-     * @param registrationChildId registrationchild's id to confirm
-     * @return true if confirmed correctly, false otherwise
-     * @throws SQLException
-     */
     public boolean confirmRegistrationChild(RegistrationChild child) throws SQLException {
         return changeRegistrationPhase(child, DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_RECEIPT);
     }
 
-    /**
-     * Set the registrationphase of the registrationchild to submitted
-     *
-     * @param registrationChildId registrationchild's id to submit
-     * @return true if submitted correctly, false otherwise
-     * @throws SQLException
-     */
     public boolean submitRegistrationChild(RegistrationChild child) throws SQLException {
         return changeRegistrationPhase(child, DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_SUBMITTED);
     }
@@ -731,6 +975,10 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
         return pEnableAnd ? " AND " : " ";
     }
 
+    private String useOr(boolean pEnableAnd) {
+            return pEnableAnd ? " OR " : " ";
+    }
+      
     public synchronized List<RegistrationChild> searchSectionId(RegistrationChild child) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;

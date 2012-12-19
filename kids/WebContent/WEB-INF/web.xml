@@ -561,6 +561,10 @@
         <servlet-name>ServletGetTablePossibleRecourse</servlet-name>
         <servlet-class>it.unisa.kids.accessManagement.recoursesManagement.ServletGetTablePossibleRecourse</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletInsertRecourse</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.recoursesManagement.ServletInsertRecourse</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
@@ -1112,6 +1116,10 @@
     <servlet-mapping>
         <servlet-name>ServletGetTablePossibleRecourse</servlet-name>
         <url-pattern>/GetTablePossibleRecourse</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletInsertRecourse</servlet-name>
+        <url-pattern>/InsertRecourse</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

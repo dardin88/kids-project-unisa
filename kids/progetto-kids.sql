@@ -530,7 +530,7 @@ CREATE TABLE IF NOT EXISTS `ricorso` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Data` date NOT NULL,
   `Motivo` text NOT NULL,
-  `Valutazione` tinyint(1) DEFAULT '0',
+  `Valutazione` enum('rifiutato','accettato','davalutare') NOT NULL DEFAULT 'davalutare',
   `Iscrizione` int(11) NOT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
