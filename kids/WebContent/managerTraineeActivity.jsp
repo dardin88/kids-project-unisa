@@ -108,7 +108,9 @@
 
             </table>
             <p style="float:left;">I campi contrasseganati con * sono obbligatori</p>
-            <input type="submit" id="send" name="Invia" value="Inserisci" style="float:right;">
+            <p style="text-align: center"><br><br>
+                <input type="submit" id="send" name="Invia" value="Inserisci" style="width: 300px;">
+            </p>
         </form>
 
     </div>

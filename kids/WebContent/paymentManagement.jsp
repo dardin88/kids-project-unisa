@@ -67,7 +67,6 @@
             <div id="searchParent">
                 <form style="padding-bottom: 20px" onkeyup="search();">
                     <fieldset>
-
                         <table>
                             <tr>
                                 <td style="width: 100px">
@@ -110,7 +109,7 @@
 
             <%-- blocco div delle varie funzioni della gestione pagamenti --%>
             <div id="generalPaymentSection">
-                
+
                 <div id="paymentTabGroup">
                     <span class="selectedParent">Genitore:&nbsp;<span id="selectedParentData"></span></span><br><br>
                     <ul>
@@ -138,8 +137,7 @@
                                 </tr>
                                 <tr>
                                     <td><label for="discount">Percentuale di sconto:&nbsp;</label></td>
-                                    <td><input type="text" name="discount" id="discount"></td>
-
+                                    <td><input type="text" name="discount" id="discount" value="0"></td>
                                 </tr>
                                 <tr>
                                     <td><label for="discountDescription">Descrizione sconto:&nbsp;</label></td>
@@ -181,7 +179,6 @@
                     </div>
 
                     <div id="showPayments">
-                        <h3>Selezionare un elemento della lista per modificare i dati di un pagamento</h3>
                         <table id="showPaymentsTable" style="width:100%">
                             <thead>
                                 <tr>
@@ -250,7 +247,6 @@
                     <%-- fine div della Dialog per la modifica dei pagamenti --%>
 
                     <div id="showRefunds">
-                        <h3>Selezionare un elemento della lista per modificare un rimborso</h3>
                         <table id="showRefundsTable" style="width:100%">
                             <thead>
                                 <tr>
@@ -292,7 +288,6 @@
                     <%-- fine div della Dialog per la modifica dei rimborsi --%>
 
                     <div id="validatePayment">
-                        <h3>Selezionare un elemento della lista per convalidare un pagamento</h3>
                         <table id="showPaymentsConvTable" style="width:100%">
                             <thead>
                                 <tr>

@@ -11,7 +11,9 @@ function initializetimeServicePage() {
     $("#sendRequestModifyTimeService").button();
     $("#save").button();
     $("#insertRequestTimeDialog").dialog({
-        autoOpen: false
+        autoOpen: false,
+        resizable: false,
+        width: 400
     });
     //  buildnotifyTable();
     //buildVisualTimeTable();

@@ -12,13 +12,70 @@ function initializeRegistrationFields(){
         }
     });
     
+    jQuery.validator.addMethod("codfiscale", function(value) { 
+        // espressione migliorabile... ma sufficiente per il nostro esempio
+        var regex = /[A-Z]{6}[\d]{2}[A-Z][\d]{2}[A-Z][\d]{3}[A-Z]/;  
+        value =value.toUpperCase();
+        return value. match(regex);  
+    }, "Please insert a valid italian identification number");
+    
+    $("#registrationChildFormWindowForm").validate({
+        rules:
+        {
+            registrationChildFormWindowCognome:{
+                required:true
+            },
+            registrationChildFormWindowNome:{
+                required:true
+            },
+            registrationChildFormWindowDataNascita:{
+                required:true,
+                date:true
+            },
+            registrationChildFormWindowComuneNascita:{
+                required:true
+            },
+            registrationChildFormWindowCodiceFiscale:{
+                required:true,
+                codfiscale:true
+            },
+            registrationChildFormWindowCittadinanza:{
+                required:true
+            }
+        },
+        messages:{
+            registrationChildFormWindowCognome:{
+                required: "Cognome obbligatorio"
+            },
+            registrationChildFormWindowNome:{
+                required: "Nome obbligatorio"
+            },
+            registrationChildFormWindowDataNascita:{
+                required: "Data nascita obbligatoria",
+                date: "Formato non valido"
+            },
+            registrationChildFormWindowComuneNascita:{
+                required: "Comune nascita obbligatorio"
+            },
+            registrationChildFormWindowCodiceFiscale:{
+                required: "Codice Fiscale obbligatorio",
+                codfiscale: "Formato non valido"
+            },
+            registrationChildFormWindowCittadinanza:{
+                required: "Inserisci cittadinanza"
+            }
+        },
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
     initRegistrationChildFormWindow();
     initRegistrationChildConfirmWindow();
     initRegistrationChildAlertWindow();
 }
 
 function createTableRegistrationChild() {
-        $('#registrationChildTable').dataTable({
+    $('#registrationChildTable').dataTable({
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
@@ -65,7 +122,7 @@ function createTableRegistrationChild() {
             "sClass": "center"
         }
         ],
-         "fnServerData": function (sSource, aoData, fnCallback){ 
+        "fnServerData": function (sSource, aoData, fnCallback){ 
             $.post(sSource,aoData,fnCallback,"json");
         }
     });  
@@ -77,43 +134,49 @@ function search(){
 }
 
 // FUNZIONI UTILIZZATE DAI PULSANTI DELLA FORM-WINDOW
+
+
 function createNewDraftRegistrationChildAction() {
-        $("#registrationChildFormWindowForm").validate({
-        rules: {
+     
+    
+    $("#registrationChildFormWindowForm").validate({
+        rules:{
+        
         },
-        messages: {
+        messages:{
+            
         },
         submitHandler: function() {
-    comunicaConServlet(
-        // Nome della Servlet
-        "CreateDraftRegistrationChild", 
-        {
-            // Parametri da inviare alla servlet
-            Cognome : getValue("registrationChildFormWindowCognome"),
-            Nome    : getValue("registrationChildFormWindowNome"),
-            DataNascita : getValue("registrationChildFormWindowDataNascita"),
-            ComuneNascita : getValue("registrationChildFormWindowComuneNascita"),
-            CodiceFiscale : getValue("registrationChildFormWindowCodiceFiscale"),
-            Cittadinanza : getValue("registrationChildFormWindowCittadinanza"),
-            FasciaUtenza : getValue("registrationChildFormWindowFasciaUtenza")
-        }, 
-        function(jsonObject) {
-            // Funzione eseguita se la richiesta alla servlet è eseguita con successo
-            setWindowVisibility("registrationChildFormWindow", false);
-            if(jsonObject.IsSuccess) {
-                openRegistrationChildAlertWindow("Operazione eseguita correttamente", "La domanda di iscrizione è stata memorizzata");
-            } else {
-                openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
-            }
-        }, 
-        function(errorMsg) {
-            // Funzione eseguita se la richiesta alla servlet ha presentato errori
-            setWindowVisibility("registrationChildFormWindow", false);
-            //alert("error function: ");
-            openRegistrationChildAlertWindow("Errore", errorMsg);
-        }
-    );
+            comunicaConServlet(
+                // Nome della Servlet
+                "CreateDraftRegistrationChild", 
+                {
+                    // Parametri da inviare alla servlet
+                    Cognome : getValue("registrationChildFormWindowCognome"),
+                    Nome    : getValue("registrationChildFormWindowNome"),
+                    DataNascita : getValue("registrationChildFormWindowDataNascita"),
+                    ComuneNascita : getValue("registrationChildFormWindowComuneNascita"),
+                    CodiceFiscale : getValue("registrationChildFormWindowCodiceFiscale"),
+                    Cittadinanza : getValue("registrationChildFormWindowCittadinanza"),
+                    FasciaUtenza : getValue("registrationChildFormWindowFasciaUtenza")
+                }, 
+                function(jsonObject) {
+                    // Funzione eseguita se la richiesta alla servlet è eseguita con successo
+                    setWindowVisibility("registrationChildFormWindow", false);
+                    if(jsonObject.IsSuccess) {
+                        openRegistrationChildAlertWindow("Operazione eseguita correttamente", "La domanda di iscrizione è stata memorizzata");
+                    } else {
+                        openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
+                    }
+                }, 
+                function(errorMsg) {
+                    // Funzione eseguita se la richiesta alla servlet ha presentato errori
+                    setWindowVisibility("registrationChildFormWindow", false);
+                    //alert("error function: ");
+                    openRegistrationChildAlertWindow("Errore", errorMsg);
                 }
+                );
+        }
     });
 }
 function saveEditDraftRegistrationChildAction() {
@@ -123,37 +186,37 @@ function saveEditDraftRegistrationChildAction() {
         messages: {
         },
         submitHandler: function() {
-    comunicaConServlet(
-        // Nome della Servlet
-        "EditRegistrationChild", 
-        {
-            // Parametri da inviare alla servlet
-            Id : getValue("registrationChildFormWindowId"),
-            DataIscrizione : getValue("registrationChildFormWindowDataIscrizione"),
-            Cognome : getValue("registrationChildFormWindowCognome"),
-            Nome    : getValue("registrationChildFormWindowNome"),
-            DataNascita : getValue("registrationChildFormWindowDataNascita"),
-            ComuneNascita : getValue("registrationChildFormWindowComuneNascita"),
-            CodiceFiscale : getValue("registrationChildFormWindowCodiceFiscale"),
-            Cittadinanza : getValue("registrationChildFormWindowCittadinanza"),
-            FasciaUtenza : getValue("registrationChildFormWindowFasciaUtenza")
-        }, 
-        function(jsonObject) {
-            // Funzione eseguita se la richiesta alla servlet è eseguita con successo
-            setWindowVisibility("registrationChildFormWindow", false);
-            if(jsonObject.IsSuccess) {
-                openRegistrationChildAlertWindow("Operazione eseguita correttamente", "Le modifiche apportate alla bozza della domanda di iscrizione sono state salvata");
-            } else {
-                openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
-            }
-        }, 
-        function(errorMsg) {
-            // Funzione eseguita se la richiesta alla servlet ha presentato errori
-            setWindowVisibility("registrationChildFormWindow", false);
-            //alert("error function: ");
-            openRegistrationChildAlertWindow("Errore", errorMsg);
-        }
-    );
+            comunicaConServlet(
+                // Nome della Servlet
+                "EditRegistrationChild", 
+                {
+                    // Parametri da inviare alla servlet
+                    Id : getValue("registrationChildFormWindowId"),
+                    DataIscrizione : getValue("registrationChildFormWindowDataIscrizione"),
+                    Cognome : getValue("registrationChildFormWindowCognome"),
+                    Nome    : getValue("registrationChildFormWindowNome"),
+                    DataNascita : getValue("registrationChildFormWindowDataNascita"),
+                    ComuneNascita : getValue("registrationChildFormWindowComuneNascita"),
+                    CodiceFiscale : getValue("registrationChildFormWindowCodiceFiscale"),
+                    Cittadinanza : getValue("registrationChildFormWindowCittadinanza"),
+                    FasciaUtenza : getValue("registrationChildFormWindowFasciaUtenza")
+                }, 
+                function(jsonObject) {
+                    // Funzione eseguita se la richiesta alla servlet è eseguita con successo
+                    setWindowVisibility("registrationChildFormWindow", false);
+                    if(jsonObject.IsSuccess) {
+                        openRegistrationChildAlertWindow("Operazione eseguita correttamente", "Le modifiche apportate alla bozza della domanda di iscrizione sono state salvata");
+                    } else {
+                        openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
+                    }
+                }, 
+                function(errorMsg) {
+                    // Funzione eseguita se la richiesta alla servlet ha presentato errori
+                    setWindowVisibility("registrationChildFormWindow", false);
+                    //alert("error function: ");
+                    openRegistrationChildAlertWindow("Errore", errorMsg);
+                }
+                );
         }
     });
 }
@@ -161,148 +224,192 @@ function submitDraftRegistrationChildAction() {
     //alert($("#registrationChildFormWindowFasciaUtenza").val());
     setRegistrationChildFormEditable(true);
     $("#registrationChildFormWindowForm").validate({
-            rules: {
-                registrationChildFormWindowCognome: {required: true},
-                registrationChildFormWindowNome: {required: true},
-                registrationChildFormWindowDataNascita:  {required: true},
-                registrationChildFormWindowComuneNascita:  {required: true},
-                registrationChildFormWindowCodiceFiscale:  {required: true},
-                registrationChildFormWindowCittadinanza:  {required: true},
-                registrationChildFormWindowFasciaUtenza:  {required: true}
+        rules: {
+            registrationChildFormWindowCognome: {
+                required: true
             },
-            messages: {
-                registrationChildFormWindowCognome: {required: ""},
-                registrationChildFormWindowNome: {required: ""},
-                registrationChildFormWindowDataNascita:  {required: ""},
-                registrationChildFormWindowComuneNascita:  {required: ""},
-                registrationChildFormWindowCodiceFiscale:  {required: ""},
-                registrationChildFormWindowCittadinanza:  {required: ""},
-                registrationChildFormWindowFasciaUtenza:  {required: ""}
+            registrationChildFormWindowNome: {
+                required: true
             },
-            invalidHandler: function() {
-                setRegistrationChildFormEditable(false);
-                openRegistrationChildAlertWindow("Impossibile effettuare la sottomissione", "Alcuni campi della bozza sono ancora vuoti!" + newLine() + 
-                    "Modificare la bozza e riempire tutti i campi");
+            registrationChildFormWindowDataNascita:  {
+                required: true
             },
-            submitHandler: function() {
-                comunicaConServlet(
-                    // Nome della Servlet
-                    "SubmitNewRegistrationChild", 
-                    {
-                        // Parametri da inviare alla servlet
-                        Id : getValue("registrationChildFormWindowId"),
-                        Cognome : getValue("registrationChildFormWindowCognome"),
-                        Nome    : getValue("registrationChildFormWindowNome"),
-                        DataNascita : getValue("registrationChildFormWindowDataNascita"),
-                        ComuneNascita : getValue("registrationChildFormWindowComuneNascita"),
-                        CodiceFiscale : getValue("registrationChildFormWindowCodiceFiscale"),
-                        Cittadinanza : getValue("registrationChildFormWindowCittadinanza"),
-                        FasciaUtenza : getValue("registrationChildFormWindowFasciaUtenza")
-                    }, 
-                    function(jsonObject) {
-                        // Funzione eseguita se la richiesta alla servlet è eseguita con successo
-                        setWindowVisibility("registrationChildFormWindow", false);
-                        if(jsonObject.IsSuccess) {
-                            openRegistrationChildAlertWindow("Operazione eseguita correttamente", "La domanda di iscrizione è stata sottomessa");
-                            location.href = "PdfRegistrationChild?Id=" + getValue("registrationChildFormWindowId");
-                        } else {
-                            openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
-                        }
-                    }, 
-                    function(errorMsg) {
-                        // Funzione eseguita se la richiesta alla servlet ha presentato errori
-                        setWindowVisibility("registrationChildFormWindow", false);
-                        //alert("error function: ");
-                        openRegistrationChildAlertWindow("Errore", errorMsg);
-                    }
-                );
+            registrationChildFormWindowComuneNascita:  {
+                required: true
+            },
+            registrationChildFormWindowCodiceFiscale:  {
+                required: true
+            },
+            registrationChildFormWindowCittadinanza:  {
+                required: true
+            },
+            registrationChildFormWindowFasciaUtenza:  {
+                required: true
             }
-        });
+        },
+        messages: {
+            registrationChildFormWindowCognome: {
+                required: ""
+            },
+            registrationChildFormWindowNome: {
+                required: ""
+            },
+            registrationChildFormWindowDataNascita:  {
+                required: ""
+            },
+            registrationChildFormWindowComuneNascita:  {
+                required: ""
+            },
+            registrationChildFormWindowCodiceFiscale:  {
+                required: ""
+            },
+            registrationChildFormWindowCittadinanza:  {
+                required: ""
+            },
+            registrationChildFormWindowFasciaUtenza:  {
+                required: ""
+            }
+        },
+        invalidHandler: function() {
+            setRegistrationChildFormEditable(false);
+            openRegistrationChildAlertWindow("Impossibile effettuare la sottomissione", "Alcuni campi della bozza sono ancora vuoti!" + newLine() + 
+                "Modificare la bozza e riempire tutti i campi");
+        },
+        submitHandler: function() {
+            comunicaConServlet(
+                // Nome della Servlet
+                "SubmitNewRegistrationChild", 
+                {
+                    // Parametri da inviare alla servlet
+                    Id : getValue("registrationChildFormWindowId"),
+                    Cognome : getValue("registrationChildFormWindowCognome"),
+                    Nome    : getValue("registrationChildFormWindowNome"),
+                    DataNascita : getValue("registrationChildFormWindowDataNascita"),
+                    ComuneNascita : getValue("registrationChildFormWindowComuneNascita"),
+                    CodiceFiscale : getValue("registrationChildFormWindowCodiceFiscale"),
+                    Cittadinanza : getValue("registrationChildFormWindowCittadinanza"),
+                    FasciaUtenza : getValue("registrationChildFormWindowFasciaUtenza")
+                }, 
+                function(jsonObject) {
+                    // Funzione eseguita se la richiesta alla servlet è eseguita con successo
+                    setWindowVisibility("registrationChildFormWindow", false);
+                    if(jsonObject.IsSuccess) {
+                        openRegistrationChildAlertWindow("Operazione eseguita correttamente", "La domanda di iscrizione è stata sottomessa");
+                        location.href = "PdfRegistrationChild?Id=" + getValue("registrationChildFormWindowId");
+                    } else {
+                        openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
+                    }
+                }, 
+                function(errorMsg) {
+                    // Funzione eseguita se la richiesta alla servlet ha presentato errori
+                    setWindowVisibility("registrationChildFormWindow", false);
+                    //alert("error function: ");
+                    openRegistrationChildAlertWindow("Errore", errorMsg);
+                }
+                );
+        }
+    });
     
 }
 function completeDraftRegistrationChildAction() {
     $("#registrationChildFormWindowForm").validate({
-            rules: {
+        rules: {
             /*    registrationChildFormWindowMalattie: {required: true},
                 registrationChildFormWindowVaccinazioni: {required: true},*/
-                registrationChildFormWindowDichiarazionePrivacy:  {required: true}
-            },
-            messages: {
+            registrationChildFormWindowDichiarazionePrivacy:  {
+                required: true
+            }
+        },
+        messages: {
             /*    registrationChildFormWindowMalattie: {required: "Inserire le malattie (oppure Nessuna)"},
                 registrationChildFormWindowVaccinazioni: {required: "Inserire le vaccinazioni (oppure Nessuna)"},*/
-                registrationChildFormWindowDichiarazionePrivacy:  {required: "Selezionare la risposta"}
-            },
-            submitHandler: function() {
-                comunicaConServlet(
-                    // Nome della Servlet
-                    "CompleteRegistrationChild", 
-                    {
-                        // Parametri da inviare alla servlet
-                        Id : getValue("registrationChildFormWindowId"),
-                        Malattie : getValue("registrationChildFormWindowMalattie"),
-                        Vaccinazioni    : getValue("registrationChildFormWindowVaccinazioni"),
-                        DichiarazioneDellaPrivacy : getValue("registrationChildFormWindowDichiarazionePrivacy")
-                    }, 
-                    function(jsonObject) {
-                        // Funzione eseguita se la richiesta alla servlet è eseguita con successo
-                        setWindowVisibility("registrationChildFormWindow", false);
-                        if(jsonObject.IsSuccess) {
-                            openRegistrationChildAlertWindow("Operazione eseguita correttamente", "La domanda di iscrizione è stata completata");
-                        } else {
-                            openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
-                        }
-                    }, 
-                    function(errorMsg) {
-                        // Funzione eseguita se la richiesta alla servlet ha presentato errori
-                        setWindowVisibility("registrationChildFormWindow", false);
-                        //alert("error function: ");
-                        openRegistrationChildAlertWindow("Errore", errorMsg);
-                    }
-                );
+            registrationChildFormWindowDichiarazionePrivacy:  {
+                required: "Selezionare la risposta"
             }
-        });
+        },
+        submitHandler: function() {
+            comunicaConServlet(
+                // Nome della Servlet
+                "CompleteRegistrationChild", 
+                {
+                    // Parametri da inviare alla servlet
+                    Id : getValue("registrationChildFormWindowId"),
+                    Malattie : getValue("registrationChildFormWindowMalattie"),
+                    Vaccinazioni    : getValue("registrationChildFormWindowVaccinazioni"),
+                    DichiarazioneDellaPrivacy : getValue("registrationChildFormWindowDichiarazionePrivacy")
+                }, 
+                function(jsonObject) {
+                    // Funzione eseguita se la richiesta alla servlet è eseguita con successo
+                    setWindowVisibility("registrationChildFormWindow", false);
+                    if(jsonObject.IsSuccess) {
+                        openRegistrationChildAlertWindow("Operazione eseguita correttamente", "La domanda di iscrizione è stata completata");
+                    } else {
+                        openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
+                    }
+                }, 
+                function(errorMsg) {
+                    // Funzione eseguita se la richiesta alla servlet ha presentato errori
+                    setWindowVisibility("registrationChildFormWindow", false);
+                    //alert("error function: ");
+                    openRegistrationChildAlertWindow("Errore", errorMsg);
+                }
+                );
+        }
+    });
 }
 function confirmCompletingDraftRegistrationChildAction() {
     $("#registrationChildFormWindowForm").validate({
-            rules: {
-                registrationChildFormWindowIsSetMalattie: {required: true},
-                registrationChildFormWindowIsSetVaccinazioni: {required: true},
-                registrationChildFormWindowIsSetDichiarazionePrivacy:  {required: true}
+        rules: {
+            registrationChildFormWindowIsSetMalattie: {
+                required: true
             },
-            messages: {
-                registrationChildFormWindowIsSetMalattie: {required: "Selezionare la risposta"},
-                registrationChildFormWindowIsSetVaccinazioni: {required: "Selezionare la risposta"},
-                registrationChildFormWindowIsSetDichiarazionePrivacy: {required: "Selezionare la risposta"}
+            registrationChildFormWindowIsSetVaccinazioni: {
+                required: true
             },
-            submitHandler: function() {
-                comunicaConServlet(
-                    // Nome della Servlet
-                    "ConfirmCompletingRegistrationChild", 
-                    {
-                        // Parametri da inviare alla servlet
-                        Id : getValue("registrationChildFormWindowId"),
-                        IsSetMalattie : getValue("registrationChildFormWindowIsSetMalattie"),
-                        IsSetVaccinazioni    : getValue("registrationChildFormWindowIsSetVaccinazioni"),
-                        IsSetDichiarazioneDellaPrivacy : getValue("registrationChildFormWindowIsSetDichiarazionePrivacy")
-                    }, 
-                    function(jsonObject) {
-                        // Funzione eseguita se la richiesta alla servlet è eseguita con successo
-                        setWindowVisibility("registrationChildFormWindow", false);
-                        if(jsonObject.IsSuccess) {
-                            openRegistrationChildAlertWindow("Operazione eseguita correttamente", "La domanda di iscrizione è stata validata");
-                        } else {
-                            openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
-                        }
-                    }, 
-                    function(errorMsg) {
-                        // Funzione eseguita se la richiesta alla servlet ha presentato errori
-                        setWindowVisibility("registrationChildFormWindow", false);
-                        //alert("error function: ");
-                        openRegistrationChildAlertWindow("Errore", errorMsg);
-                    }
-                );
+            registrationChildFormWindowIsSetDichiarazionePrivacy:  {
+                required: true
             }
-        });
+        },
+        messages: {
+            registrationChildFormWindowIsSetMalattie: {
+                required: "Selezionare la risposta"
+            },
+            registrationChildFormWindowIsSetVaccinazioni: {
+                required: "Selezionare la risposta"
+            },
+            registrationChildFormWindowIsSetDichiarazionePrivacy: {
+                required: "Selezionare la risposta"
+            }
+        },
+        submitHandler: function() {
+            comunicaConServlet(
+                // Nome della Servlet
+                "ConfirmCompletingRegistrationChild", 
+                {
+                    // Parametri da inviare alla servlet
+                    Id : getValue("registrationChildFormWindowId"),
+                    IsSetMalattie : getValue("registrationChildFormWindowIsSetMalattie"),
+                    IsSetVaccinazioni    : getValue("registrationChildFormWindowIsSetVaccinazioni"),
+                    IsSetDichiarazioneDellaPrivacy : getValue("registrationChildFormWindowIsSetDichiarazionePrivacy")
+                }, 
+                function(jsonObject) {
+                    // Funzione eseguita se la richiesta alla servlet è eseguita con successo
+                    setWindowVisibility("registrationChildFormWindow", false);
+                    if(jsonObject.IsSuccess) {
+                        openRegistrationChildAlertWindow("Operazione eseguita correttamente", "La domanda di iscrizione è stata validata");
+                    } else {
+                        openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
+                    }
+                }, 
+                function(errorMsg) {
+                    // Funzione eseguita se la richiesta alla servlet ha presentato errori
+                    setWindowVisibility("registrationChildFormWindow", false);
+                    //alert("error function: ");
+                    openRegistrationChildAlertWindow("Errore", errorMsg);
+                }
+                );
+        }
+    });
 }
 // FUNZIONI CHE NECESSITANO DI UNA FORM-WINDOW
 function openInsertNewRegistrationChildWindow() {
@@ -359,27 +466,27 @@ function openDeleteRegistrationChildWindow(id) {
     var text = "Sei sicuro di voler eliminare la domanda di iscrizione";
     var confirmAction = function() {
         comunicaConServlet(
-                // Nome della Servlet
-                "EditPhaseRegistrationChild", 
-                {
-                    // Parametri da inviare alla servlet
-                    Id: id,
-                    FaseDellIscrizione: "eliminata"
-                }, 
-                function(jsonObject) {
-                    // Funzione eseguita se la richiesta alla servlet è eseguita con successo
-                    setWindowVisibility("registrationChildFormWindow", false);
-                    if(jsonObject.IsSuccess) {
-                        openRegistrationChildAlertWindow("Operazione eseguita correttamente", "La domanda di iscrizione è stata eliminata");
-                    } else {
-                        openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
-                    }
-                }, 
-                function(errorMsg) {
-                    // Funzione eseguita se la richiesta alla servlet ha presentato errori
-                    setWindowVisibility("registrationChildFormWindow", false);
-                    openRegistrationChildAlertWindow("Errore", errorMsg);
+            // Nome della Servlet
+            "EditPhaseRegistrationChild", 
+            {
+                // Parametri da inviare alla servlet
+                Id: id,
+                FaseDellIscrizione: "eliminata"
+            }, 
+            function(jsonObject) {
+                // Funzione eseguita se la richiesta alla servlet è eseguita con successo
+                setWindowVisibility("registrationChildFormWindow", false);
+                if(jsonObject.IsSuccess) {
+                    openRegistrationChildAlertWindow("Operazione eseguita correttamente", "La domanda di iscrizione è stata eliminata");
+                } else {
+                    openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
                 }
+            }, 
+            function(errorMsg) {
+                // Funzione eseguita se la richiesta alla servlet ha presentato errori
+                setWindowVisibility("registrationChildFormWindow", false);
+                openRegistrationChildAlertWindow("Errore", errorMsg);
+            }
             );
     }
     openRegistrationChildConfirmWindow(title, text, id, confirmAction, null);
@@ -389,27 +496,27 @@ function confirmReceivingRegistrationChildWindow(id) {
     var text = "Sei sicuro di voler confermare la ricezione della domanda di iscrizione";
     var confirmAction = function() {
         comunicaConServlet(
-                // Nome della Servlet
-                "EditPhaseRegistrationChild", 
-                {
-                    // Parametri da inviare alla servlet
-                    Id: id,
-                    FaseDellIscrizione: "ricevuta"
-                }, 
-                function(jsonObject) {
-                    // Funzione eseguita se la richiesta alla servlet è eseguita con successo
-                    setWindowVisibility("registrationChildFormWindow", false);
-                    if(jsonObject.IsSuccess) {
-                        openRegistrationChildAlertWindow("Operazione eseguita correttamente", "La domanda di iscrizione è stata memorizzata come ricevuta");
-                    } else {
-                        openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
-                    }
-                }, 
-                function(errorMsg) {
-                    // Funzione eseguita se la richiesta alla servlet ha presentato errori
-                    setWindowVisibility("registrationChildFormWindow", false);
-                    openRegistrationChildAlertWindow("Errore", errorMsg);
+            // Nome della Servlet
+            "EditPhaseRegistrationChild", 
+            {
+                // Parametri da inviare alla servlet
+                Id: id,
+                FaseDellIscrizione: "ricevuta"
+            }, 
+            function(jsonObject) {
+                // Funzione eseguita se la richiesta alla servlet è eseguita con successo
+                setWindowVisibility("registrationChildFormWindow", false);
+                if(jsonObject.IsSuccess) {
+                    openRegistrationChildAlertWindow("Operazione eseguita correttamente", "La domanda di iscrizione è stata memorizzata come ricevuta");
+                } else {
+                    openRegistrationChildAlertWindow("Operazione non eseguita", "Si è verificato il seguente errore:" + newLine() + jsonObject.ErrorMsg);
                 }
+            }, 
+            function(errorMsg) {
+                // Funzione eseguita se la richiesta alla servlet ha presentato errori
+                setWindowVisibility("registrationChildFormWindow", false);
+                openRegistrationChildAlertWindow("Errore", errorMsg);
+            }
             );
     }
     openRegistrationChildConfirmWindow(title, text, id, confirmAction, null);
@@ -423,7 +530,9 @@ function initRegistrationChildFormWindow() {
         width: 600
     });
     // imposta il campo come inserimento della data dal calendario
-    $("#registrationChildFormWindowDataNascita").datepicker({dateFormat:'yy-mm-dd'});
+    $("#registrationChildFormWindowDataNascita").datepicker({
+        dateFormat:'yy-mm-dd'
+    });
     
     getElement("registrationChildFormWindowId").disabled = true;
     getElement("registrationChildFormWindowDataIscrizione").disabled = true;
@@ -433,12 +542,14 @@ function initRegistrationChildFormWindow() {
     $("#registrationChildFormWindowUndoButton").click(function(){
         setWindowVisibility("registrationChildFormWindow", false);
         clearFieldRegistrationChildFormWindow();
-        // test: alert("sono in annulla");
-        //location.href = "./registrationChild.jsp";
+    // test: alert("sono in annulla");
+    //location.href = "./registrationChild.jsp";
     });
 }
 function openRegistrationChildFormWindow(windowType, title, idToLoad) {
-    $("#registrationChildFormWindow").dialog({title: title});
+    $("#registrationChildFormWindow").dialog({
+        title: title
+    });
     
     if(windowType == "modifyDraft") {
         setRegistrationChildFormEditable(true);
@@ -468,7 +579,7 @@ function openRegistrationChildFormWindow(windowType, title, idToLoad) {
                     if(getValue("user") == "Segreteria" && fase == "completata") {
                         changeRegistrationChildAdvancedFieldState(true, true);
                     }
-                    //openRegistrationChildAlertWindow("Caricamento riuscito", "I dati sono stati caricati correttamente");
+                //openRegistrationChildAlertWindow("Caricamento riuscito", "I dati sono stati caricati correttamente");
                 } else {
                     openRegistrationChildAlertWindow("Errore", jsonObject.ErrorMsg);
                 }
@@ -478,7 +589,7 @@ function openRegistrationChildFormWindow(windowType, title, idToLoad) {
                 setWindowVisibility("registrationChildFormWindow", false);
                 openRegistrationChildAlertWindow("Errore", errorMsg);
             }
-        );
+            );
     } else {
         clearFieldRegistrationChildFormWindow();
         changeButtonVisibility("", windowType);
@@ -552,7 +663,7 @@ function changeRegistrationChildRegistrationInfoState(isVisible, isDisabled) {
     getElement("registrationChildFormWindowId").disabled = isDisabled;
     getElement("registrationChildFormWindowDataIscrizione").disabled = isDisabled;
     getElement("registrationChildFormWindowFaseIscrizione").disabled = isDisabled;
-    // Non utilizzo il valore di parentAccountId
+// Non utilizzo il valore di parentAccountId
 }
 function changeRegistrationChildStandardFieldState(isVisible, isDisabled) {
     setVisibility("registrationChildStandardField", isVisible);
@@ -625,7 +736,7 @@ function changeButtonVisibility(registrationPhase, windowType) {
             setVisibility("saveEditDraftRegistrationChildButton", false);
         }
         if((registrationPhase == "bozza") &&
-                    (windowType == "viewDraft")) {
+            (windowType == "viewDraft")) {
 
             setVisibility("submitDraftRegistrationChildButton", true);
         } else {
@@ -668,11 +779,13 @@ function initRegistrationChildConfirmWindow() {
         messages: {
         },
         submitHandler: function() {
-       }
+        }
     });
 }
 function openRegistrationChildConfirmWindow(newTitle, text, id, confirmAction, undoAction) {
-    $("#registrationChildConfirmWindow").dialog({title: newTitle});
+    $("#registrationChildConfirmWindow").dialog({
+        title: newTitle
+    });
     getElement("registrationChildConfirmWindowTitle").innerHTML = text;
     $("#registrationChildConfirmWindowId").val(id);
     
@@ -701,7 +814,9 @@ function initRegistrationChildAlertWindow() {
     $("#registrationChildAlertWindowOkButton").button();    
 }
 function openRegistrationChildAlertWindow(newTitle, text, submitAction) {
-    $("#registrationChildAlertWindow").dialog({title: newTitle});
+    $("#registrationChildAlertWindow").dialog({
+        title: newTitle
+    });
     getElement("registrationChildAlertWindowTitle").innerHTML = text;
     
     setWindowVisibility("registrationChildAlertWindow", true);
@@ -729,7 +844,7 @@ function getTypeValue(idRadio) {
     while(i < radios.length && indice == -1) {
         if(radios[i].checked) {
             indice = i;
-            //alert(radios[i].value);
+        //alert(radios[i].value);
         } else {
             i++;
         }
@@ -771,11 +886,11 @@ function comunicaConServlet(nomeServlet, parametri, executeIfSuccess, executeIfE
              * such as "Not Found" or "Internal Server Error"
              */
             var errorMsg = "Errore nella richiesta alla Servlet (" + textStatus + "):" + newLine() 
-                    + "HTTP error: " + errorThrown;
+            + "HTTP error: " + errorThrown;
             executeIfError(errorMsg);
         },
         complete : function(jqXHR, textStatus) {
-            /*
+        /*
              * A function to be called when the request finishes (after success and error callbacks are executed). 
              * The function gets passed two arguments: The jqXHR (in jQuery 1.4.x, XMLHTTPRequest) object and a 
              * string categorizing the status of the request ("success", "notmodified", "error", "timeout", "abort", 

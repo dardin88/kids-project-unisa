@@ -8,7 +8,7 @@ function initializeLinksManager(){
         autoOpen: false,
         modal: true,
         resizable: false,
-        width: 600
+        width: 400
     });
     
     $("#showCommunicationWindow").dialog({
@@ -56,7 +56,8 @@ function addCommunication(){
                             required: true
                         },
                         date: {
-                            required: true
+                            required: true,
+                            date: true
                         }
                     },
                     messages: {
@@ -70,7 +71,8 @@ function addCommunication(){
                             required: "Inserisci descrizione"
                         },
                         date: {
-                            required: "Inserisci data"
+                            required: "Inserisci data",
+                            date: "Formato non valido"
                         }
                     },
                     submitHandler: function() {

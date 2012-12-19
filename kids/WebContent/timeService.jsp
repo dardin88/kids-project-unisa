@@ -106,7 +106,7 @@
                     </div>
 
                     <div id="RequestTime">
-                        <input type="button" id="insertRequestTime" value="Inserisci la richiesta di orario di servizio" onclick="openInsertRequestTimeDialog()">
+                        <input type="button" id="insertRequestTime" value="Inserisci la richiesta di orario di servizio" onclick="openInsertRequestTimeDialog()"><br><br>
                         <table id="requestTimeServiceParentTable">
                             <thead>
                                 <tr>
@@ -120,8 +120,8 @@
                             <tbody>
                             </tbody>
                         </table>
-                        <div id="insertRequestTimeDialog">
-                            <form id="requestTimeForm" class="cmxform" method="post" action="InsertRequestTime">
+                        <div id="insertRequestTimeDialog" title="Richiesta orario di servizio">
+                            <form id="requestTimeForm" class="cmxform" method="post" action="InsertRequestTime"><br>
                                 <table>
                                     <tr><td>Seleziona servizio*</td><td> <select name="tipo" id="type" >
                                                 <option value="Pre-Accoglienza(7:30-8:00)">Pre-accoglienza(7:30-8:00)</option>
@@ -138,15 +138,17 @@
                                         </td></tr>
 
                                 </table>
-                                <h1>* Campi obbligatori</h1>
-                                <input type="submit" name="SendRequest" value="Invia Richiesta" id="SendRequest">
+                                <h3>* Campi obbligatori</h3><br>
+                                <p style="text-align: center">
+                                    <input style="width: 200px" type="submit" name="SendRequest" value="Invia Richiesta" id="SendRequest">
+                                </p>
                             </form>
                         </div>
                     </div>
-                    <div id="RequestModifyTimeService">
+                    <div id="RequestModifyTimeService" >
                         <div id="requestModifyTimeService">
-                            <input type="button" id="insertRequestModifyTimeService" value="Inserisci richiesta di modifica orario di servizio" onclick="openInsertModifyTimeServiceRequestDialog()">
-                            <div id="insertRequestModifyTimeServiceDialog">
+                            <input type="button" id="insertRequestModifyTimeService" value="Inserisci richiesta di modifica orario di servizio" onclick="openInsertModifyTimeServiceRequestDialog()"><br><br>
+                            <div id="insertRequestModifyTimeServiceDialog"title="Richiesta di modifica orari di servizio">
                                 <p style="float:left"><br><b>Seleziona prima il bambino e poi compila gli altri campi</b></p>
 
                                 <form id="" class="cmxform" method="post" action="InsertRequestModifyTimeService">
@@ -168,8 +170,9 @@
                                         <tr><td>AltreFascie</td><td><select id="userRange" name="fasciaUtenza" disabled ></select></td></tr>
                                         <tr><td>Motivazione</td><td><textarea id="motivation" name="motivazione"style="resize: none" cols="40" rows="10" disabled></textarea></td></tr>
                                     </table>
-                                    <input type="submit" value="Invia" id="sendRequestModifyTimeService"  >
-
+                                    <p style="text-align: center"><br>
+                                        <input style="width: 350px" type="submit" value="Invia" id="sendRequestModifyTimeService"  >
+                                    </p>
                                 </form>
                             </div>
                             <table id="TableRequestModifyTimeServiceParent">

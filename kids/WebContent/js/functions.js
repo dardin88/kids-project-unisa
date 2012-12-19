@@ -27,6 +27,11 @@ function activePage() {
             $("#notifications").css("color", "#FFFFFF");
             $("#title").html("Gestione Tirocinante");
             break;
+        case 'recourse.jsp':
+            $("#recourseManagementME").css("background-color", "#444");
+            $("#recourseManagementME").css("color", "#FFFFFF");
+            $("#title").html("Gestione Ricorsi");
+            break;
         case 'schedulerActivity.jsp':
             $("#scheduler").css("background-color", "#444");
             $("#scheduler").css("color", "#FFFFFF");

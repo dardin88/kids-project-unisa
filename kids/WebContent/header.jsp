@@ -19,6 +19,9 @@
     <ul>
         <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
             <div class="div">
+                <li id="forumMenuEL"><a href="../kids_forum" target="_blank">Forum</a></li>
+            </div>
+            <div class="div">
                 <li id="accountInformationAllMenuEL"><a href="accountInformationAll.jsp">Account</a></li>
             </div>
             <div class="div">
@@ -58,6 +61,9 @@
 
         <c:if test="${sessionScope.user.getAccountType()=='Tirocinante'}">
             <div class="div">
+                <li id="forumMenuEL"><a href="../kids_forum" target="_blank">Forum</a></li>
+            </div>
+            <div class="div">
                 <li id="accountInformationAllMenuEL"><a href="accountInformationAll.jsp">Account</a></li>
             </div>
             <div class="div">
@@ -73,6 +79,9 @@
 
         <c:if test="${sessionScope.user.getAccountType()=='Responsabile Mensa'}">
             <div class="div">
+                <li id="forumMenuEL"><a href="../kids_forum" target="_blank">Forum</a></li>
+            </div>
+            <div class="div">
                 <li id="accountInformationAllMenuEL"><a href="accountInformationAll.jsp">Account</a></li>
             </div>
             <div class="div">
@@ -84,6 +93,9 @@
         </c:if>
 
         <c:if test="${sessionScope.user.getAccountType()=='Delegato scienze della formazione'}">
+            <div class="div">
+                <li id="forumMenuEL"><a href="../kids_forum" target="_blank">Forum</a></li>
+            </div>
             <div class="div">
                 <li id="accountInformationAllMenuEL"><a href="accountInformationAll.jsp">Account</a></li>
             </div>
@@ -105,6 +117,9 @@
         </c:if>
 
         <c:if test="${sessionScope.user.getAccountType()=='Genitore'}">
+            <div class="div">
+                <li id="forumMenuEL"><a href="../kids_forum" target="_blank">Forum</a></li>
+            </div>
             <div class="div">
                 <li id="accountInformationParentMenuEL"><a href="accountInformationParent.jsp">Account</a></li>
             </div>
@@ -148,6 +163,9 @@
 
         <c:if test="${sessionScope.user.getAccountType()=='Educatore'}">
             <div class="div">
+                <li id="forumMenuEL"><a href="../kids_forum" target="_blank">Forum</a></li>
+            </div>
+            <div class="div">
                 <li id="accountInformationAllMenuEL"><a href="accountInformationAll.jsp">Account</a></li>
             </div>
             <div class="div">
@@ -169,6 +187,9 @@
 
         <c:if test="${sessionScope.user.getAccountType()=='Admin'}">  
             <div class="div">
+                <li id="forumMenuEL"><a href="../kids_forum" target="_blank">Forum</a></li>
+            </div>
+            <div class="div">
                 <li id="accountSecretaryMenuEL"><a href="accountSecretary.jsp">Account</a></li>
             </div>
             <div class="div">
@@ -181,6 +202,9 @@
 
         <c:if test="${sessionScope.user.getAccountType()=='Coordinatore Psicopedagogico'}">
             <div class="div">
+                <li id="forumMenuEL"><a href="../kids_forum" target="_blank">Forum</a></li>
+            </div>
+            <div class="div">
                 <li id="accountInformationAllMenuEL"><a href="accountInformationAll.jsp">Account</a></li>
             </div>
             <div class="div">
@@ -190,16 +214,22 @@
 
         <c:if test="${sessionScope.user.getAccountType()=='Responsabile Scientifico'}">
             <div class="div">
+                <li id="forumMenuEL"><a href="../kids_forum" target="_blank">Forum</a></li>
+            </div>
+            <div class="div">
                 <li id="accountInformationAllMenuEL"><a href="accountInformationAll.jsp">Account</a></li>
             </div>
-             <div class="div">
+            <div class="div">
                 <li id="annualProject"><a href="showProject.jsp">Programma Educativo</a></li>
             </div>
         </c:if>
 
         <c:if test="${sessionScope.user.getAccountType()=='Delegato del rettore'}">
             <div class="div">
-                <li id="accountSecretaryMenuEL"><a href="accountSecretary.jsp">Account</a></li>
+                <li id="forumMenuEL"><a href="../kids_forum" target="_blank">Forum</a></li>
+            </div>
+            <div class="div">
+                <li id="accountInformationAllMenuEL"><a href="accountInformationAll.jsp">Account</a></li>
             </div>
             <div class="div">
                 <li id="classMenuEl"><a href="class.jsp">Sezioni</a></li>
@@ -213,12 +243,15 @@
             <div class="div">
                 <li id="meetingCalendarMenuEL"><a href="meetingCalendar.jsp">Riunioni</a></li>
             </div>
-             <div class="div">
+            <div class="div">
                 <li id="annualProject"><a href="showProject.jsp">Programma Educativo</a></li>
             </div>
         </c:if>
 
         <c:if test="${sessionScope.user.getAccountType()=='Responsabile Asilo'}">
+            <div class="div">
+                <li id="forumMenuEL"><a href="../kids_forum" target="_blank">Forum</a></li>
+            </div>
             <div class="div">
                 <li id="accountInformationAllMenuEL"><a href="accountInformationAll.jsp">Account</a></li>
             </div>

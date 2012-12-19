@@ -10,7 +10,7 @@ function initializePaymentsPage() {
     $("#goToParentsSearchBtn").click(function() {
         $("#generalPaymentSection").hide();
         $("#searchParent").show();
-         $("#title").html("Gestione Pagamenti - Ricerca genitore");
+        $("#title").html("Gestione Pagamenti - Ricerca genitore");
         search();
     });
     
@@ -53,6 +53,163 @@ function initializePaymentsPage() {
     TableTools.DEFAULTS.aButtons = [];
     buildParentsTable();
 }
+
+$(document).ready(function() {
+    $("#insertPaymentForm").validate({
+        rules:
+        {
+            paymentDescription:{
+                required:true,
+                minlength: 5, 
+                maxlength:500
+            },
+            amount:{
+                required:true,
+                number: true
+            },
+            discount:{
+                required:true,
+                number:true
+            },
+            expDate:{
+                required:true,
+                date:true
+            }
+        },
+        messages:{
+            paymentDescription:{
+                required: "Descrizione obbligatoria",
+                minlength: "Descrizione di almeno 4 caratteri", 
+                maxlength: "Descrizione di massimo 500 caratteri"
+            },
+            amount:{
+                required: "Importo obbligatorio",
+                number: "Inserire solo numeri"
+            },
+            discount:{
+                required: "Sconto obbligatorio",
+                number: "Inserire solo numeri"
+            },
+            expDate:{
+                required: "Data obbligatoria",
+                date: "Formato non valido"
+            }
+        },
+        submitHandler:function(form){
+            form.submit();
+        }
+    });
+});
+
+$(document).ready(function() {
+    $("#modifyPaymentForm").validate({
+        rules:
+        {
+            modifyPaymentDescription:{
+                required:true,
+                minlength: 5, 
+                maxlength:500
+            },
+            modifyAmount:{
+                required:true,
+                number: true
+            },
+            modifyDiscount:{
+                required:true,
+                number:true
+            },
+            modifyExpDate:{
+                required:true,
+                date:true
+            }
+        },
+        messages:{
+            modifyPaymentDescription:{
+                required: "Descrizione obbligatoria",
+                minlength: "Descrizione di almeno 4 caratteri", 
+                maxlength: "Descrizione di massimo 500 caratteri"
+            },
+            modifyAmount:{
+                required: "Importo obbligatorio",
+                number: "Inserire solo numeri"
+            },
+            modifyDiscount:{
+                required: "Sconto obbligatorio",
+                number: "Inserire solo numeri"
+            },
+            modifyExpDate:{
+                required: "Data obbligatoria",
+                date: "Formato non valido"
+            }
+        },
+        submitHandler:function(form){
+            form.submit();
+        }
+    });
+});
+
+$(document).ready(function() {
+    $("#modifyRefundsForm").validate({
+        rules:
+        {
+            modifyRefundDescription:{
+                required:true,
+                minlength: 5, 
+                maxlength:500
+            },
+            modifyRefundAmount:{
+                required:true,
+                number: true
+            }
+        },
+        messages:{
+            modifyRefundDescription:{
+                required: "Descrizione obbligatoria",
+                minlength: "Descrizione di almeno 4 caratteri", 
+                maxlength: "Descrizione di massimo 500 caratteri"
+            },
+            modifyRefundAmount:{
+                required: "Importo obbligatorio",
+                number: "Inserire solo numeri"
+            }
+        },
+        submitHandler:function(form){
+            form.submit();
+        }
+    });
+});
+
+$(document).ready(function() {
+    $("#insertRefundForm").validate({
+        rules:
+        {
+            refundDescription:{
+                required:true,
+                minlength: 5, 
+                maxlength:500
+            },
+            refundAmount:{
+                required:true,
+                number: true
+            }
+        },
+        messages:{
+            refundDescription:{
+                required: "Descrizione obbligatoria",
+                minlength: "Descrizione di almeno 4 caratteri", 
+                maxlength: "Descrizione di massimo 500 caratteri"
+            },
+            refundAmount:{
+                required: "Importo obbligatorio",
+                number: "Inserire solo numeri"
+            }
+        },
+        submitHandler:function(form){
+            form.submit();
+        }
+    });
+});
+
 
 function search() {
     $("#parentsTable").dataTable().fnDraw();
@@ -179,6 +336,10 @@ function buildParentsTable(){
             }
         }
     });
+    var oTable = $("#parentsTable").dataTable();
+    if (oTable.length > 0) {
+        $("#parentsTable").css("width", "100%");
+    }
 }
 
 function buildPaymentsTable(parentId){
@@ -227,6 +388,10 @@ function buildPaymentsTable(parentId){
             }
         }
     });
+    var oTable = $("#showPaymentsTable").dataTable();
+    if (oTable.length > 0) {
+        $("#showPaymentsTable").css("width", "100%");
+    }
 }
 
 function buildRefundsTable(parentId){
@@ -275,6 +440,10 @@ function buildRefundsTable(parentId){
             }
         }
     });
+    var oTable = $("#showRefundsTable").dataTable();
+    if (oTable.length > 0) {
+        $("#showRefundsTable").css("width", "100%");
+    }
 }
 
 function buildPaymentsConvTable(parentId){
@@ -323,4 +492,8 @@ function buildPaymentsConvTable(parentId){
             }
         }
     });
+    var oTable = $("#showPaymentsConvTable").dataTable();
+    if (oTable.length > 0) {
+        $("#showPaymentsConvTable").css("width", "100%");
+    }
 }

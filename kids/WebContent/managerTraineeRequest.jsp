@@ -71,7 +71,11 @@
                 <tr><td>Ora di fine*</td><td><input type="text" name="OraFine" id="EndTimeRequest"disabled></td></tr>
 
             </table>
-            <input type="submit" value="Salva" id="saveButton" style="visibility: hidden"><input type="button" value="Modifica" onclick="modifyDialog()" id="modifyButton"><input type="submit" name="removeRequest" id="removeRequest" value="Rimuovi"style="float:right">
+            <p style="text-align: center"><br>
+                <input type="submit" value="Salva" id="saveButton" style="visibility: hidden;width: 100px">
+                <input type="button" value="Modifica" onclick="modifyDialog()" id="modifyButton" style="width: 100px">
+                <input type="submit" name="removeRequest" id="removeRequest" value="Rimuovi"style="width: 100px">
+            </p>
         </form>
     </div>
     <div id="insertTraineeRequest" title="Richiesta di tirocinanti" style="display:inline">
@@ -84,8 +88,9 @@
                 <tr><td>Ora di inizio*</td><td><input type="text" name="OraInizio" id="startTime"></td></tr>
                 <tr><td>Ora di fine*</td><td><input type="text" name="OraFine" id="endTime"></td></tr>
             </table>
-            <input id="send" type="submit" name="Invia" value="Invia" style="float:right">
-
+            <p style="text-align: center"><br>
+                <input id="send" type="submit" name="Invia" value="Invia" style="width: 300px">
+            </p>
         </form>
     </div>
     <body>
