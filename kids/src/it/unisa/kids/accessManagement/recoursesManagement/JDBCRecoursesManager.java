@@ -325,7 +325,8 @@ public class JDBCRecoursesManager implements IRecoursesManager {
         StringBuilder query = new StringBuilder();
         List<Recourse> listRecourse = null;
 
-        boolean andState = false;
+        boolean andState = true;
+        boolean orState = false;
 
         try {
             con = DBConnectionPool.getConnection();
@@ -359,21 +360,30 @@ public class JDBCRecoursesManager implements IRecoursesManager {
             } 
             // Le condizioni else sono posizionate qui di seguito in modo da effettuare prima 
             // tutti i controlli obbligatori (AND) e solo dopo gli or
+            if(andState) {
+                query.append(" AND (");
+            }
             if(ricorso.getId() <= 0) {
-                query.append(useOr(andState) + "RE." + DBNames.ATT_RECOURSE_ID + " LIKE '%" + toSearch + "%'");
-                andState = true;
+                query.append(useOr(orState) + "RE." + DBNames.ATT_RECOURSE_ID + " LIKE '%" + toSearch + "%'");
+                orState = true;
             }
             if(ricorso.getDate() == null) {
-                query.append(useOr(andState) + "RE." + DBNames.ATT_RECOURSE_DATA + " LIKE '%" + toSearch + "%'");
-                andState = true;
+                query.append(useOr(orState) + "RE." + DBNames.ATT_RECOURSE_DATA + " LIKE '%" + toSearch + "%'");
+                orState = true;
             }
             if(ricorso.getReason() == null) {
-                query.append(useOr(andState) + "RE." + DBNames.ATT_RECOURSE_REASON + " LIKE '%" + toSearch + "%'");
-                andState = true;
+                query.append(useOr(orState) + "RE." + DBNames.ATT_RECOURSE_REASON + " LIKE '%" + toSearch + "%'");
+                orState = true;
             }
             if(ricorso.getRegistrationChildId() <= 0) {
-                query.append(useOr(andState) + "RE." + DBNames.ATT_RECOURSE_REGISTRATIONCHILDID + " LIKE '%" + toSearch + "%'");
-                andState = true;
+                query.append(useOr(orState) + "RE." + DBNames.ATT_RECOURSE_REGISTRATIONCHILDID + " LIKE '%" + toSearch + "%'");
+                orState = true;
+            }
+            if(!orState && andState) {
+                query.append("1");
+            }
+            if(andState) {
+                query.append(")");
             }
             query.append(";");
             

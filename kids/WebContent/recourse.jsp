@@ -58,7 +58,7 @@
         
 <c:if test="${sessionScope.user.getAccountType()=='Genitore'}">
             <%-- VISUALE DELLE POSSIBILI ISCRIZIONI PER CUI E' POSSIBILE PRESENTARE UN RICORSO --%>
-            <div id="recoursePossibleDisplay" style="display: block;">
+            <div id="recoursePossibleDisplay" style="display: block;margin-bottom:30px;">
                 <h2 id="recoursePossibleDisplayTitle">Iscrizioni per le quali è possibile presentare un ricorso</h2>
                 <div id="recoursePossibleResultTable">
                     <table id="recoursePossibleTable">

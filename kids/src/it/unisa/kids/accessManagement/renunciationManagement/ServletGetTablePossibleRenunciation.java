@@ -50,6 +50,9 @@ public class ServletGetTablePossibleRenunciation extends HttpServlet {
         
         RegistrationChild[] pageRenunciation = null;
         List<RegistrationChild> listPossibleRenunciation;
+        // parametro di ricerca della tabella
+        String searchTerm = request.getParameter("sSearch");
+        
         try {
             
             JSONArray array = new JSONArray();
@@ -64,15 +67,15 @@ public class ServletGetTablePossibleRenunciation extends HttpServlet {
             
             // Le fasi in cui è possibile presentare domanda di rinuncia sono le seguenti
             tmp.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_ACCEPTED);
-            listPossibleRenunciation = registrationChildManager.search(tmp);
+            listPossibleRenunciation = registrationChildManager.search(tmp, searchTerm);
             
             tmp.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_COMPLETED);
-            listPossibleRenunciation.addAll(registrationChildManager.search(tmp));
+            listPossibleRenunciation.addAll(registrationChildManager.search(tmp, searchTerm));
             
             tmp.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_VALIDATED);
-            listPossibleRenunciation.addAll(registrationChildManager.search(tmp));
+            listPossibleRenunciation.addAll(registrationChildManager.search(tmp, searchTerm));
             
-            List<Renunciation> listToNotDisplay = renunciationManager.getListFromParent(account.getId());
+            List<Renunciation> listToNotDisplay = renunciationManager.getListFromParent(account.getId(), null);
             
             int start = 0;
             int amount = 10;

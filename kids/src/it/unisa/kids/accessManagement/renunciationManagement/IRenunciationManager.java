@@ -24,8 +24,9 @@ public interface IRenunciationManager extends IManager{
          * Get the list of the Renunciation submitted from a parent
          * 
          * @param parentAccountId id of parent's account
+         * @param advanceStringToSearch if has to search additional field between fiscalcode, surname or name
          * @return the list of renunciation from the given parent
          * @throws SQLException if occured an SQLException
          */
-        List<Renunciation> getListFromParent(int parentAccountId) throws SQLException;
+        List<Renunciation> getListFromParent(int parentAccountId, String advanceStringToSearch) throws SQLException;
 }
