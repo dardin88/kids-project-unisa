@@ -94,11 +94,14 @@ public class GetSectionActivitiesTableServlet extends HttpServlet {
                 for (Activity act : paginateActivitySet) {
                     JSONObject jObj = new JSONObject();
 
+                    String operazioni = "<input class='tableImage' type='image' height='20px' src='img/change.png' onclick=\"updateActivity(" + act.getId() + ");\" />"
+                            + "<input class='tableImage' type='image' src='img/trash.png' onclick=\"removeActivity(" + act.getId() + ");\" />";
+
                     CommonMethod.checkAddToJSON(jObj, "0", act.getName());
                     CommonMethod.checkAddToJSON(jObj, "1", act.getDescription());
                     CommonMethod.checkAddToJSON(jObj, "2", CommonMethod.parseString(act.getStartDate()));
                     CommonMethod.checkAddToJSON(jObj, "3", CommonMethod.parseString(act.getEndDate()));
-                    CommonMethod.checkAddToJSON(jObj, "4", "Operazioni");
+                    CommonMethod.checkAddToJSON(jObj, "4", operazioni);
 
                     jObj.put("DT_RowId", "" + act.getId());
                     array.put(jObj);

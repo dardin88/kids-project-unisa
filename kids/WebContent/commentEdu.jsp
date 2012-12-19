@@ -13,6 +13,7 @@
             <th>Data</th>
             <th>Contenuto</th>
             <th>Autore</th>
+            <th>Operazioni</th>
         </tr>
     </thead>
 </table>

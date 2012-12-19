@@ -349,9 +349,8 @@ CREATE TABLE IF NOT EXISTS `news` (
 CREATE TABLE IF NOT EXISTS `pagamento` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `DataScadenza` date NOT NULL,
-  `Addebito` tinyint(1) DEFAULT '0',
   `Descrizione` varchar(200) DEFAULT NULL,
-  `sconto` double DEFAULT '0',
+  `Sconto` double DEFAULT '0',
   `DescrizioneSconto` varchar(200) DEFAULT NULL,
   `Importo` double NOT NULL,
   `Effettuato` tinyint(1) NOT NULL DEFAULT '0',
