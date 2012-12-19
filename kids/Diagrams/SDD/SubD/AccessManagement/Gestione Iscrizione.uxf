@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.5.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>230</x>
+      <y>30</y>
+      <w>500</w>
+      <h>320</h>
+    </coordinates>
+    <panel_attributes>GestioneIscrizioniPresentationLayer 
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>270</x>
+      <y>70</y>
+      <w>180</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+--
+
+: GUIRegistraIscrizione</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>490</x>
+      <y>70</y>
+      <w>180</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+--
+
+: GUIVisualizzaIscrizione</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>260</x>
+      <y>180</y>
+      <w>180</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+--
+
+: GUIEliminaIscrizione</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>230</x>
+      <y>700</y>
+      <w>500</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>GestioneIscrizioniDataLayer
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>270</x>
+      <y>390</y>
+      <w>180</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+--
+
+: 	RegistraIscrizione</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>270</x>
+      <y>500</y>
+      <w>180</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+--
+
+: EliminaIscrizione</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>490</x>
+      <y>390</y>
+      <w>180</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+--
+
+: VisualizzaIscrizione</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>140</x>
+      <y>80</y>
+      <w>150</w>
+      <h>370</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>130;350;30;350;30;30;130;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>130</x>
+      <y>200</y>
+      <w>150</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>130;340;30;340;30;30;130;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>640</x>
+      <y>90</y>
+      <w>150</w>
+      <h>370</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>30;350;130;350;130;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>230</x>
+      <y>360</y>
+      <w>500</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>GestioneIscrizioniApplicationLayer
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>450</x>
+      <y>630</y>
+      <w>50</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>30;90;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>490</x>
+      <y>180</y>
+      <w>180</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+--
+
+: GUIRicercaIscrizione</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>490</x>
+      <y>500</y>
+      <w>180</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+--
+
+: RicercaIscrizione</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>640</x>
+      <y>200</y>
+      <w>160</w>
+      <h>370</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>30;350;140;350;140;30;30;30</additional_attributes>
+  </element>
+</diagram>

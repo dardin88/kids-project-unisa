@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.5.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>240</x>
+      <y>0</y>
+      <w>500</w>
+      <h>320</h>
+    </coordinates>
+    <panel_attributes>GestioneRinuncePresentationLayer 
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>280</x>
+      <y>40</y>
+      <w>180</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+--
+
+: GUIInserisciRinuncia</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>500</x>
+      <y>40</y>
+      <w>180</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+--
+
+: GUIRitiraRinuncia</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>240</x>
+      <y>670</y>
+      <w>500</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>GestioneRinunceDataLayer
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>280</x>
+      <y>360</y>
+      <w>180</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+--
+
+: InserisciRinuncia</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>500</x>
+      <y>360</y>
+      <w>180</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+--
+
+: RitiraRinuncia</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>150</x>
+      <y>50</y>
+      <w>150</w>
+      <h>370</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>130;350;30;350;30;30;130;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>140</x>
+      <y>160</y>
+      <w>160</w>
+      <h>370</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>140;350;30;350;30;30;140;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>650</x>
+      <y>60</y>
+      <w>150</w>
+      <h>370</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>30;350;130;350;130;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>650</x>
+      <y>150</y>
+      <w>160</w>
+      <h>390</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>30;370;140;370;140;210;140;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>240</x>
+      <y>330</y>
+      <w>500</w>
+      <h>320</h>
+    </coordinates>
+    <panel_attributes>GestioneRinunceApplicationLayer
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>460</x>
+      <y>620</y>
+      <w>50</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>30;70;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>500</x>
+      <y>470</y>
+      <w>180</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+--
+
+: RicercaRinuncia</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>500</x>
+      <y>140</y>
+      <w>180</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+--
+
+: GUIRicercaRinuncia</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>280</x>
+      <y>140</y>
+      <w>190</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+--
+
+: GUIVisualizzaRinuncia</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>280</x>
+      <y>470</y>
+      <w>190</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+--
+
+: VisualizzaRinuncia</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>410</x>
+      <y>560</y>
+      <w>190</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+--
+
+: ConfermaRinuncia</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>410</x>
+      <y>240</y>
+      <w>190</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+--
+: GUIConfermaRinuncia</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>160</x>
+      <y>250</y>
+      <w>270</w>
+      <h>370</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>250;350;30;350;30;30;250;30</additional_attributes>
+  </element>
+</diagram>
