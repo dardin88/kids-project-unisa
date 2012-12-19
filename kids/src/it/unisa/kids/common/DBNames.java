@@ -242,11 +242,10 @@ public final class DBNames {
     //Comment attributes
     public static final String ATT_COMMENT_ID = "Id";
     public static final String ATT_COMMENT_DATE = "Data";
-    public static final String ATT_COMMENT_TYPEMODIFY = "TipoModifica";
-    public static final String ATT_COMMENT_DESCRIPTION = "Contenuto";
-    public static final String ATT_COMMENT_IDYEAR = "IdAnnuale";
-    public static final String ATT_COMMENT_IDSECTION = "IdSezione";
-    public static final String ATT_COMMENT_IDAUTHOR = "IdAutore";
+    public static final String ATT_COMMENT_CONTENT = "Contenuto";
+    public static final String ATT_COMMENT_ANNUALID = "IdAnnuale";
+    public static final String ATT_COMMENT_CLASSID = "IdSezione";
+    public static final String ATT_COMMENT_AUTHORID = "IdAutore";
     //Activity attributes
     public static final String ATT_ACTIVITY_ID = "Id";
     public static final String ATT_ACTIVITY_STARTDATE = "DataInizio";

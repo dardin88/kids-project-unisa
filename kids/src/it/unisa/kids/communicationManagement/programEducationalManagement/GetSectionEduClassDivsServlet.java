@@ -51,26 +51,43 @@ public class GetSectionEduClassDivsServlet extends HttpServlet {
             List<ClassBean> classList = accessFacade.getClasses();
             for (ClassBean clas : classList) {
                 out.println("<div id=\"" + clas.getIdClasse() + "\">\n"
-                        + "<table id=\"table" + clas.getIdClasse() + "\">\n"
-                        + "     <thead>\n"
-                        + "         <tr>\n"
-                        + "             <th>Attivit&agrave;</th>\n"
-                        + "             <th>Contenuto</th>\n"
-                        + "             <th>Data inizio</th>\n"
-                        + "             <th>Data fine</th>\n"
-                        + "             <th>Operazioni</th>\n"
-                        + "         </tr>\n"
-                        + "     </thead>\n"
-                        + "     <tbody>\n"
-                        + "     </tbody>\n"
-                        + "</table>\n"
-                        + "</div>\n");
-                out.println("<script type=\"text/javascript\">\n"
-                        + "     buildClassTable(" + clas.getIdClasse() + ");\n"
-                        + "</script>\n");
+                        + "     <table id=\"table" + clas.getIdClasse() + "\">\n"
+                        + "         <thead>\n"
+                        + "             <tr>\n"
+                        + "                 <th>Attivit&agrave;</th>\n"
+                        + "                 <th>Contenuto</th>\n"
+                        + "                 <th>Data inizio</th>\n"
+                        + "                 <th>Data fine</th>\n"
+                        + "                 <th>Operazioni</th>\n"
+                        + "             </tr>\n"
+                        + "         </thead>\n"
+                        + "         <tbody></tbody>\n"
+                        + "     </table>\n"
+                        + "     <script type=\"text/javascript\">\n"
+                        + "         buildClassTable(" + clas.getIdClasse() + ");\n"
+                        + "     </script>\n"
+                        + "     <div style=\"padding-top: 20px;\">\n"
+                        + "         <h1>Commenti</h1>\n"
+                        + "         <table id=\"comm" + clas.getIdClasse() + "\">\n"
+                        + "             <thead>\n"
+                        + "                 <tr>\n"
+                        + "                     <th>Data</th>\n"
+                        + "                     <th>Contenuto</th>\n"
+                        + "                     <th>Autore</th>\n"
+                        + "                 </tr>\n"
+                        + "             </thead>\n"
+                        + "             <tbody></tbody>\n"
+                        + "         </table>\n"
+                        + "         <input type=\"button\" value=\"Inserisci commento\" id=\"insComm" + clas.getIdClasse() + "\">\n"
+                        + "     </div>\n"
+                        + "     <script type=\"text/javascript\">\n"
+                        + "         buildCommentEduTable(" + clas.getIdClasse() + ");\n"
+                        + "         buildCommentButton(" + clas.getIdClasse() + ");\n"
+                        + "     </script>\n"
+                        + "</div>");
             }
         } catch (SQLException e) {
-            Logger.getLogger(GetClassTabsServlet.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(GetSectionEduClassDivsServlet.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             //out.close();
         }

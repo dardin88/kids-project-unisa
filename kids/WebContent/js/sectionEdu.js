@@ -4,9 +4,12 @@
  */
 
 function initializeSectionEduPage() {
-    $("#sectionEduTabs").tabs();
-    
+    buildTabs();
     buildCommentEduTable();
+}
+
+function buildTabs() {
+    $("#sectionEduTabs").tabs();
 }
 
 function buildClassTable(classId) {
@@ -51,11 +54,11 @@ function buildClassTable(classId) {
 }
 
 function buildCommentEduTable(classId) {
-    $("#commentEduTable").dataTable({
+    $("#comm" + classId).dataTable({
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": "GetCommentEduTable",
+        "sAjaxSource": "GetCommentTable",
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
@@ -88,6 +91,13 @@ function buildCommentEduTable(classId) {
                 "sLast":     ">>"
             }
         }
+    });
+}
+
+function buildCommentButton(classId) {
+    $("#insComm" + classId).button();
+    $("#insComm" + classId).click(function() {
+        // do something
     });
 }
 

@@ -160,7 +160,6 @@ CREATE TABLE IF NOT EXISTS `classe` (
 CREATE TABLE IF NOT EXISTS `commento` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Data` date NOT NULL,
-  `TipoModifica` varchar(40) NOT NULL,
   `Contenuto` varchar(1500) NOT NULL,
   `IdAnnuale` int(11) NOT NULL,
   `IdSezione` int(11) NOT NULL,

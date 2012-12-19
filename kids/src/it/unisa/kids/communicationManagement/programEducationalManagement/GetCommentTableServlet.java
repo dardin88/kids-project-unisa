@@ -4,9 +4,12 @@
  */
 package it.unisa.kids.communicationManagement.programEducationalManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
+import it.unisa.kids.common.facade.AccessFacade;
+import it.unisa.kids.common.facade.IAccessFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -25,13 +28,15 @@ import org.json.JSONObject;
  *
  * @author navi
  */
-public class GetSectionActivitiesTableServlet extends HttpServlet {
+public class GetCommentTableServlet extends HttpServlet {
 
-    private IActivityManager manager;
+    private IActivityManager activityManager;
+    private IAccessFacade accessFacade;
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        manager = (IActivityManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACTIVITYSECTIONDAILY);
+        activityManager = (IActivityManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_ACTIVITYSECTIONDAILY);
+        accessFacade = new AccessFacade();
     }
 
     /**
@@ -70,37 +75,39 @@ public class GetSectionActivitiesTableServlet extends HttpServlet {
                 }
             }
 
-            List<Activity> activityList = null;
-            int classId = Integer.parseInt(request.getParameter("classId"));
-            Activity searchActivity = new Activity();
-            searchActivity.setIdClass(classId);
-            activityList = manager.search(searchActivity);
+            List<CommentBean> commentList;
+            CommentBean searchComment = createSearchComment(request);
+            commentList = activityManager.search(searchComment);
 
-            Activity[] paginateActivitySet;
-            int linksNumber = activityList.size();
+            CommentBean[] paginateCommentSet;
+            int linksNumber = commentList.size();
             if (linksNumber < amount) {
                 amount = linksNumber;
             }
             if (linksNumber != 0) {
                 int toShow = linksNumber - start;
                 if (toShow > 10) {
-                    paginateActivitySet = new Activity[amount];
-                    System.arraycopy(activityList.toArray(), start, paginateActivitySet, 0, amount);
+                    paginateCommentSet = new CommentBean[amount];
+                    System.arraycopy(commentList.toArray(), start, paginateCommentSet, 0, amount);
                 } else {
-                    paginateActivitySet = new Activity[toShow];
-                    System.arraycopy(activityList.toArray(), start, paginateActivitySet, 0, toShow);
+                    paginateCommentSet = new CommentBean[toShow];
+                    System.arraycopy(commentList.toArray(), start, paginateCommentSet, 0, toShow);
                 }
 
-                for (Activity act : paginateActivitySet) {
+                for (CommentBean comm : paginateCommentSet) {
                     JSONObject jObj = new JSONObject();
 
-                    CommonMethod.checkAddToJSON(jObj, "0", act.getName());
-                    CommonMethod.checkAddToJSON(jObj, "1", act.getDescription());
-                    CommonMethod.checkAddToJSON(jObj, "2", CommonMethod.parseString(act.getStartDate()));
-                    CommonMethod.checkAddToJSON(jObj, "3", CommonMethod.parseString(act.getEndDate()));
-                    CommonMethod.checkAddToJSON(jObj, "4", "Operazioni");
+                    Account searchAccount = new Account();
+                    searchAccount.setId(comm.getAuthorId());
+                    Account authorAccount = accessFacade.search(searchAccount).get(0);
+                    String author = authorAccount.getNameUser() + " " + authorAccount.getSurnameUser();
 
-                    jObj.put("DT_RowId", "" + act.getId());
+                    CommonMethod.checkAddToJSON(jObj, "0", CommonMethod.parseString(comm.getDate()));
+                    CommonMethod.checkAddToJSON(jObj, "1", comm.getContent());
+                    CommonMethod.checkAddToJSON(jObj, "2", author);
+                    CommonMethod.checkAddToJSON(jObj, "3", "Operazioni");
+
+                    jObj.put("DT_RowId", "" + comm.getId());        // setto l'id del commento nella rowId della datatable per comodita'
                     array.put(jObj);
                 }
             }
@@ -119,6 +126,20 @@ public class GetSectionActivitiesTableServlet extends HttpServlet {
         } finally {
             out.close();
         }
+    }
+
+    private CommentBean createSearchComment(HttpServletRequest request) {
+        String commentType = request.getParameter("commentType");
+        CommentBean searchComment = new CommentBean();
+        if (commentType.equals(CommentBean.ANNUAL_COMMENT)) {
+            searchComment.setClassId(0);       // setto a 0 per cercare solo i commenti annuali
+            // altri set...
+        } else {
+            searchComment.setAnnualId(0);      // setto a 0 per cercare solo i commenti per classi
+            // altri set...
+        }
+
+        return searchComment;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
