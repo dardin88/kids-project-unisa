@@ -452,6 +452,11 @@ public class JDBCActivityManager implements IActivityManager {
                 pstmt.setInt(i, pComment.getAuthorId());
                 i++;
             }
+            
+            if (pComment.getTime() != null) {
+                pstmt.setTime(i, pComment.getTime());
+                i++;
+            }
 
             // executing select query
             rs = pstmt.executeQuery();
@@ -466,6 +471,7 @@ public class JDBCActivityManager implements IActivityManager {
                 comm.setAnnualId(rs.getInt(DBNames.ATT_COMMENT_ANNUALID));
                 comm.setClassId(rs.getInt(DBNames.ATT_COMMENT_CLASSID));
                 comm.setAuthorId(rs.getInt(DBNames.ATT_COMMENT_AUTHORID));
+                comm.setTime(rs.getTime(DBNames.ATT_COMMENT_TIME));
 
                 //getting Date from ResultSet and converting it to GregorianCalendar
                 GregorianCalendar commDate = new GregorianCalendar();

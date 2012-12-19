@@ -75,7 +75,7 @@ public class CommentBean {
     }
 
     public Time getTime() {
-        return ora;
+        return this.ora;
     }
     public void setTime(Time pTime){
         this.ora=pTime;

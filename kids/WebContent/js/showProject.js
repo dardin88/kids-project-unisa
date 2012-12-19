@@ -47,14 +47,11 @@ function inserisciCommento(){
                 contenutoCommento:$("#contenutoCommento").val(),
                 idAutore:$("#idAutore").val()
             });
-                $("#insertCommentoWindow").dialog("close");
-
+            $("#insertCommentoWindow").dialog("close");
+            document.lo.reload=true;
+            $("#contenutoCommento").val("");
         }
     });
-          // document.location.reload(true);
-    var oTable = $("#commentEduTable").dataTable();
-    oTable.fnDraw();
-    $("#contenutoCommento").val("");
 }
 
 function uploadFile(){
@@ -91,10 +88,19 @@ function showComments(){
         "bJQueryUI": true,
         "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": "GetCommentsTable",
+        "sAjaxSource": "GetCommentTable",
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": true,
+        "fnServerParams": function ( aoData ) {
+            aoData.push(
+            {
+                "name" : "commentType", 
+                "value" : "annual_comm"
+            }
+            );
+     
+        },
         "bSort": false,
         "bDestroy": true,
         "bInfo": true,
@@ -104,8 +110,8 @@ function showComments(){
             "sProcessing":   "Caricamento...",
             "sLengthMenu":   "Visualizza _MENU_ link",
             "sZeroRecords":  "<b>La ricerca non ha portato alcun risultato.</b>",
-            "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ NEWS",
-            "sInfoEmpty":    "<b>Vista da 0 a 0 di 0 di News</b>",
+            "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ COMMENTI",
+            "sInfoEmpty":    "<b>Vista da 0 a 0 di 0 di COmmenti</b>",
             "sInfoFiltered": "(filtrati da _MAX_ link totali)",
             "sInfoPostFix":  "",
             "sSearch":       "Contenuto Commento:",
@@ -122,19 +128,15 @@ function showComments(){
             "sClass": "center"
         },
         {
-            "sWidth": "8%",
-            "sClass": "center"
-        },
-        {
-            "sWidth": "8%",
-            "sClass": "center"
-        },
-        {
             "sWidth": "15%",
             "sClass": "center"
         },
         {
-            "sWidth": "15%"  ,
+            "sWidth": "40%",
+            "sClass": "center"
+        },
+        {
+            "sWidth": "20%",
             "sClass": "center"
         },
         {
@@ -147,7 +149,7 @@ function showComments(){
             $.post(sSource,aoData,fnCallback,"json");
         }
     });
-    var oTable = $("#linkTable").dataTable();
+    var oTable = $("#commentEduTable").dataTable();
     if (oTable.length > 0) {
         $("#linkTable").css("width", "100%");
     }

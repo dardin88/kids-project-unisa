@@ -72,7 +72,8 @@ public class InsertCommentServlet extends HttpServlet {
             GregorianCalendar g=new GregorianCalendar();
             insertComment.setDate(g);
             insertComment.setAuthorId(Integer.parseInt(request.getParameter("idAutore")));
-            insertComment.setTime(new java.sql.Time(g.get(Calendar.HOUR),g.get(Calendar.MINUTE),g.get(Calendar.SECOND)));
+            insertComment.setTime(new java.sql.Time(g.getTime().getTime()));
+            //insertComment.setTime(new java.sql.Time(g.get(Calendar.HOUR),g.get(Calendar.MINUTE),g.get(Calendar.SECOND)));
             insertComment.setContent(request.getParameter("contenutoCommento"));
         } else {
             insertComment.setAnnualId(0);      // setto a 0 per inserire commento per classi

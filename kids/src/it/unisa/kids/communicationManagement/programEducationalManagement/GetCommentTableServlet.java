@@ -78,7 +78,6 @@ public class GetCommentTableServlet extends HttpServlet {
             List<CommentBean> commentList;
             CommentBean searchComment = createSearchComment(request);
             commentList = activityManager.search(searchComment);
-
             CommentBean[] paginateCommentSet;
             int linksNumber = commentList.size();
             if (linksNumber < amount) {
@@ -101,13 +100,13 @@ public class GetCommentTableServlet extends HttpServlet {
                     searchAccount.setId(comm.getAuthorId());
                     Account authorAccount = accessFacade.search(searchAccount).get(0);
                     String author = authorAccount.getNameUser() + " " + authorAccount.getSurnameUser();
-                    
                     String operazioni = "<input class='tableImage' type='image' src='img/trash.png' onclick=\"removeComment(" + comm.getId() + ");\" />";
 
                     CommonMethod.checkAddToJSON(jObj, "0", CommonMethod.parseString(comm.getDate()));
-                    CommonMethod.checkAddToJSON(jObj, "1", comm.getContent());
-                    CommonMethod.checkAddToJSON(jObj, "2", author);
-                    CommonMethod.checkAddToJSON(jObj, "3", operazioni);
+                    CommonMethod.checkAddToJSON(jObj, "1", comm.getTime().toString());
+                    CommonMethod.checkAddToJSON(jObj, "2", comm.getContent());
+                    CommonMethod.checkAddToJSON(jObj, "3", author);
+                    CommonMethod.checkAddToJSON(jObj, "4", operazioni);
 
                     jObj.put("DT_RowId", "" + comm.getId());        // setto l'id del commento nella rowId della datatable per comodita'
                     array.put(jObj);
@@ -135,7 +134,6 @@ public class GetCommentTableServlet extends HttpServlet {
         CommentBean searchComment = new CommentBean();
         if (commentType.equals(CommentBean.ANNUAL_COMMENT)) {
             searchComment.setClassId(0);       // setto a 0 per cercare solo i commenti annuali
-            // altri set...
         } else {
             searchComment.setAnnualId(0);      // setto a 0 per cercare solo i commenti per classi
             // altri set...
