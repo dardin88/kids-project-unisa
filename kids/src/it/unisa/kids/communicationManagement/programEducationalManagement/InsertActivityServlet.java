@@ -75,6 +75,7 @@ public class InsertActivityServlet extends HttpServlet {
             act.setIdClass(classId);
             
             activityManager.insert(act);
+            CommonMethod.sendMessageRedirect(request, response, "Attivit&agrave; inserita con successo", "/sectionEdu.jsp");
         } catch (NumberFormatException e) {
             CommonMethod.sendMessageRedirect(request, response, "Errore: classe errata", "/sectionEdu.jsp");
         } catch (SQLException e) {

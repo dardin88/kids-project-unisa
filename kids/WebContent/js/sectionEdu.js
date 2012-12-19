@@ -150,8 +150,8 @@ function buildCommentEduTable(classId) {
             "sProcessing":   "Caricamento...",
             "sLengthMenu":   "Visualizza _MENU_ link",
             "sZeroRecords":  "La ricerca non ha portato alcun risultato.",
-            "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Attivit&agrave;",
-            "sInfoEmpty":    "Vista da 0 a 0 di 0 Attivit&agrave;",
+            "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Commenti;",
+            "sInfoEmpty":    "Vista da 0 a 0 di 0 Commenti",
             "sInfoFiltered": "(filtrati da _MAX_ link totali)",
             "sInfoPostFix":  "",
             "oPaginate": {

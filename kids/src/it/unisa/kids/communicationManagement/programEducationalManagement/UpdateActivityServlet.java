@@ -10,6 +10,8 @@ import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -68,8 +70,9 @@ public class UpdateActivityServlet extends HttpServlet {
             }
             
             Activity removeActivity = new Activity();
-            int classId = removeActivity.getIdClass();
             removeActivity.setId(actId);
+            removeActivity = activityManager.search(removeActivity).get(0);
+            int classId = removeActivity.getIdClass();
             activityManager.delete(removeActivity);
             
             Activity act = new Activity();
@@ -80,10 +83,13 @@ public class UpdateActivityServlet extends HttpServlet {
             act.setIdClass(classId);
             
             activityManager.insert(act);
+            
+            CommonMethod.sendMessageRedirect(request, response, "Modifica attivit&agrave; avvenuta con successo", "/sectionEdu.jsp");
         } catch (NumberFormatException e) {
             CommonMethod.sendMessageRedirect(request, response, "Errore: attivit&agrave; errata", "/sectionEdu.jsp");
         } catch (SQLException e) {
             CommonMethod.sendMessageRedirect(request, response, "Errore: verifica campi", "/sectionEdu.jsp");
+            Logger.getLogger(UpdateActivityServlet.class.getName()).log(Level.SEVERE, "prova", e);
         } finally {
             out.close();
         }
