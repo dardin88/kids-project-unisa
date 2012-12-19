@@ -13,6 +13,12 @@ function initializeLinksManager() {
         resizable: false,
         width: 800
     });
+    $("#informationDailyActivityWindow").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 400
+    });
 
 }
 function buildTable(id) {
@@ -76,35 +82,58 @@ function buildInsertButton(id) {
 }
 
 
-   
+
 
 
 function openInsertActivity(id) {
-    quanti=0;
-    $("#insertActivityWindow"+id).dialog("open");
+    quanti = 0;
+    $("#insertActivityWindow" + id).dialog("open");
     idClass = id;
-    document.getElementById("idClass"+id).value=id;
-    var oTable = $("#tableActivity"+id).dataTable();
+    document.getElementById("idClass" + id).value = id;
+    var oTable = $("#tableActivity" + id).dataTable();
     oTable.fnDraw();
 }
 
 
-function selezionati(elemento){
+function selezionati(elemento) {
 
-  if (elemento.checked)
-  {
-      quanti += 1;
-  }
-  else
-  {
-      quanti -= 1;
-  }
+    if (elemento.checked)
+    {
+        quanti += 1;
+    }
+    else
+    {
+        quanti -= 1;
+    }
 }
 
-function controlla(elemento,id){
-    if(quanti==0){
+function controlla(elemento, id) {
+    if (quanti == 0) {
         alert("Selezionare almeno un attivita");
         return;
-        }
-    document.getElementById("form"+id).submit();
+    }
+    document.getElementById("form" + id).submit();
+}
+
+function loadInformationDailyActivity(id) {
+    $("#informationDailyActivityWindow").dialog("open");
+    $.post("GetDailyActivity", {
+        activityId: id
+    }, function(data) {
+        var result = data.toString().split(",");
+        $("#Nome").val(result[0]);
+        $("#Data").val(result[1]);
+        $("#Educatore").val(result[2]);
+        $("#Note").val(result[3]);
+
+    }, "text");
+
+}
+
+function removeDailyActivity(idActivity,idClas) {
+    $.post("RemoveDailyActivitySection", {
+        id: idActivity
+    });
+    var oTable = $("#table" + idClas).dataTable();
+    oTable.fnDraw();
 }
