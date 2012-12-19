@@ -4,6 +4,7 @@
  */
 package it.unisa.kids.communicationManagement.meeting;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
@@ -36,13 +37,12 @@ public class LoadCalendarServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     private IMeetingManager am;
 
     public void init(ServletConfig config) {
         am = (IMeetingManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_REUNION);
     }
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
         PrintWriter out = null;
@@ -51,22 +51,44 @@ public class LoadCalendarServlet extends HttpServlet {
             out = response.getWriter();
             ArrayList<Meeting> list = am.getMeetingList();
             JSONArray jsonArray = new JSONArray();
+
+            Account acc = (Account) request.getSession().getAttribute("user");
+            String account = acc.getAccountType();
+
             for (Meeting r : list) {
-                JSONObject json = new JSONObject();
-                json.put("id", r.getId());
-                json.put("title", r.getTitle());
-                json.put("description", r.getDescription());
+                if (account.equals("Admin") || account.equals("Segreteria") || account.equals("Delegato del rettore") || account.equals("Responsabile Asilo")) {
+                    JSONObject json = new JSONObject();
+                    json.put("id", r.getId());
+                    json.put("title", r.getTitle());
+                    json.put("description", r.getDescription());
 
-                String[] data = r.getDate().split("-");
-                String[] first = r.getFirstTime().split(":");
-                json.put("start", data[0] + "-" + data[1] + "-" + data[2] + "T" + first[0] + ":" + first[1]+":00+01:00");
-                System.out.println(data[0] + "-" + data[1] + "-" + data[2] + "T" + first[0] + ":" + first[1]+":00+01:00");
-                String[] end = r.getDate().split("-");
-                String[] second = r.getSecondTime().split(":");
-                json.put("end", end[0] + "-" + end[1] + "-" + end[2] + "T" + second[0] + ":" + second[1]+":00+01:00");
-            
-                jsonArray.put(json);
+                    String[] data = r.getDate().split("-");
+                    String[] first = r.getFirstTime().split(":");
+                    json.put("start", data[0] + "-" + data[1] + "-" + data[2] + "T" + first[0] + ":" + first[1] + ":00+01:00");
+                    System.out.println(data[0] + "-" + data[1] + "-" + data[2] + "T" + first[0] + ":" + first[1] + ":00+01:00");
+                    String[] end = r.getDate().split("-");
+                    String[] second = r.getSecondTime().split(":");
+                    json.put("end", end[0] + "-" + end[1] + "-" + end[2] + "T" + second[0] + ":" + second[1] + ":00+01:00");
 
+                    jsonArray.put(json);
+                } else {
+                    if (r.getState().equals("Confermato")) {
+                        JSONObject json = new JSONObject();
+                        json.put("id", r.getId());
+                        json.put("title", r.getTitle());
+                        json.put("description", r.getDescription());
+
+                        String[] data = r.getDate().split("-");
+                        String[] first = r.getFirstTime().split(":");
+                        json.put("start", data[0] + "-" + data[1] + "-" + data[2] + "T" + first[0] + ":" + first[1] + ":00+01:00");
+                        System.out.println(data[0] + "-" + data[1] + "-" + data[2] + "T" + first[0] + ":" + first[1] + ":00+01:00");
+                        String[] end = r.getDate().split("-");
+                        String[] second = r.getSecondTime().split(":");
+                        json.put("end", end[0] + "-" + end[1] + "-" + end[2] + "T" + second[0] + ":" + second[1] + ":00+01:00");
+
+                        jsonArray.put(json);
+                    }
+                }
             }
             out.write(jsonArray.toString());
         } catch (SQLException ex) {
@@ -108,11 +130,9 @@ public class LoadCalendarServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
     /**
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
      */
-    
 }

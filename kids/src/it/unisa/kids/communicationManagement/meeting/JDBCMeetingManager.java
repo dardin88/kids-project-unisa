@@ -54,8 +54,9 @@ public class JDBCMeetingManager implements IMeetingManager {
                     + DBNames.ATT_REUNION_DATA + ","
                     + DBNames.ATT_REUNION_FIRST_TIME + ","
                     + DBNames.ATT_REUNION_SECOND_TIME + ","
-                    + DBNames.ATT_REUNION_TYPE;
-            query2 = "VALUES (?,?,?,?,?,?,?";
+                    + DBNames.ATT_REUNION_TYPE + ","
+                    + DBNames.ATT_REUNION_STATE;
+            query2 = "VALUES (?,?,?,?,?,?,?,?";
 
             query1 += ")";
             query2 += ")";
@@ -68,8 +69,8 @@ public class JDBCMeetingManager implements IMeetingManager {
             pStmt.setString(5, reunion.getFirstTime());
             pStmt.setString(6, reunion.getSecondTime());
             pStmt.setString(7, reunion.getType());
+            pStmt.setString(8, reunion.getState());
 
-            System.out.println(pStmt);
             pStmt.executeUpdate();
             con.commit();
         } finally {
@@ -98,7 +99,8 @@ public class JDBCMeetingManager implements IMeetingManager {
                     + DBNames.ATT_REUNION_DATA + "=? ,"
                     + DBNames.ATT_REUNION_FIRST_TIME + "=? ,"
                     + DBNames.ATT_REUNION_SECOND_TIME + "=? ,"
-                    + DBNames.ATT_REUNION_TYPE + "=?";
+                    + DBNames.ATT_REUNION_TYPE + "=? ,"
+                    + DBNames.ATT_REUNION_STATE + "=?";
 
             query1 += "WHERE " + DBNames.ATT_REUNION_ID + "=?";
 
@@ -109,7 +111,9 @@ public class JDBCMeetingManager implements IMeetingManager {
             pStmt.setString(4, changedReunion.getFirstTime());
             pStmt.setString(5, changedReunion.getSecondTime());
             pStmt.setString(6, changedReunion.getType());
-            pStmt.setInt(7, changedReunion.getId());
+            pStmt.setString(7, changedReunion.getState());
+            pStmt.setInt(8, changedReunion.getId());
+
 
             pStmt.executeUpdate();
             con.commit();
@@ -137,7 +141,6 @@ public class JDBCMeetingManager implements IMeetingManager {
             query = "DELETE FROM " + DBNames.TABLE_REUNION + " WHERE " + DBNames.ATT_REUNION_ID + "=?";
             pStmt = con.prepareStatement(query);
             pStmt.setInt(1, deleteReunion.getId());
-            System.out.println(query);
 
             pStmt.executeUpdate();
             con.commit();
@@ -147,7 +150,7 @@ public class JDBCMeetingManager implements IMeetingManager {
         }
     }
 
-     /**
+    /**
      * This method return all meetings present in the database.
      *
      * @return ArrayList<Meeting>
@@ -174,6 +177,8 @@ public class JDBCMeetingManager implements IMeetingManager {
                 String firstTime = rs.getString(DBNames.ATT_REUNION_FIRST_TIME);
                 String secondTime = rs.getString(DBNames.ATT_REUNION_SECOND_TIME);
                 String type = rs.getString(DBNames.ATT_REUNION_TYPE);
+                String state = rs.getString(DBNames.ATT_REUNION_STATE);
+
 
                 meeting.setId(id);
                 meeting.setTitle(title);
@@ -182,6 +187,8 @@ public class JDBCMeetingManager implements IMeetingManager {
                 meeting.setFirstTime(firstTime);
                 meeting.setSecondTime(secondTime);
                 meeting.setType(type);
+                meeting.setState(state);
+
 
                 listMeeting.add(meeting);
             }

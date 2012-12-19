@@ -33,13 +33,12 @@ public class ModifyMeetingServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     private IMeetingManager am;
 
     public void init(ServletConfig config) {
         am = (IMeetingManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_REUNION);
     }
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -59,7 +58,8 @@ public class ModifyMeetingServlet extends HttpServlet {
                     meeting.setFirstTime(request.getParameter("modifyOraInizio"));
                     meeting.setSecondTime(request.getParameter("modifyOraFine"));
                     meeting.setType(request.getParameter("modifyTipo"));
-                    System.out.print(meeting.toString());
+                    meeting.setState(request.getParameter("modifyStato"));
+
                     am.update(meeting);
                 }
             }

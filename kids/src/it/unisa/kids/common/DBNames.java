@@ -220,6 +220,7 @@ public final class DBNames {
     public static final String ATT_REUNION_FIRST_TIME = "OraInizio";
     public static final String ATT_REUNION_SECOND_TIME = "OraFine";
     public static final String ATT_REUNION_TYPE = "Tipo";
+    public static final String ATT_REUNION_STATE = "Stato";
     //News attributes
     public static final String ATT_NEWS_ID = "Id";
     public static final String ATT_NEWS_TITLE = "Titolo";

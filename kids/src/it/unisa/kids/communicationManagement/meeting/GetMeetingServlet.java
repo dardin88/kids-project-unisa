@@ -4,6 +4,7 @@
  */
 package it.unisa.kids.communicationManagement.meeting;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
@@ -34,13 +35,12 @@ public class GetMeetingServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     private IMeetingManager am;
 
     public void init(ServletConfig config) {
         am = (IMeetingManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_REUNION);
     }
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
         response.setContentType("text/html;charset=UTF-8");
@@ -48,21 +48,27 @@ public class GetMeetingServlet extends HttpServlet {
         try {
             out = response.getWriter();
             ArrayList<Meeting> list = am.getMeetingList();
-            
+
             String var = request.getParameter("Id");
-            
-            
+
+            Account acc = (Account) request.getSession().getAttribute("user");
+            String account = acc.getAccountType();
+
             int k = Integer.parseInt(var);
-            
-            for(Meeting r: list){
-                if(r.getId()==k){
-                    out.println(r.getId()+","+r.getTitle()+","+r.getDescription()+","+r.getDate()+","+r.getFirstTime()+","+r.getSecondTime()+","+r.getType());
+
+            for (Meeting r : list) {
+                if (r.getId() == k) {
+                    if (account.equals("Admin") || account.equals("Segreteria") || account.equals("Delegato del rettore") || account.equals("Responsabile Asilo")) {
+                        out.println(r.getId() + "," + r.getTitle() + "," + r.getDescription() + "," + r.getDate() + "," + r.getFirstTime() + "," + r.getSecondTime() + "," + r.getType() + "," + r.getState());
+                    } else {
+                        out.println(r.getId() + "," + r.getTitle() + "," + r.getDescription() + "," + r.getDate() + "," + r.getFirstTime() + "," + r.getSecondTime() + "," + r.getType());
+                    }
                 }
             }
-           
-                   // request.setAttribute("#sceltaMeeting", "non lo so");
-                   // request.getServletContext().getRequestDispatcher("/meetingCalendar.jsp").forward(request, response);
-         
+
+            // request.setAttribute("#sceltaMeeting", "non lo so");
+            // request.getServletContext().getRequestDispatcher("/meetingCalendar.jsp").forward(request, response);
+
         } catch (SQLException ex) {
             Logger.getLogger(LoadCalendarServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

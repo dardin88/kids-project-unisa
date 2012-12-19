@@ -33,13 +33,12 @@ public class DeleteMeetingServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     private IMeetingManager am;
 
     public void init(ServletConfig config) {
         am = (IMeetingManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_REUNION);
     }
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -47,16 +46,14 @@ public class DeleteMeetingServlet extends HttpServlet {
 
         try {
             ArrayList<Meeting> list = am.getMeetingList();
-            
+
             int id = Integer.parseInt(request.getParameter("deleteId"));
-            
+
             for (Meeting r : list) {
-                 System.out.println("ID="+r.getId()+"ddd "+id);
                 if (r.getId() == id) {
-                                        System.out.println("entrato delete");
 
                     am.delete(r);
-            
+
                 }
             }
             request.getServletContext().getRequestDispatcher("/meetingCalendar.jsp").forward(request, response);
