@@ -34,7 +34,40 @@ public class JDBCActivityManager implements IActivityManager {
 
     @Override
     public void insert(DailyActivitySection pProject) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         Connection con = null;
+        PreparedStatement pstmt = null;
+        String query;
+
+        try {
+            con = DBConnectionPool.getConnection();
+
+            // constructing query string
+            query = "INSERT INTO " + DBNames.TABLE_ACTIVITYSECTIONDAILY + " ("
+                    + DBNames.ATT_ACTIVITYSECTTIONDAILY_DATE + ", "
+                    + DBNames.ATT_ACTIVITYSECTTIONDAILY_IDACTITIVTY + ", "
+                    + DBNames.ATT_ACTIVITYSECTTIONDAILY_IDEDUCATORE + ", "
+                    + DBNames.ATT_ACTIVITYSECTTIONDAILY_NOTES + ", "
+                    + DBNames.ATT_ACTIVITYSECTTIONDAILY_SECTIONID
+                    + ") VALUES(?, ?, ?, ?, ?)";
+            pstmt = con.prepareStatement(query);
+
+            //setting pstmt's parameters
+            pstmt.setDate(1, new Date(pProject.getData().getTimeInMillis()));
+            pstmt.setInt(2, pProject.getIdActivity());
+            pstmt.setInt(3, pProject.getIdEducator());
+            pstmt.setString(4, pProject.getNotes());
+            pstmt.setInt(5, pProject.getIdSection());
+
+            pstmt.executeUpdate();
+            con.commit();
+        } finally {
+            if (pstmt != null) {
+                pstmt.close();
+            }
+            if (con != null) {
+                DBConnectionPool.releaseConnection(con);
+            }
+        }
     }
 
     @Override
@@ -49,7 +82,7 @@ public class JDBCActivityManager implements IActivityManager {
         ResultSet rs = null;
         String query = null;
         List<DailyActivitySection> toReturn = new ArrayList<DailyActivitySection>();
-        query = "SELECT * FROM " + DBNames.TABLE_DAILY_SECTION_ACT + " WHERE " + DBNames.ATT_ACTIVITYSECTTIONDAILY_SECTIONID + "='" + pDailyActivitySection.getId() + "'";
+        query = "SELECT * FROM " + DBNames.TABLE_DAILY_SECTION_ACT + " WHERE " + DBNames.ATT_ACTIVITYSECTTIONDAILY_SECTIONID + "='" + pDailyActivitySection.getId() + "' ORDER BY "+DBNames.ATT_ACTIVITYSECTTIONDAILY_DATE;
         con = DBConnectionPool.getConnection();
         pstmt = con.prepareStatement(query);
         rs = pstmt.executeQuery();
@@ -164,7 +197,7 @@ public class JDBCActivityManager implements IActivityManager {
                 GregorianCalendar actDate = new GregorianCalendar();
                 actDate.setTime(rs.getDate(DBNames.ATT_ACTIVITY_STARTDATE));
                 act.setStartDate(actDate);
-
+                act.setIdClass(rs.getInt(DBNames.ATT_ACTIVITY_IDCLASS));
                 actDate = new GregorianCalendar();
                 actDate.setTime(rs.getDate(DBNames.ATT_ACTIVITY_ENDDATE));
                 act.setEndDate(actDate);

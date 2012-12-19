@@ -573,6 +573,10 @@
         <servlet-name>InsertCommentServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.newsManagement.InsertCommentServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>InsertDailyActivityServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.programEducationalManagement.InsertDailyActivityServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
@@ -1136,6 +1140,10 @@
     <servlet-mapping>
         <servlet-name>InsertCommentServlet</servlet-name>
         <url-pattern>/InsertComment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertDailyActivityServlet</servlet-name>
+        <url-pattern>/InsertDailyActivity</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

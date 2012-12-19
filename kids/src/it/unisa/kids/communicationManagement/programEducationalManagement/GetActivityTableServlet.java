@@ -100,7 +100,7 @@ public class GetActivityTableServlet extends HttpServlet {
                     if (act.getStartDate().getTimeInMillis() > currentDate.getTimeInMillis() || act.getEndDate().getTimeInMillis() < currentDate.getTimeInMillis()) {
                         continue;
                     }
-                    ja.put("bla");
+                    ja.put("<input type=\"checkbox\" name=\"attivita"+act.getIdClass()+"\" value=\""+act.getId()+"\" onclick=\"selezionati(this)\">");
                     ja.put(act.getName());
                     ja.put(act.getDescription());
 

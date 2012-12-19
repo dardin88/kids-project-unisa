@@ -3,6 +3,8 @@
  * and open the template in the editor.
  */
 var idClass;
+var quanti = 0;
+
 function initializeLinksManager() {
     $("#registerTab").tabs();
     $("#insertActivityWindow").dialog({
@@ -80,6 +82,28 @@ function buildInsertButton(id) {
 function openInsertActivity(id) {
     $("#insertActivityWindow"+id).dialog("open");
     idClass = id;
+    document.getElementById("idClass").value=id;
     var oTable = $("#tableActivity"+id).dataTable();
     oTable.fnDraw();
+}
+
+
+function selezionati(elemento){
+
+  if (elemento.checked)
+  {
+      quanti += 1;
+  }
+  else
+  {
+      quanti -= 1;
+  }
+}
+
+function controlla(elemento){
+    if(quanti==0){
+        alert("Selezionare almeno un attivita");
+        return;
+        }
+    document.getElementById("form").submit();
 }
