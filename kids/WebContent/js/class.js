@@ -60,11 +60,11 @@ function buildClassTable(){
         "sPaginationType": "full_numbers",
         "oLanguage": {
             "sProcessing":   "Caricamento...",
-            "sLengthMenu":   "Visualizza _MENU_ Classi",
+            "sLengthMenu":   "Visualizza _MENU_ Sezioni",
             "sZeroRecords":  "La ricerca non ha portato alcun risultato.",
-            "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Classi",
-            "sInfoEmpty":    "Vista da 0 a 0 di 0 Classi",
-            "sInfoFiltered": "(filtrati da _MAX_ Classi totali)",
+            "sInfo":         "Vista da _START_ a _END_ di _TOTAL_ Sezioni",
+            "sInfoEmpty":    "Vista da 0 a 0 di 0 Sezioni",
+            "sInfoFiltered": "(filtrati da _MAX_ Sezioni totali)",
             "sInfoPostFix":  "",
             "oPaginate": {
                 "sFirst":    "<<",
