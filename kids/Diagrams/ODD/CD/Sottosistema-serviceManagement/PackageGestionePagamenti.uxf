@@ -4,39 +4,13 @@
   <element>
     <type>com.umlet.element.Package</type>
     <coordinates>
-      <x>45</x>
+      <x>275</x>
       <y>15</y>
-      <w>715</w>
+      <w>485</w>
       <h>505</h>
     </coordinates>
     <panel_attributes>PaymentManagement</panel_attributes>
     <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>70</x>
-      <y>40</y>
-      <w>180</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>*AbstractManager*
---
-#Imp: T
---
-+ getManagerImplementor(String): T</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>235</x>
-      <y>30</y>
-      <w>69</w>
-      <h>24</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>15;15;60;15</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
@@ -62,30 +36,6 @@
 
 </panel_attributes>
     <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>70</x>
-      <y>100</y>
-      <w>180</w>
-      <h>35</h>
-    </coordinates>
-    <panel_attributes>*RefinedAbstractManager*
---
-+ getManagerImplementor(String): T</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>140</x>
-      <y>65</y>
-      <w>24</w>
-      <h>44</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>15;15;15;35</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
