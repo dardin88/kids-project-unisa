@@ -102,8 +102,7 @@ public class GetCommentTableServlet extends HttpServlet {
                     Account authorAccount = accessFacade.search(searchAccount).get(0);
                     String author = authorAccount.getNameUser() + " " + authorAccount.getSurnameUser();
                     
-                    String operazioni = "<input class='tableImage' type='image' height='20px' src='img/change.png' onclick=\"updateNews()\" />"
-                            + "<input class='tableImage' type='image' src='img/trash.png' onclick=\"removeComment(" + comm.getId() + ");\" />";
+                    String operazioni = "<input class='tableImage' type='image' src='img/trash.png' onclick=\"removeComment(" + comm.getId() + ");\" />";
 
                     CommonMethod.checkAddToJSON(jObj, "0", CommonMethod.parseString(comm.getDate()));
                     CommonMethod.checkAddToJSON(jObj, "1", comm.getContent());
