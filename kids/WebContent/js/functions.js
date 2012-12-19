@@ -174,6 +174,11 @@ function activePage() {
             $("#register").css("color", "#FFFFFF");
             $("#title").html("Registro Attivi&agrave");
             break;
+        case 'sectionEdu.jsp':
+            //$("#register").css("background-color", "#444");
+            //$("#register").css("color", "#FFFFFF");
+            //$("#title").html("Registro Attivi&agrave");
+            break;
     }
 }
 

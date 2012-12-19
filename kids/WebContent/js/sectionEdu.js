@@ -6,6 +6,15 @@
 function initializeSectionEduPage() {
     buildTabs();
     buildCommentEduTable();
+    
+    $("#insertCommentDialog").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 450
+    });
+    $("#insertComentBtn").button();
+    
     $("#saveDraftBtn").button();
     $("#submitBtn").button();
     $("#requestModBtn").button();
@@ -72,6 +81,10 @@ function buildCommentEduTable(classId) {
             {
                 "name" : "classId", 
                 "value" : classId
+            },
+            {
+                "name" : "commentType",
+                "value" : "class_comm"
             }
             );
      
@@ -102,7 +115,8 @@ function buildCommentEduTable(classId) {
 function buildCommentButton(classId) {
     $("#insComm" + classId).button();
     $("#insComm" + classId).click(function() {
-        
+        $("#hiddenClassId").val(classId);
+        $("#insertCommentDialog").dialog("open");
     });
 }
 

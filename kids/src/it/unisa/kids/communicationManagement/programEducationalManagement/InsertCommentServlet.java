@@ -4,10 +4,12 @@
  */
 package it.unisa.kids.communicationManagement.programEducationalManagement;
 
+import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -43,7 +45,10 @@ public class InsertCommentServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             
-            CommentBean insertComment = createInsertComment(request);
+            CommentBean insertComment = createInsertComment(request, response);
+            if (insertComment == null) {
+                return;
+            }
 
             activityManager.insert(insertComment);
 
@@ -56,7 +61,8 @@ public class InsertCommentServlet extends HttpServlet {
         }
     }
     
-    private CommentBean createInsertComment(HttpServletRequest request) {
+    private CommentBean createInsertComment(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
         String commentType = request.getParameter("commentType");
         CommentBean insertComment = new CommentBean();
         
@@ -65,7 +71,33 @@ public class InsertCommentServlet extends HttpServlet {
             // altri set...
         } else {
             insertComment.setAnnualId(0);      // setto a 0 per inserire commento per classi
-            // altri set...
+            int classId = -1;
+            try {
+                classId = Integer.parseInt(request.getParameter("hiddenClassId"));
+            } catch (NumberFormatException e) {
+                CommonMethod.sendMessageRedirect(request, response, "Errore: classe non corretta", "/sectionEdu.jsp");
+                return null;
+            }
+            if (classId <= 0) {
+                CommonMethod.sendMessageRedirect(request, response, "Errore: classe non corretta", "/sectionEdu.jsp");
+                return null;
+            }
+            
+            int authorId = -1;
+            try {
+                authorId = Integer.parseInt(request.getParameter("hiddenAccountId"));
+            } catch (NumberFormatException e) {
+                CommonMethod.sendMessageRedirect(request, response, "Errore: account non valido", "/sectionEdu.jsp");
+                return null;
+            }
+            
+            String commentContent = request.getParameter("commentContent");
+            
+            insertComment.setDate(new GregorianCalendar());
+            insertComment.setClassId(classId);
+            insertComment.setAuthorId(authorId);
+            insertComment.setContent(commentContent);
+            
         }
 
         return insertComment;
