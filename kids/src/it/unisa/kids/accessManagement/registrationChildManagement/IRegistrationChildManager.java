@@ -41,7 +41,7 @@ public interface IRegistrationChildManager extends IManager {
      * @return true if confirmed correctly, false otherwise
      * @throws SQLException
      */
-    public boolean confirmRegistrationChild(RegistrationChild child) throws SQLException;
+    public boolean confirmReceiptRegistrationChild(RegistrationChild child) throws SQLException;
     /**
      * Set the registrationchild to remove. 
      * 
@@ -58,6 +58,14 @@ public interface IRegistrationChildManager extends IManager {
      * @throws SQLException if occured an SQLException
      */
     public boolean acceptRegistrationChild(RegistrationChild child) throws SQLException;
+    /**
+     * Set the registrationchild to recourse. 
+     * 
+     * @param child registrationchild
+     * @return true if the registrationchild was correctly accepted, false otherweise
+     * @throws SQLException if occured an SQLException
+     */
+    public boolean recourseRegistrationChild(RegistrationChild child) throws SQLException;
     /**
      * Store the additional data after the registrationchild is accepted
      * 

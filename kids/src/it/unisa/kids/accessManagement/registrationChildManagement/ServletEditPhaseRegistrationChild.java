@@ -58,7 +58,7 @@ public class ServletEditPhaseRegistrationChild extends HttpServlet {
                 isSuccess = registrationChildManager.submitRegistrationChild(tmpChild);
                 break;
             case    DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_RECEIPT :
-                isSuccess = registrationChildManager.confirmRegistrationChild(tmpChild);
+                isSuccess = registrationChildManager.confirmReceiptRegistrationChild(tmpChild);
                 break;
             case    DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_DELETED :
                 isSuccess = registrationChildManager.removeRegistrationChild(tmpChild);

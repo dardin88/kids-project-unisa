@@ -226,12 +226,13 @@ function openDeleteRecourseWindow(id) {
 /*
  * Imposta il ricorso come accettato
  */
-function openAcceptRecourseWindow(id) {
+function openAcceptRecourseWindow(id, registrationChildId) {
     var actionOnConfirm = function() {
         comunicaConServlet(
         "ValutaRecourse", 
         {
             Id: id,
+            Iscrizione: registrationChildId,
             Valutazione: "accetta"
         }, 
         function(jsonObject) {
@@ -248,12 +249,13 @@ function openAcceptRecourseWindow(id) {
 /*
  * Imposta il ricorso come rifiutato
  */
-function openRifiutaRecourseWindow(id) {
+function openRifiutaRecourseWindow(id, registrationChildId) {
     var actionOnConfirm = function() {
         comunicaConServlet(
         "ValutaRecourse", 
         {
             Id: id,
+            Iscrizione: registrationChildId,
             Valutazione: "rifiuta"
         }, 
         function(jsonObject) {
@@ -282,7 +284,7 @@ function saveNewRecourse() {
     if(valida(param)) {
         comunicaConServlet("InsertRecourse", {
                     Motivazione: getValue("recourseAddWindowMotivo"),
-                    IdIscrizione: getValue("recourseAddWindowId")
+                    Iscrizione: getValue("recourseAddWindowId")
                 }, function(result) {
                     if(result.IsSuccess) {
                         updateTableSubmittedRecourse();

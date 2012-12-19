@@ -733,7 +733,7 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
         return num;
     }
 
-    public boolean confirmRegistrationChild(RegistrationChild child) throws SQLException {
+    public boolean confirmReceiptRegistrationChild(RegistrationChild child) throws SQLException {
         return changeRegistrationPhase(child, DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_RECEIPT);
     }
 
@@ -749,6 +749,10 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
 
     public boolean acceptRegistrationChild(RegistrationChild child) throws SQLException {
         return changeRegistrationPhase(child, DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_ACCEPTED);
+    }
+
+    public boolean recourseRegistrationChild(RegistrationChild child) throws SQLException {
+        return changeRegistrationPhase(child, DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_RECOURSE);
     }
 
     public boolean renounceRegistrationChild(RegistrationChild child) throws SQLException {

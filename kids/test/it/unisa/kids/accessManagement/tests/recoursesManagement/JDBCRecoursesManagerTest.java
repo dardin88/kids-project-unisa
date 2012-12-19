@@ -19,7 +19,7 @@ public class JDBCRecoursesManagerTest extends TestCase {
         this.bean.setRegistrationChildId(1);
         this.bean.setReason("ReasonTest");
         this.bean.setValutation(true);
-        this.managerTest=JDBCRecoursesManager.getInstace();
+        this.managerTest=JDBCRecoursesManager.getInstance();
         
         try {
             this.managerTest.insert(bean);
@@ -41,7 +41,7 @@ public class JDBCRecoursesManagerTest extends TestCase {
     }
     
     public void getInstanceTest(){
-        assertEquals("getInstance() does not work!", JDBCRecoursesManager.getInstace(), this.managerTest);
+        assertEquals("getInstance() does not work!", JDBCRecoursesManager.getInstance(), this.managerTest);
     }
 
     public void testInsert() {
