@@ -1178,8 +1178,8 @@
         <url-pattern>/DownloadProject</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UpdateClassServlet</servlet-name>
-        <url-pattern>/UpdateClass</url-pattern>
+        <servlet-name>UpdateClassStatusServlet</servlet-name>
+        <url-pattern>/UpdateClassStatus</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
