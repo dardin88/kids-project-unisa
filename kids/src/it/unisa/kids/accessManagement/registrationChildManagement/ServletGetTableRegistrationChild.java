@@ -6,6 +6,7 @@ import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,6 +45,8 @@ public class ServletGetTableRegistrationChild extends HttpServlet {
         
         RegistrationChild[] paginateChildRequestSet;
         List<RegistrationChild> listChildRequest;
+        // parametro di ricerca della tabella
+        String searchTerm = request.getParameter("sSearch");
         try {
             JSONObject result = new JSONObject();
             JSONArray array = new JSONArray();
@@ -64,12 +67,7 @@ public class ServletGetTableRegistrationChild extends HttpServlet {
                     amount = 10;
                 }
             }
-           /*if (request.getParameter(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE) != null) {
-                RegistrationChild child = new RegistrationChild();
-                child.setRegistrationPhase(request.getParameter(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE));
-                
-                listChildRequest = registrationChildManager.search(child);
-            } else {*/
+           
             // L'output è in base alla tipologia dell'account
             Account account = (Account) request.getSession().getAttribute("user");
             RegistrationChild child = new RegistrationChild();
@@ -77,22 +75,21 @@ public class ServletGetTableRegistrationChild extends HttpServlet {
                 case "Genitore":
                     // Il genitore può vedere solo le proprie domande di iscrizione
                     child.setParentId(account.getId());
-                    listChildRequest = registrationChildManager.search(child);
+                    listChildRequest = registrationChildManager.search(child, searchTerm);
+                    
                     break;
                 case "Segreteria":
                     // La segreteria potrà vedere solo le richieste sottomesse dai genitori, che dovrà andare a confermare
                     child.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_SUBMITTED);
-                    listChildRequest = registrationChildManager.search(child);
+                    listChildRequest = registrationChildManager.search(child, searchTerm);
                     child.setRegistrationPhase(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_COMPLETED);
-                    listChildRequest.addAll(registrationChildManager.search(child));
+                    listChildRequest.addAll(registrationChildManager.search(child, searchTerm));
                     break;
                 default:
-                    listChildRequest = registrationChildManager.search(child);
+                    listChildRequest = new ArrayList<RegistrationChild>();
                     break;
             }
-                
-            //}
-
+            
             int linksNumber = listChildRequest.size();
             if (linksNumber < amount) {
                 amount = linksNumber;
@@ -108,13 +105,15 @@ public class ServletGetTableRegistrationChild extends HttpServlet {
                 }
                 
                 for (RegistrationChild regChildRequest : paginateChildRequestSet) {
+                    // Decommentare di seguito se si vuole nascondere le richieste eliminate
+                    // if(!regChildRequest.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_DELETED)) {
                     JSONArray ja = new JSONArray();
                     ja.put(regChildRequest.getFiscalCode());
                     ja.put(regChildRequest.getSurname());
                     ja.put(regChildRequest.getName());
                     ja.put(regChildRequest.getRegistrationPhase());
                     
-                    StringBuffer operazioni = new StringBuffer();
+                    StringBuilder operazioni = new StringBuilder();
                     // Sia genitore che segreteria possono vederne i dettagli, la visualizza dettagli deve esser possibile su tutte le domanda
                     operazioni.append("<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Visualizza Dettagli\" alt=\"Dettagli\" src='img/lente.gif' onclick='openViewDetailsRegistrationChildWindow(\""+regChildRequest.getId()+"\")'/>");
                     
@@ -143,7 +142,7 @@ public class ServletGetTableRegistrationChild extends HttpServlet {
                     }
                     ja.put(operazioni.toString());
                     array.put(ja);
-                    
+                    //} DECOMMENTARE INSIEME AL COMMENTO PRECEDENTE PER NASCONDERE RICHIESTE ELIMINATE
                 }
             }
             result.put("sEcho", sEcho);

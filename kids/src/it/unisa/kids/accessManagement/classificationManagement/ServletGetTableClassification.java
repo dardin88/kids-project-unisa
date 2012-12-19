@@ -50,6 +50,9 @@ public class ServletGetTableClassification extends HttpServlet {
         
         Classification[] paginateClassificationRequestSet;
         List<Classification> listClassification;
+        // parametro di ricerca della tabella
+        String searchTerm = request.getParameter("sSearch");
+        
         try {
             JSONObject result = new JSONObject();
             JSONArray array = new JSONArray();
@@ -61,16 +64,16 @@ public class ServletGetTableClassification extends HttpServlet {
                     // Il genitore può vedere solo le classifiche provvisorie e definitive
                     Classification classification = new Classification();
                     classification.setStatus(DBNames.ATT_CLASSIFICATION_STATUS_PROVVISORIA);
-                    listClassification = classificationManager.search(classification);
                     
+                    listClassification = classificationManager.search(classification, searchTerm);
+
                     classification.setStatus(DBNames.ATT_CLASSIFICATION_STATUS_DEFINITIVA);
-                    listClassification.addAll(classificationManager.search(classification));
+                    listClassification.addAll(classificationManager.search(classification, searchTerm));
                     break;
                 case "Segreteria":
-                    // La segreteria potrà vedere tutte
-                    //System.out.println("Sto producendo la lista per il segretario");
-                    listClassification = classificationManager.getAllClassification();
-                    //System.out.println("La lista contiene: " + listClassification.size() + " elementi");
+                    // La segreteria potrà vederle tutte
+                    listClassification = classificationManager.search(new Classification(), searchTerm);
+                    
                     break;
                 default:
                     listClassification = new ArrayList<Classification>();

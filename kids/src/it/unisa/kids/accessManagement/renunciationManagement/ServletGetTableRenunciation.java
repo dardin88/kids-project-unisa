@@ -47,6 +47,8 @@ public class ServletGetTableRenunciation extends HttpServlet {
         
         Renunciation[] pageRenunciation = null;
         List<Renunciation> listRenunciation;
+        // parametro di ricerca della tabella
+        String searchTerm = request.getParameter("sSearch");
         try {
             JSONArray array = new JSONArray();
             JSONObject result = new JSONObject();
@@ -57,12 +59,12 @@ public class ServletGetTableRenunciation extends HttpServlet {
             
             switch(account.getAccountType()) {
                 case "Genitore" :
-                    listRenunciation = renunciationManager.getListFromParent(account.getId());
+                    listRenunciation = renunciationManager.getListFromParent(account.getId(), searchTerm);
                     break;
                 case "Segreteria" :
                     Renunciation tmp = new Renunciation();
                     tmp.setIsConfirmed(false);
-                    listRenunciation = renunciationManager.search(tmp);
+                    listRenunciation = renunciationManager.search(tmp, searchTerm);
                     break;
                 default :
                     listRenunciation = new ArrayList<Renunciation>();

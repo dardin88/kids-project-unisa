@@ -315,7 +315,7 @@ public class JDBCClassificationManager implements IClassificationManager {
         StringBuilder query = new StringBuilder();
         List<Classification> classificationList = null;
         boolean andState = false;
-
+        boolean orState = false;
         try {
             con = DBConnectionPool.getConnection();
 
@@ -341,23 +341,27 @@ public class JDBCClassificationManager implements IClassificationManager {
             }
             // Le condizioni else sono posizionate qui di seguito in modo da effettuare prima 
             // tutti i controlli obbligatori (AND) e solo dopo gli or
-            if(classification.getId() <= 0) {
-                query.append(useOr(andState) + DBNames.ATT_CLASSIFICATION_ID + " LIKE '%" + toSearch + "%'");
-                andState = true;
+            if(andState) {
+                query.append(" AND (");
             }
             if(classification.getName() == null) {
-                query.append(useOr(andState) + DBNames.ATT_CLASSIFICATION_NAME + " LIKE '%" + toSearch + "%'");
-                andState = true;
+                query.append(useOr(orState) + DBNames.ATT_CLASSIFICATION_NAME + " LIKE '%" + toSearch + "%'");
+                orState = true;
             }
             if(classification.getDate() == null) {
-                query.append(useOr(andState) + DBNames.ATT_CLASSIFICATION_DATA + " LIKE '%" + toSearch + "%'");
-                andState = true;
+                query.append(useOr(orState) + DBNames.ATT_CLASSIFICATION_DATA + " LIKE '%" + toSearch + "%'");
+                orState = true;
             }
             if(classification.getStatus() == null) {
-                query.append(useOr(andState) + DBNames.ATT_CLASSIFICATION_STATUS + " LIKE '%" + toSearch + "%'");
-                andState = true;
+                query.append(useOr(orState) + DBNames.ATT_CLASSIFICATION_STATUS + " LIKE '%" + toSearch + "%'");
+                orState = true;
             }
-
+            if(!orState && andState) {
+                query.append("1");
+            }
+            if(andState) {
+                query.append(")");
+            }
             // chiusura della query, le graduatorie vanno messe prima in ordine di stato bozza > provvisoria > definitiva
             query.append(" ORDER BY " + DBNames.ATT_CLASSIFICATION_STATUS + ", " + DBNames.ATT_CLASSIFICATION_ID + ";");
             
@@ -374,7 +378,7 @@ public class JDBCClassificationManager implements IClassificationManager {
                     i++;
             }
             if(classification.getDate() != null) {
-                    pstmt.setDate(i, new Date(classification.getDate().getTimeInMillis()));
+                    pstmt.setDate(i, CommonMethod.parseDate(classification.getDate()));
                     i++;
             }
             if(classification.getStatus() != null) {
@@ -637,7 +641,8 @@ public class JDBCClassificationManager implements IClassificationManager {
         ResultSet resultSet = null;
         StringBuffer query = new StringBuffer();
         List<Result> resultList = null;
-        boolean andState = true;
+        boolean andState = true;    // perchè come minimo ci sono le condizione della join
+        boolean orState = false;
 
         try {
             con = DBConnectionPool.getConnection();
@@ -648,23 +653,42 @@ public class JDBCClassificationManager implements IClassificationManager {
             if(result.getClassificationId() > 0) {
                 query.append(useAnd(andState) + DBNames.ATT_RESULT_CLASSIFICATIONID + "=?");
                 andState = true;
-            } else {
-                query.append(useOr(andState) + DBNames.ATT_RESULT_CLASSIFICATIONID + " LIKE '%" + toSearch + "%'");
-                andState = true;
             }
             if(result.getRegistrationChildId() > 0) {
                 query.append(useAnd(andState) + DBNames.ATT_RESULT_REGISTRATIONCHILDID + "=?");
                 andState = true;
-            } else {
-                query.append(useOr(andState) + DBNames.ATT_RESULT_REGISTRATIONCHILDID + " LIKE '%" + toSearch + "%'");
-                andState = true;
-            }
+            } 
             if(result.getScore() >= 0) {
                 query.append(useAnd(andState) + DBNames.ATT_RESULT_SCORE + "=?");
                 andState = true;
-            } else {
-                query.append(useOr(andState) + DBNames.ATT_RESULT_SCORE + " LIKE '%" + toSearch + "%'");
-                andState = true;
+            }
+            
+            // Le condizioni else sono posizionate qui di seguito in modo da effettuare prima 
+            // tutti i controlli obbligatori (AND) e solo dopo gli or
+            if(andState) {
+                query.append(" AND (");
+            }
+            //if(result.getRegistrationChildId() <= 0) {
+                query.append(useOr(orState) + "RC." + DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + " LIKE '%" + toSearch + "%'");
+                orState = true;
+            //}
+            //if(result.getRegistrationChildId() <= 0) {
+                query.append(useOr(orState) + "RC." + DBNames.ATT_REGISTRATIONCHILD_SURNAME + " LIKE '%" + toSearch + "%'");
+                orState = true;
+            //}
+            //if(result.getRegistrationChildId() <= 0) {
+                query.append(useOr(orState) + "RC." + DBNames.ATT_REGISTRATIONCHILD_NAME + " LIKE '%" + toSearch + "%'");
+                orState = true;
+            //}
+            if(result.getScore() < 0) {
+                query.append(useOr(orState) + DBNames.ATT_RESULT_SCORE + " LIKE '%" + toSearch + "%'");
+                orState = true;
+            }
+            if(!orState && andState) {
+                query.append("1");
+            }
+            if(andState) {
+                query.append(")");
             }
             
             // ordinamento
@@ -672,7 +696,7 @@ public class JDBCClassificationManager implements IClassificationManager {
                         DBNames.ATT_RESULT_CLASSIFICATIONID + ", " + 
                         DBNames.ATT_RESULT_REGISTRATIONCHILDID + ";");
             
-            //System.out.println(query);
+            System.out.println(query.toString());
             pstmt = con.prepareStatement(query.toString());
             int i = 1;
             if(result.getClassificationId() > 0) {

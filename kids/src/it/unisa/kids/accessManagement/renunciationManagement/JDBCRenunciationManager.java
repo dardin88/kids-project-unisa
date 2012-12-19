@@ -225,6 +225,7 @@ public class JDBCRenunciationManager implements IRenunciationManager {
                             "WHERE RE." + DBNames.ATT_RENUNCIATION_REGISTRATIONCHILDID + "=RC." + DBNames.ATT_REGISTRATIONCHILD_ID + " ");
 
             boolean andState = true;
+            boolean orState = false;
 
             if(renunciation.getId() > 0) {
                 query.append(useAnd(andState) + " RE." + DBNames.ATT_RENUNCIATION_ID + "=?");
@@ -248,27 +249,35 @@ public class JDBCRenunciationManager implements IRenunciationManager {
             }
             // Le condizioni else sono posizionate qui di seguito in modo da effettuare prima 
             // tutti i controlli obbligatori (AND) e solo dopo gli or
+            if(andState) {
+                query.append(" AND (");
+            }
             if(renunciation.getId() <= 0) {
-                query.append(useOr(andState) + " RE." + DBNames.ATT_RENUNCIATION_ID + " LIKE '%" + toSearch + "%'");
-                andState = true;
+                query.append(useOr(orState) + " RE." + DBNames.ATT_RENUNCIATION_ID + " LIKE '%" + toSearch + "%'");
+                orState = true;
             }
             if(renunciation.getDate() == null) {
-                query.append(useOr(andState) + " RE." + DBNames.ATT_RENUNCIATION_DATE + " LIKE '%" + toSearch + "%'");
-                andState = true;
+                query.append(useOr(orState) + " RE." + DBNames.ATT_RENUNCIATION_DATE + " LIKE '%" + toSearch + "%'");
+                orState = true;
             }
             if (renunciation.getRegistrationChildId() <= 0) {
-                query.append(useOr(andState) + " RE." + DBNames.ATT_RENUNCIATION_REGISTRATIONCHILDID + " LIKE '%" + toSearch + "%'");
-                andState = true;
+                query.append(useOr(orState) + " RE." + DBNames.ATT_RENUNCIATION_REGISTRATIONCHILDID + " LIKE '%" + toSearch + "%'");
+                orState = true;
             }
             if (!renunciation.isSetConfirmed()) {
-                query.append(useOr(andState) + " RE." + DBNames.ATT_RENUNCIATION_ISCONFIRMED + " LIKE '%" + toSearch + "%'");
-                andState = true;
+                query.append(useOr(orState) + " RE." + DBNames.ATT_RENUNCIATION_ISCONFIRMED + " LIKE '%" + toSearch + "%'");
+                orState = true;
             }
             if (renunciation.getReason() == null) {
-                query.append(useOr(andState) + " RE." + DBNames.ATT_RENUNCIATION_REASON + " LIKE '%" + toSearch + "%'");
-                andState = true;
+                query.append(useOr(orState) + " RE." + DBNames.ATT_RENUNCIATION_REASON + " LIKE '%" + toSearch + "%'");
+                orState = true;
             }
-            
+            if(!orState && andState) {
+                query.append("1");
+            }
+            if(andState) {
+                query.append(")");
+            }
             query.append(";");
             
             pstmt = con.prepareStatement(query.toString());
@@ -425,7 +434,7 @@ public class JDBCRenunciationManager implements IRenunciationManager {
         return toReturn;
     }
     
-    public synchronized List<Renunciation> getListFromParent(int parentAccountId) throws SQLException {
+    public synchronized List<Renunciation> getListFromParent(int parentAccountId, String advanceStringToSearch) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet result = null;
@@ -439,8 +448,14 @@ public class JDBCRenunciationManager implements IRenunciationManager {
                     DBNames.ATT_REGISTRATIONCHILD_SURNAME + ", RC." + DBNames.ATT_REGISTRATIONCHILD_NAME + " " +
                             "FROM " + DBNames.TABLE_RENUNCIATION + " AS RE, " + DBNames.TABLE_REGISTRATIONCHILD + " AS RC " +
                             "WHERE RE." + DBNames.ATT_RENUNCIATION_REGISTRATIONCHILDID + "=RC." + DBNames.ATT_REGISTRATIONCHILD_ID + " AND " +
-                            DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID + "=?;");
-            
+                            DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID + "=?");
+            if(advanceStringToSearch != null) {
+                    // ADVANCED FIELD SEARCH
+                query.append(" AND (RC." + DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + " LIKE '%" + advanceStringToSearch + "%' OR RC." + 
+                    DBNames.ATT_REGISTRATIONCHILD_SURNAME + " LIKE '%" + advanceStringToSearch + "%' OR RC." + 
+                    DBNames.ATT_REGISTRATIONCHILD_NAME + " LIKE '%" + advanceStringToSearch + "%')");
+            }
+            query.append(";");
             pstmt = con.prepareStatement(query.toString());
             
             pstmt.setInt(1, parentAccountId);

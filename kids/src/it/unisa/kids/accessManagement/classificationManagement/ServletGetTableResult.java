@@ -50,6 +50,9 @@ public class ServletGetTableResult extends HttpServlet {
         
         Result[] paginateClassificationRequestSet;
         List<Result> listResult;
+        // parametro di ricerca della tabella
+        String searchTerm = request.getParameter("sSearch");
+        
         try {
             JSONObject result = new JSONObject();
             JSONArray array = new JSONArray();
@@ -61,7 +64,7 @@ public class ServletGetTableResult extends HttpServlet {
                 int classificationId = Integer.parseInt(requestClassificationId);
                 Result toSearch = new Result();
                 toSearch.setClassificationId(classificationId);
-                listResult = classificationManager.searchResult(toSearch);
+                listResult = classificationManager.searchResult(toSearch, searchTerm);
             } else {
                 listResult = new ArrayList<Result>();
             }

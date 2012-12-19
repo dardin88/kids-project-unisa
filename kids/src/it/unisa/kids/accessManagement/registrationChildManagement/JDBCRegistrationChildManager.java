@@ -437,7 +437,7 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
                 + "FROM " + DBNames.TABLE_REGISTRATIONCHILD + " "
                 + "WHERE ");
         boolean andState = false;   // Necessario per controllare se all'interno della query va inserito AND
-
+        boolean orState = false;
         // PREPARAZIONE DELLA QUERY E DEI CAMPI CHE BISOGNA RICERCARE
         if (child != null) {
             if (child.getId() > 0) {
@@ -502,65 +502,76 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             }
             // Le condizioni else sono posizionate qui di seguito in modo da effettuare prima 
             // tutti i controlli obbligatori (AND) e solo dopo gli or
+            // Le condizioni else sono posizionate qui di seguito in modo da effettuare prima 
+            // tutti i controlli obbligatori (AND) e solo dopo gli or
+            if(andState) {
+                query.append(" AND (");
+            }
             if (child.getId() <= 0) {
-                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_ID + " LIKE '%" + toSearch + "%'");
-                andState = true;
+                query.append(useOr(orState) + DBNames.ATT_REGISTRATIONCHILD_ID + " LIKE '%" + toSearch + "%'");
+                orState = true;
             }
             if (child.getParentId() <= 0) {
-                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID + " LIKE '%" + toSearch + "%'");
-                andState = true;
+                query.append(useOr(orState) + DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID + " LIKE '%" + toSearch + "%'");
+                orState = true;
             }
             if (child.getRegistrationDate() == null) {
-                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONDATE + " LIKE '%" + toSearch + "%'");
-                andState = true;
+                query.append(useOr(orState) + DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONDATE + " LIKE '%" + toSearch + "%'");
+                orState = true;
             }
             if (child.getRegistrationPhase() == null) {
-                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE + " LIKE '%" + toSearch + "%'");
-                andState = true;
+                query.append(useOr(orState) + DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE + " LIKE '%" + toSearch + "%'");
+                orState = true;
             }
             if (child.getSurname() == null) {
-                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_SURNAME + " LIKE '%" + toSearch + "%'");
-                andState = true;
+                query.append(useOr(orState) + DBNames.ATT_REGISTRATIONCHILD_SURNAME + " LIKE '%" + toSearch + "%'");
+                orState = true;
             }
             if (child.getName() == null) {
-                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_NAME + " LIKE '%" + toSearch + "%'");
-                andState = true;
+                query.append(useOr(orState) + DBNames.ATT_REGISTRATIONCHILD_NAME + " LIKE '%" + toSearch + "%'");
+                orState = true;
             }
             if (child.getBirthDate() == null) {
-                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE + " LIKE '%" + toSearch + "%'");
-                andState = true;
+                query.append(useOr(orState) + DBNames.ATT_REGISTRATIONCHILD_BIRTHDATE + " LIKE '%" + toSearch + "%'");
+                orState = true;
             }
             if (child.getBirthPlace() == null) {
-                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_BIRTHPLACE + " LIKE '%" + toSearch + "%'");
-                andState = true;
+                query.append(useOr(orState) + DBNames.ATT_REGISTRATIONCHILD_BIRTHPLACE + " LIKE '%" + toSearch + "%'");
+                orState = true;
             }
             if (child.getFiscalCode() == null) {
-                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + " LIKE '%" + toSearch + "%'");
-                andState = true;
+                query.append(useOr(orState) + DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + " LIKE '%" + toSearch + "%'");
+                orState = true;
             }
             if (child.getCitizenship() == null) {
-                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_CITIZENSHIP + " LIKE '%" + toSearch + "%'");
-                andState = true;
+                query.append(useOr(orState) + DBNames.ATT_REGISTRATIONCHILD_CITIZENSHIP + " LIKE '%" + toSearch + "%'");
+                orState = true;
             }
             if (child.getUserRange() == null) {
-                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_USERRANGE + " LIKE '%" + toSearch + "%'");
-                andState = true;
+                query.append(useOr(orState) + DBNames.ATT_REGISTRATIONCHILD_USERRANGE + " LIKE '%" + toSearch + "%'");
+                orState = true;
             }
             if (child.getSectionId() <= 0) {
-                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_SECTIONID + " LIKE '%" + toSearch + "%'");
-                andState = true;
+                query.append(useOr(orState) + DBNames.ATT_REGISTRATIONCHILD_SECTIONID + " LIKE '%" + toSearch + "%'");
+                orState = true;
             }
             if (child.getSickness() == null) {
-                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_SICKNESS + " LIKE '%" + toSearch + "%'");
-                andState = true;
+                query.append(useOr(orState) + DBNames.ATT_REGISTRATIONCHILD_SICKNESS + " LIKE '%" + toSearch + "%'");
+                orState = true;
             }
             if (child.getVaccinations() == null) {
-                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_VACCINATIONS + " LIKE '%" + toSearch + "%'");
-                andState = true;
+                query.append(useOr(orState) + DBNames.ATT_REGISTRATIONCHILD_VACCINATIONS + " LIKE '%" + toSearch + "%'");
+                orState = true;
             }
             if (child.getPrivacyStatement() == null) {
-                query.append(useOr(andState) + DBNames.ATT_REGISTRATIONCHILD_PRIVACYSTATEMENT + " LIKE '%" + toSearch + "%'");
-                andState = true;
+                query.append(useOr(orState) + DBNames.ATT_REGISTRATIONCHILD_PRIVACYSTATEMENT + " LIKE '%" + toSearch + "%'");
+                orState = true;
+            }
+            if(!orState && andState) {
+                query.append("1");
+            }
+            if(andState) {
+                query.append(")");
             }
         }
         query.append(" ORDER BY " + DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE + ", "
