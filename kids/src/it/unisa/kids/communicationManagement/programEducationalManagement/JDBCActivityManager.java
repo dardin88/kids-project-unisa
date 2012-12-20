@@ -93,7 +93,6 @@ public class JDBCActivityManager implements IActivityManager {
             andState = true;
         }
         query += " ORDER BY " + DBNames.ATT_ACTIVITYSECTTIONDAILY_DATE;
-        System.out.println(query);
 
         con = DBConnectionPool.getConnection();
 
@@ -523,7 +522,6 @@ public class JDBCActivityManager implements IActivityManager {
         try {
             con = DBConnectionPool.getConnection();
             query = "DELETE FROM " + DBNames.TABLE_ACTIVITYSECTIONDAILY + " WHERE " + DBNames.ATT_ACTIVITYSECTTIONDAILY_ID + "='" + pDailyActivitySection.getId() + "'";
-            System.out.println(query);
             pstmt = con.prepareStatement(query);
             pstmt.executeUpdate();
             con.commit();

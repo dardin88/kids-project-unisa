@@ -60,7 +60,6 @@ public class ServletModifyClassification extends HttpServlet {
             if(!request.getParameter(DBNames.ATT_CLASSIFICATION_ID).equals("")) {
                 int classificationId = Integer.parseInt(request.getParameter(DBNames.ATT_CLASSIFICATION_ID));
                 tmpClassification.setId(classificationId);
-                System.out.println("L'id è: " + classificationId);
                 
                 if(request.getParameter(DBNames.ATT_CLASSIFICATION_DATA) != null) {
                     GregorianCalendar data = CommonMethod.parseGregorianCalendar(request.getParameter(DBNames.ATT_CLASSIFICATION_DATA));
@@ -107,7 +106,6 @@ public class ServletModifyClassification extends HttpServlet {
         json.put("IsSuccess", "" + isSuccess);
         json.put("ErrorMsg", errorMsg);
 
-        System.out.println("Risultato della ModifyClassification: " + json.toString());
 
         out.write(json.toString());
         out.close();

@@ -54,7 +54,6 @@ public class ServletGetClassification extends HttpServlet {
             if(!request.getParameter(DBNames.ATT_REGISTRATIONCHILD_ID).equals("")) {
                 int id = Integer.parseInt(request.getParameter(DBNames.ATT_REGISTRATIONCHILD_ID));
                 tmpClassification.setId(id);
-                //System.out.println("Sono nella servlet con l'id: " + id);
                 // ricerco
                 List<Classification> listResult = classificationManager.search(tmpClassification);
                 if(listResult.size() > 0) {
@@ -83,7 +82,6 @@ public class ServletGetClassification extends HttpServlet {
             isSuccess = false;
             errorMsg = ex.getMessage();
         }
-        System.out.println("Risultato della GetClassification: " + json.toString());
 
         json.put("IsSuccess", "" + isSuccess);
         json.put("ErrorMsg", errorMsg);

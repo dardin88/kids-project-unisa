@@ -6,9 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%--<c:if test="${sessionScope.user==null}">
+<c:if test="${sessionScope.user==null}">
     <c:redirect url="index.jsp" />
-</c:if>--%>
+</c:if>
 
 <!DOCTYPE html>
 <html>
@@ -225,9 +225,35 @@
                     </div>
                 </div>
             </fieldset>
-
-
         </form>
+        <div id="modifyPasswordWindow" title="Modifica Password" style="display: inline">
+            <form id="modifyPasswordForm" class="cmxform" method="post" action="">
+                <fieldset>
+
+                    <p class="formp">
+                        <label style="font-weight: bold; font-size: 10pt" class="requirementLabel">Inserisci vecchia password:</label>
+                        <input type="text" id="oldPass"/>
+                    </p><br>
+
+                    <p class="formp">
+                        <label style="font-weight: bold; font-size: 10pt; margin-right: 3%" class="requirementLabel">Inserisci nuova password: </label>
+                        <input type="text" id="newPass"/>
+                    </p>
+                    <p class="formp">
+                        <label style="font-weight: bold; font-size: 10pt" class="requirementLabel">Conferma nuova password:</label>
+                        <input type="text" id="confNewPass"/>
+                    </p><br>
+
+                    <p class="formp">
+                        <input style="width: 150px" type="button" id="confirmModifyButton" value="Modifica"/>
+                        <input style="width: 150px" type="button" id="notConfirmModifyButton" value="Annulla"/>
+                    </p>
+                </fieldset>
+            </form>
+        </div>
+        <input style="width: 200px; margin-left: 0.5%" type="button" name="modify" id="modifyButton" value="Modifica" onclick="modifyAccount2(document.getElementById('id').value)"/>
+        <input style="width: 200px; margin-left: 2%" type="button" name="elimina" id="eliminaButton" value="Elimina" onclick="removeAccountParent(document.getElementById('id').value)"/>
+        <input style="width: 200px; margin-left: 2%" type="button" name="password" id="modifyPassword" value="Modifica Password" onclick="modifyPassword2(document.getElementById('id').value)"/>
         <%@include file="footer.jsp" %>
     </body>
 </html>

@@ -59,7 +59,6 @@ public class ServletGetRegistrationChild extends HttpServlet {
             if(!request.getParameter(DBNames.ATT_REGISTRATIONCHILD_ID).equals("")) {
                 int id = Integer.parseInt(request.getParameter(DBNames.ATT_REGISTRATIONCHILD_ID));
                 tmpChild.setId(id);
-                System.out.println("Sono nella servlet con l'id: " + id);
                 // ricerco
                 List<RegistrationChild> listResult = registrationChildManager.search(tmpChild);
                 if(listResult.size() > 0) {
@@ -103,7 +102,6 @@ public class ServletGetRegistrationChild extends HttpServlet {
             isSuccess = false;
             errorMsg = ex.getMessage();
         } finally {
-            System.out.println("Risultato della Get: " + json.toString());
             
             json.put("IsSuccess", isSuccess);
             json.put("ErrorMsg", errorMsg);

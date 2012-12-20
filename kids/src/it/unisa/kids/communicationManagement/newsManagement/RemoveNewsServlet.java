@@ -52,7 +52,6 @@ public class RemoveNewsServlet extends HttpServlet {
             if (!allegato.equals("")) {
                 String path = (String) getServletContext().getInitParameter("attachedFileFolder");
                 File f = new File(path + "/" + titolo+allegato);
-                System.out.print(path + "/" + titolo+allegato);
                 f.delete();
             }
             int id = Integer.parseInt(temp);

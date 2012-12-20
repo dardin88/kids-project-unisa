@@ -78,7 +78,6 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
             registrationDate.setTime(new Date(System.currentTimeMillis()));
 
             /* TEST DELLA RICHIESTA ALLA SERVLET
-            System.out.println("Sono nella CreateServlet ed il cognome è: " + 
                         request.getParameter(DBNames.ATT_REGISTRATIONCHILD_SURNAME) + "ora: " + CommonMethod.parseString(registrationDate));
             //*/
             
@@ -109,7 +108,6 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
         json.put("IsSuccess", "" + isSuccess);
         json.put("ErrorMsg", errorMsg);
 
-        System.out.println("Risultato della CreateServlet: " + isSuccess + " JSON: " + json.toString());
         out.write(json.toString());
         out.close();
         

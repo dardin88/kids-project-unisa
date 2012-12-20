@@ -108,7 +108,6 @@ public class ServletEditRegistrationChild extends HttpServlet {
         json.put("IsSuccess", "" + isSuccess);
         json.put("ErrorMsg", errorMsg);
 
-        System.out.println("Risultato della Edit: " + isSuccess + " JSON: " + json.toString());
         out.write(json.toString());
         out.close();
     }

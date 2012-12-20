@@ -74,8 +74,6 @@ public class ServletDeleteCriterion extends HttpServlet {
         json.put("IsSuccess", "" + isSuccess);
         json.put("ErrorMsg", errorMsg);
         
-        System.out.println("Risultato della DeleteCriterion: " + json.toString());
-
         out.write(json.toString());
         out.close();
     }

@@ -107,7 +107,6 @@ public class ServletGetRenunciation extends HttpServlet {
             isSuccess = false;
             errorMsg = ex.getMessage();
         }
-        System.out.println("Risultato della GetRenunciation: " + json.toString());
 
         json.put("IsSuccess", "" + isSuccess);
         json.put("ErrorMsg", errorMsg);

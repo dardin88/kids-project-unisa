@@ -66,7 +66,6 @@ public class JDBCClassificationManager implements IClassificationManager {
             if(numEditedRow > 0) {
                 toReturn = true;
             }
-            //System.out.println("Ci sono, esito: " + toReturn);
             /* Come è stato progettato il sistema, una nuova graduatoria non può avere già risultati
              * In caso di modifiche, decommentare
             // inserimento dei risultati
@@ -589,7 +588,6 @@ public class JDBCClassificationManager implements IClassificationManager {
                         DBNames.ATT_RESULT_CLASSIFICATIONID + ", " + 
                         DBNames.ATT_RESULT_REGISTRATIONCHILDID + ";");
             
-            //System.out.println(query);
             pstmt = con.prepareStatement(query.toString());
             int i = 1;
             if(result.getClassificationId() > 0) {
@@ -696,7 +694,6 @@ public class JDBCClassificationManager implements IClassificationManager {
                         DBNames.ATT_RESULT_CLASSIFICATIONID + ", " + 
                         DBNames.ATT_RESULT_REGISTRATIONCHILDID + ";");
             
-            System.out.println(query.toString());
             pstmt = con.prepareStatement(query.toString());
             int i = 1;
             if(result.getClassificationId() > 0) {

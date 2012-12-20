@@ -63,7 +63,6 @@ public class JDBCAccountManager implements IAccountManager {
 
         if (birthDate != null) {
             data1 = makeSqlDateString(birthDate);
-            System.out.println(data1);
         }
         if (expDate != null) {
             data2 = makeSqlDateString(expDate);
@@ -206,7 +205,6 @@ public class JDBCAccountManager implements IAccountManager {
                     + DBNames.ATT_ACCOUNT_TYPEPARENT + "=" + makeString(pChangedAccount.getTypeParent())
                     + " WHERE " + DBNames.ATT_ACCOUNT_ID + "=" + pChangedAccount.getId();
 
-            System.out.println("Sto facendo l'update");
             stmt = con.createStatement();
             stmt.executeUpdate(query);
             con.commit();
@@ -225,9 +223,7 @@ public class JDBCAccountManager implements IAccountManager {
         try {
             con = DBConnectionPool.getConnection();
             String query = "Delete From " + DBNames.TABLE_ACCOUNT + " Where " + DBNames.ATT_ACCOUNT_ID + "=" + pDeletedAccount.getId() + "";
-            System.out.println("cancellazione effettuata!");
             stmt = con.createStatement();
-            System.out.println("" + query);
             stmt.executeUpdate(query);
             con.commit();
 
@@ -679,7 +675,6 @@ public class JDBCAccountManager implements IAccountManager {
         String query = null;
         List<Account> account = null;
         boolean andState = false;
-        System.out.println(pAccount.getId() + "," + pAccount.getNickName() + "," + pAccount.getPassword() + "," + pAccount.getAccountType());
 
         try {
             con = DBConnectionPool.getConnection();
@@ -714,7 +709,6 @@ public class JDBCAccountManager implements IAccountManager {
 
 
 
-            System.out.println(query);
             rs = pstmt.executeQuery();
             con.commit();
 
@@ -781,7 +775,6 @@ public class JDBCAccountManager implements IAccountManager {
                 p.setIncome(rs.getDouble(DBNames.ATT_ACCOUNT_INCOME));
                 p.setState(rs.getString(DBNames.ATT_ACCOUNT_STATE));
                 p.setRegister(rs.getString(DBNames.ATT_ACCOUNT_REGISTER));
-                System.out.println(p.getAccountType());
                 account.add(p);
             }
             con.commit();

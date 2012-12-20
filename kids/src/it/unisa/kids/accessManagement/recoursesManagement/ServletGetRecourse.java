@@ -79,7 +79,6 @@ public class ServletGetRecourse extends HttpServlet {
             isSuccess = false;
             errorMsg = ex.getMessage();
         }
-        System.out.println("Risultato della GetRecourse: " + json.toString());
 
         json.put("IsSuccess", "" + isSuccess);
         json.put("ErrorMsg", errorMsg);

@@ -53,7 +53,6 @@ public class ServletConfirmCompletingRegistrationChild extends HttpServlet {
             String privacy = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_ISPRIVACYSTATEMENTSET);
 
             /* TEST DELLA RICHIESTA ALLA SERVLET
-            System.out.println("Sono nella CompleteServlet ed l'id è: " + request.getParameter(DBNames.ATT_REGISTRATIONCHILD_ID));
             //*/
             
             // Creo la domanda di iscrizione bambino
@@ -73,7 +72,6 @@ public class ServletConfirmCompletingRegistrationChild extends HttpServlet {
             isSuccess = false;
             errorMsg = ex.getMessage();
         } finally {
-            System.out.println("Risultato ConfirmCompleting: " + isSuccess);
             
             json.put("IsSuccess", isSuccess);
             json.put("ErrorMsg", errorMsg);

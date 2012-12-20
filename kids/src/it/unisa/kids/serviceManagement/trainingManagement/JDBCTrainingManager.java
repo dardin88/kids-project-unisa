@@ -448,7 +448,6 @@ public class JDBCTrainingManager extends Observable implements ITrainingManager 
             pStmt.setInt(1, pTraineeConvocation.getConfirmed());
 
             pStmt.setInt(2, pTraineeConvocation.getId());
-            System.out.println("ciao");
 
             pStmt.executeUpdate();
             con.commit();

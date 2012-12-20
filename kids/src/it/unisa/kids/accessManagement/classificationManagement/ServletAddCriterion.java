@@ -71,7 +71,6 @@ public class ServletAddCriterion extends HttpServlet {
         json.put("IsSuccess", "" + isSuccess);
         json.put("ErrorMsg", errorMsg);
 
-        System.out.println("Risultato della AddCriterion: " + isSuccess + " JSON: " + json.toString());
         out.write(json.toString());
         out.close();
         

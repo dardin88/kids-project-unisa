@@ -74,15 +74,15 @@ public class GetTraineeRequestServletTable extends HttpServlet {
                     amount = 10;
                 }
             }
-           /* if (!request.getParameter("Data").equals("")) {
-                String date=request.getParameter("Data");
-                String[] dateArray=date.split("-");
-                TraineeRequest tr = new TraineeRequest();
-                tr.setDate(new GregorianCalendar(Integer.parseInt(dateArray[2]),Integer.parseInt(dateArray[1]),Integer.parseInt(dateArray[0])));
-                listTraineeRequest = trainingManager.search(tr);
-            } else {*/
-                TraineeRequest tr = new TraineeRequest();
-                listTraineeRequest = trainingManager.search(tr);
+            /* if (!request.getParameter("Data").equals("")) {
+             String date=request.getParameter("Data");
+             String[] dateArray=date.split("-");
+             TraineeRequest tr = new TraineeRequest();
+             tr.setDate(new GregorianCalendar(Integer.parseInt(dateArray[2]),Integer.parseInt(dateArray[1]),Integer.parseInt(dateArray[0])));
+             listTraineeRequest = trainingManager.search(tr);
+             } else {*/
+            TraineeRequest tr = new TraineeRequest();
+            listTraineeRequest = trainingManager.search(tr);
             //}
 
 
@@ -104,12 +104,12 @@ public class GetTraineeRequestServletTable extends HttpServlet {
                     String date = traineeRequest.getDate().get(Calendar.DAY_OF_MONTH) + "/" + (traineeRequest.getDate().get(Calendar.MONTH) + 1) + "/" + traineeRequest.getDate().get(Calendar.YEAR);
                     ja.put(date);
                     ja.put(traineeRequest.getTraineeNumber());
-                    String operazioni = "<input class='tableImage' type='image' src='img/trash.png' onclick='removeRequest(\"" + traineeRequest.getId() + "\")'/><input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/zoo.png' onclick='loadInformationRequestPage(\""+traineeRequest.getId()+"\")'/>";
+                    String operazioni = "<input class='tableImage' type='image' src='img/trash.png' onclick='removeRequest(\"" + traineeRequest.getId() + "\")'/><input class='tableImage' type='image' style=\"width:20px;height:20px\" src='img/zoo.png' onclick='loadInformationRequestPage(\"" + traineeRequest.getId() + "\")'/>";
                     ja.put(operazioni);
                     array.put(ja);
                 }
             }
-           result.put("sEcho", sEcho);
+            result.put("sEcho", sEcho);
             result.put("iTotalRecords", linksNumber);
             result.put("iTotalDisplayRecords", linksNumber);
             result.put("aaData", array);
@@ -118,7 +118,6 @@ public class GetTraineeRequestServletTable extends HttpServlet {
                     "private, no-store, no-cache, must-revalidate");
             response.setHeader("Pragma", "no-cache");
             out.print(result);
-            System.out.println(result);
         } catch (SQLException ex) {
             Logger.getLogger(GetTraineesServletTable.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

@@ -77,7 +77,6 @@ public class ServletSubmitNewRegistrationChild extends HttpServlet {
             registrationDate.setTime(new Date(System.currentTimeMillis()));
 
             /* TEST DELLA RICHIESTA ALLA SERVLET
-            System.out.println("Sono nella SubmitServlet ed il cognome è: " + request.getParameter(DBNames.ATT_REGISTRATIONCHILD_SURNAME));
             //*/
             
             // Creo la domanda di iscrizione bambino
@@ -109,7 +108,6 @@ public class ServletSubmitNewRegistrationChild extends HttpServlet {
             isSuccess = false;
             errorMsg = ex.getMessage();
         } finally {
-            System.out.println("Risultato della SubmitNew: " + isSuccess);
             
             json.put("IsSuccess", isSuccess);
             json.put("ErrorMsg", errorMsg);

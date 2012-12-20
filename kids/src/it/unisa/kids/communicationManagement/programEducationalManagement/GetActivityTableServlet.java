@@ -77,7 +77,6 @@ public class GetActivityTableServlet extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             Activity activity = new Activity();
             activity.setIdClass(id);
-            System.out.println(id);
             listActivity = manager.search(activity);
 
 

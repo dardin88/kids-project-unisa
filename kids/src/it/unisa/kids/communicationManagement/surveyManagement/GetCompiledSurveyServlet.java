@@ -105,7 +105,6 @@ public class GetCompiledSurveyServlet extends HttpServlet {
     
     private String escapeUrl(String url){
         String escapedUrl = url.replace("/", "//");
-        System.out.println(escapedUrl);
         return escapedUrl;
     }
 

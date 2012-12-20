@@ -35,7 +35,6 @@ public class AddCommunicationServlet extends HttpServlet {
             response.setContentType("text/html;charset=UTF-8");
             ICommunicationManager am = JDBCCommunicationManager.getInstance();
             Communication a = new Communication();  
-            System.out.print("args");
             String aType = request.getParameter("artefactType");
            
             HttpSession session = request.getSession();

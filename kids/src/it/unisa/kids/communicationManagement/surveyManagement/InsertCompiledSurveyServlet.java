@@ -36,8 +36,6 @@ public class InsertCompiledSurveyServlet extends HttpServlet {
             Survey sur = new Survey();
             int sId = Integer.parseInt(request.getParameter("idQuestionario"));
             int parentId = Integer.parseInt(request.getParameter("userid"));
-            System.out.println(sId);
-            System.out.println(parentId);
             sur.setId(sId);
             sur.setParent(parentId);
             sur.setCompiled(true);
