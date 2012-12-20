@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -78,11 +79,25 @@ public class GetCanteenChildrenTableServlet extends HttpServlet {
                     amount = 10;
                 }
             }
-
             Map<Integer, List<Integer>> classChildMap = (Map<Integer, List<Integer>>) getServletContext().getAttribute("classChildMap");
+            for (Integer i : classChildMap.keySet()) {
+                Logger.getLogger("prova").log(Level.SEVERE, "rc = " + classChildMap.get(i));
+            }
             List<Integer> childIdsSelectedList = classChildMap.get(Integer.parseInt(request.getParameter("classId")));
             Integer[] paginateChildIdSet;
 
+            if (childIdsSelectedList == null) {
+                result.put("sEcho", sEcho);
+                result.put("iTotalRecords", 0);
+                result.put("iTotalDisplayRecords", 0);
+                result.put("aaData", array);
+                response.setContentType("application/json");
+                response.setHeader("Cache-Control",
+                        "private, no-store, no-cache, must-revalidate");
+                response.setHeader("Pragma", "no-cache");
+                out.print(result);
+                return;
+            }
 
             int linksNumber = childIdsSelectedList.size();
             if (linksNumber < amount) {

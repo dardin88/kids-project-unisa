@@ -9,7 +9,8 @@ import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import it.unisa.kids.serviceManagement.canteenManagement.ICanteenManager;
 import it.unisa.kids.serviceManagement.canteenManagement.MealRequestBean;
-import it.unisa.kids.serviceManagement.paymentManagement.servlet.InsertPaymentServlet;
+import it.unisa.kids.serviceManagement.paymentManagement.IPaymentManager;
+import it.unisa.kids.serviceManagement.paymentManagement.PaymentBean;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.GregorianCalendar;
@@ -28,9 +29,11 @@ import javax.servlet.http.HttpServletResponse;
 public class InsertMealRequestServlet extends HttpServlet {
 
     private ICanteenManager canteenManager;
+    private IPaymentManager paymentManager;
 
     public void init(ServletConfig config) {
         this.canteenManager = (ICanteenManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_MENU);
+        this.paymentManager = (IPaymentManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_PAYMENT);
     }
 
     /**
@@ -68,17 +71,28 @@ public class InsertMealRequestServlet extends HttpServlet {
             mealReq.setDate(reqDate);
 
             canteenManager.insert(mealReq);
+            
+            // inserimento del pagamento della richiesta pasto con conseguente invio dell'email automatico attraverso l'Observer
+            PaymentBean payment = new PaymentBean();
+            payment.setParentId(parentId);
+            payment.setPaymentDescription("Richiesta pasto mensa");
+            payment.setAmount(MealRequestBean.PRICE_MEALREQ);
+            payment.setPayee(PaymentBean.DEFAULT_PAYEE);
+            payment.setDiscount(0);
+            payment.setExpDate(reqDate);
+            payment.setPaid(false);
+            
+            paymentManager.insert(payment);
 
             CommonMethod.sendMessageRedirect(request, response, "Richiesta pasto inviata con successo.", "/canteenParent.jsp");
 
         } catch (SQLException e) {
             CommonMethod.sendMessageRedirect(request, response, "Verfica i campi", "/canteenParent.jsp");
-            Logger.getLogger(InsertPaymentServlet.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(InsertMealRequestServlet.class.getName()).log(Level.SEVERE, null, e);
 
         } catch (NumberFormatException e) {
             CommonMethod.sendMessageRedirect(request, response, "Verfica i campi", "/canteenParent.jsp");
-            Logger.getLogger(InsertPaymentServlet.class.getName()).log(Level.SEVERE, null, e);
-
+            Logger.getLogger(InsertMealRequestServlet.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
