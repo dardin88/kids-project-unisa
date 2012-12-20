@@ -4,7 +4,13 @@
  */
 package it.unisa.kids.communicationManagement.programEducationalManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
+import it.unisa.kids.accessManagement.accountManagement.JDBCAccountManager;
 import it.unisa.kids.accessManagement.classManagement.ClassBean;
+import it.unisa.kids.accessManagement.classManagement.IClassManager;
+import it.unisa.kids.accessManagement.classManagement.JDBCClassManager;
+import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationChildManager;
+import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.facade.AccessFacade;
 import it.unisa.kids.common.facade.IAccessFacade;
 import java.io.IOException;
@@ -13,11 +19,13 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javassist.ClassMap;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -45,14 +53,28 @@ public class GetClassTabsServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        HttpSession s = request.getSession();
+        Account user = (Account) s.getAttribute("user");
+        IClassManager cm = JDBCClassManager.getInstance();
         try {
-            List<ClassBean> classList = accessFacade.getClasses();
-            for (ClassBean clas : classList) {
-                out.print("<li><a href=\"#" + clas.getIdClasse() + "\">" + clas.getClassName() + "</a></li>");
+            if (!"Genitore".equals(user.getAccountType())) {
+                List<ClassBean> classList = accessFacade.getClasses();
+                for (ClassBean clas : classList) {
+                    out.print("<li><a href=\"#" + clas.getIdClasse() + "\">" + clas.getClassName() + "</a></li>");
+                }
+            }else{
+                RegistrationChild child = new RegistrationChild();
+                child.setParentId(user.getId());
+                List<RegistrationChild> children = accessFacade.search(child);
+                int sectionId = children.get(0).getSectionId();
+                ClassBean classToSearch = new ClassBean();
+                classToSearch.setIdClasse(sectionId);
+                ClassBean clas = cm.search(classToSearch).get(0);
+                out.println("<li><a href=\"#" + clas.getIdClasse() + "\">" + clas.getClassName() + "</a></li>");
             }
         } catch (SQLException ex) {
             Logger.getLogger(GetClassTabsServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
