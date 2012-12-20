@@ -101,8 +101,7 @@
                         <label class="artefactLabel" for="artefactOra">Ora</label>
                     </td>
                     <td>
-                        <input id="artefactOra" onkeyup="hiddenMessage()" onclick="hiddenMessage()" type="time" name="oraNews"></input>
-                        <span id="errOra" style="visibility: hidden;color:red;font-weight: bold"> Ora Obbligatoria per questa news </span> 
+                        <input id="artefactOra" type="time" name="oraNews"></input>                       
                     </td>
                     </p>
                     </tr>

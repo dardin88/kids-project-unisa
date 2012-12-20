@@ -48,14 +48,19 @@ function inserisciCommento(){
                 required: "Inserisci il contenuto."
             }
         },
-        submitHandler: function() {                
+        submitHandler: function() {  
             $.post("InsertComment", {
                 commentType:"annual_comm",
                 contenutoCommento:$("#contenutoCommento").val(),
-                idAutore:$("#idAutore").val()
+                idAutore:$("#idAutore").val(),
+                tipoAttore:$("#tipoAttore").val(),
+                idProgetto:$("#idProgetto").val()
+
             });
             $("#insertCommentoWindow").dialog("close");
-            document.lo.reload=true;
+            var oTable = $("#commentEduTable").dataTable();
+            oTable.fnDraw();
+            document.location.reload(true);
             $("#contenutoCommento").val("");
         }
     });
@@ -86,6 +91,7 @@ function buildShowTable(){
             //            }
             $("#mostraPath").html("<a style=\"color:black;background:none;\" href=\"DownloadProject?nameFile="+result[0]+"\">"+result[0]+"</a>");
             $("#mostraStato").html(result[1]);
+            $("#idProgetto").val(result[2]);
         },"text");
 }
 

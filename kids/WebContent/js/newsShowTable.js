@@ -143,42 +143,9 @@ function updateNews(id,title,description,type,data,time,allegato){
                 idNews:""+id               
             });
         
-            if(attached!="") {
-                $('form[name="updateNewsForm"]').on('submit', function(e) {
-                    e.preventDefault();
-                    $.ajax({
-                        type: 'POST',
-                        url: '/UploadFile',
-                        data: "scegliFile=" + $("#scegliFile") + "&nomeNews=" +  $("#artefactTitolo2").val(),
-                        cache: false,
-                        contentType: "multipart/form-data",
-                        processData: false,
-                        success: function(data){
-                            alert(data);
-                        },
-                          error: function()
-                    {
-                        alert("Chiamata fallita, si prega di riprovare...");
-                    }
-                    });
-                });
-//                $.ajax({
-//                    type: "POST",
-//                    url: "/kids/UploadFile",
-//                    data: "scegliFile=" + $("#scegliFile") + "&nomeNews=" +  $("#artefactTitolo2").val(),
-//                    dataType: "html",
-//                    contentType: 'multipart/form-data',
-//                    success: function(msg)
-//                    {
-//                        $("#risultato").html(msg);
-//                    },
-//                    error: function()
-//                    {
-//                        alert("Chiamata fallita, si prega di riprovare...");
-//                    }
-//                });
-            //  document.getElementById("updateNewsForm").action="UploadFile";
-            //$("#updateNewsForm").submit();
+            if(attached!="") {                
+                document.getElementById("updateNewsForm").action="UploadFile";
+                $("#updateNewsForm").submit();
             }else{
                 document.getElementById("updateNewsForm").action="";
             }
@@ -208,15 +175,7 @@ function showNews(title,description,type,data,time,allegato){
     
 }
 
-function verifyOra(){
-    var valore=document.getElementById("artefactTipo").value;
-    if(valore!=2)
-        document.getElementById("errOra").style.visibility="visible";       
-}
-function hiddenMessage(){
-    if((document.getElementById("artefactOra").text!="") ||(document.getElementById("artefactOra2").text!=""))
-        document.getElementById("errOra").style.visibility="hidden";       
-}
+
 
 
 function addNews(){

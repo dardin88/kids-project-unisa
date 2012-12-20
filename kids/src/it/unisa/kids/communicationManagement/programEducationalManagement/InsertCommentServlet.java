@@ -4,14 +4,19 @@
  */
 package it.unisa.kids.communicationManagement.programEducationalManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
+import it.unisa.kids.common.Mail;
+import it.unisa.kids.common.MailManager;
 import it.unisa.kids.common.RefinedAbstractManager;
+import it.unisa.kids.common.facade.AccountFacade;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -19,6 +24,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -46,7 +52,7 @@ public class InsertCommentServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            
+
             CommentBean insertComment = createInsertComment(request, response);
             if (insertComment == null) {
                 return;
@@ -62,20 +68,57 @@ public class InsertCommentServlet extends HttpServlet {
 
         }
     }
-    
-    private CommentBean createInsertComment(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {
+
+    private CommentBean createInsertComment(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
         String commentType = request.getParameter("commentType");
         CommentBean insertComment = new CommentBean();
-        
+
         if (commentType.equals(CommentBean.ANNUAL_COMMENT)) {
             insertComment.setClassId(0);       // setto a 0 per inserire commento annuale
-            GregorianCalendar g=new GregorianCalendar();
+            GregorianCalendar g = new GregorianCalendar();
             insertComment.setDate(g);
             insertComment.setAuthorId(Integer.parseInt(request.getParameter("idAutore")));
             insertComment.setTime(new java.sql.Time(g.getTime().getTime()));
-            //insertComment.setTime(new java.sql.Time(g.get(Calendar.HOUR),g.get(Calendar.MINUTE),g.get(Calendar.SECOND)));
+            insertComment.setAnnualId(Integer.parseInt(request.getParameter("idProgetto")));
             insertComment.setContent(request.getParameter("contenutoCommento"));
+            Mail m = new Mail();
+            Account resp = new Account();
+            Account delegatoRettore = new Account();
+            Account coordinatore = new Account();
+            List<Account> respAccount = new ArrayList<>();
+            List<Account> delAccount = new ArrayList<>();
+            List<Account> coordinatoreAccount = new ArrayList<>();
+            ArrayList<String> listaDestinatari = new ArrayList<>();
+            resp.setAccountType("Responsabile Scientifico");
+            delegatoRettore.setAccountType("Delegato del Rettore");
+            coordinatore.setAccountType("Coordinatore Psicopedagogico");
+            AccountFacade facade = new AccountFacade();
+            respAccount = facade.search(resp);
+            delAccount = facade.search(delegatoRettore);
+            coordinatoreAccount = facade.search(coordinatore);
+            String tipoAttore = request.getParameter("tipoAttore");            
+            if (tipoAttore.equalsIgnoreCase("Responsabile Scientifico")) {
+                for (Account n : coordinatoreAccount) {
+                    listaDestinatari.add(n.getEmail());
+                }
+                for (Account n : delAccount) {
+                    listaDestinatari.add(n.getEmail());
+                }
+                m.setBody("Commento inserito da Responsabile Scientifico");
+            } else if (tipoAttore.equalsIgnoreCase("Delegato del Rettore")) {
+                for (Account n : respAccount) {
+                    listaDestinatari.add(n.getEmail());
+                }
+                for (Account n : coordinatoreAccount) {
+                    listaDestinatari.add(n.getEmail());
+                }
+                m.setBody("Commento inserito dal Delegato del rettore");
+            }
+            m.setSubject("Commento Progetto Annuale");
+            m.setTo(listaDestinatari);
+            MailManager mm = new MailManager();
+            mm.sendMail(m);
         } else {
             insertComment.setAnnualId(0);      // setto a 0 per inserire commento per classi
             int classId = -1;
@@ -89,7 +132,7 @@ public class InsertCommentServlet extends HttpServlet {
                 CommonMethod.sendMessageRedirect(request, response, "Errore: classe non corretta", "/sectionEdu.jsp");
                 return null;
             }
-            
+
             int authorId = -1;
             try {
                 authorId = Integer.parseInt(request.getParameter("hiddenAccountId"));
@@ -97,16 +140,16 @@ public class InsertCommentServlet extends HttpServlet {
                 CommonMethod.sendMessageRedirect(request, response, "Errore: account non valido", "/sectionEdu.jsp");
                 return null;
             }
-            
+
             String commentContent = request.getParameter("commentContent");
-            
+
             GregorianCalendar g = new GregorianCalendar();
             insertComment.setDate(g);
-            insertComment.setTime(new java.sql.Time(g.get(Calendar.HOUR),g.get(Calendar.MINUTE),g.get(Calendar.SECOND)));
+            insertComment.setTime(new java.sql.Time(g.get(Calendar.HOUR), g.get(Calendar.MINUTE), g.get(Calendar.SECOND)));
             insertComment.setClassId(classId);
             insertComment.setAuthorId(authorId);
             insertComment.setContent(commentContent.trim());
-            
+
         }
 
         return insertComment;

@@ -67,7 +67,7 @@ public class SubmitProjectServlet extends HttpServlet {
             AccountFacade facade = new AccountFacade();
             respAccount = facade.search(resp);
             delAccount = facade.search(delegatoRettore);
-            coordinatoreAccount = facade.search(coordinatore);            
+            coordinatoreAccount = facade.search(coordinatore);
             if (request.getParameter("submitCoord") != null) {
                 project.setState("submitCoord");
             } else if (request.getParameter("acceptCoord") != null) {
@@ -86,6 +86,7 @@ public class SubmitProjectServlet extends HttpServlet {
                 for (Account n : delAccount) {
                     listaDestinatari.add(n.getEmail());
                 }
+                m.setBody("Programma Sottomesso da Coordinatore Psicopedagogico");
             } else if (tipoAttore.equalsIgnoreCase("Responsabile Scientifico")) {
                 for (Account n : coordinatoreAccount) {
                     listaDestinatari.add(n.getEmail());
@@ -93,6 +94,7 @@ public class SubmitProjectServlet extends HttpServlet {
                 for (Account n : delAccount) {
                     listaDestinatari.add(n.getEmail());
                 }
+                m.setBody("Programma Sottomesso da Responsabile Scientifico");
             } else if (tipoAttore.equalsIgnoreCase("Delegato del Rettore")) {
                 for (Account n : respAccount) {
                     listaDestinatari.add(n.getEmail());
@@ -100,15 +102,14 @@ public class SubmitProjectServlet extends HttpServlet {
                 for (Account n : coordinatoreAccount) {
                     listaDestinatari.add(n.getEmail());
                 }
+                m.setBody("Programma Convalidato dal Delegato del rettore");
             }
             programEducationalManager.updateProgramEducational(project);
-            m.setBody("programma sottomesso controllare alle ore ");
-            m.setSubject("sottomissione progetto annuale");
+            m.setSubject("Sottomissione Progetto Annuale");
             m.setTo(listaDestinatari);
             MailManager mm = new MailManager();
             mm.sendMail(m);
             response.sendRedirect("/kids/showProject.jsp");
-          //  request.getServletContext().getRequestDispatcher("/showProject.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(SubmitProjectServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
