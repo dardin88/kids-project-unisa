@@ -312,6 +312,7 @@ function doClassSelection(classData) {
 
 function doInsertDiffMenu(childData) {
     $("#hiddenChildIdInsDiff").val(childData.id);
+    getSicknessData();
     
     if (childData.cells[2].innerHTML.indexOf("accept.png") >= 0) {
         $("#insertDiffMenuDialog").dialog("option", "title", "Modifica men&ugrave; differenziato");
@@ -320,6 +321,17 @@ function doInsertDiffMenu(childData) {
     }
     
     $("#insertDiffMenuDialog").dialog("open");
+}
+
+function getSicknessData() {
+    $.post("GetSicknessData",
+    {
+        childId: $("#hiddenChildIdInsDiff").val()
+    },
+    function(jsonData, status) {
+        $("#sicknessArea").val(jsonData.sickness);
+        $("#noteArea").val(jsonData.note);
+    });
 }
 
 function doAssociatedMenuSelection(assMenuData) {    

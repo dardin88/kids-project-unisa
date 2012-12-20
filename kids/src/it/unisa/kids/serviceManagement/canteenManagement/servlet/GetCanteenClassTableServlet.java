@@ -75,6 +75,7 @@ public class GetCanteenClassTableServlet extends HttpServlet {
             }
 
             List<ClassBean> classList = accessFacade.getClasses();
+            
             ClassBean[] paginateClassSet;
 
 
@@ -91,11 +92,12 @@ public class GetCanteenClassTableServlet extends HttpServlet {
                     paginateClassSet = new ClassBean[toShow];
                     System.arraycopy(classList.toArray(), start, paginateClassSet, 0, toShow);
                 }
+                Map<Integer, List<Integer>> classChildMap = null;
                 for (ClassBean clas : paginateClassSet) {
                     JSONObject jObj = new JSONObject();
 
                     // mappa che tiene traccia della classe con i suoi bambini, da conservare nella ServletContext per l'uso da parte di GetChildrenTableServlet
-                    Map<Integer, List<Integer>> classChildMap = new HashMap<Integer, List<Integer>>();
+                    classChildMap = new HashMap<Integer, List<Integer>>();
                     List<Integer> childIds = new ArrayList<Integer>();  // lista degli id dei bambini che necessitano di un pranzo di questa classe
 
                     List<RegistrationChild> regChildList = clas.getBambini();    // oppure effettuare una ricerca di RegistrationChild con sectionId == clas.getIdClasse();
@@ -104,7 +106,7 @@ public class GetCanteenClassTableServlet extends HttpServlet {
                     for (RegistrationChild rc : regChildList) {
                         if (CanteenUtilities.needsLunch(rc)) {
                             mealCount++;
-                            if (!classHasDiffMenu && CanteenUtilities.needsDiffMenu(rc)) {
+                            if (CanteenUtilities.needsDiffMenu(rc)) {
                                 classHasDiffMenu = true;
                                 childIds.add(rc.getId());
                             }
@@ -123,8 +125,8 @@ public class GetCanteenClassTableServlet extends HttpServlet {
 
                     // salvo la mappa costruita in questa ServletContext da prelevare nella GetChildrenTableServlet
                     classChildMap.put(clas.getIdClasse(), childIds);
-                    getServletContext().setAttribute("classChildMap", classChildMap);
                 }
+                getServletContext().setAttribute("classChildMap", classChildMap);
             }
             result.put("sEcho", sEcho);
             result.put("iTotalRecords", linksNumber);

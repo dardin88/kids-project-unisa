@@ -108,6 +108,14 @@
                             <form id="insertDiffMenuForm" class="cmxform" method="post" action="InsertDiffMenu">
                                 <table>
                                     <tr>
+                                        <td><label for="sicknessArea">Malattie:&nbsp;</label></td>
+                                        <td><textarea rows="10" cols="50" maxlength="400" name="sicknessArea" id="sicknessArea" readonly></textarea></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="noteArea">Note:&nbsp;</label></td>
+                                        <td><textarea rows="10" cols="50" maxlength="400" name="noteArea" id="noteArea" readonly></textarea></td>
+                                    </tr>
+                                    <tr>
                                         <td><label for="firstDiff">Primo:&nbsp;</label></td>
                                         <td><input type="text" name="firstDiff" id="firstDiff"></td>
                                     </tr>
