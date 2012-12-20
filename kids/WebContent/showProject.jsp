@@ -14,7 +14,9 @@
 <c:if test="${sessionScope.user.getAccountType()!='Coordinatore Psicopedagogico'}">
     <c:if test="${sessionScope.user.getAccountType()!='Responsabile Scientifico'}">
         <c:if test="${sessionScope.user.getAccountType()!='Delegato del rettore'}">
-            <c:redirect url="index.jsp" />
+            <c:if test="${sessionScope.user.getAccountType()!='Genitore'}">
+                <c:redirect url="index.jsp" />
+            </c:if>
         </c:if>
     </c:if>
 </c:if>
@@ -39,7 +41,7 @@
                 activePage();
                 initializeLinksManager();
                 showComments();
-                
+                messageDialog();
             });
         </script>
         <title>Kids</title>
@@ -52,7 +54,7 @@
         </form>
     </div>
     <div id="insertCommentoWindow" title="Inserisci Commento" style="display: inline">
-        <form id="insertCommentoForm" class="cmxform" method="post" action="">
+        <form id="insertCommentoForm" class="cmxform" method="post" action="InsertComment">
             <fieldset>
                 <table width="80%">
                     <p style="text-align: left;" class="formp">
@@ -66,8 +68,11 @@
                     </tr>
                 </table>
                 <input type="submit" class="windowButton" id="submitCommento" value="Ok"/> 
-                <input type="hidden" id="idAutore" value=${sessionScope.user.getId()} />
-                <input type="hidden" id="idProgetto" />
+                <input type="hidden" id="idAutore" name="idAutore" value=${sessionScope.user.getId()} />
+                <input type="hidden" id="idProgetto" name="idProgetto"/>
+                <input type="hidden" id="commentType" name="commentType" value="annual_comm" />
+                <input type="hidden" value="${sessionScope.user.getAccountType()}" name="tipoAttore" id="tipoAttore" />
+
             </fieldset>  
         </form>
     </div>
@@ -80,6 +85,23 @@
 </div>
 <body>
     <%@include file="header.jsp" %>
+    <c:if test="${requestScope.message != null}">
+        <div id="confirm" title="Message" style="display: inline">
+            <form id="confirmForm" class="cmxform" method="post" action="showProject.jsp">
+                <fieldset>
+                    <p class="formp">
+                        <label class="requirementLabel">${requestScope.message}</label>
+                    </p>
+                    <p class="formp">
+                        <input type="submit" class="confirmButton" id="confirmButton" value="OK">
+                    </p>
+                </fieldset>
+            </form>
+        </div>
+    </c:if>
+    <c:if test="${sessionScope.user.getAccountType()=='Genitore'}">
+        <h1 style="font-size: 24px">Clicca sul nome del path per scaricare il Progetto Annuale</h1>               
+    </c:if>
     <div id="linksManagement">
         <form id="modifyProjectForm" class="cmxform"  action="SubmitProject" method="post">
             <input type="hidden" value="${sessionScope.user.getAccountType()}" name="tipoAttore" id="tipoAttore" />
@@ -108,24 +130,28 @@
         <div style="font-size: 18px;font-weight: bold;padding-bottom: 30px;">
             Stato: <span id="mostraStato"></span>
         </div>
-        <h1 style="font-size: 24px">Possibili Commenti</h1>                
+        <c:if test="${sessionScope.user.getAccountType()!='Genitore'}">
+            <h1 style="font-size: 24px">Possibili Commenti</h1>                
+        </c:if>
         <c:if test="${sessionScope.user.getAccountType()=='Responsabile Scientifico'}" >
             <input type="button" style="margin-bottom: 5px;height: 30px" id="insertCommento" onclick="inserisciCommento()"value="Inserisci Commento" />
         </c:if>
         <c:if test="${sessionScope.user.getAccountType()=='Delegato del rettore'}" >
             <input type="button" style="margin-bottom: 5px;height: 30px" id="insertCommento" onclick="inserisciCommento()" value="Inserisci Commento" />
         </c:if>
-        <table id="commentEduTable">
-            <thead>
-                <tr>
-                    <th>Data</th>
-                    <th>Ora</th>
-                    <th>Contenuto</th>
-                    <th>Autore</th>
-                    <th>Operazioni</th>
-                </tr>
-            </thead>
-        </table>
+        <c:if test="${sessionScope.user.getAccountType()!='Genitore'}">
+            <table id="commentEduTable">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Ora</th>
+                        <th>Contenuto</th>
+                        <th>Autore</th>
+                        <th>Operazioni</th>
+                    </tr>
+                </thead>
+            </table>
+        </c:if>
     </div>
 
     <%@include file="footer.jsp" %>

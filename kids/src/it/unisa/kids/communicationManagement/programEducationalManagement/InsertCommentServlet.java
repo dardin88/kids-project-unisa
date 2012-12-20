@@ -59,7 +59,6 @@ public class InsertCommentServlet extends HttpServlet {
             }
 
             activityManager.insert(insertComment);
-            
             if (request.getParameter("commentType").equals(CommentBean.CLASS_COMMENT)) {
                 CommonMethod.sendMessageRedirect(request, response, "Commento inserito con successo", "/sectionEdu.jsp");
             } else {
