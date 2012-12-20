@@ -16,6 +16,13 @@ function initializeLinksManager(){
         width: 500
     });
     
+    $("#removeCommentoWindow").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: 400
+    });
+    
     $("#draftCoord").button();
     $("#submitCoord").button();
     $("#acceptResp").button();
@@ -80,6 +87,24 @@ function buildShowTable(){
             $("#mostraPath").html("<a style=\"color:black;background:none;\" href=\"DownloadProject?nameFile="+result[0]+"\">"+result[0]+"</a>");
             $("#mostraStato").html(result[1]);
         },"text");
+}
+
+function removeComment(id){
+    $("#removeCommentoWindow").dialog("open");
+    $("#notRemoveCommentoButton").button();
+    $("#notRemoveCommentoButton").click(function(){
+        $("#removeCommentoWindow").dialog("close");
+    });
+    $("#removeCommentoButton").button();
+    $("#removeCommentoButton").click(function(){
+        $.post("RemoveCommento",{
+            idCommento:""+id
+        });
+        $("#removeCommentoWindow").dialog("close");
+        document.location.reload(true);
+        var oTable = $("#commentEduTable").dataTable();
+        oTable.fnDraw();
+    }) 
 }
 
 

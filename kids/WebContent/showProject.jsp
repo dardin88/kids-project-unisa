@@ -55,7 +55,7 @@
         <form id="insertCommentoForm" class="cmxform" method="post" action="">
             <fieldset>
                 <table width="80%">
-                   <p style="text-align: left;" class="formp">
+                    <p style="text-align: left;" class="formp">
                     <td>
                         <label class="artefactLabel" for="artefactDescrizione">Contenuto *</label>
                     </td>
@@ -67,59 +67,67 @@
                 </table>
                 <input type="submit" class="windowButton" id="submitCommento" value="Ok"/> 
                 <input type="hidden" id="idAutore" value=${sessionScope.user.getId()} />
+                <input type="hidden" id="idProgetto" />
             </fieldset>  
         </form>
     </div>
-    <body>
-        <%@include file="header.jsp" %>
-        <div id="linksManagement">
-            <form id="modifyProjectForm" class="cmxform"  action="SubmitProject" method="post">
-                <input type="hidden" value="${sessionScope.user.getAccountType()}" name="tipoAttore" id="tipoAttore" />
-                <c:if test="${sessionScope.user.getAccountType()=='Coordinatore Psicopedagogico'}" >
-                    <div style="text-align: center">
-                        <input type="button" style="margin-bottom: 5px;height: 40px" onclick="uploadFile()" name="draftCoord" id="draftCoord" value="Carica Progetto Annuale" />               
-                        <input type="submit" style="margin-bottom: 5px;height: 40px" id="submitCoord" name="submitCoord" value="Sottometti al Responsabile Scientifico" />
-                    </div>
-                </c:if>
-                <c:if test="${sessionScope.user.getAccountType()=='Responsabile Scientifico'}" >
-                    <div style="text-align: center">
-                        <input type="submit" style="margin-bottom: 5px;height: 40px"  value="Sottometti al Delegato del Rettore" name="acceptResp" id="acceptResp" />
-                        <input type="submit" style="margin-bottom: 5px;height: 40px"  value="Richiedi Modifiche" name="requestModify" id="requestModify" />
-                    </div>
-                </c:if>
-                <c:if test="${sessionScope.user.getAccountType()=='Delegato del rettore'}" >
-                    <div style="text-align: center">
-                        <input type="submit" style="margin-bottom: 5px;height: 40px"  value="Accettazione definitiva" name="acceptDeleg" id="acceptDeleg" />
-                        <input type="submit" style="margin-bottom: 5px;height: 40px"  value="Richiedi Modifiche" name="requestModify" id="requestModify" />
-                    </div>
-                </c:if>
-            </form>
-            <div style="padding-top: 22px;font-size: 18px;font-weight: bold">
-                Path: <span id="mostraPath"></span>
-            </div>
-            <div style="font-size: 18px;font-weight: bold;padding-bottom: 30px;">
-                Stato: <span id="mostraStato"></span>
-            </div>
-            <h1 style="font-size: 24px">Possibili Commenti</h1>                
+    <div class="removeNews" id="removeCommentoWindow" title="Rimuovi News" >
+        <p class="formp">    
+        <h3> Vuoi rimuovere definitivamente questo commento?</h3>
+        <input type="button" class="buttonRemove" id="removeCommentoButton" value="Ok" />
+        <input type="button" class="buttonRemove" id="notRemoveCommentoButton" value="Annulla" />
+    </p>
+</div>
+<body>
+    <%@include file="header.jsp" %>
+    <div id="linksManagement">
+        <form id="modifyProjectForm" class="cmxform"  action="SubmitProject" method="post">
+            <input type="hidden" value="${sessionScope.user.getAccountType()}" name="tipoAttore" id="tipoAttore" />
+            <c:if test="${sessionScope.user.getAccountType()=='Coordinatore Psicopedagogico'}" >
+                <div style="text-align: center">
+                    <input type="button" style="margin-bottom: 5px;height: 40px" onclick="uploadFile()" name="draftCoord" id="draftCoord" value="Carica Progetto Annuale" />               
+                    <input type="submit" style="margin-bottom: 5px;height: 40px" id="submitCoord" name="submitCoord" value="Sottometti al Responsabile Scientifico" />
+                </div>
+            </c:if>
             <c:if test="${sessionScope.user.getAccountType()=='Responsabile Scientifico'}" >
-                <input type="button" style="margin-bottom: 5px;height: 30px" id="insertCommento" onclick="inserisciCommento()"value="Inserisci Commento" />
+                <div style="text-align: center">
+                    <input type="submit" style="margin-bottom: 5px;height: 40px"  value="Sottometti al Delegato del Rettore" name="acceptResp" id="acceptResp" />
+                    <input type="submit" style="margin-bottom: 5px;height: 40px"  value="Richiedi Modifiche" name="requestModify" id="requestModify" />
+                </div>
             </c:if>
             <c:if test="${sessionScope.user.getAccountType()=='Delegato del rettore'}" >
-                <input type="button" style="margin-bottom: 5px;height: 30px" id="insertCommento" onclick="inserisciCommento()" value="Inserisci Commento" />
+                <div style="text-align: center">
+                    <input type="submit" style="margin-bottom: 5px;height: 40px"  value="Accettazione definitiva" name="acceptDeleg" id="acceptDeleg" />
+                    <input type="submit" style="margin-bottom: 5px;height: 40px"  value="Richiedi Modifiche" name="requestModify" id="requestModify" />
+                </div>
             </c:if>
-            <table id="commentEduTable">
-                <thead>
-                    <tr>
-                        <th>Data</th>
-                        <th>Ora</th>
-                        <th>Contenuto</th>
-                        <th>Autore</th>
-                        <th>Operazioni</th>
-                    </tr>
-                </thead>
-            </table>
+        </form>
+        <div style="padding-top: 22px;font-size: 18px;font-weight: bold">
+            Path: <span id="mostraPath"></span>
         </div>
+        <div style="font-size: 18px;font-weight: bold;padding-bottom: 30px;">
+            Stato: <span id="mostraStato"></span>
+        </div>
+        <h1 style="font-size: 24px">Possibili Commenti</h1>                
+        <c:if test="${sessionScope.user.getAccountType()=='Responsabile Scientifico'}" >
+            <input type="button" style="margin-bottom: 5px;height: 30px" id="insertCommento" onclick="inserisciCommento()"value="Inserisci Commento" />
+        </c:if>
+        <c:if test="${sessionScope.user.getAccountType()=='Delegato del rettore'}" >
+            <input type="button" style="margin-bottom: 5px;height: 30px" id="insertCommento" onclick="inserisciCommento()" value="Inserisci Commento" />
+        </c:if>
+        <table id="commentEduTable">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Ora</th>
+                    <th>Contenuto</th>
+                    <th>Autore</th>
+                    <th>Operazioni</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
 
-        <%@include file="footer.jsp" %>
-    </body>
+    <%@include file="footer.jsp" %>
+</body>
 </html>

@@ -347,7 +347,7 @@ public class JDBCActivityManager implements IActivityManager {
                     + DBNames.ATT_COMMENT_DATE + ", "
                     + DBNames.ATT_COMMENT_ANNUALID + ", "
                     + DBNames.ATT_COMMENT_CLASSID + ", "
-                    + DBNames.ATT_COMMENT_AUTHORID+", "
+                    + DBNames.ATT_COMMENT_AUTHORID + ", "
                     + DBNames.ATT_COMMENT_TIME
                     + ") VALUES(?, ?, ?, ?, ?, ?, ?)";
 
@@ -418,7 +418,7 @@ public class JDBCActivityManager implements IActivityManager {
                 query += useAnd(andState) + DBNames.ATT_COMMENT_AUTHORID + "= ?";
                 andState = true;
             }
-            
+
             if (pComment.getTime() != null) {
                 query += useAnd(andState) + DBNames.ATT_COMMENT_TIME + "= ?";
                 andState = true;
@@ -457,7 +457,7 @@ public class JDBCActivityManager implements IActivityManager {
                 pstmt.setInt(i, pComment.getAuthorId());
                 i++;
             }
-            
+
             if (pComment.getTime() != null) {
                 pstmt.setTime(i, pComment.getTime());
                 i++;
@@ -499,14 +499,31 @@ public class JDBCActivityManager implements IActivityManager {
         return comments;
     }
 
+    public void remove(CommentBean pComment) throws SQLException {
+        Connection connection = null;
+        Statement stmt = null;
+        String query;
+        try {
+            connection = DBConnectionPool.getConnection();
+            query = "delete from " + DBNames.TABLE_COMMENT + " where " + DBNames.ATT_COMMENT_ID + "=" + pComment.getId();
+            stmt = connection.createStatement();
+            stmt.executeUpdate(query);
+            connection.commit();
+
+        } finally {
+            stmt.close();
+            DBConnectionPool.releaseConnection(connection);
+        }
+    }
+
     public void remove(DailyActivitySection pDailyActivitySection) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
         String query = null;
         try {
             con = DBConnectionPool.getConnection();
-            query = "DELETE FROM " + DBNames.TABLE_ACTIVITYSECTIONDAILY + " WHERE " + DBNames.ATT_ACTIVITYSECTTIONDAILY_ID + "='" + pDailyActivitySection.getId()+"'";
-           System.out.println(query);
+            query = "DELETE FROM " + DBNames.TABLE_ACTIVITYSECTIONDAILY + " WHERE " + DBNames.ATT_ACTIVITYSECTTIONDAILY_ID + "='" + pDailyActivitySection.getId() + "'";
+            System.out.println(query);
             pstmt = con.prepareStatement(query);
             pstmt.executeUpdate();
             con.commit();
