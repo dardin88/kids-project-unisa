@@ -278,3 +278,15 @@ function removeActivity(activityId) {
         $("#postMessageDialog").dialog("open");
     });
 }
+
+function removeComment(commentId) {
+    $.post("RemoveCommento",
+    {
+        idCommento: commentId
+    },
+    function(jsonData, status) {
+        var message = jsonData.message;
+        $("#bodyMessage").html(message);
+        $("#postMessageDialog").dialog("open");
+    });
+}

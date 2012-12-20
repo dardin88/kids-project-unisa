@@ -59,6 +59,12 @@ public class InsertCommentServlet extends HttpServlet {
             }
 
             activityManager.insert(insertComment);
+            
+            if (request.getParameter("commentType").equals(CommentBean.CLASS_COMMENT)) {
+                CommonMethod.sendMessageRedirect(request, response, "Commento inserito con successo", "/sectionEdu.jsp");
+            } else {
+                CommonMethod.sendMessageRedirect(request, response, "Commento inserito con successo", "/showProject.jsp");
+            }
 
         } catch (SQLException e) {
             Logger.getLogger(InsertCommentServlet.class.getName()).log(Level.SEVERE, null, e);

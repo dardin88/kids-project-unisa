@@ -138,7 +138,7 @@ public class GetCommentTableServlet extends HttpServlet {
             searchComment.setContent(request.getParameter("sSearch"));
         } else {
             searchComment.setAnnualId(0);      // setto a 0 per cercare solo i commenti per classi
-            // altri set...
+            searchComment.setClassId(Integer.parseInt(request.getParameter("classId")));
         }
 
         return searchComment;
