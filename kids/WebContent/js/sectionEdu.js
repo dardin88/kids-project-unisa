@@ -253,6 +253,16 @@ function acceptDocumentScient() {
 }
 
 function updateActivity(activityId) {
+    $.post("GetActivityData",
+    {
+        activityId: activityId
+    },
+    function(jsonData, status) {
+        $("#activityNameMod").val(jsonData.actName);
+        $("#StartDateMod").val(jsonData.actStartDate);
+        $("#EndDateMod").val(jsonData.actEndDate);
+        $("#activityContentMod").val(jsonData.actContent);
+    });
     $("#updateActivityDialog").dialog("open");
     $("#hiddenActIdMod").val(activityId);
 }

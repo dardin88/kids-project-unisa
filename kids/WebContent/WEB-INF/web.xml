@@ -609,6 +609,10 @@
         <servlet-name>RemoveCommentoServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.programEducationalManagement.RemoveCommentoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetActivityDataServlet</servlet-name>
+        <servlet-class>it.unisa.kids.communicationManagement.programEducationalManagement.GetActivityDataServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
@@ -1212,6 +1216,10 @@
     <servlet-mapping>
         <servlet-name>RemoveCommentoServlet</servlet-name>
         <url-pattern>/RemoveCommento</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetActivityDataServlet</servlet-name>
+        <url-pattern>/GetActivityData</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

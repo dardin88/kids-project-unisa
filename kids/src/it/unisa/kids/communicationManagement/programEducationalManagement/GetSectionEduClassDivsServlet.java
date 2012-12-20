@@ -4,13 +4,18 @@
  */
 package it.unisa.kids.communicationManagement.programEducationalManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.accessManagement.classManagement.ClassBean;
+import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.facade.AccessFacade;
 import it.unisa.kids.common.facade.IAccessFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -48,7 +53,31 @@ public class GetSectionEduClassDivsServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            List<ClassBean> classList = accessFacade.getClasses();
+            List<ClassBean> classList;
+            Account userLoggedIn = (Account) request.getSession().getAttribute("user");
+            if (userLoggedIn.getAccountType().equals("Genitore")) {
+                RegistrationChild searchRegChild = new RegistrationChild();
+                searchRegChild.setParentId(userLoggedIn.getId());
+                List<RegistrationChild> loggedInUserChildren = accessFacade.search(searchRegChild);
+                
+                ClassBean searchClass = new ClassBean();
+                searchClass.setState("accettata");
+                Map<Integer, ClassBean> classMap = new HashMap<Integer, ClassBean>();
+                for (RegistrationChild rc : loggedInUserChildren) {
+                    searchClass.setIdClasse(rc.getSectionId());
+                    List<ClassBean> childClass = accessFacade.search(searchClass);
+                    if (!childClass.isEmpty()) {
+                        classMap.put(childClass.get(0).getIdClasse(), childClass.get(0));
+                    }
+                }
+                classList = new ArrayList<ClassBean>();
+                for (Integer i : classMap.keySet()) {
+                    classList.add(classMap.get(i));
+                }
+            } else {
+                classList = accessFacade.getClasses();
+            }
+            
             for (ClassBean clas : classList) {
                 out.println("<div id=\"" + clas.getIdClasse() + "\" class=\"sectionEduClass\">\n"
                         + "     <table id=\"table" + clas.getIdClasse() + "\">\n"
@@ -58,7 +87,9 @@ public class GetSectionEduClassDivsServlet extends HttpServlet {
                         + "                 <th>Contenuto</th>\n"
                         + "                 <th>Data inizio</th>\n"
                         + "                 <th>Data fine</th>\n"
+                        + "                 <c:if test=\"${sessionScope.user.getAccountType() != 'Genitore'}\">\n"
                         + "                 <th>Operazioni</th>\n"
+                        + "                 </c:if>\n"
                         + "             </tr>\n"
                         + "         </thead>\n"
                         + "         <tbody></tbody>\n"
@@ -68,6 +99,7 @@ public class GetSectionEduClassDivsServlet extends HttpServlet {
                         + "         buildClassTable(" + clas.getIdClasse() + ");\n"
                         + "         buildActButton(" + clas.getIdClasse() + ");\n"
                         + "     </script>\n"
+                        + "     <c:if test=\"${sessionScope.user.getAccountType() != 'Responsabile Scientifico'}\">\n"
                         + "     <div style=\"padding-top: 20px;\">\n"
                         + "         <h1>Commenti</h1>\n"
                         + "         <table id=\"comm" + clas.getIdClasse() + "\">\n"
@@ -88,6 +120,7 @@ public class GetSectionEduClassDivsServlet extends HttpServlet {
                         + "         buildCommentEduTable(" + clas.getIdClasse() + ");\n"
                         + "         buildCommentButton(" + clas.getIdClasse() + ");\n"
                         + "     </script>\n"
+                        + "     </c:if>\n"
                         + "</div>");
             }
         } catch (SQLException e) {

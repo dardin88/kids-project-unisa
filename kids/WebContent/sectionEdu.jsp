@@ -7,6 +7,15 @@
 <%@page import="it.unisa.kids.communicationManagement.programEducationalManagement.CommentBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:if test="${sessionScope.user == null}">
+    <c:redirect url="index.jsp" />
+</c:if>
+<c:if test="${sessionScope.user.getAccountType() != 'Responsabile Scientifico'
+              && sessionScope.user.getAccountType() != 'Delegato del rettore'
+              && sessionScope.user.getAccountType() != 'Coordinatore Psicopedagogico'
+              && sessionScope.user.getAccountType() != 'Genitore'}">
+    <c:redirect url="index.jsp" />
+</c:if>
 <!DOCTYPE html>
 <html>
     <head>
@@ -78,13 +87,23 @@
                 <jsp:include page="/GetSectionEduClassDivs"></jsp:include>
 
             </div>
-            <div style="padding-top: 20px;">
-                <input type="button" id="saveDraftBtn" value="Salva come bozza" onclick="saveSectionDraft();">
-                <input type="button" id="submitBtn" value="Sottometti" onclick="submitSectionProgram();">
-                <input type="button" id="requestModBtn" value="Richiedi modifiche" onclick="requestModSectProg();">
-                <input type="button" id="acceptDocRectBtn" value="Accetta documento" onclick="acceptDocumentRect();">
-                <input type="button" id="acceptDocScientBtn" value="Accetta documento" onclick="acceptDocumentScient();">
-            </div>
+            <c:if test="${sessionScope.user.getAccountType() != 'Genitore'}">
+                <div style="padding-top: 20px;">
+                    <c:if test="${sessionScope.user.getAccountType() == 'Coordinatore Psicopedagogico'}">
+                        <input type="button" id="saveDraftBtn" value="Salva come bozza" onclick="saveSectionDraft();">
+                        <input type="button" id="submitBtn" value="Sottometti" onclick="submitSectionProgram();">
+                    </c:if>
+                    <c:if test="${sessionScope.user.getAccountType() == 'Responsabile Scientifico' || sessionScope.user.getAccountType() == 'Delegato del rettore'}">
+                        <input type="button" id="requestModBtn" value="Richiedi modifiche" onclick="requestModSectProg();">
+                    </c:if>
+                    <c:if test="${sessionScope.user.getAccountType() == 'Delegato del rettore'}">
+                        <input type="button" id="acceptDocRectBtn" value="Accetta documento" onclick="acceptDocumentRect();">
+                    </c:if>
+                    <c:if test="${sessionScope.user.getAccountType() == 'Responsabile Scientifico'}">
+                        <input type="button" id="acceptDocScientBtn" value="Accetta documento" onclick="acceptDocumentScient();">
+                    </c:if>
+                </div>
+            </c:if>
 
             <div id="insertActivityDialog" title="Inserisci attivit&agrave;">
                 <form id="insertActivityForm" class="cmxform" method="post" action="InsertActivity">
