@@ -77,6 +77,7 @@ public class GetCommentTableServlet extends HttpServlet {
 
             List<CommentBean> commentList;
             CommentBean searchComment = createSearchComment(request);
+             searchComment.setContent(request.getParameter("sSearch"));
             commentList = activityManager.search(searchComment);
             CommentBean[] paginateCommentSet;
             int linksNumber = commentList.size();

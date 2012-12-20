@@ -33,4 +33,6 @@ public interface IActivityManager extends IManager {
     public void delete(Activity pActivity) throws SQLException;
     
     public void remove(DailyActivitySection pDailyActivitySection) throws SQLException;
+    
+     public void remove(CommentBean pComment) throws SQLException;
 }
