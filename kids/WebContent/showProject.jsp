@@ -11,14 +11,12 @@
 <c:if test="${sessionScope.user==null}">
     <c:redirect url="index.jsp" />
 </c:if>
-<c:if test="${sessionScope.user.getAccountType()!='Coordinatore Psicopedagogico'}">
-    <c:if test="${sessionScope.user.getAccountType()!='Responsabile Scientifico'}">
-        <c:if test="${sessionScope.user.getAccountType()!='Delegato del rettore'}">
-            <c:if test="${sessionScope.user.getAccountType()!='Genitore'}">
-                <c:redirect url="index.jsp" />
-            </c:if>
-        </c:if>
-    </c:if>
+<c:if test="${sessionScope.user.getAccountType() != 'Responsabile Scientifico'
+              && sessionScope.user.getAccountType() != 'Delegato del rettore'
+              && sessionScope.user.getAccountType() != 'Coordinatore Psicopedagogico'
+              && sessionScope.user.getAccountType() != 'Educatore'
+              && sessionScope.user.getAccountType() != 'Genitore'}">
+    <c:redirect url="index.jsp" />
 </c:if>
 <html>
     <head>
@@ -99,9 +97,7 @@
             </form>
         </div>
     </c:if>
-    <c:if test="${sessionScope.user.getAccountType()=='Genitore'}">
-        <h1 style="font-size: 24px">Clicca sul nome del path per scaricare il Progetto Annuale</h1>               
-    </c:if>
+    
     <div id="linksManagement">
         <form id="modifyProjectForm" class="cmxform"  action="SubmitProject" method="post">
             <input type="hidden" value="${sessionScope.user.getAccountType()}" name="tipoAttore" id="tipoAttore" />
@@ -112,26 +108,26 @@
                 </div>
             </c:if>
             <c:if test="${sessionScope.user.getAccountType()=='Responsabile Scientifico'}" >
-                <div style="text-align: center">
+                <div style="text-align: center" id="option">
                     <input type="submit" style="margin-bottom: 5px;height: 40px"  value="Sottometti al Delegato del Rettore" name="acceptResp" id="acceptResp" />
                     <input type="submit" style="margin-bottom: 5px;height: 40px"  value="Richiedi Modifiche" name="requestModify" id="requestModify" />
                 </div>
             </c:if>
             <c:if test="${sessionScope.user.getAccountType()=='Delegato del rettore'}" >
-                <div style="text-align: center">
+                <div style="text-align: center" id="option">
                     <input type="submit" style="margin-bottom: 5px;height: 40px"  value="Accettazione definitiva" name="acceptDeleg" id="acceptDeleg" />
                     <input type="submit" style="margin-bottom: 5px;height: 40px"  value="Richiedi Modifiche" name="requestModify" id="requestModify" />
                 </div>
             </c:if>
         </form>
-        <div style="padding-top: 22px;font-size: 18px;font-weight: bold">
+        <div style="padding-top: 22px;font-size: 16px;font-weight: bold">
             Path: <span id="mostraPath"></span>
         </div>
-        <div style="font-size: 18px;font-weight: bold;padding-bottom: 30px;">
+        <div style="font-size: 14px;font-weight: bold;padding-bottom: 30px;">
             Stato: <span id="mostraStato"></span>
         </div>
         <c:if test="${sessionScope.user.getAccountType()!='Genitore'}">
-            <h1 style="font-size: 24px">Possibili Commenti</h1>                
+            <h1 style="font-size: 16px">Possibili Commenti</h1>                
         </c:if>
         <c:if test="${sessionScope.user.getAccountType()=='Responsabile Scientifico'}" >
             <input type="button" style="margin-bottom: 5px;height: 30px" id="insertCommento" onclick="inserisciCommento()"value="Inserisci Commento" />

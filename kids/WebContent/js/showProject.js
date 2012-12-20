@@ -29,6 +29,10 @@ function initializeLinksManager(){
     $("#acceptDeleg").button();
     $("#requestModify").button();
     $("#insertCommento").button();
+    if ($("#mostraPath").html()==""){
+        $("#option").hide();
+        $("#submitCoord").hide();
+    }
     buildShowTable();
 }
 
@@ -44,14 +48,16 @@ function uploadFile(){
     $("#uploadFileWindow").dialog("open");
     $("#sottometti").button();
     $("#scegliFile").button();  
-    if($("#sottometti").click(function(){        
+    if($("#sottometti").click(function(){
+        $("#submitCoord").show();        
         var valore=$("#scegliFile").val();
         var str=valore.split("\\");
         var nomeFile=str[str.length-1];       
-        if (valore!="")
+        if (valore!=""){
             document.getElementById("uploadFileForm").action="UploadProject?scegliFile"+nomeFile;
-        else
+        }else{
             document.getElementById("uploadFileForm").action=""; 
+        }
     }));
 }
 
@@ -80,7 +86,7 @@ function buildShowTable(){
                     $("#mostraPath").html("<a style=\"color:black;background:none;\" href=\"DownloadProject?nameFile="+result[0]+"\">"+result[0]+"</a>");
                     $("#mostraStato").html(result[1]);
                 }else{
-                     $("#mostraPath").html("Progetto Annuale non ancora disponibile");
+                    $("#mostraPath").html("Progetto Annuale non ancora disponibile");
                 }
             }else{
                 $("#mostraPath").html("<a style=\"color:black;background:none;\" href=\"DownloadProject?nameFile="+result[0]+"\">"+result[0]+"</a>");
