@@ -49,7 +49,7 @@ public class ShowProjectServlet extends HttpServlet {
             ArrayList<AnnualProject> listAnnualProject = programEducationalManager.show();
             //    ArrayList<AnnualProject> listAnnualProject=JDBCProgramEducational.getInstance().show();
             for (AnnualProject a : listAnnualProject) {
-                out.print(a.getPath() + "," + a.getState());
+                out.print(a.getPath() + "," + a.getState()+","+a.getId());
             }
         } catch (SQLException ex) {
             Logger.getLogger(ShowProjectServlet.class.getName()).log(Level.SEVERE, null, ex);

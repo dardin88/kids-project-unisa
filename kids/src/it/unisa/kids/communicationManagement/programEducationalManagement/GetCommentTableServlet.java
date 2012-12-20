@@ -77,7 +77,6 @@ public class GetCommentTableServlet extends HttpServlet {
 
             List<CommentBean> commentList;
             CommentBean searchComment = createSearchComment(request);
-             searchComment.setContent(request.getParameter("sSearch"));
             commentList = activityManager.search(searchComment);
             CommentBean[] paginateCommentSet;
             int linksNumber = commentList.size();
@@ -135,6 +134,8 @@ public class GetCommentTableServlet extends HttpServlet {
         CommentBean searchComment = new CommentBean();
         if (commentType.equals(CommentBean.ANNUAL_COMMENT)) {
             searchComment.setClassId(0);       // setto a 0 per cercare solo i commenti annuali
+            searchComment.setAnnualId(-1);
+            searchComment.setContent(request.getParameter("sSearch"));
         } else {
             searchComment.setAnnualId(0);      // setto a 0 per cercare solo i commenti per classi
             // altri set...
