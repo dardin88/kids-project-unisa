@@ -37,33 +37,7 @@ function inserisciCommento(){
     
     $("#submitCommento").button();
     $("#insertCommentoWindow").dialog("open");
-    $("#insertCommentoForm").validate({
-        rules: {              
-            contenutoCommento: {
-                required: true
-            }               
-        },
-        messages: {              
-            contenutoCommento: {
-                required: "Inserisci il contenuto."
-            }
-        },
-        submitHandler: function() {  
-            $.post("InsertComment", {
-                commentType:"annual_comm",
-                contenutoCommento:$("#contenutoCommento").val(),
-                idAutore:$("#idAutore").val(),
-                tipoAttore:$("#tipoAttore").val(),
-                idProgetto:$("#idProgetto").val()
-
-            });
-            $("#insertCommentoWindow").dialog("close");
-            var oTable = $("#commentEduTable").dataTable();
-            oTable.fnDraw();
-            document.location.reload(true);
-            $("#contenutoCommento").val("");
-        }
-    });
+    
 }
 
 function uploadFile(){
@@ -85,12 +59,33 @@ function buildShowTable(){
     $.post("ShowProject", 
         function (data){ 
             var result=data.split(",");
-            //            if(result[1]=="Sottomesso"){
-            //                $("#submitProjectAnnualButton").attr("disabled", "disabled");
-            //                $("#confirmProjectAnnualButton").attr("disabled","disabled");
-            //            }
-            $("#mostraPath").html("<a style=\"color:black;background:none;\" href=\"DownloadProject?nameFile="+result[0]+"\">"+result[0]+"</a>");
-            $("#mostraStato").html(result[1]);
+            if(result[1]=="submitCoord"){
+                $("#submitCoord").attr("disabled", "disabled");
+                $("#druftCoord").attr("disabled","disabled");
+            }
+            if(result[1]=="acceptResp"){
+                $("#acceptResp").attr("disabled", "disabled");
+                $("#requestModify").attr("disabled","disabled");
+            }
+            if(result[1]=="requestModify"){
+                $("#acceptResp").attr("disabled", "disabled");
+                $("#requestModify").attr("disabled","disabled");
+            }
+            if(result[1]=="acceptDeleg"){
+                $("#acceptDeleg").attr("disabled", "disabled");
+                $("#requestModify").attr("disabled","disabled");
+            }
+            if($("#tipoAttore").val()=="Genitore"){
+                if(result[1]=="acceptDeleg"){
+                    $("#mostraPath").html("<a style=\"color:black;background:none;\" href=\"DownloadProject?nameFile="+result[0]+"\">"+result[0]+"</a>");
+                    $("#mostraStato").html(result[1]);
+                }else{
+                     $("#mostraPath").html("Progetto Annuale non ancora disponibile");
+                }
+            }else{
+                $("#mostraPath").html("<a style=\"color:black;background:none;\" href=\"DownloadProject?nameFile="+result[0]+"\">"+result[0]+"</a>");
+                $("#mostraStato").html(result[1]);
+            }
             $("#idProgetto").val(result[2]);
         },"text");
 }

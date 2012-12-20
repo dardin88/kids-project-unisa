@@ -160,6 +160,9 @@
                 <li id="needCommunicationTable"><a href="needCommunicationTable.jsp">Comunicazioni Bisogni</a></li>
             </div>
             <div class="div">
+                <li id="annualProject"><a href="showProject.jsp">Programma Educativo</a></li>
+            </div>
+            <div class="div">
                 <li id="progEduMenuEL"><a href="sectionEdu.jsp">Programma Educativo - Sezione</a></li>
             </div>
         </c:if>
