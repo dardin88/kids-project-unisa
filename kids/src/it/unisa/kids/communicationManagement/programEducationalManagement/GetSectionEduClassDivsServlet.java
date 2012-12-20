@@ -7,6 +7,7 @@ package it.unisa.kids.communicationManagement.programEducationalManagement;
 import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.accessManagement.classManagement.ClassBean;
 import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
+import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.facade.AccessFacade;
 import it.unisa.kids.common.facade.IAccessFacade;
 import java.io.IOException;
@@ -76,6 +77,14 @@ public class GetSectionEduClassDivsServlet extends HttpServlet {
                 }
             } else {
                 classList = accessFacade.getClasses();
+            }
+            
+            if (classList.isEmpty()) {
+                out.print("<script type=\"text/javascript\">\n"
+                        + "     $(\"#sectionEduWithClass\").hide();"
+                        + "     $(\"#sectionEduNoClass\").show();"
+                        + "</script>");
+                return;
             }
             
             for (ClassBean clas : classList) {

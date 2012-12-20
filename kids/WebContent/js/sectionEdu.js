@@ -4,6 +4,7 @@
  */
 
 function initializeSectionEduPage() {
+    $("#sectionEduNoClass").hide();
     buildTabs();
     buildCommentEduTable();
     
