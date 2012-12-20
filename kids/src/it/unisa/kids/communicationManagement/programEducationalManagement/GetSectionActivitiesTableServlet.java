@@ -4,6 +4,7 @@
  */
 package it.unisa.kids.communicationManagement.programEducationalManagement;
 
+import it.unisa.kids.accessManagement.accountManagement.Account;
 import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
@@ -101,7 +102,10 @@ public class GetSectionActivitiesTableServlet extends HttpServlet {
                     CommonMethod.checkAddToJSON(jObj, "1", act.getDescription());
                     CommonMethod.checkAddToJSON(jObj, "2", CommonMethod.parseString(act.getStartDate()));
                     CommonMethod.checkAddToJSON(jObj, "3", CommonMethod.parseString(act.getEndDate()));
-                    CommonMethod.checkAddToJSON(jObj, "4", operazioni);
+                    Account loggedInUser = (Account) request.getSession().getAttribute("user");
+                    if (!loggedInUser.getAccountType().equals("Genitore")) {
+                        CommonMethod.checkAddToJSON(jObj, "4", operazioni);
+                    }
 
                     jObj.put("DT_RowId", "" + act.getId());
                     array.put(jObj);

@@ -159,6 +159,9 @@
             <div class="div">
                 <li id="needCommunicationTable"><a href="needCommunicationTable.jsp">Comunicazioni Bisogni</a></li>
             </div>
+            <div class="div">
+                <li id="progEduMenuEL"><a href="sectionEdu.jsp">Programma Educativo - Sezione</a></li>
+            </div>
         </c:if>
 
         <c:if test="${sessionScope.user.getAccountType()=='Educatore'}">
@@ -209,7 +212,10 @@
             </div>
             <div class="div">
                 <li id="annualProject"><a href="showProject.jsp">Programma Educativo</a></li>
-            </div> 
+            </div>
+            <div class="div">
+                <li id="progEduMenuEL"><a href="sectionEdu.jsp">Programma Educativo - Sezione</a></li>
+            </div>
         </c:if>
 
         <c:if test="${sessionScope.user.getAccountType()=='Responsabile Scientifico'}">
@@ -221,6 +227,9 @@
             </div>
             <div class="div">
                 <li id="annualProject"><a href="showProject.jsp">Programma Educativo</a></li>
+            </div>
+            <div class="div">
+                <li id="progEduMenuEL"><a href="sectionEdu.jsp">Programma Educativo - Sezione</a></li>
             </div>
         </c:if>
 
@@ -245,6 +254,9 @@
             </div>
             <div class="div">
                 <li id="annualProject"><a href="showProject.jsp">Programma Educativo</a></li>
+            </div>
+            <div class="div">
+                <li id="progEduMenuEL"><a href="sectionEdu.jsp">Programma Educativo - Sezione</a></li>
             </div>
         </c:if>
 
