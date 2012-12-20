@@ -30,7 +30,6 @@ public class CommonMethod {
             gregorian = new GregorianCalendar();
             gregorian.setTime(parsed);
         } catch(ParseException pe) {
-            System.out.println("Errore nel parseGregorianCalendar: " + date + " is not parsering!");
             gregorian = null;
         }
         

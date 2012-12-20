@@ -54,7 +54,6 @@ public class GetDailyActivityServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             int id = Integer.parseInt(request.getParameter("activityId"));
-            System.out.println("Attivita"+id);
             DailyActivitySection dailyActivitySection = new DailyActivitySection();
             dailyActivitySection.setId(id);
             List<DailyActivitySection> listDailyActivity = manager.search(dailyActivitySection);

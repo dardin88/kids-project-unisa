@@ -98,7 +98,6 @@ public class ServletUpdateResult extends HttpServlet {
         json.put("NumInsert", numInsert);
         json.put("NumUpdate", numUpdate);
         
-        System.out.println("Risultato della UpdateResult: " + json.toString());
 
         out.write(json.toString());
         out.close();

@@ -73,7 +73,6 @@ public class InsertNewsServlet extends HttpServlet {
             
             GregorianCalendar dataFinale=new GregorianCalendar(Integer.parseInt(temp[0]),Integer.parseInt(temp[1])-1,Integer.parseInt(temp[2]));
             n.setDate(dataFinale);
-          //  System.out.print(dataFinale.get(Calendar.YEAR)+" "+(dataFinale.get(Calendar.MONTH)+1)+" "+dataFinale.get(Calendar.DAY_OF_MONTH));
             
             HttpSession s = request.getSession();
             Account account =  (Account) s.getAttribute("user");

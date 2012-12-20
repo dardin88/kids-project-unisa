@@ -205,7 +205,6 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             pstmt = con.prepareStatement(query);
             pstmt.setInt(1, child.getId());
             /* Test della query
-             System.out.println(query);
              //*/
             numEditedRow = pstmt.executeUpdate();
             con.commit();
@@ -309,7 +308,6 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
                 + DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + ";");
         // Test della query
         //
-        // System.out.println("Query ricerca: " + query);
 
         try {
             con = DBConnectionPool.getConnection();
@@ -578,7 +576,6 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
                 + DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + ";");
         // Test della query
         //
-        // System.out.println("Query ricerca: " + query);
 
         try {
             con = DBConnectionPool.getConnection();
@@ -785,7 +782,6 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             pstmt.setInt(5, child.getId());
 
             /* Test della query
-             System.out.println(query);
              //*/
             numEditedRow = pstmt.executeUpdate();
             con.commit();
@@ -820,7 +816,6 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             pstmt.setInt(2, child.getId());
 
             /* Test della query
-             System.out.println(query);
              //*/
             numEditedRow = pstmt.executeUpdate();
             con.commit();
@@ -855,7 +850,6 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             pstmt.setInt(2, registrationChildId);
 
             /* Test della query
-             System.out.println(query);
              //*/
             numEditedRow = pstmt.executeUpdate();
             con.commit();
@@ -890,7 +884,6 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             pstmt.setInt(2, registrationChildId);
 
             /* Test della query
-             System.out.println(query);
              //*/
             numEditedRow = pstmt.executeUpdate();
             con.commit();
@@ -925,7 +918,6 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             pstmt.setInt(2, registrationChildId);
 
             /* Test della query
-             System.out.println(query);
              //*/
             numEditedRow = pstmt.executeUpdate();
             con.commit();

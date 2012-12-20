@@ -52,7 +52,6 @@ public class InsertDailyActivityServlet extends HttpServlet {
 
         int idClass = Integer.parseInt(request.getParameter("idClass"));
         String[] attivita = request.getParameterValues("attivita" + idClass);
-        System.out.println("Classe"+idClass);
         for (int i = 0; i < attivita.length; i++) {
             try {
                 DailyActivitySection dailyActivitySection = new DailyActivitySection();

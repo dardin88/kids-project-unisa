@@ -4,14 +4,11 @@
  */
 package it.unisa.kids.accessManagement.classificationManagement;
 
-import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationChildManager;
-import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -84,7 +81,6 @@ public class ServletChangeResult extends HttpServlet {
         json.put("IsSuccess", "" + isSuccess);
         json.put("ErrorMsg", errorMsg);
         
-        System.out.println("Risultato della ChangeResult: " + json.toString());
 
         out.write(json.toString());
         out.close();

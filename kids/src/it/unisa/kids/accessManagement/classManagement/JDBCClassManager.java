@@ -177,7 +177,6 @@ public class JDBCClassManager implements IClassManager {
         }
         query += "' WHERE " + DBNames.ATT_CLASS_ID + "=" + pClass.getIdClasse() + ";";
 
-        System.out.println(query);
         try {
             con = DBConnectionPool.getConnection();
             stmt = con.createStatement();

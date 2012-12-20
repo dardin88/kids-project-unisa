@@ -64,7 +64,6 @@ public class ServletPdfRenunciation extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        System.out.println("cisono");
         try {
             // campi necessari per prelevare le informazioni
             String sId = request.getParameter(DBNames.ATT_RENUNCIATION_ID);

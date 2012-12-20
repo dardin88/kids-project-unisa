@@ -137,6 +137,7 @@ public class GetCanteenClassTableServlet extends HttpServlet {
                     "private, no-store, no-cache, must-revalidate");
             response.setHeader("Pragma", "no-cache");
             out.print(result);
+            System.out.println(result);
             Logger.getLogger(GetCanteenClassTableServlet.class.getName()).log(Level.INFO, "Query result(JSONObject): " + result.toString());
         } catch (Exception ex) {
             Logger.getLogger(GetCanteenClassTableServlet.class.getName()).log(Level.SEVERE, null, ex);

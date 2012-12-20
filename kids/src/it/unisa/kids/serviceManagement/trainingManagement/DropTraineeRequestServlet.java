@@ -57,7 +57,6 @@ public class DropTraineeRequestServlet extends HttpServlet {
             traineeRequest.setDate(start);
             traineeRequest.setStartTime(new Time(start.getTime().getTime()));
             traineeRequest.setEndTime(new Time(end.getTime().getTime()));
-            System.out.println(request.getParameter("id"));
             traineeRequest.setId(Integer.parseInt(request.getParameter("id")));
             trainingManager.update(traineeRequest);
 

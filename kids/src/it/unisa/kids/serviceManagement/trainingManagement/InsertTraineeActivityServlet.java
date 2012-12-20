@@ -49,7 +49,6 @@ public class InsertTraineeActivityServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             TraineeActivity traineeActivity = new TraineeActivity();
-            System.out.println(request.getParameter("Tirocinante"));
             traineeActivity.setName(request.getParameter("Nome"));
             traineeActivity.setDate(parseGregorianCalendar(request.getParameter("Data")));
             traineeActivity.setDescription(request.getParameter("Descrizione"));

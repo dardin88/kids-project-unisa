@@ -62,7 +62,6 @@ function activePage() {
             $("#meetingCalendarMenuEL").css("color", "#FFFFFF");
             $("#title").html("Gestione Calendario");
             break;
-
         case 'accountInformationParent.jsp':
             $("#accountInformationParentMenuEL").css("background-color", "#444");
             $("#accountInformationParentMenuEL").css("color", "#FFFFFF");

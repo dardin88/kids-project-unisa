@@ -78,7 +78,6 @@ public class ServletInsertRecourse extends HttpServlet {
         json.put("IsSuccess", "" + isSuccess);
         json.put("ErrorMsg", errorMsg);
 
-        System.out.println("Risultato della InsertRecourse: " + isSuccess + " JSON: " + json.toString());
         out.write(json.toString());
         out.close();
     }
