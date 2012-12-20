@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.5.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>240</x>
+      <y>40</y>
+      <w>540</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>GestioneMensaPresentationLayer 
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>280</x>
+      <y>70</y>
+      <w>210</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+--
+
+: GUIModficaMenu</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>240</x>
+      <y>540</y>
+      <w>540</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>GestioneMensaDataLayer
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>290</x>
+      <y>320</y>
+      <w>190</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+--
+
+:  ModificaMenu</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>510</x>
+      <y>320</y>
+      <w>180</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+--
+
+: InserisciMenu</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>160</x>
+      <y>80</y>
+      <w>150</w>
+      <h>310</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>130;290;30;210;30;30;120;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>660</x>
+      <y>90</y>
+      <w>110</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>30;280;90;200;90;30;60;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>240</x>
+      <y>280</y>
+      <w>540</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>GestioneMensaApplicationLayer
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>610</x>
+      <y>480</y>
+      <w>50</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>30;80;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>510</x>
+      <y>70</y>
+      <w>210</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+--
+
+: GUIInserisciMenu</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>290</x>
+      <y>410</y>
+      <w>190</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+--
+
+:  VisualizzaMenu</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>280</x>
+      <y>160</y>
+      <w>210</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+--
+
+: GUIVisualizzaMenu</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>140</x>
+      <y>170</y>
+      <w>170</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>150;280;30;210;30;30;140;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>510</x>
+      <y>160</y>
+      <w>210</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+--
+
+: GUIRicercaMenu</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>510</x>
+      <y>410</y>
+      <w>180</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+--
+
+: RicercaMenu</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>660</x>
+      <y>170</y>
+      <w>160</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>30;280;140;210;140;30;60;30</additional_attributes>
+  </element>
+</diagram>
