@@ -10,7 +10,11 @@
 <c:if test="${sessionScope.user==null}">
     <c:redirect url="index.jsp" />
 </c:if>
-<c:if test="${sessionScope.user.getAccountType()!='Educatore'}">
+<c:if test="${sessionScope.user.getAccountType() != 'Responsabile Scientifico'
+              && sessionScope.user.getAccountType() != 'Delegato del rettore'
+              && sessionScope.user.getAccountType() != 'Coordinatore Psicopedagogico'
+              && sessionScope.user.getAccountType() != 'Educatore'
+              && sessionScope.user.getAccountType() != 'Genitore'}">
     <c:redirect url="index.jsp" />
 </c:if>
 <!DOCTYPE html>
@@ -38,18 +42,18 @@
         </script>
     </head>
     <div id="informationDailyActivityWindow" title="Informazioni Attivita" style="display: inline;">
-            <table>
-                
-                <tr><td>Nome</td><td><input id="Nome" type="text" name="Nome" value=""  disabled="true"></td></tr>
-                <tr><td>Data</td><td><input type="text" name="Data" id="Data" value="" disabled="true" ></td></tr>
-                <tr><td>Educatore</td><td><input type="text" name="Educatore" id="Educatore" value=""disabled="true" ></td></tr>
-                <tr><td>Note</td><td><textarea name="Note" id="Note" value=""disabled="true" cols="20" rows="5" style="resize: none" ></textarea></td></tr>
-                
+        <table>
+
+            <tr><td>Nome</td><td><input id="Nome" type="text" name="Nome" value=""  disabled="true"></td></tr>
+            <tr><td>Data</td><td><input type="text" name="Data" id="Data" value="" disabled="true" ></td></tr>
+            <tr><td>Educatore</td><td><input type="text" name="Educatore" id="Educatore" value=""disabled="true" ></td></tr>
+            <tr><td>Note</td><td><textarea name="Note" id="Note" value=""disabled="true" cols="20" rows="5" style="resize: none" ></textarea></td></tr>
 
 
-            </table>
-            
-    
+
+        </table>
+
+
     </div>
     <body>
         <%@include file="header.jsp" %>
@@ -60,7 +64,7 @@
                 <ul>
                     <jsp:include page="/GetClassTabs"></jsp:include>
                     </ul>
-                    
+
                 <jsp:include page="/GetClassDivRegister"></jsp:include>
 
                 </div>

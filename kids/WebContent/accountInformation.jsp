@@ -248,7 +248,7 @@
                 </fieldset>
             </form>
         </div>
-        <input style="width: 200px; margin-left: 0.5%" type="button" name="modify" id="modifyButton" value="Modifica" onclick="modifyAccount2(document.getElementById('id').value)"/>
+        <input style="width: 200px; margin-left: 5%" type="button" name="modify" id="modifyButton" value="Modifica" onclick="modifyAccount2(document.getElementById('id').value)"/>
         <input style="width: 200px; margin-left: 2%" type="button" name="elimina" id="eliminaButton" value="Elimina" onclick="removeAccountParent(document.getElementById('id').value)"/>
         <input style="width: 200px; margin-left: 2%" type="button" name="password" id="modifyPassword" value="Modifica Password" onclick="modifyPassword2(document.getElementById('id').value)"/>
         <%@include file="footer.jsp" %>

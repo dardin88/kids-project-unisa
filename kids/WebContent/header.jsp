@@ -74,7 +74,10 @@
             </div>
             <div class="div">
                 <li id="newsShowTable"><a href="newsShowTable.jsp">News</a></li>
-            </div>  
+            </div> 
+            <div class="div">
+                <li id="meetingCalendarMenuEL"><a href="meetingCalendar.jsp">Riunioni</a></li>
+            </div>
         </c:if>
 
         <c:if test="${sessionScope.user.getAccountType()=='Responsabile Mensa'}">
@@ -90,6 +93,9 @@
             <div class="div">
                 <li id="newsShowTable"><a href="newsShowTable.jsp">News</a></li>
             </div>  
+            <div class="div">
+                <li id="meetingCalendarMenuEL"><a href="meetingCalendar.jsp">Riunioni</a></li>
+            </div>
         </c:if>
 
         <c:if test="${sessionScope.user.getAccountType()=='Delegato scienze della formazione'}">
@@ -160,11 +166,16 @@
                 <li id="needCommunicationTable"><a href="needCommunicationTable.jsp">Comunicazioni Bisogni</a></li>
             </div>
             <div class="div">
-                <li id="annualProject"><a href="showProject.jsp">Programma Educativo</a></li>
+                <li id="register"><a href="register.jsp">Registro Attivit&agrave</a></li>         
             </div>
             <div class="div">
                 <li id="progEduMenuEL"><a href="sectionEdu.jsp">Programma Educativo - Sezione</a></li>
             </div>
+            <div class="div">
+                <li id="annualProject"><a href="showProject.jsp">Programma Educativo - Annuale</a></li>
+            </div>
+
+
         </c:if>
 
         <c:if test="${sessionScope.user.getAccountType()=='Educatore'}">
@@ -189,6 +200,14 @@
             <div class="div">
                 <li id="register"><a href="register.jsp">Registro Attivit&agrave</a></li>         
             </div>
+            <div class="div">
+                <li id="progEduMenuEL"><a href="sectionEdu.jsp">Programma Educativo - Sezione</a></li>
+            </div>
+            <div class="div">
+                <li id="annualProject"><a href="showProject.jsp">Programma Educativo - Annuale</a></li>
+            </div>
+
+
         </c:if>
 
         <c:if test="${sessionScope.user.getAccountType()=='Admin'}">  
@@ -214,11 +233,22 @@
                 <li id="accountInformationAllMenuEL"><a href="accountInformationAll.jsp">Account</a></li>
             </div>
             <div class="div">
-                <li id="annualProject"><a href="showProject.jsp">Programma Educativo</a></li>
+                <li id="newsShowTable"><a href="newsShowTable.jsp">News</a></li>
+            </div> 
+            <div class="div">
+                <li id="meetingCalendarMenuEL"><a href="meetingCalendar.jsp">Riunioni</a></li>
+            </div>
+            <div class="div">
+                <li id="register"><a href="register.jsp">Registro Attivit&agrave</a></li>         
             </div>
             <div class="div">
                 <li id="progEduMenuEL"><a href="sectionEdu.jsp">Programma Educativo - Sezione</a></li>
             </div>
+            <div class="div">
+                <li id="annualProject"><a href="showProject.jsp">Programma Educativo - Annuale</a></li>
+            </div>
+
+
         </c:if>
 
         <c:if test="${sessionScope.user.getAccountType()=='Responsabile Scientifico'}">
@@ -229,11 +259,22 @@
                 <li id="accountInformationAllMenuEL"><a href="accountInformationAll.jsp">Account</a></li>
             </div>
             <div class="div">
-                <li id="annualProject"><a href="showProject.jsp">Programma Educativo</a></li>
+                <li id="newsShowTable"><a href="newsShowTable.jsp">News</a></li>
+            </div> 
+            <div class="div">
+                <li id="meetingCalendarMenuEL"><a href="meetingCalendar.jsp">Riunioni</a></li>
+            </div>
+            <div class="div">
+                <li id="register"><a href="register.jsp">Registro Attivit&agrave</a></li>         
             </div>
             <div class="div">
                 <li id="progEduMenuEL"><a href="sectionEdu.jsp">Programma Educativo - Sezione</a></li>
             </div>
+            <div class="div">
+                <li id="annualProject"><a href="showProject.jsp">Programma Educativo - Annuale</a></li>
+            </div>
+
+
         </c:if>
 
         <c:if test="${sessionScope.user.getAccountType()=='Delegato del rettore'}">
@@ -256,11 +297,16 @@
                 <li id="meetingCalendarMenuEL"><a href="meetingCalendar.jsp">Riunioni</a></li>
             </div>
             <div class="div">
-                <li id="annualProject"><a href="showProject.jsp">Programma Educativo</a></li>
+                <li id="register"><a href="register.jsp">Registro Attivit&agrave</a></li>         
             </div>
             <div class="div">
                 <li id="progEduMenuEL"><a href="sectionEdu.jsp">Programma Educativo - Sezione</a></li>
             </div>
+            <div class="div">
+                <li id="annualProject"><a href="showProject.jsp">Programma Educativo - Annuale</a></li>
+            </div>
+
+
         </c:if>
 
         <c:if test="${sessionScope.user.getAccountType()=='Responsabile Asilo'}">
@@ -279,6 +325,19 @@
             <div class="div">
                 <li id="newsShowTable"><a href="newsShowTable.jsp">News</a></li>
             </div>
+            <div class="div">
+                <li id="meetingCalendarMenuEL"><a href="meetingCalendar.jsp">Riunioni</a></li>
+            </div>
+            <div class="div">
+                <li id="register"><a href="register.jsp">Registro Attivit&agrave</a></li>         
+            </div>
+            <div class="div">
+                <li id="progEduMenuEL"><a href="sectionEdu.jsp">Programma Educativo - Sezione</a></li>
+            </div>
+            <div class="div">
+                <li id="annualProject"><a href="showProject.jsp">Programma Educativo - Annuale</a></li>
+            </div>
+
         </c:if>
 
     </ul>

@@ -13,6 +13,7 @@
 <c:if test="${sessionScope.user.getAccountType() != 'Responsabile Scientifico'
               && sessionScope.user.getAccountType() != 'Delegato del rettore'
               && sessionScope.user.getAccountType() != 'Coordinatore Psicopedagogico'
+              && sessionScope.user.getAccountType() != 'Educatore'
               && sessionScope.user.getAccountType() != 'Genitore'}">
     <c:redirect url="index.jsp" />
 </c:if>
@@ -105,7 +106,7 @@
                         </c:if>
                     </div>
                 </c:if>
-
+                
                 <div id="insertActivityDialog" title="Inserisci attivit&agrave;">
                     <form id="insertActivityForm" class="cmxform" method="post" action="InsertActivity">
                         <table>
@@ -163,7 +164,7 @@
                         </table>
                     </form>
                 </div>
-
+                
                 <div id="insertCommentDialog" title="Inserisci commento">
                     <form id="insertCommentForm" class="cmxform" method="post" action="InsertComment">
                         <table>
