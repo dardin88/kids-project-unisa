@@ -77,10 +77,9 @@ public class ServletConfirmRenunciation extends HttpServlet {
             errorMsg = ex.getMessage();
         }
         
-        json.put("IsSuccess", "" + isSuccess);
+        json.put("IsSuccess", isSuccess);
         json.put("ErrorMsg", errorMsg);
         
-
         out.write(json.toString());
         out.close();
     }

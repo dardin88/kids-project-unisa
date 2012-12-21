@@ -54,7 +54,6 @@ public class ServletGetTablePossibleRenunciation extends HttpServlet {
         String searchTerm = request.getParameter("sSearch");
         
         try {
-            
             JSONArray array = new JSONArray();
             JSONObject result = new JSONObject();
             
@@ -118,7 +117,6 @@ public class ServletGetTablePossibleRenunciation extends HttpServlet {
                     while(i < size && !ithas) {
                         if(possibileRinuncia.getId() == listToNotDisplay.get(i).getRegistrationChildId()) {
                             ithas = true;
-                            
                             // ogni iscrizione ne può avere solo una di rinuncia, quindi se è stata trovata
                             // può essere rimossa dalla lista
                             listToNotDisplay.remove(i);

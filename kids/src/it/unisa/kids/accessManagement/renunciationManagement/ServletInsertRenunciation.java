@@ -42,7 +42,7 @@ public class ServletInsertRenunciation extends HttpServlet {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
-        boolean isSuccess = true;
+        boolean isSuccess = false;
         String errorMsg = new String();
         
         try {
@@ -68,10 +68,9 @@ public class ServletInsertRenunciation extends HttpServlet {
             }
         } catch (SQLException ex) {
             Logger.getLogger(ServletInsertRenunciation.class.getName()).log(Level.SEVERE, "SQL-Error: " + ex.getMessage(), ex);
-            isSuccess = false;
             errorMsg = ex.getMessage();
         }
-        json.put("IsSuccess", "" + isSuccess);
+        json.put("IsSuccess", isSuccess);
         json.put("ErrorMsg", errorMsg);
 
         out.write(json.toString());

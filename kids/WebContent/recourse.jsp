@@ -59,7 +59,7 @@
 <c:if test="${sessionScope.user.getAccountType()=='Genitore'}">
             <%-- VISUALE DELLE POSSIBILI ISCRIZIONI PER CUI E' POSSIBILE PRESENTARE UN RICORSO --%>
             <div id="recoursePossibleDisplay" style="display: block;margin-bottom:30px;">
-                <h2 id="recoursePossibleDisplayTitle">Iscrizioni per le quali è possibile presentare un ricorso</h2>
+                <h2 id="recoursePossibleDisplayTitle" style="margin-bottom: 15px">Iscrizioni per le quali è possibile presentare un ricorso</h2>
                 <div id="recoursePossibleResultTable">
                     <table id="recoursePossibleTable">
                         <thead>
@@ -73,12 +73,12 @@
                     </table>
                 </div>
             </div>
-            <%-- FINE VISUALE DELLE POSSIBILI ISCRIZIONI PER CUI E' POSSIBILE PRESENTARE UNA RICORSO --%>
+            <%-- FINE VISUALE DELLE POSSIBILI ISCRIZIONI PER CUI E' POSSIBILE PRESENTARE UN RICORSO --%>
 </c:if>
         
-            <%-- VISUALE DELLE DOMANDE DI RINUNCIA PRESENTATE --%>
+            <%-- VISUALE DEI RICORSI PRESENTATI --%>
             <div id="recourseSubmittedDisplay" style="display: block;">
-                <h2 id="recourseSubmittedDisplayTitle">Domande di rinuncia presentate:</h2>
+                <h2 id="recourseSubmittedDisplayTitle" style="margin-bottom: 15px">Ricorsi presentati:</h2>
                 <div id="recourseSubmittedResultTable">
                     <table id="recourseSubmittedTable">
                         <thead>
@@ -100,7 +100,7 @@
         <%-- FINE CONTENUTO PRINCIPALE DELLA PAGINA --%>
         
         <%-- FINESTRA DI INSERIMENTO DI UN RICORSO --%>
-        <div id="recourseAddWindow" name="recourseAddWindow" title="Compila un RICORSO" style="display: inline">
+        <div id="recourseAddWindow" name="recourseAddWindow" title="Compila un ricorso" style="display: inline">
             <form id="recourseAddWindowForm" name="recourseAddWindowForm" class="cmxform" method="post" action="">
                 <fieldset>
                     <div>

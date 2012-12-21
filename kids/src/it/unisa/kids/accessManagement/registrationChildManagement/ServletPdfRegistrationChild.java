@@ -60,7 +60,7 @@ public class ServletPdfRegistrationChild extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             // campi necessari per prelevare le informazioni
-            String sId = request.getParameter(DBNames.ATT_RENUNCIATION_ID);
+            String sId = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_ID);
             if(sId != null && !sId.equals("")) {
                 String file = request.getServletContext().getInitParameter("pdfFolder") + NOMEFILE;
                 String downloadName = "Domanda di iscrizione.pdf";
@@ -80,18 +80,17 @@ public class ServletPdfRegistrationChild extends HttpServlet {
                 tmpAccount = accountManager.search(tmpAccount).get(0);
                 this.addContent(document, tmpAccount, tmpRegistrationChild);
             
-                
                 document.close();
                 this.doDownload(request, response, file, downloadName);
             }
              
-        } catch (SQLException ex) {
+        } catch(SQLException ex) {
             Logger.getLogger(ServletPdfRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
             response.sendRedirect("insuccesso.jsp");
-        } catch (BadElementException ex) {
+        } catch(BadElementException ex) {
             Logger.getLogger(ServletPdfRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
             response.sendRedirect("insuccesso.jsp");
-        } catch (DocumentException ex) {
+        } catch(DocumentException ex) {
             Logger.getLogger(ServletPdfRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
             response.sendRedirect("insuccesso.jsp");
         }

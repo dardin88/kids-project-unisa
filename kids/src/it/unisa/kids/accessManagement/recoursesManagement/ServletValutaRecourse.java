@@ -2,8 +2,6 @@ package it.unisa.kids.accessManagement.recoursesManagement;
 
 import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationChildManager;
 import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
-import it.unisa.kids.accessManagement.renunciationManagement.Renunciation;
-import it.unisa.kids.accessManagement.renunciationManagement.ServletConfirmRenunciation;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
@@ -50,9 +48,9 @@ public class ServletValutaRecourse extends HttpServlet {
         try {
             Recourse tmpRecourse = new Recourse();
             
-            String sId = request.getParameter(DBNames.ATT_RENUNCIATION_ID);
-            String sRegChildId = request.getParameter(DBNames.ATT_RENUNCIATION_REGISTRATIONCHILDID);
+            String sId = request.getParameter(DBNames.ATT_RECOURSE_ID);
             String sValutazione = request.getParameter(DBNames.ATT_RECOURSE_VALUTATION);
+            String sRegChildId = request.getParameter(DBNames.ATT_RECOURSE_REGISTRATIONCHILDID);
             // campi necessari per prelevare le informazioni
             if(sId != null && !sId.equals("") && sRegChildId != null && !sRegChildId.equals("") &&
                     (sValutazione.equals(DBNames.ATT_RECOURSE_VALUTATION_TOEVALUATE) || sValutazione.equals(DBNames.ATT_RECOURSE_VALUTATION_ACCEPTED) ||
@@ -72,24 +70,21 @@ public class ServletValutaRecourse extends HttpServlet {
                 tmpRegistrationChild.setId(regChildId);
                 isSuccess &= registrationChildManager.confirmReceiptRegistrationChild(tmpRegistrationChild);
                 
-                // se il ricorso viene accettato, il risultato nella graduatoria dovrebbe venir accettato
+                // se il ricorso viene accettato, il risultato nella graduatoria dovrebbe venir accettato?!?
                 // DA IMPLEMENTARE
                 
-                
-                
             } else {
-                errorMsg = "Errore nella passaggio dei parametri";
+                errorMsg = "Errore nella passaggio dei parametri: [Id:" + sId + ",RegChild:" + sRegChildId + ",Valutazione:" + sValutazione + "]";
             }
             
         } catch(SQLException ex) {
-            Logger.getLogger(ServletConfirmRenunciation.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletValutaRecourse.class.getName()).log(Level.SEVERE, null, ex);
             errorMsg = ex.getMessage();
         }
         
-        json.put("IsSuccess", "" + isSuccess);
+        json.put("IsSuccess", isSuccess);
         json.put("ErrorMsg", errorMsg);
         
-
         out.write(json.toString());
         out.close();
     }

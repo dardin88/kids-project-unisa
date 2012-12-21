@@ -67,7 +67,6 @@ public class ServletGetRecourse extends HttpServlet {
                 html.append("Valutazione: " + tmpRecourse.getValutation() + newLine());
                 html.append(newLine());
                 
-                isSuccess = true;
                 json.put("HTML", html.toString());
             } else {
                 isSuccess = false;
@@ -80,7 +79,7 @@ public class ServletGetRecourse extends HttpServlet {
             errorMsg = ex.getMessage();
         }
 
-        json.put("IsSuccess", "" + isSuccess);
+        json.put("IsSuccess", isSuccess);
         json.put("ErrorMsg", errorMsg);
 
         out.write(json.toString());

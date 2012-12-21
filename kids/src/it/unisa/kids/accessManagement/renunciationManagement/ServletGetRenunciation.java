@@ -95,7 +95,6 @@ public class ServletGetRenunciation extends HttpServlet {
                     html.append(bold("La domanda di rinuncia è stata ricevuta e confermata!"));
                 }
                 
-                isSuccess = true;
                 json.put("HTML", html.toString());
             } else {
                 isSuccess = false;
@@ -107,8 +106,7 @@ public class ServletGetRenunciation extends HttpServlet {
             isSuccess = false;
             errorMsg = ex.getMessage();
         }
-
-        json.put("IsSuccess", "" + isSuccess);
+        json.put("IsSuccess", isSuccess);
         json.put("ErrorMsg", errorMsg);
 
         out.write(json.toString());

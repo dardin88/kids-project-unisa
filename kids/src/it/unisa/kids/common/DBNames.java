@@ -100,7 +100,12 @@ public final class DBNames {
     // CriteriaTable's attributes
     public static final String ATT_CRITERIA_ID = "Id";
     public static final String ATT_CRITERIA_DESCRIPTION = "Descrizione";
+    public static final String ATT_CRITERIA_DBFIELDSTABLE = "TabellaDbDelCampo";
+    public static final String ATT_CRITERIA_DBFIELD = "CampoDb";
+    public static final String ATT_CRITERIA_COMPARATOR = "Operando";
+    public static final String ATT_CRITERIA_CONDITION = "Condizione";
     public static final String ATT_CRITERIA_WEIGHT = "Peso";
+    public static final String ATT_CRITERIA_ACTIVE = "Abilitato";
     //ResultTable's attributes
     public static final String ATT_RESULT_REGISTRATIONCHILDID = "Iscrizione";
     public static final String ATT_RESULT_CLASSIFICATIONID = "Graduatoria";

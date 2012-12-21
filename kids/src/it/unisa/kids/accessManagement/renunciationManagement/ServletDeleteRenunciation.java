@@ -42,7 +42,7 @@ public class ServletDeleteRenunciation extends HttpServlet {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
-        boolean isSuccess = true;
+        boolean isSuccess = false;
         String errorMsg = new String();
         
         try {
@@ -58,20 +58,15 @@ public class ServletDeleteRenunciation extends HttpServlet {
                 isSuccess = classificationManager.delete(tmpRenunciation);
                 
             } else {
-                isSuccess = false;
                 errorMsg = "Errore nella passaggio dei parametri";
             }
-            
         } catch(SQLException ex) {
             Logger.getLogger(ServletDeleteRenunciation.class.getName()).log(Level.SEVERE, null, ex);
-            isSuccess = false;
             errorMsg = ex.getMessage();
         }
-        
-        json.put("IsSuccess", "" + isSuccess);
+        json.put("IsSuccess", isSuccess);
         json.put("ErrorMsg", errorMsg);
         
-
         out.write(json.toString());
         out.close();
     }

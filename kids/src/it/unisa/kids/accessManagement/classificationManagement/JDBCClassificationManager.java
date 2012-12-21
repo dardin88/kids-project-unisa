@@ -22,10 +22,11 @@ public class JDBCClassificationManager implements IClassificationManager {
     }
 
     public static synchronized JDBCClassificationManager getInstance() {
-        if(manager != null)
+        if(manager != null) {
             return manager;
-        else
+        } else {
             return manager = new JDBCClassificationManager();
+        }
     }
     // end of Singleton Design Pattern's implementation
 
@@ -79,7 +80,6 @@ public class JDBCClassificationManager implements IClassificationManager {
                 }
             }
             //*/
-            
         } finally {
             if(pstmt != null) {
                 pstmt.close();
@@ -94,7 +94,7 @@ public class JDBCClassificationManager implements IClassificationManager {
     public synchronized boolean update(Classification classification) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
-        StringBuffer query = new StringBuffer();
+        StringBuilder query = new StringBuilder();
         int numEditedRow;
         boolean toReturn = false;
         
@@ -104,7 +104,7 @@ public class JDBCClassificationManager implements IClassificationManager {
             // constructing query string
             query.append("UPDATE " + DBNames.TABLE_CLASSIFICATION + " SET ");
             if(classification.getName() != null) {
-                query.append(DBNames.ATT_CLASSIFICATION_NAME + "=? ");
+                query.append(useSeparator(useSeparator) + DBNames.ATT_CLASSIFICATION_NAME + "=? ");
                 useSeparator = true;
             }
             if(classification.getDate() != null) {
@@ -115,9 +115,10 @@ public class JDBCClassificationManager implements IClassificationManager {
                 query.append(useSeparator(useSeparator) + DBNames.ATT_CLASSIFICATION_STATUS + "=? ");
                 useSeparator = true;
             }
-            query.append("WHERE " + DBNames.ATT_CLASSIFICATION_ID + "=?;");
-
-            if(useSeparator) { // non è inizializzato nessun campo
+            
+            if(useSeparator) { // se non è inizializzato nessun campo non è necessario fare update
+                query.append("WHERE " + DBNames.ATT_CLASSIFICATION_ID + "=?;");
+                
                 pstmt = con.prepareStatement(query.toString());
 
                 // setting pstmt's parameters
@@ -208,7 +209,7 @@ public class JDBCClassificationManager implements IClassificationManager {
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
-        StringBuffer query = new StringBuffer();
+        StringBuilder query = new StringBuilder();
         List<Classification> classificationList = null;
         boolean andState = false;
 
@@ -471,7 +472,7 @@ public class JDBCClassificationManager implements IClassificationManager {
     public synchronized boolean updateResult(Result result) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
-        StringBuffer query = new StringBuffer();
+        StringBuilder query = new StringBuilder();
         boolean toReturn = false;
         int numEditedRow;
         boolean useSep = false;
@@ -558,7 +559,7 @@ public class JDBCClassificationManager implements IClassificationManager {
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
-        StringBuffer query = new StringBuffer();
+        StringBuilder query = new StringBuilder();
         List<Result> resultList = null;
         boolean andState = true;
 
@@ -637,7 +638,7 @@ public class JDBCClassificationManager implements IClassificationManager {
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
-        StringBuffer query = new StringBuffer();
+        StringBuilder query = new StringBuilder();
         List<Result> resultList = null;
         boolean andState = true;    // perchè come minimo ci sono le condizione della join
         boolean orState = false;
@@ -885,14 +886,24 @@ public class JDBCClassificationManager implements IClassificationManager {
             query = "INSERT INTO " + DBNames.TABLE_CRITERIA + " ("
                             + DBNames.ATT_CRITERIA_ID + ", "
                             + DBNames.ATT_CRITERIA_DESCRIPTION + ", "
-                            + DBNames.ATT_CRITERIA_WEIGHT + " "
-                            + ") VALUES(NULL, ?, ?)";
+                            + DBNames.ATT_CRITERIA_DBFIELDSTABLE + ", "
+                            + DBNames.ATT_CRITERIA_DBFIELD + ", "
+                            + DBNames.ATT_CRITERIA_COMPARATOR + ", "
+                            + DBNames.ATT_CRITERIA_CONDITION + ", "
+                            + DBNames.ATT_CRITERIA_WEIGHT + ", "
+                            + DBNames.ATT_CRITERIA_ACTIVE + " "
+                            + ") VALUES(NULL,?,?,?,?,?,?,?)";
             
             pstmt = con.prepareStatement(query);
 
             //setting pstmt's parameters
             pstmt.setString(1, criterion.getDescription());
-            pstmt.setDouble(2, criterion.getWeight());
+            pstmt.setString(2, criterion.getDbFieldsTable());
+            pstmt.setString(3, criterion.getDbField());
+            pstmt.setString(4, criterion.getComparator());
+            pstmt.setString(5, criterion.getCondition());
+            pstmt.setDouble(6, criterion.getWeight());
+            pstmt.setBoolean(7, criterion.getActive());
             
             numEditedRow = pstmt.executeUpdate();
             con.commit();
@@ -911,35 +922,90 @@ public class JDBCClassificationManager implements IClassificationManager {
         return toReturn;
     }
 
-    public synchronized boolean modifyCriterion(Criterion criterion) throws SQLException {
+    public synchronized boolean updateCriterion(Criterion criterion) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
-        String query;
+        StringBuilder query = new StringBuilder();
         boolean toReturn = false;
         int numEditedRow;
+        boolean useComma = false;
         
         try {
             con = DBConnectionPool.getConnection();
 
             // constructing query string
-            query = "UPDATE " + DBNames.TABLE_CRITERIA + " " +
-                    "SET " +
-                    DBNames.ATT_CRITERIA_ID + "=?, " +
-                    DBNames.ATT_CRITERIA_WEIGHT + "=? " +
-                    "WHERE " + DBNames.ATT_CRITERIA_ID + "=?;";
+            query.append("UPDATE " + DBNames.TABLE_CRITERIA + " SET ");
+            
+            if(criterion.getDescription() != null) {
+                query.append(useSeparator(useComma) + DBNames.ATT_CRITERIA_DESCRIPTION + "=?");
+                useComma = true;
+            }
+            if(criterion.getDbFieldsTable() != null) {
+                query.append(useSeparator(useComma) + DBNames.ATT_CRITERIA_DBFIELDSTABLE + "=?");
+                useComma = true;
+            }
+            if(criterion.getDbField() != null) {
+                query.append(useSeparator(useComma) + DBNames.ATT_CRITERIA_DBFIELD + "=?");
+                useComma = true;
+            }
+            if(criterion.getComparator() != null) {
+                query.append(useSeparator(useComma) + DBNames.ATT_CRITERIA_COMPARATOR + "=?");
+                useComma = true;
+            }
+            if(criterion.getCondition() != null) {
+                query.append(useSeparator(useComma) + DBNames.ATT_CRITERIA_CONDITION + "=?");
+                useComma = true;
+            }
+            if(criterion.isSetWeight()) {
+                query.append(useSeparator(useComma) + DBNames.ATT_CRITERIA_WEIGHT + "=?");
+                useComma = true;
+            }
+            if(criterion.isSetActive()) {
+                query.append(useSeparator(useComma) + DBNames.ATT_CRITERIA_ACTIVE + "=?");
+                useComma = true;
+            }
+            if(useComma) {
+                query.append(" WHERE " + DBNames.ATT_CRITERIA_ID + "=?;");
 
-            pstmt = con.prepareStatement(query);
+                pstmt = con.prepareStatement(query.toString());
 
-            // setting pstmt's parameters
+                // setting pstmt's parameters
+                int param = 1;
+                if(criterion.getDescription() != null) {
+                    pstmt.setString(param, criterion.getDescription());
+                    param++;
+                }
+                if(criterion.getDbFieldsTable() != null) {
+                    pstmt.setString(param, criterion.getDbFieldsTable());
+                    param++;
+                }
+                if(criterion.getDbField() != null) {
+                    pstmt.setString(param, criterion.getDbField());
+                    param++;
+                }
+                if(criterion.getComparator() != null) {
+                    pstmt.setString(param, criterion.getComparator());
+                    param++;
+                }
+                if(criterion.getCondition() != null) {
+                    pstmt.setString(param, criterion.getCondition());
+                    param++;
+                }
+                if(criterion.isSetWeight()) {
+                    pstmt.setDouble(param, criterion.getWeight());
+                    param++;
+                }
+                if(criterion.isSetActive()) {
+                    pstmt.setBoolean(param, criterion.getActive());
+                    param++;
+                }
+                pstmt.setInt(param, criterion.getId());
 
-            pstmt.setString(1, criterion.getDescription());
-            pstmt.setDouble(2,criterion.getWeight());
-            pstmt.setInt(3, criterion.getId());
-
-            numEditedRow = pstmt.executeUpdate();
-            con.commit();
-            if(numEditedRow > 0) {
-                toReturn = true;
+                numEditedRow = pstmt.executeUpdate();
+                con.commit();
+                if(numEditedRow > 0) {
+                    toReturn = true;
+                }
             }
         } finally {
             if(pstmt != null) {
@@ -1031,7 +1097,12 @@ public class JDBCClassificationManager implements IClassificationManager {
                 Criterion cTmp = new Criterion();
                 cTmp.setId(resultSet.getInt(DBNames.ATT_CRITERIA_ID));
                 cTmp.setDescription(resultSet.getString(DBNames.ATT_CRITERIA_DESCRIPTION));
+                cTmp.setDbFieldsTable(resultSet.getString(DBNames.ATT_CRITERIA_DBFIELDSTABLE));
+                cTmp.setDbField(resultSet.getString(DBNames.ATT_CRITERIA_DBFIELD));
+                cTmp.setComparator(resultSet.getString(DBNames.ATT_CRITERIA_COMPARATOR));
+                cTmp.setCondition(resultSet.getString(DBNames.ATT_CRITERIA_CONDITION));
                 cTmp.setWeight(resultSet.getDouble(DBNames.ATT_CRITERIA_WEIGHT));
+                cTmp.setActive(resultSet.getBoolean(DBNames.ATT_CRITERIA_ACTIVE));
                 criteriaList.add(cTmp);
             }
         } finally {
@@ -1048,47 +1119,10 @@ public class JDBCClassificationManager implements IClassificationManager {
         return criteriaList;
     }
     
-    public synchronized List<Criterion> getAllCriteria() throws SQLException {
-            Connection con = null;
-            Statement stmt = null;
-            ResultSet rs = null;
-            String query;
-            List<Criterion> criteriaList = null;
-            
-            try {
-                con = DBConnectionPool.getConnection();
-
-                // constructing search query string
-                query = "SELECT * " +
-                        "FROM " + DBNames.TABLE_CRITERIA + " " +
-                        "WHERE 1;";
-                stmt = con.createStatement();
-
-                // executing select query
-                rs = stmt.executeQuery(query);
-                con.commit();
-
-                // constructing payment list
-                criteriaList = new ArrayList<Criterion>();
-                while(rs.next()) {
-                    Criterion cTmp =  new Criterion();
-                    cTmp.setId(rs.getInt(DBNames.ATT_CRITERIA_ID));
-                    cTmp.setDescription(rs.getString(DBNames.ATT_CRITERIA_DESCRIPTION));
-                    cTmp.setWeight(rs.getDouble(DBNames.ATT_CRITERIA_WEIGHT));
-                    criteriaList.add(cTmp);
-                }
-            } finally {
-                if(rs != null) {
-                    rs.close();
-                }
-                if(stmt != null) {
-                    stmt.close();
-                }
-                if(con != null) {
-                    DBConnectionPool.releaseConnection(con);
-                }
-            }
-            return criteriaList;
+    public synchronized List<Criterion> getAllActiveCriteria() throws SQLException {
+        Criterion tmpCriteria = new Criterion();
+        tmpCriteria.setActive(true);
+        return searchCriterion(tmpCriteria);
     }
 
     public synchronized List<Classification> getAllClassification() throws SQLException {

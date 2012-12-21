@@ -1,17 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unisa.kids.accessManagement.classificationManagement;
 
-import it.unisa.kids.accessManagement.accountManagement.Account;
-import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -55,7 +48,7 @@ public class ServletGetTableCriteria extends HttpServlet {
             JSONObject result = new JSONObject();
             JSONArray array = new JSONArray();
             
-            listCriterion = classificationManager.getAllCriteria();
+            listCriterion = classificationManager.searchCriterion(new Criterion());
             
             // PRECONFIGURAZIONE DELLA TABELLA
             int start = 0;
@@ -97,14 +90,14 @@ public class ServletGetTableCriteria extends HttpServlet {
                     ja.put(criterionElement.getComparator());
                     ja.put(criterionElement.getCondition());
                     ja.put(criterionElement.getWeight());
-                    String htmlResult = "<input type=\"checkbox\" onChange=\"changeCriterionActive(\"" + criterionElement.getId() + ", " + criterionElement.isActive() + "\");\"";
-                    if(criterionElement.isActive()) {
-                            htmlResult += " checked=\"checked\"";
+                    String htmlActive = "<input type=\"checkbox\" onChange=\"changeCriterionActive(" + criterionElement.getId() + ", " + !criterionElement.getActive() + ");\"";
+                    if(criterionElement.getActive()) {
+                            htmlActive += " checked=\"checked\"";
                         }
-                        htmlResult += " />";
-                    ja.put(htmlResult);
+                        htmlActive += " />";
+                    ja.put(htmlActive);
                     
-                    String operazioni = "<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Elimina\" alt=\"Elimina\" src='img/trash.png' onclick='deleteCriteriaWindow(\"" + criterionElement.getId() + "\")'/>";
+                    String operazioni = "<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Elimina\" alt=\"Elimina\" src='img/trash.png' onclick='deleteCriteriaWindow(" + criterionElement.getId() + ")'/>";
                     ja.put(operazioni);
                     array.put(ja);
                 }

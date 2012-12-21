@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unisa.kids.accessManagement.classificationManagement;
 
 import it.unisa.kids.common.DBNames;
@@ -46,7 +42,7 @@ public class ServletDeleteClassification extends HttpServlet {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
-        boolean isSuccess = true;
+        boolean isSuccess = false;
         String errorMsg = new String();
         
         try {
@@ -61,17 +57,15 @@ public class ServletDeleteClassification extends HttpServlet {
                 
                 isSuccess = classificationManager.delete(tmpClassification);
             } else {
-                isSuccess = false;
                 errorMsg = "Errore nella passaggio dei parametri";
             }
             
         } catch(SQLException ex) {
             Logger.getLogger(ServletDeleteClassification.class.getName()).log(Level.SEVERE, null, ex);
-            isSuccess = false;
             errorMsg = ex.getMessage();
         }
         
-        json.put("IsSuccess", "" + isSuccess);
+        json.put("IsSuccess", isSuccess);
         json.put("ErrorMsg", errorMsg);
         
 

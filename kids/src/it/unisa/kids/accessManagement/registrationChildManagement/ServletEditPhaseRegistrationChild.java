@@ -43,7 +43,7 @@ public class ServletEditPhaseRegistrationChild extends HttpServlet {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
-        boolean isSuccess = true;
+        boolean isSuccess = false;
         String errorMsg = new String();
         
         try {
@@ -61,24 +61,27 @@ public class ServletEditPhaseRegistrationChild extends HttpServlet {
                 isSuccess = registrationChildManager.confirmReceiptRegistrationChild(tmpChild);
                 break;
             case    DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_DELETED :
-                isSuccess = registrationChildManager.removeRegistrationChild(tmpChild);
+                // se la domanda di iscrizione è una bozza, la si elimina definitivamente,
+                // altrimenti la si cambia in "eliminata" per conservarne i dati
+                tmpChild = registrationChildManager.search(tmpChild).get(0);
+                if(tmpChild.getRegistrationPhase().equals(DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_DRAFT)) {
+                    isSuccess = registrationChildManager.delete(tmpChild);
+                } else {
+                    isSuccess = registrationChildManager.removeRegistrationChild(tmpChild);
+                }
                 break;
             default :
-                isSuccess = false;
                 errorMsg = "Parametro 'FaseDellIscrizione' errato!";
             }
         } catch (SQLException ex) {
             Logger.getLogger(ServletEditPhaseRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
-            isSuccess = false;
             errorMsg = ex.getMessage();
-        } finally {
-            
-            json.put("IsSuccess", isSuccess);
-            json.put("ErrorMsg", errorMsg);
-            
-            out.write(json.toString());
-            out.close();
         }
+        json.put("IsSuccess", isSuccess);
+        json.put("ErrorMsg", errorMsg);
+
+        out.write(json.toString());
+        out.close();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

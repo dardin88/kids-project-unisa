@@ -204,8 +204,7 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             con = DBConnectionPool.getConnection();
             pstmt = con.prepareStatement(query);
             pstmt.setInt(1, child.getId());
-            /* Test della query
-             //*/
+            
             numEditedRow = pstmt.executeUpdate();
             con.commit();
 
@@ -306,9 +305,7 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
         }
         query.append(" ORDER BY " + DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE + ", "
                 + DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + ";");
-        // Test della query
-        //
-
+        
         try {
             con = DBConnectionPool.getConnection();
             pstmt = con.prepareStatement(query.toString());
@@ -574,9 +571,7 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
         }
         query.append(" ORDER BY " + DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE + ", "
                 + DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + ";");
-        // Test della query
-        //
-
+        
         try {
             con = DBConnectionPool.getConnection();
             pstmt = con.prepareStatement(query.toString());
@@ -781,8 +776,6 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             pstmt.setString(4, DBNames.ATT_REGISTRATIONCHILD_REGISTRATIONPHASE_COMPLETED);
             pstmt.setInt(5, child.getId());
 
-            /* Test della query
-             //*/
             numEditedRow = pstmt.executeUpdate();
             con.commit();
             if (numEditedRow > 0) {
@@ -815,8 +808,6 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             pstmt.setInt(1, sectionId);
             pstmt.setInt(2, child.getId());
 
-            /* Test della query
-             //*/
             numEditedRow = pstmt.executeUpdate();
             con.commit();
             if (numEditedRow > 0) {
@@ -849,8 +840,6 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             pstmt.setString(1, sickness);
             pstmt.setInt(2, registrationChildId);
 
-            /* Test della query
-             //*/
             numEditedRow = pstmt.executeUpdate();
             con.commit();
             if (numEditedRow > 0) {
@@ -883,8 +872,6 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             pstmt.setString(1, vaccination);
             pstmt.setInt(2, registrationChildId);
 
-            /* Test della query
-             //*/
             numEditedRow = pstmt.executeUpdate();
             con.commit();
             if (numEditedRow > 0) {
@@ -917,8 +904,6 @@ public class JDBCRegistrationChildManager implements IRegistrationChildManager {
             pstmt.setString(1, additionalNotes);
             pstmt.setInt(2, registrationChildId);
 
-            /* Test della query
-             //*/
             numEditedRow = pstmt.executeUpdate();
             con.commit();
             if (numEditedRow > 0) {

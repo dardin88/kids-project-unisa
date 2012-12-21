@@ -212,14 +212,23 @@ CREATE TABLE IF NOT EXISTS `convocazione` (
 
 CREATE TABLE IF NOT EXISTS `criteripesati` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Descrizione` varchar(20) NOT NULL,
-  `Campo` varchar(20) NOT NULL,
+  `Descrizione` varchar(40) NOT NULL,
+  `TabellaDbDelCampo` varchar(20) NOT NULL,
+  `CampoDb` varchar(20) NOT NULL,
   `Operando` varchar(5) NOT NULL,
   `Condizione` varchar(20) NOT NULL,
   `Peso` double NOT NULL,
   `Abilitato` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dump dei dati per la tabella `criteripesati`
+--
+
+INSERT INTO `criteripesati` (`Id`, `Descrizione`, `TabellaDbDelCampo`, `CampoDb`, `Operando`, `Condizione`, `Peso`, `Abilitato`) VALUES
+(1, 'Nati prima del 2009 (esempio)', 'iscrizionebambino', 'DataNascita', '<', '2009-01-01', -100, 1),
+(2, 'Reddito inferiore a 1.000 (esempio)', 'account', 'Reddito', '<', '1000', 10, 1);
 
 -- --------------------------------------------------------
 
@@ -242,8 +251,10 @@ CREATE TABLE IF NOT EXISTS `esito` (
 INSERT INTO `esito` (`Graduatoria`, `Iscrizione`, `Punteggio`, `Esito`) VALUES
 (9, 1, 0, 1),
 (10, 2, 0, 1),
-(9, 3, 0, 0),
-(10, 3, 0, 0);
+(11, 3, 0, 1),
+(12, 5, 0, 0),
+(15, 5, 0, 0),
+(15, 6, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -265,7 +276,10 @@ CREATE TABLE IF NOT EXISTS `graduatoria` (
 
 INSERT INTO `graduatoria` (`Id`, `Nome`, `Data`, `Stato`) VALUES
 (9, 'modificata', '2012-12-12', 'definitiva'),
-(10, 'senior', '2012-12-12', 'definitiva');
+(10, 'senior', '2012-12-12', 'provvisoria'),
+(11, 'nuova', '2012-12-13', 'bozza'),
+(12, 'nuovad', '2012-12-14', 'bozza'),
+(15, 'prova', '2012-12-21', 'definitiva');
 
 -- --------------------------------------------------------
 
@@ -301,10 +315,15 @@ CREATE TABLE IF NOT EXISTS `iscrizionebambino` (
 --
 
 INSERT INTO `iscrizionebambino` (`Id`, `AccountGenitore`, `DataIscrizione`, `FaseDellIscrizione`, `Cognome`, `Nome`, `DataNascita`, `ComuneNascita`, `CodiceFiscale`, `Cittadinanza`, `FasciaUtenza`, `Malattie`, `Vaccinazioni`, `DichiarazioneDellaPrivacy`, `NoteAggiuntive`, `IsSetMalattie`, `IsSetVaccinazioni`, `IsSetDichiarazioneDellaPrivacy`, `Classe`) VALUES
-(1, 4, '2012-12-12', 'validata', 'Landi', 'Giovanni', '2011-07-14', 'Baronissi', 'nonloso', 'Italiana', 'full_time', '', '', 'si', NULL, 'no', 'no', 'si', 0),
-(2, 4, '2012-12-12', 'validata', 'Landi', 'Veronica', '2010-06-07', 'Baronissi', 'nonsocalcolarlo', 'Italiana', 'part_time_mattutina', '', 'Tetano', 'si', NULL, 'in_parte', 'si', 'si', 0),
-(3, 5, '2012-12-12', 'ricevuta', 'Poni', 'Little', '2011-12-18', 'Fisciano', 'ponilittle180120', 'Italiana', 'part_time_pomeridiana', '', '', '', NULL, NULL, NULL, NULL, 0),
-(4, 5, '2012-12-12', 'accettata', 'Poni', 'Conny', '2009-08-16', 'Fisciano', '20090916poniconn', 'Italiana', 'part_time_pomeridiana', '', '', '', NULL, NULL, NULL, NULL, 0);
+(1, 4, '2012-12-12', 'rinunciata', 'Landi', 'Giovanni', '2011-07-14', 'Baronissi', 'LNDGVN00T03H703D', 'Italiana', 'full_time', '', '', 'si', NULL, 'no', 'no', 'si', 0),
+(2, 4, '2012-12-12', 'validata', 'Landi', 'Veronica', '2010-06-07', 'Baronissi', 'LNDVRN10T05H704E', 'Italiana', 'part_time_mattutina', '', 'Tetano', 'si', NULL, 'in_parte', 'si', 'si', 0),
+(3, 5, '2012-12-12', 'validata', 'Poni', 'Little', '2011-12-18', 'Fisciano', 'ponilittle180120', 'Italiana', 'part_time_pomeridiana', 'Nessuna', 'Vaccinazioni di base', 'si', NULL, 'no', 'no', 'no', 0),
+(4, 5, '2012-12-12', 'validata', 'Poni', 'Conny', '2009-08-16', 'Fisciano', '20090916poniconn', 'Italiana', 'part_time_pomeridiana', '', '', '', NULL, 'no', 'no', 'no', 0),
+(5, 4, '2012-12-14', 'ricorso', 'Citro', 'Alfredo', '2008-09-03', 'salerno', 'CTRLRD00T03H703D', 'italiana', 'full_time', '', '', '', NULL, NULL, NULL, NULL, 0),
+(6, 4, '2012-12-18', 'ricevuta', 'prova', 'prova', '2012-12-11', 'stampa', 'stampa', 'stampa', 'full_time', '', '', '', NULL, NULL, NULL, NULL, 0),
+(7, 4, '2012-12-19', 'sottomessa', 'afad', 'sdfsdg', '2012-12-13', 'afda', 'sdgf', 'sdgsd', 'full_time', '', '', '', NULL, NULL, NULL, NULL, 0),
+(10, 4, '2012-12-21', 'eliminata', 'bozza', 'bozza', '2012-12-04', 'bozza', 'bozza', 'bozza', 'full_time', '', '', '', NULL, NULL, NULL, NULL, 0),
+(11, 4, '2012-12-21', 'eliminata', 'bozza', 'bozza', '2012-12-07', 'bozza', 'bozza', 'bozza', 'full_time', '', '', '', NULL, NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -531,6 +550,15 @@ CREATE TABLE IF NOT EXISTS `ricorso` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+--
+-- Dump dei dati per la tabella `ricorso`
+--
+
+INSERT INTO `ricorso` (`Id`, `Data`, `Motivo`, `Valutazione`, `Iscrizione`) VALUES
+(4, '2012-12-21', 'provo', 'davalutare', 5),
+(5, '2012-12-21', 'perchè ancora non è stata accettata?', 'rifiutato', 5),
+(6, '2012-12-21', 'perchè?', 'rifiutato', 5);
+
 -- --------------------------------------------------------
 
 --
@@ -560,6 +588,13 @@ CREATE TABLE IF NOT EXISTS `rinunce` (
   `Conferma` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dump dei dati per la tabella `rinunce`
+--
+
+INSERT INTO `rinunce` (`Id`, `IdIscrizione`, `Data`, `Motivazione`, `Conferma`) VALUES
+(14, 1, '2012-12-16', 'Trasferimento in altro asilo', 1);
 
 -- --------------------------------------------------------
 

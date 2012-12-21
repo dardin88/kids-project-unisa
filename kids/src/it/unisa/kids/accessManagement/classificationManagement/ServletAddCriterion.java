@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unisa.kids.accessManagement.classificationManagement;
 
 import it.unisa.kids.common.DBNames;
@@ -9,8 +5,6 @@ import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -53,13 +47,32 @@ public class ServletAddCriterion extends HttpServlet {
         
         try {
             // Prelevo i dati necessari
+            String sDescription = request.getParameter(DBNames.ATT_CRITERIA_DESCRIPTION);
+            String sDbField = request.getParameter(DBNames.ATT_CRITERIA_DBFIELD);
+            String sDbFieldsTable;
             
+            // Il sDbFieldsTable dipende dal sDbField scelto, quindi a seconda deve essere account o iscrizionebambino
+            switch(sDbField) {
+                /*
+                 * Aggiungere tutti i case
+                 */
+                default :
+                    sDbFieldsTable = null;
+            }
+            String sComparator = request.getParameter(DBNames.ATT_CRITERIA_COMPARATOR);
+            String sCondition = request.getParameter(DBNames.ATT_CRITERIA_CONDITION);
+            String sWight = request.getParameter(DBNames.ATT_CRITERIA_WEIGHT);
             
             // Creo il criterio
             Criterion newCriterion = new Criterion();
-            
-            // Lo inizializzo
-            
+            // Lo inizializzo con i parametri ricevuti
+            newCriterion.setDescription(sDescription);
+            newCriterion.setDbField(sDbField);
+            newCriterion.setDbFieldsTable(sDbFieldsTable);
+            newCriterion.setComparator(sComparator);
+            newCriterion.setCondition(sCondition);
+            newCriterion.setWeight(Double.parseDouble(sWight));
+            newCriterion.setActive(true);
             
             // Lo inserisco nel db
             isSuccess = classificationManager.insertCriterion(newCriterion);
@@ -68,7 +81,7 @@ public class ServletAddCriterion extends HttpServlet {
             isSuccess = false;
             errorMsg = ex.getMessage();
         }
-        json.put("IsSuccess", "" + isSuccess);
+        json.put("IsSuccess", isSuccess);
         json.put("ErrorMsg", errorMsg);
 
         out.write(json.toString());

@@ -2,7 +2,6 @@ package it.unisa.kids.accessManagement.recoursesManagement;
 
 import java.util.GregorianCalendar;
 
-
 /**
  * This class models the Recourse entity
  * @author Gianmarco Del Pozzo, Lauri Giuseppe Giovanni

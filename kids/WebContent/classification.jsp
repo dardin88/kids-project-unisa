@@ -49,12 +49,12 @@
 
         <%-- CORPO PRINCIPALE DELLA PAGINA: PULSANTI E TABELLA CON ELENCO DELLE GRADUATORIE --%>
         <div id="classificationContentPage">
-            <div id="classificationSubmit">
+            <div id="classificationSubmit" style="margin-bottom: 30px;">
                 <input type="hidden" id="classificationSelectedId" />
                 <input type="hidden" id="user" value="${sessionScope.user.getAccountType()}"/>
                 <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
-                    <input type="button" id="classificationButtonOpenWindowCreateNew" onClick="openAddClassificationWindow();" value="Crea una nuova graduatoria" /><br><br>
-                    <%--<input type="button" id="classificationOpenCriteriaWindow" onClick="openCriteriaWindow();" value="Gestisci criteri" />--%>
+                    <input type="button" id="classificationButtonOpenWindowCreateNew" onClick="openAddClassificationWindow();" value="Crea una nuova graduatoria" />
+                    <input type="button" id="classificationOpenCriteriaWindow" onClick="openCriteriaWindow();" value="Gestisci criteri" />
                 </c:if>
             </div>
             <div id="classificationDisplayTable">
@@ -139,14 +139,14 @@
                 <input id="classificationDisplayStatus" name="classificationDisplayStatus" disabled="disabled" type="text">
                 </p>
             </div><br>
-            <div id="classificationDisplaySubmit">
+            <div id="classificationDisplaySubmit" style="margin-bottom: 10px;">
                 <input id="classificationDisplayId" name="classificationDisplayId" type="hidden">
+                <input type="button" id="classificationCloseDetailsButton" name="classificationCloseDetailsButton" onClick="closeDetailsClassification();" value="Torna all'elenco delle grauatorie" />
                 <c:if test="${sessionScope.user.getAccountType()=='Segreteria'}">
                     <input type="button" id="classificationAggiornaResultsButton" name="classificationAggiornaResultsButton" onClick="updateResultClassification();" value="Ricalcola esiti" />
                     <input type="button" id="classificationRendiProvvisoriaButton" name="classificationRendiProvvisoriaButton" onClick="openWindowToProvvisoriaFromDetails();" value="Rendi provvisoria" />
                     <input type="button" id="classificationRendiDefinitivaButton" name="classificationRendiDefinitivaButton" onClick="openWindowToDefinitivaFromDetails();" value="Rendi definitiva" />
                 </c:if>
-                <input type="button" id="classificationCloseDetailsButton" name="classificationCloseDetailsButton" onClick="closeDetailsClassification();" value="Torna all'elenco delle grauatorie" />
             </div><br>
             <div id="classificationDisplayResultTable">
                 <table id="classificationResultTable">
@@ -190,8 +190,9 @@
 
 
         <%-- GESTIONE DEI CRITERI DI VALUTAZIONE DELLA GRADUATORIA --%>
-        <div id="classificationCriteriaWindow" name="classificationCriteriaWindow" title="Criteri di valutazione della graduatoria" style="display: inline">
-            <div>
+        <div id="classificationCriteriaWindow" name="classificationCriteriaWindow" title="Criteri di valutazione della graduatoria" style="display: none">
+            <div style="margin-bottom: 30px;">
+                <input type="button" id="classificationCloseCriteriaButton" name="classificationCloseCriteriaButton" onClick="closeCriteriaWindow();" value="Torna all'elenco delle grauatorie" />
                 <input type="button" id="classificationAddCriterion" onClick="openAddCriteriaWindow();" value="Aggiungi Nuovo Criterio" />
             </div>
             <div>
@@ -217,13 +218,14 @@
                     <div>
                         <h3>Descrizione:</h3>
                         <p>
-                            <input type="text" id="classificationNewCriterionDescrizione" name="classificationNewCriterionDescrizione" maxlength="20"/>
+                            <input type="text" id="classificationNewCriterionDescrizione" name="classificationNewCriterionDescrizione" maxlength="40"/>
                             <label class="error" style="display:inline;" id="classificationNewCriterionDescrizioneError"></label>
                         </p>
                         <h3>Campo:</h3>
                         <p>
                             <select id="classificationNewCriterionCampo" name="classificationNewCriterionCampo">
-                                <option id="selectCampoEmpty" value="">--Seleziona operando--</option>
+                                <option id="selectCampoEmpty" value="">--Seleziona campo del db da valutare--</option>
+                                <option value="">--Non ci sono scelte possibili--</option>
                             </select>
                             <label class="error" style="display:inline;" id="classificationNewCriterionCampoError"></label>
                         </p>
@@ -242,7 +244,7 @@
                         </p>
                         <h3>Condizione:</h3>
                         <p>
-                            <input type="text" id="classificationNewCriterionCondizione" name="classificationNewCriterionCondizione" maxlength="20"/>
+                            <input type="text" id="classificationNewCriterionCondizione" name="classificationNewCriterionCondizione" maxlength="20" />
                             <label class="error" style="display:inline;" id="classificationNewCriterionCondizioneError"></label>
                         </p>
                         <h3>Peso</h3>
