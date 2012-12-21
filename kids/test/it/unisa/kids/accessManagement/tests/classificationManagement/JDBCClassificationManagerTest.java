@@ -73,7 +73,7 @@ public class JDBCClassificationManagerTest extends TestCase {
             this.managerTest.insertCriterion(criterionTest);
             try {
                 assertEquals("insert() does not work!", "NewName", this.managerTest.search(test).get(0).getName());
-                assertEquals("insertCriterion() does not work!", "NewDescription", this.managerTest.getAllCriteria().get(this.managerTest.getAllCriteria().indexOf(criterionTest)).getDescription());
+                assertEquals("insertCriterion() does not work!", "NewDescription", this.managerTest.searchCriterion(new Criterion()).get(this.managerTest.searchCriterion(new Criterion()).indexOf(criterionTest)).getDescription());
             } catch (Exception e) {
             }
         } catch (SQLException ex) {
@@ -91,7 +91,7 @@ public class JDBCClassificationManagerTest extends TestCase {
         Criterion criterionToSearch;
         try {
             List<Classification> list=this.managerTest.search(this.bean);
-            criterionToSearch=this.managerTest.getAllCriteria().get(this.managerTest.getAllCriteria().indexOf(this.criterion));
+            criterionToSearch=this.managerTest.searchCriterion(new Criterion()).get(this.managerTest.searchCriterion(new Criterion()).indexOf(this.criterion));
             toSearch=list.get(0);
             list.get(0).setName("NewNameOf");
             criterionToSearch.setDescription("NewDescriptionOf");
@@ -99,7 +99,7 @@ public class JDBCClassificationManagerTest extends TestCase {
 
             try {
                 assertEquals("update() does not work!", "NewNameOf", this.managerTest.search(toSearch).get(0).getName());
-                assertEquals("updateCriterion() does not work!", "NewDescriptionOf", this.managerTest.getAllCriteria().get(this.managerTest.getAllCriteria().indexOf(criterionToSearch)).getDescription());
+                assertEquals("updateCriterion() does not work!", "NewDescriptionOf", this.managerTest.searchCriterion(new Criterion()).get(this.managerTest.searchCriterion(new Criterion()).indexOf(criterionToSearch)).getDescription());
                 
             } catch (Exception e) {
             }
@@ -115,7 +115,7 @@ public class JDBCClassificationManagerTest extends TestCase {
             
             try {
                 assertEquals("delete() does not work!", 0, this.managerTest.search(this.bean).size());
-                assertEquals("deleteCriterion() does not work!", 0, this.managerTest.getAllCriteria().get(this.managerTest.getAllCriteria().indexOf(this.criterion)));
+                assertEquals("deleteCriterion() does not work!", 0, this.managerTest.searchCriterion(new Criterion()).get(this.managerTest.searchCriterion(new Criterion()).indexOf(this.criterion)));
             } catch (Exception e) {
             }        
         } catch (Exception ex) {}    

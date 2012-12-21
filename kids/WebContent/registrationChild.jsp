@@ -225,7 +225,7 @@
             <input type="hidden" id="user" name="user" value="${sessionScope.user.getAccountType()}" style="display:none" />
             <c:if test="${sessionScope.user.getAccountType()=='Genitore'}">
                 <div>
-                    <input type="button" id="registrationChildOpenNewDraftWindowButton" value="Inserisci Domanda di Iscrizione"/><br><br>
+                    <input type="button" id="registrationChildOpenNewDraftWindowButton" value="Crea una nuova bozza di Domanda di Iscrizione"/><br><br>
                 </div>
             </c:if>
             <div>
