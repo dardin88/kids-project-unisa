@@ -2,6 +2,7 @@ package it.unisa.kids.accessManagement.tests.recoursesManagement;
 
 import it.unisa.kids.accessManagement.recoursesManagement.JDBCRecoursesManager;
 import it.unisa.kids.accessManagement.recoursesManagement.Recourse;
+import it.unisa.kids.common.DBNames;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -18,7 +19,7 @@ public class JDBCRecoursesManagerTest extends TestCase {
         this.bean.setId(1);
         this.bean.setRegistrationChildId(1);
         this.bean.setReason("ReasonTest");
-        this.bean.setValutation(true);
+        this.bean.setValutation(DBNames.ATT_RECOURSE_VALUTATION_ACCEPTED);
         this.managerTest=JDBCRecoursesManager.getInstance();
         
         try {
@@ -49,7 +50,7 @@ public class JDBCRecoursesManagerTest extends TestCase {
         test.setId(2);
         test.setRegistrationChildId(3);
         test.setReason("NewReasonTest");
-        test.setValutation(false);
+        test.setValutation(DBNames.ATT_RECOURSE_VALUTATION_REFUSED);
         
         try {
             this.managerTest.insert(test);            
@@ -74,7 +75,7 @@ public class JDBCRecoursesManagerTest extends TestCase {
             List<Recourse> list=this.managerTest.search(this.bean);
             toSearch=list.get(0);
             list.get(0).setReason("NewReason");
-            this.managerTest.modify(list.get(0));
+            this.managerTest.update(list.get(0));
 
             try {
                 assertEquals("update() does not work!", "NewReason", this.managerTest.search(toSearch).get(0).getReason());
