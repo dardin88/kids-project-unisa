@@ -24,6 +24,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -53,6 +54,7 @@ public class GetSectionEduClassDivsServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        HttpSession s = request.getSession();
         try {
             List<ClassBean> classList;
             Account userLoggedIn = (Account) request.getSession().getAttribute("user");
@@ -60,7 +62,7 @@ public class GetSectionEduClassDivsServlet extends HttpServlet {
                 RegistrationChild searchRegChild = new RegistrationChild();
                 searchRegChild.setParentId(userLoggedIn.getId());
                 List<RegistrationChild> loggedInUserChildren = accessFacade.search(searchRegChild);
-                
+
                 ClassBean searchClass = new ClassBean();
                 searchClass.setState("accettata");
                 Map<Integer, ClassBean> classMap = new HashMap<Integer, ClassBean>();
@@ -78,7 +80,7 @@ public class GetSectionEduClassDivsServlet extends HttpServlet {
             } else {
                 classList = accessFacade.getClasses();
             }
-            
+
             if (classList.isEmpty()) {
                 out.print("<script type=\"text/javascript\">\n"
                         + "     $(\"#sectionEduWithClass\").hide();"
@@ -86,7 +88,7 @@ public class GetSectionEduClassDivsServlet extends HttpServlet {
                         + "</script>");
                 return;
             }
-            
+
             for (ClassBean clas : classList) {
                 out.println("<div id=\"" + clas.getIdClasse() + "\" class=\"sectionEduClass\">\n"
                         + "     <table id=\"table" + clas.getIdClasse() + "\">\n"
@@ -103,38 +105,41 @@ public class GetSectionEduClassDivsServlet extends HttpServlet {
                         + "         </thead>\n"
                         + "         <tbody></tbody>\n"
                         + "     </table>\n"
-                        + "     <br/>\n"
-                        + "     <c:if test=\"${sessionScope.user.getAccountType() != 'Genitore'}\">\n"
-                        + "     <input type=\"button\" value=\"Inserisci Attivit&agrave;\" id=\"insAct" + clas.getIdClasse() + "\">\n"
-                        + "     </c:if>\n"
-                        + "     <script type=\"text/javascript\">\n"
+                        + "     <br/>\n");
+
+                if (userLoggedIn.getAccountType().equals("Coordinatore Psicopedagogico")) {
+                    out.println("<input type=\"button\" value=\"Inserisci Attivit&agrave;\" id=\"insAct" + clas.getIdClasse() + "\">\n");
+                }
+                out.println("<script type=\"text/javascript\">\n"
                         + "         buildClassTable(" + clas.getIdClasse() + ");\n"
                         + "         buildActButton(" + clas.getIdClasse() + ");\n"
-                        + "     </script>\n"
-                        + "     <c:if test=\"${sessionScope.user.getAccountType() != 'Genitore'}\">\n"
-                        + "     <div style=\"padding-top: 20px;\">\n"
-                        + "         <h1>Commenti</h1>\n"
-                        + "         <table id=\"comm" + clas.getIdClasse() + "\">\n"
-                        + "             <thead>\n"
-                        + "                 <tr>\n"
-                        + "                     <th>Data</th>\n"
-                        + "                     <th>Ora</th>\n"
-                        + "                     <th>Contenuto</th>\n"
-                        + "                     <th>Autore</th>\n"
-                        + "                     <th>Operazioni</th>\n"
-                        + "                 </tr>\n"
-                        + "             </thead>\n"
-                        + "             <tbody></tbody>\n"
-                        + "         </table>\n"
-                        + "         <br/>\n"
-                        + "         <input type=\"button\" value=\"Inserisci commento\" id=\"insComm" + clas.getIdClasse() + "\">\n"
-                        + "     </div>\n"
-                        + "     <script type=\"text/javascript\">\n"
-                        + "         buildCommentEduTable(" + clas.getIdClasse() + ");\n"
-                        + "         buildCommentButton(" + clas.getIdClasse() + ");\n"
-                        + "     </script>\n"
-                        + "     </c:if>\n"
-                        + "</div>");
+                        + "     </script>\n");
+                if (!userLoggedIn.getAccountType().equals("Genitore")) {
+                    out.println("<div style=\"padding-top: 20px;\">\n"
+                            + "         <h1>Commenti</h1>\n"
+                            + "         <table id=\"comm" + clas.getIdClasse() + "\">\n"
+                            + "             <thead>\n"
+                            + "                 <tr>\n"
+                            + "                     <th>Data</th>\n"
+                            + "                     <th>Ora</th>\n"
+                            + "                     <th>Contenuto</th>\n"
+                            + "                     <th>Autore</th>\n"
+                            + "                     <th>Operazioni</th>\n"
+                            + "                 </tr>\n"
+                            + "             </thead>\n"
+                            + "             <tbody></tbody>\n"
+                            + "         </table>\n"
+                            + "         <br/>\n"
+                            + "         <input type=\"button\" value=\"Inserisci commento\" id=\"insComm" + clas.getIdClasse() + "\">\n"
+                            + "     </div>\n"
+                            + "     <script type=\"text/javascript\">\n"
+                            + "         buildCommentEduTable(" + clas.getIdClasse() + ");\n"
+                            + "         buildCommentButton(" + clas.getIdClasse() + ");\n"
+                            + "     </script>\n"
+                            + "     </c:if>\n"
+                            + "</div>");
+
+                }
             }
         } catch (SQLException e) {
             Logger.getLogger(GetSectionEduClassDivsServlet.class.getName()).log(Level.SEVERE, null, e);
