@@ -2,6 +2,11 @@ package it.unisa.kids.accessManagement.renunciationManagement;
 
 import java.util.GregorianCalendar;
 
+/**
+ * 
+ * @author Lauri Giuseppe Giovanni
+ *
+ */
 public class Renunciation {
 
     private int id;

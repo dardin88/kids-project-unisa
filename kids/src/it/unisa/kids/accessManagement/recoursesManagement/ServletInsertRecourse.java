@@ -40,10 +40,11 @@ public class ServletInsertRecourse extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
-        boolean isSuccess = true;
+        boolean isSuccess = false;
         String errorMsg = new String();
         
         try {
@@ -59,6 +60,7 @@ public class ServletInsertRecourse extends HttpServlet {
                 Recourse newRecourse = new Recourse();
                 newRecourse.setDate(creationDate);
                 newRecourse.setReason(motivo);
+                newRecourse.setValutation(DBNames.ATT_RECOURSE_VALUTATION_TOEVALUATE);
                 newRecourse.setRegistrationChildId(Integer.parseInt(sRegistrationChildId));
                 
                 // La inserisco nel db
@@ -72,10 +74,9 @@ public class ServletInsertRecourse extends HttpServlet {
             }
         } catch (SQLException ex) {
             Logger.getLogger(ServletInsertRecourse.class.getName()).log(Level.SEVERE, "SQL-Error: " + ex.getMessage(), ex);
-            isSuccess = false;
             errorMsg = ex.getMessage();
         }
-        json.put("IsSuccess", "" + isSuccess);
+        json.put("IsSuccess", isSuccess);
         json.put("ErrorMsg", errorMsg);
 
         out.write(json.toString());

@@ -47,7 +47,7 @@ public class ServletEditRegistrationChild extends HttpServlet {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
-        boolean isSuccess = true;
+        boolean isSuccess = false;
         String errorMsg = new String();
         
         try {
@@ -101,11 +101,10 @@ public class ServletEditRegistrationChild extends HttpServlet {
             // Aggiorno il db
             isSuccess = registrationChildManager.update(registrationChild);
         } catch (SQLException ex) {
-            Logger.getLogger(ServletCreateDraftRegistrationChild.class.getName()).log(Level.SEVERE, "SQL-Error: " + ex.getMessage(), ex);
-            isSuccess = false;
+            Logger.getLogger(ServletEditRegistrationChild.class.getName()).log(Level.SEVERE, "SQL-Error: " + ex.getMessage(), ex);
             errorMsg = ex.getMessage();
         }
-        json.put("IsSuccess", "" + isSuccess);
+        json.put("IsSuccess", isSuccess);
         json.put("ErrorMsg", errorMsg);
 
         out.write(json.toString());

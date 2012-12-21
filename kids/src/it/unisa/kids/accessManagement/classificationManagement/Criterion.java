@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unisa.kids.accessManagement.classificationManagement;
 
 /**
@@ -11,11 +7,14 @@ package it.unisa.kids.accessManagement.classificationManagement;
 public class Criterion {
     private int id;
     private String description;
+    private String dbFieldsTable;    // Field's Table, tabella in cui cercare il campo
     private String dbField;
     private String comparator;
     private String condition;
     private double weight;
+    private boolean isSetWeight;    // altrimenti non sarebbe possibile controllare se è stato impostato il peso
     private boolean active;
+    private boolean isSetActive;
     
     public Criterion() {
     }
@@ -42,6 +41,15 @@ public class Criterion {
 
     public void setWeight(double weight) {
         this.weight = weight;
+        isSetWeight = true;
+    }
+
+    public String getDbFieldsTable() {
+        return dbFieldsTable;
+    }
+
+    public void setDbFieldsTable(String dbTableField) {
+        this.dbFieldsTable = dbTableField;
     }
 
     public String getDbField() {
@@ -68,13 +76,19 @@ public class Criterion {
         this.condition = condition;
     }
 
-    public boolean isActive() {
+    public boolean getActive() {
         return active;
     }
 
     public void setActive(boolean isActive) {
         this.active = isActive;
+        this.isSetActive = true;
     }
     
-    
+    public boolean isSetWeight() {
+        return isSetWeight;
+    }
+    public boolean isSetActive() {
+        return isSetActive;
+    }
 }

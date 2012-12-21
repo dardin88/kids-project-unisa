@@ -1,12 +1,12 @@
-package it.unisa.kids.accessManagement.classificationManagement;
+package it.unisa.kids.accessManagement.recoursesManagement;
 
-import it.unisa.kids.common.CommonMethod;
+import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationChildManager;
+import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -20,14 +20,12 @@ import org.json.JSONObject;
  *
  * @author Lauri Giuseppe Giovanni
  */
-public class ServletGetClassification extends HttpServlet {
-    private IClassificationManager classificationManager;
+public class ServletDeleteRecourse extends HttpServlet {
+    private IRecoursesManager recourseManager;
 
     public void init(ServletConfig config) {
-        RefinedAbstractManager refinedAbstractRegistrationChildManager = RefinedAbstractManager.getInstance();
-        classificationManager = (IClassificationManager) refinedAbstractRegistrationChildManager.getManagerImplementor(DBNames.TABLE_CLASSIFICATION);
+        recourseManager = (IRecoursesManager) RefinedAbstractManager.getInstance().getManagerImplementor(DBNames.TABLE_RECOURSE);
     }
-    
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -44,51 +42,41 @@ public class ServletGetClassification extends HttpServlet {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
-        boolean isSuccess = true;
+        boolean isSuccess = false;
         String errorMsg = new String();
         
         try {
-            Classification tmpClassification = new Classification();
+            Recourse tmpRecourse = new Recourse();
             
+            String sId = request.getParameter(DBNames.ATT_RECOURSE_ID);
+            String sRegistrationChildId = request.getParameter(DBNames.ATT_RECOURSE_REGISTRATIONCHILDID);
             // campi necessari per prelevare le informazioni
-            if(!request.getParameter(DBNames.ATT_REGISTRATIONCHILD_ID).equals("")) {
-                int id = Integer.parseInt(request.getParameter(DBNames.ATT_REGISTRATIONCHILD_ID));
-                tmpClassification.setId(id);
-                // ricerco
-                List<Classification> listResult = classificationManager.search(tmpClassification);
-                if(listResult.size() > 0) {
-                    
-                    // prelevo il risultato (dovrebbe essere unico
-                    tmpClassification = listResult.get(0);
-
-                    // costruisco l'output
-                    
-                    json.put(DBNames.ATT_CLASSIFICATION_ID, tmpClassification.getId());
-                    json.put(DBNames.ATT_CLASSIFICATION_NAME, tmpClassification.getName());
-                    json.put(DBNames.ATT_CLASSIFICATION_DATA, CommonMethod.parseString(tmpClassification.getDate()));
-                    json.put(DBNames.ATT_CLASSIFICATION_STATUS, tmpClassification.getStatus());
-                    
-                } else {
-                    isSuccess = false;
-                    errorMsg = "Errore nella prelevazione dell'ID: " + id;
-                }
+            if(sId != null && !sId.equals("") && sRegistrationChildId != null && !sRegistrationChildId.equals("")) {
+                int id = Integer.parseInt(sId);
+                
+                tmpRecourse.setId(id);
+                
+                isSuccess = recourseManager.delete(tmpRecourse);
+                
+                // Riporto lo stato dell'iscrizione a ricevuta
+                RefinedAbstractManager refinedAbstractRegistrationChildManager = RefinedAbstractManager.getInstance();
+                IRegistrationChildManager registrationChildManager = (IRegistrationChildManager) refinedAbstractRegistrationChildManager.getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
+                RegistrationChild tmpRegistrationChild = new RegistrationChild();
+                tmpRegistrationChild.setId(Integer.parseInt(sRegistrationChildId));
+                registrationChildManager.confirmReceiptRegistrationChild(tmpRegistrationChild);
             } else {
-                isSuccess = false;
                 errorMsg = "Errore nella passaggio dei parametri";
             }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(ServletGetClassification.class.getName()).log(Level.SEVERE, null, ex);
-            isSuccess = false;
+        } catch(SQLException ex) {
+            Logger.getLogger(ServletDeleteRecourse.class.getName()).log(Level.SEVERE, null, ex);
             errorMsg = ex.getMessage();
         }
-
+        
         json.put("IsSuccess", isSuccess);
         json.put("ErrorMsg", errorMsg);
-
+        
         out.write(json.toString());
         out.close();
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -13,8 +13,6 @@ public interface IRecoursesManager extends IManager {
     public boolean insert(Recourse pRecourse) throws SQLException;
     public boolean update(Recourse pRecourse) throws SQLException;
     public boolean delete(Recourse pRecourse) throws SQLException;
-    public boolean accept(Recourse pRecourse) throws SQLException;
-    public boolean refuse(Recourse pRecourse) throws SQLException;
     public List<Recourse> search(Recourse pRecourse) throws SQLException;
     /**
      * Search recourse whith precision parameter setted in pRecourse or with
@@ -26,6 +24,9 @@ public interface IRecoursesManager extends IManager {
      * @throws SQLException if occured an SQLException
      */
     public List<Recourse> search(Recourse pRecourse, String toSearch) throws SQLException;
+    
+    public boolean accept(Recourse pRecourse) throws SQLException;
+    public boolean refuse(Recourse pRecourse) throws SQLException;
     
     public int getNumberRecourseToEvaluate() throws SQLException;
     

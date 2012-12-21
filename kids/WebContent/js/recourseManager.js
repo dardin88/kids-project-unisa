@@ -204,12 +204,13 @@ function openViewDetailsRecourseWindow(id) {
  * dato un ID
  * !NON UTILIZZATO QUINDI LA SERVLET NON E' STATA IMPLEMENTATA PER ORA!
  */
-function openDeleteRecourseWindow(id) {
+function openDeleteRecourseWindow(id, registrationChildId) {
     var actionOnConfirm = function() {
         comunicaConServlet(
         "DeleteRecourse", 
         {
-            Id:id
+            Id:id,
+            Iscrizione: registrationChildId
         }, 
         function(jsonObject) {
             if(jsonObject.IsSuccess) {
@@ -233,7 +234,7 @@ function openAcceptRecourseWindow(id, registrationChildId) {
         {
             Id: id,
             Iscrizione: registrationChildId,
-            Valutazione: "accetta"
+            Valutazione: "accettato"
         }, 
         function(jsonObject) {
             if(jsonObject.IsSuccess) {
@@ -256,7 +257,7 @@ function openRifiutaRecourseWindow(id, registrationChildId) {
         {
             Id: id,
             Iscrizione: registrationChildId,
-            Valutazione: "rifiuta"
+            Valutazione: "rifiutato"
         }, 
         function(jsonObject) {
             if(jsonObject.IsSuccess) {
@@ -283,7 +284,7 @@ function saveNewRecourse() {
     var param = ["recourseAddWindowMotivo"];
     if(valida(param)) {
         comunicaConServlet("InsertRecourse", {
-                    Motivazione: getValue("recourseAddWindowMotivo"),
+                    Motivo: getValue("recourseAddWindowMotivo"),
                     Iscrizione: getValue("recourseAddWindowId")
                 }, function(result) {
                     if(result.IsSuccess) {

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unisa.kids.accessManagement.classificationManagement;
 
 import it.unisa.kids.common.DBNames;
@@ -78,7 +74,7 @@ public class ServletChangeResult extends HttpServlet {
             errorMsg = ex.getMessage();
         }
         
-        json.put("IsSuccess", "" + isSuccess);
+        json.put("IsSuccess", isSuccess);
         json.put("ErrorMsg", errorMsg);
         
 

@@ -1,9 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unisa.kids.accessManagement.classificationManagement;
 
+import it.unisa.kids.accessManagement.recoursesManagement.IRecoursesManager;
 import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationChildManager;
 import it.unisa.kids.accessManagement.registrationChildManagement.RegistrationChild;
 import it.unisa.kids.common.CommonMethod;
@@ -51,18 +48,20 @@ public class ServletModifyClassification extends HttpServlet {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
-        boolean isSuccess;
+        boolean isSuccess = false;
         String errorMsg = new String();
         
         try {
             Classification tmpClassification = new Classification();
             // campi necessari per prelevare le informazioni
-            if(!request.getParameter(DBNames.ATT_CLASSIFICATION_ID).equals("")) {
-                int classificationId = Integer.parseInt(request.getParameter(DBNames.ATT_CLASSIFICATION_ID));
+            String sId = request.getParameter(DBNames.ATT_CLASSIFICATION_ID);
+            if(sId != null && !sId.equals("")) {
+                int classificationId = Integer.parseInt(sId);
                 tmpClassification.setId(classificationId);
                 
-                if(request.getParameter(DBNames.ATT_CLASSIFICATION_DATA) != null) {
-                    GregorianCalendar data = CommonMethod.parseGregorianCalendar(request.getParameter(DBNames.ATT_CLASSIFICATION_DATA));
+                String sData = request.getParameter(DBNames.ATT_CLASSIFICATION_DATA);
+                if(sData != null && !sData.equals("")) {
+                    GregorianCalendar data = CommonMethod.parseGregorianCalendar(sData);
                     tmpClassification.setDate(data);
                 }
                 String nome = request.getParameter(DBNames.ATT_CLASSIFICATION_NAME);
@@ -70,15 +69,21 @@ public class ServletModifyClassification extends HttpServlet {
                     tmpClassification.setName(nome);
                 }
                 String stato = request.getParameter(DBNames.ATT_CLASSIFICATION_STATUS);
-                if(stato != null) {
-                    tmpClassification.setStatus(stato);
-                    if(stato.equals(DBNames.ATT_CLASSIFICATION_STATUS_DEFINITIVA)) {
+                if(stato != null && stato.equals(DBNames.ATT_CLASSIFICATION_STATUS_DEFINITIVA)) {
+                    // Una graduatoria può diventare devinitiva solo se non ci sono Ricorsi da valutare
+                    RefinedAbstractManager refinedAbstractRegistrationChildManager = RefinedAbstractManager.getInstance();
+                    IRecoursesManager recourseManager = (IRecoursesManager) refinedAbstractRegistrationChildManager.getManagerImplementor(DBNames.TABLE_RECOURSE);
+                    if(recourseManager.getNumberRecourseToEvaluate() > 0) {
+                        errorMsg = "Non è possibile rendere la graduatoria perchè ci sono ricorsi da valutare!<br/>" + 
+                                    "Accedere a \"Ricorsi\" per valutare tutti i ricorsi presenti.";
+                    } else {
+                        tmpClassification.setStatus(stato);
+                        
                         // Si rendono Accettate le domande di iscrizione che hanno esito positivo (fase di notify (Observe design patter) al RegistrationChildManager
                         // Prendo l'elenco dei risultati
-                        Result resultToSearch = new Result();
-                        resultToSearch.setClassificationId(classificationId);
-                        List<Result> risultati = classificationManager.searchResult(resultToSearch);
-                        RefinedAbstractManager refinedAbstractRegistrationChildManager = RefinedAbstractManager.getInstance();
+                        Result resultsToSearch = new Result();
+                        resultsToSearch.setClassificationId(classificationId);
+                        List<Result> risultati = classificationManager.searchResult(resultsToSearch);
                         IRegistrationChildManager registrationChildManager = (IRegistrationChildManager) refinedAbstractRegistrationChildManager.getManagerImplementor(DBNames.TABLE_REGISTRATIONCHILD);
                         RegistrationChild tmpChild = new RegistrationChild();
                         for(Result tmpResult : risultati) {
@@ -90,26 +95,28 @@ public class ServletModifyClassification extends HttpServlet {
                             }
                         }
                     }
+                } else {
+                    if(stato != null) {
+                        tmpClassification.setStatus(stato);
+                    } else {
+                        errorMsg = "Errore nel passaggio del parametro di stato";
+                    }
                 }
                 isSuccess = classificationManager.update(tmpClassification);
             } else {
-                isSuccess = false;
                 errorMsg = "Errore nella passaggio dei parametri";
             }
             
         } catch(SQLException ex) {
             Logger.getLogger(ServletModifyClassification.class.getName()).log(Level.SEVERE, null, ex);
-            isSuccess = false;
             errorMsg = ex.getMessage();
         }
-        
-        json.put("IsSuccess", "" + isSuccess);
+        json.put("IsSuccess", isSuccess);
         json.put("ErrorMsg", errorMsg);
 
-
+        System.out.println(json);
         out.write(json.toString());
         out.close();
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

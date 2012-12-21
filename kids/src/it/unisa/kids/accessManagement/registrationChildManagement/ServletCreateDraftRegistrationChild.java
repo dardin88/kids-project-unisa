@@ -49,7 +49,7 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
-        boolean isSuccess = true;
+        boolean isSuccess = false;
         String errorMsg = new String();
         
         try {
@@ -77,10 +77,6 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
             GregorianCalendar registrationDate = new GregorianCalendar();
             registrationDate.setTime(new Date(System.currentTimeMillis()));
 
-            /* TEST DELLA RICHIESTA ALLA SERVLET
-                        request.getParameter(DBNames.ATT_REGISTRATIONCHILD_SURNAME) + "ora: " + CommonMethod.parseString(registrationDate));
-            //*/
-            
             // Creo la domanda di iscrizione bambino
             RegistrationChild registrationChild = new RegistrationChild();
             registrationChild.setSurname(surname);
@@ -102,15 +98,13 @@ public class ServletCreateDraftRegistrationChild extends HttpServlet {
             isSuccess = registrationChildManager.insert(registrationChild);
         } catch (SQLException ex) {
             Logger.getLogger(ServletCreateDraftRegistrationChild.class.getName()).log(Level.SEVERE, "SQL-Error: " + ex.getMessage(), ex);
-            isSuccess = false;
             errorMsg = ex.getMessage();
         }
-        json.put("IsSuccess", "" + isSuccess);
+        json.put("IsSuccess", isSuccess);
         json.put("ErrorMsg", errorMsg);
 
         out.write(json.toString());
         out.close();
-        
     }
    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

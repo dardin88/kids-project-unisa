@@ -101,14 +101,12 @@ public class ServletGetRegistrationChild extends HttpServlet {
             Logger.getLogger(ServletGetRegistrationChild.class.getName()).log(Level.SEVERE, null, ex);
             isSuccess = false;
             errorMsg = ex.getMessage();
-        } finally {
-            
-            json.put("IsSuccess", isSuccess);
-            json.put("ErrorMsg", errorMsg);
-            
-            out.write(json.toString());
-            out.close();
         }
+        json.put("IsSuccess", isSuccess);
+        json.put("ErrorMsg", errorMsg);
+
+        out.write(json.toString());
+        out.close();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

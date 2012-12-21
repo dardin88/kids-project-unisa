@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -30,7 +29,7 @@ public class JDBCRecoursesManager implements IRecoursesManager {
         }
     }
 
-    public synchronized boolean insert(Recourse pRecourse) throws SQLException {
+    public synchronized boolean insert(Recourse ricorso) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
         String query;
@@ -43,16 +42,20 @@ public class JDBCRecoursesManager implements IRecoursesManager {
             query = "INSERT INTO " + DBNames.TABLE_RECOURSE + " (" +
                             DBNames.ATT_RECOURSE_ID + ", " +
                             DBNames.ATT_RECOURSE_DATA + ", " +
-                            DBNames.ATT_RECOURSE_REASON + ", "+ 
-                            DBNames.ATT_RECOURSE_VALUTATION +
-                            ") VALUES (NULL,?,?,?)"; 
-
+                            DBNames.ATT_RECOURSE_REASON + ", " + 
+                            DBNames.ATT_RECOURSE_VALUTATION + ", " +
+                            DBNames.ATT_RECOURSE_REGISTRATIONCHILDID + ") " +
+                            "VALUES(NULL,?,?,?,?);"; 
+            
+            pstmt = con.prepareCall(query);
+            
             //setting pstmt's parameters
-            pstmt.setDate(1, CommonMethod.parseDate(pRecourse.getDate()));
-            pstmt.setString (2, pRecourse.getReason());
-            pstmt.setString(3, pRecourse.getValutation());
+            pstmt.setDate(1, CommonMethod.parseDate(ricorso.getDate()));
+            pstmt.setString (2, ricorso.getReason());
+            pstmt.setString(3, ricorso.getValutation());
+            pstmt.setInt(4, ricorso.getRegistrationChildId());
 
-            numEditedRow = pstmt.executeUpdate(query);
+            numEditedRow = pstmt.executeUpdate();
             con.commit();
             if(numEditedRow > 0) {
                 toReturn = true;
@@ -71,7 +74,7 @@ public class JDBCRecoursesManager implements IRecoursesManager {
     public synchronized boolean update(Recourse recourse) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt=null;
-        StringBuffer query = new StringBuffer();
+        StringBuilder query = new StringBuilder();
         int numEditedRow;
         boolean toReturn = false;
         boolean useComma = false;
@@ -84,23 +87,23 @@ public class JDBCRecoursesManager implements IRecoursesManager {
             query.append("UPDATE " + DBNames.TABLE_RECOURSE + " SET ");
             
             if(recourse.getDate() != null) {
-                query.append(useSeparator(useComma) + DBNames.ATT_RECOURSE_DATA);
+                query.append(useSeparator(useComma) + DBNames.ATT_RECOURSE_DATA + "=?");
                 useComma = true;
             }
             if(recourse.getReason() != null) {
-                query.append(useSeparator(useComma) + DBNames.ATT_RECOURSE_REASON);
+                query.append(useSeparator(useComma) + DBNames.ATT_RECOURSE_REASON + "=?");
                 useComma = true;
             }
             if(recourse.getValutation() != null) {
-                query.append(useSeparator(useComma) + DBNames.ATT_RECOURSE_VALUTATION);
+                query.append(useSeparator(useComma) + DBNames.ATT_RECOURSE_VALUTATION + "=?");
                 useComma = true;
             }
             if(recourse.getRegistrationChildId() > 0) {
-                query.append(useSeparator(useComma) + DBNames.ATT_RECOURSE_REGISTRATIONCHILDID);
+                query.append(useSeparator(useComma) + DBNames.ATT_RECOURSE_REGISTRATIONCHILDID + "=?");
                 useComma = true;
             }
             if(useComma) {
-                query.append("WHERE " + DBNames.ATT_RECOURSE_ID + "=?");
+                query.append("WHERE " + DBNames.ATT_RECOURSE_ID + "=?;");
 
                 pstmt = con.prepareStatement(query.toString());
 
@@ -225,8 +228,6 @@ public class JDBCRecoursesManager implements IRecoursesManager {
         StringBuilder query = new StringBuilder();
         List<Recourse> listRecourse = null;
 
-        boolean andState = false;
-
         try {
             con = DBConnectionPool.getConnection();
 
@@ -235,6 +236,8 @@ public class JDBCRecoursesManager implements IRecoursesManager {
                     "RC." + DBNames.ATT_REGISTRATIONCHILD_SURNAME + ", RC." + DBNames.ATT_REGISTRATIONCHILD_NAME + " " + 
                     "FROM " + DBNames.TABLE_RECOURSE + " AS RE, " + DBNames.TABLE_REGISTRATIONCHILD + " AS RC " + 
                     "WHERE RE." + DBNames.ATT_RECOURSE_REGISTRATIONCHILDID + "=RC." + DBNames.ATT_REGISTRATIONCHILD_ID);
+            
+            boolean andState = true;
             
             if(ricorso.getId() > 0) {		
                 query.append(useAnd(andState) + "RE." + DBNames.ATT_RECOURSE_ID + "=?");
@@ -295,10 +298,11 @@ public class JDBCRecoursesManager implements IRecoursesManager {
                 Recourse tmpRecourse = new Recourse();
                 tmpRecourse.setId(rs.getInt("RE." + DBNames.ATT_RECOURSE_ID));
                 tmpRecourse.setDate(CommonMethod.parseGregorianCalendar(rs.getDate("RE." + DBNames.ATT_RECOURSE_DATA)));
-                tmpRecourse.setReason(rs.getString("RE." + DBNames.ATT_RECOURSE_VALUTATION));
+                tmpRecourse.setReason(rs.getString("RE." + DBNames.ATT_RECOURSE_REASON));
                 tmpRecourse.setValutation(rs.getString("RE." + DBNames.ATT_RECOURSE_VALUTATION));
 
-                tmpRecourse.setRegistrationChildId(rs.getInt("RC." + DBNames.ATT_RECOURSE_REGISTRATIONCHILDID));
+                tmpRecourse.setRegistrationChildId(rs.getInt("RE." + DBNames.ATT_RECOURSE_REGISTRATIONCHILDID));
+                
                 tmpRecourse.setRegistrationChildFiscalCode(rs.getString("RC." + DBNames.ATT_REGISTRATIONCHILD_FISCALCODE));
                 tmpRecourse.setRegistrationChildSurname(rs.getString("RC." + DBNames.ATT_REGISTRATIONCHILD_SURNAME));
                 tmpRecourse.setRegistrationChildName(rs.getString("RC." + DBNames.ATT_REGISTRATIONCHILD_NAME));
@@ -319,7 +323,7 @@ public class JDBCRecoursesManager implements IRecoursesManager {
         return listRecourse;
     }
 
-    public synchronized List<Recourse> search(Recourse ricorso, String toSearch) throws SQLException {
+    public synchronized List<Recourse> search(Recourse ricorso, String advanceStringToSearch) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -346,7 +350,6 @@ public class JDBCRecoursesManager implements IRecoursesManager {
                 query.append(useAnd(andState) + "RE." + DBNames.ATT_RECOURSE_DATA + "=?");
                 andState = true;
             } 
-
             if(ricorso.getReason() != null) {
                 query.append(useAnd(andState) + "RE." + DBNames.ATT_RECOURSE_REASON + "=?");
                 andState = true;
@@ -365,23 +368,25 @@ public class JDBCRecoursesManager implements IRecoursesManager {
                 query.append(" AND (");
             }
             if(ricorso.getId() <= 0) {
-                query.append(useOr(orState) + "RE." + DBNames.ATT_RECOURSE_ID + " LIKE '%" + toSearch + "%'");
+                query.append(useOr(orState) + "RE." + DBNames.ATT_RECOURSE_ID + " LIKE '%" + advanceStringToSearch + "%'");
                 orState = true;
             }
             if(ricorso.getDate() == null) {
-                query.append(useOr(orState) + "RE." + DBNames.ATT_RECOURSE_DATA + " LIKE '%" + toSearch + "%'");
+                query.append(useOr(orState) + "RE." + DBNames.ATT_RECOURSE_DATA + " LIKE '%" + advanceStringToSearch + "%'");
                 orState = true;
             }
             if(ricorso.getReason() == null) {
-                query.append(useOr(orState) + "RE." + DBNames.ATT_RECOURSE_REASON + " LIKE '%" + toSearch + "%'");
+                query.append(useOr(orState) + "RE." + DBNames.ATT_RECOURSE_REASON + " LIKE '%" + advanceStringToSearch + "%'");
                 orState = true;
             }
             if(ricorso.getRegistrationChildId() <= 0) {
-                query.append(useOr(orState) + "RE." + DBNames.ATT_RECOURSE_REGISTRATIONCHILDID + " LIKE '%" + toSearch + "%'");
+                query.append(useOr(orState) + "RE." + DBNames.ATT_RECOURSE_REGISTRATIONCHILDID + " LIKE '%" + advanceStringToSearch + "%'");
                 orState = true;
             }
-            if(!orState && andState) {
-                query.append("1");
+            if(!advanceStringToSearch.equals("")) {
+                query.append(useOr(orState) + "RC." + DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + " LIKE '%" + advanceStringToSearch + "%' OR " + 
+                        "RC." + DBNames.ATT_REGISTRATIONCHILD_SURNAME + " LIKE '%" + advanceStringToSearch + "%' OR " +
+                        "RC." + DBNames.ATT_REGISTRATIONCHILD_NAME + " LIKE '%" + advanceStringToSearch + "%'");
             }
             if(andState) {
                 query.append(")");
@@ -420,11 +425,12 @@ public class JDBCRecoursesManager implements IRecoursesManager {
             while(rs.next()) {
                 Recourse tmpRecourse = new Recourse();
                 tmpRecourse.setId(rs.getInt("RE." + DBNames.ATT_RECOURSE_ID));
-                tmpRecourse.setDate(CommonMethod.parseGregorianCalendar("RE." + rs.getDate(DBNames.ATT_RECOURSE_DATA)));
+                tmpRecourse.setDate(CommonMethod.parseGregorianCalendar(rs.getDate("RE." + DBNames.ATT_RECOURSE_DATA)));
                 tmpRecourse.setReason(rs.getString("RE." + DBNames.ATT_RECOURSE_VALUTATION));
                 tmpRecourse.setValutation(rs.getString("RE." + DBNames.ATT_RECOURSE_VALUTATION));
 
-                tmpRecourse.setRegistrationChildId(rs.getInt("RC." + DBNames.ATT_RECOURSE_REGISTRATIONCHILDID));
+                tmpRecourse.setRegistrationChildId(rs.getInt("RE." + DBNames.ATT_RECOURSE_REGISTRATIONCHILDID));
+                
                 tmpRecourse.setRegistrationChildFiscalCode(rs.getString("RC." + DBNames.ATT_REGISTRATIONCHILD_FISCALCODE));
                 tmpRecourse.setRegistrationChildSurname(rs.getString("RC." + DBNames.ATT_REGISTRATIONCHILD_SURNAME));
                 tmpRecourse.setRegistrationChildName(rs.getString("RC." + DBNames.ATT_REGISTRATIONCHILD_NAME));
@@ -468,7 +474,7 @@ public class JDBCRecoursesManager implements IRecoursesManager {
             con = DBConnectionPool.getConnection();
 
             // constructing search query string
-            query.append("SELECT COUNT(*) AS NumberRecourseToEvaluate" + 
+            query.append("SELECT COUNT(*) AS NumberRecourseToEvaluate " + 
                     "FROM " + DBNames.TABLE_RECOURSE + " " + 
                     "WHERE " + DBNames.ATT_RECOURSE_VALUTATION + "=?;");
             
@@ -507,16 +513,19 @@ public class JDBCRecoursesManager implements IRecoursesManager {
         try {
             con = DBConnectionPool.getConnection();
             
-            query.append("SELECT RE.*, RC." + DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + ", RC." + 
-                    DBNames.ATT_REGISTRATIONCHILD_SURNAME + ", RC." + DBNames.ATT_REGISTRATIONCHILD_NAME + " " +
-                            "FROM " + DBNames.TABLE_RECOURSE + " AS RE, " + DBNames.TABLE_REGISTRATIONCHILD + " AS RC " +
-                            "WHERE RE." + DBNames.ATT_RECOURSE_REGISTRATIONCHILDID + "=RC." + DBNames.ATT_REGISTRATIONCHILD_ID + " AND " +
+            query.append("SELECT RE.*, RC." + DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + ", " + 
+                            "RC." + DBNames.ATT_REGISTRATIONCHILD_SURNAME + ", " +
+                            "RC." + DBNames.ATT_REGISTRATIONCHILD_NAME + " " +
+                        "FROM " + DBNames.TABLE_RECOURSE + " AS RE, " + DBNames.TABLE_REGISTRATIONCHILD + " AS RC " +
+                        "WHERE RE." + DBNames.ATT_RECOURSE_REGISTRATIONCHILDID + "=RC." + DBNames.ATT_REGISTRATIONCHILD_ID + " AND " +
                             DBNames.ATT_REGISTRATIONCHILD_PARENTACCOUNTID + "=?");
             if(advanceStringToSearch != null) {
-                    // ADVANCED FIELD SEARCH
-                query.append(" AND (RC." + DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + " LIKE '%" + advanceStringToSearch + "%' OR RC." + 
-                    DBNames.ATT_REGISTRATIONCHILD_SURNAME + " LIKE '%" + advanceStringToSearch + "%' OR RC." + 
-                    DBNames.ATT_REGISTRATIONCHILD_NAME + " LIKE '%" + advanceStringToSearch + "%')");
+                // ADVANCED FIELD SEARCH
+                query.append(" AND (RE." + DBNames.ATT_RECOURSE_DATA + " LIKE '%" + advanceStringToSearch + "%' OR " + 
+                        "RE." + DBNames.ATT_RECOURSE_VALUTATION + " LIKE '%" + advanceStringToSearch + "%' OR " + 
+                        "RC." + DBNames.ATT_REGISTRATIONCHILD_FISCALCODE + " LIKE '%" + advanceStringToSearch + "%' OR " + 
+                        "RC." + DBNames.ATT_REGISTRATIONCHILD_SURNAME + " LIKE '%" + advanceStringToSearch + "%' OR " +
+                        "RC." + DBNames.ATT_REGISTRATIONCHILD_NAME + " LIKE '%" + advanceStringToSearch + "%')");
             }
             query.append(";");
             pstmt = con.prepareStatement(query.toString());
@@ -527,21 +536,16 @@ public class JDBCRecoursesManager implements IRecoursesManager {
             
             while(result.next()) {
                 Recourse p = new Recourse();
-                p.setId(result.getInt(DBNames.ATT_RECOURSE_ID));
-                GregorianCalendar date;
-                if(result.getDate(DBNames.ATT_RECOURSE_DATA) != null) {
-                    date = CommonMethod.parseGregorianCalendar(result.getDate(DBNames.ATT_RECOURSE_DATA));
-                } else {
-                    date = null;
-                }
-                p.setDate(date);
-                p.setValutation(result.getString(DBNames.ATT_RECOURSE_VALUTATION));
-                p.setRegistrationChildId(result.getInt(DBNames.ATT_RECOURSE_REGISTRATIONCHILDID));
-                p.setReason(result.getString(DBNames.ATT_RECOURSE_REASON));
+                p.setId(result.getInt("RE." + DBNames.ATT_RECOURSE_ID));
+                p.setDate(CommonMethod.parseGregorianCalendar(result.getDate("RE." + DBNames.ATT_RECOURSE_DATA)));
+                p.setValutation(result.getString("RE." + DBNames.ATT_RECOURSE_VALUTATION));
+                p.setReason(result.getString("RE." + DBNames.ATT_RECOURSE_REASON));
                 
-                p.setRegistrationChildFiscalCode(result.getString(DBNames.ATT_REGISTRATIONCHILD_FISCALCODE));
-                p.setRegistrationChildSurname(result.getString(DBNames.ATT_REGISTRATIONCHILD_SURNAME));
-                p.setRegistrationChildName(result.getString(DBNames.ATT_REGISTRATIONCHILD_NAME));
+                p.setRegistrationChildId(result.getInt("RE." + DBNames.ATT_RECOURSE_REGISTRATIONCHILDID));
+                
+                p.setRegistrationChildFiscalCode(result.getString("RC." + DBNames.ATT_REGISTRATIONCHILD_FISCALCODE));
+                p.setRegistrationChildSurname(result.getString("RC." + DBNames.ATT_REGISTRATIONCHILD_SURNAME));
+                p.setRegistrationChildName(result.getString("RC." + DBNames.ATT_REGISTRATIONCHILD_NAME));
                 
                 listRecourse.add(p);
             }

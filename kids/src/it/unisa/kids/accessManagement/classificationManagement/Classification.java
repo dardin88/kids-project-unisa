@@ -3,6 +3,10 @@ package it.unisa.kids.accessManagement.classificationManagement;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+/**
+ *
+ * @author Lauri Giuseppe Giovanni
+ */
 public class Classification {
 	
     private int id;

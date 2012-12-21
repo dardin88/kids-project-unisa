@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unisa.kids.accessManagement.classificationManagement;
 
 import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationChildManager;
@@ -69,7 +65,7 @@ public class ServletUpdateResult extends HttpServlet {
                 List<RegistrationChild> listToInsert = registrationChildManager.getReceptedRegistrationChild();
                 
                 // Il sistema valuta il punteggio sulla base di tutti i criteri inseriti
-                List<Criterion> listCriteria = classificationManager.getAllCriteria();
+                List<Criterion> listCriteria = classificationManager.getAllActiveCriteria();
                 for(RegistrationChild tmpChild : listToInsert) {
                     Result newResult = new Result();
                     newResult.setClassificationId(id);
@@ -93,12 +89,11 @@ public class ServletUpdateResult extends HttpServlet {
             errorMsg = ex.getMessage();
         }
         
-        json.put("IsSuccess", "" + isSuccess);
+        json.put("IsSuccess", isSuccess);
         json.put("ErrorMsg", errorMsg);
         json.put("NumInsert", numInsert);
         json.put("NumUpdate", numUpdate);
         
-
         out.write(json.toString());
         out.close();
     }

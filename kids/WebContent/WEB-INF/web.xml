@@ -613,6 +613,14 @@
         <servlet-name>GetActivityDataServlet</servlet-name>
         <servlet-class>it.unisa.kids.communicationManagement.programEducationalManagement.GetActivityDataServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletDeleteRecourse</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.recoursesManagement.ServletDeleteRecourse</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletModifyCriterion</servlet-name>
+        <servlet-class>it.unisa.kids.accessManagement.classificationManagement.ServletModifyCriterion</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetParentsTableServlet</servlet-name>
         <url-pattern>/GetParentsTable</url-pattern>
@@ -1220,6 +1228,14 @@
     <servlet-mapping>
         <servlet-name>GetActivityDataServlet</servlet-name>
         <url-pattern>/GetActivityData</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletDeleteRecourse</servlet-name>
+        <url-pattern>/DeleteRecourse</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletModifyCriterion</servlet-name>
+        <url-pattern>/ModifyCriterion</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

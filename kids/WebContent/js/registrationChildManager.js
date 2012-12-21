@@ -12,63 +12,6 @@ function initializeRegistrationFields(){
         }
     });
     
-    jQuery.validator.addMethod("codfiscale", function(value) { 
-        // espressione migliorabile... ma sufficiente per il nostro esempio
-        var regex = /[A-Z]{6}[\d]{2}[A-Z][\d]{2}[A-Z][\d]{3}[A-Z]/;  
-        value =value.toUpperCase();
-        return value. match(regex);  
-    }, "Please insert a valid italian identification number");
-    
-    $("#registrationChildFormWindowForm").validate({
-        rules:
-        {
-            registrationChildFormWindowCognome:{
-                required:true
-            },
-            registrationChildFormWindowNome:{
-                required:true
-            },
-            registrationChildFormWindowDataNascita:{
-                required:true,
-                date:true
-            },
-            registrationChildFormWindowComuneNascita:{
-                required:true
-            },
-            registrationChildFormWindowCodiceFiscale:{
-                required:true,
-                codfiscale:true
-            },
-            registrationChildFormWindowCittadinanza:{
-                required:true
-            }
-        },
-        messages:{
-            registrationChildFormWindowCognome:{
-                required: "Cognome obbligatorio"
-            },
-            registrationChildFormWindowNome:{
-                required: "Nome obbligatorio"
-            },
-            registrationChildFormWindowDataNascita:{
-                required: "Data nascita obbligatoria",
-                date: "Formato non valido"
-            },
-            registrationChildFormWindowComuneNascita:{
-                required: "Comune nascita obbligatorio"
-            },
-            registrationChildFormWindowCodiceFiscale:{
-                required: "Codice Fiscale obbligatorio",
-                codfiscale: "Formato non valido"
-            },
-            registrationChildFormWindowCittadinanza:{
-                required: "Inserisci cittadinanza"
-            }
-        },
-        submitHandler: function(form) {
-            form.submit();
-        }
-    });
     initRegistrationChildFormWindow();
     initRegistrationChildConfirmWindow();
     initRegistrationChildAlertWindow();
@@ -137,8 +80,6 @@ function search(){
 
 
 function createNewDraftRegistrationChildAction() {
-     
-    
     $("#registrationChildFormWindowForm").validate({
         rules:{
         
@@ -172,10 +113,9 @@ function createNewDraftRegistrationChildAction() {
                 function(errorMsg) {
                     // Funzione eseguita se la richiesta alla servlet ha presentato errori
                     setWindowVisibility("registrationChildFormWindow", false);
-                    //alert("error function: ");
                     openRegistrationChildAlertWindow("Errore", errorMsg);
                 }
-                );
+            );
         }
     });
 }
@@ -213,7 +153,6 @@ function saveEditDraftRegistrationChildAction() {
                 function(errorMsg) {
                     // Funzione eseguita se la richiesta alla servlet ha presentato errori
                     setWindowVisibility("registrationChildFormWindow", false);
-                    //alert("error function: ");
                     openRegistrationChildAlertWindow("Errore", errorMsg);
                 }
                 );
@@ -221,7 +160,6 @@ function saveEditDraftRegistrationChildAction() {
     });
 }
 function submitDraftRegistrationChildAction() {
-    //alert($("#registrationChildFormWindowFasciaUtenza").val());
     setRegistrationChildFormEditable(true);
     $("#registrationChildFormWindowForm").validate({
         rules: {
@@ -303,10 +241,9 @@ function submitDraftRegistrationChildAction() {
                 function(errorMsg) {
                     // Funzione eseguita se la richiesta alla servlet ha presentato errori
                     setWindowVisibility("registrationChildFormWindow", false);
-                    //alert("error function: ");
                     openRegistrationChildAlertWindow("Errore", errorMsg);
                 }
-                );
+            );
         }
     });
     
@@ -350,10 +287,9 @@ function completeDraftRegistrationChildAction() {
                 function(errorMsg) {
                     // Funzione eseguita se la richiesta alla servlet ha presentato errori
                     setWindowVisibility("registrationChildFormWindow", false);
-                    //alert("error function: ");
                     openRegistrationChildAlertWindow("Errore", errorMsg);
                 }
-                );
+            );
         }
     });
 }
@@ -404,10 +340,9 @@ function confirmCompletingDraftRegistrationChildAction() {
                 function(errorMsg) {
                     // Funzione eseguita se la richiesta alla servlet ha presentato errori
                     setWindowVisibility("registrationChildFormWindow", false);
-                    //alert("error function: ");
                     openRegistrationChildAlertWindow("Errore", errorMsg);
                 }
-                );
+            );
         }
     });
 }
@@ -542,8 +477,7 @@ function initRegistrationChildFormWindow() {
     $("#registrationChildFormWindowUndoButton").click(function(){
         setWindowVisibility("registrationChildFormWindow", false);
         clearFieldRegistrationChildFormWindow();
-    // test: alert("sono in annulla");
-    //location.href = "./registrationChild.jsp";
+        //location.href = "./registrationChild.jsp";
     });
 }
 function openRegistrationChildFormWindow(windowType, title, idToLoad) {
@@ -579,7 +513,7 @@ function openRegistrationChildFormWindow(windowType, title, idToLoad) {
                     if(getValue("user") == "Segreteria" && fase == "completata") {
                         changeRegistrationChildAdvancedFieldState(true, true);
                     }
-                //openRegistrationChildAlertWindow("Caricamento riuscito", "I dati sono stati caricati correttamente");
+                    //openRegistrationChildAlertWindow("Caricamento riuscito", "I dati sono stati caricati correttamente");
                 } else {
                     openRegistrationChildAlertWindow("Errore", jsonObject.ErrorMsg);
                 }
@@ -589,7 +523,7 @@ function openRegistrationChildFormWindow(windowType, title, idToLoad) {
                 setWindowVisibility("registrationChildFormWindow", false);
                 openRegistrationChildAlertWindow("Errore", errorMsg);
             }
-            );
+        );
     } else {
         clearFieldRegistrationChildFormWindow();
         changeButtonVisibility("", windowType);
@@ -663,7 +597,7 @@ function changeRegistrationChildRegistrationInfoState(isVisible, isDisabled) {
     getElement("registrationChildFormWindowId").disabled = isDisabled;
     getElement("registrationChildFormWindowDataIscrizione").disabled = isDisabled;
     getElement("registrationChildFormWindowFaseIscrizione").disabled = isDisabled;
-// Non utilizzo il valore di parentAccountId
+    // Non utilizzo il valore di parentAccountId
 }
 function changeRegistrationChildStandardFieldState(isVisible, isDisabled) {
     setVisibility("registrationChildStandardField", isVisible);
@@ -835,6 +769,9 @@ function openRegistrationChildAlertWindow(newTitle, text, submitAction) {
         }
     });
 }
+function printPDFRegistrationChild(id) {
+    location.href = "PdfRegistrationChild?Id=" + id;
+}
 // OTHER FUNCTION
 function getTypeValue(idRadio) { 
     var indice = -1; 
@@ -844,7 +781,6 @@ function getTypeValue(idRadio) {
     while(i < radios.length && indice == -1) {
         if(radios[i].checked) {
             indice = i;
-        //alert(radios[i].value);
         } else {
             i++;
         }
@@ -886,7 +822,7 @@ function comunicaConServlet(nomeServlet, parametri, executeIfSuccess, executeIfE
              * such as "Not Found" or "Internal Server Error"
              */
             var errorMsg = "Errore nella richiesta alla Servlet (" + textStatus + "):" + newLine() 
-            + "HTTP error: " + errorThrown;
+                + "HTTP error: " + errorThrown;
             executeIfError(errorMsg);
         },
         complete : function(jqXHR, textStatus) {

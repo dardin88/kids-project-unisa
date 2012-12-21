@@ -64,7 +64,7 @@
             <c:if test="${sessionScope.user.getAccountType()=='Genitore'}">
                 <%-- VISUALE DELLE POSSIBILI ISCRIZIONI PER CUI E' POSSIBILE PRESENTARE UNA RINUNCIA --%>
                 <div id="renunciationPossibleDisplay" style="display: block;margin-bottom:30px;">
-                    <h2 id="renunciationPossibleDisplayTitle">Iscrizioni per le quali è possibile presentare domanda di rinuncia</h2>
+                    <h2 id="renunciationPossibleDisplayTitle" style="margin-bottom: 15px">Iscrizioni per le quali è possibile presentare domanda di rinuncia</h2>
                     <div id="renunciationPossibleResultTable">
                         <table id="renunciationPossibleTable">
                             <thead>
@@ -84,7 +84,7 @@
 
             <%-- VISUALE DELLE DOMANDE DI RINUNCIA PRESENTATE --%>
             <div id="renunciationSubmittedDisplay" style="display: block;">
-                <h2 id="renunciationSubmittedDisplayTitle">Ricorsi presentati:</h2>
+                <h2 id="renunciationSubmittedDisplayTitle" style="margin-bottom: 15px">Ricorsi presentati:</h2>
                 <div id="renunciationSubmittedResultTable">
                     <table id="renunciationSubmittedTable">
                         <thead>

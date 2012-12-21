@@ -1,11 +1,9 @@
 package it.unisa.kids.accessManagement.renunciationManagement;
 
 import com.itextpdf.text.BadElementException;
-import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
@@ -90,7 +88,6 @@ public class ServletPdfRenunciation extends HttpServlet {
                 tmpAccount = accountManager.search(tmpAccount).get(0);
                 this.addContent(document, tmpRenunciation, tmpRegistrationChild, tmpAccount);
             
-                
                 document.close();
                 this.doDownload(request, response, file, downloadName);
             }

@@ -1,12 +1,10 @@
 package it.unisa.kids.accessManagement.classificationManagement;
 
-import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -20,7 +18,7 @@ import org.json.JSONObject;
  *
  * @author Lauri Giuseppe Giovanni
  */
-public class ServletGetClassification extends HttpServlet {
+public class ServletModifyCriterion extends HttpServlet {
     private IClassificationManager classificationManager;
 
     public void init(ServletConfig config) {
@@ -44,51 +42,51 @@ public class ServletGetClassification extends HttpServlet {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
-        boolean isSuccess = true;
         String errorMsg = new String();
+        boolean isSuccess = false;
         
         try {
-            Classification tmpClassification = new Classification();
+            String sId = request.getParameter(DBNames.ATT_CLASSIFICATION_ID);
+            String sDescription = request.getParameter(DBNames.ATT_CRITERIA_DESCRIPTION);
+            String sComparator = request.getParameter(DBNames.ATT_CRITERIA_COMPARATOR);
+            String sCondition = request.getParameter(DBNames.ATT_CRITERIA_CONDITION);
+            String sWight = request.getParameter(DBNames.ATT_CRITERIA_WEIGHT);
+            String sActive = request.getParameter(DBNames.ATT_CRITERIA_ACTIVE);
             
             // campi necessari per prelevare le informazioni
-            if(!request.getParameter(DBNames.ATT_REGISTRATIONCHILD_ID).equals("")) {
-                int id = Integer.parseInt(request.getParameter(DBNames.ATT_REGISTRATIONCHILD_ID));
-                tmpClassification.setId(id);
-                // ricerco
-                List<Classification> listResult = classificationManager.search(tmpClassification);
-                if(listResult.size() > 0) {
-                    
-                    // prelevo il risultato (dovrebbe essere unico
-                    tmpClassification = listResult.get(0);
-
-                    // costruisco l'output
-                    
-                    json.put(DBNames.ATT_CLASSIFICATION_ID, tmpClassification.getId());
-                    json.put(DBNames.ATT_CLASSIFICATION_NAME, tmpClassification.getName());
-                    json.put(DBNames.ATT_CLASSIFICATION_DATA, CommonMethod.parseString(tmpClassification.getDate()));
-                    json.put(DBNames.ATT_CLASSIFICATION_STATUS, tmpClassification.getStatus());
-                    
-                } else {
-                    isSuccess = false;
-                    errorMsg = "Errore nella prelevazione dell'ID: " + id;
+            if(sId != null && !sId.equals("")) {
+                Criterion tmpCriterion = new Criterion();
+                tmpCriterion.setId(Integer.parseInt(sId));
+                
+                if(sDescription != null && !sDescription.equals("")) {
+                    tmpCriterion.setDescription(sDescription);
                 }
+                if(sComparator != null && !sComparator.equals("")) {
+                    tmpCriterion.setComparator(sComparator);
+                }
+                if(sCondition != null && !sCondition.equals("")) {
+                    tmpCriterion.setCondition(sCondition);
+                }
+                if(sWight != null && !sWight.equals("")) {
+                    tmpCriterion.setWeight(Double.parseDouble(sWight));
+                }
+                if(sActive != null && !sActive.equals("")) {
+                    tmpCriterion.setActive(Boolean.parseBoolean(sActive));
+                }
+                isSuccess = classificationManager.updateCriterion(tmpCriterion);
             } else {
-                isSuccess = false;
                 errorMsg = "Errore nella passaggio dei parametri";
             }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(ServletGetClassification.class.getName()).log(Level.SEVERE, null, ex);
-            isSuccess = false;
+        } catch(SQLException ex) {
+            Logger.getLogger(ServletModifyCriterion.class.getName()).log(Level.SEVERE, null, ex);
             errorMsg = ex.getMessage();
         }
-
+        
         json.put("IsSuccess", isSuccess);
         json.put("ErrorMsg", errorMsg);
-
+        
         out.write(json.toString());
         out.close();
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

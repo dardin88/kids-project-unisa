@@ -42,7 +42,7 @@ public class ServletConfirmCompletingRegistrationChild extends HttpServlet {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
-        boolean isSuccess = true;
+        boolean isSuccess = false;
         String errorMsg = new String();
         
         try {
@@ -52,9 +52,6 @@ public class ServletConfirmCompletingRegistrationChild extends HttpServlet {
             String vaccinazioni = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_ISVACCINATIONSSET);
             String privacy = request.getParameter(DBNames.ATT_REGISTRATIONCHILD_ISPRIVACYSTATEMENTSET);
 
-            /* TEST DELLA RICHIESTA ALLA SERVLET
-            //*/
-            
             // Creo la domanda di iscrizione bambino
             RegistrationChild registrationChild = new RegistrationChild();
             registrationChild.setId(id);
@@ -69,16 +66,13 @@ public class ServletConfirmCompletingRegistrationChild extends HttpServlet {
             isSuccess = registrationChildManager.update(registrationChild);
         } catch (SQLException ex) {
             Logger.getLogger(ServletCreateDraftRegistrationChild.class.getName()).log(Level.SEVERE, "SQL-Error: " + ex.getMessage(), ex);
-            isSuccess = false;
             errorMsg = ex.getMessage();
-        } finally {
-            
-            json.put("IsSuccess", isSuccess);
-            json.put("ErrorMsg", errorMsg);
-            
-            out.write(json.toString());
-            out.close();
         }
+        json.put("IsSuccess", isSuccess);
+        json.put("ErrorMsg", errorMsg);
+
+        out.write(json.toString());
+        out.close();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

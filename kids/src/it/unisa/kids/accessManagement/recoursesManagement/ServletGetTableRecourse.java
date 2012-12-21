@@ -1,10 +1,6 @@
 package it.unisa.kids.accessManagement.recoursesManagement;
 
 import it.unisa.kids.accessManagement.accountManagement.Account;
-import it.unisa.kids.accessManagement.classificationManagement.IClassificationManager;
-import it.unisa.kids.accessManagement.registrationChildManagement.IRegistrationChildManager;
-import it.unisa.kids.accessManagement.renunciationManagement.Renunciation;
-import it.unisa.kids.accessManagement.renunciationManagement.ServletGetTableRenunciation;
 import it.unisa.kids.common.CommonMethod;
 import it.unisa.kids.common.DBNames;
 import it.unisa.kids.common.RefinedAbstractManager;
@@ -113,13 +109,12 @@ public class ServletGetTableRecourse extends HttpServlet {
                     ja.put(ricorso.getRegistrationChildFiscalCode());
                     ja.put(ricorso.getRegistrationChildSurname());
                     ja.put(ricorso.getRegistrationChildName());
+                    ja.put(ricorso.getValutation());
                     
                     String operazioni = "<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Visualizza Dettagli\" alt=\"Dettagli\" src='img/lente.gif' onclick='openViewDetailsRecourseWindow(\"" + ricorso.getId() + "\")'/>";
-                    /* E' stato stabilito di non dare la possibilità al genitore di eliminare il ricorso
-                    if(account.getAccountType().equals("Genitore") && !ricorso.getIsConfirmed()) {
-                         operazioni += "<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Elimina\" alt=\"Elimina\" src='img/trash.png' onclick='openDeleteRecourseWindow(\"" + ricorso.getId() + "\")'/>";
+                    if(account.getAccountType().equals("Genitore") && ricorso.getValutation().equals(DBNames.ATT_RECOURSE_VALUTATION_TOEVALUATE)) {
+                         operazioni += "<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Elimina\" alt=\"Elimina\" src='img/trash.png' onclick='openDeleteRecourseWindow(\"" + ricorso.getId() + "\", \"" + ricorso.getRegistrationChildId() + "\")'/>";
                     }
-                    * //*/
                     if(account.getAccountType().equals("Segreteria")) {
                         operazioni += "<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Accetta ricorso\" alt=\"Accetta ricorso\" src='img/accept.png' onclick='openAcceptRecourseWindow(\"" + ricorso.getId() + "\", \"" + ricorso.getRegistrationChildId() + "\")'/>";
                         operazioni += "<input class='tableImage' type='image' style=\"width:20px;height:20px\" title=\"Rifiuta ricorso\" alt=\"Rifiuta ricorso\" src='img/negate.png' onclick='openRifiutaRecourseWindow(\"" + ricorso.getId() + "\", \"" + ricorso.getRegistrationChildId() + "\")'/>";
@@ -138,7 +133,7 @@ public class ServletGetTableRecourse extends HttpServlet {
             response.setHeader("Pragma", "no-cache");
             out.print(result);
         } catch (SQLException ex) {
-            Logger.getLogger(ServletGetTableRenunciation.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletGetTableRecourse.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
         }
