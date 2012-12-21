@@ -20,7 +20,7 @@ function createTablePossibleRecourse() {
             "sInfoEmpty":    "Vista da 0 a 0 di 0 Ricorsi",
             "sInfoFiltered": "(filtrati da _MAX_ ricorsi)",
             "sInfoPostFix":  "",
-            "sSearch":       "Cerca ricorso:",
+            "sSearch":       "Cerca domanda di iscrizione:",
             "oPaginate": {
                 "sFirst":    "<<",
                 "sPrevious": "<",
@@ -79,7 +79,7 @@ function createTableSubmittedRecourse() {
             "sInfoEmpty":    "Vista da 0 a 0 di 0 ricorsi",
             "sInfoFiltered": "(filtrati da _MAX_ ricorsi totali)",
             "sInfoPostFix":  "",
-            "sSearch":       "Cerca domanda di iscrizione:",
+            "sSearch":       "Cerca ricorso:",
             "oPaginate": {
                 "sFirst":    "<<",
                 "sPrevious": "<",
