@@ -96,9 +96,13 @@ public class GetActivityTableServlet extends HttpServlet {
                 GregorianCalendar currentDate = new GregorianCalendar();
                 for (Activity act : paginateActivitySet) {
                     JSONArray ja = new JSONArray();
-                    if (act.getStartDate().getTimeInMillis() > currentDate.getTimeInMillis() || act.getEndDate().getTimeInMillis() < currentDate.getTimeInMillis()) {
+                    System.out.println(act.getStartDate().getTimeInMillis());
+                    System.out.println(currentDate.getTimeInMillis());
+                    System.out.println(act.getEndDate().getTimeInMillis());
+                    if (act.getStartDate().getTimeInMillis() > currentDate.getTimeInMillis() || act.getEndDate().getTimeInMillis()+86400000 < currentDate.getTimeInMillis()) {
                         continue;
                     }
+                    System.out.println("ciao2");
                     ja.put("<input type=\"checkbox\" name=\"attivita"+act.getIdClass()+"\" value=\""+act.getId()+"\" onclick=\"selezionati(this)\">");
                     ja.put(act.getName());
                     ja.put(act.getDescription());
