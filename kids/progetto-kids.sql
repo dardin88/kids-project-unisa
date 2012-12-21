@@ -68,10 +68,7 @@ CREATE TABLE IF NOT EXISTS `account` (
 --
 
 INSERT INTO `account` (`Id`, `Nickname`, `Password`, `Cognome`, `Nome`, `Email`, `Telefono`, `Cellulare`, `Fax`, `DataNascita`, `ComuneNascita`, `CodiceFiscale`, `Cittadinanza`, `ResidenzaIndirizzo`, `ResidenzaComune`, `ResidenzaProvincia`, `ResidenzaCap`, `DomicilioIndirizzo`, `DomicilioComune`, `DomicilioProvincia`, `DomicilioCap`, `TitoloStudio`, `SituazioneFamiliare`, `Reddito`, `TipologiaGenitore`, `DataScadenzaContratto`, `Facolta`, `DataRegistrazione`, `TipologiaAccount`, `Matricola`, `Stato`) VALUES
-(1, 's', 's', 'Super', 'Sajan', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Segreteria', NULL, NULL),
-(2, 'admin', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Admin', NULL, NULL),
-(4, 'g', 'g', 'Landi', 'Pierluigi', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Genitore', NULL, NULL),
-(5, 'g2', 'g2', 'Poni', 'Carmela', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Genitore', NULL, NULL);
+(1, 'admin', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Admin', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -222,13 +219,6 @@ CREATE TABLE IF NOT EXISTS `criteripesati` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Dump dei dati per la tabella `criteripesati`
---
-
-INSERT INTO `criteripesati` (`Id`, `Descrizione`, `TabellaDbDelCampo`, `CampoDb`, `Operando`, `Condizione`, `Peso`, `Abilitato`) VALUES
-(1, 'Nati prima del 2009 (esempio)', 'iscrizionebambino', 'DataNascita', '<', '2009-01-01', -100, 1),
-(2, 'Reddito inferiore a 1.000 (esempio)', 'account', 'Reddito', '<', '1000', 10, 1);
 
 -- --------------------------------------------------------
 
@@ -270,17 +260,6 @@ CREATE TABLE IF NOT EXISTS `graduatoria` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Dump dei dati per la tabella `graduatoria`
---
-
-INSERT INTO `graduatoria` (`Id`, `Nome`, `Data`, `Stato`) VALUES
-(9, 'modificata', '2012-12-12', 'definitiva'),
-(10, 'senior', '2012-12-12', 'provvisoria'),
-(11, 'nuova', '2012-12-13', 'bozza'),
-(12, 'nuovad', '2012-12-14', 'bozza'),
-(15, 'prova', '2012-12-21', 'definitiva');
-
 -- --------------------------------------------------------
 
 --
@@ -310,20 +289,6 @@ CREATE TABLE IF NOT EXISTS `iscrizionebambino` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
---
--- Dump dei dati per la tabella `iscrizionebambino`
---
-
-INSERT INTO `iscrizionebambino` (`Id`, `AccountGenitore`, `DataIscrizione`, `FaseDellIscrizione`, `Cognome`, `Nome`, `DataNascita`, `ComuneNascita`, `CodiceFiscale`, `Cittadinanza`, `FasciaUtenza`, `Malattie`, `Vaccinazioni`, `DichiarazioneDellaPrivacy`, `NoteAggiuntive`, `IsSetMalattie`, `IsSetVaccinazioni`, `IsSetDichiarazioneDellaPrivacy`, `Classe`) VALUES
-(1, 4, '2012-12-12', 'rinunciata', 'Landi', 'Giovanni', '2011-07-14', 'Baronissi', 'LNDGVN00T03H703D', 'Italiana', 'full_time', '', '', 'si', NULL, 'no', 'no', 'si', 0),
-(2, 4, '2012-12-12', 'validata', 'Landi', 'Veronica', '2010-06-07', 'Baronissi', 'LNDVRN10T05H704E', 'Italiana', 'part_time_mattutina', '', 'Tetano', 'si', NULL, 'in_parte', 'si', 'si', 0),
-(3, 5, '2012-12-12', 'validata', 'Poni', 'Little', '2011-12-18', 'Fisciano', 'ponilittle180120', 'Italiana', 'part_time_pomeridiana', 'Nessuna', 'Vaccinazioni di base', 'si', NULL, 'no', 'no', 'no', 0),
-(4, 5, '2012-12-12', 'validata', 'Poni', 'Conny', '2009-08-16', 'Fisciano', '20090916poniconn', 'Italiana', 'part_time_pomeridiana', '', '', '', NULL, 'no', 'no', 'no', 0),
-(5, 4, '2012-12-14', 'ricorso', 'Citro', 'Alfredo', '2008-09-03', 'salerno', 'CTRLRD00T03H703D', 'italiana', 'full_time', '', '', '', NULL, NULL, NULL, NULL, 0),
-(6, 4, '2012-12-18', 'ricevuta', 'prova', 'prova', '2012-12-11', 'stampa', 'stampa', 'stampa', 'full_time', '', '', '', NULL, NULL, NULL, NULL, 0),
-(7, 4, '2012-12-19', 'sottomessa', 'afad', 'sdfsdg', '2012-12-13', 'afda', 'sdgf', 'sdgsd', 'full_time', '', '', '', NULL, NULL, NULL, NULL, 0),
-(10, 4, '2012-12-21', 'eliminata', 'bozza', 'bozza', '2012-12-04', 'bozza', 'bozza', 'bozza', 'full_time', '', '', '', NULL, NULL, NULL, NULL, 0),
-(11, 4, '2012-12-21', 'eliminata', 'bozza', 'bozza', '2012-12-07', 'bozza', 'bozza', 'bozza', 'full_time', '', '', '', NULL, NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -550,15 +515,6 @@ CREATE TABLE IF NOT EXISTS `ricorso` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Dump dei dati per la tabella `ricorso`
---
-
-INSERT INTO `ricorso` (`Id`, `Data`, `Motivo`, `Valutazione`, `Iscrizione`) VALUES
-(4, '2012-12-21', 'provo', 'davalutare', 5),
-(5, '2012-12-21', 'perchè ancora non è stata accettata?', 'rifiutato', 5),
-(6, '2012-12-21', 'perchè?', 'rifiutato', 5);
-
 -- --------------------------------------------------------
 
 --
@@ -589,13 +545,6 @@ CREATE TABLE IF NOT EXISTS `rinunce` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Dump dei dati per la tabella `rinunce`
---
-
-INSERT INTO `rinunce` (`Id`, `IdIscrizione`, `Data`, `Motivazione`, `Conferma`) VALUES
-(14, 1, '2012-12-16', 'Trasferimento in altro asilo', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -614,7 +563,6 @@ CREATE TABLE IF NOT EXISTS `riunione` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-INSERT INTO `news` (`Id`,`Tipo`,`contenuto`,`Data`,`IdAutore`,`Ora`) VALUES (1,'OrarioDiServizio','','2012-12-13',1,'00:00:00');
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

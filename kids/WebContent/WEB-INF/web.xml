@@ -3,11 +3,11 @@
     <display-name>kids</display-name>
     <context-param>
         <param-name>attachedFileFolder</param-name>
-        <param-value>C:\Users\francesco\Documents\NetBeansProjects\kids\kids_attached</param-value>
+        <param-value>attachedFileFolder</param-value>
     </context-param>
     <context-param>
         <param-name>projectFileFolder</param-name>
-        <param-value>C:\Users\francesco\Documents\NetBeansProjects\kids\kids_programEducative</param-value>
+        <param-value>projectFileFolder</param-value>
     </context-param>
     <servlet>
         <servlet-name>SubmitProjectServlet</servlet-name>

@@ -176,7 +176,7 @@ function activePage() {
         case 'register.jsp':
             $("#register").css("background-color", "#444");
             $("#register").css("color", "#FFFFFF");
-            $("#title").html("Registro Attivi&agrave");
+            $("#title").html("Registro Attivit&agrave");
             break;
         case 'sectionEdu.jsp':
             $("#progEduMenuEL").css("background-color", "#444");

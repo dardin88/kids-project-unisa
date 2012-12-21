@@ -1,10 +1,15 @@
 package it.unisa.storage.connectionPool;
 
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -125,12 +130,8 @@ public class DBConnectionPool {
      * @throws IOException
      */
     private static void loadDbProperties() throws IOException {
-//   	InputStream fileProperties = new FileInputStream("database.properties");
-//      DBConnectionPool.dbProperties.load(fileProperties);
+        InputStream input = DBConnectionPool.class.getResourceAsStream("database.properties"); 
         DBConnectionPool.dbProperties = new Properties();
-        DBConnectionPool.dbProperties.setProperty("driver", "org.gjt.mm.mysql.Driver");
-        DBConnectionPool.dbProperties.setProperty("url", "jdbc:mysql://localhost/progetto-kids");
-        DBConnectionPool.dbProperties.setProperty("username", "root");
-        DBConnectionPool.dbProperties.setProperty("password", "");
+        DBConnectionPool.dbProperties.load(input);
     }
 }
